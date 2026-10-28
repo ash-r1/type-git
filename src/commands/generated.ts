@@ -404,14 +404,17 @@ const remainingOptions1 = {
   '--output-indicator-new': {
     key: 'output-indicator-new',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-old': {
     key: 'output-indicator-old',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-context': {
     key: 'output-indicator-context',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
     key: 'break-rewrites',
@@ -2335,6 +2338,7 @@ const remainingOptions2 = {
   '--output-indicator-new': {
     key: 'output-indicator-new',
     value: 'string',
+    parser: 'diff-output-indicator',
     effects: [
       {
         key: 'revision-argument',
@@ -2345,6 +2349,7 @@ const remainingOptions2 = {
   '--output-indicator-old': {
     key: 'output-indicator-old',
     value: 'string',
+    parser: 'diff-output-indicator',
     effects: [
       {
         key: 'revision-argument',
@@ -2355,6 +2360,7 @@ const remainingOptions2 = {
   '--output-indicator-context': {
     key: 'output-indicator-context',
     value: 'string',
+    parser: 'diff-output-indicator',
     effects: [
       {
         key: 'revision-argument',
@@ -5262,14 +5268,17 @@ const remainingOptions3 = {
   '--output-indicator-new': {
     key: 'output-indicator-new',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-old': {
     key: 'output-indicator-old',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-context': {
     key: 'output-indicator-context',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
     key: 'break-rewrites',
@@ -7044,14 +7053,17 @@ const remainingOptions4 = {
   '--output-indicator-new': {
     key: 'output-indicator-new',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-old': {
     key: 'output-indicator-old',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--output-indicator-context': {
     key: 'output-indicator-context',
     value: 'string',
+    parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
     key: 'break-rewrites',
@@ -35617,14 +35629,17 @@ const commandSpec68 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -38136,14 +38151,17 @@ const commandSpec69 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -40609,14 +40627,17 @@ const commandSpec70 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -42633,14 +42654,17 @@ const commandSpec71 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -44724,14 +44748,17 @@ const commandSpec72 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -46757,14 +46784,17 @@ const commandSpec73 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -48778,14 +48808,17 @@ const commandSpec74 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -50000,14 +50033,17 @@ const commandSpec81 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -52495,14 +52531,17 @@ const commandSpec82 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -59007,6 +59046,7 @@ const commandSpec85 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -59017,6 +59057,7 @@ const commandSpec85 = {
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -59027,6 +59068,7 @@ const commandSpec85 = {
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -63236,6 +63278,7 @@ const commandSpec86 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -63246,6 +63289,7 @@ const commandSpec86 = {
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -63256,6 +63300,7 @@ const commandSpec86 = {
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
       effects: [
         {
           key: 'revision-argument',
@@ -82580,14 +82625,17 @@ const commandSpec184 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -86119,14 +86167,17 @@ const commandSpec194 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -88630,14 +88681,17 @@ const commandSpec195 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -91043,14 +91097,17 @@ const commandSpec196 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -91953,14 +92010,17 @@ const commandSpec197 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -92949,14 +93009,17 @@ const commandSpec198 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -95502,14 +95565,17 @@ const commandSpec199 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -97740,14 +97806,17 @@ const commandSpec200 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -100728,14 +100797,17 @@ const commandSpec202 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -103923,14 +103995,17 @@ const commandSpec204 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -106211,14 +106286,17 @@ const commandSpec205 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -108678,14 +108756,17 @@ const commandSpec206 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -116512,14 +116593,17 @@ const commandSpec275 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -125148,14 +125232,17 @@ const commandSpec306 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',
@@ -131059,14 +131146,17 @@ const commandSpec309 = {
     '--output-indicator-new': {
       key: 'output-indicator-new',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-old': {
       key: 'output-indicator-old',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--output-indicator-context': {
       key: 'output-indicator-context',
       value: 'string',
+      parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
       key: 'break-rewrites',

@@ -1457,6 +1457,21 @@
             "set": false
           }
         ]
+      },
+      "--output-indicator-new": {
+        "key": "output-indicator-new",
+        "value": "string",
+        "parser": "diff-output-indicator"
+      },
+      "--output-indicator-old": {
+        "key": "output-indicator-old",
+        "value": "string",
+        "parser": "diff-output-indicator"
+      },
+      "--output-indicator-context": {
+        "key": "output-indicator-context",
+        "value": "string",
+        "parser": "diff-output-indicator"
       }
     },
     "rules": [

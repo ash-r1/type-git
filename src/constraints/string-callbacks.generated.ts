@@ -74,4 +74,10 @@ export const STRING_CALLBACKS = {
     source:
       'date.c:parse_date_type/parse_date_format; revision.c:parse_long_opt(date). Case-sensitive mode and optional -local suffix; format requires a colon and accepts arbitrary strftime text. auto: suffix validation depends on stdout TTY/pager and remains native-owned, including empty or malformed suffixes.',
   },
+  'diff-output-indicator': {
+    kind: 'byte-character',
+    emptyIsNative: true,
+    source:
+      'diff.c:diff_opt_char; nonempty argv accepts exactly one byte. Empty argv reads arg[1] beyond its terminator, so its native behavior remains delegated.',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;

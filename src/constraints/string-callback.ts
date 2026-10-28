@@ -1,6 +1,7 @@
 import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 
 export type StringCallbackProfile = { source: string } & (
+  | { kind: 'byte-character'; emptyIsNative: true }
   | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[] }
   | {
       kind: 'token-list';
@@ -30,6 +31,9 @@ export function parseStringCallback(
     return { valid: false };
   }
   const profile: StringCallbackProfile = STRING_CALLBACKS[parser];
+  if (profile.kind === 'byte-character') {
+    return { valid: value === '' || (value.length === 1 && value.charCodeAt(0) < 128), value };
+  }
   if (profile.kind === 'choice') {
     return {
       valid:
