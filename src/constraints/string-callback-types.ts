@@ -109,13 +109,23 @@ export type StringCallbackValue<V, P extends StringCallbackParser> = Projected<V
 }
   ? Value
   : V;
+// Inspect at most two concrete code units; long literals cannot become budget fallbacks.
+type ByteCharacter<S extends string> = S extends `${infer First}${infer Rest}`
+  ? Dynamic<First> extends true
+    ? true
+    : First extends AsciiByte
+      ? Rest extends ''
+        ? true
+        : Rest extends `${infer Second}${infer _Tail}`
+          ? Dynamic<Second>
+          : true
+      : false
+  : true;
 type Parsed<V, P extends StringCallbackParser> = V extends string
   ? V extends object
     ? true
     : Profile<P> extends { kind: 'byte-character' }
-      ? V extends AsciiByte | ''
-        ? true
-        : Dynamic<V>
+      ? ByteCharacter<V>
       : Profile<P> extends { kind: 'token-list' }
         ? Projected<V, P> extends { valid: infer Valid }
           ? Valid

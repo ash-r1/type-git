@@ -380,3 +380,9 @@ declare const mixed: '+' | 'é';
 // @ts-expect-error Known invalid alternatives must survive union validation.
 git.command('diff', [['--output-indicator-new', mixed]]);
 git.command('diff', [['--output-indicator-new', '']]);
+// @ts-expect-error A long concrete literal must not become a dynamic escape hatch.
+git.command('diff', [['--output-indicator-new', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']]);
+// @ts-expect-error A long concrete literal must not become a dynamic escape hatch.
+git.command('diff', [['--output-indicator-old', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']]);
+// @ts-expect-error A long concrete literal must not become a dynamic escape hatch.
+git.command('diff', [['--output-indicator-context', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']]);
