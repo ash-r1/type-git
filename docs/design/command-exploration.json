@@ -105130,9 +105130,14 @@
           "--help"
         ],
         "origin": "git",
-        "reason": "The initial KEEP_UNKNOWN_OPT/KEEP_DASHDASH parse_options pass exits at help before invoking the delegated diff command. Earlier difftool callbacks still run; diff callbacks are retained until after help.",
+        "reason": "The initial KEEP_UNKNOWN_OPT/KEEP_DASHDASH parse_options pass exits at help before invoking the delegated diff command. Earlier difftool callbacks still run; diff callbacks are retained until after help. After all initial options, a final enabled tool-help returns before any delegated diff callbacks. Retained -- separates diff pathspecs.",
         "source": "Git 2.25.1/2.55.0 builtin/difftool.c:cmd_difftool; parse-options.c:parse_options_step",
         "keepDashDash": true,
+        "postParseBooleanExit": {
+          "key": "tool-help",
+          "value": true
+        },
+        "splitRemainingPaths": true,
         "firstPassOptions": [
           "--dir-diff",
           "--extcmd",

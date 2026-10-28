@@ -368,3 +368,16 @@ git.command('diff', [invalidStatTuple, ['-h']]);
 git.command('log', [['-h'], ['--stat-width', '\0']]);
 // @ts-expect-error Flag unions cannot discard their rejecting stat alternative.
 git.command('diff', [[null as unknown as '--stat-width' | '--src-prefix', 'bad'], ['-h']]);
+
+// difftool returns after its final tool-help selection, before delegated callbacks.
+git.command('difftool', [['--stat-width', 'bad'], ['--tool-help']]);
+git.command('difftool', [['--tool-help'], ['--stat', '1,2,3,']]);
+git.command('difftool', [['--no-tool-help'], ['--tool-help'], ['--stat-width', 'bad']]);
+git.command('difftool', [['-S', ''], ['--tool-help'], { operand: 'HEAD' }]);
+git.command('difftool', [['--tool-help'], ['--gui'], ['--tool', 'unused'], ['--diff-algorithm', 'unknown']]);
+git.command('difftool', [['--no-index'], { operand: 'left' }, { operand: 'right' }, ['--'], { operand: '*.ts' }]);
+// @ts-expect-error A final negation restores the retained callback.
+git.command('difftool', [['--tool-help'], ['--no-tool-help'], ['--stat-width', 'bad']]);
+declare const toolHelpSelector: '--tool-help' | '--no-tool-help';
+// @ts-expect-error Every possible final selection must bypass the invalid callback.
+git.command('difftool', [[toolHelpSelector], ['--stat-width', 'bad']]);

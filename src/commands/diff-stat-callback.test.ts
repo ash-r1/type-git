@@ -105,4 +105,30 @@ describe('diff stat callback grammar and reachability', () => {
     expect(negativeOverflow(false).value).toBe(-1);
     expect(negativeOverflow(true).value).toBe(1);
   });
+  it('retains difftool final tool-help and delegated pathspec boundaries', () => {
+    for (const option of [
+      ['--stat-width', 'bad'],
+      ['--stat', '1,2,3,'],
+      ['--diff-algorithm', 'unknown'],
+      ['-S', ''],
+    ] as const) {
+      expect(commandArguments('difftool', [option, ['--tool-help']])).toContain('--tool-help');
+      expect(commandArguments('difftool', [['--tool-help'], option])).toContain('--tool-help');
+      expect(() =>
+        commandArguments('difftool', [['--tool-help'], ['--no-tool-help'], option]),
+      ).toThrow();
+    }
+    expect(
+      commandArguments('difftool', [['--no-tool-help'], ['--tool-help'], ['--stat-width', 'bad']]),
+    ).toContain('--stat-width=bad');
+    expect(
+      commandArguments('difftool', [
+        ['--no-index'],
+        { operand: 'left' },
+        { operand: 'right' },
+        ['--'],
+        { operand: '*.ts' },
+      ]),
+    ).toEqual(['difftool', '--no-index', 'left', 'right', '--', '*.ts']);
+  });
 });
