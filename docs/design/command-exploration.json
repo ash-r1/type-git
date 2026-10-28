@@ -20071,6 +20071,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -23691,6 +23692,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -33780,6 +33782,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -37396,6 +37399,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -44833,6 +44837,7 @@
             ]
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string",
             "effects": [
@@ -49927,6 +49932,7 @@
             ]
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string",
             "effects": [
@@ -72698,6 +72704,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -77495,6 +77502,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -84679,6 +84687,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -90205,6 +90214,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -100098,6 +100108,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -105987,6 +105998,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },
@@ -109179,6 +109191,7 @@
             "value": "string"
           },
           "--diff-filter": {
+            "parser": "diff-filter-letters",
             "key": "diff-filter",
             "value": "string"
           },

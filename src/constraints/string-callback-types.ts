@@ -121,6 +121,29 @@ type ByteCharacter<S extends string> = S extends `${infer First}${infer Rest}`
           : true
       : false
   : true;
+type CharacterMembers<S extends string> = S extends `${infer C}${infer Rest}`
+  ? C | CharacterMembers<Rest>
+  : never;
+type CharacterSetLoop<
+  S extends string,
+  Allowed extends string,
+  N extends readonly unknown[] = [],
+> = N['length'] extends 128
+  ? true
+  : S extends `${infer C}${infer Rest}`
+    ? C extends Allowed
+      ? CharacterSetLoop<Rest, Allowed, readonly [...N, 0]>
+      : false
+    : true;
+// Reject known forbidden ASCII even beyond the finite literal-analysis budget.
+type CharacterSetText<
+  S extends string,
+  Characters extends string,
+> = S extends `${string}${Exclude<AsciiByte, CharacterMembers<Characters>>}${string}`
+  ? false
+  : Dynamic<S> extends true
+    ? true
+    : CharacterSetLoop<S, CharacterMembers<Characters>>;
 type ScoreDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type ScoreForbiddenAscii = Exclude<AsciiByte, ScoreDigit | '.' | '%'>;
 type ScoreLoop<
@@ -191,7 +214,12 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
             ? Pair<V, Sep, Optional>
             : Profile<P> extends { kind: 'rename-score'; parts: infer Parts extends 1 | 2 }
               ? ScoreText<V, Parts>
-              : false
+              : Profile<P> extends {
+                    kind: 'character-set';
+                    characters: infer Characters extends string;
+                  }
+                ? CharacterSetText<V, Characters>
+                : false
   : V extends true
     ? Profile<P> extends { kind: 'rename-score' }
       ? true

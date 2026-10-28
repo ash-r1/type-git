@@ -683,6 +683,7 @@ const remainingOptions1 = {
     value: 'string',
   },
   '--diff-filter': {
+    parser: 'diff-filter-letters',
     key: 'diff-filter',
     value: 'string',
   },
@@ -2959,6 +2960,7 @@ const remainingOptions2 = {
     ],
   },
   '--diff-filter': {
+    parser: 'diff-filter-letters',
     key: 'diff-filter',
     value: 'string',
     effects: [
@@ -7350,6 +7352,7 @@ const remainingOptions4 = {
     value: 'string',
   },
   '--diff-filter': {
+    parser: 'diff-filter-letters',
     key: 'diff-filter',
     value: 'string',
   },
@@ -35928,6 +35931,7 @@ const commandSpec68 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -38456,6 +38460,7 @@ const commandSpec69 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -40942,6 +40947,7 @@ const commandSpec70 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -42975,6 +42981,7 @@ const commandSpec71 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -45075,6 +45082,7 @@ const commandSpec72 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -47117,6 +47125,7 @@ const commandSpec73 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -49147,6 +49156,7 @@ const commandSpec74 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -50374,6 +50384,7 @@ const commandSpec81 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -52916,6 +52927,7 @@ const commandSpec82 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -59715,6 +59727,7 @@ const commandSpec85 = {
       ],
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
       effects: [
@@ -63953,6 +63966,7 @@ const commandSpec86 = {
       ],
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
       effects: [
@@ -82991,6 +83005,7 @@ const commandSpec184 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -89059,6 +89074,7 @@ const commandSpec195 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -91481,6 +91497,7 @@ const commandSpec196 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -92400,6 +92417,7 @@ const commandSpec197 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -93405,6 +93423,7 @@ const commandSpec198 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -95941,6 +95960,7 @@ const commandSpec199 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -98186,6 +98206,7 @@ const commandSpec200 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -101208,6 +101229,7 @@ const commandSpec202 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -104385,6 +104407,7 @@ const commandSpec204 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -106702,6 +106725,7 @@ const commandSpec205 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -109183,6 +109207,7 @@ const commandSpec206 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -117025,6 +117050,7 @@ const commandSpec275 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -122411,6 +122437,7 @@ const commandSpec291 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -125672,6 +125699,7 @@ const commandSpec306 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },
@@ -131592,6 +131620,7 @@ const commandSpec309 = {
       value: 'string',
     },
     '--diff-filter': {
+      parser: 'diff-filter-letters',
       key: 'diff-filter',
       value: 'string',
     },

@@ -63,3 +63,17 @@ describe('diff score callback identity', () => {
     }
   });
 });
+
+describe('diff filter callback identity', () => {
+  it('binds the common callback in own and retained parser tables', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    for (const command of ['diff', 'blame', 'shortlog', 'log', 'difftool']) expect(result[command].options['--diff-filter'].parser).toBe('diff-filter-letters');
+    expect(result.log.parserExit.remainingOptions['--diff-filter'].parser).toBe('diff-filter-letters');
+    expect(result.difftool.parserExit.remainingOptions['--diff-filter'].parser).toBe('diff-filter-letters');
+    expect(result.diff.options['--no-diff-filter']).toBeUndefined();
+    expect(result.backfill.options['--diff-filter'].parser).toBeUndefined();
+    expect(result.backfill.options['--diff-filter'].repeat).toBe(true);
+    expect(result.backfill.parserExit.remainingOptions['--diff-filter'].parser).toBeUndefined();
+    expect(result.backfill.parserExit.remainingOptions['--diff-filter'].repeat).toBe(true);
+  });
+});
