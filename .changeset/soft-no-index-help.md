@@ -2,4 +2,4 @@
 "type-git": patch
 ---
 
-Allow canonical sole full usage for the explicit diff --no-index command.
+Preserve native usage exits and ignored tails for diff --no-index while retaining ordinary argument constraints.

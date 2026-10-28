@@ -32036,6 +32036,16 @@
     },
     {
       "command": "diff --no-index",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "origin": "git",
+        "source": "Git2.25.1 and2.55.0 diff-no-index.c:diff_no_index parse_options flags0; parse-options.c:parse_options_step usage exits",
+        "reason": "Usage terminates option parsing after earlier callbacks, before the two-path requirement; later words are serialized without interpreting options."
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -32075,25 +32085,6 @@
           "accepted": "3",
           "isolatedRuleWitnesses": {
             "revision.pickaxe-nonempty-G": "{}"
-          }
-        },
-        {
-          "flag": "--help-all",
-          "rules": [
-            "cli.diff-no-index.full-help-one-word"
-          ],
-          "domains": {
-            "argumentTokens": [
-              "undefined",
-              "[]",
-              "[\"value\"]",
-              "[\"value\",\"value\"]"
-            ]
-          },
-          "total": "4",
-          "accepted": "1",
-          "isolatedRuleWitnesses": {
-            "cli.diff-no-index.full-help-one-word": "{}"
           }
         }
       ],
@@ -32613,10 +32604,6 @@
           "undefined",
           "true"
         ],
-        "sole-full-help": [
-          "undefined",
-          "true"
-        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -32634,14 +32621,14 @@
           "true"
         ]
       },
-      "total": "22850062171135174414172160000000000000000000000000",
-      "accepted": "779948788774747286670409728000000000000000000000",
-      "nodes": 242,
+      "total": "11425031085567587207086080000000000000000000000000",
+      "accepted": "292480795790530232501403648000000000000000000000",
+      "nodes": 231,
       "isolatedRuleWitnesses": {
-        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"sole-full-help\":true}",
-        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[],\"sole-full-help\":true}",
-        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[],\"pickaxe-regex\":true,\"sole-full-help\":true}",
-        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"sole-full-help\":true}",
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
         "diff.no-index-paths": "{\"operands\":[]}"
       }
     },

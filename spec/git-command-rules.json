@@ -7475,11 +7475,7 @@
       "min": 2,
       "origin": "git",
       "source": "Git 2.55.0 diff-no-index.c:diff_no_index",
-      "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs.",
-      "when": {
-        "key": "sole-full-help",
-        "test": "inactive"
-      }
+      "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs."
     }
   ],
   "reflog list": [

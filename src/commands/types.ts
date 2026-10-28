@@ -2723,8 +2723,91 @@ export type CheckedCommandArguments<
     : CheckedOriginalCommandGrammar<C, A, Ctx>
   : CheckedOriginalCommandGrammar<C, A, Ctx>;
 
+/** Ordinary dynamic argument arrays keep their original value vocabulary. */
+export type UsageCommand = {
+  [C in GitCommandName]: Spec<C> extends { usageExit: { flags: readonly string[] } } ? C : never;
+}[GitCommandName];
+type UsageExitToken<C extends UsageCommand> =
+  Spec<C> extends {
+    usageExit: { flags: readonly (infer F extends string)[] };
+  }
+    ? readonly [F]
+    : never;
+type IgnoredUsageTokenFits<C extends UsageCommand, T> = T extends readonly [
+  infer F extends string,
+  ...unknown[],
+]
+  ? F extends LocalOptionFlag<C>
+    ? [T] extends [LocalCommandArgument<C> | IgnoredAllowedArguments<C>]
+      ? true
+      : false
+    : [T] extends [RawIgnoredDocumentationArgument]
+      ? true
+      : false
+  : [T] extends [{ readonly operand: string }]
+    ? true
+    : false;
+type UsageTailFits<C extends UsageCommand, A extends readonly unknown[]> = A extends readonly [
+  infer H,
+  ...infer R,
+]
+  ? [IgnoredUsageTokenFits<C, H>] extends [true]
+    ? UsageTailFits<C, R>
+    : false
+  : [A[number]] extends [never]
+    ? true
+    : [IgnoredUsageTokenFits<C, A[number]>] extends [true]
+      ? true
+      : false;
+type UsagePrefixFits<
+  C extends UsageCommand,
+  A extends readonly unknown[],
+> = A extends readonly GitCommandArgument<C>[]
+  ? [CheckedCommandArguments<C, A>] extends [never]
+    ? false
+    : true
+  : false;
+type UsageArgumentsFit<
+  C extends UsageCommand,
+  A extends readonly unknown[],
+  Prefix extends readonly unknown[] = readonly [],
+> = A extends readonly [infer H, ...infer R]
+  ? [H] extends [readonly ['--']]
+    ? false
+    : [H] extends [UsageExitToken<C>]
+      ? UsagePrefixFits<C, readonly [...Prefix, H]> extends true
+        ? UsageTailFits<C, R>
+        : false
+      : UsageArgumentsFit<C, R, readonly [...Prefix, H]>
+  : false;
+/** Ignored words are admitted only after every possible prefix reaches native usage. */
+export type CheckedUsageArguments<
+  C extends UsageCommand,
+  A extends readonly unknown[],
+> = ArgumentsHaveLiteralNul<A> extends true
+  ? never
+  : UsageArgumentsFit<C, A> extends true
+    ? A
+    : never;
+
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
+  command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult>;
+  command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
+
   command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
     command: C,
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,

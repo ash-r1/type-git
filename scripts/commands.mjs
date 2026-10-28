@@ -86,7 +86,8 @@ try {
       }
     }
     for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
-    for (const flag of entry.parserExit?.flags ?? []) {
+    if (entry.usageExit && (entry.parserExit || entry.optionParsing)) throw new Error(`${name}: usage exits require an interleaved single parser`);
+    for (const flag of [...(entry.parserExit?.flags ?? []), ...(entry.usageExit?.flags ?? [])]) {
       const option = entry.options[flag];
       if (!option || option.key !== 'help' || option.value !== 'flag' || option.before !== undefined || option.parser || option.checks?.length || option.effects?.length || option.modeGroup) throw new Error(`${name} ${flag}: parser exit must be a plain help flag`);
     }
@@ -176,7 +177,7 @@ try {
       return { flag, rules: option.checks.map(rule => rule.id), domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
     });
     const modes = commandModes(spec);
-    return { command, ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}), ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(spec.dispatchOptions ? { dispatchOptions: spec.dispatchOptions } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
+    return { command, ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}), ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.usageExit ? { usageExit: spec.usageExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(spec.dispatchOptions ? { dispatchOptions: spec.dispatchOptions } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
   });
   const report = JSON.stringify({ scope: 'Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.', commands: exploration }, null, 2) + '\n';
   const reportPath = new URL('docs/design/command-exploration.json', root);

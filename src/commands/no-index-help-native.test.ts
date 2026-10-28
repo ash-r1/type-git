@@ -19,7 +19,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import { createGitSync } from '../impl/git-impl.js';
 import type { WorktreeRepo } from '../core/repo.js';
 
-describe('no-index sole full usage and diff controls', () => {
+describe('no-index native usage and file comparison controls', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: Record<string, string>;
@@ -61,6 +61,7 @@ describe('no-index sole full usage and diff controls', () => {
     }
     await writeFile(join(root, 'file'), 'base\n');
     await writeFile(join(root, '--help'), 'distinct dash file\n');
+    await writeFile(join(root, '--help-all'), 'literal help filename\n');
     expect(native(['add', '--', 'file', '--help']).status).toBe(0);
     expect(native(['commit', '-qm', 'base']).status).toBe(0);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).open(root);
@@ -154,6 +155,42 @@ describe('no-index sole full usage and diff controls', () => {
         outside,
       );
     }
+  }, 120_000);
+  it('matches native usage after valid prefixes and before ignored tails', async () => {
+    for (const outside of [false, true]) {
+      for (const flag of ['--help-all', '--help', '-h']) {
+        await compare(
+          [[flag], ['--unknown-tail', 'kept']],
+          [flag, '--unknown-tail', 'kept'],
+          '',
+          outside,
+        );
+        await compare(
+          [['--name-only'], [flag], ['--word-diff', 'invalid']],
+          ['--name-only', flag, '--word-diff=invalid'],
+          '',
+          outside,
+        );
+        await compare(
+          [{ operand: join(root, 'file') }, [flag], { operand: '--ignored' }],
+          [join(root, 'file'), flag, '--ignored'],
+          '',
+          outside,
+        );
+      }
+      await compare(
+        [['--help-all'], ['--output', join(root, 'ignored-output')]],
+        ['--help-all', `--output=${join(root, 'ignored-output')}`],
+        '',
+        outside,
+      );
+    }
+    const literal = await compare(
+      [['--'], { operand: '--help-all' }, { operand: 'file' }],
+      ['--', '--help-all', 'file'],
+    );
+    expect(literal.status).toBe(1);
+    expect(literal.stdout).toContain('-literal help filename');
   }, 120_000);
   it('uses the explicitly selected executable when PATH git has different behavior', async () => {
     const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
