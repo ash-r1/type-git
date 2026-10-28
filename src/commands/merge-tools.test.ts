@@ -12,7 +12,7 @@ import type { GitCommandName } from './types.js';
 describe('merge strategies and tool frontends', () => {
   let root: string;
   let repo: WorktreeRepo;
-  let env: NodeJS.ProcessEnv;
+  let env: Record<string, string>;
   const direct = (args: string[], input = '', timeout = 10000) =>
     spawnSync('git', ['-C', repo.workdir, ...args], {
       env,
@@ -25,7 +25,11 @@ describe('merge strategies and tool frontends', () => {
     const viewerScript = join(root, 'man-viewer.cjs');
     await writeFile(viewerScript, 'process.exit(0);\n');
     env = {
-      ...process.env,
+      ...Object.fromEntries(
+        Object.entries(process.env).filter(
+          (entry): entry is [string, string] => entry[1] !== undefined,
+        ),
+      ),
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -53,7 +57,7 @@ describe('merge strategies and tool frontends', () => {
       ['man.viewer', 'man'],
       ['man.man.path', process.execPath],
       ['difftool.fixture.cmd', 'true'],
-    ]) {
+    ] as const) {
       expect(direct(['config', key, value]).status).toBe(0);
     }
     for (let i = 0; i < 4; i++) {
@@ -209,6 +213,42 @@ describe('merge strategies and tool frontends', () => {
       '',
       30000,
     );
+    for (const [flag, value] of [
+      ['--stat-width', 'bad'],
+      ['--stat-name-width', 'bad'],
+      ['--stat-graph-width', 'bad'],
+      ['--stat-count', 'bad'],
+      ['--stat', '1,2,3,'],
+    ] as const) {
+      compare(
+        'difftool',
+        [[flag, value], ['--tool-help']],
+        [`${flag}=${value}`, '--tool-help'],
+        true,
+        '',
+        30000,
+      );
+      compare(
+        'difftool',
+        [['--tool-help'], [flag, value]],
+        ['--tool-help', `${flag}=${value}`],
+        true,
+        '',
+        30000,
+      );
+      const rejected = direct(['difftool', '--tool-help', '--no-tool-help', `${flag}=${value}`]);
+      expect(rejected.error).toBeUndefined();
+      expect(rejected.signal).toBeNull();
+      expect(rejected.status).toBe(129);
+      expect(rejected.stderr).toContain(
+        flag === '--stat'
+          ? `invalid --stat value: ${value}`
+          : `${flag.slice(2)} expects a numerical value`,
+      );
+      expect(() =>
+        commandArguments('difftool', [['--tool-help'], ['--no-tool-help'], [flag, value]], true),
+      ).toThrow(GitArgumentError);
+    }
     compare(
       'difftool',
       [['--tool', 'fixture'], { operand: 'HEAD' }, { operand: 'HEAD' }],

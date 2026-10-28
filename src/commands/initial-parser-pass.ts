@@ -211,5 +211,26 @@ export function initialParserPass(
   if (exit.mandatorySubcommand) {
     throw new GitArgumentError('Git requires a subcommand');
   }
+  const postParseExit = exit.postParseBooleanExit;
+  if (postParseExit) {
+    let active = spec.initial?.[postParseExit.key] === true;
+    for (const token of tokens) {
+      const option = spec.options[token[0]!];
+      if (option?.key !== postParseExit.key) {
+        continue;
+      }
+      if (option.clear) {
+        active = false;
+      } else if (option.toggle) {
+        active = !active;
+      } else {
+        active = option.set === undefined ? true : option.set === true;
+      }
+    }
+    if (active === postParseExit.value) {
+      // Use the existing internal exit marker for validation; emitted argv is unchanged.
+      return help();
+    }
+  }
   return { exited: false, tokens, remaining };
 }

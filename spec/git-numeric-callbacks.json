@@ -189,6 +189,19 @@
       },
       "callbacks": [],
       "source": "daemon.c:daemon-init-timeout; git-compat-util.h:strtoul_ui"
+    },
+    "diff-stat-scalar": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "callbacks": [],
+      "source": "Git2.25.1/2.55.0 diff.c:diff_opt_stat exact stat-width/stat-name-width/stat-graph-width/stat-count branches; strtoul(base10), checked end pointer, ignored errno, int storage. Explicit diff group bindings keep the distinct stat tuple branch separate."
     }
   }
 }

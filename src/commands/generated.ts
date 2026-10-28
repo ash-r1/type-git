@@ -251,46 +251,83 @@ const remainingOptions1 = {
         set: false,
       },
     ],
+    parser: 'diff-stat',
   },
   '--stat-width': {
     key: 'stat-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-name-width': {
     key: 'stat-name-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-count': {
     key: 'stat-count',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -2055,10 +2092,11 @@ const remainingOptions2 = {
         set: true,
       },
     ],
+    parser: 'diff-stat',
   },
   '--stat-width': {
     key: 'stat-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
@@ -2069,10 +2107,19 @@ const remainingOptions2 = {
         set: true,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-name-width': {
     key: 'stat-name-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
@@ -2083,10 +2130,19 @@ const remainingOptions2 = {
         set: true,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
@@ -2097,10 +2153,19 @@ const remainingOptions2 = {
         set: true,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-count': {
     key: 'stat-count',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
@@ -2111,6 +2176,15 @@ const remainingOptions2 = {
         set: true,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -5035,46 +5109,83 @@ const remainingOptions3 = {
         set: false,
       },
     ],
+    parser: 'diff-stat',
   },
   '--stat-width': {
     key: 'stat-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-name-width': {
     key: 'stat-name-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--stat-count': {
     key: 'stat-count',
-    value: 'string',
+    value: 'integer',
     effects: [
       {
         key: 'no-output',
         set: false,
       },
     ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -6532,6 +6643,820 @@ const remainingOptions3 = {
   },
 } as const;
 type RemainingOptions3Type = typeof remainingOptions3;
+const remainingOptions4 = {
+  '--patch': {
+    key: 'patch',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '-p': {
+    key: 'patch',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--no-patch': {
+    key: 'no-output',
+    value: 'flag',
+    set: true,
+    effects: [
+      {
+        key: 'name-only',
+        set: false,
+      },
+      {
+        key: 'name-status',
+        set: false,
+      },
+      {
+        key: 'check',
+        set: false,
+      },
+    ],
+  },
+  '-s': {
+    key: 'no-output',
+    value: 'flag',
+    set: true,
+    effects: [
+      {
+        key: 'name-only',
+        set: false,
+      },
+      {
+        key: 'name-status',
+        set: false,
+      },
+      {
+        key: 'check',
+        set: false,
+      },
+    ],
+  },
+  '-u': {
+    key: 'u',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--unified': {
+    key: 'unified',
+    value: 'optional-integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: false,
+      conversion: 'cast',
+      empty: true,
+      beforeNonnegative: true,
+      default: 'previous',
+      nativeCallback: 'unified-context',
+    },
+  },
+  '-U': {
+    key: 'unified',
+    value: 'optional-integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: false,
+      conversion: 'cast',
+      empty: true,
+      beforeNonnegative: true,
+      default: 'previous',
+      nativeCallback: 'unified-context',
+    },
+    emptyValueFlag: '--unified',
+  },
+  '--function-context': {
+    key: 'function-context',
+    value: 'flag',
+  },
+  '-W': {
+    key: 'function-context',
+    value: 'flag',
+  },
+  '--raw': {
+    key: 'raw',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--patch-with-raw': {
+    key: 'patch-with-raw',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--patch-with-stat': {
+    key: 'patch-with-stat',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--numstat': {
+    key: 'numstat',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--shortstat': {
+    key: 'shortstat',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--dirstat': {
+    key: 'dirstat',
+    value: 'optional-string',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '-X': {
+    key: 'dirstat',
+    value: 'optional-string',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--cumulative': {
+    key: 'cumulative',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--dirstat-by-file': {
+    key: 'dirstat-by-file',
+    value: 'optional-string',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--check': {
+    key: 'check',
+    value: 'flag',
+  },
+  '--summary': {
+    key: 'summary',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--name-only': {
+    key: 'name-only',
+    value: 'flag',
+  },
+  '--name-status': {
+    key: 'name-status',
+    value: 'flag',
+  },
+  '--stat': {
+    key: 'stat',
+    value: 'optional-string',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: 'diff-stat',
+  },
+  '--stat-width': {
+    key: 'stat-width',
+    value: 'integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+  },
+  '--stat-name-width': {
+    key: 'stat-name-width',
+    value: 'integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+  },
+  '--stat-graph-width': {
+    key: 'stat-graph-width',
+    value: 'integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+  },
+  '--stat-count': {
+    key: 'stat-count',
+    value: 'integer',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+  },
+  '--compact-summary': {
+    key: 'compact-summary',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--binary': {
+    key: 'binary',
+    value: 'flag',
+    effects: [
+      {
+        key: 'no-output',
+        set: false,
+      },
+    ],
+  },
+  '--full-index': {
+    key: 'full-index',
+    value: 'flag',
+  },
+  '--color': {
+    key: 'color',
+    value: 'optional-string',
+    set: 'always',
+  },
+  '--ws-error-highlight': {
+    key: 'ws-error-highlight',
+    value: 'string',
+  },
+  '-z': {
+    key: 'z',
+    value: 'flag',
+  },
+  '--abbrev': {
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'cast',
+      nonzeroMinimum: 4,
+      default: 'unknown',
+    },
+    key: 'abbrev',
+    value: 'optional-integer',
+  },
+  '--src-prefix': {
+    key: 'src-prefix',
+    value: 'string',
+  },
+  '--dst-prefix': {
+    key: 'dst-prefix',
+    value: 'string',
+  },
+  '--line-prefix': {
+    key: 'line-prefix',
+    value: 'string',
+  },
+  '--no-prefix': {
+    key: 'no-prefix',
+    value: 'flag',
+  },
+  '--default-prefix': {
+    key: 'default-prefix',
+    value: 'flag',
+  },
+  '--inter-hunk-context': {
+    parser: {
+      kind: 'integer',
+      signed: false,
+      bits: 32,
+    },
+    key: 'inter-hunk-context',
+    value: 'integer',
+  },
+  '--output-indicator-new': {
+    key: 'output-indicator-new',
+    value: 'string',
+  },
+  '--output-indicator-old': {
+    key: 'output-indicator-old',
+    value: 'string',
+  },
+  '--output-indicator-context': {
+    key: 'output-indicator-context',
+    value: 'string',
+  },
+  '--break-rewrites': {
+    key: 'break-rewrites',
+    value: 'optional-string',
+  },
+  '-B': {
+    key: 'break-rewrites',
+    value: 'optional-string',
+    emptyValueFlag: '--break-rewrites',
+  },
+  '--find-renames': {
+    key: 'find-renames',
+    value: 'optional-string',
+  },
+  '-M': {
+    key: 'find-renames',
+    value: 'optional-string',
+    emptyValueFlag: '--find-renames',
+  },
+  '--irreversible-delete': {
+    key: 'irreversible-delete',
+    value: 'flag',
+  },
+  '-D': {
+    key: 'irreversible-delete',
+    value: 'flag',
+  },
+  '--find-copies': {
+    key: 'find-copies',
+    value: 'optional-string',
+  },
+  '-C': {
+    key: 'find-copies',
+    value: 'optional-string',
+    emptyValueFlag: '--find-copies',
+  },
+  '--find-copies-harder': {
+    key: 'find-copies-harder',
+    value: 'flag',
+  },
+  '--no-renames': {
+    key: 'no-renames',
+    value: 'flag',
+  },
+  '--rename-empty': {
+    key: 'rename-empty',
+    value: 'flag',
+  },
+  '--follow': {
+    key: 'follow',
+    value: 'flag',
+  },
+  '-l': {
+    parser: {
+      kind: 'integer',
+      signed: true,
+      bits: 32,
+    },
+    key: 'l',
+    value: 'integer',
+  },
+  '--minimal': {
+    key: 'minimal',
+    value: 'flag',
+  },
+  '--ignore-all-space': {
+    key: 'ignore-all-space',
+    value: 'flag',
+  },
+  '-w': {
+    key: 'ignore-all-space',
+    value: 'flag',
+  },
+  '--ignore-space-change': {
+    key: 'ignore-space-change',
+    value: 'flag',
+  },
+  '-b': {
+    key: 'ignore-space-change',
+    value: 'flag',
+  },
+  '--ignore-space-at-eol': {
+    key: 'ignore-space-at-eol',
+    value: 'flag',
+  },
+  '--ignore-cr-at-eol': {
+    key: 'ignore-cr-at-eol',
+    value: 'flag',
+  },
+  '--ignore-blank-lines': {
+    key: 'ignore-blank-lines',
+    value: 'flag',
+  },
+  '--ignore-matching-lines': {
+    key: 'ignore-matching-lines',
+    value: 'string',
+  },
+  '-I': {
+    key: 'ignore-matching-lines',
+    value: 'string',
+  },
+  '--indent-heuristic': {
+    key: 'indent-heuristic',
+    value: 'flag',
+  },
+  '--patience': {
+    key: 'patience',
+    value: 'flag',
+  },
+  '--histogram': {
+    key: 'histogram',
+    value: 'flag',
+  },
+  '--diff-algorithm': {
+    key: 'diff-algorithm',
+    value: 'string',
+    allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
+    caseInsensitive: true,
+  },
+  '--anchored': {
+    key: 'anchored',
+    value: 'string',
+  },
+  '--word-diff': {
+    key: 'word-diff',
+    value: 'optional-string',
+    allowed: ['plain', 'color', 'porcelain', 'none'],
+  },
+  '--word-diff-regex': {
+    key: 'word-diff-regex',
+    value: 'string',
+  },
+  '--color-words': {
+    key: 'color-words',
+    value: 'optional-string',
+  },
+  '--color-moved': {
+    key: 'color-moved',
+    value: 'optional-string',
+  },
+  '--color-moved-ws': {
+    key: 'color-moved-ws',
+    value: 'string',
+  },
+  '--relative': {
+    key: 'relative',
+    value: 'optional-string',
+  },
+  '--text': {
+    key: 'text',
+    value: 'flag',
+  },
+  '-a': {
+    key: 'text',
+    value: 'flag',
+  },
+  '-R': {
+    key: 'R',
+    value: 'flag',
+  },
+  '--exit-code': {
+    key: 'exit-code',
+    value: 'flag',
+  },
+  '--quiet': {
+    key: 'quiet',
+    value: 'flag',
+  },
+  '--ext-diff': {
+    key: 'ext-diff',
+    value: 'flag',
+  },
+  '--textconv': {
+    key: 'textconv',
+    value: 'flag',
+  },
+  '--ignore-submodules': {
+    key: 'ignore-submodules',
+    value: 'optional-string',
+    allowed: ['all', 'dirty', 'untracked', 'none'],
+  },
+  '--submodule': {
+    key: 'submodule',
+    value: 'optional-string',
+    allowed: ['short', 'log', 'diff'],
+  },
+  '--ita-invisible-in-index': {
+    key: 'ita-invisible-in-index',
+    value: 'flag',
+  },
+  '--ita-visible-in-index': {
+    key: 'ita-visible-in-index',
+    value: 'flag',
+  },
+  '-S': {
+    key: 'S',
+    value: 'string',
+    checks: [
+      {
+        id: 'revision.pickaxe-nonempty-S',
+        kind: 'required',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+        reason: 'Pickaxe patterns cannot be empty.',
+        required: [
+          {
+            key: '$value',
+            test: 'nonempty',
+          },
+        ],
+        nativeEmptyPickaxe: true,
+      },
+    ],
+    nativeEmptyPickaxe: true,
+  },
+  '-G': {
+    key: 'G',
+    value: 'string',
+    checks: [
+      {
+        id: 'revision.pickaxe-nonempty-G',
+        kind: 'required',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+        reason: 'Pickaxe patterns cannot be empty.',
+        required: [
+          {
+            key: '$value',
+            test: 'nonempty',
+          },
+        ],
+        nativeEmptyPickaxe: true,
+      },
+    ],
+    nativeEmptyPickaxe: true,
+  },
+  '--pickaxe-all': {
+    key: 'pickaxe-all',
+    value: 'flag',
+  },
+  '--pickaxe-regex': {
+    key: 'pickaxe-regex',
+    value: 'flag',
+  },
+  '-O': {
+    key: 'O',
+    value: 'string',
+    emptyIsUnset: true,
+  },
+  '--rotate-to': {
+    key: 'rotate-to',
+    value: 'string',
+  },
+  '--skip-to': {
+    key: 'skip-to',
+    value: 'string',
+  },
+  '--find-object': {
+    key: 'find-object',
+    value: 'string',
+  },
+  '--diff-filter': {
+    key: 'diff-filter',
+    value: 'string',
+  },
+  '--max-depth': {
+    parser: {
+      kind: 'integer',
+      signed: true,
+      bits: 32,
+    },
+    key: 'max-depth',
+    value: 'integer',
+  },
+  '--output': {
+    key: 'output',
+    value: 'string',
+  },
+  '--no-no-patch': {
+    key: 'no-output',
+    value: 'flag',
+    set: false,
+    effects: [
+      {
+        key: 'name-only',
+        set: false,
+      },
+      {
+        key: 'name-status',
+        set: false,
+      },
+      {
+        key: 'check',
+        set: false,
+      },
+    ],
+  },
+  '--no-function-context': {
+    key: 'function-context',
+    value: 'flag',
+    set: false,
+  },
+  '--no-compact-summary': {
+    key: 'compact-summary',
+    value: 'flag',
+    set: false,
+  },
+  '--no-full-index': {
+    key: 'full-index',
+    value: 'flag',
+    set: false,
+  },
+  '--no-color': {
+    key: 'color',
+    value: 'flag',
+    set: 'always',
+    clear: true,
+  },
+  '--no-abbrev': {
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'cast',
+      nonzeroMinimum: 4,
+      default: 'unknown',
+    },
+    key: 'abbrev',
+    value: 'flag',
+    set: 0,
+  },
+  '--no-find-copies-harder': {
+    key: 'find-copies-harder',
+    value: 'flag',
+    set: false,
+  },
+  '--no-rename-empty': {
+    key: 'rename-empty',
+    value: 'flag',
+    set: false,
+  },
+  '--no-follow': {
+    key: 'follow',
+    value: 'flag',
+    set: false,
+  },
+  '--no-ignore-matching-lines': {
+    key: 'ignore-matching-lines',
+    value: 'flag',
+    clear: true,
+  },
+  '--no-indent-heuristic': {
+    key: 'indent-heuristic',
+    value: 'flag',
+    set: false,
+  },
+  '--no-color-moved': {
+    key: 'color-moved',
+    value: 'flag',
+    clear: true,
+  },
+  '--no-color-moved-ws': {
+    key: 'color-moved-ws',
+    value: 'flag',
+    clear: true,
+  },
+  '--no-relative': {
+    key: 'relative',
+    value: 'flag',
+    clear: true,
+  },
+  '--no-text': {
+    key: 'text',
+    value: 'flag',
+    set: false,
+  },
+  '--no-exit-code': {
+    key: 'exit-code',
+    value: 'flag',
+    set: false,
+  },
+  '--no-quiet': {
+    key: 'quiet',
+    value: 'flag',
+    set: false,
+  },
+  '--no-ext-diff': {
+    key: 'ext-diff',
+    value: 'flag',
+    set: false,
+  },
+  '--no-textconv': {
+    key: 'textconv',
+    value: 'flag',
+    set: false,
+  },
+  '--end-of-options': {
+    key: 'revision-end-of-options',
+    value: 'flag',
+    consumesRest: true,
+    ignore: true,
+  },
+} as const;
+type RemainingOptions4Type = typeof remainingOptions4;
 const commandSpec0 = {
   argv: ['hash-object'],
   options: {
@@ -34539,46 +35464,83 @@ const commandSpec68 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -36038,6 +37000,10 @@ const commandSpec68 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -36329,7 +37295,7 @@ const commandSpec68 = {
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -36345,6 +37311,7 @@ const commandSpec68 = {
       '--decorate-refs',
       '--decorate-refs-exclude',
       '--help',
+      '--help-all',
       '--i-still-use-this',
       '--mailmap',
       '--no-decorate',
@@ -37016,46 +37983,83 @@ const commandSpec69 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -38515,6 +39519,10 @@ const commandSpec69 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -38806,7 +39814,7 @@ const commandSpec69 = {
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -38822,6 +39830,7 @@ const commandSpec69 = {
       '--decorate-refs',
       '--decorate-refs-exclude',
       '--help',
+      '--help-all',
       '--i-still-use-this',
       '--mailmap',
       '--no-decorate',
@@ -39447,46 +40456,83 @@ const commandSpec70 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -41434,46 +42480,83 @@ const commandSpec71 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -43488,46 +44571,83 @@ const commandSpec72 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -45484,46 +46604,83 @@ const commandSpec73 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -47459,46 +48616,83 @@ const commandSpec74 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -48653,46 +49847,83 @@ const commandSpec81 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -50152,6 +51383,10 @@ const commandSpec81 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -50444,7 +51679,7 @@ const commandSpec81 = {
     'Git 2.55.0 builtin/reflog.c:cmd_reflog/cmd_reflog_show; builtin/log.c:cmd_log_reflog/cmd_log_init_finish; revision.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.',
@@ -50471,6 +51706,7 @@ const commandSpec81 = {
       '--decorate-refs',
       '--decorate-refs-exclude',
       '--help',
+      '--help-all',
       '--i-still-use-this',
       '--mailmap',
       '--no-decorate',
@@ -51106,46 +52342,83 @@ const commandSpec82 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -52610,6 +53883,10 @@ const commandSpec82 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -52895,7 +54172,7 @@ const commandSpec82 = {
   source: 'Git 2.55.0 builtin/stash.c:show_stash/get_stash_info',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     unknownOptions: 'keep',
     keepDashDash: true,
     keepEndOfOptions: true,
@@ -52928,6 +54205,7 @@ const commandSpec82 = {
     },
     firstPassOptions: [
       '--help',
+      '--help-all',
       '--include-untracked',
       '--no-include-untracked',
       '--only-untracked',
@@ -57486,10 +58764,11 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -57500,10 +58779,19 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -57514,10 +58802,19 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -57528,10 +58825,19 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -57542,6 +58848,15 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -60314,6 +61629,10 @@ const commandSpec85 = {
       value: 'flag',
       set: false,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -60924,7 +62243,7 @@ const commandSpec85 = {
   source: 'builtin/revert.c:run_sequencer',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -60947,6 +62266,7 @@ const commandSpec85 = {
       '--ff',
       '--gpg-sign',
       '--help',
+      '--help-all',
       '--keep-redundant-commits',
       '--mainline',
       '--no-allow-empty',
@@ -61673,10 +62993,11 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -61687,10 +63008,19 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -61701,10 +63031,19 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -61715,10 +63054,19 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
@@ -61729,6 +63077,15 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -64465,6 +65822,10 @@ const commandSpec86 = {
       value: 'flag',
       set: false,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -64981,7 +66342,7 @@ const commandSpec86 = {
   source: 'builtin/revert.c:run_sequencer',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -65000,6 +66361,7 @@ const commandSpec86 = {
       '--edit',
       '--gpg-sign',
       '--help',
+      '--help-all',
       '--mainline',
       '--no-cleanup',
       '--no-commit',
@@ -81065,46 +82427,83 @@ const commandSpec184 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -84567,46 +85966,83 @@ const commandSpec194 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -87041,46 +88477,83 @@ const commandSpec195 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -89408,46 +90881,83 @@ const commandSpec196 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -90281,46 +91791,83 @@ const commandSpec197 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -91249,46 +92796,83 @@ const commandSpec198 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -93752,46 +95336,83 @@ const commandSpec199 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -95361,6 +96982,10 @@ const commandSpec199 = {
       key: 'contents',
       value: 'flag',
       clear: true,
+    },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
     },
   },
   numericOption: {
@@ -95714,7 +97339,7 @@ const commandSpec199 = {
   source: 'builtin/blame.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -95949,46 +97574,83 @@ const commandSpec200 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -97559,6 +99221,10 @@ const commandSpec200 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   numericOption: {
     key: 'max-count',
@@ -97911,7 +99577,7 @@ const commandSpec200 = {
   source: 'builtin/blame.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -98914,46 +100580,83 @@ const commandSpec202 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -100753,6 +102456,10 @@ const commandSpec202 = {
       value: 'flag',
       set: false,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -101156,7 +102863,7 @@ const commandSpec202 = {
   source: 'Git 2.55.0 builtin/log.c:cmd_format_patch; revision.c:setup_revisions; diff.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -101181,6 +102888,7 @@ const commandSpec202 = {
       '--force-in-body-from',
       '--from',
       '--help',
+      '--help-all',
       '--ignore-if-in-upstream',
       '--in-reply-to',
       '--inline',
@@ -102049,46 +103757,83 @@ const commandSpec204 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -103659,6 +105404,10 @@ const commandSpec204 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   numericOption: {
     key: 'max-count',
@@ -104011,7 +105760,7 @@ const commandSpec204 = {
   source: 'builtin/blame.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -104309,46 +106058,83 @@ const commandSpec205 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -105808,6 +107594,10 @@ const commandSpec205 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -106114,7 +107904,7 @@ const commandSpec205 = {
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -106130,6 +107920,7 @@ const commandSpec205 = {
       '--decorate-refs',
       '--decorate-refs-exclude',
       '--help',
+      '--help-all',
       '--i-still-use-this',
       '--mailmap',
       '--no-decorate',
@@ -106734,46 +108525,83 @@ const commandSpec206 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -108218,6 +110046,10 @@ const commandSpec206 = {
       repeat: true,
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   numericOption: {
     key: 'max-count',
@@ -108485,7 +110317,7 @@ const commandSpec206 = {
   source: 'builtin/shortlog.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
@@ -114527,46 +116359,83 @@ const commandSpec275 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -116168,6 +118037,10 @@ const commandSpec275 = {
       value: 'flag',
       set: false,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -116472,7 +118345,7 @@ const commandSpec275 = {
   source: 'builtin/fast-export.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -116490,6 +118363,7 @@ const commandSpec275 = {
       '--fake-missing-tagger',
       '--full-tree',
       '--help',
+      '--help-all',
       '--import-marks',
       '--import-marks-if-exists',
       '--mark-tags',
@@ -120530,6 +122404,10 @@ const commandSpec291 = {
       key: 'cached',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -120725,6 +122603,392 @@ const commandSpec291 = {
   ],
   source: 'builtin/difftool.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'The initial KEEP_UNKNOWN_OPT/KEEP_DASHDASH parse_options pass exits at help before invoking the delegated diff command. Earlier difftool callbacks still run; diff callbacks are retained until after help. After all initial options, a final enabled tool-help returns before any delegated diff callbacks. Retained -- separates diff pathspecs.',
+    source: 'Git 2.25.1/2.55.0 builtin/difftool.c:cmd_difftool; parse-options.c:parse_options_step',
+    keepDashDash: true,
+    postParseBooleanExit: {
+      key: 'tool-help',
+      value: true,
+    },
+    splitRemainingPaths: true,
+    firstPassOptions: [
+      '--dir-diff',
+      '--extcmd',
+      '--gui',
+      '--help',
+      '--help-all',
+      '--index',
+      '--no-dir-diff',
+      '--no-extcmd',
+      '--no-gui',
+      '--no-index',
+      '--no-no-index',
+      '--no-prompt',
+      '--no-symlinks',
+      '--no-tool',
+      '--no-tool-help',
+      '--no-trust-exit-code',
+      '--prompt',
+      '--symlinks',
+      '--tool',
+      '--tool-help',
+      '--trust-exit-code',
+      '-d',
+      '-g',
+      '-h',
+      '-t',
+      '-x',
+      '-y',
+    ],
+    firstPassLongNames: [
+      'dir-diff',
+      'extcmd',
+      'gui',
+      'no-index',
+      'no-prompt',
+      'prompt',
+      'symlinks',
+      'tool',
+      'tool-help',
+      'trust-exit-code',
+    ],
+    remainingOptions: remainingOptions4 as RemainingOptions4Type,
+    remainingShortOptions: [
+      '-p',
+      '-s',
+      '-u',
+      '-U',
+      '-W',
+      '-X',
+      '-z',
+      '-B',
+      '-M',
+      '-D',
+      '-C',
+      '-l',
+      '-w',
+      '-b',
+      '-I',
+      '-a',
+      '-R',
+      '-S',
+      '-G',
+      '-O',
+    ],
+    remainingLongNames: [
+      'abbrev',
+      'anchored',
+      'binary',
+      'break-rewrites',
+      'check',
+      'color',
+      'color-moved',
+      'color-moved-ws',
+      'color-words',
+      'compact-summary',
+      'cumulative',
+      'default-prefix',
+      'diff-algorithm',
+      'diff-filter',
+      'dirstat',
+      'dirstat-by-file',
+      'dst-prefix',
+      'exit-code',
+      'ext-diff',
+      'find-copies',
+      'find-copies-harder',
+      'find-object',
+      'find-renames',
+      'follow',
+      'full-index',
+      'function-context',
+      'histogram',
+      'ignore-all-space',
+      'ignore-blank-lines',
+      'ignore-cr-at-eol',
+      'ignore-matching-lines',
+      'ignore-space-at-eol',
+      'ignore-space-change',
+      'ignore-submodules',
+      'indent-heuristic',
+      'inter-hunk-context',
+      'irreversible-delete',
+      'ita-invisible-in-index',
+      'ita-visible-in-index',
+      'line-prefix',
+      'max-depth',
+      'minimal',
+      'name-only',
+      'name-status',
+      'no-patch',
+      'no-prefix',
+      'no-renames',
+      'numstat',
+      'output',
+      'output-indicator-context',
+      'output-indicator-new',
+      'output-indicator-old',
+      'patch',
+      'patch-with-raw',
+      'patch-with-stat',
+      'patience',
+      'pickaxe-all',
+      'pickaxe-regex',
+      'quiet',
+      'raw',
+      'relative',
+      'rename-empty',
+      'rotate-to',
+      'shortstat',
+      'skip-to',
+      'src-prefix',
+      'stat',
+      'stat-count',
+      'stat-graph-width',
+      'stat-name-width',
+      'stat-width',
+      'submodule',
+      'summary',
+      'text',
+      'textconv',
+      'unified',
+      'word-diff',
+      'word-diff-regex',
+      'ws-error-highlight',
+    ],
+    remainingDetachedOptions: [
+      '--anchored',
+      '--color-moved-ws',
+      '--diff-algorithm',
+      '--diff-filter',
+      '--dst-prefix',
+      '--find-object',
+      '--ignore-matching-lines',
+      '--inter-hunk-context',
+      '--line-prefix',
+      '--max-depth',
+      '--output',
+      '--output-indicator-context',
+      '--output-indicator-new',
+      '--output-indicator-old',
+      '--rotate-to',
+      '--skip-to',
+      '--src-prefix',
+      '--stat-count',
+      '--stat-graph-width',
+      '--stat-name-width',
+      '--stat-width',
+      '--word-diff-regex',
+      '--ws-error-highlight',
+    ],
+    remainingLongForms: {
+      plain: {
+        '--abbrev': '--abbrev',
+        '--anchored': '--anchored',
+        '--binary': '--binary',
+        '--break-rewrites': '--break-rewrites',
+        '--check': '--check',
+        '--color': '--color',
+        '--color-moved': '--color-moved',
+        '--color-moved-ws': '--color-moved-ws',
+        '--color-words': '--color-words',
+        '--compact-summary': '--compact-summary',
+        '--cumulative': '--cumulative',
+        '--default-prefix': '--default-prefix',
+        '--diff-algorithm': '--diff-algorithm',
+        '--diff-filter': '--diff-filter',
+        '--dirstat': '--dirstat',
+        '--dirstat-by-file': '--dirstat-by-file',
+        '--dst-prefix': '--dst-prefix',
+        '--exit-code': '--exit-code',
+        '--ext-diff': '--ext-diff',
+        '--find-copies': '--find-copies',
+        '--find-copies-harder': '--find-copies-harder',
+        '--find-object': '--find-object',
+        '--find-renames': '--find-renames',
+        '--follow': '--follow',
+        '--full-index': '--full-index',
+        '--function-context': '--function-context',
+        '--histogram': '--histogram',
+        '--ignore-all-space': '--ignore-all-space',
+        '--ignore-blank-lines': '--ignore-blank-lines',
+        '--ignore-cr-at-eol': '--ignore-cr-at-eol',
+        '--ignore-matching-lines': '--ignore-matching-lines',
+        '--ignore-space-at-eol': '--ignore-space-at-eol',
+        '--ignore-space-change': '--ignore-space-change',
+        '--ignore-submodules': '--ignore-submodules',
+        '--indent-heuristic': '--indent-heuristic',
+        '--inter-hunk-context': '--inter-hunk-context',
+        '--irreversible-delete': '--irreversible-delete',
+        '--ita-invisible-in-index': '--ita-invisible-in-index',
+        '--ita-visible-in-index': '--ita-visible-in-index',
+        '--line-prefix': '--line-prefix',
+        '--max-depth': '--max-depth',
+        '--minimal': '--minimal',
+        '--name-only': '--name-only',
+        '--name-status': '--name-status',
+        '--no-abbrev': '--no-abbrev',
+        '--no-color': '--no-color',
+        '--no-color-moved': '--no-color-moved',
+        '--no-color-moved-ws': '--no-color-moved-ws',
+        '--no-compact-summary': '--no-compact-summary',
+        '--no-exit-code': '--no-exit-code',
+        '--no-ext-diff': '--no-ext-diff',
+        '--no-find-copies-harder': '--no-find-copies-harder',
+        '--no-follow': '--no-follow',
+        '--no-full-index': '--no-full-index',
+        '--no-function-context': '--no-function-context',
+        '--no-ignore-matching-lines': '--no-ignore-matching-lines',
+        '--no-indent-heuristic': '--no-indent-heuristic',
+        '--no-no-patch': '--patch',
+        '--no-patch': '--no-patch',
+        '--no-prefix': '--no-prefix',
+        '--no-quiet': '--no-quiet',
+        '--no-relative': '--no-relative',
+        '--no-rename-empty': '--no-rename-empty',
+        '--no-renames': '--no-renames',
+        '--no-text': '--no-text',
+        '--no-textconv': '--no-textconv',
+        '--numstat': '--numstat',
+        '--output': '--output',
+        '--output-indicator-context': '--output-indicator-context',
+        '--output-indicator-new': '--output-indicator-new',
+        '--output-indicator-old': '--output-indicator-old',
+        '--patch': '--patch',
+        '--patch-with-raw': '--patch-with-raw',
+        '--patch-with-stat': '--patch-with-stat',
+        '--patience': '--patience',
+        '--pickaxe-all': '--pickaxe-all',
+        '--pickaxe-regex': '--pickaxe-regex',
+        '--quiet': '--quiet',
+        '--raw': '--raw',
+        '--relative': '--relative',
+        '--rename-empty': '--rename-empty',
+        '--rotate-to': '--rotate-to',
+        '--shortstat': '--shortstat',
+        '--skip-to': '--skip-to',
+        '--src-prefix': '--src-prefix',
+        '--stat': '--stat',
+        '--stat-count': '--stat-count',
+        '--stat-graph-width': '--stat-graph-width',
+        '--stat-name-width': '--stat-name-width',
+        '--stat-width': '--stat-width',
+        '--submodule': '--submodule',
+        '--summary': '--summary',
+        '--text': '--text',
+        '--textconv': '--textconv',
+        '--unified': '--unified',
+        '--word-diff': '--word-diff',
+        '--word-diff-regex': '--word-diff-regex',
+        '--ws-error-highlight': '--ws-error-highlight',
+      },
+      attached: {
+        '--abbrev': '--abbrev',
+        '--anchored': '--anchored',
+        '--binary': '--binary',
+        '--break-rewrites': '--break-rewrites',
+        '--check': '--check',
+        '--color': '--color',
+        '--color-moved': '--color-moved',
+        '--color-moved-ws': '--color-moved-ws',
+        '--color-words': '--color-words',
+        '--compact-summary': '--compact-summary',
+        '--cumulative': '--cumulative',
+        '--default-prefix': '--default-prefix',
+        '--diff-algorithm': '--diff-algorithm',
+        '--diff-filter': '--diff-filter',
+        '--dirstat': '--dirstat',
+        '--dirstat-by-file': '--dirstat-by-file',
+        '--dst-prefix': '--dst-prefix',
+        '--exit-code': '--exit-code',
+        '--ext-diff': '--ext-diff',
+        '--find-copies': '--find-copies',
+        '--find-copies-harder': '--find-copies-harder',
+        '--find-object': '--find-object',
+        '--find-renames': '--find-renames',
+        '--follow': '--follow',
+        '--full-index': '--full-index',
+        '--function-context': '--function-context',
+        '--histogram': '--histogram',
+        '--ignore-all-space': '--ignore-all-space',
+        '--ignore-blank-lines': '--ignore-blank-lines',
+        '--ignore-cr-at-eol': '--ignore-cr-at-eol',
+        '--ignore-matching-lines': '--ignore-matching-lines',
+        '--ignore-space-at-eol': '--ignore-space-at-eol',
+        '--ignore-space-change': '--ignore-space-change',
+        '--ignore-submodules': '--ignore-submodules',
+        '--indent-heuristic': '--indent-heuristic',
+        '--inter-hunk-context': '--inter-hunk-context',
+        '--irreversible-delete': '--irreversible-delete',
+        '--ita-invisible-in-index': '--ita-invisible-in-index',
+        '--ita-visible-in-index': '--ita-visible-in-index',
+        '--line-prefix': '--line-prefix',
+        '--max-depth': '--max-depth',
+        '--minimal': '--minimal',
+        '--name-only': '--name-only',
+        '--name-status': '--name-status',
+        '--no-abbrev': '--no-abbrev',
+        '--no-color': '--no-color',
+        '--no-color-moved': '--no-color-moved',
+        '--no-color-moved-ws': '--no-color-moved-ws',
+        '--no-compact-summary': '--no-compact-summary',
+        '--no-exit-code': '--no-exit-code',
+        '--no-ext-diff': '--no-ext-diff',
+        '--no-find-copies-harder': '--no-find-copies-harder',
+        '--no-follow': '--no-follow',
+        '--no-full-index': '--no-full-index',
+        '--no-function-context': '--no-function-context',
+        '--no-ignore-matching-lines': '--no-ignore-matching-lines',
+        '--no-indent-heuristic': '--no-indent-heuristic',
+        '--no-no-patch': '--patch',
+        '--no-patch': '--no-patch',
+        '--no-prefix': '--no-prefix',
+        '--no-quiet': '--no-quiet',
+        '--no-relative': '--no-relative',
+        '--no-rename-empty': '--no-rename-empty',
+        '--no-renames': '--no-renames',
+        '--no-text': '--no-text',
+        '--no-textconv': '--no-textconv',
+        '--numstat': '--numstat',
+        '--output': '--output',
+        '--output-indicator-context': '--output-indicator-context',
+        '--output-indicator-new': '--output-indicator-new',
+        '--output-indicator-old': '--output-indicator-old',
+        '--patch': '--patch',
+        '--patch-with-raw': '--patch-with-raw',
+        '--patch-with-stat': '--patch-with-stat',
+        '--patience': '--patience',
+        '--pickaxe-all': '--pickaxe-all',
+        '--pickaxe-regex': '--pickaxe-regex',
+        '--quiet': '--quiet',
+        '--raw': '--raw',
+        '--relative': '--relative',
+        '--rename-empty': '--rename-empty',
+        '--rotate-to': '--rotate-to',
+        '--shortstat': '--shortstat',
+        '--skip-to': '--skip-to',
+        '--src-prefix': '--src-prefix',
+        '--stat': '--stat',
+        '--stat-count': '--stat-count',
+        '--stat-graph-width': '--stat-graph-width',
+        '--stat-name-width': '--stat-name-width',
+        '--stat-width': '--stat-width',
+        '--submodule': '--submodule',
+        '--summary': '--summary',
+        '--text': '--text',
+        '--textconv': '--textconv',
+        '--unified': '--unified',
+        '--word-diff': '--word-diff',
+        '--word-diff-regex': '--word-diff-regex',
+        '--ws-error-highlight': '--ws-error-highlight',
+      },
+    },
+  },
 } as const satisfies CommandSpec;
 const commandSpec292 = {
   argv: ['mergetool'],
@@ -122731,46 +124995,83 @@ const commandSpec306 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -124230,6 +126531,10 @@ const commandSpec306 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -124522,7 +126827,7 @@ const commandSpec306 = {
     'Git 2.55.0 builtin/reflog.c:cmd_reflog/cmd_reflog_show; builtin/log.c:cmd_log_reflog/cmd_log_init_finish; revision.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -124550,6 +126855,7 @@ const commandSpec306 = {
       '--decorate-refs',
       '--decorate-refs-exclude',
       '--help',
+      '--help-all',
       '--i-still-use-this',
       '--mailmap',
       '--no-decorate',
@@ -128600,46 +130906,83 @@ const commandSpec309 = {
           set: false,
         },
       ],
+      parser: 'diff-stat',
     },
     '--stat-width': {
       key: 'stat-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-name-width': {
       key: 'stat-name-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--stat-count': {
       key: 'stat-count',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        unsignedLong: true,
+        conversion: 'cast',
+        empty: true,
+      },
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -130099,6 +132442,10 @@ const commandSpec309 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -130112,14 +132459,14 @@ const commandSpec309 = {
   source: 'Git 2.55.0 builtin/stash.c:list_stash; builtin/log.c:cmd_log',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     keepDashDash: false,
     origin: 'git',
     source: 'Git 2.55.0 builtin/stash.c:list_stash; parse-options.c:parse_options_step',
     reason:
       'The empty KEEP_UNKNOWN_OPT parser scans words for help, drops the first -- marker, and retains unknown words before the repository-ref gate.',
     singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
-    firstPassOptions: ['--help', '-h'],
+    firstPassOptions: ['--help', '--help-all', '-h'],
     firstPassLongNames: [],
     remainingOptions: remainingOptions0 as RemainingOptions0Type,
     remainingShortOptions: [],

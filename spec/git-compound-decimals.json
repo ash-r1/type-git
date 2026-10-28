@@ -3,7 +3,8 @@
   "scope": "Compound decimal callbacks on the pinned LP64 strtoul and 32-bit int profile.",
   "sources": {
     "builtin/shortlog.c": "ff2972d3b5f9fcc9a9c583eab7e60126a27630b1d494d2dd5b01c44ecd351375",
-    "builtin/show-branch.c": "efb56979219739c571df41d98e07d88ee90f3b9e3c704d03a8cc5bed4cddf187"
+    "builtin/show-branch.c": "efb56979219739c571df41d98e07d88ee90f3b9e3c704d03a8cc5bed4cddf187",
+    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b"
   },
   "profiles": {
     "shortlog-wrap": {
@@ -44,6 +45,29 @@
         "empty": true
       },
       "source": "builtin/show-branch.c:parse_reflog_param"
+    },
+    "diff-stat": {
+      "kind": "tuple",
+      "separator": ",",
+      "decimal": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "defaults": [
+        0,
+        0,
+        0
+      ],
+      "nonzeroGreaterThan": {
+        "index": 0,
+        "others": []
+      },
+      "source": "Git2.25.1/2.55.0 diff.c:diff_opt_stat stat branch; at most3strtoul(base10) fields, empty fields accepted. Defaults here serve acceptance only; omitted native values retain previous state and rendering remains native. No field-order relation."
     }
   }
 }

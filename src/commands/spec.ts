@@ -148,6 +148,8 @@ export type CommandSpec = {
     singleWordExits?: readonly string[];
     /** ONE_SHOT diff parsing can exit on the final retained option word. */
     remainingSingleWordExits?: readonly string[];
+    /** After parsing all initial options, a final boolean can return before delegation. */
+    postParseBooleanExit?: { key: string; value: boolean };
     /** KEEP_UNKNOWN_OPT pass: only these options execute before an exit in this pass. */
     firstPassOptions?: readonly string[];
     /** Native long names used by the initial parser's single-dash typo check. */

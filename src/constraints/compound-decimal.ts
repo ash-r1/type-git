@@ -15,6 +15,11 @@ export type CompoundDecimalProfile = {
 );
 export type CompoundDecimalParser = keyof typeof COMPOUND_DECIMALS;
 
+/** Recognize the registered source-audited compound callback profiles. */
+export function isCompoundDecimal(value: unknown): value is CompoundDecimalParser {
+  return typeof value === 'string' && Object.hasOwn(COMPOUND_DECIMALS, value);
+}
+
 /** Validate each reached strtoul field using the selected executable's C long width. */
 export function validCompoundDecimal(
   parser: CompoundDecimalParser,

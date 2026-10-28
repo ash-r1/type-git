@@ -374,8 +374,55 @@ type PassSpec<
       }
     : S
   : S;
+type BooleanOptionValue<D extends OptionSpec, Previous extends boolean> = D extends { clear: true }
+  ? false
+  : D extends { toggle: true }
+    ? Previous extends true
+      ? false
+      : true
+    : D extends { set: infer V }
+      ? V extends true
+        ? true
+        : false
+      : true;
+type InitialBoolean<S extends CommandSpec, K extends string> = S extends { initial: infer I }
+  ? K extends keyof I
+    ? I[K] extends true
+      ? true
+      : false
+    : false
+  : false;
+type FinalBoolean<
+  S extends CommandSpec,
+  T extends Tokens,
+  K extends string,
+  V extends boolean = InitialBoolean<S, K>,
+> = T extends readonly [infer H, ...infer Rest extends Tokens]
+  ? H extends readonly [infer Flag extends string, ...unknown[]]
+    ? Flag extends keyof S['options']
+      ? S['options'][Flag] extends { key: K }
+        ? FinalBoolean<S, Rest, K, BooleanOptionValue<S['options'][Flag], V>>
+        : FinalBoolean<S, Rest, K, V>
+      : FinalBoolean<S, Rest, K, V>
+    : FinalBoolean<S, Rest, K, V>
+  : V;
+type PostParseExit<S extends CommandSpec, P> = S extends {
+  parserExit: {
+    postParseBooleanExit: { key: infer K extends string; value: infer V extends boolean };
+  };
+}
+  ? P extends { delegated: true } | { subcommand: string }
+    ? P
+    : P extends { exited: false; tokens: infer T extends Tokens }
+      ? FinalBoolean<S, T, K> extends V
+        ? Help<S, T>
+        : P
+      : P
+  : P;
 export type InitialParserPass<
   S,
   A extends readonly unknown[],
   EmptyRegistered extends boolean = true,
-> = S extends CommandSpec ? Parsed<PassSpec<S, EmptyRegistered>, A> : Invalid;
+> = S extends CommandSpec
+  ? PostParseExit<PassSpec<S, EmptyRegistered>, Parsed<PassSpec<S, EmptyRegistered>, A>>
+  : Invalid;

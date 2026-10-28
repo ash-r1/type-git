@@ -10,6 +10,7 @@ import {
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
+import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
@@ -1180,17 +1181,20 @@ export function commandUsesNativeABI(
       : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
         ? spec.numericOption
         : undefined;
+    const remaining = spec.parserExit?.remainingOptions;
+    const parser =
+      option?.parser ??
+      (remaining && Object.hasOwn(remaining, arg[0]) ? remaining[arg[0]]?.parser : undefined);
     return (
-      (typeof option?.parser === 'string' && isBooleanCallback(option.parser)) ||
+      (typeof parser === 'string' && isBooleanCallback(parser)) ||
       option?.nativeEnumCallback === 'conflict-style' ||
-      typeof option?.parser === 'object' ||
-      option?.parser === 'abbrev' ||
-      option?.parser === 'mainline' ||
-      option?.parser === 'object-filter' ||
-      option?.parser === 'object-filter-auto' ||
-      option?.parser === 'unsigned-size' ||
-      option?.parser === 'shortlog-wrap' ||
-      option?.parser === 'show-branch-reflog'
+      typeof parser === 'object' ||
+      parser === 'abbrev' ||
+      parser === 'mainline' ||
+      parser === 'object-filter' ||
+      parser === 'object-filter-auto' ||
+      parser === 'unsigned-size' ||
+      isCompoundDecimal(parser)
     );
   });
 }
@@ -1386,14 +1390,23 @@ export function commandUsesCompoundDecimal(
   if (dispatched) {
     return commandUsesCompoundDecimal(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args, emptyRegistered).some(
-    (arg) =>
-      Array.isArray(arg) &&
-      typeof arg[0] === 'string' &&
-      Object.hasOwn(spec.options, arg[0]) &&
-      (spec.options[arg[0]]?.parser === 'shortlog-wrap' ||
-        spec.options[arg[0]]?.parser === 'show-branch-reflog'),
-  );
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    const remaining = spec.parserExit?.remainingOptions;
+    const parser =
+      option?.parser ??
+      (remaining && Object.hasOwn(remaining, arg[0]) ? remaining[arg[0]]?.parser : undefined);
+    return (
+      isCompoundDecimal(parser) ||
+      (typeof parser === 'object' &&
+        parser !== null &&
+        parser.kind === 'decimal' &&
+        parser.unsignedLong === true)
+    );
+  });
 }
 
 /** Observe reached legacy bit options before help or an end-of-options marker. */
