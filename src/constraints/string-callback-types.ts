@@ -121,6 +121,51 @@ type ByteCharacter<S extends string> = S extends `${infer First}${infer Rest}`
           : true
       : false
   : true;
+type ScoreDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type ScoreForbiddenAscii = Exclude<AsciiByte, ScoreDigit | '.' | '%'>;
+type ScoreLoop<
+  S extends string,
+  Dot extends boolean = false,
+  N extends readonly unknown[] = [],
+> = N['length'] extends 128
+  ? true
+  : S extends '' | '%'
+    ? true
+    : S extends `.${infer Rest}`
+      ? Dot extends true
+        ? false
+        : ScoreLoop<Rest, true, readonly [...N, 0]>
+      : S extends `${infer C}${infer Rest}`
+        ? C extends ScoreDigit
+          ? ScoreLoop<Rest, Dot, readonly [...N, 0]>
+          : false
+        : true;
+// Reject guaranteed malformed ASCII and punctuation before the shared dynamic/budget escape hatch.
+type ScoreHasFollowingPercentText<S extends string> = S extends `${string}%${infer After}`
+  ? After extends ''
+    ? false
+    : After extends `${infer First}${infer _Rest}`
+      ? Dynamic<First> extends false
+        ? true
+        : false
+      : false
+  : false;
+type ScorePart<S extends string> = S extends `${string}${ScoreForbiddenAscii}${string}`
+  ? false
+  : S extends `${string}.${string}.${string}` | `${string}%${string}%${string}`
+    ? false
+    : ScoreHasFollowingPercentText<S> extends true
+      ? false
+      : Dynamic<S> extends true
+        ? true
+        : ScoreLoop<S>;
+type ScoreText<S extends string, Parts extends 1 | 2> = Parts extends 2
+  ? S extends `${infer Left}/${infer Right}`
+    ? false extends ScorePart<Left> | ScorePart<Right>
+      ? false
+      : true
+    : ScorePart<S>
+  : ScorePart<S>;
 type Parsed<V, P extends StringCallbackParser> = V extends string
   ? V extends object
     ? true
@@ -144,8 +189,14 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
                 allowUnseparated: infer Optional extends boolean;
               }
             ? Pair<V, Sep, Optional>
-            : false
-  : false;
+            : Profile<P> extends { kind: 'rename-score'; parts: infer Parts extends 1 | 2 }
+              ? ScoreText<V, Parts>
+              : false
+  : V extends true
+    ? Profile<P> extends { kind: 'rename-score' }
+      ? true
+      : false
+    : false;
 export type StringCallbackLiteral<V, P extends StringCallbackParser> = false extends Parsed<V, P>
   ? false
   : true;

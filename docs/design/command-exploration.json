@@ -19785,19 +19785,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -19811,10 +19815,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -23399,19 +23405,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -23425,10 +23435,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -33482,19 +33494,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -33508,10 +33524,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -37092,19 +37110,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -37118,10 +37140,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -44205,6 +44229,7 @@
             ]
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "effects": [
@@ -44215,6 +44240,7 @@
             ]
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites",
@@ -44226,6 +44252,7 @@
             ]
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "effects": [
@@ -44236,6 +44263,7 @@
             ]
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames",
@@ -44267,6 +44295,7 @@
             ]
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "effects": [
@@ -44277,6 +44306,7 @@
             ]
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies",
@@ -49293,6 +49323,7 @@
             ]
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "effects": [
@@ -49303,6 +49334,7 @@
             ]
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites",
@@ -49314,6 +49346,7 @@
             ]
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "effects": [
@@ -49324,6 +49357,7 @@
             ]
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames",
@@ -49355,6 +49389,7 @@
             ]
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "effects": [
@@ -49365,6 +49400,7 @@
             ]
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies",
@@ -68777,19 +68813,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -68803,10 +68843,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -72370,19 +72412,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -72396,10 +72442,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -77161,19 +77209,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -77187,10 +77239,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -84339,19 +84393,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -84365,10 +84423,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -89859,19 +89919,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -89885,10 +89949,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -99746,19 +99812,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -99772,10 +99842,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -105629,19 +105701,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -105655,10 +105731,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"
@@ -108815,19 +108893,23 @@
             "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string"
           },
           "-B": {
+            "parser": "diff-break-score",
             "key": "break-rewrites",
             "value": "optional-string",
             "emptyValueFlag": "--break-rewrites"
           },
           "--find-renames": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string"
           },
           "-M": {
+            "parser": "diff-rename-score",
             "key": "find-renames",
             "value": "optional-string",
             "emptyValueFlag": "--find-renames"
@@ -108841,10 +108923,12 @@
             "value": "flag"
           },
           "--find-copies": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string"
           },
           "-C": {
+            "parser": "diff-rename-score",
             "key": "find-copies",
             "value": "optional-string",
             "emptyValueFlag": "--find-copies"

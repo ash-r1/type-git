@@ -103,6 +103,16 @@
       "kind": "byte-character",
       "emptyIsNative": true,
       "source": "diff.c:diff_opt_char; nonempty argv accepts exactly one byte. Empty argv reads arg[1] beyond its terminator, so its native behavior remains delegated."
+    },
+    "diff-rename-score": {
+      "kind": "rename-score",
+      "parts": 1,
+      "source": "Git 2.25.1/2.55.0 diff.c:parse_rename_score and diff_opt_find_renames/diff_opt_find_copies; ASCII digits, optional single dot, optional terminal percent; empty/bare accepted. Only lexical acceptance, not the native stored score."
+    },
+    "diff-break-score": {
+      "kind": "rename-score",
+      "parts": 2,
+      "source": "Git 2.25.1/2.55.0 diff.c:diff_opt_break_rewrites; one or two rename-score fields separated by at most one slash; fields may be empty, bare accepted. Raw values stay unchanged."
     }
   }
 }

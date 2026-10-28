@@ -58,7 +58,7 @@ type DocumentationFlag = keyof DocumentationOptions;
 type DocumentationArgument =
   | {
       [K in DocumentationFlag]: DocumentationOptions[K] extends OptionSpec
-        ? Token<K, DocumentationOptions[K], false>
+        ? Token<K, DocumentationOptions[K]['value'], Value<DocumentationOptions[K], false>>
         : never;
     }[DocumentationFlag]
   | { readonly operand: string }
@@ -81,17 +81,22 @@ type Value<S extends OptionSpec, MayBeIgnored extends boolean> = S extends {
         ? string | Exclude<A[number], string>
         : A[number]
       : PrimitiveValue<S>;
-type Token<K, S extends OptionSpec, MayBeIgnored extends boolean> = S['value'] extends 'flag'
+/** Share argument tuples by their public shape rather than complete option metadata. */
+type Token<K, Kind extends OptionSpec['value'], V> = [Kind] extends ['flag']
   ? readonly [flag: K]
-  : S['value'] extends 'boolean' | 'optional-string' | 'optional-integer'
-    ? readonly [flag: K, value?: Value<S, MayBeIgnored>]
-    : readonly [flag: K, value: Value<S, MayBeIgnored>];
+  : [Kind] extends ['boolean' | 'optional-string' | 'optional-integer']
+    ? readonly [flag: K, value?: V]
+    : readonly [flag: K, value: V];
 /** Tuples identify options; objects identify positional operands. Their order is preserved. */
 type LocalCommandArgumentsByName = {
   [C in GitCommandName]:
     | {
         [K in keyof Options<C>]: Options<C>[K] extends OptionSpec
-          ? Token<K, Options<C>[K], Spec<C> extends { parserExit: unknown } ? true : false>
+          ? Token<
+              K,
+              Options<C>[K]['value'],
+              Value<Options<C>[K], Spec<C> extends { parserExit: unknown } ? true : false>
+            >
           : never;
       }[keyof Options<C>]
     | { readonly operand: string }
@@ -116,7 +121,7 @@ type IgnoredAllowedArguments<C extends GitCommandName> = C extends GitCommandNam
     ? never
     : {
         [K in keyof Options<C>]: Options<C>[K] extends OptionSpec & { allowed: readonly unknown[] }
-          ? Token<K, Options<C>[K], true>
+          ? Token<K, Options<C>[K]['value'], Value<Options<C>[K], true>>
           : never;
       }[keyof Options<C>]
   : never;
@@ -169,9 +174,13 @@ type DeclaredStateKeys<C extends GitCommandName> =
   | EffectKeys<Options<C>[keyof Options<C>]>
   | OptionKeys<NumericOption<C>>
   | EffectKeys<NumericOption<C>>;
+/** Cache only the distributive rule-key projection; option tables keep their union semantics. */
+type RuleReadKeysByName = {
+  [C in GitCommandName]: ReferencedStateKeys<Spec<C>['rules']>;
+};
 /** Include both parser passes when deciding whether an unset or temporary key can be read. */
 type ReadStateKeys<C extends GitCommandName> =
-  | ReferencedStateKeys<Spec<C>['rules']>
+  | RuleReadKeysByName[C]
   | OptionReadKeys<
       | Options<C>[keyof Options<C>]
       | NumericOption<C>

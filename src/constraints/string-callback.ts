@@ -1,6 +1,7 @@
 import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 
 export type StringCallbackProfile = { source: string } & (
+  | { kind: 'rename-score'; parts: 1 | 2 }
   | { kind: 'byte-character'; emptyIsNative: true }
   | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[] }
   | {
@@ -27,10 +28,37 @@ export function parseStringCallback(
   parser: StringCallbackParser,
   value: unknown,
 ): { valid: boolean; value?: unknown } {
+  const profile: StringCallbackProfile = STRING_CALLBACKS[parser];
+  if (value === true && profile.kind === 'rename-score') {
+    return { valid: true, value };
+  }
   if (typeof value !== 'string') {
     return { valid: false };
   }
-  const profile: StringCallbackProfile = STRING_CALLBACKS[parser];
+  if (profile.kind === 'rename-score') {
+    const parts = value.split('/');
+    const valid =
+      parts.length <= profile.parts &&
+      parts.every((part) => {
+        let dot = false;
+        for (let index = 0; index < part.length; index++) {
+          const character = part[index];
+          if (character !== undefined && character >= '0' && character <= '9') {
+            continue;
+          }
+          if (character === '.' && !dot) {
+            dot = true;
+            continue;
+          }
+          if (character === '%' && index === part.length - 1) {
+            return true;
+          }
+          return false;
+        }
+        return true;
+      });
+    return { valid, value };
+  }
   if (profile.kind === 'byte-character') {
     return { valid: value === '' || (value.length === 1 && value.charCodeAt(0) < 128), value };
   }
