@@ -736,7 +736,7 @@ type CheckedTokenState<
     ? CheckedCallbackState<S, D, T, Remaining>
     : D extends { parserErrorKey: infer K extends string }
       ? Put<S, K, true>
-      : never;
+      : InvalidPass;
 type ParsingEnded<C extends GitCommandName, S> = S extends
   | { ended: true }
   | { literalOperands: true }
@@ -2729,12 +2729,15 @@ export type CheckedCommandArguments<
 export type UsageCommand = {
   [C in GitCommandName]: Spec<C> extends { usageExit: { flags: readonly string[] } } ? C : never;
 }[GitCommandName];
-type UsageExitToken<C extends UsageCommand> =
-  Spec<C> extends {
-    usageExit: { flags: readonly (infer F extends string)[] };
-  }
-    ? readonly [F]
-    : never;
+type UsageExitToken<C extends UsageCommand, First extends boolean> = Spec<C> extends {
+  usageExit: { flags: readonly (infer F extends string)[] };
+}
+  ? First extends true
+    ? Spec<C> extends { usageExit: { exceptFirst: readonly (infer Excluded)[] } }
+      ? readonly [Exclude<F, Excluded>]
+      : readonly [F]
+    : readonly [F]
+  : never;
 type IgnoredUsageTokenFits<C extends UsageCommand, T> = T extends readonly [
   infer F extends string,
   ...unknown[],
@@ -2792,7 +2795,7 @@ type UsageArgumentsFit<
 > = A extends readonly [infer H, ...infer R]
   ? [H] extends [readonly ['--']]
     ? false
-    : [H] extends [UsageExitToken<C>]
+    : [H] extends [UsageExitToken<C, Prefix extends readonly [] ? true : false>]
       ? UsagePrefixFits<C, readonly [...Prefix, H]> extends true
         ? UsageTailFits<C, R>
         : false

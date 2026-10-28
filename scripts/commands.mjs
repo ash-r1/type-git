@@ -91,6 +91,8 @@ try {
     }
     for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
     if (entry.usageExit && (entry.parserExit || entry.optionParsing)) throw new Error(`${name}: usage exits require an interleaved single parser`);
+    for (const flag of entry.usageExit?.exceptFirst ?? []) if (!entry.usageExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first usage token must be an exit flag`);
+    if (entry.usageExit && !entry.usageExit.flags.some(flag => !entry.usageExit.exceptFirst?.includes(flag))) throw new Error(`${name}: usage exits require an internal help spelling`);
     for (const flag of [...(entry.parserExit?.flags ?? []), ...(entry.usageExit?.flags ?? [])]) {
       const option = entry.options[flag];
       if (!option || option.key !== 'help' || option.value !== 'flag' || option.before !== undefined || option.parser || option.rejectedWhenReached || option.checks?.length || option.effects?.length || option.modeGroup) throw new Error(`${name} ${flag}: parser exit must be a plain help flag`);

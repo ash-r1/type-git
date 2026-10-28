@@ -136,7 +136,7 @@ export type CommandSpec = {
   /** After the empty first parser, repository state selects a child command or success. */
   conditionalCommand?: ConditionalCommand;
   /** A usage exit with an explicitly checked prefix and uninterpreted following words. */
-  usageExit?: Evidence & { flags: readonly string[] };
+  usageExit?: Evidence & { flags: readonly string[]; exceptFirst?: readonly string[] };
   /** Audited parser exits; ignored words are serialized but not interpreted. */
   parserExit?: Evidence & {
     flags: readonly string[];

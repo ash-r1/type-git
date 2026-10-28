@@ -834,7 +834,11 @@ function buildArguments(
       argv.splice(position, 0, ...emitted);
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
-    if (!ended && spec.usageExit?.flags.includes(flag)) {
+    if (
+      !ended &&
+      spec.usageExit?.flags.includes(flag) &&
+      !(index === 0 && spec.usageExit.exceptFirst?.includes(flag))
+    ) {
       usageExited = true;
       parserExited = true;
       continue;
