@@ -151,15 +151,12 @@ type ReferencedStateKeys<T> = T extends readonly unknown[]
       | (T extends { key: infer K extends string } ? K : never)
       | (T extends { valueKey: infer K extends string } ? K : never)
       | (T extends { keys: readonly (infer K extends string)[] } ? K : never)
-      | {
-          [K in Extract<
+      | ReferencedStateKeys<
+          T[Extract<
             keyof T,
             'guard' | 'when' | 'required' | 'choices' | 'others' | 'groups' | 'all'
-          >]: ReferencedStateKeys<T[K]>;
-        }[Extract<
-          keyof T,
-          'guard' | 'when' | 'required' | 'choices' | 'others' | 'groups' | 'all'
-        >];
+          >]
+        >;
 type OptionReadKeys<D> = D extends unknown
   ?
       | (D extends { effects: infer E } ? ReferencedStateKeys<E> : never)
