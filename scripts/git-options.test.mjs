@@ -47,3 +47,19 @@ describe('retained argument partition state namespace', () => {
     expect(() => gitOptions(upstream, changed, rules, groups, numeric)).toThrow('invalid or colliding retained-word partition');
   });
 });
+
+describe('diff score callback identity', () => {
+  it('binds source callbacks and keeps blame frontend shadowing', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    for (const flag of ['-B', '--break-rewrites']) expect(result.diff.options[flag].parser).toBe('diff-break-score');
+    for (const flag of ['-M', '-C', '--find-renames', '--find-copies']) expect(result.diff.options[flag].parser).toBe('diff-rename-score');
+    expect(result.log.parserExit.remainingOptions['--find-copies'].parser).toBe('diff-rename-score');
+    expect(result.difftool.parserExit.remainingOptions['-B'].parser).toBe('diff-break-score');
+    for (const command of ['blame', 'annotate', 'pickaxe']) {
+      expect(result[command].options['-M'].key).toBe('M');
+      expect(result[command].options['-M'].parser).toBeUndefined();
+      expect(result[command].options['-C'].key).toBe('C');
+      expect(result[command].options['-C'].parser).toBeUndefined();
+    }
+  });
+});

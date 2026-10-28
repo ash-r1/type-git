@@ -8,6 +8,8 @@ for (const [name, profile] of Object.entries(registry.profiles)) {
   if (!profile.source) throw new Error(`${name}: missing upstream evidence`);
   if (profile.kind === 'byte-character') {
     if (profile.emptyIsNative !== true) throw new Error(`${name}: empty byte-character must remain native-owned`);
+  } else if (profile.kind === 'rename-score') {
+    if (![1, 2].includes(profile.parts)) throw new Error(`${name}: invalid score field count`);
   } else if (profile.kind === 'first-separator') {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || typeof profile.allowUnseparated !== 'boolean') throw new Error(`${name}: invalid first-separator grammar`);
   } else if (profile.kind === 'choice') {

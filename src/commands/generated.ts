@@ -417,19 +417,23 @@ const remainingOptions1 = {
     parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
   },
   '-B': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
     emptyValueFlag: '--break-rewrites',
   },
   '--find-renames': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
   },
   '-M': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
     emptyValueFlag: '--find-renames',
@@ -443,10 +447,12 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '--find-copies': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
   },
   '-C': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
     emptyValueFlag: '--find-copies',
@@ -2369,6 +2375,7 @@ const remainingOptions2 = {
     ],
   },
   '--break-rewrites': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
     effects: [
@@ -2379,6 +2386,7 @@ const remainingOptions2 = {
     ],
   },
   '-B': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
     emptyValueFlag: '--break-rewrites',
@@ -2390,6 +2398,7 @@ const remainingOptions2 = {
     ],
   },
   '--find-renames': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
     effects: [
@@ -2400,6 +2409,7 @@ const remainingOptions2 = {
     ],
   },
   '-M': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
     emptyValueFlag: '--find-renames',
@@ -2431,6 +2441,7 @@ const remainingOptions2 = {
     ],
   },
   '--find-copies': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
     effects: [
@@ -2441,6 +2452,7 @@ const remainingOptions2 = {
     ],
   },
   '-C': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
     emptyValueFlag: '--find-copies',
@@ -5281,19 +5293,23 @@ const remainingOptions3 = {
     parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
   },
   '-B': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
     emptyValueFlag: '--break-rewrites',
   },
   '--find-renames': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
   },
   '-M': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
     emptyValueFlag: '--find-renames',
@@ -5307,10 +5323,12 @@ const remainingOptions3 = {
     value: 'flag',
   },
   '--find-copies': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
   },
   '-C': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
     emptyValueFlag: '--find-copies',
@@ -7066,19 +7084,23 @@ const remainingOptions4 = {
     parser: 'diff-output-indicator',
   },
   '--break-rewrites': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
   },
   '-B': {
+    parser: 'diff-break-score',
     key: 'break-rewrites',
     value: 'optional-string',
     emptyValueFlag: '--break-rewrites',
   },
   '--find-renames': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
   },
   '-M': {
+    parser: 'diff-rename-score',
     key: 'find-renames',
     value: 'optional-string',
     emptyValueFlag: '--find-renames',
@@ -7092,10 +7114,12 @@ const remainingOptions4 = {
     value: 'flag',
   },
   '--find-copies': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
   },
   '-C': {
+    parser: 'diff-rename-score',
     key: 'find-copies',
     value: 'optional-string',
     emptyValueFlag: '--find-copies',
@@ -35642,19 +35666,23 @@ const commandSpec68 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -35668,10 +35696,12 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -38164,19 +38194,23 @@ const commandSpec69 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -38190,10 +38224,12 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -40640,19 +40676,23 @@ const commandSpec70 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -40666,10 +40706,12 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -42667,19 +42709,23 @@ const commandSpec71 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -42693,10 +42739,12 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -44761,19 +44809,23 @@ const commandSpec72 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -44787,10 +44839,12 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -46797,19 +46851,23 @@ const commandSpec73 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -46823,10 +46881,12 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -48821,19 +48881,23 @@ const commandSpec74 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -48847,10 +48911,12 @@ const commandSpec74 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -50046,19 +50112,23 @@ const commandSpec81 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -50072,10 +50142,12 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -52544,6 +52616,7 @@ const commandSpec82 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
@@ -52553,6 +52626,7 @@ const commandSpec82 = {
       attachedValue: true,
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
@@ -52570,6 +52644,7 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
@@ -59077,6 +59152,7 @@ const commandSpec85 = {
       ],
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       effects: [
@@ -59087,6 +59163,7 @@ const commandSpec85 = {
       ],
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
@@ -59098,6 +59175,7 @@ const commandSpec85 = {
       ],
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       effects: [
@@ -59108,6 +59186,7 @@ const commandSpec85 = {
       ],
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -59139,6 +59218,7 @@ const commandSpec85 = {
       ],
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       effects: [
@@ -59149,6 +59229,7 @@ const commandSpec85 = {
       ],
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -63309,6 +63390,7 @@ const commandSpec86 = {
       ],
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       effects: [
@@ -63319,6 +63401,7 @@ const commandSpec86 = {
       ],
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
@@ -63330,6 +63413,7 @@ const commandSpec86 = {
       ],
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       effects: [
@@ -63340,6 +63424,7 @@ const commandSpec86 = {
       ],
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -63371,6 +63456,7 @@ const commandSpec86 = {
       ],
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       effects: [
@@ -63381,6 +63467,7 @@ const commandSpec86 = {
       ],
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -82638,19 +82725,23 @@ const commandSpec184 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -82664,10 +82755,12 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -86180,19 +86273,23 @@ const commandSpec194 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -86206,10 +86303,12 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -88694,19 +88793,23 @@ const commandSpec195 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -88720,10 +88823,12 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -91110,19 +91215,23 @@ const commandSpec196 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -91136,10 +91245,12 @@ const commandSpec196 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -92023,19 +92134,23 @@ const commandSpec197 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -92049,10 +92164,12 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -93022,19 +93139,23 @@ const commandSpec198 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -93048,10 +93169,12 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -95578,15 +95701,18 @@ const commandSpec199 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
@@ -95603,6 +95729,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
@@ -97819,15 +97946,18 @@ const commandSpec200 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
@@ -97844,6 +97974,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
@@ -100810,19 +100941,23 @@ const commandSpec202 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -100836,10 +100971,12 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -104008,15 +104145,18 @@ const commandSpec204 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
@@ -104033,6 +104173,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
@@ -106299,19 +106440,23 @@ const commandSpec205 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -106325,10 +106470,12 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -108769,19 +108916,23 @@ const commandSpec206 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -108795,10 +108946,12 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -116606,19 +116759,23 @@ const commandSpec275 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -116632,10 +116789,12 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -122023,19 +122182,23 @@ const commandSpec291 = {
       value: 'string',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -122049,10 +122212,12 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -125245,19 +125410,23 @@ const commandSpec306 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -125271,10 +125440,12 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
@@ -131159,19 +131330,23 @@ const commandSpec309 = {
       parser: 'diff-output-indicator',
     },
     '--break-rewrites': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
     },
     '-B': {
+      parser: 'diff-break-score',
       key: 'break-rewrites',
       value: 'optional-string',
       emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
     },
     '-M': {
+      parser: 'diff-rename-score',
       key: 'find-renames',
       value: 'optional-string',
       emptyValueFlag: '--find-renames',
@@ -131185,10 +131360,12 @@ const commandSpec309 = {
       value: 'flag',
     },
     '--find-copies': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
     },
     '-C': {
+      parser: 'diff-rename-score',
       key: 'find-copies',
       value: 'optional-string',
       emptyValueFlag: '--find-copies',
