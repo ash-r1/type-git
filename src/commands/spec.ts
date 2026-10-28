@@ -77,6 +77,8 @@ export type OptionSpec = {
   nativeLsTreeModern?: boolean;
   /** A source-audited helper alias whose availability is observed on the selected executable. */
   nativeCapability?: 'submodule-init-alias';
+  /** A native parser rejects this spelling if reached, while help may ignore it. */
+  rejectedWhenReached?: Evidence;
   /** Finite supplied values accepted by both literal types and runtime validation. */
   allowed?: readonly (string | number | boolean)[];
   /** Git callbacks using ASCII case-insensitive enum matching. */

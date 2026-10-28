@@ -21,7 +21,7 @@ import type {
 } from '../constraints/git-numeric-types.js';
 import type { GitTimestampParser } from '../constraints/git-timestamp.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
-import type { Constraint, Predicate } from '../constraints/model.js';
+import type { Constraint, Evidence, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { StringCallbackParser } from '../constraints/string-callback.js';
@@ -730,11 +730,13 @@ type CheckedTokenState<
   D extends OptionSpec,
   T extends readonly unknown[],
   Remaining extends readonly unknown[],
-> = AllowedLiteral<D, T> extends true
-  ? CheckedCallbackState<S, D, T, Remaining>
-  : D extends { parserErrorKey: infer K extends string }
-    ? Put<S, K, true>
-    : never;
+> = D extends { rejectedWhenReached: Evidence }
+  ? InvalidPass
+  : AllowedLiteral<D, T> extends true
+    ? CheckedCallbackState<S, D, T, Remaining>
+    : D extends { parserErrorKey: infer K extends string }
+      ? Put<S, K, true>
+      : never;
 type ParsingEnded<C extends GitCommandName, S> = S extends
   | { ended: true }
   | { literalOperands: true }

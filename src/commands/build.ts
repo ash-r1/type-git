@@ -842,6 +842,9 @@ function buildArguments(
     if (parserExited) {
       continue;
     }
+    if (option.rejectedWhenReached) {
+      throw new GitArgumentError(`${flag}: ${option.rejectedWhenReached.reason}`);
+    }
     if (
       evaluationMode !== 'pipeline' &&
       spec.parserExit?.flags.includes(flag) &&

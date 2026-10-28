@@ -66,6 +66,10 @@ try {
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   for (const [name, entry] of Object.entries(catalog)) {
+    for (const [flag, option] of Object.entries(entry.options)) if (option.rejectedWhenReached) {
+      const evidence = option.rejectedWhenReached;
+      if (evidence.origin !== 'git' || typeof evidence.reason !== 'string' || !evidence.reason || typeof evidence.source !== 'string' || !evidence.source || option.before !== undefined) throw new Error(`${name} ${flag}: invalid reached-option rejection evidence`);
+    }
     if (entry.conditionalCommand) {
       const branch = entry.conditionalCommand;
       if (!entry.parserExit?.firstPassOptions || entry.rules.length || entry.parserExit.firstPassOptions.some(flag => !entry.parserExit.flags.includes(flag))) throw new Error(`${name}: conditional invocation requires an empty first parser and no unconditional child rules`);
@@ -89,7 +93,7 @@ try {
     if (entry.usageExit && (entry.parserExit || entry.optionParsing)) throw new Error(`${name}: usage exits require an interleaved single parser`);
     for (const flag of [...(entry.parserExit?.flags ?? []), ...(entry.usageExit?.flags ?? [])]) {
       const option = entry.options[flag];
-      if (!option || option.key !== 'help' || option.value !== 'flag' || option.before !== undefined || option.parser || option.checks?.length || option.effects?.length || option.modeGroup) throw new Error(`${name} ${flag}: parser exit must be a plain help flag`);
+      if (!option || option.key !== 'help' || option.value !== 'flag' || option.before !== undefined || option.parser || option.rejectedWhenReached || option.checks?.length || option.effects?.length || option.modeGroup) throw new Error(`${name} ${flag}: parser exit must be a plain help flag`);
     }
     for (const [flag, option] of Object.entries(entry.options)) if (option.emptyValueFlag) {
       const target = entry.options[option.emptyValueFlag];
@@ -176,8 +180,9 @@ try {
       const result = solve(option.checks, domains);
       return { flag, rules: option.checks.map(rule => rule.id), domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
     });
+    const rejectedOptions = Object.fromEntries(Object.entries(spec.options).filter(([, option]) => option.rejectedWhenReached).map(([flag, option]) => [flag, option.rejectedWhenReached]));
     const modes = commandModes(spec);
-    return { command, ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}), ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.usageExit ? { usageExit: spec.usageExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(spec.dispatchOptions ? { dispatchOptions: spec.dispatchOptions } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
+    return { command, ...(Object.keys(rejectedOptions).length ? { rejectedOptions } : {}), ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}), ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.usageExit ? { usageExit: spec.usageExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(spec.dispatchOptions ? { dispatchOptions: spec.dispatchOptions } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
   });
   const report = JSON.stringify({ scope: 'Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.', commands: exploration }, null, 2) + '\n';
   const reportPath = new URL('docs/design/command-exploration.json', root);
