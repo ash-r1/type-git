@@ -22,3 +22,13 @@ noIndexUnionGit.command('diff --no-index', [
 noIndexUnionGit.command('diff --no-index', [
   ['--diff-algorithm', 'invalid'], ['--help-all'], ['--unknown-tail'],
 ]);
+
+declare const noIndexIgnoredUnionFlag: '--word-diff' | '--unknown-tail';
+noIndexUnionGit.command('diff --no-index', [
+  ['--help-all'], [noIndexIgnoredUnionFlag, 'invalid'],
+]);
+declare const noIndexMalformedUnionFlag: '--quiet' | '--unknown-tail';
+// @ts-expect-error A known flag still cannot carry a value in an ignored tail.
+noIndexUnionGit.command('diff --no-index', [
+  ['--help-all'], [noIndexMalformedUnionFlag, 'invalid'],
+]);
