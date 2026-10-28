@@ -23,6 +23,19 @@ if (builtinList.error || builtinList.status !== 0) {
   throw builtinList.error ?? new Error(`Cannot enumerate native builtins: ${builtinList.stderr}`);
 }
 const builtins = new Set(builtinList.stdout.split(/\s+/));
+const versionResult = spawnSync('git', ['--version'], {
+  env: cleanEnvironment,
+  encoding: 'utf8',
+  input: '',
+  timeout: 30_000,
+});
+if (versionResult.error || versionResult.status !== 0) {
+  throw versionResult.error ?? new Error(`Cannot identify selected Git: ${versionResult.stderr}`);
+}
+// Measured Git 2.25.1 returns 255 for valid color + multiword diff full help;
+// Git 2.47.3, 2.55.0 and 2.56.0 return 129. Bad color returns 129 on all four.
+const diffFullHelpExitCode = /^git version 2\.25\./.test(versionResult.stdout) ? 255 : 129;
+
 const continuing = ['diff', 'diff-files', 'diff-index', 'diff-tree', 'rev-list'] as const;
 const streaming = ['diff --no-index', 'range-diff', 'diff-pairs'] as const;
 const deferred = ['backfill', 'last-modified', 'replay'] as const;
@@ -95,11 +108,19 @@ describe('native diff color callback order', () => {
                   ((continuing as readonly string[]).includes(command) ||
                     ((streaming as readonly string[]).includes(command) && colorFirst)));
               if (rejects) {
-                expect(expected.status).not.toBe(0);
-                if (help === '-h') {
-                  expect(expected.stderr).toMatch(/color/i);
+                if (value === 'invalid') {
+                  expect(expected.status).toBe(129);
+                  expect(expected.stderr).toContain(
+                    'option `color\' expects "always", "auto", or "never"',
+                  );
                 } else {
-                  expect(expected.stderr.length).toBeGreaterThan(0);
+                  expect(help).toBe('--help-all');
+                  expect(expected.status).toBe(command === 'diff' ? diffFullHelpExitCode : 129);
+                  if (command === 'diff') {
+                    expect(expected.stderr).toContain('error: invalid option: --help-all');
+                  } else {
+                    expect(expected.stderr).toContain(`usage: git ${command} `);
+                  }
                 }
                 expect(() => commandArguments(command, args)).toThrow();
               } else {
