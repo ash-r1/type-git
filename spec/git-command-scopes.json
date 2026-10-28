@@ -2368,7 +2368,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--merge-base": {
@@ -2428,7 +2429,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--base": {
@@ -2510,7 +2512,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--merge-base": {
@@ -2550,7 +2553,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--merge-base": {
@@ -2603,7 +2607,8 @@
       "diff.c:add_diff_options:parseopts"
     ],
     "optionGroups": [
-      "diff"
+      "diff",
+      "color-flag"
     ],
     "options": {
       "--help-all": {
@@ -7510,7 +7515,8 @@
     "source": "builtin/rev-list.c",
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "initial": {
       "missing": "error"
@@ -7868,7 +7874,8 @@
     "optionGroups": [
       "diff",
       "revision",
-      "backfill-revision"
+      "backfill-revision",
+      "color-flag"
     ],
     "options": {
       "--min-batch-size": {
@@ -7881,6 +7888,10 @@
           "nativeWidth": "size_t",
           "negativeMagnitudes": false
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -7903,7 +7914,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -7913,14 +7925,15 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
       "remainingTables": [
         "diff.c:add_diff_options:parseopts"
       ],
       "remainingGroups": [
         "diff",
         "revision",
-        "backfill-revision"
+        "backfill-revision",
+        "color-flag"
       ],
       "splitRemainingPaths": true,
       "singleWordExits": [
@@ -7944,7 +7957,8 @@
     "source": "builtin/last-modified.c",
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "initial": {
       "boundary": true,
@@ -7965,6 +7979,10 @@
         "key": "max-depth",
         "value": "flag",
         "set": 0
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -7987,7 +8005,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -7997,13 +8016,14 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/last-modified.c",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/last-modified.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
       "remainingTables": [
         "diff.c:add_diff_options:parseopts"
       ],
       "remainingGroups": [
         "diff",
-        "revision"
+        "revision",
+        "color-flag"
       ],
       "splitRemainingPaths": true,
       "singleWordExits": [
@@ -8026,8 +8046,32 @@
     ],
     "source": "builtin/diff-pairs.c",
     "optionGroups": [
-      "diff"
-    ]
+      "diff",
+      "color-flag"
+    ],
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
+    "usageExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.",
+      "source": "Git 2.55.0 builtin/diff-pairs.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite"
+    }
   },
   "range-diff": {
     "tables": [
@@ -8038,14 +8082,36 @@
     ],
     "source": "builtin/range-diff.c",
     "optionGroups": [
-      "diff"
+      "diff",
+      "color-flag"
     ],
     "options": {
       "--no-max-memory": {
         "key": "max-memory",
         "value": "flag",
         "ignore": true
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
       }
+    },
+    "usageExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.",
+      "source": "Git 2.55.0 builtin/range-diff.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite"
     }
   },
   "replay": {
@@ -8058,7 +8124,8 @@
     "source": "builtin/replay.c",
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "numericOption": {
       "key": "max-count",
@@ -8077,11 +8144,17 @@
         }
       ]
     },
-    "options": {},
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8091,13 +8164,14 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
       "remainingTables": [
         "diff.c:add_diff_options:parseopts"
       ],
       "remainingGroups": [
         "diff",
-        "revision"
+        "revision",
+        "color-flag"
       ],
       "splitRemainingPaths": true,
       "singleWordExits": [

@@ -26832,11 +26832,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -27816,8 +27814,8 @@
           "true"
         ]
       },
-      "total": "1659245917359907584437364479938029038848272717594322639257600000000000000000000000000000000000000000",
-      "accepted": "3705239525087161529296672680631983858603402088376062703566848000000000000000000000000000000000000",
+      "total": "1106163944906605056291576319958686025898848478396215092838400000000000000000000000000000000000000000",
+      "accepted": "2470159683391441019531115120421322572402268058917375135711232000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -28235,11 +28233,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -29223,8 +29219,8 @@
           "true"
         ]
       },
-      "total": "2607386441565569061258715611331188489618714270505364147404800000000000000000000000000000000000000000",
-      "accepted": "1323299830388271974748811671654279949501215031562879536988160000000000000000000000000000000000000",
+      "total": "1738257627710379374172477074220792326412476180336909431603200000000000000000000000000000000000000000",
+      "accepted": "882199886925514649832541114436186633000810021041919691325440000000000000000000000000000000000000",
       "nodes": 23947,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -29644,11 +29640,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -30631,8 +30625,8 @@
           "true"
         ]
       },
-      "total": "2844421572616984430464053394179478352311324658733124524441600000000000000000000000000000000000000000",
-      "accepted": "529319932155308789899524668661711979800486012625151814795264000000000000000000000000000000000000",
+      "total": "1896281048411322953642702262786318901540883105822083016294400000000000000000000000000000000000000000",
+      "accepted": "352879954770205859933016445774474653200324008416767876530176000000000000000000000000000000000000",
       "nodes": 15943,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -31035,11 +31029,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -32014,8 +32006,8 @@
           "true"
         ]
       },
-      "total": "711105393154246107616013348544869588077831164683281131110400000000000000000000000000000000000000000",
-      "accepted": "1190969847349444777273930504488851954551093528406591583289344000000000000000000000000000000000000",
+      "total": "474070262102830738410675565696579725385220776455520754073600000000000000000000000000000000000000000",
+      "accepted": "793979898232963184849287002992567969700729018937727722192896000000000000000000000000000000000000",
       "nodes": 11842,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -32232,11 +32224,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -32621,8 +32611,8 @@
           "true"
         ]
       },
-      "total": "11425031085567587207086080000000000000000000000000",
-      "accepted": "292480795790530232501403648000000000000000000000",
+      "total": "7616687390378391471390720000000000000000000000000",
+      "accepted": "194987197193686821667602432000000000000000000000",
       "nodes": 231,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
@@ -66538,11 +66528,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -67586,8 +67574,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "5529555537167417732822119798284905916893215136577194075514470400000000000000000000000000000000000000000000",
-      "accepted": "3611998314108471202229534035317326312016511447824177467005132011995136000000000000000000000000000000000",
+      "total": "3686370358111611821881413198856603944595476757718129383676313600000000000000000000000000000000000000000000",
+      "accepted": "2407998876072314134819689356878217541344340965216118311336754674663424000000000000000000000000000000000",
       "nodes": 598191,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
@@ -68044,14 +68032,15 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
         ],
         "origin": "git",
         "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-        "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
         "splitRemainingPaths": true,
         "singleWordExits": [
           "--git-completion-helper",
@@ -68064,6 +68053,7 @@
         "keepDashDash": true,
         "firstPassOptions": [
           "--help",
+          "--help-all",
           "--include-edges",
           "--min-batch-size",
           "--no-include-edges",
@@ -68385,7 +68375,13 @@
           "--color": {
             "key": "color",
             "value": "optional-string",
-            "set": "always"
+            "set": "always",
+            "allowed": [
+              "always",
+              "auto",
+              "never"
+            ],
+            "caseInsensitive": true
           },
           "--ws-error-highlight": {
             "key": "ws-error-highlight",
@@ -68776,8 +68772,7 @@
           "--no-color": {
             "key": "color",
             "value": "flag",
-            "set": "always",
-            "clear": true
+            "set": "never"
           },
           "--no-abbrev": {
             "key": "no-abbrev",
@@ -70564,11 +70559,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -71556,8 +71549,8 @@
           "true"
         ]
       },
-      "total": "15359876492131715924505888328569183102481153157158872431984640000000000000000000000000000000000000000",
-      "accepted": "952775877879555821819144403591081563640874822725273266631475200000000000000000000000000000000000",
+      "total": "10239917661421143949670592219046122068320768771439248287989760000000000000000000000000000000000000000",
+      "accepted": "635183918586370547879429602394054375760583215150182177754316800000000000000000000000000000000000",
       "nodes": 6289,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -71585,14 +71578,15 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
         ],
         "origin": "git",
         "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-        "source": "https://github.com/git/git/blob/v2.55.0/builtin/last-modified.c",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/last-modified.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
         "splitRemainingPaths": true,
         "singleWordExits": [
           "--git-completion-helper",
@@ -71605,6 +71599,7 @@
         "keepDashDash": true,
         "firstPassOptions": [
           "--help",
+          "--help-all",
           "--max-depth",
           "--no-recursive",
           "--no-show-trees",
@@ -71929,7 +71924,13 @@
           "--color": {
             "key": "color",
             "value": "optional-string",
-            "set": "always"
+            "set": "always",
+            "allowed": [
+              "always",
+              "auto",
+              "never"
+            ],
+            "caseInsensitive": true
           },
           "--ws-error-highlight": {
             "key": "ws-error-highlight",
@@ -72318,8 +72319,7 @@
           "--no-color": {
             "key": "color",
             "value": "flag",
-            "set": "always",
-            "clear": true
+            "set": "never"
           },
           "--no-abbrev": {
             "key": "no-abbrev",
@@ -74092,11 +74092,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -75040,8 +75038,8 @@
           "true"
         ]
       },
-      "total": "133332261216421145178002502852163047764593343378115212083200000000000000000000000000000000000000000",
-      "accepted": "297742461837361194318482626122212988637773382101647895822336000000000000000000000000000000000000",
+      "total": "88888174144280763452001668568108698509728895585410141388800000000000000000000000000000000000000000",
+      "accepted": "198494974558240796212321750748141992425182254734431930548224000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -75061,6 +75059,19 @@
     },
     {
       "command": "diff-pairs",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.",
+        "source": "Git 2.55.0 builtin/diff-pairs.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite"
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -75243,11 +75254,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -75632,8 +75641,8 @@
           "true"
         ]
       },
-      "total": "5712515542783793603543040000000000000000000000000",
-      "accepted": "24373399649210852708450304000000000000000000000",
+      "total": "3808343695189195735695360000000000000000000000000",
+      "accepted": "16248933099473901805633536000000000000000000000",
       "nodes": 327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"z\":true}",
@@ -75646,6 +75655,19 @@
     },
     {
       "command": "range-diff",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.",
+        "source": "Git 2.55.0 builtin/range-diff.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite"
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -75828,11 +75850,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -76278,8 +76298,8 @@
           "true"
         ]
       },
-      "total": "4164423830689385536982876160000000000000000000000000000",
-      "accepted": "78969814863443162775378984960000000000000000000000000",
+      "total": "2776282553792923691321917440000000000000000000000000000",
+      "accepted": "52646543242295441850252656640000000000000000000000000",
       "nodes": 707,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",
@@ -76296,14 +76316,15 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
         ],
         "origin": "git",
         "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
-        "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c; Git2.25.1/2.55.0 parse-options.c parse_options_step internal help-all USAGE_FULL before retained revision callbacks",
         "splitRemainingPaths": true,
         "singleWordExits": [
           "--git-completion-helper",
@@ -76317,6 +76338,7 @@
           "--advance",
           "--contained",
           "--help",
+          "--help-all",
           "--no-contained",
           "--onto",
           "--ref",
@@ -76641,7 +76663,13 @@
           "--color": {
             "key": "color",
             "value": "optional-string",
-            "set": "always"
+            "set": "always",
+            "allowed": [
+              "always",
+              "auto",
+              "never"
+            ],
+            "caseInsensitive": true
           },
           "--ws-error-highlight": {
             "key": "ws-error-highlight",
@@ -77030,8 +77058,7 @@
           "--no-color": {
             "key": "color",
             "value": "flag",
-            "set": "always",
-            "clear": true
+            "set": "never"
           },
           "--no-abbrev": {
             "key": "no-abbrev",
@@ -78784,11 +78811,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -79811,8 +79836,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "58332864282184251015376094997821333397009587727925405286400000000000000000000000000000000000000000000000",
-      "accepted": "3691963795226255854933333300205210556318353961325039690211917824000000000000000000000000000000000000",
+      "total": "38888576188122834010250729998547555598006391818616936857600000000000000000000000000000000000000000000000",
+      "accepted": "2461309196817503903288888866803473704212235974216693126807945216000000000000000000000000000000000000",
       "nodes": 87176,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
