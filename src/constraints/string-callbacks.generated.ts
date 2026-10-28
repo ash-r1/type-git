@@ -106,6 +106,6 @@ export const STRING_CALLBACKS = {
     ordinary: ['ignore-space-change', 'ignore-space-at-eol', 'ignore-all-space'],
     exclusive: ['allow-indentation-change'],
     source:
-      'Git 2.25.1/2.55.0 diff.c:parse_color_moved_ws/diff_opt_color_moved_ws; comma splitting with C whitespace trimming. no resets all bits including prior errors; indentation conflict checked after every token. Preserve raw argv/diagnostics; do not model rendered colors.',
+      'Git 2.25.1/2.55.0 diff.c:parse_color_moved_ws/diff_opt_color_moved_ws; comma splitting with C whitespace trimming. no resets all bits including prior errors; indentation conflict checked after the token loop. Preserve raw argv/diagnostics; do not model rendered colors.',
   },
 } as const satisfies Record<string, StringCallbackProfile>;
