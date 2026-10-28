@@ -95466,6 +95466,12 @@ const commandSpec199 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      rejectedWhenReached: {
+        origin: 'git',
+        reason: 'The option name is ambiguous between --color-lines and --color-by-age.',
+        source:
+          'Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt',
+      },
     },
     '--ws-error-highlight': {
       key: 'ws-error-highlight',
@@ -97657,6 +97663,12 @@ const commandSpec200 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      rejectedWhenReached: {
+        origin: 'git',
+        reason: 'The option name is ambiguous between --color-lines and --color-by-age.',
+        source:
+          'Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt',
+      },
     },
     '--ws-error-highlight': {
       key: 'ws-error-highlight',
@@ -103751,6 +103763,12 @@ const commandSpec204 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      rejectedWhenReached: {
+        origin: 'git',
+        reason: 'The option name is ambiguous between --color-lines and --color-by-age.',
+        source:
+          'Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt',
+      },
     },
     '--ws-error-highlight': {
       key: 'ws-error-highlight',

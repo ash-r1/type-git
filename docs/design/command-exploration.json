@@ -79838,6 +79838,13 @@
     },
     {
       "command": "blame",
+      "rejectedOptions": {
+        "--color": {
+          "origin": "git",
+          "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
+          "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
+        }
+      },
       "parserExit": {
         "flags": [
           "-h",
@@ -81376,6 +81383,13 @@
     },
     {
       "command": "annotate",
+      "rejectedOptions": {
+        "--color": {
+          "origin": "git",
+          "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
+          "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
+        }
+      },
       "parserExit": {
         "flags": [
           "-h",
@@ -87306,6 +87320,13 @@
     },
     {
       "command": "pickaxe",
+      "rejectedOptions": {
+        "--color": {
+          "origin": "git",
+          "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
+          "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
+        }
+      },
       "parserExit": {
         "flags": [
           "-h",
