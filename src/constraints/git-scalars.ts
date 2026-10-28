@@ -1,6 +1,10 @@
 import { validBlameLineRange } from './blame-line-range.js';
 import { asciiLower } from './ascii.js';
-import { validCompoundDecimal } from './compound-decimal.js';
+import {
+  type CompoundDecimalParser,
+  isCompoundDecimal,
+  validCompoundDecimal,
+} from './compound-decimal.js';
 import { type FastImportUnsignedParser, validFastImportUnsigned } from './fast-import-unsigned.js';
 import {
   type GitBooleanCallback,
@@ -103,8 +107,7 @@ export type GitScalarParser =
   | 'object-filter-auto'
   | StringCallbackParser
   | 'shortlog-group'
-  | 'shortlog-wrap'
-  | 'show-branch-reflog'
+  | CompoundDecimalParser
   | 'rev-list-missing'
   | 'abbrev'
   | 'mainline'
@@ -163,6 +166,7 @@ export function parseGitScalar(
       selectedGitDecimal(parser, decimalCallbacks),
       previous,
       cLongBits,
+      compoundNegatedOverflow,
     );
   }
   if (typeof parser === 'object') {
@@ -256,7 +260,7 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'shortlog-wrap' || parser === 'show-branch-reflog') {
+  if (isCompoundDecimal(parser)) {
     return {
       valid: validCompoundDecimal(parser, value, cLongBits, compoundNegatedOverflow),
       value,

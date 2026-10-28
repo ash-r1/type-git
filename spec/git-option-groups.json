@@ -1249,47 +1249,52 @@
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-stat"
       },
       "--stat-width": {
         "key": "stat-width",
-        "value": "string",
+        "value": "integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-stat-scalar"
       },
       "--stat-name-width": {
         "key": "stat-name-width",
-        "value": "string",
+        "value": "integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-stat-scalar"
       },
       "--stat-graph-width": {
         "key": "stat-graph-width",
-        "value": "string",
+        "value": "integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-stat-scalar"
       },
       "--stat-count": {
         "key": "stat-count",
-        "value": "string",
+        "value": "integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-stat-scalar"
       },
       "--compact-summary": {
         "key": "compact-summary",

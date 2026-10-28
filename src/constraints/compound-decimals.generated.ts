@@ -33,4 +33,24 @@ export const COMPOUND_DECIMALS = {
     },
     source: 'builtin/show-branch.c:parse_reflog_param',
   },
+  'diff-stat': {
+    kind: 'tuple',
+    separator: ',',
+    decimal: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+    defaults: [0, 0, 0],
+    nonzeroGreaterThan: {
+      index: 0,
+      others: [],
+    },
+    source:
+      'Git2.25.1/2.55.0 diff.c:diff_opt_stat stat branch; at most3strtoul(base10) fields, empty fields accepted. Defaults here serve acceptance only; omitted native values retain previous state and rendering remains native. No field-order relation.',
+  },
 } as const satisfies Record<string, CompoundDecimalProfile>;

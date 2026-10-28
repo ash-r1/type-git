@@ -430,6 +430,139 @@
         }
       ]
     },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "4294967296",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "4294967297",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
+    },
     "unsigned-32": {
       "parser": {
         "kind": "integer",
@@ -2400,6 +2533,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -2484,6 +2637,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -2572,6 +2745,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -2656,6 +2849,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -2744,6 +2957,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -2823,6 +3056,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -2911,6 +3164,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--abbrev",
           "key": "abbrev",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
@@ -2950,6 +3223,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -3036,6 +3329,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -3141,6 +3454,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -3225,6 +3558,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -3705,6 +4058,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -3807,6 +4180,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -3898,6 +4291,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -3984,6 +4397,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--abbrev",
           "key": "abbrev",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
@@ -4023,6 +4456,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--abbrev",
@@ -4075,6 +4528,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -4163,6 +4636,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--abbrev",
           "key": "abbrev",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
@@ -4248,6 +4741,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--abbrev",
@@ -4415,6 +4928,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -4529,6 +5062,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--abbrev",
           "key": "abbrev",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
@@ -4616,6 +5169,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -4700,6 +5273,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -4944,6 +5537,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",
@@ -5286,6 +5899,26 @@
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
         },
         {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -5390,6 +6023,26 @@
           "flag": "-U",
           "key": "unified",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\",\"nativeCallback\":\"unified-context\"}"
+        },
+        {
+          "flag": "--stat-width",
+          "key": "stat-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-name-width",
+          "key": "stat-name-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-graph-width",
+          "key": "stat-graph-width",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "--stat-count",
+          "key": "stat-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"unsignedLong\":true,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--inter-hunk-context",

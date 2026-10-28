@@ -94,4 +94,13 @@ export const NUMERIC_CALLBACK_PARSERS = {
     nativeCallback: 'daemon-init-timeout',
     rejectMinus: true,
   },
+  'diff-stat-scalar': {
+    kind: 'decimal',
+    longBits: 64,
+    bits: 32,
+    signed: true,
+    unsignedLong: true,
+    conversion: 'cast',
+    empty: true,
+  },
 } as const satisfies Record<string, GitScalarParser>;

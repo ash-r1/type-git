@@ -1,4 +1,5 @@
 import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
+import type { CompoundDecimalParser } from '../constraints/compound-decimal.js';
 import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
 import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
@@ -622,7 +623,7 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { nativeIntegerDeferred:
       ? V extends undefined
         ? true
         : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
-      : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      : D extends { parser: CompoundDecimalParser }
         ? V extends undefined
           ? true
           : CompoundDecimalLiteral<
@@ -858,8 +859,15 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
   decimalLongBits: infer Bits extends 32 | 64;
 }
   ? D extends { parser: infer P extends GitDecimalParser | GitTimestampParser }
-    ? Omit<D, 'parser'> & { parser: WithDecimalWidth<P, Bits> }
-    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+    ? Omit<D, 'parser'> & {
+        parser: WithDecimalWidth<P, Bits> &
+          (P extends { unsignedLong: true }
+            ? S extends { compoundNegatedOverflow: true }
+              ? { negateUnsignedOverflow: true }
+              : {}
+            : {});
+      }
+    : D extends { parser: CompoundDecimalParser }
       ? D & {
           compoundLongBits: Bits;
           compoundNegatedOverflow: S extends { compoundNegatedOverflow: true } ? true : false;
@@ -1506,7 +1514,7 @@ type DecimalWidthChangesRaw<
               : true
             : never
           : never
-        : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+        : D extends { parser: CompoundDecimalParser }
           ? CompoundDecimalLiteral<
               T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
               D['parser'],
@@ -1626,7 +1634,9 @@ type TupleUsesCompoundRaw<
   A extends readonly unknown[],
 > = A extends readonly [infer T, ...infer Rest]
   ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
-    ? Options<C>[K] extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+    ? Options<C>[K] extends {
+        parser: CompoundDecimalParser | (GitDecimalParser & { unsignedLong: true });
+      }
       ? true
       : TupleUsesCompoundRaw<C, Rest>
     : TupleUsesCompoundRaw<C, Rest>

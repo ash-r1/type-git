@@ -2225,7 +2225,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -2266,6 +2267,10 @@
         "key": "decorate",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -2300,7 +2305,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -2341,6 +2347,10 @@
         "key": "decorate",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -2692,12 +2702,17 @@
         "key": "decorate",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "firstPassTables": [
         "builtin/log.c:cmd_log_init_finish:builtin_log_options"
@@ -2937,12 +2952,17 @@
         "key": "default",
         "value": "string",
         "separateValue": true
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "firstPassTables": [
         "builtin/stash.c:show_stash:options"
@@ -3414,6 +3434,10 @@
       "--help": {
         "key": "help",
         "value": "flag"
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "initial": {
@@ -3423,7 +3447,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3510,6 +3535,10 @@
       "--help": {
         "key": "help",
         "value": "flag"
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "initial": {
@@ -3519,7 +3548,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8257,6 +8287,10 @@
           "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
           "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -8279,7 +8313,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8362,6 +8397,10 @@
           "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
           "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -8384,7 +8423,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8610,12 +8650,17 @@
             "reason": "The output-directory callback rejects a second occurrence, even with the same value."
           }
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8773,6 +8818,10 @@
           "reason": "The option name is ambiguous between --color-lines and --color-by-age.",
           "source": "Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt"
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -8795,7 +8844,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8819,7 +8869,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -8860,6 +8911,10 @@
         "key": "decorate",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "numericOption": {
@@ -8910,12 +8965,17 @@
         "key": "wrap",
         "value": "optional-string",
         "parser": "shortlog-wrap"
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
       "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
@@ -10263,6 +10323,10 @@
           "signed": true,
           "bits": 32
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "initial": {
@@ -10271,7 +10335,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -11569,11 +11634,38 @@
         "key": "G",
         "value": "string",
         "attachedValue": true
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "finalTables": [
       "builtin/difftool.c:cmd_difftool:builtin_difftool_options"
-    ]
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/difftool.c:cmd_difftool:builtin_difftool_options"
+      ],
+      "origin": "git",
+      "reason": "The initial KEEP_UNKNOWN_OPT/KEEP_DASHDASH parse_options pass exits at help before invoking the delegated diff command. Earlier difftool callbacks still run; diff callbacks are retained until after help.",
+      "source": "Git 2.25.1/2.55.0 builtin/difftool.c:cmd_difftool; parse-options.c:parse_options_step",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff"
+      ]
+    }
   },
   "mergetool": {
     "tables": [],
@@ -12368,12 +12460,17 @@
         "key": "decorate",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -12717,7 +12814,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "firstPassTables": [
         "builtin/stash.c:list_stash:options"
@@ -12753,6 +12851,12 @@
           "--"
         ],
         "exitStatus": "boolean"
+      }
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     }
   },
