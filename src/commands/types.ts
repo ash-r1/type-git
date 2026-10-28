@@ -179,7 +179,7 @@ type ReadStateKeys<C extends GitCommandName> =
     >;
 type Empty<C extends GitCommandName> = {
   [K in
-    | Extract<DeclaredStateKeys<C>, ReadStateKeys<C>>
+    | (DeclaredStateKeys<C> & ReadStateKeys<C>)
     | 'argumentTokens'
     | 'hasSeparator'
     | 'operand0'
