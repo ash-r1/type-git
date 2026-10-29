@@ -3,6 +3,7 @@ import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 export type StringCallbackProfile = { source: string } & (
   | { kind: 'rename-score'; parts: 1 | 2 }
   | { kind: 'character-set'; characters: string }
+  | { kind: 'trailing-token-list'; separator: string; exact: readonly string[] }
   | {
       kind: 'resetting-token-list';
       separator: string;
@@ -43,6 +44,13 @@ export function parseStringCallback(
   }
   if (typeof value !== 'string') {
     return { valid: false };
+  }
+  if (profile.kind === 'trailing-token-list') {
+    const tokens = value.split(profile.separator);
+    if (tokens[tokens.length - 1] === '') {
+      tokens.pop();
+    }
+    return { valid: tokens.every((token) => profile.exact.includes(token)), value };
   }
   if (profile.kind === 'resetting-token-list') {
     let ordinary = false;

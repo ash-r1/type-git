@@ -108,4 +108,11 @@ export const STRING_CALLBACKS = {
     source:
       'Git 2.25.1/2.55.0 diff.c:parse_color_moved_ws/diff_opt_color_moved_ws; comma splitting with C whitespace trimming. no resets all bits including prior errors; indentation conflict checked after the token loop. Preserve raw argv/diagnostics; do not model rendered colors.',
   },
+  'diff-ws-error-highlight': {
+    kind: 'trailing-token-list',
+    separator: ',',
+    exact: ['none', 'default', 'all', 'new', 'old', 'context'],
+    source:
+      'Git 2.25.1/2.55.0 diff.c:parse_one_token/parse_ws_error_highlight/diff_opt_ws_error_highlight; exact tokens without whitespace trimming; empty full value and one trailing comma accepted, leading/interior empty tokens fail immediately. Preserve raw argv; none resets rendering bits but does not recover earlier callback errors.',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;

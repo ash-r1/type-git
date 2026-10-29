@@ -166,6 +166,20 @@ type ResetTokenList<
         : ResetTokenList<Rest, P, `${Token}${C}`, State, readonly [...N, 0]>
       : ResetStateValid<ResetToken<P, Token, State>>
     : false;
+type TrailingTokenList<
+  S extends string,
+  Separator extends string,
+  Exact extends string,
+  N extends readonly unknown[] = [],
+> = N['length'] extends 128
+  ? true
+  : S extends `${infer Token}${Separator}${infer Rest}`
+    ? Token extends Exact
+      ? TrailingTokenList<Rest, Separator, Exact, readonly [...N, 0]>
+      : false
+    : S extends '' | Exact
+      ? true
+      : false;
 type CharacterMembers<S extends string> = S extends `${infer C}${infer Rest}`
   ? C | CharacterMembers<Rest>
   : never;
@@ -268,7 +282,15 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
                   ? Dynamic<V> extends true
                     ? true
                     : ResetTokenList<V, Profile<P>>
-                  : false
+                  : Profile<P> extends {
+                        kind: 'trailing-token-list';
+                        separator: infer Separator extends string;
+                        exact: readonly (infer Exact extends string)[];
+                      }
+                    ? Dynamic<V> extends true
+                      ? true
+                      : TrailingTokenList<V, Separator, Exact>
+                    : false
   : V extends true
     ? Profile<P> extends { kind: 'rename-score' }
       ? true
