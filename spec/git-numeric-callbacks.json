@@ -17,7 +17,8 @@
     "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057",
     "daemon.c": "eda693a63869a9f4ee6ed3ad055767d51ca06875c8f4b4df7c04f043a2db8772",
     "builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb",
-    "builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702"
+    "builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702",
+    "builtin/commit-graph.c": "cd206410b2bc2a8f3ab482f6f6d05c78b457368ae88d89485ef906d6a7cdff3b"
   },
   "profiles": {
     "abbrev": {
@@ -202,6 +203,23 @@
       },
       "callbacks": [],
       "source": "Git2.25.1/2.55.0 diff.c:diff_opt_stat exact stat-width/stat-name-width/stat-graph-width/stat-count branches; strtoul(base10), checked end pointer, ignored errno, int storage. Explicit diff group bindings keep the distinct stat tuple branch separate."
+    },
+    "commit-graph-filter-count": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "callbacks": [
+        {
+          "name": "write_option_max_new_filters",
+          "file": "builtin/commit-graph.c"
+        }
+      ],
+      "source": "builtin/commit-graph.c:write_option_max_new_filters; strtol base10, full consumption, cast to int; negation sets -1"
     }
   }
 }

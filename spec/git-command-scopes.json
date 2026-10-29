@@ -5473,7 +5473,24 @@
           "no-merge",
           "replace"
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The write subcommand uses ordinary parse_options flags 0: reached internal help exits before later callbacks or graph writes. Earlier numeric callbacks still run. First --help keeps existing documentation dispatch.",
+      "source": "Git 2.55.0 builtin/commit-graph.c:graph_write; parse-options.c:parse_options_step; builtin/commit-graph.c:cmd_commit_graph dispatch"
     }
   },
   "multi-pack-index write": {
