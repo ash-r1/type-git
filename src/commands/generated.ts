@@ -1262,6 +1262,118 @@ const sharedPredicates136 = [
     test: 'nonempty',
   },
 ] as const;
+const sharedScalarParser0 = {
+  kind: 'integer',
+  signed: true,
+  bits: 32,
+} as const;
+const sharedScalarParser1 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'cast',
+  nonzeroMinimum: 4,
+  default: 'unknown',
+} as const;
+const sharedScalarParser2 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: false,
+  conversion: 'cast',
+  empty: true,
+  beforeNonnegative: true,
+  default: 'previous',
+  nativeCallback: 'unified-context',
+} as const;
+const sharedScalarParser3 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  unsignedLong: true,
+  conversion: 'cast',
+  empty: true,
+} as const;
+const sharedScalarParser4 = {
+  kind: 'integer',
+  signed: false,
+  bits: 32,
+} as const;
+const sharedScalarParser5 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'checked',
+  beforeNonnegative: true,
+} as const;
+const sharedScalarParser6 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'checked',
+  nativeCallback: 'revision-count',
+} as const;
+const sharedScalarParser7 = {
+  kind: 'timestamp',
+  conversion: 'checked',
+  longBits: 64,
+  nativeCallback: 'revision-age',
+} as const;
+const sharedScalarParser8 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'checked',
+} as const;
+const sharedScalarParser9 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'cast',
+  positive: true,
+} as const;
+const sharedScalarParser10 = {
+  kind: 'integer',
+  signed: false,
+  bits: 64,
+  nativeWidth: 'long',
+} as const;
+const sharedScalarParser11 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: true,
+  conversion: 'prefix-cast',
+  empty: true,
+} as const;
+const sharedScalarParser12 = {
+  kind: 'integer',
+  signed: false,
+  bits: 64,
+  nativeWidth: 'size_t',
+  negativeMagnitudes: false,
+} as const;
+const sharedScalarParser13 = {
+  kind: 'decimal',
+  longBits: 64,
+  bits: 32,
+  signed: false,
+  conversion: 'cast',
+  empty: true,
+} as const;
+const sharedScalarParser14 = {
+  kind: 'integer',
+  signed: false,
+  bits: 64,
+  nativeWidth: 'long',
+  numberRepresentation: 'argv',
+} as const;
 const sharedEffects0 = [
   {
     key: 'filter-history',
@@ -1694,33 +1806,13 @@ const remainingOptions1 = {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
   },
   '-U': {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
     emptyValueFlag: '--unified',
   },
   '--function-context': {
@@ -1807,57 +1899,25 @@ const remainingOptions1 = {
     key: 'stat-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-name-width': {
     key: 'stat-name-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-count': {
     key: 'stat-count',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -1914,11 +1974,7 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '--inter-hunk-context': {
-    parser: {
-      kind: 'integer',
-      signed: false,
-      bits: 32,
-    },
+    parser: sharedScalarParser4,
     key: 'inter-hunk-context',
     value: 'integer',
   },
@@ -1995,11 +2051,7 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '-l': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'l',
     value: 'integer',
   },
@@ -2201,11 +2253,7 @@ const remainingOptions1 = {
     value: 'string',
   },
   '--max-depth': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'max-depth',
     value: 'integer',
   },
@@ -2509,14 +2557,7 @@ const remainingOptions1 = {
     key: 'expand-tabs',
     value: 'optional-integer',
     set: 8,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      beforeNonnegative: true,
-    },
+    parser: sharedScalarParser5,
     checks: [
       {
         id: 'revision.tabs-nonnegative',
@@ -2564,14 +2605,7 @@ const remainingOptions1 = {
   '--graph-lane-limit': {
     key: 'graph-lane-limit',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--grep': {
     key: 'grep',
@@ -2625,24 +2659,12 @@ const remainingOptions1 = {
   '--max-age': {
     key: 'max-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
   },
   '--max-count': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects9,
     checks: [
       {
@@ -2658,14 +2680,7 @@ const remainingOptions1 = {
   '--max-count-oldest': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects10,
     checks: [
       {
@@ -2690,14 +2705,7 @@ const remainingOptions1 = {
   '--max-parents': {
     key: 'max-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--maximal-only': {
     key: 'maximal-only',
@@ -2714,24 +2722,12 @@ const remainingOptions1 = {
   '--min-age': {
     key: 'min-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
   },
   '--min-parents': {
     key: 'min-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--no-abbrev-commit': {
     key: 'abbrev-commit',
@@ -2930,14 +2926,7 @@ const remainingOptions1 = {
   '--skip': {
     key: 'skip',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     checks: [
       {
         id: 'revision.skip-after-oldest',
@@ -3030,14 +3019,7 @@ const remainingOptions1 = {
   '-n': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects13,
   },
   '-r': {
@@ -3102,33 +3084,13 @@ const remainingOptions2 = {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
   },
   '-U': {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
     emptyValueFlag: '--unified',
   },
   '--function-context': {
@@ -3220,57 +3182,25 @@ const remainingOptions2 = {
     key: 'stat-width',
     value: 'integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-name-width': {
     key: 'stat-name-width',
     value: 'integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
     value: 'integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-count': {
     key: 'stat-count',
     value: 'integer',
     effects: sharedEffects16,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -3337,11 +3267,7 @@ const remainingOptions2 = {
     effects: sharedEffects18,
   },
   '--inter-hunk-context': {
-    parser: {
-      kind: 'integer',
-      signed: false,
-      bits: 32,
-    },
+    parser: sharedScalarParser4,
     key: 'inter-hunk-context',
     value: 'integer',
     effects: sharedEffects18,
@@ -3434,11 +3360,7 @@ const remainingOptions2 = {
     effects: sharedEffects18,
   },
   '-l': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'l',
     value: 'integer',
     effects: sharedEffects18,
@@ -3682,11 +3604,7 @@ const remainingOptions2 = {
     effects: sharedEffects18,
   },
   '--max-depth': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'max-depth',
     value: 'integer',
     effects: sharedEffects18,
@@ -4036,14 +3954,7 @@ const remainingOptions2 = {
     key: 'expand-tabs',
     value: 'optional-integer',
     set: 8,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      beforeNonnegative: true,
-    },
+    parser: sharedScalarParser5,
     checks: [
       {
         id: 'revision.tabs-nonnegative',
@@ -4100,14 +4011,7 @@ const remainingOptions2 = {
   '--graph-lane-limit': {
     key: 'graph-lane-limit',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects18,
   },
   '--grep': {
@@ -4170,25 +4074,13 @@ const remainingOptions2 = {
   '--max-age': {
     key: 'max-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
     effects: sharedEffects18,
   },
   '--max-count': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects22,
     checks: [
       {
@@ -4204,14 +4096,7 @@ const remainingOptions2 = {
   '--max-count-oldest': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects23,
     checks: [
       {
@@ -4236,14 +4121,7 @@ const remainingOptions2 = {
   '--max-parents': {
     key: 'max-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects18,
   },
   '--maximal-only': {
@@ -4264,25 +4142,13 @@ const remainingOptions2 = {
   '--min-age': {
     key: 'min-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
     effects: sharedEffects18,
   },
   '--min-parents': {
     key: 'min-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects18,
   },
   '--no-abbrev-commit': {
@@ -4518,14 +4384,7 @@ const remainingOptions2 = {
   '--skip': {
     key: 'skip',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     checks: [
       {
         id: 'revision.skip-after-oldest',
@@ -4633,14 +4492,7 @@ const remainingOptions2 = {
   '-n': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects26,
   },
   '-r': {
@@ -4710,33 +4562,13 @@ const remainingOptions3 = {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
   },
   '-U': {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
     emptyValueFlag: '--unified',
   },
   '--function-context': {
@@ -4823,57 +4655,25 @@ const remainingOptions3 = {
     key: 'stat-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-name-width': {
     key: 'stat-name-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-count': {
     key: 'stat-count',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -4930,11 +4730,7 @@ const remainingOptions3 = {
     value: 'flag',
   },
   '--inter-hunk-context': {
-    parser: {
-      kind: 'integer',
-      signed: false,
-      bits: 32,
-    },
+    parser: sharedScalarParser4,
     key: 'inter-hunk-context',
     value: 'integer',
   },
@@ -5011,11 +4807,7 @@ const remainingOptions3 = {
     value: 'flag',
   },
   '-l': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'l',
     value: 'integer',
   },
@@ -5218,11 +5010,7 @@ const remainingOptions3 = {
     skipEmpty: true,
   },
   '--max-depth': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'max-depth',
     value: 'integer',
   },
@@ -5527,14 +5315,7 @@ const remainingOptions3 = {
     key: 'expand-tabs',
     value: 'optional-integer',
     set: 8,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      beforeNonnegative: true,
-    },
+    parser: sharedScalarParser5,
     checks: [
       {
         id: 'revision.tabs-nonnegative',
@@ -5582,14 +5363,7 @@ const remainingOptions3 = {
   '--graph-lane-limit': {
     key: 'graph-lane-limit',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--grep': {
     key: 'grep',
@@ -5643,24 +5417,12 @@ const remainingOptions3 = {
   '--max-age': {
     key: 'max-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
   },
   '--max-count': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects9,
     checks: [
       {
@@ -5676,14 +5438,7 @@ const remainingOptions3 = {
   '--max-count-oldest': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects10,
     checks: [
       {
@@ -5708,14 +5463,7 @@ const remainingOptions3 = {
   '--max-parents': {
     key: 'max-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--maximal-only': {
     key: 'maximal-only',
@@ -5732,24 +5480,12 @@ const remainingOptions3 = {
   '--min-age': {
     key: 'min-age',
     value: 'integer',
-    parser: {
-      kind: 'timestamp',
-      conversion: 'checked',
-      longBits: 64,
-      nativeCallback: 'revision-age',
-    },
+    parser: sharedScalarParser7,
   },
   '--min-parents': {
     key: 'min-parents',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
   },
   '--no-abbrev-commit': {
     key: 'abbrev-commit',
@@ -5948,14 +5684,7 @@ const remainingOptions3 = {
   '--skip': {
     key: 'skip',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     checks: [
       {
         id: 'revision.skip-after-oldest',
@@ -6048,14 +5777,7 @@ const remainingOptions3 = {
   '-n': {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-      nativeCallback: 'revision-count',
-    },
+    parser: sharedScalarParser6,
     effects: sharedEffects13,
   },
   '-r': {
@@ -6120,33 +5842,13 @@ const remainingOptions4 = {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
   },
   '-U': {
     key: 'unified',
     value: 'optional-integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-      beforeNonnegative: true,
-      default: 'previous',
-      nativeCallback: 'unified-context',
-    },
+    parser: sharedScalarParser2,
     emptyValueFlag: '--unified',
   },
   '--function-context': {
@@ -6233,57 +5935,25 @@ const remainingOptions4 = {
     key: 'stat-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-name-width': {
     key: 'stat-name-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-graph-width': {
     key: 'stat-graph-width',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--stat-count': {
     key: 'stat-count',
     value: 'integer',
     effects: sharedEffects4,
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      unsignedLong: true,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser3,
   },
   '--compact-summary': {
     key: 'compact-summary',
@@ -6316,15 +5986,7 @@ const remainingOptions4 = {
     value: 'flag',
   },
   '--abbrev': {
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'cast',
-      nonzeroMinimum: 4,
-      default: 'unknown',
-    },
+    parser: sharedScalarParser1,
     key: 'abbrev',
     value: 'optional-integer',
   },
@@ -6349,11 +6011,7 @@ const remainingOptions4 = {
     value: 'flag',
   },
   '--inter-hunk-context': {
-    parser: {
-      kind: 'integer',
-      signed: false,
-      bits: 32,
-    },
+    parser: sharedScalarParser4,
     key: 'inter-hunk-context',
     value: 'integer',
   },
@@ -6430,11 +6088,7 @@ const remainingOptions4 = {
     value: 'flag',
   },
   '-l': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'l',
     value: 'integer',
   },
@@ -6636,11 +6290,7 @@ const remainingOptions4 = {
     value: 'string',
   },
   '--max-depth': {
-    parser: {
-      kind: 'integer',
-      signed: true,
-      bits: 32,
-    },
+    parser: sharedScalarParser0,
     key: 'max-depth',
     value: 'integer',
   },
@@ -6675,15 +6325,7 @@ const remainingOptions4 = {
     set: 'never',
   },
   '--no-abbrev': {
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'cast',
-      nonzeroMinimum: 4,
-      default: 'unknown',
-    },
+    parser: sharedScalarParser1,
     key: 'abbrev',
     value: 'flag',
     set: 0,
@@ -6984,29 +6626,17 @@ const commandSpec1 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -10409,29 +10039,17 @@ const commandSpec19 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -13768,20 +13386,12 @@ const commandSpec30 = {
       repeat: true,
     },
     '--jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
@@ -14020,11 +13630,7 @@ const commandSpec30 = {
       clear: true,
     },
     '--no-jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'flag',
       set: 0,
@@ -15793,20 +15399,12 @@ const commandSpec31 = {
       set: false,
     },
     '--jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
@@ -15881,11 +15479,7 @@ const commandSpec31 = {
       repeat: true,
     },
     '--deepen': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'deepen',
       value: 'integer',
     },
@@ -16062,11 +15656,7 @@ const commandSpec31 = {
       set: false,
     },
     '--no-jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'flag',
       set: 0,
@@ -16139,11 +15729,7 @@ const commandSpec31 = {
       clear: true,
     },
     '--no-deepen': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'deepen',
       value: 'flag',
       set: 0,
@@ -19262,15 +18848,7 @@ const commandSpec33 = {
       ],
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -19471,15 +19049,7 @@ const commandSpec33 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -21245,29 +20815,17 @@ const commandSpec34 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -23778,29 +23336,17 @@ const commandSpec36 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -24920,29 +24466,17 @@ const commandSpec37 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -25772,11 +25306,7 @@ const commandSpec38 = {
       key: 'n',
       value: 'optional-integer',
       set: 1,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--delete': {
       key: 'delete',
@@ -29553,29 +29083,17 @@ const commandSpec45 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -30311,29 +29829,17 @@ const commandSpec46 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -33254,33 +32760,13 @@ const commandSpec68 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -33367,57 +32853,25 @@ const commandSpec68 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -33474,11 +32928,7 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -33555,11 +33005,7 @@ const commandSpec68 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -33757,11 +33203,7 @@ const commandSpec68 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -34115,14 +33557,7 @@ const commandSpec68 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -34170,14 +33605,7 @@ const commandSpec68 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -34231,24 +33659,12 @@ const commandSpec68 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -34264,14 +33680,7 @@ const commandSpec68 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -34296,14 +33705,7 @@ const commandSpec68 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -34320,24 +33722,12 @@ const commandSpec68 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -34536,14 +33926,7 @@ const commandSpec68 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -34636,14 +34019,7 @@ const commandSpec68 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -34684,13 +34060,7 @@ const commandSpec68 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -35345,33 +34715,13 @@ const commandSpec69 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -35458,57 +34808,25 @@ const commandSpec69 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -35565,11 +34883,7 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -35646,11 +34960,7 @@ const commandSpec69 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -35848,11 +35158,7 @@ const commandSpec69 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -36206,14 +35512,7 @@ const commandSpec69 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -36261,14 +35560,7 @@ const commandSpec69 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -36322,24 +35614,12 @@ const commandSpec69 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -36355,14 +35635,7 @@ const commandSpec69 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -36387,14 +35660,7 @@ const commandSpec69 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -36411,24 +35677,12 @@ const commandSpec69 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -36627,14 +35881,7 @@ const commandSpec69 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -36727,14 +35974,7 @@ const commandSpec69 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -36775,13 +36015,7 @@ const commandSpec69 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -37390,33 +36624,13 @@ const commandSpec70 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -37503,57 +36717,25 @@ const commandSpec70 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -37610,11 +36792,7 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -37691,11 +36869,7 @@ const commandSpec70 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -37897,11 +37071,7 @@ const commandSpec70 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -38213,14 +37383,7 @@ const commandSpec70 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -38268,14 +37431,7 @@ const commandSpec70 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -38329,24 +37485,12 @@ const commandSpec70 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -38362,14 +37506,7 @@ const commandSpec70 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -38394,14 +37531,7 @@ const commandSpec70 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -38418,24 +37548,12 @@ const commandSpec70 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -38634,14 +37752,7 @@ const commandSpec70 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -38734,14 +37845,7 @@ const commandSpec70 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -38801,13 +37905,7 @@ const commandSpec70 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -38991,33 +38089,13 @@ const commandSpec71 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -39104,57 +38182,25 @@ const commandSpec71 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -39211,11 +38257,7 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -39292,11 +38334,7 @@ const commandSpec71 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -39498,11 +38536,7 @@ const commandSpec71 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -39814,14 +38848,7 @@ const commandSpec71 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -39869,14 +38896,7 @@ const commandSpec71 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -39930,24 +38950,12 @@ const commandSpec71 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -39963,14 +38971,7 @@ const commandSpec71 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -39995,14 +38996,7 @@ const commandSpec71 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -40019,24 +39013,12 @@ const commandSpec71 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -40235,14 +39217,7 @@ const commandSpec71 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -40335,14 +39310,7 @@ const commandSpec71 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -40411,13 +39379,7 @@ const commandSpec71 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -40634,33 +39596,13 @@ const commandSpec72 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -40747,57 +39689,25 @@ const commandSpec72 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -40854,11 +39764,7 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -40935,11 +39841,7 @@ const commandSpec72 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -41141,11 +40043,7 @@ const commandSpec72 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -41457,14 +40355,7 @@ const commandSpec72 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -41512,14 +40403,7 @@ const commandSpec72 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -41573,24 +40457,12 @@ const commandSpec72 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -41606,14 +40478,7 @@ const commandSpec72 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -41638,14 +40503,7 @@ const commandSpec72 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -41662,24 +40520,12 @@ const commandSpec72 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -41878,14 +40724,7 @@ const commandSpec72 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -41976,14 +40815,7 @@ const commandSpec72 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -42244,33 +41076,13 @@ const commandSpec73 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -42357,57 +41169,25 @@ const commandSpec73 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -42464,11 +41244,7 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -42545,11 +41321,7 @@ const commandSpec73 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -42751,11 +41523,7 @@ const commandSpec73 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -43067,14 +41835,7 @@ const commandSpec73 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -43122,14 +41883,7 @@ const commandSpec73 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -43183,24 +41937,12 @@ const commandSpec73 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -43216,14 +41958,7 @@ const commandSpec73 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -43248,14 +41983,7 @@ const commandSpec73 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -43272,24 +42000,12 @@ const commandSpec73 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -43488,14 +42204,7 @@ const commandSpec73 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -43578,14 +42287,7 @@ const commandSpec73 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -43636,13 +42338,7 @@ const commandSpec73 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -43838,33 +42534,13 @@ const commandSpec74 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -43951,57 +42627,25 @@ const commandSpec74 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -44034,15 +42678,7 @@ const commandSpec74 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -44067,11 +42703,7 @@ const commandSpec74 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -44148,11 +42780,7 @@ const commandSpec74 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -44354,11 +42982,7 @@ const commandSpec74 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -44393,15 +43017,7 @@ const commandSpec74 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -44918,33 +43534,13 @@ const commandSpec81 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -45031,57 +43627,25 @@ const commandSpec81 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -45138,11 +43702,7 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -45219,11 +43779,7 @@ const commandSpec81 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -45421,11 +43977,7 @@ const commandSpec81 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -45779,14 +44331,7 @@ const commandSpec81 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -45834,14 +44379,7 @@ const commandSpec81 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -45895,24 +44433,12 @@ const commandSpec81 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -45928,14 +44454,7 @@ const commandSpec81 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -45960,14 +44479,7 @@ const commandSpec81 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -45984,24 +44496,12 @@ const commandSpec81 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -46200,14 +44700,7 @@ const commandSpec81 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -46300,14 +44793,7 @@ const commandSpec81 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -46348,13 +44834,7 @@ const commandSpec81 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -46988,34 +45468,14 @@ const commandSpec82 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
       attachedValue: true,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -47103,57 +45563,25 @@ const commandSpec82 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -47210,11 +45638,7 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -47291,11 +45715,7 @@ const commandSpec82 = {
       key: 'l',
       value: 'integer',
       attachedValue: true,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--minimal': {
       key: 'minimal',
@@ -47521,11 +45941,7 @@ const commandSpec82 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -47842,14 +46258,7 @@ const commandSpec82 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -47897,14 +46306,7 @@ const commandSpec82 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -47958,24 +46360,12 @@ const commandSpec82 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -47991,14 +46381,7 @@ const commandSpec82 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -48023,14 +46406,7 @@ const commandSpec82 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -48047,24 +46423,12 @@ const commandSpec82 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -48263,14 +46627,7 @@ const commandSpec82 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -48363,14 +46720,7 @@ const commandSpec82 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
       attachedValue: true,
     },
@@ -48412,13 +46762,7 @@ const commandSpec82 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -49008,11 +47352,7 @@ const commandSpec83 = {
       value: 'flag',
     },
     '--log': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'log',
       value: 'optional-integer',
       set: 20,
@@ -49196,11 +47536,7 @@ const commandSpec83 = {
       set: false,
     },
     '--no-log': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'log',
       value: 'flag',
       set: 0,
@@ -52833,33 +51169,13 @@ const commandSpec85 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -52950,57 +51266,25 @@ const commandSpec85 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -53067,11 +51351,7 @@ const commandSpec85 = {
       effects: sharedEffects18,
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
       effects: sharedEffects18,
@@ -53164,11 +51444,7 @@ const commandSpec85 = {
       effects: sharedEffects18,
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
       effects: sharedEffects18,
@@ -53401,11 +51677,7 @@ const commandSpec85 = {
       effects: sharedEffects18,
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
       effects: sharedEffects18,
@@ -53763,14 +52035,7 @@ const commandSpec85 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -53827,14 +52092,7 @@ const commandSpec85 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--grep': {
@@ -53897,25 +52155,13 @@ const commandSpec85 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
       effects: sharedEffects18,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects22,
       checks: [
         {
@@ -53931,14 +52177,7 @@ const commandSpec85 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects23,
       checks: [
         {
@@ -53963,14 +52202,7 @@ const commandSpec85 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--maximal-only': {
@@ -53991,25 +52223,13 @@ const commandSpec85 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
       effects: sharedEffects18,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--no-abbrev-commit': {
@@ -54337,14 +52557,7 @@ const commandSpec85 = {
     '-m': {
       key: 'mainline',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        positive: true,
-      },
+      parser: sharedScalarParser9,
     },
     '-n': {
       key: 'no-commit',
@@ -54417,14 +52630,7 @@ const commandSpec85 = {
     '--mainline': {
       key: 'mainline',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        positive: true,
-      },
+      parser: sharedScalarParser9,
     },
     '--rerere-autoupdate': {
       key: 'rerere-autoupdate',
@@ -54557,13 +52763,7 @@ const commandSpec85 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -55338,33 +53538,13 @@ const commandSpec86 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -55455,57 +53635,25 @@ const commandSpec86 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects16,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -55572,11 +53720,7 @@ const commandSpec86 = {
       effects: sharedEffects18,
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
       effects: sharedEffects18,
@@ -55669,11 +53813,7 @@ const commandSpec86 = {
       effects: sharedEffects18,
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
       effects: sharedEffects18,
@@ -55906,11 +54046,7 @@ const commandSpec86 = {
       effects: sharedEffects18,
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
       effects: sharedEffects18,
@@ -56268,14 +54404,7 @@ const commandSpec86 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -56332,14 +54461,7 @@ const commandSpec86 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--grep': {
@@ -56402,25 +54524,13 @@ const commandSpec86 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
       effects: sharedEffects18,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects22,
       checks: [
         {
@@ -56436,14 +54546,7 @@ const commandSpec86 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects23,
       checks: [
         {
@@ -56468,14 +54571,7 @@ const commandSpec86 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--maximal-only': {
@@ -56496,25 +54592,13 @@ const commandSpec86 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
       effects: sharedEffects18,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects18,
     },
     '--no-abbrev-commit': {
@@ -56842,14 +54926,7 @@ const commandSpec86 = {
     '-m': {
       key: 'mainline',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        positive: true,
-      },
+      parser: sharedScalarParser9,
     },
     '-n': {
       key: 'no-commit',
@@ -56922,14 +54999,7 @@ const commandSpec86 = {
     '--mainline': {
       key: 'mainline',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        positive: true,
-      },
+      parser: sharedScalarParser9,
     },
     '--rerere-autoupdate': {
       key: 'rerere-autoupdate',
@@ -57026,13 +55096,7 @@ const commandSpec86 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -58127,11 +56191,7 @@ const commandSpec89 = {
     '-C': {
       key: 'C',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
     },
     '--whitespace': {
       key: 'whitespace',
@@ -58968,15 +57028,7 @@ const commandSpec91 = {
       value: 'string',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -59077,15 +57129,7 @@ const commandSpec91 = {
       clear: true,
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -59593,15 +57637,7 @@ const commandSpec93 = {
       nativeLsTreeModern: true,
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -59616,15 +57652,7 @@ const commandSpec93 = {
       set: false,
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -59766,11 +57794,7 @@ const commandSpec94 = {
       value: 'flag',
     },
     '--count': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'count',
       value: 'integer',
     },
@@ -59925,11 +57949,7 @@ const commandSpec94 = {
       set: false,
     },
     '--no-count': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'count',
       value: 'flag',
       set: 0,
@@ -60649,42 +58669,18 @@ const commandSpec95 = {
       value: 'flag',
     },
     '--hash': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'hash',
       value: 'optional-integer',
     },
     '-s': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'hash',
       value: 'optional-integer',
       emptyValueFlag: '--hash',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -60738,29 +58734,13 @@ const commandSpec95 = {
       set: false,
     },
     '--no-hash': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'hash',
       value: 'flag',
       set: 0,
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -63039,26 +61019,14 @@ const commandSpec110 = {
     '--abbrev': {
       key: 'abbrev',
       value: 'optional-integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
     },
     '--exact-match': {
       key: 'exact-match',
       value: 'flag',
     },
     '--candidates': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'candidates',
       value: 'integer',
     },
@@ -63127,11 +61095,7 @@ const commandSpec110 = {
       set: false,
     },
     '--no-candidates': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'candidates',
       value: 'flag',
       set: 0,
@@ -63483,15 +61447,7 @@ const commandSpec112 = {
   argv: ['cherry'],
   options: {
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -63506,15 +61462,7 @@ const commandSpec112 = {
       repeat: true,
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -63877,12 +61825,7 @@ const commandSpec116 = {
       value: 'flag',
     },
     '--max-cruft-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'max-cruft-size',
       value: 'integer',
     },
@@ -64453,20 +62396,12 @@ const commandSpec124 = {
       allowed: ['no-merge', 'replace'],
     },
     '--max-commits': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-commits',
       value: 'integer',
     },
     '--size-multiple': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'size-multiple',
       value: 'integer',
     },
@@ -64521,21 +62456,13 @@ const commandSpec124 = {
       set: false,
     },
     '--no-max-commits': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-commits',
       value: 'flag',
       set: 0,
     },
     '--no-size-multiple': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'size-multiple',
       value: 'flag',
       set: 0,
@@ -64936,12 +62863,7 @@ const commandSpec129 = {
       value: 'flag',
     },
     '--batch-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'batch-size',
       value: 'integer',
     },
@@ -65429,11 +63351,7 @@ const commandSpec133 = {
       value: 'flag',
     },
     '--count': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'count',
       value: 'integer',
     },
@@ -65588,11 +63506,7 @@ const commandSpec133 = {
       set: false,
     },
     '--no-count': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'count',
       value: 'flag',
       set: 0,
@@ -67336,29 +65250,17 @@ const commandSpec141 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -68571,11 +66473,7 @@ const commandSpec145 = {
       allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
     },
     '--marker-size': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'marker-size',
       value: 'integer',
     },
@@ -68642,11 +66540,7 @@ const commandSpec145 = {
       set: false,
     },
     '--no-marker-size': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'marker-size',
       value: 'flag',
       set: 0,
@@ -69481,22 +67375,12 @@ const commandSpec148 = {
       value: 'string',
     },
     '--combine-cruft-below-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'combine-cruft-below-size',
       value: 'integer',
     },
     '--max-cruft-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'max-cruft-size',
       value: 'integer',
     },
@@ -69513,11 +67397,7 @@ const commandSpec148 = {
       value: 'flag',
     },
     '--name-hash-version': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'name-hash-version',
       value: 'integer',
     },
@@ -69592,12 +67472,7 @@ const commandSpec148 = {
       value: 'string',
     },
     '--max-pack-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'max-pack-size',
       value: 'integer',
       nativeIntegerTiming: 'repack-max-pack-size',
@@ -69617,20 +67492,12 @@ const commandSpec148 = {
       repeat: true,
     },
     '--geometric': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'geometric',
       value: 'integer',
     },
     '-g': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'geometric',
       value: 'integer',
     },
@@ -69662,11 +67529,7 @@ const commandSpec148 = {
       clear: true,
     },
     '--no-name-hash-version': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'name-hash-version',
       value: 'flag',
       set: 0,
@@ -69745,11 +67608,7 @@ const commandSpec148 = {
       clear: true,
     },
     '--no-geometric': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'geometric',
       value: 'flag',
       set: 0,
@@ -70619,20 +68478,12 @@ const commandSpec158 = {
       set: '',
     },
     '--raw-mode': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'raw-mode',
       value: 'integer',
     },
     '--width': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'width',
       value: 'integer',
     },
@@ -70645,11 +68496,7 @@ const commandSpec158 = {
       value: 'string',
     },
     '--padding': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'padding',
       value: 'integer',
     },
@@ -70664,11 +68511,7 @@ const commandSpec158 = {
       set: 'never',
     },
     '--no-width': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'width',
       value: 'flag',
       set: 0,
@@ -70684,11 +68527,7 @@ const commandSpec158 = {
       clear: true,
     },
     '--no-padding': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'padding',
       value: 'flag',
       set: 0,
@@ -70780,21 +68619,13 @@ const commandSpec159 = {
   argv: ['fmt-merge-msg'],
   options: {
     '--log': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'log',
       value: 'optional-integer',
       set: 20,
     },
     '--summary': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary',
       value: 'optional-integer',
       set: 20,
@@ -70822,21 +68653,13 @@ const commandSpec159 = {
       emptyIsUnset: true,
     },
     '--no-log': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'log',
       value: 'flag',
       set: 0,
     },
     '--no-summary': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary',
       value: 'flag',
       set: 0,
@@ -71348,14 +69171,7 @@ const commandSpec165 = {
     '-d': {
       key: 'digits',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'prefix-cast',
-        empty: true,
-      },
+      parser: sharedScalarParser11,
       attachedValue: true,
       allowed: [3, 4, 5, 6, 7, 8, 9],
     },
@@ -71363,14 +69179,7 @@ const commandSpec165 = {
       key: 'start',
       value: 'optional-integer',
       set: 0,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'prefix-cast',
-        empty: true,
-      },
+      parser: sharedScalarParser11,
       attachedValue: true,
     },
     '-o': {
@@ -71754,20 +69563,12 @@ const commandSpec168 = {
       value: 'string',
     },
     '--jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
@@ -71787,11 +69588,7 @@ const commandSpec168 = {
       clear: true,
     },
     '--no-jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'flag',
       set: 0,
@@ -72217,11 +70014,7 @@ const commandSpec176 = {
   argv: ['credential-cache'],
   options: {
     '--timeout': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'timeout',
       value: 'integer',
     },
@@ -72230,11 +70023,7 @@ const commandSpec176 = {
       value: 'string',
     },
     '--no-timeout': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'timeout',
       value: 'flag',
       set: 0,
@@ -72687,33 +70476,13 @@ const commandSpec184 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -72800,57 +70569,25 @@ const commandSpec184 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -72907,11 +70644,7 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -72988,11 +70721,7 @@ const commandSpec184 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -73194,11 +70923,7 @@ const commandSpec184 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -73510,14 +71235,7 @@ const commandSpec184 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -73566,14 +71284,7 @@ const commandSpec184 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -73627,24 +71338,12 @@ const commandSpec184 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -73660,14 +71359,7 @@ const commandSpec184 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -73692,14 +71384,7 @@ const commandSpec184 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -73716,24 +71401,12 @@ const commandSpec184 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -73938,14 +71611,7 @@ const commandSpec184 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -74039,14 +71705,7 @@ const commandSpec184 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -74161,13 +71820,7 @@ const commandSpec184 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -74922,11 +72575,7 @@ const commandSpec185 = {
       value: 'flag',
     },
     '--version': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'version',
       value: 'integer',
     },
@@ -74954,11 +72603,7 @@ const commandSpec185 = {
       key: 'version',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--help': {
       key: 'help',
@@ -75415,33 +73060,13 @@ const commandSpec194 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -75528,57 +73153,25 @@ const commandSpec194 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -75635,11 +73228,7 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -75716,11 +73305,7 @@ const commandSpec194 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -75923,11 +73508,7 @@ const commandSpec194 = {
       skipEmpty: true,
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -76240,14 +73821,7 @@ const commandSpec194 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -76295,14 +73869,7 @@ const commandSpec194 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -76356,24 +73923,12 @@ const commandSpec194 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -76389,14 +73944,7 @@ const commandSpec194 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -76421,14 +73969,7 @@ const commandSpec194 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -76445,24 +73986,12 @@ const commandSpec194 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -76661,14 +74190,7 @@ const commandSpec194 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -76761,14 +74283,7 @@ const commandSpec194 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -76796,13 +74311,7 @@ const commandSpec194 = {
     '--min-batch-size': {
       key: 'min-batch-size',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'size_t',
-        negativeMagnitudes: false,
-      },
+      parser: sharedScalarParser12,
     },
     '--include-edges': {
       key: 'include-edges',
@@ -76834,13 +74343,7 @@ const commandSpec194 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -77454,33 +74957,13 @@ const commandSpec195 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -77567,57 +75050,25 @@ const commandSpec195 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -77674,11 +75125,7 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -77755,11 +75202,7 @@ const commandSpec195 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -77961,11 +75404,7 @@ const commandSpec195 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -78277,14 +75716,7 @@ const commandSpec195 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -78332,14 +75764,7 @@ const commandSpec195 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -78393,24 +75818,12 @@ const commandSpec195 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -78426,14 +75839,7 @@ const commandSpec195 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -78458,14 +75864,7 @@ const commandSpec195 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -78482,24 +75881,12 @@ const commandSpec195 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -78698,14 +76085,7 @@ const commandSpec195 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -78798,14 +76178,7 @@ const commandSpec195 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -78866,13 +76239,7 @@ const commandSpec195 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -79435,33 +76802,13 @@ const commandSpec196 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -79548,57 +76895,25 @@ const commandSpec196 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -79631,15 +76946,7 @@ const commandSpec196 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -79664,11 +76971,7 @@ const commandSpec196 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -79745,11 +77048,7 @@ const commandSpec196 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -79951,11 +77250,7 @@ const commandSpec196 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -79990,15 +77285,7 @@ const commandSpec196 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -80194,33 +77481,13 @@ const commandSpec197 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -80307,57 +77574,25 @@ const commandSpec197 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -80390,15 +77625,7 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -80423,11 +77650,7 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -80504,11 +77727,7 @@ const commandSpec197 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -80710,11 +77929,7 @@ const commandSpec197 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -80749,15 +77964,7 @@ const commandSpec197 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -80837,11 +78044,7 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--creation-factor': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'creation-factor',
       value: 'integer',
     },
@@ -80858,13 +78061,7 @@ const commandSpec197 = {
       value: 'string',
     },
     '--max-memory': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'size_t',
-        negativeMagnitudes: false,
-      },
+      parser: sharedScalarParser12,
       key: 'max-memory',
       value: 'integer',
     },
@@ -80881,11 +78078,7 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--no-creation-factor': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'creation-factor',
       value: 'flag',
       set: 0,
@@ -81055,33 +78248,13 @@ const commandSpec198 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -81168,57 +78341,25 @@ const commandSpec198 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -81275,11 +78416,7 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -81356,11 +78493,7 @@ const commandSpec198 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -81562,11 +78695,7 @@ const commandSpec198 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -81878,14 +79007,7 @@ const commandSpec198 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -81933,14 +79055,7 @@ const commandSpec198 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -81994,24 +79109,12 @@ const commandSpec198 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -82027,14 +79130,7 @@ const commandSpec198 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -82059,14 +79155,7 @@ const commandSpec198 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -82083,24 +79172,12 @@ const commandSpec198 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -82299,14 +79376,7 @@ const commandSpec198 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -82399,14 +79469,7 @@ const commandSpec198 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -82476,13 +79539,7 @@ const commandSpec198 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -83190,33 +80247,13 @@ const commandSpec199 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -83303,57 +80340,25 @@ const commandSpec199 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -83390,15 +80395,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -83423,11 +80420,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -83689,11 +80682,7 @@ const commandSpec199 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -83728,15 +80717,7 @@ const commandSpec199 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -84015,14 +80996,7 @@ const commandSpec199 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -84070,14 +81044,7 @@ const commandSpec199 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -84131,24 +81098,12 @@ const commandSpec199 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -84164,14 +81119,7 @@ const commandSpec199 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -84196,14 +81144,7 @@ const commandSpec199 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -84220,24 +81161,12 @@ const commandSpec199 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -84436,14 +81365,7 @@ const commandSpec199 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -84720,13 +81642,7 @@ const commandSpec199 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -85001,33 +81917,13 @@ const commandSpec200 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -85114,57 +82010,25 @@ const commandSpec200 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -85201,15 +82065,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -85234,11 +82090,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -85500,11 +82352,7 @@ const commandSpec200 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -85539,15 +82387,7 @@ const commandSpec200 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -85826,14 +82666,7 @@ const commandSpec200 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -85881,14 +82714,7 @@ const commandSpec200 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -85942,24 +82768,12 @@ const commandSpec200 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -85975,14 +82789,7 @@ const commandSpec200 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -86007,14 +82814,7 @@ const commandSpec200 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -86031,24 +82831,12 @@ const commandSpec200 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -86247,14 +83035,7 @@ const commandSpec200 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -86531,13 +83312,7 @@ const commandSpec200 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -86854,11 +83629,7 @@ const commandSpec201 = {
       set: -1,
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -86978,73 +83749,39 @@ const commandSpec201 = {
       value: 'flag',
     },
     '--context': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser13,
       key: 'context',
       value: 'integer',
     },
     '-C': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser13,
       key: 'context',
       value: 'integer',
     },
     '--before-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'before-context',
       value: 'integer',
     },
     '-B': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'before-context',
       value: 'integer',
     },
     '--after-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'after-context',
       value: 'integer',
     },
     '-A': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'after-context',
       value: 'integer',
     },
     '--threads': {
       key: 'threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--show-function': {
       key: 'show-function',
@@ -87122,20 +83859,12 @@ const commandSpec201 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '-m': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-cached': {
       key: 'cached',
@@ -87278,14 +84007,7 @@ const commandSpec201 = {
       set: false,
     },
     '--no-context': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser13,
       key: 'context',
       value: 'flag',
       set: 0,
@@ -87294,11 +84016,7 @@ const commandSpec201 = {
       key: 'threads',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-show-function': {
       key: 'show-function',
@@ -87335,11 +84053,7 @@ const commandSpec201 = {
       key: 'max-count',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--help': {
       key: 'help',
@@ -87389,14 +84103,7 @@ const commandSpec201 = {
   numericOption: {
     key: 'context',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: false,
-      conversion: 'cast',
-      empty: true,
-    },
+    parser: sharedScalarParser13,
   },
   rules: [
     {
@@ -87558,33 +84265,13 @@ const commandSpec202 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -87671,57 +84358,25 @@ const commandSpec202 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -87778,11 +84433,7 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -87859,11 +84510,7 @@ const commandSpec202 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -88066,11 +84713,7 @@ const commandSpec202 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -88382,14 +85025,7 @@ const commandSpec202 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -88437,14 +85073,7 @@ const commandSpec202 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -88498,24 +85127,12 @@ const commandSpec202 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -88531,14 +85148,7 @@ const commandSpec202 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -88563,14 +85173,7 @@ const commandSpec202 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -88587,24 +85190,12 @@ const commandSpec202 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -88803,14 +85394,7 @@ const commandSpec202 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -88965,11 +85549,7 @@ const commandSpec202 = {
       value: 'string',
     },
     '--start-number': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'start-number',
       value: 'integer',
     },
@@ -88978,11 +85558,7 @@ const commandSpec202 = {
       value: 'string',
     },
     '--filename-max-length': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'filename-max-length',
       value: 'integer',
     },
@@ -89131,11 +85707,7 @@ const commandSpec202 = {
       value: 'string',
     },
     '--creation-factor': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'creation-factor',
       value: 'integer',
     },
@@ -89174,11 +85746,7 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-start-number': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'start-number',
       value: 'flag',
       set: 0,
@@ -89189,11 +85757,7 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-filename-max-length': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'filename-max-length',
       value: 'flag',
       set: 0,
@@ -89298,11 +85862,7 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-creation-factor': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'creation-factor',
       value: 'flag',
       set: 0,
@@ -89328,13 +85888,7 @@ const commandSpec202 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -90310,33 +86864,13 @@ const commandSpec204 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -90423,57 +86957,25 @@ const commandSpec204 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -90510,15 +87012,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -90543,11 +87037,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -90809,11 +87299,7 @@ const commandSpec204 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -90848,15 +87334,7 @@ const commandSpec204 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -91135,14 +87613,7 @@ const commandSpec204 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -91190,14 +87661,7 @@ const commandSpec204 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -91251,24 +87715,12 @@ const commandSpec204 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -91284,14 +87736,7 @@ const commandSpec204 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -91316,14 +87761,7 @@ const commandSpec204 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -91340,24 +87778,12 @@ const commandSpec204 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -91556,14 +87982,7 @@ const commandSpec204 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -91840,13 +88259,7 @@ const commandSpec204 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -92166,33 +88579,13 @@ const commandSpec205 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -92279,57 +88672,25 @@ const commandSpec205 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -92386,11 +88747,7 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -92467,11 +88824,7 @@ const commandSpec205 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -92669,11 +89022,7 @@ const commandSpec205 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -93027,14 +89376,7 @@ const commandSpec205 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -93082,14 +89424,7 @@ const commandSpec205 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -93143,24 +89478,12 @@ const commandSpec205 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -93176,14 +89499,7 @@ const commandSpec205 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -93208,14 +89524,7 @@ const commandSpec205 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -93232,24 +89541,12 @@ const commandSpec205 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -93448,14 +89745,7 @@ const commandSpec205 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -93548,14 +89838,7 @@ const commandSpec205 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -93596,13 +89879,7 @@ const commandSpec205 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -94219,33 +90496,13 @@ const commandSpec206 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -94331,57 +90588,25 @@ const commandSpec206 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -94438,11 +90663,7 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -94519,11 +90740,7 @@ const commandSpec206 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -94726,11 +90943,7 @@ const commandSpec206 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -95041,14 +91254,7 @@ const commandSpec206 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -95096,14 +91302,7 @@ const commandSpec206 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -95157,24 +91356,12 @@ const commandSpec206 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -95190,14 +91377,7 @@ const commandSpec206 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -95222,14 +91402,7 @@ const commandSpec206 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -95246,24 +91419,12 @@ const commandSpec206 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -95462,14 +91623,7 @@ const commandSpec206 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -95635,13 +91789,7 @@ const commandSpec206 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -95845,11 +91993,7 @@ const commandSpec207 = {
       key: 'more',
       value: 'optional-integer',
       set: 1,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--list': {
       key: 'more',
@@ -95921,11 +92065,7 @@ const commandSpec207 = {
       key: 'more',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-list': {
       key: 'more',
@@ -97513,20 +93653,12 @@ const commandSpec216 = {
       value: 'flag',
     },
     '--summary-limit': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary-limit',
       value: 'integer',
     },
     '-n': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary-limit',
       value: 'integer',
     },
@@ -97549,11 +93681,7 @@ const commandSpec216 = {
       key: 'summary-limit',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--help': {
       key: 'help',
@@ -97746,11 +93874,7 @@ const commandSpec219 = {
       value: 'flag',
     },
     '--depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'integer',
     },
@@ -97818,11 +93942,7 @@ const commandSpec219 = {
       set: false,
     },
     '--no-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'flag',
       set: 0,
@@ -97975,29 +94095,17 @@ const commandSpec220 = {
       value: 'flag',
     },
     '--depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'integer',
     },
     '--jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
@@ -98100,21 +94208,13 @@ const commandSpec220 = {
       set: false,
     },
     '--no-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'flag',
       set: 0,
     },
     '--no-jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'flag',
       set: 0,
@@ -98498,11 +94598,7 @@ const commandSpec225 = {
       value: 'string',
     },
     '--depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'integer',
     },
@@ -98549,11 +94645,7 @@ const commandSpec225 = {
       clear: true,
     },
     '--no-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'flag',
       set: 0,
@@ -98698,11 +94790,7 @@ const commandSpec229 = {
       value: 'string',
     },
     '--depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'integer',
     },
@@ -98939,29 +95027,17 @@ const commandSpec233 = {
       value: 'flag',
     },
     '--depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'integer',
     },
     '--jobs': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'jobs',
       value: 'integer',
     },
@@ -99217,20 +95293,12 @@ const commandSpec236 = {
       value: 'flag',
     },
     '--summary-limit': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary-limit',
       value: 'integer',
     },
     '-n': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'summary-limit',
       value: 'integer',
     },
@@ -100876,11 +96944,7 @@ const commandSpec272 = {
         value: 'flag',
       },
       '--count': {
-        parser: {
-          kind: 'integer',
-          signed: true,
-          bits: 32,
-        },
+        parser: sharedScalarParser0,
         key: 'count',
         value: 'integer',
       },
@@ -101035,11 +97099,7 @@ const commandSpec272 = {
         set: false,
       },
       '--no-count': {
-        parser: {
-          kind: 'integer',
-          signed: true,
-          bits: 32,
-        },
+        parser: sharedScalarParser0,
         key: 'count',
         value: 'flag',
         set: 0,
@@ -101308,11 +97368,7 @@ const commandSpec274 = {
     '--index-version': {
       key: 'index-version',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--show-index-version': {
       key: 'index-version',
@@ -101405,11 +97461,7 @@ const commandSpec274 = {
       key: 'index-version',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-show-index-version': {
       key: 'index-version',
@@ -101513,33 +97565,13 @@ const commandSpec275 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -101626,57 +97658,25 @@ const commandSpec275 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -101733,11 +97733,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -101814,11 +97810,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -102020,11 +98012,7 @@ const commandSpec275 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -102336,14 +98324,7 @@ const commandSpec275 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -102391,14 +98372,7 @@ const commandSpec275 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -102452,24 +98426,12 @@ const commandSpec275 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -102485,14 +98447,7 @@ const commandSpec275 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -102517,14 +98472,7 @@ const commandSpec275 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -102541,24 +98489,12 @@ const commandSpec275 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -102757,14 +98693,7 @@ const commandSpec275 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -102857,14 +98786,7 @@ const commandSpec275 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -102892,11 +98814,7 @@ const commandSpec275 = {
     '--progress': {
       key: 'progress',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--signed-tags': {
       key: 'signed-tags',
@@ -102974,11 +98892,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--no-progress': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'progress',
       value: 'flag',
       set: 0,
@@ -103085,13 +98999,7 @@ const commandSpec275 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -103739,12 +99647,7 @@ const commandSpec276 = {
       parser: 'pack-objects-index-version',
     },
     '--max-pack-size': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'max-pack-size',
       value: 'integer',
     },
@@ -103759,30 +99662,17 @@ const commandSpec276 = {
     '--window': {
       key: 'window',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--window-memory': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
       key: 'window-memory',
       value: 'integer',
     },
     '--depth': {
       key: 'depth',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--reuse-delta': {
       key: 'reuse-delta',
@@ -103799,11 +99689,7 @@ const commandSpec276 = {
     '--threads': {
       key: 'threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--non-empty': {
       key: 'non-empty',
@@ -103896,11 +99782,7 @@ const commandSpec276 = {
     '--compression': {
       key: 'compression',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--keep-true-parents': {
       key: 'keep-true-parents',
@@ -103946,11 +99828,7 @@ const commandSpec276 = {
       repeat: true,
     },
     '--name-hash-version': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'name-hash-version',
       value: 'integer',
     },
@@ -103985,21 +99863,13 @@ const commandSpec276 = {
       set: false,
     },
     '--no-window': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'window',
       value: 'flag',
       set: 0,
     },
     '--no-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'depth',
       value: 'flag',
       set: 0,
@@ -104020,11 +99890,7 @@ const commandSpec276 = {
       set: false,
     },
     '--no-threads': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'threads',
       value: 'flag',
       set: 0,
@@ -104114,11 +99980,7 @@ const commandSpec276 = {
       key: 'compression',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-keep-true-parents': {
       key: 'keep-true-parents',
@@ -104171,11 +100033,7 @@ const commandSpec276 = {
       key: 'name-hash-version',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--help': {
       key: 'help',
@@ -104189,12 +100047,7 @@ const commandSpec276 = {
       key: 'max-pack-size',
       value: 'flag',
       set: 0,
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-      },
+      parser: sharedScalarParser10,
     },
     '--help-all': {
       key: 'help',
@@ -105236,11 +101089,7 @@ const commandSpec280 = {
     '--timeout': {
       key: 'timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-stateless-rpc': {
       key: 'stateless-rpc',
@@ -105258,11 +101107,7 @@ const commandSpec280 = {
       set: false,
     },
     '--no-timeout': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'timeout',
       value: 'flag',
       set: 0,
@@ -106642,32 +102487,12 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       key: 'unified',
       value: 'optional-integer',
     },
     '-U': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       key: 'unified',
       value: 'optional-integer',
       emptyValueFlag: '--unified',
@@ -106786,15 +102611,7 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'optional-integer',
     },
@@ -106819,11 +102636,7 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -106897,11 +102710,7 @@ const commandSpec291 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -107076,11 +102885,7 @@ const commandSpec291 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -107114,15 +102919,7 @@ const commandSpec291 = {
       set: 'never',
     },
     '--no-abbrev': {
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'cast',
-        nonzeroMinimum: 4,
-        default: 'unknown',
-      },
+      parser: sharedScalarParser1,
       key: 'abbrev',
       value: 'flag',
       set: 0,
@@ -108727,11 +104524,7 @@ const commandSpec296 = {
     '--ipc-threads': {
       key: 'ipc-threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-ipc-threads': {
       key: 'ipc-threads',
@@ -108741,11 +104534,7 @@ const commandSpec296 = {
     '--start-timeout': {
       key: 'start-timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-start-timeout': {
       key: 'start-timeout',
@@ -108809,11 +104598,7 @@ const commandSpec297 = {
     '--ipc-threads': {
       key: 'ipc-threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-ipc-threads': {
       key: 'ipc-threads',
@@ -108823,11 +104608,7 @@ const commandSpec297 = {
     '--start-timeout': {
       key: 'start-timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-start-timeout': {
       key: 'start-timeout',
@@ -108882,11 +104663,7 @@ const commandSpec298 = {
     '--ipc-threads': {
       key: 'ipc-threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-ipc-threads': {
       key: 'ipc-threads',
@@ -108896,11 +104673,7 @@ const commandSpec298 = {
     '--start-timeout': {
       key: 'start-timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-start-timeout': {
       key: 'start-timeout',
@@ -108955,11 +104728,7 @@ const commandSpec299 = {
     '--ipc-threads': {
       key: 'ipc-threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-ipc-threads': {
       key: 'ipc-threads',
@@ -108969,11 +104738,7 @@ const commandSpec299 = {
     '--start-timeout': {
       key: 'start-timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-start-timeout': {
       key: 'start-timeout',
@@ -109028,11 +104793,7 @@ const commandSpec300 = {
     '--ipc-threads': {
       key: 'ipc-threads',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-ipc-threads': {
       key: 'ipc-threads',
@@ -109042,11 +104803,7 @@ const commandSpec300 = {
     '--start-timeout': {
       key: 'start-timeout',
       value: 'integer',
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
     },
     '--no-start-timeout': {
       key: 'start-timeout',
@@ -109142,25 +104899,13 @@ const commandSpec301 = {
       key: 'max-pack-size',
       value: 'integer',
       repeat: true,
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-        numberRepresentation: 'argv',
-      },
+      parser: sharedScalarParser14,
     },
     '--big-file-threshold': {
       key: 'big-file-threshold',
       value: 'integer',
       repeat: true,
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 64,
-        nativeWidth: 'long',
-        numberRepresentation: 'argv',
-      },
+      parser: sharedScalarParser14,
     },
     '--export-pack-edges': {
       key: 'export-pack-edges',
@@ -109641,33 +105386,13 @@ const commandSpec306 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -109754,57 +105479,25 @@ const commandSpec306 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -109861,11 +105554,7 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -109942,11 +105631,7 @@ const commandSpec306 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -110144,11 +105829,7 @@ const commandSpec306 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -110502,14 +106183,7 @@ const commandSpec306 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -110557,14 +106231,7 @@ const commandSpec306 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -110618,24 +106285,12 @@ const commandSpec306 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -110651,14 +106306,7 @@ const commandSpec306 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -110683,14 +106331,7 @@ const commandSpec306 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -110707,24 +106348,12 @@ const commandSpec306 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -110923,14 +106552,7 @@ const commandSpec306 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -111023,14 +106645,7 @@ const commandSpec306 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -111071,13 +106686,7 @@ const commandSpec306 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
   rules: [
@@ -111712,29 +107321,17 @@ const commandSpec307 = {
       value: 'flag',
     },
     '--unified': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '-U': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -113929,33 +109526,13 @@ const commandSpec309 = {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
     },
     '-U': {
       key: 'unified',
       value: 'optional-integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: false,
-        conversion: 'cast',
-        empty: true,
-        beforeNonnegative: true,
-        default: 'previous',
-        nativeCallback: 'unified-context',
-      },
+      parser: sharedScalarParser2,
       emptyValueFlag: '--unified',
     },
     '--function-context': {
@@ -114042,57 +109619,25 @@ const commandSpec309 = {
       key: 'stat-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-name-width': {
       key: 'stat-name-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-graph-width': {
       key: 'stat-graph-width',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--stat-count': {
       key: 'stat-count',
       value: 'integer',
       effects: sharedEffects4,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        unsignedLong: true,
-        conversion: 'cast',
-        empty: true,
-      },
+      parser: sharedScalarParser3,
     },
     '--compact-summary': {
       key: 'compact-summary',
@@ -114149,11 +109694,7 @@ const commandSpec309 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
-      parser: {
-        kind: 'integer',
-        signed: false,
-        bits: 32,
-      },
+      parser: sharedScalarParser4,
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -114230,11 +109771,7 @@ const commandSpec309 = {
       value: 'flag',
     },
     '-l': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'l',
       value: 'integer',
     },
@@ -114432,11 +109969,7 @@ const commandSpec309 = {
       value: 'string',
     },
     '--max-depth': {
-      parser: {
-        kind: 'integer',
-        signed: true,
-        bits: 32,
-      },
+      parser: sharedScalarParser0,
       key: 'max-depth',
       value: 'integer',
     },
@@ -114790,14 +110323,7 @@ const commandSpec309 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        beforeNonnegative: true,
-      },
+      parser: sharedScalarParser5,
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -114845,14 +110371,7 @@ const commandSpec309 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--grep': {
       key: 'grep',
@@ -114906,24 +110425,12 @@ const commandSpec309 = {
     '--max-age': {
       key: 'max-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects9,
       checks: [
         {
@@ -114939,14 +110446,7 @@ const commandSpec309 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects10,
       checks: [
         {
@@ -114971,14 +110471,7 @@ const commandSpec309 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -114995,24 +110488,12 @@ const commandSpec309 = {
     '--min-age': {
       key: 'min-age',
       value: 'integer',
-      parser: {
-        kind: 'timestamp',
-        conversion: 'checked',
-        longBits: 64,
-        nativeCallback: 'revision-age',
-      },
+      parser: sharedScalarParser7,
     },
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -115211,14 +110692,7 @@ const commandSpec309 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -115311,14 +110785,7 @@ const commandSpec309 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
-        signed: true,
-        conversion: 'checked',
-        nativeCallback: 'revision-count',
-      },
+      parser: sharedScalarParser6,
       effects: sharedEffects13,
     },
     '-r': {
@@ -115395,13 +110862,7 @@ const commandSpec309 = {
   numericOption: {
     key: 'max-count',
     value: 'integer',
-    parser: {
-      kind: 'decimal',
-      longBits: 64,
-      bits: 32,
-      signed: true,
-      conversion: 'checked',
-    },
+    parser: sharedScalarParser8,
     effects: sharedEffects13,
   },
 } as const satisfies CommandSpec;

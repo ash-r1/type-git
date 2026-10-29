@@ -28,3 +28,13 @@ not register this option; those unknown-option results are distinct from
 callback rejection on Git 2.55/2.56. Ten negative public type assertions
 were initially unused. These finite controls leave the overall command
 audit partial.
+
+The first full 294-fixture compiler run on the corrected feature reached
+its unchanged 12288 MiB V8 heap limit. To reduce retained compiler graphs,
+the generator shares 15 repeated readonly scalar-parser definitions
+rather than emitting separate object literals for 930 parser locations.
+The 428 catalogue values and bidirectional catalogue types remain equal.
+Generated identifier names avoid existing string parser names. This does
+not change parser algorithms, public option types, or validation scope.
+A new standard whole-project run is required before claiming the capacity
+change is sufficient.
