@@ -19729,6 +19729,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -23356,6 +23357,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -33467,6 +33469,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -37090,6 +37093,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -44144,6 +44148,7 @@
             ]
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string",
             "effects": [
@@ -49245,6 +49250,7 @@
             ]
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string",
             "effects": [
@@ -68817,6 +68823,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -72422,6 +72429,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -77232,6 +77240,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -84429,6 +84438,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -89965,6 +89975,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -99868,6 +99879,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -105755,6 +105767,7 @@
             "set": "always"
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },
@@ -108963,6 +108976,7 @@
             "caseInsensitive": true
           },
           "--ws-error-highlight": {
+            "parser": "diff-ws-error-highlight",
             "key": "ws-error-highlight",
             "value": "string"
           },

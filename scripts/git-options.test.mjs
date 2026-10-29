@@ -91,3 +91,16 @@ describe('moved-color callback identity', () => {
     expect(result.backfill.parserExit.remainingOptions['--no-color-moved-ws'].parser).toBeUndefined();
   });
 });
+
+
+describe('whitespace-error highlight callback identity', () => {
+  it('binds own and retained callbacks without adding negation', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    for (const command of ['diff', 'log', 'blame', 'shortlog', 'backfill', 'difftool']) {
+      expect(result[command].options['--ws-error-highlight'].parser).toBe('diff-ws-error-highlight');
+      expect(result[command].options['--no-ws-error-highlight']).toBeUndefined();
+    }
+    expect(result.log.parserExit.remainingOptions['--ws-error-highlight'].parser).toBe('diff-ws-error-highlight');
+    expect(result.difftool.parserExit.remainingOptions['--ws-error-highlight'].parser).toBe('diff-ws-error-highlight');
+  });
+});

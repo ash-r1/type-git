@@ -631,6 +631,7 @@ const remainingOptions1 = {
     caseInsensitive: true,
   },
   '--ws-error-highlight': {
+    parser: 'diff-ws-error-highlight',
     key: 'ws-error-highlight',
     value: 'string',
   },
@@ -2113,6 +2114,7 @@ const remainingOptions2 = {
     effects: sharedEffects18,
   },
   '--ws-error-highlight': {
+    parser: 'diff-ws-error-highlight',
     key: 'ws-error-highlight',
     value: 'string',
     effects: sharedEffects18,
@@ -3781,6 +3783,7 @@ const remainingOptions3 = {
     caseInsensitive: true,
   },
   '--ws-error-highlight': {
+    parser: 'diff-ws-error-highlight',
     key: 'ws-error-highlight',
     value: 'string',
   },
@@ -5256,6 +5259,7 @@ const remainingOptions4 = {
     set: 'always',
   },
   '--ws-error-highlight': {
+    parser: 'diff-ws-error-highlight',
     key: 'ws-error-highlight',
     value: 'string',
   },
@@ -33550,6 +33554,7 @@ const commandSpec68 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -35800,6 +35805,7 @@ const commandSpec69 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -38004,6 +38010,7 @@ const commandSpec70 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -39759,6 +39766,7 @@ const commandSpec71 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -41566,6 +41574,7 @@ const commandSpec72 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -43340,6 +43349,7 @@ const commandSpec73 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -45083,6 +45093,7 @@ const commandSpec74 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -46178,6 +46189,7 @@ const commandSpec81 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -48409,6 +48421,7 @@ const commandSpec82 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -54475,6 +54488,7 @@ const commandSpec85 = {
       effects: sharedEffects18,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
       effects: sharedEffects18,
@@ -57314,6 +57328,7 @@ const commandSpec86 = {
       effects: sharedEffects18,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
       effects: sharedEffects18,
@@ -75377,6 +75392,7 @@ const commandSpec184 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -78604,6 +78620,7 @@ const commandSpec194 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -80812,6 +80829,7 @@ const commandSpec195 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -82947,6 +82965,7 @@ const commandSpec196 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -83721,6 +83740,7 @@ const commandSpec197 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -84590,6 +84610,7 @@ const commandSpec198 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -86883,6 +86904,7 @@ const commandSpec199 = {
       },
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -88863,6 +88885,7 @@ const commandSpec200 = {
       },
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -91607,6 +91630,7 @@ const commandSpec202 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -94552,6 +94576,7 @@ const commandSpec204 = {
       },
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -96573,6 +96598,7 @@ const commandSpec205 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -98789,6 +98815,7 @@ const commandSpec206 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -106359,6 +106386,7 @@ const commandSpec275 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -111634,6 +111662,7 @@ const commandSpec291 = {
       set: 'always',
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -114736,6 +114765,7 @@ const commandSpec306 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
@@ -120378,6 +120408,7 @@ const commandSpec309 = {
       caseInsensitive: true,
     },
     '--ws-error-highlight': {
+      parser: 'diff-ws-error-highlight',
       key: 'ws-error-highlight',
       value: 'string',
     },
