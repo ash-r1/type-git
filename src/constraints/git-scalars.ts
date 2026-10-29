@@ -262,7 +262,13 @@ export function parseGitScalar(
   }
   if (isCompoundDecimal(parser)) {
     return {
-      valid: validCompoundDecimal(parser, value, cLongBits, compoundNegatedOverflow),
+      valid: validCompoundDecimal(
+        parser,
+        value,
+        cLongBits,
+        compoundNegatedOverflow,
+        binaryIntegers,
+      ),
       value,
     };
   }

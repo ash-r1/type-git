@@ -4,7 +4,10 @@
   "sources": {
     "builtin/shortlog.c": "ff2972d3b5f9fcc9a9c583eab7e60126a27630b1d494d2dd5b01c44ecd351375",
     "builtin/show-branch.c": "efb56979219739c571df41d98e07d88ee90f3b9e3c704d03a8cc5bed4cddf187",
-    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b"
+    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
+    "builtin/pack-objects.c": "a7332e1220db7595f9e6aa9ecad5adf7761e5e75069e03c09db51d8d914684c1",
+    "builtin/index-pack.c": "fada7323f7051c4d9b60eb4ed540d80e01150093b8dc3de00fe79313144e4b6f",
+    "pack.h": "00de3d5dac502c08ab917e9ee1f083f62fa3d1edb0d39e9e4a5c958d63140969"
   },
   "profiles": {
     "shortlog-wrap": {
@@ -68,6 +71,36 @@
         "others": []
       },
       "source": "Git2.25.1/2.55.0 diff.c:diff_opt_stat stat branch; at most3strtoul(base10) fields, empty fields accepted. Defaults here serve acceptance only; omitted native values retain previous state and rendering remains native. No field-order relation."
+    },
+    "pack-objects-index-version": {
+      "kind": "index-version",
+      "separator": ",",
+      "decimal": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "emptyOffset": false,
+      "source": "Git 2.25.1/2.55.0 builtin/pack-objects.c:option_parse_index_version; pack.h:pack_idx_option uint32_t fields; decimal strtoul then version<=2, optional base0 strtoul then off32 high-bit clear; errno ignored. A comma requires a nonempty offset."
+    },
+    "index-pack-index-version": {
+      "kind": "index-version",
+      "separator": ",",
+      "decimal": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "emptyOffset": true,
+      "source": "Git 2.25.1/2.55.0 builtin/index-pack.c:cmd_index_pack --index-version; pack.h:pack_idx_option uint32_t fields; decimal strtoul then version<=2, optional base0 strtoul then off32 high-bit clear; errno ignored. A trailing comma parses an empty offset as zero."
     }
   }
 }
