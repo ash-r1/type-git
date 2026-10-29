@@ -104,3 +104,25 @@ describe('whitespace-error highlight callback identity', () => {
     expect(result.difftool.parserExit.remainingOptions['--ws-error-highlight'].parser).toBe('diff-ws-error-highlight');
   });
 });
+
+
+describe('dirstat callback identity', () => {
+  it('binds each shared alias and preserves native valueless and non-negatable shapes', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    for (const command of ['diff', 'log', 'blame', 'shortlog', 'backfill', 'difftool']) {
+      for (const flag of ['--dirstat', '-X', '--dirstat-by-file', '--cumulative']) expect(result[command].options[flag].parser).toBe('diff-dirstat');
+      expect(result[command].options['--cumulative'].value).toBe('flag');
+      expect(result[command].options['--no-dirstat']).toBeUndefined();
+      expect(result[command].options['--no-cumulative']).toBeUndefined();
+    }
+    for (const command of ['log', 'difftool', 'backfill']) for (const flag of ['--dirstat', '-X', '--dirstat-by-file', '--cumulative']) expect(result[command].parserExit.remainingOptions[flag].parser).toBe('diff-dirstat');
+    expect(result['stash show'].options['-X'].parser).toBe('diff-dirstat');
+    expect(result['stash show'].options['-X'].attachedValue).toBe(true);
+    for (const command of ['cherry-pick', 'revert']) {
+      expect(result[command].options['-X'].key).toBe('strategy-option');
+      expect(result[command].options['-X'].value).toBe('string');
+      expect(result[command].options['-X'].parser).toBeUndefined();
+      expect(result[command].parserExit.remainingOptions['-X'].parser).toBe('diff-dirstat');
+    }
+  });
+});

@@ -1426,7 +1426,8 @@
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-dirstat"
       },
       "-X": {
         "key": "dirstat",
@@ -1436,7 +1437,8 @@
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-dirstat"
       },
       "--cumulative": {
         "key": "cumulative",
@@ -1446,7 +1448,8 @@
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-dirstat"
       },
       "--dirstat-by-file": {
         "key": "dirstat-by-file",
@@ -1456,7 +1459,8 @@
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "diff-dirstat"
       },
       "--output-indicator-new": {
         "key": "output-indicator-new",

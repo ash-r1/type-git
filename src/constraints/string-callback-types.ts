@@ -180,6 +180,29 @@ type TrailingTokenList<
     : S extends '' | Exact
       ? true
       : false;
+type DirstatDigits<S extends string> = S extends ''
+  ? true
+  : S extends `${ScoreDigit}${infer Rest}`
+    ? DirstatDigits<Rest>
+    : false;
+type DirstatToken<S extends string, Exact extends string> = S extends Exact
+  ? true
+  : S extends `${ScoreDigit}${string}`
+    ? S extends `${infer Whole}.${infer Fraction}`
+      ? false extends DirstatDigits<Whole> | DirstatDigits<Fraction>
+        ? false
+        : true
+      : DirstatDigits<S>
+    : false;
+type DirstatTokens<
+  S extends string,
+  Separator extends string,
+  Exact extends string,
+> = S extends `${infer Token}${Separator}${infer Rest}`
+  ? DirstatToken<Token, Exact> extends true
+    ? DirstatTokens<Rest, Separator, Exact>
+    : false
+  : DirstatToken<S, Exact>;
 type CharacterMembers<S extends string> = S extends `${infer C}${infer Rest}`
   ? C | CharacterMembers<Rest>
   : never;
@@ -290,9 +313,19 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
                     ? Dynamic<V> extends true
                       ? true
                       : TrailingTokenList<V, Separator, Exact>
-                    : false
+                    : Profile<P> extends {
+                          kind: 'dirstat-params';
+                          separator: infer Separator extends string;
+                          exact: readonly (infer Exact extends string)[];
+                        }
+                      ? Dynamic<V> extends true
+                        ? true
+                        : V extends ''
+                          ? true
+                          : DirstatTokens<V, Separator, Exact>
+                      : false
   : V extends true
-    ? Profile<P> extends { kind: 'rename-score' }
+    ? Profile<P> extends { kind: 'rename-score' | 'dirstat-params' }
       ? true
       : false
     : false;

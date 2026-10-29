@@ -3,6 +3,7 @@ import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 export type StringCallbackProfile = { source: string } & (
   | { kind: 'rename-score'; parts: 1 | 2 }
   | { kind: 'character-set'; characters: string }
+  | { kind: 'dirstat-params'; separator: string; allowBare: true; exact: readonly string[] }
   | { kind: 'trailing-token-list'; separator: string; exact: readonly string[] }
   | {
       kind: 'resetting-token-list';
@@ -39,11 +40,34 @@ export function parseStringCallback(
   value: unknown,
 ): { valid: boolean; value?: unknown } {
   const profile: StringCallbackProfile = STRING_CALLBACKS[parser];
-  if (value === true && profile.kind === 'rename-score') {
+  if (value === true && (profile.kind === 'rename-score' || profile.kind === 'dirstat-params')) {
     return { valid: true, value };
   }
   if (typeof value !== 'string') {
     return { valid: false };
+  }
+  if (profile.kind === 'dirstat-params') {
+    const valid =
+      value === '' ||
+      value.split(profile.separator).every((token) => {
+        if (profile.exact.includes(token)) {
+          return true;
+        }
+        let dot = false;
+        for (let index = 0; index < token.length; index++) {
+          const code = token.charCodeAt(index);
+          if (code >= 48 && code <= 57) {
+            continue;
+          }
+          if (code === 46 && index > 0 && !dot) {
+            dot = true;
+            continue;
+          }
+          return false;
+        }
+        return token.length > 0;
+      });
+    return { valid, value };
   }
   if (profile.kind === 'trailing-token-list') {
     const tokens = value.split(profile.separator);

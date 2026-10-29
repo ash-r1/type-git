@@ -2804,7 +2804,8 @@
             "set": false
           }
         ],
-        "attachedValue": true
+        "attachedValue": true,
+        "parser": "diff-dirstat"
       },
       "-B": {
         "key": "break-rewrites",
