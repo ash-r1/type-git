@@ -2,7 +2,7 @@ import type { CompoundDecimalParser } from './compound-decimal.js';
 import type { COMPOUND_DECIMALS } from './compound-decimals.generated.js';
 import type { GitDecimalParser } from './git-decimal.js';
 import type { GitDecimalLiteral, GitDecimalValue } from './git-decimal-types.js';
-import type { AtMost } from './git-integer-types.js';
+import type { AddDigit, AtMost, Digit } from './git-integer-types.js';
 
 type Profile<P extends CompoundDecimalParser> = (typeof COMPOUND_DECIMALS)[P];
 type DecimalProfile<
@@ -13,6 +13,91 @@ type DecimalProfile<
     ? { negateUnsignedOverflow: true }
     : {}) &
   GitDecimalParser;
+type Radix = 2 | 8 | 10 | 16;
+type BaseDigits<B extends Radix> = B extends 2
+  ? '0' | '1'
+  : B extends 8
+    ? Exclude<Digit, '8' | '9'>
+    : B extends 10
+      ? Digit
+      : Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+type RadixDigits<
+  S extends string,
+  B extends Radix,
+  A extends string = '0',
+  Seen extends boolean = false,
+  N extends unknown[] = [],
+> = string extends S
+  ? string
+  : N['length'] extends 128
+    ? string
+    : S extends ''
+      ? Seen extends true
+        ? A
+        : 'invalid'
+      : S extends `${infer H}${infer Rest}`
+        ? Lowercase<H> extends BaseDigits<B>
+          ? RadixDigits<Rest, B, AddDigit<A, B, Lowercase<H>>, true, [...N, 0]>
+          : {} extends Record<H, unknown>
+            ? string
+            : 'invalid'
+        : string;
+// Defer unusually long prefixes to runtime instead of exhausting type evaluation.
+type LeadingSpace<S extends string, N extends unknown[] = []> = N['length'] extends 128
+  ? string
+  : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
+    ? LeadingSpace<R, [...N, 0]>
+    : S;
+type BaseZero<S extends string> = S extends `0${'x' | 'X'}${infer R}`
+  ? RadixDigits<R, 16>
+  : S extends `0${'b' | 'B'}${infer R}`
+    ? RadixDigits<R, 2>
+    : S extends `0${string}`
+      ? RadixDigits<S, 8>
+      : RadixDigits<S, 10>;
+type OffsetText<
+  S extends string,
+  T extends string = LeadingSpace<S>,
+> = T extends `${infer Sign extends '+' | '-'}${infer Rest}`
+  ? BaseZero<Rest> extends infer D extends string
+    ? D extends 'invalid'
+      ? D
+      : `${Sign}${D}`
+    : never
+  : BaseZero<T>;
+type AtMostValue<
+  S extends string,
+  P extends GitDecimalParser,
+  Max extends string,
+> = string extends S
+  ? true
+  : GitDecimalLiteral<S, P> extends true
+    ? GitDecimalValue<S, P> extends infer V extends number | bigint
+      ? number extends V
+        ? true
+        : bigint extends V
+          ? true
+          : AtMost<`${V}`, Max>
+      : false
+    : false;
+type IndexVersion<
+  S extends string,
+  P extends CompoundDecimalParser,
+  Bits extends 32 | 64,
+  NegateOverflow extends boolean,
+> = S extends `${infer Version},${infer Offset}`
+  ? AtMostValue<Version, DecimalProfile<P, Bits, NegateOverflow>, '2'> extends true
+    ? Offset extends ''
+      ? Profile<P> extends { emptyOffset: true }
+        ? true
+        : false
+      : OffsetText<Offset> extends infer D extends string
+        ? D extends 'invalid'
+          ? false
+          : AtMostValue<D, DecimalProfile<P, Bits, NegateOverflow>, '2147483647'>
+        : false
+    : false
+  : AtMostValue<S, DecimalProfile<P, Bits, NegateOverflow>, '2'>;
 type Parts<
   S extends string,
   Limit extends number,
@@ -82,12 +167,14 @@ type Parsed<
   : V extends string
     ? string extends V
       ? true
-      : Profile<P> extends { kind: 'prefix' }
-        ? GitDecimalLiteral<
-            V extends `${infer Head},${string}` ? Head : V,
-            DecimalProfile<P, Bits, NegateOverflow>
-          >
-        : TupleLiteral<V, P, Bits, NegateOverflow>
+      : Profile<P> extends { kind: 'index-version' }
+        ? IndexVersion<V, P, Bits, NegateOverflow>
+        : Profile<P> extends { kind: 'prefix' }
+          ? GitDecimalLiteral<
+              V extends `${infer Head},${string}` ? Head : V,
+              DecimalProfile<P, Bits, NegateOverflow>
+            >
+          : TupleLiteral<V, P, Bits, NegateOverflow>
     : false;
 export type CompoundDecimalLiteral<
   V,

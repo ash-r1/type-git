@@ -10553,6 +10553,11 @@
             "source": "Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
           }
         ]
+      },
+      "--index-version": {
+        "key": "index-version",
+        "value": "string",
+        "parser": "pack-objects-index-version"
       }
     },
     "parserExit": {
@@ -10641,7 +10646,8 @@
       },
       "--index-version": {
         "key": "index-version",
-        "value": "string"
+        "value": "string",
+        "parser": "index-pack-index-version"
       },
       "--max-input-size": {
         "key": "max-input-size",
@@ -10721,12 +10727,14 @@
       }
     },
     "parserExit": {
-      "flags": [],
+      "flags": [
+        "-h"
+      ],
       "singleWordExits": [
         "--help-all"
       ],
       "origin": "git",
-      "reason": "A sole canonical full usage word exits before pack-input arity validation. Selected native Git owns status and streams, including older unknown-option usage.",
+      "reason": "A sole canonical full usage word exits before pack-input arity validation. Selected native Git owns status and streams, including older unknown-option usage. A reached -h takes the handwritten usage exit before later value parsing; earlier invalid index-version values still fail.",
       "source": "Git 2.55.0 builtin/index-pack.c:cmd_index_pack show_usage_if_asked; Git2.25.1 handwritten option loop."
     }
   },

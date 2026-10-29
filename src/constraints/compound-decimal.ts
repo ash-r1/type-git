@@ -7,6 +7,7 @@ export type CompoundDecimalProfile = {
   source: string;
 } & (
   | { kind: 'prefix' }
+  | { kind: 'index-version'; emptyOffset: boolean }
   | {
       kind: 'tuple';
       defaults: readonly number[];
@@ -26,14 +27,57 @@ export function validCompoundDecimal(
   value: unknown,
   longBits: 32 | 64 = 64,
   compoundNegatedOverflow = false,
+  binaryIntegers = true,
 ): boolean {
+  const profile: CompoundDecimalProfile = COMPOUND_DECIMALS[parser];
+  if (profile.kind === 'index-version') {
+    if (typeof value !== 'string') {
+      return false;
+    }
+    const parts = value.split(',');
+    if (parts.length > 2) {
+      return false;
+    }
+    const version = parseGitDecimal(
+      parts[0],
+      profile.decimal,
+      undefined,
+      longBits,
+      compoundNegatedOverflow,
+    );
+    if (!version.valid || typeof version.value !== 'number' || version.value > 2) {
+      return false;
+    }
+    if (parts.length === 1) {
+      return true;
+    }
+    const offset = parts[1]!;
+    if (offset === '') {
+      return profile.emptyOffset;
+    }
+    const match = /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)$/.exec(
+      offset,
+    );
+    if (!match || match[0] !== offset || (!binaryIntegers && /^0[bB]/.test(match[2]!))) {
+      return false;
+    }
+    const digits = match[2]!;
+    const magnitude = BigInt(/^0[0-7]+$/.test(digits) ? `0o${digits}` : digits);
+    const parsed = parseGitDecimal(
+      `${match[1]}${magnitude}`,
+      profile.decimal,
+      undefined,
+      longBits,
+      compoundNegatedOverflow,
+    );
+    return parsed.valid && typeof parsed.value === 'number' && parsed.value <= 2147483647;
+  }
   if (value === true) {
     return true;
   }
   if (typeof value !== 'string') {
     return false;
   }
-  const profile: CompoundDecimalProfile = COMPOUND_DECIMALS[parser];
   if (profile.kind === 'prefix') {
     const separator = value.indexOf(profile.separator);
     return parseGitDecimal(

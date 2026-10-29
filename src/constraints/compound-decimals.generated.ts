@@ -53,4 +53,36 @@ export const COMPOUND_DECIMALS = {
     source:
       'Git2.25.1/2.55.0 diff.c:diff_opt_stat stat branch; at most3strtoul(base10) fields, empty fields accepted. Defaults here serve acceptance only; omitted native values retain previous state and rendering remains native. No field-order relation.',
   },
+  'pack-objects-index-version': {
+    kind: 'index-version',
+    separator: ',',
+    decimal: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: false,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+    emptyOffset: false,
+    source:
+      'Git 2.25.1/2.55.0 builtin/pack-objects.c:option_parse_index_version; pack.h:pack_idx_option uint32_t fields; decimal strtoul then version<=2, optional base0 strtoul then off32 high-bit clear; errno ignored. A comma requires a nonempty offset.',
+  },
+  'index-pack-index-version': {
+    kind: 'index-version',
+    separator: ',',
+    decimal: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: false,
+      unsignedLong: true,
+      conversion: 'cast',
+      empty: true,
+    },
+    emptyOffset: true,
+    source:
+      'Git 2.25.1/2.55.0 builtin/index-pack.c:cmd_index_pack --index-version; pack.h:pack_idx_option uint32_t fields; decimal strtoul then version<=2, optional base0 strtoul then off32 high-bit clear; errno ignored. A trailing comma parses an empty offset as zero.',
+  },
 } as const satisfies Record<string, CompoundDecimalProfile>;

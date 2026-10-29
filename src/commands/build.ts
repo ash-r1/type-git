@@ -1229,7 +1229,10 @@ export function commandUsesObjectFilterBinary(
         option.parser.kind === 'integer' &&
         /^[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1])) ||
       ((option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
-        objectFilterUsesBinary(arg[1]))
+        objectFilterUsesBinary(arg[1])) ||
+      ((option?.parser === 'pack-objects-index-version' ||
+        option?.parser === 'index-pack-index-version') &&
+        /,[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1]))
     );
   });
 }

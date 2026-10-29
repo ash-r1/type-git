@@ -103729,6 +103729,7 @@ const commandSpec276 = {
     '--index-version': {
       key: 'index-version',
       value: 'string',
+      parser: 'pack-objects-index-version',
     },
     '--max-pack-size': {
       parser: {
@@ -104844,6 +104845,7 @@ const commandSpec277 = {
     '--index-version': {
       key: 'index-version',
       value: 'string',
+      parser: 'index-pack-index-version',
     },
     '--max-input-size': {
       key: 'max-input-size',
@@ -105037,11 +105039,11 @@ const commandSpec277 = {
   source: 'builtin/index-pack.c',
   separator: false,
   parserExit: {
-    flags: [],
+    flags: ['-h'],
     singleWordExits: ['--help-all'],
     origin: 'git',
     reason:
-      'A sole canonical full usage word exits before pack-input arity validation. Selected native Git owns status and streams, including older unknown-option usage.',
+      'A sole canonical full usage word exits before pack-input arity validation. Selected native Git owns status and streams, including older unknown-option usage. A reached -h takes the handwritten usage exit before later value parsing; earlier invalid index-version values still fail.',
     source:
       'Git 2.55.0 builtin/index-pack.c:cmd_index_pack show_usage_if_asked; Git2.25.1 handwritten option loop.',
   },
