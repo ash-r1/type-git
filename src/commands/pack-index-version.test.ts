@@ -48,6 +48,7 @@ describe('pack index version parsers', () => {
     expect(validCompoundDecimal('pack-objects-index-version', '1,')).toBe(false);
     expect(validCompoundDecimal('index-pack-index-version', '1,')).toBe(true);
     expect(validCompoundDecimal('index-pack-index-version', ',')).toBe(true);
+    expect(validCompoundDecimal('pack-objects-index-version', `1,${' '.repeat(1100)}0`)).toBe(true);
   });
 
   it('checks reached values before later help and preserves argv', () => {

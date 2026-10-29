@@ -62,6 +62,7 @@ describe('native pack index version parsers', () => {
         '1,2147483648',
         '1,4294967296',
         '1,-18446744073709551616',
+        `1,${' '.repeat(1100)}0`,
       ]) {
         for (const helpFirst of [false, true]) {
           const words = helpFirst

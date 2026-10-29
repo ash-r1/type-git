@@ -42,8 +42,12 @@ type RadixDigits<
             ? string
             : 'invalid'
         : string;
-type LeadingSpace<S extends string> =
-  S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}` ? LeadingSpace<R> : S;
+// Defer unusually long prefixes to runtime instead of exhausting type evaluation.
+type LeadingSpace<S extends string, N extends unknown[] = []> = N['length'] extends 128
+  ? string
+  : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
+    ? LeadingSpace<R, [...N, 0]>
+    : S;
 type BaseZero<S extends string> = S extends `0${'x' | 'X'}${infer R}`
   ? RadixDigits<R, 16>
   : S extends `0${'b' | 'B'}${infer R}`
