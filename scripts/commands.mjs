@@ -163,6 +163,7 @@ try {
     do { id = `sharedScalarParser${scalarParserIndex++}`; } while (scalarParserNames.has(id));
     return [json, id];
   }));
+  const scalarParserIdentifiers = new Set(scalarParserProfiles.values());
   function renderSpec(value) {
     return JSON.stringify(value, (key, child) => {
       if (key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child))) return effectProfiles.get(JSON.stringify(child));
@@ -172,7 +173,7 @@ try {
     }, 2)
       .replace(/"effects": "(sharedEffects[0-9]+)"/g, '"effects": $1')
       .replace(/"(all|when|required|guard|choices|others)": "(sharedPredicates[0-9]+)"/g, '"$1": $2')
-      .replace(/"parser": "(sharedScalarParser[0-9]+)"/g, '"parser": $1');
+      .replace(/"parser": "(sharedScalarParser[0-9]+)"/g, (text, id) => scalarParserIdentifiers.has(id) ? `"parser": ${id}` : text);
   }
   const predicateDeclarations = [...predicateProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
   const scalarParserDeclarations = [...scalarParserProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
