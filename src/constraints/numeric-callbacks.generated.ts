@@ -103,4 +103,12 @@ export const NUMERIC_CALLBACK_PARSERS = {
     conversion: 'cast',
     empty: true,
   },
+  'commit-graph-filter-count': {
+    kind: 'decimal',
+    longBits: 64,
+    bits: 32,
+    signed: true,
+    conversion: 'cast',
+    empty: true,
+  },
 } as const satisfies Record<string, GitScalarParser>;

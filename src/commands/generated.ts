@@ -64475,8 +64475,16 @@ const commandSpec124 = {
       value: 'string',
     },
     '--max-new-filters': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        empty: true,
+      },
       key: 'max-new-filters',
-      value: 'string',
+      value: 'integer',
     },
     '--progress': {
       key: 'progress',
@@ -64540,7 +64548,7 @@ const commandSpec124 = {
     '--no-max-new-filters': {
       key: 'max-new-filters',
       value: 'flag',
-      clear: true,
+      set: -1,
     },
     '--no-progress': {
       key: 'progress',
@@ -64552,6 +64560,10 @@ const commandSpec124 = {
       value: 'flag',
     },
     '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--help-all': {
       key: 'help',
       value: 'flag',
     },
@@ -64578,6 +64590,14 @@ const commandSpec124 = {
   ],
   source: 'builtin/commit-graph.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    reason:
+      'The write subcommand uses ordinary parse_options flags 0: reached internal help, including a leading --help after write, exits before later callbacks or graph writes. Earlier numeric callbacks still run. The top-level documentation dispatcher only intercepts --help immediately after the builtin name.',
+    source:
+      'Git 2.55.0 builtin/commit-graph.c:graph_write; parse-options.c:parse_options_step; builtin/commit-graph.c:cmd_commit_graph dispatch; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec125 = {
   argv: ['multi-pack-index', 'write'],

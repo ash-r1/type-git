@@ -8,6 +8,22 @@ const numeric = load('upstream/git-numeric-options');
 const scopes = load('git-command-scopes');
 const rules = load('git-command-rules');
 const groups = load('git-option-groups');
+describe('commit-graph filter count callback identity', () => {
+  it('binds decimal cast parsing and the source negative-one unset value', () => {
+    const callbacks = load('git-numeric-callbacks');
+    const result = gitOptions(upstream, scopes, rules, groups, numeric, callbacks);
+    expect(result['commit-graph write'].options['--max-new-filters'].parser).toEqual(callbacks.profiles['commit-graph-filter-count'].parser);
+    expect(result['commit-graph write'].options['--no-max-new-filters']).toMatchObject({ value: 'flag', set: -1 });
+    expect(result['commit-graph write'].options['--no-max-new-filters'].parser).toBeUndefined();
+  });
+  it('does not bind the callback grammar solely by the option spelling', () => {
+    const changed = structuredClone(upstream);
+    const file = changed.files.find(f => f.file === 'builtin/commit-graph.c');
+    const option = file.tables.flatMap(t => t.options).find(o => o.long === 'max-new-filters');
+    option.fields.callback = 'unrelated_count_callback';
+    expect(gitOptions(changed, scopes, rules, groups, numeric, load('git-numeric-callbacks'))['commit-graph write'].options['--max-new-filters'].parser).toBeUndefined();
+  });
+});
 describe('shared color callback identity', () => {
   it('binds the color vocabulary and negation without relying on a command group', () => {
     const result = gitOptions(upstream, scopes, rules, groups, numeric);
