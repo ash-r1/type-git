@@ -96,6 +96,16 @@ describe('native range-diff maximum memory callback', () => {
         }
       }
     }
+    for (const help of ['-h', '--help-all']) {
+      const expected = native([help, '--type-git-unknown-tail', 'raw']);
+      const actual = await repo.command('range-diff', [
+        [help],
+        ['--type-git-unknown-tail', 'raw'],
+      ] as never);
+      expect(actual.exitCode).toBe(expected.status);
+      expect(actual.stdout).toBe(expected.stdout);
+      expect(actual.stderr).toBe(expected.stderr);
+    }
     const expected = native(['--no-max-memory', '-h']);
     const actual = await repo.command('range-diff', [['--no-max-memory'], ['-h']]);
     expect(actual.exitCode).toBe(expected.status);

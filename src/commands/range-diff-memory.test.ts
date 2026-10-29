@@ -5,6 +5,19 @@ import { COMMAND_SPECS } from './generated.js';
 import type { OptionSpec } from './spec.js';
 
 describe('range-diff maximum memory callback', () => {
+  it('preserves raw unknown words after reached help', () => {
+    expect(commandArguments('range-diff', [['-h'], ['--type-git-unknown-tail']])).toContain(
+      '--type-git-unknown-tail',
+    );
+    expect(
+      commandArguments('range-diff', [
+        ['--max-memory', '1k'],
+        ['-h'],
+        ['--type-git-unknown-tail', 'raw'],
+      ]),
+    ).toContain('--type-git-unknown-tail');
+    expect(() => commandArguments('range-diff', [['--type-git-unknown-tail'], ['-h']])).toThrow();
+  });
   it('uses unsigned configuration integers bounded by selected size_t', () => {
     const parser = COMMAND_SPECS['range-diff'].options['--max-memory'].parser;
     expect(parser).toMatchObject({

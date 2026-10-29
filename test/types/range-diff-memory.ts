@@ -48,3 +48,11 @@ git.command('range-diff', [['--max-memory'], ['-h']]);
 git.command('range-diff', [['--no-max-memory', '1'], ['-h']]);
 // @ts-expect-error NUL stays invalid after an early help exit.
 git.command('range-diff', [['-h'], ['--max-memory', '1\0']]);
+git.command('range-diff', [['-h'], ['--type-git-unknown-tail']]);
+git.command('range-diff', [['--max-memory', '1k'], ['-h'], ['--type-git-unknown-tail', 'raw']]);
+// @ts-expect-error An earlier invalid callback is not repaired by a help exit with raw tail.
+git.command('range-diff', [['--max-memory', 'bad'], ['-h'], ['--type-git-unknown-tail']]);
+// @ts-expect-error Unknown words are not permitted before a reached help exit.
+git.command('range-diff', [['--type-git-unknown-tail'], ['-h']]);
+// @ts-expect-error Raw ignored words retain independent NUL validation.
+git.command('range-diff', [['-h'], ['--type-git-unknown-tail', 'x\0']]);

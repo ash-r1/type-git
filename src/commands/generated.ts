@@ -81011,12 +81011,12 @@ const commandSpec197 = {
   ],
   source: 'builtin/range-diff.c',
   separator: true,
-  parserExit: {
+  usageExit: {
     flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
-      'Ordinary parse_options flags 0 exits at reached internal help before later callbacks and final range validation; earlier max-memory and diff callbacks still run. First --help remains the top-level documentation dispatcher.',
+      'parse_options with PARSE_OPT_KEEP_DASHDASH exits at reached internal help before later callbacks and final range validation; earlier max-memory and diff callbacks still run. Following raw unknown words remain uninterpreted. First --help remains the top-level documentation dispatcher.',
     source:
       'Git 2.55.0 builtin/range-diff.c:cmd_range_diff/parse_max_memory; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
