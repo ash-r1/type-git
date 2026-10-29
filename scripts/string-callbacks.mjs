@@ -10,6 +10,8 @@ for (const [name, profile] of Object.entries(registry.profiles)) {
     if (profile.emptyIsNative !== true) throw new Error(`${name}: empty byte-character must remain native-owned`);
   } else if (profile.kind === 'resetting-token-list') {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || typeof profile.reset !== 'string' || !profile.reset || profile.trimAscii !== true || !Array.isArray(profile.ordinary) || !Array.isArray(profile.exclusive) || !profile.ordinary.length || !profile.exclusive.length || [...profile.ordinary, ...profile.exclusive].some(token => typeof token !== 'string' || !token || token === profile.reset || token.includes(profile.separator)) || new Set([...profile.ordinary, ...profile.exclusive]).size !== profile.ordinary.length + profile.exclusive.length) throw new Error(`${name}: invalid resetting token grammar`);
+  } else if (profile.kind === 'dirstat-params') {
+    if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || profile.allowBare !== true || !Array.isArray(profile.exact) || !profile.exact.length || profile.exact.some(token => typeof token !== 'string' || !token || token.includes(profile.separator)) || new Set(profile.exact).size !== profile.exact.length) throw new Error(`${name}: invalid dirstat grammar`);
   } else if (profile.kind === 'trailing-token-list') {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || !Array.isArray(profile.exact) || !profile.exact.length || profile.exact.some(token => typeof token !== 'string' || !token || token.includes(profile.separator)) || new Set(profile.exact).size !== profile.exact.length) throw new Error(`${name}: invalid trailing token grammar`);
   } else if (profile.kind === 'character-set') {

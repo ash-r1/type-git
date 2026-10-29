@@ -19552,7 +19552,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -19562,7 +19563,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -19572,7 +19574,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -19582,7 +19585,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -23180,7 +23184,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -23190,7 +23195,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -23200,7 +23206,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -23210,7 +23217,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -33292,7 +33300,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -33302,7 +33311,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -33312,7 +33322,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -33322,7 +33333,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -36916,7 +36928,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -36926,7 +36939,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -36936,7 +36950,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -36946,7 +36961,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -43897,7 +43913,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -43911,7 +43928,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -43925,7 +43943,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -43939,7 +43958,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -48999,7 +49019,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -49013,7 +49034,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -49027,7 +49049,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -49041,7 +49064,8 @@
                 "key": "revision-argument",
                 "set": true
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -68646,7 +68670,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -68656,7 +68681,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -68666,7 +68692,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -68676,7 +68703,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -72252,7 +72280,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -72262,7 +72291,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -72272,7 +72302,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -72282,7 +72313,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -77063,7 +77095,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -77073,7 +77106,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -77083,7 +77117,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -77093,7 +77128,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -84261,7 +84297,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -84271,7 +84308,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -84281,7 +84319,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -84291,7 +84330,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -89798,7 +89838,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -89808,7 +89849,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -89818,7 +89860,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -89828,7 +89871,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -99702,7 +99746,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -99712,7 +99757,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -99722,7 +99768,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -99732,7 +99779,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -105596,7 +105644,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -105606,7 +105655,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -105616,7 +105666,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -105626,7 +105677,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",
@@ -108799,7 +108851,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "-X": {
             "key": "dirstat",
@@ -108809,7 +108862,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--cumulative": {
             "key": "cumulative",
@@ -108819,7 +108873,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--dirstat-by-file": {
             "key": "dirstat-by-file",
@@ -108829,7 +108884,8 @@
                 "key": "no-output",
                 "set": false
               }
-            ]
+            ],
+            "parser": "diff-dirstat"
           },
           "--check": {
             "key": "check",

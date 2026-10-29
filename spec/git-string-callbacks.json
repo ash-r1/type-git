@@ -148,6 +148,19 @@
         "context"
       ],
       "source": "Git 2.25.1/2.55.0 diff.c:parse_one_token/parse_ws_error_highlight/diff_opt_ws_error_highlight; exact tokens without whitespace trimming; empty full value and one trailing comma accepted, leading/interior empty tokens fail immediately. Preserve raw argv; none resets rendering bits but does not recover earlier callback errors."
+    },
+    "diff-dirstat": {
+      "kind": "dirstat-params",
+      "separator": ",",
+      "allowBare": true,
+      "exact": [
+        "changes",
+        "lines",
+        "files",
+        "noncumulative",
+        "cumulative"
+      ],
+      "source": "Git 2.25.1/2.55.0 diff.c:parse_dirstat_params/parse_dirstat_opt/diff_opt_dirstat; whole empty text/bare defaults accepted, nonempty comma fields must be exact words or ASCII digit-first decimal with at most one dot (trailing dot accepted). No trimming or range clamp. Invalid fields accumulate errors and cannot be repaired by later words; native fatal128. Keep raw argv and native cutoff arithmetic/rendering."
     }
   }
 }
