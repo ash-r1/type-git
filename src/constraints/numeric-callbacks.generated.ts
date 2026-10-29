@@ -111,4 +111,11 @@ export const NUMERIC_CALLBACK_PARSERS = {
     conversion: 'cast',
     empty: true,
   },
+  'range-diff-memory': {
+    kind: 'integer',
+    signed: false,
+    bits: 64,
+    nativeWidth: 'size_t',
+    negativeMagnitudes: false,
+  },
 } as const satisfies Record<string, GitScalarParser>;

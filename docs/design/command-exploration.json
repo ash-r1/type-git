@@ -76222,7 +76222,7 @@
     },
     {
       "command": "range-diff",
-      "usageExit": {
+      "parserExit": {
         "flags": [
           "-h",
           "--help",
@@ -76232,8 +76232,8 @@
           "--help"
         ],
         "origin": "git",
-        "reason": "The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.",
-        "source": "Git 2.55.0 builtin/range-diff.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite"
+        "reason": "Ordinary parse_options flags 0 exits at reached internal help before later callbacks and final range validation; earlier max-memory and diff callbacks still run. First --help remains the top-level documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/range-diff.c:cmd_range_diff/parse_max_memory; parse-options.c:parse_options_step; git.c:handle_builtin"
       },
       "transitions": [
         {
@@ -76824,10 +76824,11 @@
         ],
         "max-memory": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "remerge-diff": [
           "undefined",
@@ -76872,8 +76873,8 @@
           "true"
         ]
       },
-      "total": "9211039205672010506120204805734400000000000000000000000",
-      "accepted": "174668595307558125153094254093926400000000000000000000",
+      "total": "11053247046806412607344245766881280000000000000000000000",
+      "accepted": "209602314369069750183713104912711680000000000000000000",
       "nodes": 707,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",

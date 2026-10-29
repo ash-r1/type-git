@@ -18,7 +18,8 @@
     "daemon.c": "eda693a63869a9f4ee6ed3ad055767d51ca06875c8f4b4df7c04f043a2db8772",
     "builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb",
     "builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702",
-    "builtin/commit-graph.c": "cd206410b2bc2a8f3ab482f6f6d05c78b457368ae88d89485ef906d6a7cdff3b"
+    "builtin/commit-graph.c": "cd206410b2bc2a8f3ab482f6f6d05c78b457368ae88d89485ef906d6a7cdff3b",
+    "builtin/range-diff.c": "4e39b7cccc166298f057e63933bfaa06959bbca81e45c61c26ed688adc6d80c9"
   },
   "profiles": {
     "abbrev": {
@@ -220,6 +221,22 @@
         }
       ],
       "source": "builtin/commit-graph.c:write_option_max_new_filters; strtol base10, full consumption, cast to int; negation sets -1"
+    },
+    "range-diff-memory": {
+      "parser": {
+        "kind": "integer",
+        "signed": false,
+        "bits": 64,
+        "nativeWidth": "size_t",
+        "negativeMagnitudes": false
+      },
+      "callbacks": [
+        {
+          "name": "parse_max_memory",
+          "file": "builtin/range-diff.c"
+        }
+      ],
+      "source": "Git 2.55.0 builtin/range-diff.c:parse_max_memory; parse.c:git_parse_unsigned with SIZE_MAX; base0 plus k/m/g units, full consumption, uintmax overflow then size_t bound; every minus sign rejected. Unset returns without changing previous state."
     }
   }
 }

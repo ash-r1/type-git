@@ -187,6 +187,7 @@ function tableOptions(definitions, command, numericOption, callbacks) {
         if (callback === 'parseopt_column_callback') Object.assign(negated, { parser: undefined, set: 'never' });
         if (callback === 'parse_opt_color_flag_cb') Object.assign(negated, { allowed: undefined, caseInsensitive: undefined, clear: undefined, set: 'never' });
         if (definition.file === 'builtin/commit-graph.c' && callback === 'write_option_max_new_filters') Object.assign(negated, { parser: undefined, set: -1 });
+        if (definition.file === 'builtin/range-diff.c' && callback === 'parse_max_memory') Object.assign(negated, { parser: undefined, set: undefined, ignore: true });
         if (callback === 'diff_opt_color_moved_ws') negated.parser = undefined;
         if (base.checks) negated.checks = undefined;
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;

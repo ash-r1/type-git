@@ -80858,8 +80858,15 @@ const commandSpec197 = {
       value: 'string',
     },
     '--max-memory': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'size_t',
+        negativeMagnitudes: false,
+      },
       key: 'max-memory',
-      value: 'string',
+      value: 'integer',
     },
     '--remerge-diff': {
       key: 'remerge-diff',
@@ -81004,14 +81011,14 @@ const commandSpec197 = {
   ],
   source: 'builtin/range-diff.c',
   separator: true,
-  usageExit: {
+  parserExit: {
     flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
-      'The native parse-options parser exits at usage before later callbacks, while git.c handles a first --help through the documentation command.',
+      'Ordinary parse_options flags 0 exits at reached internal help before later callbacks and final range validation; earlier max-memory and diff callbacks still run. First --help remains the top-level documentation dispatcher.',
     source:
-      'Git 2.55.0 builtin/range-diff.c parse_options; Git 2.25.1/2.55.0 parse-options.c usage handling; git.c handle_builtin first --help rewrite',
+      'Git 2.55.0 builtin/range-diff.c:cmd_range_diff/parse_max_memory; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
 } as const satisfies CommandSpec;
 const commandSpec198 = {
