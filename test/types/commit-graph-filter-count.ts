@@ -11,6 +11,10 @@ git.command('commit-graph write', [['--max-new-filters', '9999999999999999999999
 git.command('commit-graph write', [['--max-new-filters', dynamic], ['-h']]);
 git.command('commit-graph write', [['--no-max-new-filters'], ['-h']]);
 git.command('commit-graph write', [['-h'], ['--max-new-filters', 'bad']]);
+git.command('commit-graph write', [['--help'], ['--max-new-filters', 'bad']]);
+git.command('commit-graph write', [['--help-all'], ['--max-new-filters', 'bad']]);
+// @ts-expect-error Earlier invalid values still fail before subcommand long help.
+git.command('commit-graph write', [['--max-new-filters', 'bad'], ['--help']]);
 // @ts-expect-error A reached callback rejects trailing non-decimal text.
 git.command('commit-graph write', [['--max-new-filters', 'bad'], ['-h']]);
 // @ts-expect-error The callback uses decimal text, not unit-suffixed configuration integers.
@@ -33,3 +37,5 @@ git.command('commit-graph write', [['--max-new-filters'], ['-h']]);
 git.command('commit-graph write', [['--no-max-new-filters', '1'], ['-h']]);
 // @ts-expect-error NUL is invalid even in an ignored help tail.
 git.command('commit-graph write', [['-h'], ['--max-new-filters', '1\0']]);
+// @ts-expect-error Subcommand long help does not bypass independent NUL validation.
+git.command('commit-graph write', [['--help'], ['--max-new-filters', '1\0']]);

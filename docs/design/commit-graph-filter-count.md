@@ -15,6 +15,10 @@ remain errors even when followed by a valid value or help; help first
 preempts later callbacks. Original text is preserved in argv. Dynamic
 strings remain runtime-owned.
 
+A leading `--help` after `write` is handled by the subcommand parser.
+Git's documentation dispatcher only intercepts `--help` immediately after
+the top-level builtin name, so it does not apply here.
+
 Git 2.25 does not register this option. Native tests distinguish that
 unsupported option from callback rejection on later selected versions.
 Finite help controls do not prove graph-writing results or complete the

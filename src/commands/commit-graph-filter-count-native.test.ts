@@ -98,19 +98,21 @@ describe('native commit-graph filter count callback', () => {
       }
     }
     for (const value of ['bad', '1k', '1\n', '0x10']) {
-      const help = await compare(
-        [['-h'], ['--max-new-filters', value]],
-        ['-h', `--max-new-filters=${value}`],
-      );
-      expect([0, 129]).toContain(help.status);
-      expect(help.stdout + help.stderr).toContain('usage:');
-      if (registered) {
-        const expected = native([`--max-new-filters=${value}`, '-h']);
-        expect(expected.status).toBe(129);
-        expect(expected.stderr).toContain('expects a numerical value');
-        await expect(
-          repo.command('commit-graph write', [['--max-new-filters', value], ['-h']] as never),
-        ).rejects.toBeInstanceOf(GitArgumentError);
+      for (const flag of ['-h', '--help', '--help-all']) {
+        const help = await compare(
+          [[flag], ['--max-new-filters', value]],
+          [flag, `--max-new-filters=${value}`],
+        );
+        expect([0, 129]).toContain(help.status);
+        expect(help.stdout + help.stderr).toContain('usage:');
+        if (registered) {
+          const expected = native([`--max-new-filters=${value}`, flag]);
+          expect(expected.status).toBe(129);
+          expect(expected.stderr).toContain('expects a numerical value');
+          await expect(
+            repo.command('commit-graph write', [['--max-new-filters', value], [flag]] as never),
+          ).rejects.toBeInstanceOf(GitArgumentError);
+        }
       }
     }
     if (registered) {

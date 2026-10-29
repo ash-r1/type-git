@@ -23,12 +23,14 @@ describe('commit-graph filter count callback', () => {
       '--max-new-filters=1',
     );
     for (const value of ['bad', '1k', '1.0', '1\n', '0x10', '+', '١']) {
-      expect(() =>
-        commandArguments('commit-graph write', [['--max-new-filters', value], ['-h']]),
-      ).toThrow();
-      expect(
-        commandArguments('commit-graph write', [['-h'], ['--max-new-filters', value]]),
-      ).toContain('-h');
+      for (const help of ['-h', '--help', '--help-all']) {
+        expect(() =>
+          commandArguments('commit-graph write', [['--max-new-filters', value], [help]]),
+        ).toThrow();
+        expect(
+          commandArguments('commit-graph write', [[help], ['--max-new-filters', value]]),
+        ).toContain(help);
+      }
     }
   });
   it('preserves the negative-one unset state and public flag shapes', () => {
@@ -58,6 +60,9 @@ describe('commit-graph filter count callback', () => {
     ).toThrow();
     expect(() =>
       commandArguments('commit-graph write', [['-h'], ['--max-new-filters', '1\0']]),
+    ).toThrow();
+    expect(() =>
+      commandArguments('commit-graph write', [['--help'], ['--max-new-filters', '1\0']]),
     ).toThrow();
   });
 });
