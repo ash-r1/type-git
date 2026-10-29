@@ -174,6 +174,7 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       }
       const base = { ...(flags.includes('PARSE_OPT_LASTARG_DEFAULT') ? { lastArgDefault: true } : {}), ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
       if (callback === 'parseopt_column_callback') base.set = '';
+      if (callback === 'parse_opt_color_flag_cb') Object.assign(base, { allowed: ['always', 'auto', 'never'], caseInsensitive: true });
       if (['parse_opt_commits', 'parse_opt_commit', 'parse_opt_object_name', 'parse_opt_merge_filter'].includes(callback)) base.checks = [{ id: 'native.object-name-nonempty', kind: 'required', required: [{ key: '$value', test: 'nonempty' }], origin: 'git', source: 'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1', reason: 'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.' }];
       if (flags.includes('PARSE_OPT_CMDMODE')) {
         base.modeGroup = fields.value.replace(/[()\s]/g, '');
@@ -184,6 +185,7 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
         const negated = { ...base, value: 'flag', ...(numeric || numericCallback ? { set: 0, ...(parser.positive ? { parser: undefined } : {}) } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
         if (callback === 'parseopt_column_callback') Object.assign(negated, { parser: undefined, set: 'never' });
+        if (callback === 'parse_opt_color_flag_cb') Object.assign(negated, { allowed: undefined, caseInsensitive: undefined, clear: undefined, set: 'never' });
         if (callback === 'diff_opt_color_moved_ws') negated.parser = undefined;
         if (base.checks) negated.checks = undefined;
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
