@@ -8,6 +8,22 @@ const numeric = load('upstream/git-numeric-options');
 const scopes = load('git-command-scopes');
 const rules = load('git-command-rules');
 const groups = load('git-option-groups');
+describe('shared color callback identity', () => {
+  it('binds the color vocabulary and negation without relying on a command group', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    expect(result.grep.options['--color']).toMatchObject({ allowed: ['always', 'auto', 'never'], caseInsensitive: true });
+    expect(result.grep.options['--no-color']).toMatchObject({ value: 'flag', set: 'never' });
+    expect(result.grep.options['--no-color'].allowed).toBeUndefined();
+    expect(result.difftool.parserExit.remainingOptions['--color'].allowed).toEqual(['always', 'auto', 'never']);
+  });
+  it('uses callback identity rather than the color spelling', () => {
+    const changed = structuredClone(upstream);
+    const file = changed.files.find(f => f.file === 'builtin/grep.c');
+    const option = file.tables.flatMap(t => t.options).find(o => o.long === 'color');
+    option.fields.callback = 'unrelated_color_callback';
+    expect(gitOptions(changed, scopes, rules, groups, numeric).grep.options['--color'].allowed).toBeUndefined();
+  });
+});
 describe('source-declared integer width coverage', () => {
   it('retains all declared long and size_t bindings in the current catalogue', () => {
     const result = gitOptions(upstream, scopes, rules, groups, numeric);

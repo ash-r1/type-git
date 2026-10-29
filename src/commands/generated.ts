@@ -5273,6 +5273,8 @@ const remainingOptions4 = {
     key: 'color',
     value: 'optional-string',
     set: 'always',
+    allowed: ['always', 'auto', 'never'],
+    caseInsensitive: true,
   },
   '--ws-error-highlight': {
     parser: 'diff-ws-error-highlight',
@@ -5650,8 +5652,7 @@ const remainingOptions4 = {
   '--no-color': {
     key: 'color',
     value: 'flag',
-    set: 'always',
-    clear: true,
+    set: 'never',
   },
   '--no-abbrev': {
     parser: {
@@ -87339,8 +87340,7 @@ const commandSpec199 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       parser: {
@@ -89324,8 +89324,7 @@ const commandSpec200 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       parser: {
@@ -90923,6 +90922,8 @@ const commandSpec201 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--break': {
       key: 'break',
@@ -91220,8 +91221,7 @@ const commandSpec201 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-break': {
       key: 'break',
@@ -95023,8 +95023,7 @@ const commandSpec204 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       parser: {
@@ -111774,6 +111773,8 @@ const commandSpec291 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--ws-error-highlight': {
       parser: 'diff-ws-error-highlight',
@@ -112110,8 +112111,7 @@ const commandSpec291 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       parser: {

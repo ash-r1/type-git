@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -63,6 +63,45 @@ describe('grep internal help and filename suppression', () => {
     expect(actual.stderr).toBe(expected.stderr);
     return expected;
   };
+  it('preserves shared color callback failures and full-help ordering', async () => {
+    const snapshot = () =>
+      Promise.all(
+        ['.git/HEAD', '.git/config', '.git/index', 'file'].map((file) =>
+          readFile(join(root, file)),
+        ),
+      );
+    const before = await snapshot();
+    for (const value of ['always', 'AUTO', 'never']) {
+      const result = await compare(
+        [['--color', value], ['-h'], ['--threads', 1], ['-e', 'base'], ['--'], { operand: 'file' }],
+        [`--color=${value}`, '-h', '--threads=1', '-e', 'base', '--', 'file'],
+      );
+      expect(result.status).toBe(0);
+    }
+    for (const value of ['bad', '', 'true', '1', ' always', 'always\n']) {
+      const expected = native(['grep', `--color=${value}`, '--help-all']);
+      expect(expected.status).toBe(129);
+      expect(expected.stderr).toContain('expects "always", "auto", or "never"');
+      await expect(
+        repo.command('grep', [['--color', value], ['--help-all']] as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+      const help = await compare(
+        [['--help-all'], ['--color', value]],
+        ['--help-all', `--color=${value}`],
+      );
+      expect([0, 129]).toContain(help.status);
+      expect(help.stdout + help.stderr).toContain('usage:');
+    }
+    expect(
+      (
+        await compare(
+          [['--color'], ['--no-color'], ['--help-all']],
+          ['--color', '--no-color', '--help-all'],
+        )
+      ).status,
+    ).not.toBe(128);
+    expect(await snapshot()).toEqual(before);
+  }, 120_000);
   it('a lone short h exits before the registered filename option', async () => {
     const result = await compare([['-h']], ['-h']);
     expect([0, 129]).toContain(result.status);
