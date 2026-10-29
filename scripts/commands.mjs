@@ -122,12 +122,28 @@ try {
     const json = JSON.stringify(spec.parserExit.remainingOptions);
     if (!remainingProfiles.has(json)) remainingProfiles.set(json, `remainingOptions${remainingProfiles.size}`);
   }
-  const phaseDeclarations = [...remainingProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;\ntype ${id[0].toUpperCase() + id.slice(1)}Type = typeof ${id};`).join('\n');
-  const declarations = phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
-    let text = JSON.stringify(spec, null, 2);
+  // Intern repeated effect tuples so identical immutable callback metadata has one
+  // inferred type instead of retaining a separate readonly-array comparison graph.
+  const effectCounts = new Map();
+  JSON.stringify(catalog, (key, value) => {
+    if (key === 'effects' && Array.isArray(value)) {
+      const json = JSON.stringify(value);
+      effectCounts.set(json, (effectCounts.get(json) ?? 0) + 1);
+    }
+    return value;
+  });
+  const effectProfiles = new Map([...effectCounts].filter(([, count]) => count > 1).map(([json], index) => [json, `sharedEffects${index}`]));
+  function renderSpec(value) {
+    return JSON.stringify(value, (key, child) => key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child)) ? effectProfiles.get(JSON.stringify(child)) : child, 2)
+      .replace(/"effects": "(sharedEffects[0-9]+)"/g, '"effects": $1');
+  }
+  const effectDeclarations = [...effectProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
+  const phaseDeclarations = [...remainingProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;\ntype ${id[0].toUpperCase() + id.slice(1)}Type = typeof ${id};`).join('\n');
+  const declarations = effectDeclarations + '\n' + phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
+    let text = renderSpec(spec);
     if (spec.parserExit?.remainingOptions) {
       const id = remainingProfiles.get(JSON.stringify(spec.parserExit.remainingOptions));
-      text = JSON.stringify({ ...spec, parserExit: { ...spec.parserExit, remainingOptions: id } }, null, 2).replace(`"remainingOptions": "${id}"`, `"remainingOptions": ${id} as ${id[0].toUpperCase() + id.slice(1)}Type`);
+      text = renderSpec({ ...spec, parserExit: { ...spec.parserExit, remainingOptions: id } }).replace(`"remainingOptions": "${id}"`, `"remainingOptions": ${id} as ${id[0].toUpperCase() + id.slice(1)}Type`);
     }
     return `const ${identifier} = ${text} as const satisfies CommandSpec;`;
   }).join('\n');

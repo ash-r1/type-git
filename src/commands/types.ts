@@ -65,9 +65,10 @@ type DocumentationArgument =
   | readonly ['--'];
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
-type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
+/** Cache primitive public values by kind, independently of callback metadata. */
+type PrimitiveValue<Kind extends OptionSpec['value']> = [Kind] extends ['flag' | 'boolean']
   ? boolean
-  : S['value'] extends 'integer' | 'optional-integer'
+  : [Kind] extends ['integer' | 'optional-integer']
     ? number
     : string;
 type Value<S extends OptionSpec, MayBeIgnored extends boolean> = S extends {
@@ -75,12 +76,12 @@ type Value<S extends OptionSpec, MayBeIgnored extends boolean> = S extends {
 }
   ? number | string | bigint
   : MayBeIgnored extends true
-    ? PrimitiveValue<S>
+    ? PrimitiveValue<S['value']>
     : S extends { allowed: infer A extends readonly unknown[] }
       ? S extends { caseInsensitive: true }
         ? string | Exclude<A[number], string>
         : A[number]
-      : PrimitiveValue<S>;
+      : PrimitiveValue<S['value']>;
 /** Share argument tuples by their public shape rather than complete option metadata. */
 type Token<K, Kind extends OptionSpec['value'], V> = [Kind] extends ['flag']
   ? readonly [flag: K]

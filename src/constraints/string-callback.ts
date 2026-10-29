@@ -3,6 +3,14 @@ import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 export type StringCallbackProfile = { source: string } & (
   | { kind: 'rename-score'; parts: 1 | 2 }
   | { kind: 'character-set'; characters: string }
+  | {
+      kind: 'resetting-token-list';
+      separator: string;
+      reset: string;
+      trimAscii: true;
+      ordinary: readonly string[];
+      exclusive: readonly string[];
+    }
   | { kind: 'byte-character'; emptyIsNative: true }
   | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[] }
   | {
@@ -35,6 +43,35 @@ export function parseStringCallback(
   }
   if (typeof value !== 'string') {
     return { valid: false };
+  }
+  if (profile.kind === 'resetting-token-list') {
+    let ordinary = false;
+    let exclusive = false;
+    let invalid = false;
+    for (const raw of value.split(profile.separator)) {
+      let start = 0;
+      let end = raw.length;
+      const whitespace = ' \t\n\r\v\f';
+      while (start < end && whitespace.includes(raw[start]!)) {
+        start++;
+      }
+      while (end > start && whitespace.includes(raw[end - 1]!)) {
+        end--;
+      }
+      const token = raw.slice(start, end);
+      if (token === profile.reset) {
+        ordinary = false;
+        exclusive = false;
+        invalid = false;
+      } else if (profile.ordinary.includes(token)) {
+        ordinary = true;
+      } else if (profile.exclusive.includes(token)) {
+        exclusive = true;
+      } else {
+        invalid = true;
+      }
+    }
+    return { valid: !invalid && !(ordinary && exclusive), value };
   }
   if (profile.kind === 'character-set') {
     return {

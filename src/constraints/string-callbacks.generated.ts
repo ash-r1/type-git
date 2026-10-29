@@ -98,4 +98,14 @@ export const STRING_CALLBACKS = {
     source:
       'Git 2.25.1/2.55.0 diff.c:diff_status_letters/prepare_filter_bits/diff_opt_diff_filter; diff.h status constants; empty and repeated letters accepted, ASCII lowercase folds for class membership. Validate text only, not filter-state accumulation or payload selection.',
   },
+  'diff-color-moved-ws': {
+    kind: 'resetting-token-list',
+    separator: ',',
+    reset: 'no',
+    trimAscii: true,
+    ordinary: ['ignore-space-change', 'ignore-space-at-eol', 'ignore-all-space'],
+    exclusive: ['allow-indentation-change'],
+    source:
+      'Git 2.25.1/2.55.0 diff.c:parse_color_moved_ws/diff_opt_color_moved_ws; comma splitting with C whitespace trimming. no resets all bits including prior errors; indentation conflict checked after the token loop. Preserve raw argv/diagnostics; do not model rendered colors.',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;

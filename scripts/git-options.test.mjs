@@ -77,3 +77,17 @@ describe('diff filter callback identity', () => {
     expect(result.backfill.parserExit.remainingOptions['--diff-filter'].repeat).toBe(true);
   });
 });
+
+describe('moved-color callback identity', () => {
+  it('binds both common parsers and preserves the native whitespace unset bypass', () => {
+    const result = gitOptions(upstream, scopes, rules, groups, numeric);
+    for (const command of ['diff', 'log', 'blame', 'shortlog', 'backfill', 'difftool']) {
+      expect(result[command].options['--color-moved'].parser).toBe('diff-color-moved');
+      expect(result[command].options['--color-moved-ws'].parser).toBe('diff-color-moved-ws');
+      expect(result[command].options['--no-color-moved-ws'].parser).toBeUndefined();
+    }
+    expect(result.log.parserExit.remainingOptions['--color-moved'].parser).toBe('diff-color-moved');
+    expect(result.difftool.parserExit.remainingOptions['--color-moved-ws'].parser).toBe('diff-color-moved-ws');
+    expect(result.backfill.parserExit.remainingOptions['--no-color-moved-ws'].parser).toBeUndefined();
+  });
+});

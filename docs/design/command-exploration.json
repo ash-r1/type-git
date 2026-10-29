@@ -19937,10 +19937,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -20157,14 +20159,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -22166,18 +22169,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -22915,8 +22921,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "159251199470421630705277050190605290406524595933423189374816747520000000000000000000000000000000000000000",
-      "accepted": "165956789071167943978430938164063205350720314721862638237710265876480000000000000000000000000000000000",
+      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
+      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -23558,10 +23564,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -23778,14 +23786,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -25787,18 +25796,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -26536,8 +26548,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "159251199470421630705277050190605290406524595933423189374816747520000000000000000000000000000000000000000",
-      "accepted": "165956789071167943978430938164063205350720314721862638237710265876480000000000000000000000000000000000",
+      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
+      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -27162,18 +27174,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -27924,8 +27939,8 @@
           "true"
         ]
       },
-      "total": "2293741556158336244726212657066331343303852204802391616509706240000000000000000000000000000000000000",
-      "accepted": "5122123119480492098099720313705654486133343046971069081410810675200000000000000000000000000000000",
+      "total": "3669986489853337991561940251306130149286163527683826586415529984000000000000000000000000000000000000",
+      "accepted": "8195396991168787356959552501929047177813348875153710530257297080320000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -28567,18 +28582,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -29333,8 +29351,8 @@
           "true"
         ]
       },
-      "total": "3604451016820242670284048461104234968048910607546615397372395520000000000000000000000000000000000000",
-      "accepted": "1829329685528747177892757254894876602190479659632524671932432384000000000000000000000000000000000",
+      "total": "5767121626912388272454477537766775948878256972074584635795832832000000000000000000000000000000000000",
+      "accepted": "2926927496845995484628411607831802563504767455412039475091891814400000000000000000000000000000000",
       "nodes": 23947,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -29978,18 +29996,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -30743,8 +30764,8 @@
           "true"
         ]
       },
-      "total": "3932128381985719276673507412113710874235175208232671342588067840000000000000000000000000000000000000",
-      "accepted": "731731874211498871157102901957950640876191863853009868772972953600000000000000000000000000000000",
+      "total": "6291405411177150842677611859381937398776280333172274148140908544000000000000000000000000000000000000",
+      "accepted": "1170770998738398193851364643132721025401906982164815790036756725760000000000000000000000000000000",
       "nodes": 15943,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -31371,18 +31392,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -32128,8 +32152,8 @@
           "true"
         ]
       },
-      "total": "983032095496429819168376853028427718558793802058167835647016960000000000000000000000000000000000000",
-      "accepted": "1646396716975872460103481529405388941971431693669272204739189145600000000000000000000000000000000",
+      "total": "1572851352794287710669402964845484349694070083293068537035227136000000000000000000000000000000000000",
+      "accepted": "2634234747161395936165570447048622307154290709870835527582702632960000000000000000000000000000000",
       "nodes": 11842,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -32571,18 +32595,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -32737,8 +32764,8 @@
           "true"
         ]
       },
-      "total": "15793962972688632555075796992000000000000000000000",
-      "accepted": "404325452100828993409940402995200000000000000000",
+      "total": "25270340756301812088121275187200000000000000000000",
+      "accepted": "646920723361326389455904644792320000000000000000",
       "nodes": 231,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
@@ -33648,10 +33675,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -33868,14 +33897,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -35881,18 +35911,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -36626,8 +36659,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "159251199470421630705277050190605290406524595933423189374816747520000000000000000000000000000000000000000",
-      "accepted": "165956789071167943978430938164063205350720314721862638237710265876480000000000000000000000000000000000",
+      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
+      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -37265,10 +37298,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -37485,14 +37520,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -39476,18 +39512,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -40234,8 +40273,8 @@
           "true"
         ]
       },
-      "total": "6881224668475008734178637971198994029911556614407174849529118720000000000000000000000000000000000000",
-      "accepted": "5487989056586241533678271764684629806571438978897574015797297152000000000000000000000000000000000",
+      "total": "11009959469560013974685820753918390447858490583051479759246589952000000000000000000000000000000000000",
+      "accepted": "8780782490537986453885234823495407690514302366236118425275675443200000000000000000000000000000000",
       "nodes": 18958,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"stash-operands\":[]}",
@@ -44571,6 +44610,7 @@
             ]
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string",
             "effects": [
@@ -44581,6 +44621,7 @@
             ]
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string",
             "effects": [
@@ -45005,9 +45046,10 @@
             ]
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true,
+            "set": false,
             "effects": [
               {
                 "key": "revision-argument",
@@ -45018,7 +45060,7 @@
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true,
+            "set": false,
             "effects": [
               {
                 "key": "revision-argument",
@@ -47763,18 +47805,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -48599,8 +48644,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "2063895545136664333940390570470244563668558763297164534297625047859200000000000000000000000000000000000000000",
-      "accepted": "309786006266180162093071084572917983321344587480810258043725829636096000000000000000000000000000000000000",
+      "total": "3302232872218662934304624912752391301869694021275463254876200076574720000000000000000000000000000000000000000",
+      "accepted": "495657610025888259348913735316668773314151339969296412869961327417753600000000000000000000000000000000000",
       "nodes": 77274,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -49666,6 +49711,7 @@
             ]
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string",
             "effects": [
@@ -49676,6 +49722,7 @@
             ]
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string",
             "effects": [
@@ -50100,9 +50147,10 @@
             ]
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true,
+            "set": false,
             "effects": [
               {
                 "key": "revision-argument",
@@ -50113,7 +50161,7 @@
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true,
+            "set": false,
             "effects": [
               {
                 "key": "revision-argument",
@@ -52858,18 +52906,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -53669,8 +53720,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "9555071968225297842316623011436317424391475756005391362489004851200000000000000000000000000000000000000000",
-      "accepted": "2033299945465202488227799688815655343334718141681551172852898594816000000000000000000000000000000000000",
+      "total": "15288115149160476547706596818298107879026361209608626179982407761920000000000000000000000000000000000000000",
+      "accepted": "3253279912744323981164479502105048549335549026690481876564637751705600000000000000000000000000000000000",
       "nodes": 48871,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -67090,18 +67141,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -67916,8 +67970,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "7644057574580238273853298409149053939513180604804313089991203880960000000000000000000000000000000000000000",
-      "accepted": "4993226469413190231906664661602275265573987771036734644684044986482688000000000000000000000000000000000",
+      "total": "12230492119328381238165277454638486303221088967686900943985926209536000000000000000000000000000000000000000",
+      "accepted": "7989162351061104371050663458563640424918380433658775431494471978372300800000000000000000000000000000000",
       "nodes": 598191,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
@@ -68971,10 +69025,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -69192,14 +69248,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -71171,18 +71228,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -71941,8 +72001,8 @@
           "true"
         ]
       },
-      "total": "21233493262722884094036940025414038720869946124456425249975566336000000000000000000000000000000000000",
-      "accepted": "1317117373580697968082785223524311153577145354935417763791351316480000000000000000000000000000000",
+      "total": "33973589220356614550459104040662461953391913799130280399960906137600000000000000000000000000000000000",
+      "accepted": "2107387797729116748932456357638897845723432567896668422066162106368000000000000000000000000000000",
       "nodes": 6289,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -72570,10 +72630,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -72790,14 +72852,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -74755,18 +74818,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -75481,8 +75547,8 @@
           "true"
         ]
       },
-      "total": "184318517905580591094070659942830197229773837885906469183815680000000000000000000000000000000000000",
-      "accepted": "411599179243968115025870382351347235492857923417318051184797286400000000000000000000000000000000",
+      "total": "294909628648928945750513055908528315567638140617450350694105088000000000000000000000000000000000000",
+      "accepted": "658558686790348984041392611762155576788572677467708881895675658240000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -75922,18 +75988,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -76088,8 +76157,8 @@
           "true"
         ]
       },
-      "total": "7896981486344316277537898496000000000000000000000",
-      "accepted": "33693787675069082784161700249600000000000000000",
+      "total": "12635170378150906044060637593600000000000000000000",
+      "accepted": "53910060280110532454658720399360000000000000000",
       "nodes": 327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"z\":true}",
@@ -76522,18 +76591,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -76749,8 +76821,8 @@
           "true"
         ]
       },
-      "total": "5756899503545006566325128003584000000000000000000000000",
-      "accepted": "109167872067223828220683908808704000000000000000000000",
+      "total": "9211039205672010506120204805734400000000000000000000000",
+      "accepted": "174668595307558125153094254093926400000000000000000000",
       "nodes": 707,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",
@@ -77368,10 +77440,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -77588,14 +77662,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -79533,18 +79608,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -80338,8 +80416,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "80639351583691508603655913724988211288026054075084080267919360000000000000000000000000000000000000000000",
-      "accepted": "5103770750520776093859839954203683073054492516135734867748955199897600000000000000000000000000000000",
+      "total": "129022962533906413765849461959981138060841686520134528428670976000000000000000000000000000000000000000000",
+      "accepted": "8166033200833241750175743926725892916887188025817175788398328319836160000000000000000000000000000000",
       "nodes": 87176,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
@@ -81008,18 +81086,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -81887,8 +81968,8 @@
           "true"
         ]
       },
-      "total": "20405864248237771311189512844649962391276269777641771823384012449749401600000000000000000000000000000000000000000",
-      "accepted": "13979182122075926852195165939487058242543864108868135850421920668618378444800000000000000000000000000000000000",
+      "total": "32649382797180434097903220551439939826042031644226834917414419919599042560000000000000000000000000000000000000000",
+      "accepted": "22366691395321482963512265503179293188070182574189017360675073069789405511680000000000000000000000000000000000",
       "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -82558,18 +82639,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -83437,8 +83521,8 @@
           "true"
         ]
       },
-      "total": "20405864248237771311189512844649962391276269777641771823384012449749401600000000000000000000000000000000000000000",
-      "accepted": "13979182122075926852195165939487058242543864108868135850421920668618378444800000000000000000000000000000000000",
+      "total": "32649382797180434097903220551439939826042031644226834917414419919599042560000000000000000000000000000000000000000",
+      "accepted": "22366691395321482963512265503179293188070182574189017360675073069789405511680000000000000000000000000000000000",
       "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -84553,10 +84637,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -84773,14 +84859,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -86788,18 +86875,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -87767,8 +87857,8 @@
           "true"
         ]
       },
-      "total": "26447692718050106826138481509482958168416824308579485370169370974617600000000000000000000000000000000000000000000000000000",
-      "accepted": "2068257459377839102968652714666522771163587032958470385468079684796284928000000000000000000000000000000000000000000000",
+      "total": "42316308348880170921821570415172733069466918893727176592270993559388160000000000000000000000000000000000000000000000000000",
+      "accepted": "3309211935004542564749844343466436433861739252733552616748927495674055884800000000000000000000000000000000000000000000",
       "nodes": 21726,
       "isolatedRuleWitnesses": {
         "diff.output-formats": null,
@@ -88553,18 +88643,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -89432,8 +89525,8 @@
           "true"
         ]
       },
-      "total": "20405864248237771311189512844649962391276269777641771823384012449749401600000000000000000000000000000000000000000",
-      "accepted": "13979182122075926852195165939487058242543864108868135850421920668618378444800000000000000000000000000000000000",
+      "total": "32649382797180434097903220551439939826042031644226834917414419919599042560000000000000000000000000000000000000000",
+      "accepted": "22366691395321482963512265503179293188070182574189017360675073069789405511680000000000000000000000000000000000",
       "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -90080,10 +90173,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -90300,14 +90395,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -92309,18 +92405,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -93058,8 +93157,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "159251199470421630705277050190605290406524595933423189374816747520000000000000000000000000000000000000000",
-      "accepted": "55318929690389314659476979388021068450240104907287546079236755292160000000000000000000000000000000000",
+      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
+      "accepted": "88510287504622903455163167020833709520384167851660073726778808467456000000000000000000000000000000000",
       "nodes": 21883,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"i-still-use-this\":true,\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -93706,18 +93805,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -94470,8 +94572,8 @@
           "true"
         ]
       },
-      "total": "59719199801408111514478893821476983902446723475033696015556280320000000000000000000000000000000000000",
-      "accepted": "97795964988366824130146802846680103153103042603954768961507835248640000000000000000000000000000000",
+      "total": "95550719682252978423166230114363174243914757560053913624890048512000000000000000000000000000000000000",
+      "accepted": "156473543981386918608234884554688165044964868166327630338412536397824000000000000000000000000000000",
       "nodes": 13627,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -99974,10 +100076,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -100194,14 +100298,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -102143,18 +102248,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -103019,8 +103127,8 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "495334930832799440145693736912858695280454103191319488231430011486208000000000000000000000000000000000000000000",
-      "accepted": "92914559410852939131092086211790394906118484043958678995423321976796610560000000000000000000000000000000000",
+      "total": "792535889332479104233109979060573912448726565106111181170288018377932800000000000000000000000000000000000000000",
+      "accepted": "148663295057364702609747337938864631849789574470333886392677315162874576896000000000000000000000000000000000",
       "nodes": 11475,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[\"value\"],\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -105864,10 +105972,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -106095,14 +106205,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -106831,18 +106942,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -107064,8 +107178,8 @@
           "[[\"-G\",\"\"],[\"-G\",\"value\"]]"
         ]
       },
-      "total": "1974245371586079069384474624000000000000000000000000000",
-      "accepted": "715115545707846418465931919360000000000000000000000000",
+      "total": "3158792594537726511015159398400000000000000000000000000",
+      "accepted": "1144184873132554269545491070976000000000000000000000000",
       "nodes": 217,
       "isolatedRuleWitnesses": {
         "cli.difftool.gui-tool-extcmd": "{\"argumentTokens\":[],\"gui\":true,\"operands\":[],\"tool\":\"value\"}",
@@ -109057,10 +109171,12 @@
             "value": "optional-string"
           },
           "--color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "optional-string"
           },
           "--color-moved-ws": {
+            "parser": "diff-color-moved-ws",
             "key": "color-moved-ws",
             "value": "string"
           },
@@ -109277,14 +109393,15 @@
             "set": false
           },
           "--no-color-moved": {
+            "parser": "diff-color-moved",
             "key": "color-moved",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-color-moved-ws": {
             "key": "color-moved-ws",
             "value": "flag",
-            "clear": true
+            "set": false
           },
           "--no-relative": {
             "key": "relative",
@@ -111299,18 +111416,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -112044,8 +112164,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "159251199470421630705277050190605290406524595933423189374816747520000000000000000000000000000000000000000",
-      "accepted": "165956789071167943978430938164063205350720314721862638237710265876480000000000000000000000000000000000",
+      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
+      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -113863,18 +113983,21 @@
         ],
         "color-moved": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"plain\"",
+          "\"blocks\"",
+          "\"zebra\"",
+          "\"default\"",
+          "\"dimmed-zebra\""
         ],
         "color-moved-ws": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "false"
         ],
         "relative": [
           "undefined",
@@ -114607,8 +114730,8 @@
           "true"
         ]
       },
-      "total": "53083733156807210235092350063535096802174865311141063124938915840000000000000000000000000000000000000000",
-      "accepted": "53083733156807210235092350063535096802174865311141063124938915840000000000000000000000000000000000000000",
+      "total": "84933973050891536376147760101656154883479784497825700999902265344000000000000000000000000000000000000000",
+      "accepted": "84933973050891536376147760101656154883479784497825700999902265344000000000000000000000000000000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
