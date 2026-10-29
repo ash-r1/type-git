@@ -1,3 +1,5 @@
+# Shared color callback grammar
+
 The shared `parse_opt_color_flag_cb` callback in Git 2.25.1 and 2.55.0
 passes a null configuration variable to `git_config_colorbool`. In this
 mode the callback accepts only `always`, `auto` and `never`, ignoring ASCII
