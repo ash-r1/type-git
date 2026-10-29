@@ -18,3 +18,10 @@ its initial help and tool-help exits before delegated diff callbacks.
 Blame, annotate and pickaxe retain their command-specific ambiguous
 `--color` spelling. Dynamic values remain runtime-owned. This change does
 not predict terminal color output or mark any command audit complete.
+
+The initial standard full-291 type check was killed by the kernel for
+memory pressure. Its failure is retained separately from later checks.
+The generator now shares identical readonly predicate tuples in callback
+guards and command rules, as it already does for repeated effect tuples.
+This reduces duplicate inferred metadata without changing catalogue
+values, the heap setting, the fixture scope or the validation policy.

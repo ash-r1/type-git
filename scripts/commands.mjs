@@ -133,13 +133,31 @@ try {
     return value;
   });
   const effectProfiles = new Map([...effectCounts].filter(([, count]) => count > 1).map(([json], index) => [json, `sharedEffects${index}`]));
+  // Repeated predicate tuples otherwise retain separate readonly-array graphs
+  // across command rules and callback guards. Share only identical immutable data.
+  const predicateKeys = new Set(['all', 'when', 'required', 'guard', 'choices', 'others']);
+  const predicateCounts = new Map();
+  JSON.stringify(catalog, (key, value) => {
+    if (predicateKeys.has(key) && Array.isArray(value)) {
+      const json = JSON.stringify(value);
+      predicateCounts.set(json, (predicateCounts.get(json) ?? 0) + 1);
+    }
+    return value;
+  });
+  const predicateProfiles = new Map([...predicateCounts].filter(([, count]) => count > 1).map(([json], index) => [json, `sharedPredicates${index}`]));
   function renderSpec(value) {
-    return JSON.stringify(value, (key, child) => key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child)) ? effectProfiles.get(JSON.stringify(child)) : child, 2)
-      .replace(/"effects": "(sharedEffects[0-9]+)"/g, '"effects": $1');
+    return JSON.stringify(value, (key, child) => {
+      if (key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child))) return effectProfiles.get(JSON.stringify(child));
+      if (predicateKeys.has(key) && Array.isArray(child) && predicateProfiles.has(JSON.stringify(child))) return predicateProfiles.get(JSON.stringify(child));
+      return child;
+    }, 2)
+      .replace(/"effects": "(sharedEffects[0-9]+)"/g, '"effects": $1')
+      .replace(/"(all|when|required|guard|choices|others)": "(sharedPredicates[0-9]+)"/g, '"$1": $2');
   }
-  const effectDeclarations = [...effectProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
+  const predicateDeclarations = [...predicateProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
+  const effectDeclarations = [...effectProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;`).join('\n');
   const phaseDeclarations = [...remainingProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;\ntype ${id[0].toUpperCase() + id.slice(1)}Type = typeof ${id};`).join('\n');
-  const declarations = effectDeclarations + '\n' + phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
+  const declarations = predicateDeclarations + '\n' + effectDeclarations + '\n' + phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
     let text = renderSpec(spec);
     if (spec.parserExit?.remainingOptions) {
       const id = remainingProfiles.get(JSON.stringify(spec.parserExit.remainingOptions));
