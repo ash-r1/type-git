@@ -35,8 +35,8 @@ import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
-import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { InitialParserInputs } from './initial-parser-inputs.js';
+import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { GLOBAL_HELP_DISPATCH_OPTIONS, OptionSpec } from './spec.js';
 import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
@@ -2830,7 +2830,7 @@ export interface GitCommandClient {
   command<C extends UsageCommand, const A extends readonly unknown[]>(
     command: C,
     args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
 
   command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
@@ -2846,7 +2846,7 @@ export interface GitCommandClient {
   command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
     command: C,
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
@@ -2861,6 +2861,6 @@ export interface GitCommandClient {
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
 }

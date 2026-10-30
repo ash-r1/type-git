@@ -1,8 +1,8 @@
 import type {
+  CheckedCommandArguments,
   CheckedDocumentationArguments,
   DocumentationCommand,
   DocumentationPrefix,
-  CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
   GitCommandName,
@@ -143,8 +143,8 @@ import type {
   ExecOpts,
   ExecutionContext,
   GitOpenOptions,
-  LfsMode,
   GitOutputMode,
+  LfsMode,
   RawResult,
 } from '../core/types.js';
 import { runWithConcurrency } from '../internal/concurrency.js';
@@ -353,7 +353,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
     command: C,
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
   public command<
     C extends GitCommandName,
@@ -377,7 +377,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   >(
     command: C,
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
   public async command(
     command: GitCommandName,
