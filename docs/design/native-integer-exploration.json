@@ -4646,6 +4646,11 @@
           "profile": "signed-32"
         },
         {
+          "flag": "--max-memory",
+          "key": "max-memory",
+          "profile": "unsigned-64-size_t"
+        },
+        {
           "flag": "--no-creation-factor",
           "key": "creation-factor",
           "profile": "signed-32",

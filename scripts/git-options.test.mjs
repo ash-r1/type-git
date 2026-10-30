@@ -8,6 +8,23 @@ const numeric = load('upstream/git-numeric-options');
 const scopes = load('git-command-scopes');
 const rules = load('git-command-rules');
 const groups = load('git-option-groups');
+describe('range-diff memory callback identity', () => {
+  it('binds the size_t parser and preserves the valueless no-op unset', () => {
+    const callbacks = load('git-numeric-callbacks');
+    const result = gitOptions(upstream, scopes, rules, groups, numeric, callbacks);
+    expect(result['range-diff'].options['--max-memory'].parser).toEqual(callbacks.profiles['range-diff-memory'].parser);
+    expect(result['range-diff'].options['--no-max-memory']).toMatchObject({ value: 'flag', ignore: true });
+    expect(result['range-diff'].options['--no-max-memory'].parser).toBeUndefined();
+    expect(result['range-diff'].options['--no-max-memory'].set).toBeUndefined();
+  });
+  it('does not attach the numeric grammar to an unrelated callback with the same spelling', () => {
+    const changed = structuredClone(upstream);
+    const file = changed.files.find(f => f.file === 'builtin/range-diff.c');
+    const option = file.tables.flatMap(t => t.options).find(o => o.long === 'max-memory');
+    option.fields.callback = 'unrelated_memory_callback';
+    expect(gitOptions(changed, scopes, rules, groups, numeric, load('git-numeric-callbacks'))['range-diff'].options['--max-memory'].parser).toBeUndefined();
+  });
+});
 describe('commit-graph filter count callback identity', () => {
   it('binds decimal cast parsing and the source negative-one unset value', () => {
     const callbacks = load('git-numeric-callbacks');
