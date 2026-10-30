@@ -7,7 +7,7 @@ import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments, commandUsesNativeABI } from './build.js';
-import { COMMAND_SPECS } from './generated.js';
+import { commandSpecs } from './catalogue.js';
 import type { GitCommandName } from './types.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
@@ -61,7 +61,8 @@ describe('native fallback and first-word dispatch', () => {
     }
   };
   it('forwards ABI through a synthetic registry route to an existing scalar parser', () => {
-    const spec = COMMAND_SPECS.config as unknown as { dispatch: Record<string, string> };
+    // Mutate the runtime catalogue that command building reads.
+    const spec = commandSpecs().config as unknown as { dispatch: Record<string, string> };
     const original = spec.dispatch;
     spec.dispatch = { ...original, abiFixture: 'shortlog' };
     try {

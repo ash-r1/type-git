@@ -53,7 +53,7 @@ import {
   isDocumentationDispatch,
   validateArgvStrings,
 } from '../commands/build.js';
-import { COMMAND_SPECS } from '../commands/generated.js';
+import { commandSpecs } from '../commands/catalogue.js';
 import {
   type GuiGrammar,
   guiGrammarFromSource,
@@ -728,7 +728,7 @@ export class CliRunner {
         launch,
       );
 
-    const spec: CommandSpec = COMMAND_SPECS[command];
+    const spec: CommandSpec = commandSpecs()[command];
     let traitArgs = args;
     if (filename?.stopBeforeFilename !== undefined && spec.parserExit?.firstPassOptions) {
       let reached = 0;
