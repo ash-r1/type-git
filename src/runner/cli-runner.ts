@@ -1,18 +1,18 @@
-import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
-import type { GitBooleanSource, GitBooleanCapabilities } from '../constraints/git-boolean.js';
-import {
-  OBJECT_FILTER_CHAR_PROBE,
-  objectFilterUnsignedChar,
-} from '../constraints/object-filter.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
+import type { GitBooleanCapabilities, GitBooleanSource } from '../constraints/git-boolean.js';
 import {
   DECIMAL_CALLBACK_PROBES,
   decimalCallbackFamily,
   type GitDecimalCallbacks,
 } from '../constraints/git-decimal.js';
-import { validateOptions as checkOptions } from '../core/option-rules.js';
-import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { validInitialDepth } from '../constraints/git-scalars.js';
+import {
+  OBJECT_FILTER_CHAR_PROBE,
+  objectFilterUnsignedChar,
+} from '../constraints/object-filter.js';
+import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
+import { validateOptions as checkOptions } from '../core/option-rules.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -25,40 +25,40 @@ import { validInitialDepth } from '../constraints/git-scalars.js';
 import process from 'node:process';
 import {
   commandArguments,
-  isDocumentationDispatch,
-  commandFilenameTokens,
-  type FilenameContext,
-  type FilenameProfile,
-  commandShapeArguments,
-  commandUsesFirstPassEmpty,
-  commandHasLegacyStashHelp,
-  commandUsesSubmoduleInitAlias,
-  commandUsesEmptyPickaxe,
-  commandUsesDepthAtoi,
-  validateArgvStrings,
-  commandDecimalCallbacks,
-  commandUsesConflictStyle,
-  commandUsesRepackMaxPackSize,
-  commandUsesReadTreeExclude,
-  commandUsesLsTreeModes,
-  commandUsesBooleanSource,
-  commandUsesBooleanBinary,
   commandBooleanFeatures,
-  commandUsesDecimalCallback,
+  commandDecimalCallbacks,
+  commandFilenameTokens,
+  commandHasLegacyStashHelp,
+  commandShapeArguments,
+  commandUsesBooleanBinary,
+  commandUsesBooleanSource,
   commandUsesCompoundDecimal,
-  commandUsesNativeABI,
+  commandUsesConflictStyle,
+  commandUsesDecimalCallback,
+  commandUsesDepthAtoi,
+  commandUsesEmptyPickaxe,
+  commandUsesFirstPassEmpty,
   commandUsesIntegerProfile,
+  commandUsesLsTreeModes,
+  commandUsesNativeABI,
   commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
   commandUsesObjectFilterCharProfile,
+  commandUsesReadTreeExclude,
+  commandUsesRepackMaxPackSize,
+  commandUsesSubmoduleInitAlias,
+  type FilenameContext,
+  type FilenameProfile,
+  isDocumentationDispatch,
+  validateArgvStrings,
 } from '../commands/build.js';
-import { COMMAND_SPECS } from '../commands/generated.js';
-import { initialParserPass } from '../commands/initial-parser-pass.js';
+import { commandSpecs } from '../commands/catalogue.js';
 import {
   type GuiGrammar,
   guiGrammarFromSource,
   guiLaunchFromSource,
 } from '../commands/gui-syntax.js';
+import { initialParserPass } from '../commands/initial-parser-pass.js';
 import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
@@ -75,10 +75,10 @@ import type {
   ExecOpts,
   ExecutionContext,
   GitErrorKind,
+  GitOutputMode,
   GitProgress,
   LfsProgress,
   RawResult,
-  GitOutputMode,
 } from '../core/types.js';
 import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
@@ -727,7 +727,7 @@ export class CliRunner {
         launch,
       );
 
-    const spec: CommandSpec = COMMAND_SPECS[command];
+    const spec: CommandSpec = commandSpecs()[command];
     let traitArgs = args;
     if (filename?.stopBeforeFilename !== undefined && spec.parserExit?.firstPassOptions) {
       let reached = 0;
@@ -1776,7 +1776,7 @@ export class CliRunner {
         const diagnostic = profile.stdout + profile.stderr;
         const supported = profile.exitCode === 129 && diagnostic.includes('usage:');
         const unsupported = profile.exitCode === 128 && diagnostic.includes('invalid filter-spec');
-        if (!supported && !unsupported) {
+        if (!(supported || unsupported)) {
           // Unrecognized/localized frontends keep their own native validation.
           return await execute(build(command, args, inRepository, abi));
         }

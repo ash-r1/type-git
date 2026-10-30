@@ -1,16 +1,12 @@
-import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
-import { initialParserPass } from './initial-parser-pass.js';
-import { initialParserInputs } from './initial-parser-inputs.js';
-import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
+import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import {
-  isBooleanCallback,
-  type GitBooleanSource,
   type GitBooleanCapabilities,
+  type GitBooleanSource,
+  isBooleanCallback,
 } from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
-import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
@@ -18,26 +14,35 @@ import {
   objectFilterUsesNegativeMagnitude,
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
-import { COMMAND_SPECS } from './generated.js';
+import { commandSpecs } from './catalogue.js';
 import {
-  guiArguments,
-  validateGuiArguments,
   type GuiGrammar,
   type GuiLaunch,
+  guiArguments,
+  validateGuiArguments,
 } from './gui-syntax.js';
+import { initialParserInputs } from './initial-parser-inputs.js';
+import { initialParserPass } from './initial-parser-pass.js';
+import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
+  GLOBAL_HELP_DISPATCH_OPTIONS,
   type OptionSpec,
 } from './spec.js';
+import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import type { GitCommandName } from './types.js';
 
+let documentationOptionTable: Readonly<Record<string, OptionSpec>> | undefined;
+
 // git.c rewrites first-word --help before looking up any builtin or external command.
-const documentationOptions = {
-  ...COMMAND_SPECS.help.options,
-  ...GLOBAL_HELP_DISPATCH_OPTIONS,
-};
+function documentationOptions(): Readonly<Record<string, OptionSpec>> {
+  documentationOptionTable ??= {
+    ...commandSpecs().help.options,
+    ...GLOBAL_HELP_DISPATCH_OPTIONS,
+  };
+  return documentationOptionTable;
+}
 
 /** Git dispatches a first --help before any primary command's local parser. */
 export function isDocumentationDispatch(spec: CommandSpec, args: readonly unknown[]): boolean {
@@ -56,10 +61,9 @@ function ignoredDocumentationOption(
   flag: string,
   argument: readonly unknown[],
 ): OptionSpec | undefined {
+  const documentation = documentationOptions();
   const alternatives = [
-    Object.hasOwn(documentationOptions, flag)
-      ? documentationOptions[flag as keyof typeof documentationOptions]
-      : undefined,
+    Object.hasOwn(documentation, flag) ? documentation[flag] : undefined,
     ...specs.map((spec) => (Object.hasOwn(spec.options, flag) ? spec.options[flag] : undefined)),
   ].filter((option): option is OptionSpec => option !== undefined);
   const selected = svnShapeOption(alternatives, argument) ?? alternatives[0];
@@ -111,7 +115,7 @@ function dispatchArguments(
   let index = 0;
   while (index < args.length) {
     const token = args[index];
-    if (!Array.isArray(token) || !spec.dispatchOptions?.includes(token[0])) {
+    if (!(Array.isArray(token) && spec.dispatchOptions?.includes(token[0]))) {
       break;
     }
     index++;
@@ -263,7 +267,7 @@ function buildArguments(
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
 ): string[] {
   let spec: CommandSpec | undefined =
-    specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
+    specOverride ?? (Object.hasOwn(commandSpecs(), command) ? commandSpecs()[command] : undefined);
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
@@ -272,7 +276,7 @@ function buildArguments(
   const documentationLocals: readonly CommandSpec[] = documentationDispatch
     ? [
         spec,
-        ...Object.values(spec.dispatch ?? {}).map((name) => COMMAND_SPECS[name as GitCommandName]),
+        ...Object.values(spec.dispatch ?? {}).map((name) => commandSpecs()[name as GitCommandName]),
       ]
     : [];
   if (documentationDispatch) {
@@ -280,7 +284,7 @@ function buildArguments(
     // Native help modes and installation availability stay with the selected Git.
     spec = {
       argv: spec.argv,
-      options: documentationOptions,
+      options: documentationOptions(),
       rules: [],
       separator: true,
       source: 'git.c:handle_builtin; builtin/help.c',
@@ -295,7 +299,7 @@ function buildArguments(
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},
-      ...Object.values(COMMAND_SPECS)
+      ...Object.values(commandSpecs())
         .filter((s) => 'guiScript' in s)
         .map((s) => s.options),
     );
@@ -304,14 +308,13 @@ function buildArguments(
     return argv;
   }
   if (
-    !documentationDispatch &&
-    !specOverride &&
+    !(documentationDispatch || specOverride) &&
     (command === 'svn' || command.startsWith('svn '))
   ) {
-    const root: CommandSpec = COMMAND_SPECS.svn;
+    const root: CommandSpec = commandSpecs().svn;
     const options: Record<string, OptionSpec> = {};
     const alternatives: Record<string, OptionSpec[]> = {};
-    for (const [name, child] of Object.entries(COMMAND_SPECS)) {
+    for (const [name, child] of Object.entries(commandSpecs())) {
       if (name === 'svn' || name.startsWith('svn ')) {
         for (const [flag, option] of Object.entries(child.options)) {
           const { before: _before, ...local } = option;
@@ -351,7 +354,7 @@ function buildArguments(
       return original;
     }
     if (selected.kind === 'command') {
-      const child = COMMAND_SPECS[selected.command as GitCommandName];
+      const child = commandSpecs()[selected.command as GitCommandName];
       const tokens = svnParserTokens(selected.remaining, child.options);
       if (tokens !== undefined) {
         buildArguments(
@@ -958,7 +961,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!abi?.deferFinalRules && !parserExited && !replay?.parserExited && state.help !== true) {
+  if (!(abi?.deferFinalRules || parserExited || replay?.parserExited) && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -1009,7 +1012,7 @@ export function commandHasLegacyStashHelp(
   if (command !== 'stash' && !command.startsWith('stash ')) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const words = commandShapeArguments(command, args, inRepository).slice(1);
   return initialParserPass(spec, words, true, {
     origin: 'git',
@@ -1027,7 +1030,7 @@ export function commandUsesFirstPassEmpty(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesFirstPassEmpty(dispatched.command, dispatched.args);
@@ -1099,7 +1102,7 @@ export function commandUsesSubmoduleInitAlias(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
@@ -1127,7 +1130,7 @@ export function commandUsesSubmoduleInitAlias(
 
 /** Detect a final depth conversion without a help exit or a subsequent reset. */
 export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unknown[]): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesDepthAtoi(dispatched.command, dispatched.args);
@@ -1164,10 +1167,10 @@ export function commandUsesNativeABI(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesNativeABI(dispatched.command, dispatched.args, emptyRegistered);
@@ -1205,10 +1208,10 @@ export function commandUsesObjectFilterBinary(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
-    ? COMMAND_SPECS[command]
+  const spec: CommandSpec | undefined = Object.hasOwn(commandSpecs(), command)
+    ? commandSpecs()[command]
     : undefined;
-  if (!spec || !Array.isArray(args)) {
+  if (!(spec && Array.isArray(args))) {
     return false;
   }
   const dispatched = dispatchArguments(spec, args);
@@ -1243,10 +1246,10 @@ export function commandUsesIntegerProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesIntegerProfile(dispatched.command, dispatched.args, emptyRegistered);
@@ -1275,10 +1278,10 @@ export function commandUsesNegativeMagnitude(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesNegativeMagnitude(dispatched.command, dispatched.args, emptyRegistered);
@@ -1310,7 +1313,7 @@ export function commandDecimalCallbacks(
   args: readonly unknown[],
   emptyRegistered = true,
 ): GitDecimalCallback[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandDecimalCallbacks(dispatched.command, dispatched.args, emptyRegistered);
@@ -1342,7 +1345,7 @@ export function commandUsesDecimalCallback(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesDecimalCallback(dispatched.command, dispatched.args, emptyRegistered);
@@ -1365,7 +1368,7 @@ export function commandUsesObjectFilterCharProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args, emptyRegistered);
@@ -1388,7 +1391,7 @@ export function commandUsesCompoundDecimal(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesCompoundDecimal(dispatched.command, dispatched.args, emptyRegistered);
@@ -1417,7 +1420,7 @@ export function commandUsesLsTreeModes(command: GitCommandName, args: readonly u
   if (
     command !== 'ls-tree' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1447,7 +1450,7 @@ export function commandUsesReadTreeExclude(
   if (
     command !== 'read-tree' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1477,7 +1480,7 @@ export function commandUsesRepackMaxPackSize(
   if (
     command !== 'repack' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1505,7 +1508,7 @@ export function commandUsesConflictStyle(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesConflictStyle(dispatched.command, dispatched.args, emptyRegistered);
@@ -1525,7 +1528,7 @@ export function commandUsesBooleanSource(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesBooleanSource(dispatched.command, dispatched.args, emptyRegistered);
@@ -1545,7 +1548,7 @@ export function commandUsesBooleanBinary(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesBooleanBinary(dispatched.command, dispatched.args, emptyRegistered);
@@ -1568,7 +1571,7 @@ export function commandBooleanFeatures(
   args: readonly unknown[],
   emptyRegistered = true,
 ): (keyof GitBooleanCapabilities)[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandBooleanFeatures(dispatched.command, dispatched.args, emptyRegistered);
@@ -1595,7 +1598,7 @@ export function commandFilenameTokens(
   args: readonly unknown[],
   firstPassEmpty = true,
 ): { key: string; value: unknown; ignore: boolean }[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandFilenameTokens(dispatched.command, dispatched.args, firstPassEmpty);
@@ -1620,9 +1623,11 @@ export function commandFilenameTokens(
     } catch (error) {
       // A reached optional stat may terminate before the later syntax error.
       if (
-        !(error instanceof GitArgumentError) ||
-        !updates.some(
-          (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+        !(
+          error instanceof GitArgumentError &&
+          updates.some(
+            (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+          )
         )
       ) {
         throw error;
@@ -1643,7 +1648,7 @@ export function commandUsesEmptyPickaxe(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesEmptyPickaxe(dispatched.command, dispatched.args);
