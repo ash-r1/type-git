@@ -1,16 +1,12 @@
-import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
-import { initialParserPass } from './initial-parser-pass.js';
-import { initialParserInputs } from './initial-parser-inputs.js';
-import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
+import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import {
-  isBooleanCallback,
-  type GitBooleanSource,
   type GitBooleanCapabilities,
+  type GitBooleanSource,
+  isBooleanCallback,
 } from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
-import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
@@ -20,17 +16,21 @@ import {
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
-  guiArguments,
-  validateGuiArguments,
   type GuiGrammar,
   type GuiLaunch,
+  guiArguments,
+  validateGuiArguments,
 } from './gui-syntax.js';
+import { initialParserInputs } from './initial-parser-inputs.js';
+import { initialParserPass } from './initial-parser-pass.js';
+import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
+  GLOBAL_HELP_DISPATCH_OPTIONS,
   type OptionSpec,
 } from './spec.js';
+import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import type { GitCommandName } from './types.js';
 
 // git.c rewrites first-word --help before looking up any builtin or external command.
@@ -38,6 +38,9 @@ const documentationOptions = {
   ...COMMAND_SPECS.help.options,
   ...GLOBAL_HELP_DISPATCH_OPTIONS,
 };
+
+/** Native words a parent parser forwards to a child; they carry no operand-object provenance. */
+const retainedWords = new WeakSet<object>();
 
 /** Git dispatches a first --help before any primary command's local parser. */
 export function isDocumentationDispatch(spec: CommandSpec, args: readonly unknown[]): boolean {
@@ -111,7 +114,7 @@ function dispatchArguments(
   let index = 0;
   while (index < args.length) {
     const token = args[index];
-    if (!Array.isArray(token) || !spec.dispatchOptions?.includes(token[0])) {
+    if (!(Array.isArray(token) && spec.dispatchOptions?.includes(token[0]))) {
       break;
     }
     index++;
@@ -261,6 +264,7 @@ function buildArguments(
   },
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
+  operandIndexes?: number[],
 ): string[] {
   let spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
@@ -304,8 +308,7 @@ function buildArguments(
     return argv;
   }
   if (
-    !documentationDispatch &&
-    !specOverride &&
+    !(documentationDispatch || specOverride) &&
     (command === 'svn' || command.startsWith('svn '))
   ) {
     const root: CommandSpec = COMMAND_SPECS.svn;
@@ -385,6 +388,7 @@ function buildArguments(
     );
   }
   if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+    const serializedOperands: number[] = [];
     const serialized = buildArguments(
       command,
       args,
@@ -393,7 +397,25 @@ function buildArguments(
       guiGrammar,
       guiLaunch,
       'shape',
+      undefined,
+      undefined,
+      undefined,
+      serializedOperands,
     );
+    // The native passes below see flattened words; keep each operand object's provenance so
+    // an executing command never receives one as an option or boundary marker.
+    const literal = serialized.slice(spec.argv.length).map(() => false);
+    for (const index of serializedOperands) {
+      const word = serialized[index]!;
+      if (index >= spec.argv.length && word.startsWith('-') && word !== '-') {
+        literal[index - spec.argv.length] = true;
+      }
+    }
+    const rejectLiteralOption = (): never => {
+      throw new GitArgumentError(
+        'Use an explicit ["--"] separator before an operand starting with a dash',
+      );
+    };
     const pass = initialParserPass(
       spec,
       serialized.slice(spec.argv.length),
@@ -413,6 +435,7 @@ function buildArguments(
               );
             };
           })(),
+      literal,
     );
     const initialTokens = initialParserInputs(spec, args, pass.tokens);
     if (pass.exited) {
@@ -427,7 +450,11 @@ function buildArguments(
       );
       return serialized;
     }
+    const remainingLiteral = pass.remainingLiteral ?? [];
     if (pass.subcommand !== undefined) {
+      if (pass.literalOption || pass.literalUnknown) {
+        rejectLiteralOption();
+      }
       buildArguments(
         command,
         initialTokens,
@@ -439,7 +466,13 @@ function buildArguments(
       );
       buildArguments(
         spec.dispatch![pass.subcommand] as GitCommandName,
-        pass.remaining.map((operand) => ({ operand })),
+        pass.remaining.map((operand, index) => {
+          const word = { operand };
+          if (remainingLiteral[index] !== true) {
+            retainedWords.add(word);
+          }
+          return word;
+        }),
         inRepository,
         abi,
         guiGrammar,
@@ -452,23 +485,46 @@ function buildArguments(
     }
     if (!pass.delegated) {
       if (spec.conditionalCommand) {
+        // The child command parses every retained word again, after the dropped marker.
+        if (pass.literalOption || remainingLiteral.includes(true)) {
+          rejectLiteralOption();
+        }
         // A missing ref returns success before the child parses any values.
         // Ref existence is unknown here; native Git evaluates its own gate
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
       const partition = partitionRemainingArguments(spec, pass.remaining);
+      const prefix = spec.parserExit.remainingPartition?.optionPrefix;
+      const partitionLiteral =
+        prefix === undefined
+          ? remainingLiteral
+          : remainingLiteral.filter((_, index) => pass.remaining[index]!.startsWith(prefix));
       const operandsOnly = spec.parserExit.remainingOperands !== undefined;
       const operandBoundary =
         spec.parserExit.remainingOperands === 'drop-leading-dashdash' &&
         partition.words[0] === '--';
       const words = operandBoundary ? partition.words.slice(1) : partition.words;
+      const wordsLiteral = operandBoundary ? partitionLiteral.slice(1) : partitionLiteral;
       const separatorIndex = spec.parserExit.remainingSeparator ? words.indexOf('--') : -1;
       const recognizedSeparator =
         separatorIndex >= 0 &&
         (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
           separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
-      const revision = operandsOnly ? undefined : revisionParserPass(spec, words);
+      if (
+        operandsOnly &&
+        (pass.literalOption ||
+          pass.literalUnknown ||
+          (operandBoundary && partitionLiteral[0] === true) ||
+          (recognizedSeparator && wordsLiteral[separatorIndex] === true))
+      ) {
+        rejectLiteralOption();
+      }
+      const revision = operandsOnly ? undefined : revisionParserPass(spec, words, wordsLiteral);
+      // A native exit in the retained stream still happens before execution.
+      if (revision && !revision.exited && (pass.literalOption || revision.literalOption)) {
+        rejectLiteralOption();
+      }
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
@@ -572,6 +628,9 @@ function buildArguments(
         throw new GitArgumentError(
           'Use an explicit ["--"] separator before an operand starting with a dash',
         );
+      }
+      if (!retainedWords.has(arg as object)) {
+        operandIndexes?.push(argv.length);
       }
       argv.push(operand);
       operands.push(operand);
@@ -833,6 +892,13 @@ function buildArguments(
       const emitted = argv.splice(start);
       const position = option.before + (prefixCounts.get(option.before) ?? 0);
       argv.splice(position, 0, ...emitted);
+      if (operandIndexes) {
+        for (const [slot, operandIndex] of operandIndexes.entries()) {
+          if (operandIndex >= position) {
+            operandIndexes[slot] = operandIndex + emitted.length;
+          }
+        }
+      }
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     if (
@@ -958,7 +1024,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!abi?.deferFinalRules && !parserExited && !replay?.parserExited && state.help !== true) {
+  if (!(abi?.deferFinalRules || parserExited || replay?.parserExited) && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -1164,7 +1230,7 @@ export function commandUsesNativeABI(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1208,7 +1274,7 @@ export function commandUsesObjectFilterBinary(
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
     : undefined;
-  if (!spec || !Array.isArray(args)) {
+  if (!(spec && Array.isArray(args))) {
     return false;
   }
   const dispatched = dispatchArguments(spec, args);
@@ -1243,7 +1309,7 @@ export function commandUsesIntegerProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1275,7 +1341,7 @@ export function commandUsesNegativeMagnitude(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1620,9 +1686,11 @@ export function commandFilenameTokens(
     } catch (error) {
       // A reached optional stat may terminate before the later syntax error.
       if (
-        !(error instanceof GitArgumentError) ||
-        !updates.some(
-          (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+        !(
+          error instanceof GitArgumentError &&
+          updates.some(
+            (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+          )
         )
       ) {
         throw error;
