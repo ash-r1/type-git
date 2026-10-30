@@ -40,6 +40,7 @@ export function validObjectFilter(
   binaryIntegers = true,
   negativeMagnitudes = false,
   unsignedChar = true,
+  combineEmptyComponents = true,
 ): boolean {
   const pending = [{ text: value, auto: allowAuto }];
   while (pending.length > 0) {
@@ -69,7 +70,11 @@ export function validObjectFilter(
       }
       for (const child of combined.split('+')) {
         if (!child) {
-          continue;
+          // Git 2.54+ skips empty components; older Git parses them and rejects the remainder.
+          if (combineEmptyComponents) {
+            continue;
+          }
+          return false;
         }
         if (RESERVED.test(child) || (!unsignedChar && HIGH_BYTE.test(child))) {
           return false;
@@ -138,6 +143,46 @@ export function objectFilterUsesHighBytes(value: string): boolean {
     }
   }
   return false;
+}
+
+/** Detect empty combined components, including decoded nested combined filters. */
+export function objectFilterUsesEmptyComponent(value: string): boolean {
+  const pending = [value];
+  while (pending.length > 0) {
+    const text = pending.pop()!;
+    if (!text.startsWith('combine:')) {
+      continue;
+    }
+    for (const child of text.slice(8).split('+')) {
+      if (!child) {
+        return true;
+      }
+      pending.push(decode(child));
+    }
+  }
+  return false;
+}
+
+/** Readonly clone parser probe for empty combined components, without a URL or transport. */
+export const OBJECT_FILTER_EMPTY_PROBE = ['clone', '--filter=combine:blob:none+', '-h'] as const;
+
+/** Return only recognized empty-component outcomes; unknown frontends retain native validation. */
+export function objectFilterCombineEmptyComponents(result: {
+  exitCode: number;
+  stdout: string;
+  stderr: string;
+}): boolean | undefined {
+  if (result.exitCode === 128 && result.stderr.includes("invalid filter-spec 'blob:none+'")) {
+    return false;
+  }
+  if (
+    result.exitCode === 129 &&
+    (result.stdout + result.stderr).includes('usage:') &&
+    !/error:|fatal:/.test(result.stderr)
+  ) {
+    return true;
+  }
+  return undefined;
 }
 
 /** Readonly clone parser probe, without a URL or transport operation. */

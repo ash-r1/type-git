@@ -10,6 +10,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
+  objectFilterUsesEmptyComponent,
   objectFilterUsesHighBytes,
   objectFilterUsesNegativeMagnitude,
 } from '../constraints/object-filter.js';
@@ -191,6 +192,7 @@ export function commandArguments(
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
+    combineEmptyComponents?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
@@ -239,6 +241,7 @@ function buildArguments(
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
+    combineEmptyComponents?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
@@ -832,6 +835,7 @@ function buildArguments(
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
             abi?.depthAtoiBits,
+            abi?.combineEmptyComponents,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -1007,6 +1011,7 @@ function buildArguments(
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
             abi?.depthAtoiBits,
+            abi?.combineEmptyComponents,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -1536,6 +1541,33 @@ export function commandUsesObjectFilterCharProfile(
     return (
       (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
       objectFilterUsesHighBytes(arg[1])
+    );
+  });
+}
+
+/** Detect empty combined-filter components, whose acceptance depends on the selected Git. */
+export function commandUsesObjectFilterEmptyComponent(
+  command: GitCommandName,
+  args: readonly unknown[],
+  emptyRegistered = true,
+): boolean {
+  const spec: CommandSpec = commandSpecs()[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesObjectFilterEmptyComponent(
+      dispatched.command,
+      dispatched.args,
+      emptyRegistered,
+    );
+  }
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
+      objectFilterUsesEmptyComponent(arg[1])
     );
   });
 }
