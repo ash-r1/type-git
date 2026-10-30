@@ -42,10 +42,25 @@ describe('range-diff maximum memory callback', () => {
       1,
       4294967296n,
     ]) {
-      expect(commandArguments('range-diff', [['--max-memory', value], ['-h']])).toContain(
-        `--max-memory=${value}`,
-      );
+      expect(
+        commandArguments('range-diff', [['--max-memory', value], ['-h']], undefined, {
+          longBits: 64,
+          sizeTBits: 64,
+        }),
+      ).toContain(`--max-memory=${value}`);
     }
+    expect(() =>
+      commandArguments('range-diff', [['--max-memory', '4294967296'], ['-h']], undefined, {
+        longBits: 32,
+        sizeTBits: 32,
+      }),
+    ).toThrow();
+    expect(
+      commandArguments('range-diff', [['--max-memory', '4294967295'], ['-h']], undefined, {
+        longBits: 32,
+        sizeTBits: 32,
+      }),
+    ).toContain('--max-memory=4294967295');
     expect(parseGitScalar(parser, '4294967296', undefined, 64, 32).valid).toBe(false);
     expect(parseGitScalar(parser, '4294967295', undefined, 64, 32).valid).toBe(true);
     expect(parseGitScalar(parser, '18446744073709551615', undefined, 32, 64).valid).toBe(true);
@@ -73,9 +88,13 @@ describe('range-diff maximum memory callback', () => {
     const unset = COMMAND_SPECS['range-diff'].options['--no-max-memory'] as OptionSpec;
     expect(unset.ignore).toBe(true);
     expect(unset.parser).toBeUndefined();
-    expect(
-      commandArguments('range-diff', [['--max-memory', '1k'], ['--no-max-memory'], ['-h']]),
-    ).toContain('--no-max-memory');
+    const actual = commandArguments('range-diff', [
+      ['--max-memory', '1k'],
+      ['--no-max-memory'],
+      ['-h'],
+    ]);
+    expect(actual).toContain('--max-memory=1k');
+    expect(actual).toContain('--no-max-memory');
     expect(() =>
       commandArguments('range-diff', [['--max-memory', 'bad'], ['--no-max-memory'], ['-h']]),
     ).toThrow();
