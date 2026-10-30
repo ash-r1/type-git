@@ -9,7 +9,10 @@ import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { validInitialDepth } from '../constraints/git-scalars.js';
 import {
   OBJECT_FILTER_CHAR_PROBE,
+  OBJECT_FILTER_EMPTY_PROBE,
+  objectFilterCombineEmptyComponents,
   objectFilterUnsignedChar,
+  objectFilterUsesEmptyComponent,
 } from '../constraints/object-filter.js';
 import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
 import { validateOptions as checkOptions } from '../core/option-rules.js';
@@ -45,6 +48,7 @@ import {
   commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
   commandUsesObjectFilterCharProfile,
+  commandUsesObjectFilterEmptyComponent,
   commandUsesReadTreeExclude,
   commandUsesRepackMaxPackSize,
   commandUsesSubmoduleInitAlias,
@@ -605,13 +609,25 @@ export class CliRunner {
         checkOptions(name, options, { ...valid[0]!, depthAtoiBits });
       }
     }
-    if (valid.length === 8) {
-      return;
-    }
     const probeOptions = {
       ...(opts?.env ? { env: opts.env } : {}),
       ...(opts?.signal ? { signal: opts.signal } : {}),
     };
+    const filter = (options as { filter?: unknown } | undefined)?.filter;
+    if (typeof filter === 'string' && objectFilterUsesEmptyComponent(filter)) {
+      const args = [...OBJECT_FILTER_EMPTY_PROBE];
+      const probe = await this.probe(context, args, probeOptions);
+      if (probe.aborted) {
+        throw this.mapError(probe, context, this.buildArgv(context, args));
+      }
+      if (objectFilterCombineEmptyComponents(probe) === false) {
+        // Older Git rejects every empty component independently of ABI dimensions.
+        checkOptions(name, options, { ...valid[0]!, depthAtoiBits, combineEmptyComponents: false });
+      }
+    }
+    if (valid.length === 8) {
+      return;
+    }
     let unsignedChar = true;
     const charDependent = [32, 64].some((candidateLongBits) =>
       [false, true].some(
@@ -999,6 +1015,7 @@ export class CliRunner {
       negativeMagnitudes?: boolean;
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
+      combineEmptyComponents?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
       repackMaxPackSize?: 'immediate' | 'deferred';
       readTreeExclude?: 'legacy' | 'modern';
@@ -1334,6 +1351,11 @@ export class CliRunner {
         throw firstError;
       }
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, traitArgs, firstPassEmpty);
+      const needsEmptyProfile = commandUsesObjectFilterEmptyComponent(
+        command,
+        traitArgs,
+        firstPassEmpty,
+      );
       if (
         (valid.length ===
           profiles.length *
@@ -1346,7 +1368,8 @@ export class CliRunner {
             capabilityVariants.length *
             compoundOverflows.length *
             4 &&
-          !needsBinaryProfile) ||
+          !needsBinaryProfile &&
+          !needsEmptyProfile) ||
         (binary && !this.exec.spawnBytes)
       ) {
         return await execute(valid[0]!.argv);
@@ -1835,6 +1858,19 @@ export class CliRunner {
           return await execute(build(command, args, inRepository, abi));
         }
         abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), binaryIntegers: supported };
+      }
+      if (needsEmptyProfile) {
+        // Clone's callback runs before -h. No URL is supplied or contacted.
+        const profile = await this.probe(context, [...OBJECT_FILTER_EMPTY_PROBE], probeOptions);
+        if (profile.aborted) {
+          return { ...profile, stdout: binary ? new Uint8Array(0) : profile.stdout };
+        }
+        const observed = objectFilterCombineEmptyComponents(profile);
+        if (observed === undefined) {
+          // Unrecognized/localized frontends keep their own native validation.
+          return await execute(build(command, args, inRepository, abi));
+        }
+        abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), combineEmptyComponents: observed };
       }
     }
     return await execute(build(command, args, inRepository, abi));
