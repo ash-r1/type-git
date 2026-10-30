@@ -44,6 +44,9 @@ function documentationOptions(): Readonly<Record<string, OptionSpec>> {
   return documentationOptionTable;
 }
 
+/** Native words a parent parser forwards to a child; they carry no operand-object provenance. */
+const retainedWords = new WeakSet<object>();
+
 /** Git dispatches a first --help before any primary command's local parser. */
 export function isDocumentationDispatch(spec: CommandSpec, args: readonly unknown[]): boolean {
   return (
@@ -265,6 +268,8 @@ function buildArguments(
   },
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
+  operandIndexes?: number[],
+  guard = false,
 ): string[] {
   let spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(commandSpecs(), command) ? commandSpecs()[command] : undefined);
@@ -345,6 +350,8 @@ function buildArguments(
         options,
       },
       alternatives,
+      undefined,
+      guard,
     );
     if (evaluationMode === 'shape') {
       return original;
@@ -385,9 +392,15 @@ function buildArguments(
       guiLaunch,
       evaluationMode,
       replay,
+      undefined,
+      undefined,
+      undefined,
+      guard,
     );
   }
-  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+  // A guarded shape serialization repeats only the provenance decisions of a full evaluation.
+  if ((evaluationMode === 'full' || guard) && spec.parserExit?.firstPassOptions) {
+    const serializedOperands: number[] = [];
     const serialized = buildArguments(
       command,
       args,
@@ -396,28 +409,61 @@ function buildArguments(
       guiGrammar,
       guiLaunch,
       'shape',
+      undefined,
+      undefined,
+      undefined,
+      serializedOperands,
     );
-    const pass = initialParserPass(
-      spec,
-      serialized.slice(spec.argv.length),
-      abi?.firstPassEmpty ?? true,
-      spec.parserExit,
-      abi?.stopBeforeFilename === undefined
-        ? undefined
-        : (() => {
-            let reached = 0;
-            return (token: readonly string[]) => {
-              const option = spec.options[token[0]!];
-              return (
-                option?.emptyIsUnset === true &&
-                typeof token[1] === 'string' &&
-                token[1].startsWith(':(optional)') &&
-                reached++ === abi.stopBeforeFilename
-              );
-            };
-          })(),
-    );
+    // The native passes below see flattened words; keep each operand object's provenance so
+    // an executing command never receives one as an option or boundary marker.
+    const literal = serialized.slice(spec.argv.length).map(() => false);
+    for (const index of serializedOperands) {
+      const word = serialized[index]!;
+      if (index >= spec.argv.length && word.startsWith('-') && word !== '-') {
+        literal[index - spec.argv.length] = true;
+      }
+    }
+    const rejectLiteralOption = (): never => {
+      throw new GitArgumentError(
+        'Use an explicit ["--"] separator before an operand starting with a dash',
+      );
+    };
+    const firstPass = () =>
+      initialParserPass(
+        spec,
+        serialized.slice(spec.argv.length),
+        abi?.firstPassEmpty ?? true,
+        spec.parserExit,
+        abi?.stopBeforeFilename === undefined
+          ? undefined
+          : (() => {
+              let reached = 0;
+              return (token: readonly string[]) => {
+                const option = spec.options[token[0]!];
+                return (
+                  option?.emptyIsUnset === true &&
+                  typeof token[1] === 'string' &&
+                  token[1].startsWith(':(optional)') &&
+                  reached++ === abi.stopBeforeFilename
+                );
+              };
+            })(),
+        literal,
+      );
+    let pass: ReturnType<typeof initialParserPass>;
+    try {
+      pass = firstPass();
+    } catch (error) {
+      // A first-pass usage error is a native exit before any later word is parsed.
+      if (guard && error instanceof GitArgumentError) {
+        return serialized;
+      }
+      throw error;
+    }
     const initialTokens = initialParserInputs(spec, args, pass.tokens);
+    if (pass.exited && guard) {
+      return serialized;
+    }
     if (pass.exited) {
       buildArguments(
         command,
@@ -430,23 +476,41 @@ function buildArguments(
       );
       return serialized;
     }
+    const remainingLiteral = pass.remainingLiteral ?? [];
     if (pass.subcommand !== undefined) {
-      buildArguments(
-        command,
-        initialTokens,
-        inRepository,
-        abi,
-        guiGrammar,
-        guiLaunch,
-        'first-pass',
-      );
+      if (pass.literalOption || pass.literalUnknown) {
+        rejectLiteralOption();
+      }
+      if (!guard) {
+        buildArguments(
+          command,
+          initialTokens,
+          inRepository,
+          abi,
+          guiGrammar,
+          guiLaunch,
+          'first-pass',
+        );
+      }
       buildArguments(
         spec.dispatch![pass.subcommand] as GitCommandName,
-        pass.remaining.map((operand) => ({ operand })),
+        pass.remaining.map((operand, index) => {
+          const word = { operand };
+          if (remainingLiteral[index] !== true) {
+            retainedWords.add(word);
+          }
+          return word;
+        }),
         inRepository,
         abi,
         guiGrammar,
         guiLaunch,
+        guard ? 'shape' : 'full',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        guard,
       );
       return serialized;
     }
@@ -455,23 +519,49 @@ function buildArguments(
     }
     if (!pass.delegated) {
       if (spec.conditionalCommand) {
+        // The child command parses every retained word again, after the dropped marker.
+        if (pass.literalOption || remainingLiteral.includes(true)) {
+          rejectLiteralOption();
+        }
         // A missing ref returns success before the child parses any values.
         // Ref existence is unknown here; native Git evaluates its own gate
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
       const partition = partitionRemainingArguments(spec, pass.remaining);
+      const prefix = spec.parserExit.remainingPartition?.optionPrefix;
+      const partitionLiteral =
+        prefix === undefined
+          ? remainingLiteral
+          : remainingLiteral.filter((_, index) => pass.remaining[index]!.startsWith(prefix));
       const operandsOnly = spec.parserExit.remainingOperands !== undefined;
       const operandBoundary =
         spec.parserExit.remainingOperands === 'drop-leading-dashdash' &&
         partition.words[0] === '--';
       const words = operandBoundary ? partition.words.slice(1) : partition.words;
+      const wordsLiteral = operandBoundary ? partitionLiteral.slice(1) : partitionLiteral;
       const separatorIndex = spec.parserExit.remainingSeparator ? words.indexOf('--') : -1;
       const recognizedSeparator =
         separatorIndex >= 0 &&
         (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
           separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
-      const revision = operandsOnly ? undefined : revisionParserPass(spec, words);
+      if (
+        operandsOnly &&
+        (pass.literalOption ||
+          pass.literalUnknown ||
+          (operandBoundary && partitionLiteral[0] === true) ||
+          (recognizedSeparator && wordsLiteral[separatorIndex] === true))
+      ) {
+        rejectLiteralOption();
+      }
+      const revision = operandsOnly ? undefined : revisionParserPass(spec, words, wordsLiteral);
+      // A native exit in the retained stream still happens before execution.
+      if (revision && !revision.exited && (pass.literalOption || revision.literalOption)) {
+        rejectLiteralOption();
+      }
+      if (guard) {
+        return serialized;
+      }
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
@@ -535,6 +625,15 @@ function buildArguments(
       !spec.parserExit?.firstPassOptions &&
       typeof soleFlag === 'string' &&
       spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  // A guarded shape pass tracks the exits, boundaries and literal tails of a full evaluation
+  // while still serializing without semantic checks.
+  let guardExited =
+    firstWordExited ||
+    (!spec.parserExit?.firstPassOptions &&
+      typeof soleFlag === 'string' &&
+      spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  let guardEnded = false;
+  let guardLiteral = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -566,7 +665,9 @@ function buildArguments(
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
-        !(parserExited || ended || literalOperands) &&
+        (guard
+          ? !(guardExited || guardEnded || guardLiteral)
+          : !(parserExited || ended || literalOperands)) &&
         spec.optionParsing !== 'none' &&
         !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
         operand.startsWith('-') &&
@@ -575,6 +676,9 @@ function buildArguments(
         throw new GitArgumentError(
           'Use an explicit ["--"] separator before an operand starting with a dash',
         );
+      }
+      if (!retainedWords.has(arg as object)) {
+        operandIndexes?.push(argv.length);
       }
       argv.push(operand);
       operands.push(operand);
@@ -595,6 +699,9 @@ function buildArguments(
     if (arg[0] === '--' && arg.length === 1) {
       if (!parserExited && (!spec.separator || ended)) {
         throw new GitArgumentError(`${command}: unexpected end-of-options marker`);
+      }
+      if (spec.separator) {
+        guardEnded = true;
       }
       ended = true;
       state.hasSeparator = true;
@@ -836,6 +943,13 @@ function buildArguments(
       const emitted = argv.splice(start);
       const position = option.before + (prefixCounts.get(option.before) ?? 0);
       argv.splice(position, 0, ...emitted);
+      if (operandIndexes) {
+        for (const [slot, operandIndex] of operandIndexes.entries()) {
+          if (operandIndex >= position) {
+            operandIndexes[slot] = operandIndex + emitted.length;
+          }
+        }
+      }
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     if (
@@ -845,7 +959,19 @@ function buildArguments(
     ) {
       usageExited = true;
       parserExited = true;
+      guardExited = true;
       continue;
+    }
+    if (guard && !guardExited) {
+      if (option.consumesRest) {
+        guardLiteral = true;
+      }
+      if (
+        spec.parserExit?.flags.includes(flag) &&
+        !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+      ) {
+        guardExited = true;
+      }
     }
     if (parserExited) {
       continue;
@@ -1001,6 +1127,35 @@ export function commandShapeArguments(
   inRepository?: boolean,
 ): string[] {
   return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
+}
+
+/**
+ * Serialize shape for execution by a native parser whose profile is unknown. Semantic checks
+ * stay with the selected Git, but an operand object that a full evaluation would refuse as a
+ * live option or boundary is refused here too; both first-pass `--empty` arities are checked.
+ */
+export function commandExecutableShapeArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): string[] {
+  for (const firstPassEmpty of [true, false]) {
+    buildArguments(
+      command,
+      args,
+      inRepository,
+      { longBits: 64, sizeTBits: 64, firstPassEmpty },
+      undefined,
+      undefined,
+      'shape',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      true,
+    );
+  }
+  return commandShapeArguments(command, args, inRepository);
 }
 
 /** Observe the legacy stash parent's help exit without executing any child semantics. */

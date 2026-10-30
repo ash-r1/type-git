@@ -27,6 +27,7 @@ import {
   commandArguments,
   commandBooleanFeatures,
   commandDecimalCallbacks,
+  commandExecutableShapeArguments,
   commandFilenameTokens,
   commandHasLegacyStashHelp,
   commandShapeArguments,
@@ -766,7 +767,7 @@ export class CliRunner {
     // Old stash scans the parent argv for help before dispatch; newer Git stops
     // at a subcommand. Let the selected Git decide this source-dependent exit.
     if (commandHasLegacyStashHelp(command, args, inRepository)) {
-      return await execute(commandShapeArguments(command, args, inRepository));
+      return await execute(commandExecutableShapeArguments(command, args, inRepository));
     }
     if (spec.guiScript) {
       const argv = build(command, args, inRepository);
@@ -894,7 +895,7 @@ export class CliRunner {
               ? 'optional'
               : undefined;
         if (!profile) {
-          return await execute(commandShapeArguments(command, args, inRepository));
+          return await execute(commandExecutableShapeArguments(command, args, inRepository));
         }
         const ignored = new Set<string>();
         if (profile === 'optional') {
@@ -931,7 +932,7 @@ export class CliRunner {
             if (result.exitCode === 0) {
               ignored.add(value);
             } else if (!usage(result)) {
-              return await execute(commandShapeArguments(command, args, inRepository));
+              return await execute(commandExecutableShapeArguments(command, args, inRepository));
             }
           }
         }
@@ -973,7 +974,7 @@ export class CliRunner {
       }
       emptyPickaxeRejected = pickaxeEmptyRejected(probe);
       if (emptyPickaxeRejected === undefined) {
-        return await execute(commandShapeArguments(command, args, inRepository));
+        return await execute(commandExecutableShapeArguments(command, args, inRepository));
       }
     }
     let submoduleInitAlias: boolean | undefined;
@@ -994,7 +995,7 @@ export class CliRunner {
       } else if (probe.exitCode === 129 && /^error: unknown switch `i'\r?$/m.test(probe.stderr)) {
         submoduleInitAlias = false;
       } else {
-        return await execute(commandShapeArguments(command, args, inRepository));
+        return await execute(commandExecutableShapeArguments(command, args, inRepository));
       }
     }
     let depthAtoiBits: 32 | 64 | undefined;
@@ -1005,13 +1006,13 @@ export class CliRunner {
         return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
       }
       if (observed.bits === undefined) {
-        return await execute(commandShapeArguments(command, args, inRepository));
+        return await execute(commandExecutableShapeArguments(command, args, inRepository));
       }
       depthAtoiBits = observed.bits;
     }
     let lsTreeModes: 'bits' | 'cmdmode' | undefined;
     if (commandUsesLsTreeModes(command, traitArgs)) {
-      const original = commandShapeArguments(command, args, inRepository);
+      const original = commandExecutableShapeArguments(command, args, inRepository);
       const observations = [];
       for (const tail of [
         ['--long', '--name-only', '-h'],
@@ -1054,7 +1055,7 @@ export class CliRunner {
     }
     let readTreeExclude: 'legacy' | 'modern' | undefined;
     if (commandUsesReadTreeExclude(command, traitArgs)) {
-      const original = commandShapeArguments(command, args, inRepository);
+      const original = commandExecutableShapeArguments(command, args, inRepository);
       const observations = [];
       for (const tail of [
         ['--exclude-per-directory=.gitignore', '-h'],
@@ -1102,7 +1103,7 @@ export class CliRunner {
     }
     let repackMaxPackSize: 'immediate' | 'deferred' | undefined;
     if (commandUsesRepackMaxPackSize(command, traitArgs)) {
-      const original = commandShapeArguments(command, args, inRepository);
+      const original = commandExecutableShapeArguments(command, args, inRepository);
       const probe = await this.run(
         context,
         ['repack', '--max-pack-size=type-git-profile-invalid', '-h'],
@@ -1151,7 +1152,7 @@ export class CliRunner {
       ) {
         firstPassEmpty = true;
       } else {
-        return await execute(commandShapeArguments(command, args, inRepository));
+        return await execute(commandExecutableShapeArguments(command, args, inRepository));
       }
     }
     let abi: NativeAbi | undefined =
