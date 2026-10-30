@@ -53,7 +53,7 @@ describe('compiler-recorded native integer parsers', () => {
     binaryIntegers =
       (binary.status === 0 || binary.status === 129) &&
       (binary.stdout + binary.stderr).includes('usage:');
-    if (!legacy && !binaryIntegers) {
+    if (!(legacy || binaryIntegers)) {
       expect(binary.status).toBe(128);
       expect(binary.stderr).toContain('invalid filter-spec');
     }
@@ -207,6 +207,46 @@ describe('compiler-recorded native integer parsers', () => {
     },
     30000,
   );
+
+  it('matches native bare-unit magnitudes under the selected sign policy', () => {
+    const cases = [
+      ['clone', '--filter', 'blob:limit=k'],
+      ['clone', '--filter', 'tree:G'],
+      ['clone', '--filter', 'combine:blob:limit=m'],
+      ['clone', '--filter', 'blob:limit= k'],
+      ['clone', '--filter', 'blob:limit=-k'],
+      ['clone', '--filter', 'blob:limit=kk'],
+      ['pack-objects', '--max-pack-size', 'g'],
+      ['pack-objects', '--max-pack-size', 'K'],
+      ['pack-objects', '--max-pack-size', '+k'],
+    ] as const;
+    for (const [command, flag, value] of cases) {
+      const native = spawnSync('git', ['-C', root, command, `${flag}=${value}`, '-h'], {
+        env,
+        encoding: 'utf8',
+        timeout: 5000,
+      });
+      expect(native.error, `${command} ${value}`).toBeUndefined();
+      const accepted =
+        [0, 129].includes(native.status ?? -1) &&
+        (native.stdout + native.stderr).includes('usage:') &&
+        !integerError.test(native.stderr) &&
+        !native.stderr.includes('invalid filter-spec');
+      const build = () =>
+        commandArguments(command, [[flag, value], ['-h']], true, {
+          longBits,
+          sizeTBits,
+          binaryIntegers,
+          integerProfile,
+          negativeMagnitudes,
+        });
+      if (accepted) {
+        expect(build, `${command} ${value}: ${native.stderr}`).not.toThrow();
+      } else {
+        expect(build, `${command} ${value}: ${native.stderr}`).toThrow(GitArgumentError);
+      }
+    }
+  });
 
   it('validates every numeric grammar and only executes callbacks reached before help', () => {
     let count = 0;

@@ -101,13 +101,16 @@ export function objectFilterUsesBinary(value: string): boolean {
   return false;
 }
 
-/** Detect unsigned numeric minus signs without interpreting sparse object payloads. */
+/**
+ * Detect unsigned numeric minus signs and bare units, which only the older strtoumax
+ * profile accepts, without interpreting sparse object payloads.
+ */
 export function objectFilterUsesNegativeMagnitude(value: string): boolean {
   const pending = [value];
   while (pending.length > 0) {
     const text = pending.pop()!;
     if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
-      if (/^[ \t\r\n\v\f]*-/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
+      if (/^(?:[ \t\r\n\v\f]*-|[kKmMgG]$)/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
         return true;
       }
     } else if (text.startsWith('combine:')) {

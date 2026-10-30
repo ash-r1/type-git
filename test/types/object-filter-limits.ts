@@ -13,3 +13,13 @@ export type Limits = [
   Yes<ObjectFilterLiteral<'combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:combine:blob:none'>>,
   Yes<ObjectFilterLiteral<'combine:blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+blob:none+'>>,
 ];
+// Git 2.25 git_parse_ulong accepts a bare unit as zero; newer Git requires a digit.
+export type LegacyBareUnits = [
+  No<ObjectFilterLiteral<'blob:limit=k'>>,
+  No<ObjectFilterLiteral<'tree:G'>>,
+  Yes<ObjectFilterLiteral<'blob:limit=k', false, true>>,
+  Yes<ObjectFilterLiteral<'tree:G', false, true>>,
+  Yes<ObjectFilterLiteral<'combine:tree:m+blob:limit=g', false, true>>,
+  No<ObjectFilterLiteral<'blob:limit= k', false, true>>,
+  No<ObjectFilterLiteral<'blob:limit=-k', false, true>>,
+];

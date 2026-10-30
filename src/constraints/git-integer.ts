@@ -15,6 +15,18 @@ export type GitIntegerParser = {
   negativeMagnitudes?: boolean;
 };
 
+/**
+ * Git 2.25 config.c git_parse_unsigned lacks the end == value check: strtoumax
+ * converts no digits, so a bare unit suffix is accepted as zero.
+ */
+function legacyBareUnit(
+  text: string,
+  parser: GitIntegerParser,
+  negativeMagnitudes: boolean,
+): boolean {
+  return !parser.signed && negativeMagnitudes && /^[kKmMgG]$/.test(text);
+}
+
 /** Git 2.55 parse.c, base 0 and k/m/g units, on the recorded C23 libc profile. */
 export function parseGitInteger(
   value: unknown,
@@ -33,6 +45,9 @@ export function parseGitInteger(
     return undefined;
   }
   const text = String(value);
+  if (legacyBareUnit(text, parser, negativeMagnitudes)) {
+    return 0n;
+  }
   const match =
     /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(text);
   // Require the match to consume the entire numeric value, as Git does.
