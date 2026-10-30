@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/mandatory-subcommand-corpus.json';
+import { isLiteralOperandRefusal } from '../../test/support/literal-operand.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 
@@ -26,6 +27,7 @@ describe('mandatory native subcommand selection', () => {
     const mismatches: string[] = [];
     for (const row of corpus.cases) {
       let accepted = false;
+      let refused = false;
       try {
         expect(commandArguments('refs', row.tokens, true)).toEqual(row.argv);
         accepted = true;
@@ -33,8 +35,10 @@ describe('mandatory native subcommand selection', () => {
         if (!(error instanceof GitArgumentError)) {
           throw error;
         }
+        refused = isLiteralOperandRefusal(row.tokens, error);
       }
-      if (accepted !== row.valid) {
+      // Native acceptance of an operand object read as an option is a deliberate refusal.
+      if (accepted !== row.valid && !(row.valid && refused)) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,
         );

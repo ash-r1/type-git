@@ -8,24 +8,44 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./node": {
-      "types": "./dist/adapters/node/index.d.ts",
-      "import": "./dist/adapters/node/index.js",
-      "require": "./dist/adapters/node/index.cjs"
+      "import": {
+        "types": "./dist/adapters/node/index.d.ts",
+        "default": "./dist/adapters/node/index.js"
+      },
+      "require": {
+        "types": "./dist/adapters/node/index.d.cts",
+        "default": "./dist/adapters/node/index.cjs"
+      }
     },
     "./bun": {
-      "types": "./dist/adapters/bun/index.d.ts",
-      "import": "./dist/adapters/bun/index.js",
-      "require": "./dist/adapters/bun/index.cjs"
+      "import": {
+        "types": "./dist/adapters/bun/index.d.ts",
+        "default": "./dist/adapters/bun/index.js"
+      },
+      "require": {
+        "types": "./dist/adapters/bun/index.d.cts",
+        "default": "./dist/adapters/bun/index.cjs"
+      }
     },
     "./deno": {
-      "types": "./dist/adapters/deno/index.d.ts",
-      "import": "./dist/adapters/deno/index.js",
-      "require": "./dist/adapters/deno/index.cjs"
+      "import": {
+        "types": "./dist/adapters/deno/index.d.ts",
+        "default": "./dist/adapters/deno/index.js"
+      },
+      "require": {
+        "types": "./dist/adapters/deno/index.d.cts",
+        "default": "./dist/adapters/deno/index.cjs"
+      }
     }
   },
   "engines": {
@@ -88,6 +108,7 @@
   },
   "files": [
     "dist",
+    "!dist/**/*.map",
     "README.md",
     "LICENSE",
     "docs/migrations"

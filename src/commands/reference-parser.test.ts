@@ -2,9 +2,10 @@ import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { TypeGit } from '../adapters/node/index.js';
 import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/reference-parser-corpus.json';
+import { isLiteralOperandRefusal } from '../../test/support/literal-operand.js';
+import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -16,6 +17,7 @@ describe('native reference and status parsers', () => {
     const mismatches: string[] = [];
     for (const row of corpus.cases) {
       let accepted = false;
+      let refused = false;
       try {
         const argv = commandArguments(row.command as GitCommandName, row.tokens, true);
         expect(argv).toEqual(row.argv);
@@ -24,8 +26,10 @@ describe('native reference and status parsers', () => {
         if (!(error instanceof GitArgumentError)) {
           throw error;
         }
+        refused = isLiteralOperandRefusal(row.tokens, error);
       }
-      if (accepted !== row.valid) {
+      // Native acceptance of an operand object read as an option is a deliberate refusal.
+      if (accepted !== row.valid && !(row.valid && refused)) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,
         );
