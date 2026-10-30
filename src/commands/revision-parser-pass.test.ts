@@ -16,9 +16,16 @@ describe('revision parser pass at --end-of-options', () => {
     }
   });
 
-  it('treats dash words after the end of options as operands', () => {
-    expect(
+  it('refuses a literal end-of-options marker but keeps words after an honored separator', () => {
+    // Operand objects that Git would read as a boundary marker are refused (#298); the
+    // explicit `--` separator keeps later dash words literal.
+    expect(() =>
       commandArguments('log', [{ operand: '--end-of-options' }, { operand: '--bogus' }]),
-    ).toEqual(['log', '--end-of-options', '--bogus']);
+    ).toThrow(/explicit \["--"\] separator/);
+    expect(commandArguments('log', [['--'], { operand: '--bogus' }])).toEqual([
+      'log',
+      '--',
+      '--bogus',
+    ]);
   });
 });
