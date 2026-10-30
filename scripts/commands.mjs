@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import { sharedOptions } from './shared-options.mjs';
 import { scalarRepresentatives } from './scalar-domains.mjs';
 import { commandDomains } from './command-domains.mjs';
 import { commandModes } from './command-modes.mjs';
@@ -164,22 +165,25 @@ try {
     return [json, id];
   }));
   const scalarParserIdentifiers = new Set(scalarParserProfiles.values());
-  function renderSpec(value) {
-    return JSON.stringify(value, (key, child) => {
+  const optionInterner = sharedOptions(catalog);
+  function renderSpec(value, rootKey = '') {
+    const text = JSON.stringify(optionInterner.replace(rootKey, value), (key, child) => {
       if (key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child))) return effectProfiles.get(JSON.stringify(child));
       if (predicateKeys.has(key) && Array.isArray(child) && predicateProfiles.has(JSON.stringify(child))) return predicateProfiles.get(JSON.stringify(child));
       if (key === 'parser' && child && typeof child === 'object' && scalarParserProfiles.has(JSON.stringify(child))) return scalarParserProfiles.get(JSON.stringify(child));
-      return child;
+      return optionInterner.replace(key, child);
     }, 2)
       .replace(/"effects": "(sharedEffects[0-9]+)"/g, '"effects": $1')
       .replace(/"(all|when|required|guard|choices|others)": "(sharedPredicates[0-9]+)"/g, '"$1": $2')
       .replace(/"parser": "(sharedScalarParser[0-9]+)"/g, (text, id) => scalarParserIdentifiers.has(id) ? `"parser": ${id}` : text);
+    return optionInterner.unquote(text);
   }
   const predicateDeclarations = [...predicateProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
   const scalarParserDeclarations = [...scalarParserProfiles].map(([json, id]) => `const ${id} = ${JSON.stringify(JSON.parse(json), null, 2)} as const;`).join('\n');
   const effectDeclarations = [...effectProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;`).join('\n');
-  const phaseDeclarations = [...remainingProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;\ntype ${id[0].toUpperCase() + id.slice(1)}Type = typeof ${id};`).join('\n');
-  const declarations = predicateDeclarations + '\n' + scalarParserDeclarations + '\n' + effectDeclarations + '\n' + phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
+  const optionDeclarations = [...optionInterner.profiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json))} as const;`).join('\n');
+  const phaseDeclarations = [...remainingProfiles].map(([json, id]) => `const ${id} = ${renderSpec(JSON.parse(json), 'remainingOptions')} as const;\ntype ${id[0].toUpperCase() + id.slice(1)}Type = typeof ${id};`).join('\n');
+  const declarations = predicateDeclarations + '\n' + scalarParserDeclarations + '\n' + effectDeclarations + '\n' + optionDeclarations + '\n' + phaseDeclarations + '\n' + entries.map(({ spec, identifier }) => {
     let text = renderSpec(spec);
     if (spec.parserExit?.remainingOptions) {
       const id = remainingProfiles.get(JSON.stringify(spec.parserExit.remainingOptions));

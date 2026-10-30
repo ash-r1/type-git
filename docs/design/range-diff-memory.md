@@ -38,3 +38,12 @@ Generated identifier names avoid existing string parser names. This does
 not change parser algorithms, public option types, or validation scope.
 A new standard whole-project run is required before claiming the capacity
 change is sufficient.
+
+Although the local full run passed after scalar-parser sharing, CI still
+reached the standard heap limit. The generator therefore also shares
+1,374 exact readonly option definitions across initial, argument, and
+remaining-option dictionaries. All 428 catalogue values and bidirectional
+types remain equal. Identifier allocation reserves existing property
+names and string values; dedicated controls cover collisions, preserved
+metadata, and distinct singleton definitions. The remote failure remains
+recorded, and this additional capacity change requires fresh validation.
