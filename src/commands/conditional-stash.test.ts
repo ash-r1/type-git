@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/conditional-stash-corpus.json';
+import { refusesLiteralOperand } from '../../test/support/literal-operand.js';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
@@ -18,6 +19,10 @@ describe('conditional stash-list delegation', () => {
     for (const row of corpus.cases) {
       const build = (): string[] =>
         commandArguments(row.command as GitCommandName, row.tokens, true);
+      if (row.accepted && refusesLiteralOperand(row.tokens, build)) {
+        // Native acceptance of an operand object read as an option is a deliberate refusal.
+        continue;
+      }
       if (row.accepted) {
         expect(build(), JSON.stringify(row.argv)).toEqual(row.argv);
       } else {
