@@ -60,6 +60,16 @@ log_info "Building package..."
 pnpm build
 log_success "Package built"
 
+# Entry points must stay thin: the generated command tables belong in shared
+# chunks emitted once per format, not inlined into every entry bundle.
+OVERSIZED_ENTRIES="$(find "$ROOT_DIR/dist" -name 'index.js' -size +256k -o -name 'index.cjs' -size +256k)"
+if [ -n "$OVERSIZED_ENTRIES" ]; then
+  log_error "Entry bundles duplicate shared code (enable tsup splitting):"
+  echo "$OVERSIZED_ENTRIES"
+  exit 1
+fi
+log_success "Entry bundles share chunks"
+
 # Step 2: Create tarball
 log_info "Creating npm tarball..."
 # npm 10.8.2's bundled pacote runs prepare even with --ignore-scripts.

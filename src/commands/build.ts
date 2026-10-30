@@ -14,7 +14,7 @@ import {
   objectFilterUsesNegativeMagnitude,
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
-import { COMMAND_SPECS } from './generated.js';
+import { commandSpecs } from './catalogue.js';
 import {
   type GuiGrammar,
   type GuiLaunch,
@@ -33,11 +33,19 @@ import {
 import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import type { GitCommandName } from './types.js';
 
+let documentationOptionTable: Readonly<Record<string, OptionSpec>> | undefined;
+
 // git.c rewrites first-word --help before looking up any builtin or external command.
-const documentationOptions = {
-  ...COMMAND_SPECS.help.options,
-  ...GLOBAL_HELP_DISPATCH_OPTIONS,
-};
+function documentationOptions(): Readonly<Record<string, OptionSpec>> {
+  documentationOptionTable ??= {
+    ...commandSpecs().help.options,
+    ...GLOBAL_HELP_DISPATCH_OPTIONS,
+  };
+  return documentationOptionTable;
+}
+
+/** Native words a parent parser forwards to a child; they carry no operand-object provenance. */
+const retainedWords = new WeakSet<object>();
 
 /** Git dispatches a first --help before any primary command's local parser. */
 export function isDocumentationDispatch(spec: CommandSpec, args: readonly unknown[]): boolean {
@@ -56,10 +64,9 @@ function ignoredDocumentationOption(
   flag: string,
   argument: readonly unknown[],
 ): OptionSpec | undefined {
+  const documentation = documentationOptions();
   const alternatives = [
-    Object.hasOwn(documentationOptions, flag)
-      ? documentationOptions[flag as keyof typeof documentationOptions]
-      : undefined,
+    Object.hasOwn(documentation, flag) ? documentation[flag] : undefined,
     ...specs.map((spec) => (Object.hasOwn(spec.options, flag) ? spec.options[flag] : undefined)),
   ].filter((option): option is OptionSpec => option !== undefined);
   const selected = svnShapeOption(alternatives, argument) ?? alternatives[0];
@@ -261,9 +268,11 @@ function buildArguments(
   },
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
+  operandIndexes?: number[],
+  guard = false,
 ): string[] {
   let spec: CommandSpec | undefined =
-    specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
+    specOverride ?? (Object.hasOwn(commandSpecs(), command) ? commandSpecs()[command] : undefined);
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
@@ -272,7 +281,7 @@ function buildArguments(
   const documentationLocals: readonly CommandSpec[] = documentationDispatch
     ? [
         spec,
-        ...Object.values(spec.dispatch ?? {}).map((name) => COMMAND_SPECS[name as GitCommandName]),
+        ...Object.values(spec.dispatch ?? {}).map((name) => commandSpecs()[name as GitCommandName]),
       ]
     : [];
   if (documentationDispatch) {
@@ -280,7 +289,7 @@ function buildArguments(
     // Native help modes and installation availability stay with the selected Git.
     spec = {
       argv: spec.argv,
-      options: documentationOptions,
+      options: documentationOptions(),
       rules: [],
       separator: true,
       source: 'git.c:handle_builtin; builtin/help.c',
@@ -295,7 +304,7 @@ function buildArguments(
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},
-      ...Object.values(COMMAND_SPECS)
+      ...Object.values(commandSpecs())
         .filter((s) => 'guiScript' in s)
         .map((s) => s.options),
     );
@@ -307,10 +316,10 @@ function buildArguments(
     !(documentationDispatch || specOverride) &&
     (command === 'svn' || command.startsWith('svn '))
   ) {
-    const root: CommandSpec = COMMAND_SPECS.svn;
+    const root: CommandSpec = commandSpecs().svn;
     const options: Record<string, OptionSpec> = {};
     const alternatives: Record<string, OptionSpec[]> = {};
-    for (const [name, child] of Object.entries(COMMAND_SPECS)) {
+    for (const [name, child] of Object.entries(commandSpecs())) {
       if (name === 'svn' || name.startsWith('svn ')) {
         for (const [flag, option] of Object.entries(child.options)) {
           const { before: _before, ...local } = option;
@@ -341,6 +350,8 @@ function buildArguments(
         options,
       },
       alternatives,
+      undefined,
+      guard,
     );
     if (evaluationMode === 'shape') {
       return original;
@@ -350,7 +361,7 @@ function buildArguments(
       return original;
     }
     if (selected.kind === 'command') {
-      const child = COMMAND_SPECS[selected.command as GitCommandName];
+      const child = commandSpecs()[selected.command as GitCommandName];
       const tokens = svnParserTokens(selected.remaining, child.options);
       if (tokens !== undefined) {
         buildArguments(
@@ -381,9 +392,15 @@ function buildArguments(
       guiLaunch,
       evaluationMode,
       replay,
+      undefined,
+      undefined,
+      undefined,
+      guard,
     );
   }
-  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+  // A guarded shape serialization repeats only the provenance decisions of a full evaluation.
+  if ((evaluationMode === 'full' || guard) && spec.parserExit?.firstPassOptions) {
+    const serializedOperands: number[] = [];
     const serialized = buildArguments(
       command,
       args,
@@ -392,28 +409,61 @@ function buildArguments(
       guiGrammar,
       guiLaunch,
       'shape',
+      undefined,
+      undefined,
+      undefined,
+      serializedOperands,
     );
-    const pass = initialParserPass(
-      spec,
-      serialized.slice(spec.argv.length),
-      abi?.firstPassEmpty ?? true,
-      spec.parserExit,
-      abi?.stopBeforeFilename === undefined
-        ? undefined
-        : (() => {
-            let reached = 0;
-            return (token: readonly string[]) => {
-              const option = spec.options[token[0]!];
-              return (
-                option?.emptyIsUnset === true &&
-                typeof token[1] === 'string' &&
-                token[1].startsWith(':(optional)') &&
-                reached++ === abi.stopBeforeFilename
-              );
-            };
-          })(),
-    );
+    // The native passes below see flattened words; keep each operand object's provenance so
+    // an executing command never receives one as an option or boundary marker.
+    const literal = serialized.slice(spec.argv.length).map(() => false);
+    for (const index of serializedOperands) {
+      const word = serialized[index]!;
+      if (index >= spec.argv.length && word.startsWith('-') && word !== '-') {
+        literal[index - spec.argv.length] = true;
+      }
+    }
+    const rejectLiteralOption = (): never => {
+      throw new GitArgumentError(
+        'Use an explicit ["--"] separator before an operand starting with a dash',
+      );
+    };
+    const firstPass = () =>
+      initialParserPass(
+        spec,
+        serialized.slice(spec.argv.length),
+        abi?.firstPassEmpty ?? true,
+        spec.parserExit,
+        abi?.stopBeforeFilename === undefined
+          ? undefined
+          : (() => {
+              let reached = 0;
+              return (token: readonly string[]) => {
+                const option = spec.options[token[0]!];
+                return (
+                  option?.emptyIsUnset === true &&
+                  typeof token[1] === 'string' &&
+                  token[1].startsWith(':(optional)') &&
+                  reached++ === abi.stopBeforeFilename
+                );
+              };
+            })(),
+        literal,
+      );
+    let pass: ReturnType<typeof initialParserPass>;
+    try {
+      pass = firstPass();
+    } catch (error) {
+      // A first-pass usage error is a native exit before any later word is parsed.
+      if (guard && error instanceof GitArgumentError) {
+        return serialized;
+      }
+      throw error;
+    }
     const initialTokens = initialParserInputs(spec, args, pass.tokens);
+    if (pass.exited && guard) {
+      return serialized;
+    }
     if (pass.exited) {
       buildArguments(
         command,
@@ -426,23 +476,41 @@ function buildArguments(
       );
       return serialized;
     }
+    const remainingLiteral = pass.remainingLiteral ?? [];
     if (pass.subcommand !== undefined) {
-      buildArguments(
-        command,
-        initialTokens,
-        inRepository,
-        abi,
-        guiGrammar,
-        guiLaunch,
-        'first-pass',
-      );
+      if (pass.literalOption || pass.literalUnknown) {
+        rejectLiteralOption();
+      }
+      if (!guard) {
+        buildArguments(
+          command,
+          initialTokens,
+          inRepository,
+          abi,
+          guiGrammar,
+          guiLaunch,
+          'first-pass',
+        );
+      }
       buildArguments(
         spec.dispatch![pass.subcommand] as GitCommandName,
-        pass.remaining.map((operand) => ({ operand })),
+        pass.remaining.map((operand, index) => {
+          const word = { operand };
+          if (remainingLiteral[index] !== true) {
+            retainedWords.add(word);
+          }
+          return word;
+        }),
         inRepository,
         abi,
         guiGrammar,
         guiLaunch,
+        guard ? 'shape' : 'full',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        guard,
       );
       return serialized;
     }
@@ -451,23 +519,49 @@ function buildArguments(
     }
     if (!pass.delegated) {
       if (spec.conditionalCommand) {
+        // The child command parses every retained word again, after the dropped marker.
+        if (pass.literalOption || remainingLiteral.includes(true)) {
+          rejectLiteralOption();
+        }
         // A missing ref returns success before the child parses any values.
         // Ref existence is unknown here; native Git evaluates its own gate
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
       const partition = partitionRemainingArguments(spec, pass.remaining);
+      const prefix = spec.parserExit.remainingPartition?.optionPrefix;
+      const partitionLiteral =
+        prefix === undefined
+          ? remainingLiteral
+          : remainingLiteral.filter((_, index) => pass.remaining[index]!.startsWith(prefix));
       const operandsOnly = spec.parserExit.remainingOperands !== undefined;
       const operandBoundary =
         spec.parserExit.remainingOperands === 'drop-leading-dashdash' &&
         partition.words[0] === '--';
       const words = operandBoundary ? partition.words.slice(1) : partition.words;
+      const wordsLiteral = operandBoundary ? partitionLiteral.slice(1) : partitionLiteral;
       const separatorIndex = spec.parserExit.remainingSeparator ? words.indexOf('--') : -1;
       const recognizedSeparator =
         separatorIndex >= 0 &&
         (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
           separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
-      const revision = operandsOnly ? undefined : revisionParserPass(spec, words);
+      if (
+        operandsOnly &&
+        (pass.literalOption ||
+          pass.literalUnknown ||
+          (operandBoundary && partitionLiteral[0] === true) ||
+          (recognizedSeparator && wordsLiteral[separatorIndex] === true))
+      ) {
+        rejectLiteralOption();
+      }
+      const revision = operandsOnly ? undefined : revisionParserPass(spec, words, wordsLiteral);
+      // A native exit in the retained stream still happens before execution.
+      if (revision && !revision.exited && (pass.literalOption || revision.literalOption)) {
+        rejectLiteralOption();
+      }
+      if (guard) {
+        return serialized;
+      }
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
@@ -531,6 +625,15 @@ function buildArguments(
       !spec.parserExit?.firstPassOptions &&
       typeof soleFlag === 'string' &&
       spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  // A guarded shape pass tracks the exits, boundaries and literal tails of a full evaluation
+  // while still serializing without semantic checks.
+  let guardExited =
+    firstWordExited ||
+    (!spec.parserExit?.firstPassOptions &&
+      typeof soleFlag === 'string' &&
+      spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  let guardEnded = false;
+  let guardLiteral = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -562,7 +665,9 @@ function buildArguments(
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
-        !(parserExited || ended || literalOperands) &&
+        (guard
+          ? !(guardExited || guardEnded || guardLiteral)
+          : !(parserExited || ended || literalOperands)) &&
         spec.optionParsing !== 'none' &&
         !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
         operand.startsWith('-') &&
@@ -571,6 +676,9 @@ function buildArguments(
         throw new GitArgumentError(
           'Use an explicit ["--"] separator before an operand starting with a dash',
         );
+      }
+      if (!retainedWords.has(arg as object)) {
+        operandIndexes?.push(argv.length);
       }
       argv.push(operand);
       operands.push(operand);
@@ -591,6 +699,9 @@ function buildArguments(
     if (arg[0] === '--' && arg.length === 1) {
       if (!parserExited && (!spec.separator || ended)) {
         throw new GitArgumentError(`${command}: unexpected end-of-options marker`);
+      }
+      if (spec.separator) {
+        guardEnded = true;
       }
       ended = true;
       state.hasSeparator = true;
@@ -832,6 +943,13 @@ function buildArguments(
       const emitted = argv.splice(start);
       const position = option.before + (prefixCounts.get(option.before) ?? 0);
       argv.splice(position, 0, ...emitted);
+      if (operandIndexes) {
+        for (const [slot, operandIndex] of operandIndexes.entries()) {
+          if (operandIndex >= position) {
+            operandIndexes[slot] = operandIndex + emitted.length;
+          }
+        }
+      }
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     if (
@@ -841,7 +959,19 @@ function buildArguments(
     ) {
       usageExited = true;
       parserExited = true;
+      guardExited = true;
       continue;
+    }
+    if (guard && !guardExited) {
+      if (option.consumesRest) {
+        guardLiteral = true;
+      }
+      if (
+        spec.parserExit?.flags.includes(flag) &&
+        !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+      ) {
+        guardExited = true;
+      }
     }
     if (parserExited) {
       continue;
@@ -999,6 +1129,35 @@ export function commandShapeArguments(
   return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
 }
 
+/**
+ * Serialize shape for execution by a native parser whose profile is unknown. Semantic checks
+ * stay with the selected Git, but an operand object that a full evaluation would refuse as a
+ * live option or boundary is refused here too; both first-pass `--empty` arities are checked.
+ */
+export function commandExecutableShapeArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): string[] {
+  for (const firstPassEmpty of [true, false]) {
+    buildArguments(
+      command,
+      args,
+      inRepository,
+      { longBits: 64, sizeTBits: 64, firstPassEmpty },
+      undefined,
+      undefined,
+      'shape',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      true,
+    );
+  }
+  return commandShapeArguments(command, args, inRepository);
+}
+
 /** Observe the legacy stash parent's help exit without executing any child semantics. */
 export function commandHasLegacyStashHelp(
   command: GitCommandName,
@@ -1008,7 +1167,7 @@ export function commandHasLegacyStashHelp(
   if (command !== 'stash' && !command.startsWith('stash ')) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const words = commandShapeArguments(command, args, inRepository).slice(1);
   return initialParserPass(spec, words, true, {
     origin: 'git',
@@ -1026,7 +1185,7 @@ export function commandUsesFirstPassEmpty(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesFirstPassEmpty(dispatched.command, dispatched.args);
@@ -1098,7 +1257,7 @@ export function commandUsesSubmoduleInitAlias(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
@@ -1126,7 +1285,7 @@ export function commandUsesSubmoduleInitAlias(
 
 /** Detect a final depth conversion without a help exit or a subsequent reset. */
 export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unknown[]): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesDepthAtoi(dispatched.command, dispatched.args);
@@ -1163,10 +1322,10 @@ export function commandUsesNativeABI(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesNativeABI(dispatched.command, dispatched.args, emptyRegistered);
@@ -1204,8 +1363,8 @@ export function commandUsesObjectFilterBinary(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
-    ? COMMAND_SPECS[command]
+  const spec: CommandSpec | undefined = Object.hasOwn(commandSpecs(), command)
+    ? commandSpecs()[command]
     : undefined;
   if (!(spec && Array.isArray(args))) {
     return false;
@@ -1242,10 +1401,10 @@ export function commandUsesIntegerProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesIntegerProfile(dispatched.command, dispatched.args, emptyRegistered);
@@ -1274,10 +1433,10 @@ export function commandUsesNegativeMagnitude(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
+  if (!(Array.isArray(args) && Object.hasOwn(commandSpecs(), command))) {
     return false;
   }
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesNegativeMagnitude(dispatched.command, dispatched.args, emptyRegistered);
@@ -1309,7 +1468,7 @@ export function commandDecimalCallbacks(
   args: readonly unknown[],
   emptyRegistered = true,
 ): GitDecimalCallback[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandDecimalCallbacks(dispatched.command, dispatched.args, emptyRegistered);
@@ -1341,7 +1500,7 @@ export function commandUsesDecimalCallback(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesDecimalCallback(dispatched.command, dispatched.args, emptyRegistered);
@@ -1364,7 +1523,7 @@ export function commandUsesObjectFilterCharProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args, emptyRegistered);
@@ -1387,7 +1546,7 @@ export function commandUsesCompoundDecimal(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesCompoundDecimal(dispatched.command, dispatched.args, emptyRegistered);
@@ -1416,7 +1575,7 @@ export function commandUsesLsTreeModes(command: GitCommandName, args: readonly u
   if (
     command !== 'ls-tree' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1446,7 +1605,7 @@ export function commandUsesReadTreeExclude(
   if (
     command !== 'read-tree' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1476,7 +1635,7 @@ export function commandUsesRepackMaxPackSize(
   if (
     command !== 'repack' ||
     !Array.isArray(args) ||
-    isDocumentationDispatch(COMMAND_SPECS[command], args)
+    isDocumentationDispatch(commandSpecs()[command], args)
   ) {
     return false;
   }
@@ -1504,7 +1663,7 @@ export function commandUsesConflictStyle(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesConflictStyle(dispatched.command, dispatched.args, emptyRegistered);
@@ -1524,7 +1683,7 @@ export function commandUsesBooleanSource(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesBooleanSource(dispatched.command, dispatched.args, emptyRegistered);
@@ -1544,7 +1703,7 @@ export function commandUsesBooleanBinary(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesBooleanBinary(dispatched.command, dispatched.args, emptyRegistered);
@@ -1567,7 +1726,7 @@ export function commandBooleanFeatures(
   args: readonly unknown[],
   emptyRegistered = true,
 ): (keyof GitBooleanCapabilities)[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandBooleanFeatures(dispatched.command, dispatched.args, emptyRegistered);
@@ -1594,7 +1753,7 @@ export function commandFilenameTokens(
   args: readonly unknown[],
   firstPassEmpty = true,
 ): { key: string; value: unknown; ignore: boolean }[] {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandFilenameTokens(dispatched.command, dispatched.args, firstPassEmpty);
@@ -1644,7 +1803,7 @@ export function commandUsesEmptyPickaxe(
   command: GitCommandName,
   args: readonly unknown[],
 ): boolean {
-  const spec: CommandSpec = COMMAND_SPECS[command];
+  const spec: CommandSpec = commandSpecs()[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
     return commandUsesEmptyPickaxe(dispatched.command, dispatched.args);

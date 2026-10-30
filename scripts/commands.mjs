@@ -1,5 +1,6 @@
 import ts from 'typescript';
 import { sharedOptions } from './shared-options.mjs';
+import { renderCommandDataModule } from './command-data.mjs';
 import { scalarRepresentatives } from './scalar-domains.mjs';
 import { commandDomains } from './command-domains.mjs';
 import { commandModes } from './command-modes.mjs';
@@ -204,6 +205,13 @@ try {
   if (process.argv.includes('--check')) {
     if (await readFile(target, 'utf8').catch(() => '') !== content) throw new Error('Command specs are stale; run pnpm commands:generate');
   } else await writeFile(target, content);
+  // Runtime code decodes this compact copy lazily; generated.ts stays type-only there.
+  const dataTarget = new URL('src/commands/generated-data.ts', root);
+  const dataContent = renderCommandDataModule(catalog);
+  if (process.argv.includes('--check')) {
+    const current = await readFile(dataTarget, 'utf8').catch(() => '');
+    if (current !== dataContent) throw new Error('Command data is stale; run pnpm commands:generate');
+  } else await writeFile(dataTarget, dataContent);
   const numericProfiles = new Map();
   const numericScopes = [];
   for (const [command, spec] of Object.entries(catalog)) {
