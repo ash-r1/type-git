@@ -1,18 +1,21 @@
-import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
-import type { GitBooleanSource, GitBooleanCapabilities } from '../constraints/git-boolean.js';
-import {
-  OBJECT_FILTER_CHAR_PROBE,
-  objectFilterUnsignedChar,
-} from '../constraints/object-filter.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
+import type { GitBooleanCapabilities, GitBooleanSource } from '../constraints/git-boolean.js';
 import {
   DECIMAL_CALLBACK_PROBES,
   decimalCallbackFamily,
   type GitDecimalCallbacks,
 } from '../constraints/git-decimal.js';
-import { validateOptions as checkOptions } from '../core/option-rules.js';
-import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { validInitialDepth } from '../constraints/git-scalars.js';
+import {
+  OBJECT_FILTER_CHAR_PROBE,
+  OBJECT_FILTER_EMPTY_PROBE,
+  objectFilterCombineEmptyComponents,
+  objectFilterUnsignedChar,
+  objectFilterUsesEmptyComponent,
+} from '../constraints/object-filter.js';
+import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
+import { validateOptions as checkOptions } from '../core/option-rules.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -25,40 +28,41 @@ import { validInitialDepth } from '../constraints/git-scalars.js';
 import process from 'node:process';
 import {
   commandArguments,
-  isDocumentationDispatch,
-  commandFilenameTokens,
-  type FilenameContext,
-  type FilenameProfile,
-  commandShapeArguments,
-  commandUsesFirstPassEmpty,
-  commandHasLegacyStashHelp,
-  commandUsesSubmoduleInitAlias,
-  commandUsesEmptyPickaxe,
-  commandUsesDepthAtoi,
-  validateArgvStrings,
-  commandDecimalCallbacks,
-  commandUsesConflictStyle,
-  commandUsesRepackMaxPackSize,
-  commandUsesReadTreeExclude,
-  commandUsesLsTreeModes,
-  commandUsesBooleanSource,
-  commandUsesBooleanBinary,
   commandBooleanFeatures,
-  commandUsesDecimalCallback,
+  commandDecimalCallbacks,
+  commandFilenameTokens,
+  commandHasLegacyStashHelp,
+  commandShapeArguments,
+  commandUsesBooleanBinary,
+  commandUsesBooleanSource,
   commandUsesCompoundDecimal,
-  commandUsesNativeABI,
+  commandUsesConflictStyle,
+  commandUsesDecimalCallback,
+  commandUsesDepthAtoi,
+  commandUsesEmptyPickaxe,
+  commandUsesFirstPassEmpty,
   commandUsesIntegerProfile,
+  commandUsesLsTreeModes,
+  commandUsesNativeABI,
   commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
   commandUsesObjectFilterCharProfile,
+  commandUsesObjectFilterEmptyComponent,
+  commandUsesReadTreeExclude,
+  commandUsesRepackMaxPackSize,
+  commandUsesSubmoduleInitAlias,
+  type FilenameContext,
+  type FilenameProfile,
+  isDocumentationDispatch,
+  validateArgvStrings,
 } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
-import { initialParserPass } from '../commands/initial-parser-pass.js';
 import {
   type GuiGrammar,
   guiGrammarFromSource,
   guiLaunchFromSource,
 } from '../commands/gui-syntax.js';
+import { initialParserPass } from '../commands/initial-parser-pass.js';
 import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
@@ -75,10 +79,10 @@ import type {
   ExecOpts,
   ExecutionContext,
   GitErrorKind,
+  GitOutputMode,
   GitProgress,
   LfsProgress,
   RawResult,
-  GitOutputMode,
 } from '../core/types.js';
 import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
@@ -555,13 +559,25 @@ export class CliRunner {
         checkOptions(name, options, { ...valid[0]!, depthAtoiBits });
       }
     }
-    if (valid.length === 8) {
-      return;
-    }
     const probeOptions = {
       ...(opts?.env ? { env: opts.env } : {}),
       ...(opts?.signal ? { signal: opts.signal } : {}),
     };
+    const filter = (options as { filter?: unknown } | undefined)?.filter;
+    if (typeof filter === 'string' && objectFilterUsesEmptyComponent(filter)) {
+      const args = [...OBJECT_FILTER_EMPTY_PROBE];
+      const probe = await this.run(context, args, probeOptions);
+      if (probe.aborted) {
+        throw this.mapError(probe, context, this.buildArgv(context, args));
+      }
+      if (objectFilterCombineEmptyComponents(probe) === false) {
+        // Older Git rejects every empty component independently of ABI dimensions.
+        checkOptions(name, options, { ...valid[0]!, depthAtoiBits, combineEmptyComponents: false });
+      }
+    }
+    if (valid.length === 8) {
+      return;
+    }
     let unsignedChar = true;
     const charDependent = [32, 64].some((candidateLongBits) =>
       [false, true].some(
@@ -949,6 +965,7 @@ export class CliRunner {
       negativeMagnitudes?: boolean;
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
+      combineEmptyComponents?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
       repackMaxPackSize?: 'immediate' | 'deferred';
       readTreeExclude?: 'legacy' | 'modern';
@@ -1284,6 +1301,11 @@ export class CliRunner {
         throw firstError;
       }
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, traitArgs, firstPassEmpty);
+      const needsEmptyProfile = commandUsesObjectFilterEmptyComponent(
+        command,
+        traitArgs,
+        firstPassEmpty,
+      );
       if (
         (valid.length ===
           profiles.length *
@@ -1296,7 +1318,8 @@ export class CliRunner {
             capabilityVariants.length *
             compoundOverflows.length *
             4 &&
-          !needsBinaryProfile) ||
+          !needsBinaryProfile &&
+          !needsEmptyProfile) ||
         (binary && !this.exec.spawnBytes)
       ) {
         return await execute(valid[0]!.argv);
@@ -1776,11 +1799,24 @@ export class CliRunner {
         const diagnostic = profile.stdout + profile.stderr;
         const supported = profile.exitCode === 129 && diagnostic.includes('usage:');
         const unsupported = profile.exitCode === 128 && diagnostic.includes('invalid filter-spec');
-        if (!supported && !unsupported) {
+        if (!(supported || unsupported)) {
           // Unrecognized/localized frontends keep their own native validation.
           return await execute(build(command, args, inRepository, abi));
         }
         abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), binaryIntegers: supported };
+      }
+      if (needsEmptyProfile) {
+        // Clone's callback runs before -h. No URL is supplied or contacted.
+        const profile = await this.run(context, [...OBJECT_FILTER_EMPTY_PROBE], probeOptions);
+        if (profile.aborted) {
+          return { ...profile, stdout: binary ? new Uint8Array(0) : profile.stdout };
+        }
+        const observed = objectFilterCombineEmptyComponents(profile);
+        if (observed === undefined) {
+          // Unrecognized/localized frontends keep their own native validation.
+          return await execute(build(command, args, inRepository, abi));
+        }
+        abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), combineEmptyComponents: observed };
       }
     }
     return await execute(build(command, args, inRepository, abi));

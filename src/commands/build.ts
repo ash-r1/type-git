@@ -1,36 +1,37 @@
-import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
-import { initialParserPass } from './initial-parser-pass.js';
-import { initialParserInputs } from './initial-parser-inputs.js';
-import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
+import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import {
-  isBooleanCallback,
-  type GitBooleanSource,
   type GitBooleanCapabilities,
+  type GitBooleanSource,
+  isBooleanCallback,
 } from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
-import { isCompoundDecimal } from '../constraints/compound-decimal.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
+  objectFilterUsesEmptyComponent,
   objectFilterUsesHighBytes,
   objectFilterUsesNegativeMagnitude,
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
-  guiArguments,
-  validateGuiArguments,
   type GuiGrammar,
   type GuiLaunch,
+  guiArguments,
+  validateGuiArguments,
 } from './gui-syntax.js';
+import { initialParserInputs } from './initial-parser-inputs.js';
+import { initialParserPass } from './initial-parser-pass.js';
+import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
+  GLOBAL_HELP_DISPATCH_OPTIONS,
   type OptionSpec,
 } from './spec.js';
+import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import type { GitCommandName } from './types.js';
 
 // git.c rewrites first-word --help before looking up any builtin or external command.
@@ -111,7 +112,7 @@ function dispatchArguments(
   let index = 0;
   while (index < args.length) {
     const token = args[index];
-    if (!Array.isArray(token) || !spec.dispatchOptions?.includes(token[0])) {
+    if (!(Array.isArray(token) && spec.dispatchOptions?.includes(token[0]))) {
       break;
     }
     index++;
@@ -184,6 +185,7 @@ export function commandArguments(
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
+    combineEmptyComponents?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
@@ -232,6 +234,7 @@ function buildArguments(
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
+    combineEmptyComponents?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
@@ -304,8 +307,7 @@ function buildArguments(
     return argv;
   }
   if (
-    !documentationDispatch &&
-    !specOverride &&
+    !(documentationDispatch || specOverride) &&
     (command === 'svn' || command.startsWith('svn '))
   ) {
     const root: CommandSpec = COMMAND_SPECS.svn;
@@ -722,6 +724,7 @@ function buildArguments(
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
             abi?.depthAtoiBits,
+            abi?.combineEmptyComponents,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -878,6 +881,7 @@ function buildArguments(
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
             abi?.depthAtoiBits,
+            abi?.combineEmptyComponents,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -958,7 +962,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!abi?.deferFinalRules && !parserExited && !replay?.parserExited && state.help !== true) {
+  if (!(abi?.deferFinalRules || parserExited || replay?.parserExited) && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -1164,7 +1168,7 @@ export function commandUsesNativeABI(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1208,7 +1212,7 @@ export function commandUsesObjectFilterBinary(
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
     : undefined;
-  if (!spec || !Array.isArray(args)) {
+  if (!(spec && Array.isArray(args))) {
     return false;
   }
   const dispatched = dispatchArguments(spec, args);
@@ -1243,7 +1247,7 @@ export function commandUsesIntegerProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1275,7 +1279,7 @@ export function commandUsesNegativeMagnitude(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1378,6 +1382,33 @@ export function commandUsesObjectFilterCharProfile(
     return (
       (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
       objectFilterUsesHighBytes(arg[1])
+    );
+  });
+}
+
+/** Detect empty combined-filter components, whose acceptance depends on the selected Git. */
+export function commandUsesObjectFilterEmptyComponent(
+  command: GitCommandName,
+  args: readonly unknown[],
+  emptyRegistered = true,
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesObjectFilterEmptyComponent(
+      dispatched.command,
+      dispatched.args,
+      emptyRegistered,
+    );
+  }
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
+      objectFilterUsesEmptyComponent(arg[1])
     );
   });
 }
@@ -1620,9 +1651,11 @@ export function commandFilenameTokens(
     } catch (error) {
       // A reached optional stat may terminate before the later syntax error.
       if (
-        !(error instanceof GitArgumentError) ||
-        !updates.some(
-          (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+        !(
+          error instanceof GitArgumentError &&
+          updates.some(
+            (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+          )
         )
       ) {
         throw error;
