@@ -24,10 +24,12 @@ export function sharedOptions(catalog) {
   const identifiers = new Set(profiles.values());
   return {
     profiles,
+    /** Replace repeated dictionary entries with their allocated reference names. */
     replace(key, value) {
       if (!dictionaryKeys.has(key) || !value || typeof value !== 'object' || Array.isArray(value)) return value;
       return Object.fromEntries(Object.entries(value).map(([flag, option]) => [flag, profiles.get(JSON.stringify(option)) ?? option]));
     },
+    /** Emit only allocated references as code, preserving existing string values. */
     unquote(text) {
       return text.replace(/"(sharedOption[0-9]+)"/g, (text, id) => identifiers.has(id) ? id : text);
     },

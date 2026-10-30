@@ -166,6 +166,7 @@ try {
   }));
   const scalarParserIdentifiers = new Set(scalarParserProfiles.values());
   const optionInterner = sharedOptions(catalog);
+  /** Render metadata references, including independently emitted phase dictionaries. */
   function renderSpec(value, rootKey = '') {
     const text = JSON.stringify(optionInterner.replace(rootKey, value), (key, child) => {
       if (key === 'effects' && Array.isArray(child) && effectProfiles.has(JSON.stringify(child))) return effectProfiles.get(JSON.stringify(child));
