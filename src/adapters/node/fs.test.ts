@@ -4,7 +4,7 @@
 
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { NodeFsAdapter } from './fs.js';
 
@@ -34,6 +34,24 @@ describe('NodeFsAdapter', () => {
       const path = await adapter.createTempFile('custom-');
 
       expect(path).toContain('custom-');
+    });
+
+    it('removes the private temp directory when the temp file is deleted', async () => {
+      const path = await adapter.createTempFile('type-git-cleanup-');
+      await writeFile(path, 'data');
+
+      await adapter.deleteFile(path);
+
+      expect(await adapter.exists(path)).toBe(false);
+      expect(await adapter.exists(dirname(path))).toBe(false);
+    });
+
+    it('removes the private temp directory even if the temp file was never written', async () => {
+      const path = await adapter.createTempFile('type-git-cleanup-');
+
+      await adapter.deleteFile(path);
+
+      expect(await adapter.exists(dirname(path))).toBe(false);
     });
   });
 
@@ -93,6 +111,16 @@ describe('NodeFsAdapter', () => {
       const filePath = join(testDir, 'not-exists.txt');
 
       await expect(adapter.deleteFile(filePath)).resolves.not.toThrow();
+    });
+
+    it('leaves the parent directory of an ordinary file in place', async () => {
+      const filePath = join(testDir, 'plain.txt');
+      await writeFile(filePath, 'test');
+
+      await adapter.deleteFile(filePath);
+
+      expect(await adapter.exists(filePath)).toBe(false);
+      expect(await adapter.exists(testDir)).toBe(true);
     });
   });
 

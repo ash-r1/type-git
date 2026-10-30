@@ -7,7 +7,7 @@ import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments, commandUsesNativeABI } from './build.js';
-import { COMMAND_SPECS } from './generated.js';
+import { commandSpecs } from './catalogue.js';
 import type { GitCommandName } from './types.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
@@ -61,7 +61,8 @@ describe('native fallback and first-word dispatch', () => {
     }
   };
   it('forwards ABI through a synthetic registry route to an existing scalar parser', () => {
-    const spec = COMMAND_SPECS.config as unknown as { dispatch: Record<string, string> };
+    // Mutate the runtime catalogue that command building reads.
+    const spec = commandSpecs().config as unknown as { dispatch: Record<string, string> };
     const original = spec.dispatch;
     spec.dispatch = { ...original, abiFixture: 'shortlog' };
     try {
@@ -209,12 +210,11 @@ describe('native fallback and first-word dispatch', () => {
     compare('stash', [{ operand: 'tracked' }], ['tracked'], false);
     compare('stash', [['--'], { operand: 'tracked' }], ['--', 'tracked'], true);
     compare('stash', [{ operand: 'push' }, { operand: 'tracked' }], ['push', 'tracked'], true);
-    compare(
-      'stash',
-      [{ operand: 'list' }, { operand: '--format=%gd' }],
-      ['list', '--format=%gd'],
-      true,
-    );
+    compare('stash', [{ operand: 'list' }, ['--format', '%gd']], ['list', '--format=%gd'], true);
+    // The delegated log parser would read this operand object as an option.
+    expect(() =>
+      commandArguments('stash', [{ operand: 'list' }, { operand: '--format=%gd' }], true),
+    ).toThrow('Use an explicit ["--"] separator before an operand starting with a dash');
     compare(
       'stash',
       [['--patch'], ['--include-untracked']],

@@ -1,3 +1,6 @@
+import { readdir } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { basename, dirname } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments, commandUsesDepthAtoi } from '../commands/build.js';
@@ -35,6 +38,10 @@ describe('independent initial depth atoi profile', () => {
     );
     expect(blocker).toBeDefined();
     expect(await exists(blocker!)).toBe(false);
+    const probeDir = dirname(blocker!);
+    expect(basename(probeDir)).toMatch(/^type-git-depth-profile-/);
+    expect(await exists(probeDir)).toBe(false);
+    expect(await readdir(tmpdir())).not.toContain(basename(probeDir));
   });
 
   it('delegates to native execution when a blocking file cannot be created', async () => {
@@ -133,6 +140,71 @@ describe('independent initial depth atoi profile', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
     expect(adapters.fs.deleteFile).toHaveBeenCalledTimes(1);
+  });
+  it('runs the observation without tracing and hides it from audit callbacks', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
+    adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi.fn().mockImplementation(async (options, handlers) => {
+      const traced = Object.keys(options.env).filter((key) => /^GIT_TRACE/.test(key));
+      // A traced Git prefixes its diagnostics with trace lines on the same stream.
+      const trace = '12:34:56.789012 git.c:463               trace: built-in: git clone\n';
+      if (traced.length > 0) {
+        handlers?.onStderr?.(trace);
+      }
+      return result(
+        128,
+        `${traced.length > 0 ? trace : ''}fatal: depth 2147483648 is not a positive number\n`,
+      );
+    });
+    const onAudit = vi.fn();
+    const onTrace = vi.fn();
+    const runner = new CliRunner(adapters, {
+      env: { GIT_TRACE_PACKET: '1', GIT_TRACE2: '1' },
+      audit: { onAudit, onTrace },
+    });
+    await expect(
+      runner.runCommand({ type: 'global' }, 'fetch', [['--all'], ['--depth', '2147483648']], true, {
+        env: { GIT_TRACE_SETUP: '1' },
+      }),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    const env = adapters.exec.spawn.mock.calls[0]![0].env as Record<string, string>;
+    expect(Object.keys(env).filter((key) => /^GIT_TRACE/.test(key))).toEqual([]);
+    expect(onAudit).not.toHaveBeenCalled();
+    expect(onTrace).not.toHaveBeenCalled();
+  });
+  it('keeps tracing and auditing the user command after an internal observation', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
+    adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi
+      .fn()
+      .mockImplementation(async (options) =>
+        options.argv.includes('type-git-depth-profile:invalid')
+          ? result(
+              128,
+              "fatal: destination path '/fixture/depth-profile' already exists and is not an empty directory.\n",
+            )
+          : result(0),
+      );
+    const onAudit = vi.fn();
+    const runner = new CliRunner(adapters, { audit: { onAudit, onTrace: vi.fn() } });
+    await runner.runCommand(
+      { type: 'global' },
+      'fetch',
+      [['--all'], ['--depth', '2147483648']],
+      true,
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    expect(adapters.exec.spawn.mock.calls[0]![0].env.GIT_TRACE).toBeUndefined();
+    expect(adapters.exec.spawn.mock.calls[1]![0].env.GIT_TRACE).toBe('1');
+    expect(onAudit.mock.calls.map(([event]) => [event.type, event.argv])).toEqual([
+      ['start', ['git', 'fetch', '--all', '--depth=2147483648']],
+      ['end', ['git', 'fetch', '--all', '--depth=2147483648']],
+    ]);
   });
   it('validates convenience depth against the observed saturation profile', async () => {
     const adapters = createNodeAdapters();
