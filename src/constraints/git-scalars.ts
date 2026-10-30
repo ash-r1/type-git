@@ -1,5 +1,5 @@
-import { validBlameLineRange } from './blame-line-range.js';
 import { asciiLower } from './ascii.js';
+import { validBlameLineRange } from './blame-line-range.js';
 import {
   type CompoundDecimalParser,
   isCompoundDecimal,

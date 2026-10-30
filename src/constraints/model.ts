@@ -1,13 +1,13 @@
-import { TIMESTAMP_DEFAULT } from './git-timestamp.js';
-import type { GitBooleanSource, GitBooleanCapabilities } from './git-boolean.js';
+import type { GitBooleanCapabilities, GitBooleanSource } from './git-boolean.js';
 import type { GitDecimalCallbacks } from './git-decimal.js';
 import type { GitIntegerProfile } from './git-integer.js';
 import {
   type GitScalarParser,
   gitBoolean,
-  parseGitScalar,
   PYTHON_INTEGER_DEFERRED,
+  parseGitScalar,
 } from './git-scalars.js';
+import { TIMESTAMP_DEFAULT } from './git-timestamp.js';
 import { lfsBytes } from './scalars.js';
 /** Declarative constraints: no Git processes, TypeScript compiler, or repository state. */
 export type Evidence = {

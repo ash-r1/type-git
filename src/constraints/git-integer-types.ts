@@ -1,6 +1,6 @@
 import type { GitIntegerParser } from './git-integer.js';
-import type { UrlBytes } from './url-byte-types.js';
 import type { IntegerLimits, IntegerProducts } from './integer-type-tables.js';
+import type { UrlBytes } from './url-byte-types.js';
 
 export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type HexDigit = Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';

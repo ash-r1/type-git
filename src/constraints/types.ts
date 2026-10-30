@@ -1,14 +1,14 @@
 import type { BlameLineRangeLiteral } from './blame-line-range.js';
-import type { TIMESTAMP_DEFAULT } from './git-timestamp.js';
+import type { DepthInitialLiteral } from './depth-types.js';
 import type { GitBooleanCallback } from './git-boolean.js';
 import type {
   GitBooleanCallbackLiteral,
   GitBooleanLiteral,
   GitBooleanValue,
 } from './git-boolean-types.js';
-import type { GitNumericLiteral, GitNumericParser } from './git-numeric-types.js';
-import type { DepthInitialLiteral } from './depth-types.js';
 import type { GitEnabledLiteral } from './git-enabled-types.js';
+import type { GitNumericLiteral, GitNumericParser } from './git-numeric-types.js';
+import type { TIMESTAMP_DEFAULT } from './git-timestamp.js';
 import type { Constraint, Predicate } from './model.js';
 import type {
   NumberAtLeast,

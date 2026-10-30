@@ -6,9 +6,9 @@ import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import {
-  validObjectFilter,
-  objectFilterUsesHighBytes,
   objectFilterUnsignedChar,
+  objectFilterUsesHighBytes,
+  validObjectFilter,
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';

@@ -1,8 +1,8 @@
 import type {
+  CheckedCommandArguments,
   CheckedDocumentationArguments,
   DocumentationCommand,
   DocumentationPrefix,
-  CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
   GitCommandName,

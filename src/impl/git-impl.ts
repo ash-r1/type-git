@@ -1,13 +1,13 @@
 import type {
+  CheckedCommandArguments,
   CheckedDocumentationArguments,
   CheckedUsageArguments,
-  UsageCommand,
   DocumentationCommand,
   DocumentationPrefix,
-  CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
   GitCommandName,
+  UsageCommand,
 } from '../commands/types.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';

@@ -2,6 +2,7 @@ import { expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';
+
 const response = (exitCode: number, stderr = '', aborted = false) => ({
   exitCode,
   stdout: '',

@@ -1,8 +1,8 @@
 import type {
+  CheckedCommandArguments,
   CheckedDocumentationArguments,
   DocumentationCommand,
   DocumentationPrefix,
-  CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
   GitCommandName,
@@ -143,8 +143,8 @@ import type {
   ExecOpts,
   ExecutionContext,
   GitOpenOptions,
-  LfsMode,
   GitOutputMode,
+  LfsMode,
   RawResult,
 } from '../core/types.js';
 import { runWithConcurrency } from '../internal/concurrency.js';
