@@ -91,7 +91,7 @@ try {
       }
     }
     for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
-    if (entry.usageExit && (entry.parserExit || entry.optionParsing)) throw new Error(`${name}: usage exits require an interleaved single parser`);
+    if (entry.usageExit && (entry.parserExit || (entry.optionParsing && entry.optionParsing !== 'stop-at-operand'))) throw new Error(`${name}: usage exits require a single option parser`);
     for (const flag of entry.usageExit?.exceptFirst ?? []) if (!entry.usageExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first usage token must be an exit flag`);
     if (entry.usageExit && !entry.usageExit.flags.some(flag => !entry.usageExit.exceptFirst?.includes(flag))) throw new Error(`${name}: usage exits require an internal help spelling`);
     for (const flag of [...(entry.parserExit?.flags ?? []), ...(entry.usageExit?.flags ?? [])]) {

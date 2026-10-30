@@ -4316,9 +4316,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/bundle-help.test.ts",
+        "src/commands/bundle-help-native.test.ts",
+        "test/types/bundle-help.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Revision options after the output path are currently literal operands; typed nested revision tokens remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Revision options after the output path are currently literal operands; typed nested revision tokens remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Shared stopped-parser help/completion controls are added separately; full bundle execution, prerequisites, repository state, abbreviations and broader source/platform coverage remain partial.",
       "typedCommandAPI": true
     },
     "bundle verify": {
@@ -4330,9 +4333,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/bundle-help.test.ts",
+        "src/commands/bundle-help-native.test.ts",
+        "test/types/bundle-help.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shared stopped-parser help/completion controls are added separately; full bundle execution, prerequisites, repository state, abbreviations and broader source/platform coverage remain partial.",
       "typedCommandAPI": true
     },
     "bundle list-heads": {
@@ -4344,9 +4350,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/bundle-help.test.ts",
+        "src/commands/bundle-help-native.test.ts",
+        "test/types/bundle-help.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shared stopped-parser help/completion controls are added separately; full bundle execution, prerequisites, repository state, abbreviations and broader source/platform coverage remain partial.",
       "typedCommandAPI": true
     },
     "bundle unbundle": {
@@ -4358,9 +4367,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/bundle-help.test.ts",
+        "src/commands/bundle-help-native.test.ts",
+        "test/types/bundle-help.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shared stopped-parser help/completion controls are added separately; full bundle execution, prerequisites, repository state, abbreviations and broader source/platform coverage remain partial.",
       "typedCommandAPI": true
     },
     "history fixup": {

@@ -1721,6 +1721,12 @@ const sharedEffects33 = [
 ] as const;
 const sharedEffects34 = [
   {
+    key: 'help',
+    set: true,
+  },
+] as const;
+const sharedEffects35 = [
+  {
     key: 'combined-all-paths',
     set: false,
   },
@@ -1729,39 +1735,33 @@ const sharedEffects34 = [
     set: true,
   },
 ] as const;
-const sharedEffects35 = [
+const sharedEffects36 = [
   {
     key: 'explicit-diff-merges',
     set: true,
   },
 ] as const;
-const sharedEffects36 = [
-  {
-    key: 'children',
-    set: true,
-  },
-] as const;
 const sharedEffects37 = [
   {
-    key: 'porcelain',
+    key: 'children',
     set: true,
   },
 ] as const;
 const sharedEffects38 = [
   {
     key: 'porcelain',
-    set: false,
+    set: true,
   },
 ] as const;
 const sharedEffects39 = [
   {
-    key: 'ordinary-options',
-    set: true,
+    key: 'porcelain',
+    set: false,
   },
 ] as const;
 const sharedEffects40 = [
   {
-    key: 'help',
+    key: 'ordinary-options',
     set: true,
   },
 ] as const;
@@ -7315,18 +7315,18 @@ const sharedOption1058 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'dense-combined',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1059 = {
   key: 'combined-all-paths',
   value: 'flag',
-  effects: sharedEffects35,
+  effects: sharedEffects36,
 } as const;
 const sharedOption1060 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'first-parent',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1061 = {
   key: 'diff-merges',
@@ -7346,31 +7346,31 @@ const sharedOption1061 = {
     'm',
     'on',
   ],
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1062 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'none',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1063 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'remerge',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1064 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'combined',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1065 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'on',
-  effects: sharedEffects34,
+  effects: sharedEffects35,
 } as const;
 const sharedOption1066 = {
   key: 'max-depth',
@@ -7432,7 +7432,7 @@ const sharedOption1076 = {
 const sharedOption1077 = {
   key: 'blame-reverse',
   value: 'flag',
-  effects: sharedEffects36,
+  effects: sharedEffects37,
 } as const;
 const sharedOption1078 = {
   key: 'c',
@@ -7457,7 +7457,7 @@ const sharedOption1082 = {
 const sharedOption1083 = {
   key: 'line-porcelain',
   value: 'flag',
-  effects: sharedEffects37,
+  effects: sharedEffects38,
 } as const;
 const sharedOption1084 = {
   key: 'show-email',
@@ -7514,7 +7514,7 @@ const sharedOption1095 = {
   key: 'line-porcelain',
   value: 'flag',
   set: false,
-  effects: sharedEffects38,
+  effects: sharedEffects39,
 } as const;
 const sharedOption1096 = {
   key: 'show-email',
@@ -8249,99 +8249,99 @@ const sharedOption1240 = {
 const sharedOption1241 = {
   key: 'sender',
   value: 'string',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
 } as const;
 const sharedOption1242 = {
   key: 'chain-reply-to',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1243 = {
   key: 'use-imap-only',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1244 = {
   key: 'annotate',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1245 = {
   key: 'suppress-from',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1246 = {
   key: 'signed-off-cc',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
 } as const;
 const sharedOption1247 = {
   key: 'signed-off-cc',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1248 = {
   key: 'cc-cover',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1249 = {
   key: 'to-cover',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1250 = {
   key: 'thread',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1251 = {
   key: 'validate',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1252 = {
   key: 'mailmap',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
 } as const;
 const sharedOption1253 = {
   key: 'mailmap',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1254 = {
   key: 'format-patch',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1255 = {
   key: 'xmailer',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1256 = {
   key: 'v',
   value: 'string',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
 } as const;
 const sharedOption1257 = {
   key: 'outlook-id-fix',
   value: 'flag',
-  effects: sharedEffects39,
+  effects: sharedEffects40,
   set: false,
 } as const;
 const sharedOption1258 = {
@@ -8541,7 +8541,7 @@ const sharedOption1303 = {
 const sharedOption1304 = {
   key: 'version',
   value: 'flag',
-  effects: sharedEffects40,
+  effects: sharedEffects34,
 } as const;
 const sharedOption1305 = {
   key: 'minimize-connections',
@@ -53800,6 +53800,45 @@ const commandSpec185 = {
     },
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-create.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-create.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
   },
   rules: [
     {
@@ -53825,6 +53864,14 @@ const commandSpec185 = {
   source: 'builtin/bundle.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    reason:
+      'The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.',
+    source:
+      'Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step',
+  },
 } as const satisfies CommandSpec;
 const commandSpec186 = {
   argv: ['bundle', 'verify'],
@@ -53834,6 +53881,45 @@ const commandSpec186 = {
     '--no-quiet': sharedOption67,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-verify.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-verify.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
   },
   rules: [
     {
@@ -53849,12 +53935,59 @@ const commandSpec186 = {
   source: 'builtin/bundle.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    reason:
+      'The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.',
+    source:
+      'Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step',
+  },
 } as const satisfies CommandSpec;
 const commandSpec187 = {
   argv: ['bundle', 'list-heads'],
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-list-heads.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-list-heads.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
   },
   rules: [
     {
@@ -53870,6 +54003,14 @@ const commandSpec187 = {
   source: 'builtin/bundle.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    reason:
+      'The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.',
+    source:
+      'Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step',
+  },
 } as const satisfies CommandSpec;
 const commandSpec188 = {
   argv: ['bundle', 'unbundle'],
@@ -53878,6 +54019,45 @@ const commandSpec188 = {
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-unbundle.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bundle-unbundle.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only as the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+      effects: sharedEffects34,
+    },
   },
   rules: [
     {
@@ -53893,6 +54073,14 @@ const commandSpec188 = {
   source: 'builtin/bundle.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    reason:
+      'The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.',
+    source:
+      'Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step',
+  },
 } as const satisfies CommandSpec;
 const commandSpec189 = {
   argv: ['history', 'fixup'],
@@ -74522,126 +74710,126 @@ const commandSpec336 = {
     '--in-reply-to': {
       key: 'in-reply-to',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--reply-to': {
       key: 'reply-to',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--subject': {
       key: 'subject',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--to': {
       key: 'to',
       value: 'string',
       repeat: true,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--to-cmd': {
       key: 'to-cmd',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-to': {
       key: 'no-to',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--cc': {
       key: 'cc',
       value: 'string',
       repeat: true,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-cc': {
       key: 'no-cc',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--bcc': {
       key: 'bcc',
       value: 'string',
       repeat: true,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-bcc': {
       key: 'no-bcc',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--chain-reply-to': {
       key: 'chain-reply-to',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-chain-reply-to': sharedOption1242,
     '--nochain-reply-to': sharedOption1242,
     '--sendmail-cmd': {
       key: 'sendmail-cmd',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-server': {
       key: 'smtp-server',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-server-option': {
       key: 'smtp-server-option',
       value: 'string',
       repeat: true,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-server-port': {
       key: 'smtp-server-port',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-user': {
       key: 'smtp-user',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-pass': {
       key: 'smtp-pass',
       value: 'optional-string',
       set: '',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-ssl': {
       key: 'smtp-encryption',
       value: 'flag',
       set: 'ssl',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-encryption': {
       key: 'smtp-encryption',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-ssl-cert-path': {
       key: 'smtp-ssl-cert-path',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-ssl-client-cert': {
       key: 'smtp-ssl-client-cert',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-ssl-client-key': {
       key: 'smtp-ssl-client-key',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-debug': {
       key: 'smtp-debug',
       value: 'optional-integer',
       set: 0,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
       parser: 'perl-int-gnu',
       parserErrorKey: 'invalid-integer',
     },
@@ -74649,67 +74837,67 @@ const commandSpec336 = {
       key: 'smtp-domain',
       value: 'optional-string',
       set: '',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--smtp-auth': {
       key: 'smtp-auth',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-smtp-auth': {
       key: 'smtp-auth',
       value: 'flag',
       set: 'none',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--imap-sent-folder': {
       key: 'imap-sent-folder',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--use-imap-only': {
       key: 'use-imap-only',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-use-imap-only': sharedOption1243,
     '--nouse-imap-only': sharedOption1243,
     '--annotate': {
       key: 'annotate',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-annotate': sharedOption1244,
     '--noannotate': sharedOption1244,
     '--compose': {
       key: 'compose',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--quiet': {
       key: 'quiet',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--cc-cmd': {
       key: 'cc-cmd',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--header-cmd': {
       key: 'header-cmd',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-header-cmd': {
       key: 'no-header-cmd',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--suppress-from': {
       key: 'suppress-from',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-suppress-from': sharedOption1245,
     '--nosuppress-from': sharedOption1245,
@@ -74717,7 +74905,7 @@ const commandSpec336 = {
       key: 'suppress-cc',
       value: 'string',
       repeat: true,
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--signed-off-cc': sharedOption1246,
     '--no-signed-off-cc': sharedOption1247,
@@ -74728,50 +74916,50 @@ const commandSpec336 = {
     '--cc-cover': {
       key: 'cc-cover',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-cc-cover': sharedOption1248,
     '--nocc-cover': sharedOption1248,
     '--to-cover': {
       key: 'to-cover',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-to-cover': sharedOption1249,
     '--noto-cover': sharedOption1249,
     '--confirm': {
       key: 'confirm',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--dry-run': {
       key: 'dry-run',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--envelope-sender': {
       key: 'envelope-sender',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--thread': {
       key: 'thread',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-thread': sharedOption1250,
     '--nothread': sharedOption1250,
     '--validate': {
       key: 'validate',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-validate': sharedOption1251,
     '--novalidate': sharedOption1251,
     '--transfer-encoding': {
       key: 'transfer-encoding',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--mailmap': sharedOption1252,
     '--no-mailmap': sharedOption1253,
@@ -74782,57 +74970,57 @@ const commandSpec336 = {
     '--format-patch': {
       key: 'format-patch',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-format-patch': sharedOption1254,
     '--noformat-patch': sharedOption1254,
     '--8bit-encoding': {
       key: '8bit-encoding',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--compose-encoding': {
       key: 'compose-encoding',
       value: 'string',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--force': {
       key: 'force',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--xmailer': {
       key: 'xmailer',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-xmailer': sharedOption1255,
     '--noxmailer': sharedOption1255,
     '--batch-size': {
       key: 'batch-size',
       value: 'integer',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
       parser: 'perl-int',
       parserErrorKey: 'invalid-integer',
     },
     '--relogin-delay': {
       key: 'relogin-delay',
       value: 'integer',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
       parser: 'perl-int',
       parserErrorKey: 'invalid-integer',
     },
     '--git-completion-helper': {
       key: 'git-completion-helper',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '-v': sharedOption1256,
     '--v': sharedOption1256,
     '--outlook-id-fix': {
       key: 'outlook-id-fix',
       value: 'flag',
-      effects: sharedEffects39,
+      effects: sharedEffects40,
     },
     '--no-outlook-id-fix': sharedOption1257,
     '--nooutlook-id-fix': sharedOption1257,

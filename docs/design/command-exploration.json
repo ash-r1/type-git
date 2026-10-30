@@ -68189,6 +68189,56 @@
     },
     {
       "command": "bundle create",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.",
+        "source": "Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.bundle-create.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-create.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.bundle-create.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-create.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "quiet": [
@@ -68224,6 +68274,14 @@
           "undefined",
           "true"
         ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -68241,8 +68299,8 @@
           "true"
         ]
       },
-      "total": "34020",
-      "accepted": "11664",
+      "total": "136080",
+      "accepted": "46656",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.bundle-create.file": "{\"operands\":[]}",
@@ -68251,6 +68309,56 @@
     },
     {
       "command": "bundle verify",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.",
+        "source": "Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.bundle-verify.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-verify.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.bundle-verify.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-verify.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "quiet": [
@@ -68262,6 +68370,14 @@
           "undefined",
           "true"
         ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -68279,8 +68395,8 @@
           "true"
         ]
       },
-      "total": "180",
-      "accepted": "144",
+      "total": "720",
+      "accepted": "576",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.bundle-verify.file": "{\"operands\":[]}"
@@ -68288,9 +68404,67 @@
     },
     {
       "command": "bundle list-heads",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.",
+        "source": "Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.bundle-list-heads.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-list-heads.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.bundle-list-heads.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-list-heads.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "help": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -68311,8 +68485,8 @@
           "true"
         ]
       },
-      "total": "60",
-      "accepted": "48",
+      "total": "240",
+      "accepted": "192",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.bundle-list-heads.file": "{\"operands\":[]}"
@@ -68320,6 +68494,56 @@
     },
     {
       "command": "bundle unbundle",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "The shared bundle option parser stops at the first file operand. Help reached before that boundary exits before later callbacks and the file/revision checks; preceding callback errors remain invalid.",
+        "source": "Git 2.55.0 builtin/bundle.c:parse_options_cmd_bundle PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.bundle-unbundle.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-unbundle.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.bundle-unbundle.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bundle-unbundle.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "progress": [
@@ -68331,6 +68555,14 @@
           "undefined",
           "true"
         ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -68348,8 +68580,8 @@
           "true"
         ]
       },
-      "total": "180",
-      "accepted": "144",
+      "total": "720",
+      "accepted": "576",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.bundle-unbundle.file": "{\"operands\":[]}"
