@@ -616,7 +616,7 @@ export class GitImpl implements Git {
   public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
     command: C,
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
 
   public command<C extends UsageCommand, const A extends readonly unknown[]>(
@@ -632,7 +632,7 @@ export class GitImpl implements Git {
   public command<C extends UsageCommand, const A extends readonly unknown[]>(
     command: C,
     args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
 
   public command<
@@ -657,12 +657,12 @@ export class GitImpl implements Git {
   >(
     command: C,
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
   public async command(
     command: GitCommandName,
     args: readonly unknown[],
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
   }

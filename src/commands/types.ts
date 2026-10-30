@@ -2830,7 +2830,7 @@ export interface GitCommandClient {
   command<C extends UsageCommand, const A extends readonly unknown[]>(
     command: C,
     args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
 
   command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
@@ -2846,7 +2846,7 @@ export interface GitCommandClient {
   command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
     command: C,
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
@@ -2861,6 +2861,6 @@ export interface GitCommandClient {
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts?: GitCommandExecOpts<GitOutputMode>,
+    opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
 }
