@@ -335,20 +335,28 @@ type NegativeMagnitude<
       ? Bounded<Scale<NegateUintmax<M>, U>, false, P>
       : 'invalid'
     : 'invalid';
-type SignedMagnitude<S extends string, P extends GitIntegerParser> = Trim<S> extends infer T extends
-  string
-  ? string extends T
-    ? 'dynamic'
-    : T extends `-${infer R}`
-      ? R extends `${infer B}${'k' | 'K'}`
-        ? NegativeMagnitude<B, Unit<'k'>, P>
-        : R extends `${infer B}${'m' | 'M'}`
-          ? NegativeMagnitude<B, Unit<'m'>, P>
-          : R extends `${infer B}${'g' | 'G'}`
-            ? NegativeMagnitude<B, Unit<'g'>, P>
-            : NegativeMagnitude<R, '', P>
-      : ModernParsed<S, P>
-  : 'invalid';
+// Without an end == value check, a bare unit converts no digits and parses as zero.
+type SignedMagnitude<S extends string, P extends GitIntegerParser> = S extends
+  | 'k'
+  | 'K'
+  | 'm'
+  | 'M'
+  | 'g'
+  | 'G'
+  ? '0'
+  : Trim<S> extends infer T extends string
+    ? string extends T
+      ? 'dynamic'
+      : T extends `-${infer R}`
+        ? R extends `${infer B}${'k' | 'K'}`
+          ? NegativeMagnitude<B, Unit<'k'>, P>
+          : R extends `${infer B}${'m' | 'M'}`
+            ? NegativeMagnitude<B, Unit<'m'>, P>
+            : R extends `${infer B}${'g' | 'G'}`
+              ? NegativeMagnitude<B, Unit<'g'>, P>
+              : NegativeMagnitude<R, '', P>
+        : ModernParsed<S, P>
+    : 'invalid';
 type MagnitudeParsed<V, P extends GitIntegerParser> = V extends string | number | bigint
   ? string extends V
     ? 'dynamic'
