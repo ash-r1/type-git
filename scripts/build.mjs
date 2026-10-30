@@ -3,6 +3,8 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dedupeDeclarations } from './dedupe-declarations.mjs';
 
 const require = createRequire(import.meta.url);
 const declarations = await mkdtemp(join(tmpdir(), 'type-git-declarations-'));
@@ -18,6 +20,8 @@ try {
   run(require.resolve('typescript/bin/tsc'), ['--noCheck', '--emitDeclarationOnly', '--declarationMap', 'false', '--outDir', declarations]);
   const cli = join(dirname(require.resolve('tsup/package.json')), require('tsup/package.json').bin.tsup);
   run(cli, process.argv.slice(2), { ...process.env, TYPE_GIT_DECLARATIONS_DIR: declarations });
+  // Ship shared declaration chunks once (CJS format) instead of as ESM + CJS twins.
+  await dedupeDeclarations(fileURLToPath(new URL('..', import.meta.url)));
 } finally {
   await rm(declarations, { recursive: true, force: true });
 }
