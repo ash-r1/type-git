@@ -20,7 +20,7 @@ export default defineConfig({
       } }
     : true,
   splitting: false,
-  sourcemap: true,
+  sourcemap: false,
   clean: true,
   outDir: 'dist',
 });

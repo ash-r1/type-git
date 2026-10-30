@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/stash-show-corpus.json';
+import { isLiteralOperandRefusal } from '../../test/support/literal-operand.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -12,6 +13,7 @@ describe('native stash show parser partition', () => {
     const mismatches: string[] = [];
     for (const row of corpus.cases) {
       let accepted = false;
+      let refused = false;
       try {
         const argv = commandArguments(row.command as GitCommandName, row.tokens, true);
         expect(argv).toEqual(row.argv);
@@ -20,8 +22,10 @@ describe('native stash show parser partition', () => {
         if (!(error instanceof GitArgumentError)) {
           throw error;
         }
+        refused = isLiteralOperandRefusal(row.tokens, error);
       }
-      if (accepted !== row.valid) {
+      // Native acceptance of an operand object read as an option is a deliberate refusal.
+      if (accepted !== row.valid && !(row.valid && refused)) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,
         );
