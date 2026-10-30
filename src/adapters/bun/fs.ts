@@ -15,9 +15,13 @@ import {
 } from '../../internal/file-polling.js';
 
 export class BunFsAdapter implements FsAdapter {
+  /** Private directories created by createTempFile, keyed by the returned file path. */
+  private readonly tempFileDirs = new Map<string, string>();
+
   public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
     const dir = await mkdtemp(join(tmpdir(), prefix));
     const filePath = join(dir, 'temp');
+    this.tempFileDirs.set(filePath, dir);
     // Create empty file
     await Bun.write(filePath, '');
     return filePath;
@@ -52,6 +56,13 @@ export class BunFsAdapter implements FsAdapter {
   }
 
   public async deleteFile(filePath: string): Promise<void> {
+    const tempDir = this.tempFileDirs.get(filePath);
+    if (tempDir !== undefined) {
+      // Remove the private directory created by createTempFile together with its file.
+      await rm(tempDir, { force: true, recursive: true });
+      this.tempFileDirs.delete(filePath);
+      return;
+    }
     await rm(filePath, { force: true });
   }
 
