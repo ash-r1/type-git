@@ -1,5 +1,5 @@
-import { validBlameLineRange } from './blame-line-range.js';
 import { asciiLower } from './ascii.js';
+import { validBlameLineRange } from './blame-line-range.js';
 import {
   type CompoundDecimalParser,
   isCompoundDecimal,
@@ -149,6 +149,7 @@ export function parseGitScalar(
   booleanCapabilities?: GitBooleanCapabilities,
   compoundNegatedOverflow = false,
   depthAtoiBits: 32 | 64 = 64,
+  combineEmptyComponents = true,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'timestamp') {
     return parseGitTimestamp(value, {
@@ -239,6 +240,7 @@ export function parseGitScalar(
             binaryIntegers,
             negativeMagnitudes,
             unsignedChar,
+            combineEmptyComponents,
           )),
       value,
     };
