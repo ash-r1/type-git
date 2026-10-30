@@ -202,6 +202,11 @@ type Empty<C extends GitCommandName> = {
 };
 type Initial<C extends GitCommandName> =
   Spec<C> extends { initial: infer D } ? Omit<Empty<C>, keyof D> & D : Empty<C>;
+/** Apply distinct parser-profile fields in one projection instead of nested omissions. */
+type ProfileInitial<C extends GitCommandName, A extends readonly unknown[], P> = Omit<
+  Initial<C>,
+  'argumentTokens' | keyof P
+> & { argumentTokens: A } & P;
 type Put<S, K extends PropertyKey, V> = Omit<S, K> & { [P in K]: V };
 type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   ? undefined
@@ -1413,18 +1418,15 @@ type CheckedLegacyIntegerArguments<
   S = CommandState<
     C,
     A,
-    Put<
-      Put<
-        Put<
-          Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
-          'negativeMagnitudes',
-          Negative
-        >,
-        'decimalLongBits',
-        LongBits
-      >,
-      'decimalCallbacks',
-      Callbacks
+    ProfileInitial<
+      C,
+      A,
+      {
+        integerProfile: IntegerProfile;
+        negativeMagnitudes: Negative;
+        decimalLongBits: LongBits;
+        decimalCallbacks: Callbacks;
+      }
     > & { compoundNegatedOverflow: CompoundOverflow; firstPassEmpty: EmptyRegistered }
   >,
 > = [S] extends [never]
@@ -1736,22 +1738,16 @@ type DeferredConflictAlternatives<
             CommandState<
               C,
               A,
-              Put<
-                Put<
-                  Put<
-                    Put<
-                      Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', I>,
-                      'negativeMagnitudes',
-                      N
-                    >,
-                    'decimalLongBits',
-                    B
-                  >,
-                  'decimalCallbacks',
-                  F
-                >,
-                'conflictStyle',
-                'deferred'
+              ProfileInitial<
+                C,
+                A,
+                {
+                  integerProfile: I;
+                  negativeMagnitudes: N;
+                  decimalLongBits: B;
+                  decimalCallbacks: F;
+                  conflictStyle: 'deferred';
+                }
               >
             >
           >
@@ -2330,26 +2326,17 @@ type BooleanTupleAxes<
                 CommandState<
                   C,
                   A,
-                  Put<
-                    Put<
-                      Put<
-                        Put<
-                          Put<
-                            Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', I>,
-                            'negativeMagnitudes',
-                            N
-                          >,
-                          'decimalLongBits',
-                          B
-                        >,
-                        'decimalCallbacks',
-                        F
-                      >,
-                      'conflictStyle',
-                      Conflict
-                    >,
-                    'booleanSource',
-                    Source
+                  ProfileInitial<
+                    C,
+                    A,
+                    {
+                      integerProfile: I;
+                      negativeMagnitudes: N;
+                      decimalLongBits: B;
+                      decimalCallbacks: F;
+                      conflictStyle: Conflict;
+                      booleanSource: Source;
+                    }
                   >
                 >
               >

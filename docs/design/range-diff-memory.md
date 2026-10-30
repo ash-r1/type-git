@@ -47,3 +47,11 @@ types remain equal. Identifier allocation reserves existing property
 names and string values; dedicated controls cover collisions, preserved
 metadata, and distinct singleton definitions. The remote failure remains
 recorded, and this additional capacity change requires fresh validation.
+
+CI still reached the standard heap limit after option sharing. Profile
+initialization now applies the same distinct ABI and callback fields with
+one `Omit` instead of five to seven nested assignments. The original state
+types remain bidirectionally assignable for all 428 commands and checked
+union/never cases. The emitted JavaScript is unchanged. Focused compiler
+measurements improved, but whole-project and remote CI results are separate
+required checks; no memory-limit or fixture-scope change is made.
