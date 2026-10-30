@@ -19,11 +19,16 @@ export function partitionRemainingArguments(
 }
 
 type Token = readonly string[] | { operand: string };
-/** Decode the retained stream in setup_revisions order, before applying callbacks. */
+/**
+ * Decode the retained stream in setup_revisions order, before applying callbacks.
+ * `literal` marks words supplied as operand objects; when one reaches an option or boundary
+ * position without a native exit, the result carries `literalOption` for the caller to reject.
+ */
 export function revisionParserPass(
   spec: CommandSpec,
   argv: readonly string[],
-): { tokens: Token[]; exited?: true } {
+  literal: readonly boolean[] = [],
+): { tokens: Token[]; exited?: true; literalOption?: true } {
   const phase = spec.parserExit!;
   if (argv[0] === '-' && phase.leadingDashReplacement) {
     argv = [phase.leadingDashReplacement, ...argv.slice(1)];
@@ -33,6 +38,8 @@ export function revisionParserPass(
   const words = boundary < 0 ? argv : argv.slice(0, boundary);
   const tokens: Token[] = [];
   let unknown: string | undefined;
+  // A boundary taken from an operand object would turn the following words into paths.
+  let literalOption = boundary >= 0 && literal[boundary] === true;
   /** Resolve only registered own keys in the retained parser table. */
   const lookup = (flag: string): OptionSpec | undefined =>
     Object.hasOwn(options, flag) ? options[flag] : undefined;
@@ -52,6 +59,9 @@ export function revisionParserPass(
     if (ended || !word.startsWith('-')) {
       tokens.push({ operand: word });
       continue;
+    }
+    if (literal[index - 1] === true && word !== '-') {
+      literalOption = true;
     }
     if (word === '--end-of-options') {
       tokens.push([word]);
@@ -154,5 +164,5 @@ export function revisionParserPass(
   if (unknown) {
     throw new GitArgumentError(unknown);
   }
-  return { tokens };
+  return literalOption ? { tokens, literalOption: true } : { tokens };
 }
