@@ -1,6 +1,6 @@
 import type { GitIntegerParser } from './git-integer.js';
-import type { UrlBytes } from './url-byte-types.js';
 import type { IntegerLimits, IntegerProducts } from './integer-type-tables.js';
+import type { UrlBytes } from './url-byte-types.js';
 
 export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type HexDigit = Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
@@ -322,11 +322,12 @@ type NegateUintmax<S extends string> = S extends '0'
   : S extends '1'
     ? '18446744073709551615'
     : SubDigits<'61615590737044764481', Reverse<S>>;
+// Git accepts at most one unit suffix, so the magnitude left after stripping one must have none.
 type NegativeMagnitude<
   B extends string,
   U extends string,
   P extends GitIntegerParser,
-  M = Magnitude<B>,
+  M = B extends `${string}${'k' | 'K' | 'm' | 'M' | 'g' | 'G'}` ? 'invalid' : Magnitude<B>,
 > = M extends 'invalid' | 'dynamic'
   ? M
   : M extends string
