@@ -42,9 +42,13 @@ function delay(ms: number): Promise<void> {
 }
 
 export class DenoFsAdapter implements FsAdapter {
+  /** Private directories created by createTempFile, keyed by the returned file path. */
+  private readonly tempFileDirs = new Map<string, string>();
+
   public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
     const dir = await Deno.makeTempDir({ prefix });
     const filePath = `${dir}/temp`;
+    this.tempFileDirs.set(filePath, dir);
     // Create empty file
     await Deno.writeTextFile(filePath, '');
     return filePath;
@@ -89,6 +93,13 @@ export class DenoFsAdapter implements FsAdapter {
   }
 
   public async deleteFile(filePath: string): Promise<void> {
+    const tempDir = this.tempFileDirs.get(filePath);
+    if (tempDir !== undefined) {
+      // Remove the private directory created by createTempFile together with its file.
+      await this.deleteDirectory(tempDir);
+      this.tempFileDirs.delete(filePath);
+      return;
+    }
     try {
       await Deno.remove(filePath);
     } catch (error) {
