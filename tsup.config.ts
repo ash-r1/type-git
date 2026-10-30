@@ -19,8 +19,8 @@ export default defineConfig({
         'adapters/deno/index': join(declarations, 'adapters/deno/index.d.ts'),
       } }
     : true,
-  splitting: false,
-  sourcemap: true,
+  splitting: true,
+  sourcemap: false,
   clean: true,
   outDir: 'dist',
 });

@@ -194,10 +194,23 @@ export interface FsAdapter {
   /**
    * Create a temporary file and return its path
    *
+   * Calling `deleteFile` with the returned path should release everything this method
+   * allocated (built-in adapters also remove the private directory holding the file).
+   *
    * @param prefix - Optional prefix for the temp file name
    * @returns Path to the created temporary file
    */
   createTempFile(prefix?: string): Promise<string>;
+
+  /**
+   * Create a fresh, empty temporary directory and return its path
+   *
+   * Callers remove it with {@link FsAdapter.deleteDirectory}.
+   *
+   * @param prefix - Optional prefix for the temp directory name
+   * @returns Path to the created temporary directory
+   */
+  createTempDirectory?(prefix?: string): Promise<string>;
 
   /**
    * Start tailing a file (watching for new lines)
