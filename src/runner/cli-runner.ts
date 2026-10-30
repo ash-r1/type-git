@@ -102,6 +102,18 @@ const LINE_SEPARATOR_PATTERN = /\r|\n/;
  */
 const GIT_TRACE_PATTERN = /^\d{2}:\d{2}:\d{2}\.\d+\s+(?:trace:|[A-Za-z0-9_.-]+\.c:)/;
 
+/** Variables that make Git (or curl) write diagnostics into stderr alongside its own messages. */
+const TRACE_ENV_PATTERN = /^(?:GIT_TRACE\w*|GIT_CURL_VERBOSE)$/i;
+
+/** Remove tracing variables (GIT_TRACE, GIT_TRACE2*, GIT_TRACE_*, GIT_CURL_VERBOSE) in place. */
+function stripTraceEnv(env: Record<string, string>): void {
+  for (const key of Object.keys(env)) {
+    if (TRACE_ENV_PATTERN.test(key)) {
+      delete env[key];
+    }
+  }
+}
+
 /**
  * Convert parsed LFS stderr progress to LfsProgress type
  */
@@ -354,7 +366,7 @@ export class CliRunner {
    * process environment is never forwarded wholesale unless `inheritEnv: true` is set
    * (environment variable traversal prevention).
    */
-  private buildEnv(executable?: CompanionExecutable): Record<string, string> {
+  private buildEnv(executable?: CompanionExecutable, internal = false): Record<string, string> {
     let inheritEnv = this.inheritEnv;
     if (
       executable === 'gitk' &&
@@ -407,7 +419,7 @@ export class CliRunner {
     }
 
     // Enable GIT_TRACE when trace callback is provided (only if not already set)
-    if (this.audit?.onTrace) {
+    if (this.audit?.onTrace && !internal) {
       if (env.GIT_TRACE === undefined) {
         env.GIT_TRACE = '1';
       } else if (!env.GIT_TRACE || env.GIT_TRACE === '0') {
@@ -470,7 +482,7 @@ export class CliRunner {
     opts: RunOptions,
   ): Promise<RawResult> {
     if (context.type !== 'global') {
-      return await this.run(context, args, opts);
+      return await this.probe(context, args, opts);
     }
     if (opts.signal?.aborted) {
       return { stdout: '', stderr: '', exitCode: -1, aborted: true };
@@ -481,11 +493,11 @@ export class CliRunner {
     const file = directory === undefined ? await this.fs.createTempFile('type-git-probe-') : '';
     const gitDir = directory ?? `${file}-repo`;
     try {
-      const init = await this.run(context, ['init', '--bare', '--quiet', gitDir], opts);
+      const init = await this.probe(context, ['init', '--bare', '--quiet', gitDir], opts);
       if (init.aborted || init.exitCode !== 0) {
         return init;
       }
-      return await this.run({ type: 'bare', gitDir }, args, opts);
+      return await this.probe({ type: 'bare', gitDir }, args, opts);
     } finally {
       await this.fs.deleteDirectory(gitDir);
       if (directory === undefined) {
@@ -502,7 +514,7 @@ export class CliRunner {
     const destination = await this.fs.createTempFile('type-git-depth-profile-');
     try {
       await this.fs.writeFile(destination, '');
-      const result = await this.run(
+      const result = await this.probe(
         context,
         ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
         {
@@ -620,7 +632,7 @@ export class CliRunner {
     );
     if (charDependent) {
       const args = [...OBJECT_FILTER_CHAR_PROBE];
-      const probe = await this.run(context, args, probeOptions);
+      const probe = await this.probe(context, args, probeOptions);
       if (probe.aborted) {
         throw this.mapError(probe, context, this.buildArgv(context, args));
       }
@@ -670,7 +682,7 @@ export class CliRunner {
     let longBits = selected[0]!.longBits;
     if (selected.length !== 2) {
       const args = ['version', '--build-options'];
-      const widths = await this.run(context, args, probeOptions);
+      const widths = await this.probe(context, args, probeOptions);
       if (widths.aborted) {
         throw this.mapError(widths, context, this.buildArgv(context, args));
       }
@@ -815,7 +827,7 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
-      const path = await this.run(context, ['--exec-path'], probeOptions);
+      const path = await this.probe(context, ['--exec-path'], probeOptions);
       if (path.aborted) {
         return { ...path, stdout: binary ? new Uint8Array(0) : path.stdout };
       }
@@ -844,7 +856,7 @@ export class CliRunner {
       if (!grammar) {
         return await execute(argv);
       }
-      const version = await this.run(context, [argv[0]!, '--version'], probeOptions);
+      const version = await this.probe(context, [argv[0]!, '--version'], probeOptions);
       if (version.aborted) {
         return { ...version, stdout: binary ? new Uint8Array(0) : version.stdout };
       }
@@ -896,7 +908,7 @@ export class CliRunner {
           ...(opts?.env ? { env: opts.env } : {}),
           ...(opts?.signal ? { signal: opts.signal } : {}),
         };
-        const negate = await this.run(
+        const negate = await this.probe(
           context,
           [
             'tag',
@@ -910,7 +922,7 @@ export class CliRunner {
         if (negate.aborted) {
           return { ...negate, stdout: binary ? new Uint8Array(0) : negate.stdout };
         }
-        const empty = await this.run(
+        const empty = await this.probe(
           context,
           ['tag', '--list', 'type-git-profile-readonly', '--file='],
           probeOptions,
@@ -958,7 +970,7 @@ export class CliRunner {
             if (ignored.has(value)) {
               continue;
             }
-            const result = await this.run(
+            const result = await this.probe(
               context,
               ['tag', '--list', 'type-git-profile-readonly', `--file=${value}`],
               probeOptions,
@@ -1002,7 +1014,7 @@ export class CliRunner {
     };
     let emptyPickaxeRejected: boolean | undefined;
     if (commandUsesEmptyPickaxe(command, traitArgs)) {
-      const probe = await this.run(context, [...PICKAXE_EMPTY_PROBE], {
+      const probe = await this.probe(context, [...PICKAXE_EMPTY_PROBE], {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       });
@@ -1016,7 +1028,7 @@ export class CliRunner {
     }
     let submoduleInitAlias: boolean | undefined;
     if (commandUsesSubmoduleInitAlias(command, traitArgs)) {
-      const probe = await this.run(context, ['submodule--helper', 'update', '-i', '-h'], {
+      const probe = await this.probe(context, ['submodule--helper', 'update', '-i', '-h'], {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       });
@@ -1056,7 +1068,7 @@ export class CliRunner {
         ['--name-only', '--long', '-h'],
         ['--name-only', '--name-status', '-h'],
       ]) {
-        const probe = await this.run(context, ['ls-tree', ...tail], {
+        const probe = await this.probe(context, ['ls-tree', ...tail], {
           ...(opts?.env ? { env: opts.env } : {}),
           ...(opts?.signal ? { signal: opts.signal } : {}),
         });
@@ -1099,7 +1111,7 @@ export class CliRunner {
         ['-u', '--exclude-per-directory=type-git-profile-ignore', '-h'],
         ['-u', '--exclude-per-directory=.gitignore', '--exclude-per-directory=.gitignore', '-h'],
       ]) {
-        const probe = await this.run(context, ['read-tree', ...tail], {
+        const probe = await this.probe(context, ['read-tree', ...tail], {
           ...(opts?.env ? { env: opts.env } : {}),
           ...(opts?.signal ? { signal: opts.signal } : {}),
         });
@@ -1141,7 +1153,7 @@ export class CliRunner {
     let repackMaxPackSize: 'immediate' | 'deferred' | undefined;
     if (commandUsesRepackMaxPackSize(command, traitArgs)) {
       const original = commandExecutableShapeArguments(command, args, inRepository);
-      const probe = await this.run(
+      const probe = await this.probe(
         context,
         ['repack', '--max-pack-size=type-git-profile-invalid', '-h'],
         {
@@ -1173,7 +1185,7 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
-      const probe = await this.run(
+      const probe = await this.probe(
         context,
         ['cherry-pick', '--empty=type-git-invalid', '-h'],
         probeOptions,
@@ -1355,7 +1367,7 @@ export class CliRunner {
         }
         if ([...groups.values()].some((group) => group.size !== 2)) {
           // A negative magnitude beyond either ULONG_MAX distinguishes saturation from negation.
-          const probe = await this.run(
+          const probe = await this.probe(
             context,
             ['shortlog', '-w2,-18446744073709551616,0', '-h'],
             probeOptions,
@@ -1398,7 +1410,7 @@ export class CliRunner {
           groups.get(key)!.add(conflictStyle!);
         }
         if ([...groups.values()].some((group) => group.size !== 2)) {
-          const probe = await this.run(context, [command, '--conflict=bad', '-h'], probeOptions);
+          const probe = await this.probe(context, [command, '--conflict=bad', '-h'], probeOptions);
           if (probe.aborted) {
             return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
           }
@@ -1443,7 +1455,7 @@ export class CliRunner {
           feature === 'preserve'
             ? ['pull', '--rebase=preserve', '-h']
             : ['push', '--recurse-submodules=only-is-on-demand', '-h'];
-        const probe = await this.run(context, argv, probeOptions);
+        const probe = await this.probe(context, argv, probeOptions);
         if (probe.aborted) {
           return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
         }
@@ -1498,7 +1510,7 @@ export class CliRunner {
       };
       if (booleanSources.length > 1 && booleanDependent('booleanSource', booleanSources.length)) {
         const observe = (value: string) =>
-          this.run(
+          this.probe(
             context,
             [
               '-c',
@@ -1549,7 +1561,7 @@ export class CliRunner {
         booleanBinaries.length > 1 &&
         booleanDependent('booleanBinaryIntegers', booleanBinaries.length)
       ) {
-        const probe = await this.run(
+        const probe = await this.probe(
           context,
           [
             '-c',
@@ -1599,7 +1611,7 @@ export class CliRunner {
           groups.get(key)!.add(char!);
         }
         if ([...groups.values()].some((group) => group.size !== 2)) {
-          const probe = await this.run(context, [...OBJECT_FILTER_CHAR_PROBE], probeOptions);
+          const probe = await this.probe(context, [...OBJECT_FILTER_CHAR_PROBE], probeOptions);
           if (probe.aborted) {
             return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
           }
@@ -1636,7 +1648,11 @@ export class CliRunner {
           selectedCallbacks[callback] = 'modern';
           continue;
         }
-        const probe = await this.run(context, [...DECIMAL_CALLBACK_PROBES[callback]], probeOptions);
+        const probe = await this.probe(
+          context,
+          [...DECIMAL_CALLBACK_PROBES[callback]],
+          probeOptions,
+        );
         if (probe.aborted) {
           return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
         }
@@ -1686,7 +1702,7 @@ export class CliRunner {
         );
       if (familyDependent) {
         // Both branches read help only: no input, repository mutation or network.
-        const family = await this.run(
+        const family = await this.probe(
           context,
           ['column', '--width=2147483648', '-h'],
           probeOptions,
@@ -1775,7 +1791,7 @@ export class CliRunner {
         new Set(selectedValid.map((entry) => `${entry.abi.longBits}:${entry.abi.sizeTBits}`))
           .size !== 4
       ) {
-        const probe = await this.run(context, ['version', '--build-options'], probeOptions);
+        const probe = await this.probe(context, ['version', '--build-options'], probeOptions);
         if (probe.aborted) {
           return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
         }
@@ -1804,7 +1820,7 @@ export class CliRunner {
       }
       if (needsBinaryProfile) {
         // Clone's callback runs before -h. No URL is supplied or contacted.
-        const profile = await this.run(context, ['clone', '--filter=blob:limit=0b1', '-h'], {
+        const profile = await this.probe(context, ['clone', '--filter=blob:limit=0b1', '-h'], {
           ...(opts?.env ? { env: opts.env } : {}),
           ...(opts?.signal ? { signal: opts.signal } : {}),
         });
@@ -1831,6 +1847,21 @@ export class CliRunner {
     opts?: RunOptions,
   ): Promise<RawResult> {
     return (await this.execute(context, args, opts, false)) as RawResult;
+  }
+
+  /**
+   * Run an internal capability probe.
+   *
+   * Probes classify Git's own diagnostics, so tracing is stripped from their environment
+   * (including GIT_TRACE* variables configured by the caller) and they never reach the
+   * user's audit or trace callbacks.
+   */
+  private async probe(
+    context: ExecutionContext,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult> {
+    return (await this.execute(context, args, opts, false, undefined, true)) as RawResult;
   }
 
   public async runBytes(
@@ -1867,6 +1898,7 @@ export class CliRunner {
     opts: RunOptions | undefined,
     binary: boolean,
     executable?: CompanionExecutable,
+    internal = false,
   ): Promise<RawResult<string | Uint8Array>> {
     validateIO({ stdin: opts?.stdin });
     const argv = executable
@@ -1883,13 +1915,19 @@ export class CliRunner {
       } as RawResult<string | Uint8Array>;
     }
 
-    const env = this.buildEnv(executable);
+    const env = this.buildEnv(executable, internal);
 
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
     // the resolved environment.
     if (envOverride) {
       Object.assign(env, envOverride);
     }
+
+    // Internal probes match diagnostics exactly; trace output would corrupt them.
+    if (internal) {
+      stripTraceEnv(env);
+    }
+    const audit = internal ? undefined : this.audit;
 
     if (executable && this.credential?.helper) {
       // Companion programs spawn Git themselves; pass the same config override through its environment protocol.
@@ -1909,8 +1947,8 @@ export class CliRunner {
     const startTimestamp = Date.now();
 
     // Emit audit start event
-    if (this.audit?.onAudit) {
-      this.audit.onAudit({
+    if (audit?.onAudit) {
+      audit.onAudit({
         type: 'start',
         timestamp: startTimestamp,
         argv,
@@ -1922,7 +1960,7 @@ export class CliRunner {
     let stderrBuffer = '';
 
     // Determine if we need stderr streaming
-    const needsStderrStreaming = onProgress || onLfsProgress || this.audit?.onTrace;
+    const needsStderrStreaming = onProgress || onLfsProgress || audit?.onTrace;
 
     let result: Omit<Awaited<ReturnType<ExecAdapter['spawn']>>, 'stdout'> & {
       stdout: string | Uint8Array;
@@ -1969,7 +2007,7 @@ export class CliRunner {
                 stderrBuffer = lines.pop() ?? '';
 
                 for (const line of lines) {
-                  this.processStderrLine(line, onProgress, onLfsProgress);
+                  this.processStderrLine(line, onProgress, onLfsProgress, audit?.onTrace);
                 }
               },
             }
@@ -1978,13 +2016,13 @@ export class CliRunner {
 
       // Process any remaining content in buffer
       if (stderrBuffer.trim() && needsStderrStreaming) {
-        this.processStderrLine(stderrBuffer, onProgress, onLfsProgress);
+        this.processStderrLine(stderrBuffer, onProgress, onLfsProgress, audit?.onTrace);
       }
     } catch (error) {
       // Emit audit end event for spawn failures
-      if (this.audit?.onAudit) {
+      if (audit?.onAudit) {
         const endTimestamp = Date.now();
-        this.audit.onAudit({
+        audit.onAudit({
           type: 'end',
           timestamp: endTimestamp,
           argv,
@@ -2014,9 +2052,9 @@ export class CliRunner {
     }
 
     // Emit audit end event
-    if (this.audit?.onAudit) {
+    if (audit?.onAudit) {
       const endTimestamp = Date.now();
-      this.audit.onAudit({
+      audit.onAudit({
         type: 'end',
         timestamp: endTimestamp,
         argv,
@@ -2049,6 +2087,7 @@ export class CliRunner {
     line: string,
     onProgress: ((progress: GitProgress) => void) | undefined,
     onLfsProgress: ((progress: LfsProgress) => void) | undefined,
+    onTrace: AuditConfig['onTrace'],
   ): void {
     const trimmed = line.trim();
     if (!trimmed) {
@@ -2056,8 +2095,8 @@ export class CliRunner {
     }
 
     // Check for trace output (GIT_TRACE lines start with specific patterns)
-    if (this.audit?.onTrace && GIT_TRACE_PATTERN.test(trimmed)) {
-      this.audit.onTrace({
+    if (onTrace && GIT_TRACE_PATTERN.test(trimmed)) {
+      onTrace({
         timestamp: Date.now(),
         line: trimmed,
       });
