@@ -6803,7 +6803,56 @@
           "stats",
           "all"
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--git-completion-helper": {
+        "key": "git-completion-helper",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.bugreport.git-completion-helper-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.",
+            "source": "Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
+      },
+      "--git-completion-helper-all": {
+        "key": "git-completion-helper-all",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.bugreport.git-completion-helper-all-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.",
+            "source": "Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
       }
+    },
+    "usageExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.",
+      "source": "Git 2.55.0 builtin/bugreport.c:cmd_bugreport parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
     }
   },
   "diagnose": {
@@ -6819,7 +6868,56 @@
           "stats",
           "all"
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--git-completion-helper": {
+        "key": "git-completion-helper",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.diagnose.git-completion-helper-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.",
+            "source": "Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
+      },
+      "--git-completion-helper-all": {
+        "key": "git-completion-helper-all",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.diagnose.git-completion-helper-all-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.",
+            "source": "Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
       }
+    },
+    "usageExit": {
+      "flags": [
+        "-h",
+        "--help",
+        "--help-all"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.",
+      "source": "Git 2.55.0 builtin/diagnose.c:cmd_diagnose parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
     }
   },
   "version": {
