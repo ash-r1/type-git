@@ -54,6 +54,10 @@ export class DenoFsAdapter implements FsAdapter {
     return filePath;
   }
 
+  public async createTempDirectory(prefix: string = 'type-git-'): Promise<string> {
+    return await Deno.makeTempDir({ prefix });
+  }
+
   public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
     const decoder = new TextDecoder();

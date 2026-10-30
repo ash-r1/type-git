@@ -27,6 +27,10 @@ export class BunFsAdapter implements FsAdapter {
     return filePath;
   }
 
+  public async createTempDirectory(prefix: string = 'type-git-'): Promise<string> {
+    return await mkdtemp(join(tmpdir(), prefix));
+  }
+
   public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
 

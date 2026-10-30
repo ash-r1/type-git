@@ -203,6 +203,16 @@ export interface FsAdapter {
   createTempFile(prefix?: string): Promise<string>;
 
   /**
+   * Create a fresh, empty temporary directory and return its path
+   *
+   * Callers remove it with {@link FsAdapter.deleteDirectory}.
+   *
+   * @param prefix - Optional prefix for the temp directory name
+   * @returns Path to the created temporary directory
+   */
+  createTempDirectory?(prefix?: string): Promise<string>;
+
+  /**
    * Start tailing a file (watching for new lines)
    *
    * @param options - Tail options
