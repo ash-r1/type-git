@@ -1,3 +1,6 @@
+import { readdir } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { basename, dirname } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments, commandUsesDepthAtoi } from '../commands/build.js';
@@ -35,6 +38,10 @@ describe('independent initial depth atoi profile', () => {
     );
     expect(blocker).toBeDefined();
     expect(await exists(blocker!)).toBe(false);
+    const probeDir = dirname(blocker!);
+    expect(basename(probeDir)).toMatch(/^type-git-depth-profile-/);
+    expect(await exists(probeDir)).toBe(false);
+    expect(await readdir(tmpdir())).not.toContain(basename(probeDir));
   });
 
   it('delegates to native execution when a blocking file cannot be created', async () => {
