@@ -457,6 +457,43 @@ export class CliRunner {
     await this.validateNativeOptions(context, name, options, opts);
   }
 
+  /**
+   * Run a probe of a builtin that requires a repository (RUN_SETUP).
+   *
+   * Global contexts carry no repository, so such probes would otherwise discover one from the
+   * process working directory: outside a repository Git dies before parsing options, and inside
+   * an unrelated one its configuration leaks in. Run them against a throwaway empty repository.
+   */
+  private async runRepositoryProbe(
+    context: ExecutionContext,
+    args: string[],
+    opts: RunOptions,
+  ): Promise<RawResult> {
+    if (context.type !== 'global') {
+      return await this.run(context, args, opts);
+    }
+    if (opts.signal?.aborted) {
+      return { stdout: '', stderr: '', exitCode: -1, aborted: true };
+    }
+    const directory = this.fs.createTempDirectory
+      ? await this.fs.createTempDirectory('type-git-probe-')
+      : undefined;
+    const file = directory === undefined ? await this.fs.createTempFile('type-git-probe-') : '';
+    const gitDir = directory ?? `${file}-repo`;
+    try {
+      const init = await this.run(context, ['init', '--bare', '--quiet', gitDir], opts);
+      if (init.aborted || init.exitCode !== 0) {
+        return init;
+      }
+      return await this.run({ type: 'bare', gitDir }, args, opts);
+    } finally {
+      await this.fs.deleteDirectory(gitDir);
+      if (directory === undefined) {
+        await this.fs.deleteFile(file);
+      }
+    }
+  }
+
   /** Observe atoi using an existing file so clone stops before transport or destination creation. */
   private async observeDepthAtoi(context: ExecutionContext, opts?: RunOptions) {
     if (!this.fs.writeFile) {
@@ -604,7 +641,7 @@ export class CliRunner {
     );
     if (signDependent) {
       const args = ['pack-objects', '--max-pack-size=-0', '-h'];
-      const sign = await this.run(context, args, probeOptions);
+      const sign = await this.runRepositoryProbe(context, args, probeOptions);
       if (sign.aborted) {
         throw this.mapError(sign, context, this.buildArgv(context, args));
       }
@@ -1693,7 +1730,7 @@ export class CliRunner {
           ),
         );
       if (signDependent) {
-        const sign = await this.run(
+        const sign = await this.runRepositoryProbe(
           context,
           ['pack-objects', '--max-pack-size=-0', '-h'],
           probeOptions,
