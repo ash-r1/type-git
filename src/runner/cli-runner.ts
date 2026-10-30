@@ -1,18 +1,18 @@
-import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
-import type { GitBooleanSource, GitBooleanCapabilities } from '../constraints/git-boolean.js';
-import {
-  OBJECT_FILTER_CHAR_PROBE,
-  objectFilterUnsignedChar,
-} from '../constraints/object-filter.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
+import type { GitBooleanCapabilities, GitBooleanSource } from '../constraints/git-boolean.js';
 import {
   DECIMAL_CALLBACK_PROBES,
   decimalCallbackFamily,
   type GitDecimalCallbacks,
 } from '../constraints/git-decimal.js';
-import { validateOptions as checkOptions } from '../core/option-rules.js';
-import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { validInitialDepth } from '../constraints/git-scalars.js';
+import {
+  OBJECT_FILTER_CHAR_PROBE,
+  objectFilterUnsignedChar,
+} from '../constraints/object-filter.js';
+import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
+import { validateOptions as checkOptions } from '../core/option-rules.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -25,40 +25,40 @@ import { validInitialDepth } from '../constraints/git-scalars.js';
 import process from 'node:process';
 import {
   commandArguments,
-  isDocumentationDispatch,
-  commandFilenameTokens,
-  type FilenameContext,
-  type FilenameProfile,
-  commandShapeArguments,
-  commandUsesFirstPassEmpty,
-  commandHasLegacyStashHelp,
-  commandUsesSubmoduleInitAlias,
-  commandUsesEmptyPickaxe,
-  commandUsesDepthAtoi,
-  validateArgvStrings,
-  commandDecimalCallbacks,
-  commandUsesConflictStyle,
-  commandUsesRepackMaxPackSize,
-  commandUsesReadTreeExclude,
-  commandUsesLsTreeModes,
-  commandUsesBooleanSource,
-  commandUsesBooleanBinary,
   commandBooleanFeatures,
-  commandUsesDecimalCallback,
+  commandDecimalCallbacks,
+  commandFilenameTokens,
+  commandHasLegacyStashHelp,
+  commandShapeArguments,
+  commandUsesBooleanBinary,
+  commandUsesBooleanSource,
   commandUsesCompoundDecimal,
-  commandUsesNativeABI,
+  commandUsesConflictStyle,
+  commandUsesDecimalCallback,
+  commandUsesDepthAtoi,
+  commandUsesEmptyPickaxe,
+  commandUsesFirstPassEmpty,
   commandUsesIntegerProfile,
+  commandUsesLsTreeModes,
+  commandUsesNativeABI,
   commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
   commandUsesObjectFilterCharProfile,
+  commandUsesReadTreeExclude,
+  commandUsesRepackMaxPackSize,
+  commandUsesSubmoduleInitAlias,
+  type FilenameContext,
+  type FilenameProfile,
+  isDocumentationDispatch,
+  validateArgvStrings,
 } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
-import { initialParserPass } from '../commands/initial-parser-pass.js';
 import {
   type GuiGrammar,
   guiGrammarFromSource,
   guiLaunchFromSource,
 } from '../commands/gui-syntax.js';
+import { initialParserPass } from '../commands/initial-parser-pass.js';
 import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
@@ -75,10 +75,10 @@ import type {
   ExecOpts,
   ExecutionContext,
   GitErrorKind,
+  GitOutputMode,
   GitProgress,
   LfsProgress,
   RawResult,
-  GitOutputMode,
 } from '../core/types.js';
 import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
@@ -456,6 +456,43 @@ export class CliRunner {
     await this.validateNativeOptions(context, name, options, opts);
   }
 
+  /**
+   * Run a probe of a builtin that requires a repository (RUN_SETUP).
+   *
+   * Global contexts carry no repository, so such probes would otherwise discover one from the
+   * process working directory: outside a repository Git dies before parsing options, and inside
+   * an unrelated one its configuration leaks in. Run them against a throwaway empty repository.
+   */
+  private async runRepositoryProbe(
+    context: ExecutionContext,
+    args: string[],
+    opts: RunOptions,
+  ): Promise<RawResult> {
+    if (context.type !== 'global') {
+      return await this.run(context, args, opts);
+    }
+    if (opts.signal?.aborted) {
+      return { stdout: '', stderr: '', exitCode: -1, aborted: true };
+    }
+    const directory = this.fs.createTempDirectory
+      ? await this.fs.createTempDirectory('type-git-probe-')
+      : undefined;
+    const file = directory === undefined ? await this.fs.createTempFile('type-git-probe-') : '';
+    const gitDir = directory ?? `${file}-repo`;
+    try {
+      const init = await this.run(context, ['init', '--bare', '--quiet', gitDir], opts);
+      if (init.aborted || init.exitCode !== 0) {
+        return init;
+      }
+      return await this.run({ type: 'bare', gitDir }, args, opts);
+    } finally {
+      await this.fs.deleteDirectory(gitDir);
+      if (directory === undefined) {
+        await this.fs.deleteFile(file);
+      }
+    }
+  }
+
   /** Observe atoi using an existing file so clone stops before transport or destination creation. */
   private async observeDepthAtoi(context: ExecutionContext, opts?: RunOptions) {
     if (!this.fs.writeFile) {
@@ -603,7 +640,7 @@ export class CliRunner {
     );
     if (signDependent) {
       const args = ['pack-objects', '--max-pack-size=-0', '-h'];
-      const sign = await this.run(context, args, probeOptions);
+      const sign = await this.runRepositoryProbe(context, args, probeOptions);
       if (sign.aborted) {
         throw this.mapError(sign, context, this.buildArgv(context, args));
       }
@@ -1692,7 +1729,7 @@ export class CliRunner {
           ),
         );
       if (signDependent) {
-        const sign = await this.run(
+        const sign = await this.runRepositoryProbe(
           context,
           ['pack-objects', '--max-pack-size=-0', '-h'],
           probeOptions,
@@ -1776,7 +1813,7 @@ export class CliRunner {
         const diagnostic = profile.stdout + profile.stderr;
         const supported = profile.exitCode === 129 && diagnostic.includes('usage:');
         const unsupported = profile.exitCode === 128 && diagnostic.includes('invalid filter-spec');
-        if (!supported && !unsupported) {
+        if (!(supported || unsupported)) {
           // Unrecognized/localized frontends keep their own native validation.
           return await execute(build(command, args, inRepository, abi));
         }
