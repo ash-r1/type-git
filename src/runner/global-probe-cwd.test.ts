@@ -93,4 +93,37 @@ describe('repository-requiring probes in global contexts', () => {
     }
     expect(adapters.fs.deleteDirectory).toHaveBeenCalledWith('/tmp/type-git-probe-1');
   });
+
+  it('runs the throwaway-repository probe without tracing or audit events', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempDirectory = vi.fn().mockResolvedValue('/tmp/type-git-probe-2');
+    adapters.fs.deleteDirectory = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi.fn().mockImplementation(async ({ argv }: { argv: string[] }) =>
+      argv.includes('init')
+        ? { exitCode: 0, stdout: '', stderr: '', aborted: false }
+        : {
+            exitCode: 129,
+            stdout: '',
+            stderr: 'error: expects a non-negative integer value',
+            aborted: false,
+          },
+    );
+    const onAudit = vi.fn();
+    const onTrace = vi.fn();
+    await expect(
+      new CliRunner(adapters, { audit: { onAudit, onTrace } }).validateFilterOptions(
+        { type: 'global' },
+        'clone',
+        { filter: 'blob:limit=-1' },
+        { env: { GIT_TRACE_SETUP: '1' } },
+      ),
+    ).rejects.toThrow();
+    const calls = vi.mocked(adapters.exec.spawn).mock.calls.map(([options]) => options);
+    expect(calls).toHaveLength(2);
+    for (const options of calls) {
+      expect(Object.keys(options.env ?? {}).filter((key) => /^GIT_TRACE/.test(key))).toEqual([]);
+    }
+    expect(onAudit).not.toHaveBeenCalled();
+    expect(onTrace).not.toHaveBeenCalled();
+  });
 });
