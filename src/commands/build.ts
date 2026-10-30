@@ -265,6 +265,7 @@ function buildArguments(
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
   operandIndexes?: number[],
+  guard = false,
 ): string[] {
   let spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
@@ -345,6 +346,8 @@ function buildArguments(
         options,
       },
       alternatives,
+      undefined,
+      guard,
     );
     if (evaluationMode === 'shape') {
       return original;
@@ -385,9 +388,14 @@ function buildArguments(
       guiLaunch,
       evaluationMode,
       replay,
+      undefined,
+      undefined,
+      undefined,
+      guard,
     );
   }
-  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+  // A guarded shape serialization repeats only the provenance decisions of a full evaluation.
+  if ((evaluationMode === 'full' || guard) && spec.parserExit?.firstPassOptions) {
     const serializedOperands: number[] = [];
     const serialized = buildArguments(
       command,
@@ -416,28 +424,42 @@ function buildArguments(
         'Use an explicit ["--"] separator before an operand starting with a dash',
       );
     };
-    const pass = initialParserPass(
-      spec,
-      serialized.slice(spec.argv.length),
-      abi?.firstPassEmpty ?? true,
-      spec.parserExit,
-      abi?.stopBeforeFilename === undefined
-        ? undefined
-        : (() => {
-            let reached = 0;
-            return (token: readonly string[]) => {
-              const option = spec.options[token[0]!];
-              return (
-                option?.emptyIsUnset === true &&
-                typeof token[1] === 'string' &&
-                token[1].startsWith(':(optional)') &&
-                reached++ === abi.stopBeforeFilename
-              );
-            };
-          })(),
-      literal,
-    );
+    const firstPass = () =>
+      initialParserPass(
+        spec,
+        serialized.slice(spec.argv.length),
+        abi?.firstPassEmpty ?? true,
+        spec.parserExit,
+        abi?.stopBeforeFilename === undefined
+          ? undefined
+          : (() => {
+              let reached = 0;
+              return (token: readonly string[]) => {
+                const option = spec.options[token[0]!];
+                return (
+                  option?.emptyIsUnset === true &&
+                  typeof token[1] === 'string' &&
+                  token[1].startsWith(':(optional)') &&
+                  reached++ === abi.stopBeforeFilename
+                );
+              };
+            })(),
+        literal,
+      );
+    let pass: ReturnType<typeof initialParserPass>;
+    try {
+      pass = firstPass();
+    } catch (error) {
+      // A first-pass usage error is a native exit before any later word is parsed.
+      if (guard && error instanceof GitArgumentError) {
+        return serialized;
+      }
+      throw error;
+    }
     const initialTokens = initialParserInputs(spec, args, pass.tokens);
+    if (pass.exited && guard) {
+      return serialized;
+    }
     if (pass.exited) {
       buildArguments(
         command,
@@ -455,15 +477,17 @@ function buildArguments(
       if (pass.literalOption || pass.literalUnknown) {
         rejectLiteralOption();
       }
-      buildArguments(
-        command,
-        initialTokens,
-        inRepository,
-        abi,
-        guiGrammar,
-        guiLaunch,
-        'first-pass',
-      );
+      if (!guard) {
+        buildArguments(
+          command,
+          initialTokens,
+          inRepository,
+          abi,
+          guiGrammar,
+          guiLaunch,
+          'first-pass',
+        );
+      }
       buildArguments(
         spec.dispatch![pass.subcommand] as GitCommandName,
         pass.remaining.map((operand, index) => {
@@ -477,6 +501,12 @@ function buildArguments(
         abi,
         guiGrammar,
         guiLaunch,
+        guard ? 'shape' : 'full',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        guard,
       );
       return serialized;
     }
@@ -524,6 +554,9 @@ function buildArguments(
       // A native exit in the retained stream still happens before execution.
       if (revision && !revision.exited && (pass.literalOption || revision.literalOption)) {
         rejectLiteralOption();
+      }
+      if (guard) {
+        return serialized;
       }
       const remaining = operandsOnly
         ? words.map((operand, index) =>
@@ -588,6 +621,15 @@ function buildArguments(
       !spec.parserExit?.firstPassOptions &&
       typeof soleFlag === 'string' &&
       spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  // A guarded shape pass tracks the exits, boundaries and literal tails of a full evaluation
+  // while still serializing without semantic checks.
+  let guardExited =
+    firstWordExited ||
+    (!spec.parserExit?.firstPassOptions &&
+      typeof soleFlag === 'string' &&
+      spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
+  let guardEnded = false;
+  let guardLiteral = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -619,7 +661,9 @@ function buildArguments(
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
-        !(parserExited || ended || literalOperands) &&
+        (guard
+          ? !(guardExited || guardEnded || guardLiteral)
+          : !(parserExited || ended || literalOperands)) &&
         spec.optionParsing !== 'none' &&
         !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
         operand.startsWith('-') &&
@@ -651,6 +695,9 @@ function buildArguments(
     if (arg[0] === '--' && arg.length === 1) {
       if (!parserExited && (!spec.separator || ended)) {
         throw new GitArgumentError(`${command}: unexpected end-of-options marker`);
+      }
+      if (spec.separator) {
+        guardEnded = true;
       }
       ended = true;
       state.hasSeparator = true;
@@ -908,7 +955,19 @@ function buildArguments(
     ) {
       usageExited = true;
       parserExited = true;
+      guardExited = true;
       continue;
+    }
+    if (guard && !guardExited) {
+      if (option.consumesRest) {
+        guardLiteral = true;
+      }
+      if (
+        spec.parserExit?.flags.includes(flag) &&
+        !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+      ) {
+        guardExited = true;
+      }
     }
     if (parserExited) {
       continue;
@@ -1064,6 +1123,35 @@ export function commandShapeArguments(
   inRepository?: boolean,
 ): string[] {
   return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
+}
+
+/**
+ * Serialize shape for execution by a native parser whose profile is unknown. Semantic checks
+ * stay with the selected Git, but an operand object that a full evaluation would refuse as a
+ * live option or boundary is refused here too; both first-pass `--empty` arities are checked.
+ */
+export function commandExecutableShapeArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): string[] {
+  for (const firstPassEmpty of [true, false]) {
+    buildArguments(
+      command,
+      args,
+      inRepository,
+      { longBits: 64, sizeTBits: 64, firstPassEmpty },
+      undefined,
+      undefined,
+      'shape',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      true,
+    );
+  }
+  return commandShapeArguments(command, args, inRepository);
 }
 
 /** Observe the legacy stash parent's help exit without executing any child semantics. */
