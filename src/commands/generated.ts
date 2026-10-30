@@ -51242,6 +51242,43 @@ const commandSpec160 = {
     '--no-suffix': sharedOption1038,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bugreport.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.bugreport.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -51257,6 +51294,15 @@ const commandSpec160 = {
   ],
   source: 'builtin/bugreport.c',
   separator: true,
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.',
+    source:
+      'Git 2.55.0 builtin/bugreport.c:cmd_bugreport parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec161 = {
   argv: ['diagnose'],
@@ -51274,10 +51320,56 @@ const commandSpec161 = {
     '--no-suffix': sharedOption1038,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diagnose.git-completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'git-completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diagnose.git-completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [],
   source: 'builtin/diagnose.c',
   separator: true,
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.',
+    source:
+      'Git 2.55.0 builtin/diagnose.c:cmd_diagnose parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec162 = {
   argv: ['version'],

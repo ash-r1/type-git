@@ -3881,9 +3881,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/diagnostic-help.test.ts",
+        "src/commands/diagnostic-help-native.test.ts",
+        "test/types/diagnostic-help.ts"
       ],
-      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented.",
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented. Ordered internal help, ignored callback/unknown tails and sole-word completion now have finite native/API and compiler controls. Public tuple shapes and argv NUL boundaries remain enforced. Diagnostic archive/report creation, suffix and path behavior, configuration, abbreviations and broader platform/version semantics remain partial.",
       "typedCommandAPI": true
     },
     "diagnose": {
@@ -3897,9 +3900,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/diagnostic-help.test.ts",
+        "src/commands/diagnostic-help-native.test.ts",
+        "test/types/diagnostic-help.ts"
       ],
-      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Ordered internal help, ignored callback/unknown tails and sole-word completion now have finite native/API and compiler controls. Public tuple shapes and argv NUL boundaries remain enforced. Diagnostic archive/report creation, suffix and path behavior, configuration, abbreviations and broader platform/version semantics remain partial.",
       "typedCommandAPI": true
     },
     "version": {

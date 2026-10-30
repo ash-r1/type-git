@@ -64892,6 +64892,59 @@
     },
     {
       "command": "bugreport",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.",
+        "source": "Git 2.55.0 builtin/bugreport.c:cmd_bugreport parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.bugreport.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bugreport.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.bugreport.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.bugreport.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "diagnose": [
@@ -64918,6 +64971,14 @@
           "undefined",
           "true"
         ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -64935,8 +64996,8 @@
           "true"
         ]
       },
-      "total": "6000",
-      "accepted": "1200",
+      "total": "24000",
+      "accepted": "4800",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.bugreport.operands": "{\"operands\":[\"value\"]}"
@@ -64944,6 +65005,59 @@
     },
     {
       "command": "diagnose",
+      "usageExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "Reached native help exits before later callbacks and final operand checks, including unknown tail words. Earlier invalid callbacks still fail. Public tuple shapes and argv NUL checks remain independent.",
+        "source": "Git 2.55.0 builtin/diagnose.c:cmd_diagnose parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.diagnose.git-completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.diagnose.git-completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.diagnose.git-completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.diagnose.git-completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 0,
       "domains": {
         "output-directory": [
@@ -64969,6 +65083,14 @@
           "undefined",
           "true"
         ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "git-completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -64986,8 +65108,8 @@
           "true"
         ]
       },
-      "total": "4500",
-      "accepted": "4500",
+      "total": "18000",
+      "accepted": "18000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
