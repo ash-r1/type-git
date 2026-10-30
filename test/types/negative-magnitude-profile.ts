@@ -14,3 +14,17 @@ git.command('pack-objects', [['--max-pack-size', '-0' as '-0' | 'bad'], ['-h']])
 git.command('pack-objects', [['--max-pack-size', '-1k'], ['-h']]);
 // @ts-expect-error -1 is nonzero in every profile that accepts it, conflicting with stdout
 git.command('pack-objects', [['--max-pack-size', '-1'], ['--stdout']]);
+
+// Git accepts exactly one unit suffix after a negative magnitude, never two.
+git.command('pack-objects', [['--max-pack-size', '-0k'], ['-h']]);
+git.command('pack-objects', [['--max-pack-size', '-0G'], ['-h']]);
+git.command('clone', [['--filter', 'blob:limit=-0m'], ['-h']]);
+git.command('clone', [['--filter', 'blob:limit=-00g'], ['-h']]);
+// @ts-expect-error a second unit suffix is rejected
+git.command('pack-objects', [['--max-pack-size', '-0kk'], ['-h']]);
+// @ts-expect-error a second unit suffix is rejected
+git.command('pack-objects', [['--max-pack-size', '-0Kg'], ['-h']]);
+// @ts-expect-error a second unit suffix is rejected
+git.command('clone', [['--filter', 'blob:limit=-0kk'], ['-h']]);
+// @ts-expect-error a second unit suffix is rejected
+git.command('clone', [['--filter', 'blob:limit=-00mk'], ['-h']]);
