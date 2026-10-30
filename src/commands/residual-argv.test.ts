@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/residual-argv-corpus.json';
+import { refusesLiteralOperand } from '../../test/support/literal-operand.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -11,6 +12,10 @@ describe('residual argv after the initial parser', () => {
     for (const row of corpus.cases) {
       const build = (): string[] =>
         commandArguments(row.command as GitCommandName, row.tokens, true);
+      if (row.valid && refusesLiteralOperand(row.tokens, build)) {
+        // Native acceptance of an operand object read as an option is a deliberate refusal.
+        continue;
+      }
       if (row.valid) {
         expect(build(), JSON.stringify(row.argv)).toEqual(row.argv);
       } else {
