@@ -100,9 +100,23 @@ type Cluster<
               ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N>
               : Take<S, `-${C}`, R, T, N>
             : Walk<S, R, readonly [...T, readonly [`-${C}`, Tail]], N>
-        : DeferredUnknown<S, `-${W}`, R, T, N>
-      : DeferredUnknown<S, `-${W}`, R, T, N>
+        : UnknownShort<S, W, Original, R, T, N, First>
+      : UnknownShort<S, W, Original, R, T, N, First>
     : Walk<S, R, T, N>;
+/** Native Git checks single-dash long typos before deferring an unknown leading short. */
+type UnknownShort<
+  S extends CommandSpec,
+  W extends string,
+  Original extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  First extends boolean,
+> = First extends true
+  ? Typo<S, Original> extends true
+    ? Invalid
+    : DeferredUnknown<S, `-${W}`, R, T, N>
+  : DeferredUnknown<S, `-${W}`, R, T, N>;
 type NativeLong<
   S extends CommandSpec,
   F extends string,
