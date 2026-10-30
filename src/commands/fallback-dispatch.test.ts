@@ -209,12 +209,11 @@ describe('native fallback and first-word dispatch', () => {
     compare('stash', [{ operand: 'tracked' }], ['tracked'], false);
     compare('stash', [['--'], { operand: 'tracked' }], ['--', 'tracked'], true);
     compare('stash', [{ operand: 'push' }, { operand: 'tracked' }], ['push', 'tracked'], true);
-    compare(
-      'stash',
-      [{ operand: 'list' }, { operand: '--format=%gd' }],
-      ['list', '--format=%gd'],
-      true,
-    );
+    compare('stash', [{ operand: 'list' }, ['--format', '%gd']], ['list', '--format=%gd'], true);
+    // The delegated log parser would read this operand object as an option.
+    expect(() =>
+      commandArguments('stash', [{ operand: 'list' }, { operand: '--format=%gd' }], true),
+    ).toThrow('Use an explicit ["--"] separator before an operand starting with a dash');
     compare(
       'stash',
       [['--patch'], ['--include-untracked']],
