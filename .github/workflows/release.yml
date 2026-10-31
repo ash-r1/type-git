@@ -15,7 +15,12 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     name: Release
-    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    # Skip when main has moved on: changesets/action resets to github.sha (main's tip), and the newer
+    # commit's own CI run triggers the release for it.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_sha == github.sha
     runs-on: ubuntu-latest
     permissions:
       contents: write
