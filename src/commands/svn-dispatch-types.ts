@@ -67,6 +67,8 @@ export type SvnTokens<
                   ? readonly [readonly [H, V], ...SvnTokens<Rest, Options>]
                   : never
             : [H] extends [`-${string}`]
-              ? never
+              ? [H] extends ['-']
+                ? readonly [{ readonly operand: H }, ...SvnTokens<R, Options>]
+                : never
               : readonly [{ readonly operand: H }, ...SvnTokens<R, Options>]
     : readonly [];
