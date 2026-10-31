@@ -73,6 +73,7 @@ export function configValue<K extends ConfigKey>(
   return normalized as ConfigSchema[K];
 }
 
+/** Read one config value (or all values with `all`), returning undefined or [] when unset. */
 export async function readConfig(
   runner: CliRunner,
   context: ExecutionContext,

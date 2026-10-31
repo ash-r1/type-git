@@ -3,6 +3,8 @@ import { validateOptions } from '../core/option-rules.js';
 import type { FetchOpts, PushOpts } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext } from '../core/types.js';
 import type { CliRunner } from '../runner/cli-runner.js';
+
+/** Run `git fetch` with the convenience options; remote and refspecs must not look like options. */
 export async function fetch(
   runner: CliRunner,
   context: ExecutionContext,
@@ -193,6 +195,7 @@ export async function fetch(
   });
 }
 
+/** Run `git push` with the convenience options; remote and refspecs must not look like options. */
 export async function push(
   runner: CliRunner,
   context: ExecutionContext,
