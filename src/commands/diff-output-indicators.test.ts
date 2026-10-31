@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validStringCallback } from '../constraints/string-callback.js';
 import { commandArguments } from './build.js';
+
 const flags = [
   '--output-indicator-new',
   '--output-indicator-old',

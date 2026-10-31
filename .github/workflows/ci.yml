@@ -23,6 +23,9 @@ jobs:
         run: pnpm lint
       - name: Format check
         run: pnpm format:check
+      # prepublishOnly runs `pnpm check`; keep it green here so releases do not fail at publish time.
+      - name: Biome check (lint, format, import order)
+        run: pnpm check
       - name: Native oracle environment regression
         run: node --test scripts/native-oracle-env.node-test.mjs
 

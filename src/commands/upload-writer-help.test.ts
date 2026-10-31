@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from './build.js';
+
 describe('archive writer sole usage words', () => {
   it('preserves sole usage and ordinary repository words', () => {
     for (const flag of ['-h', '--help-all']) {

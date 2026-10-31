@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { beforeAll, afterAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';

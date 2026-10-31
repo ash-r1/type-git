@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { validStringCallback } from '../constraints/string-callback.js';
-import type { OptionSpec } from './spec.js';
-import { COMMAND_SPECS } from './generated.js';
 import { commandArguments } from './build.js';
+import { COMMAND_SPECS } from './generated.js';
+import type { OptionSpec } from './spec.js';
 
 describe('shared diff-filter callback letters', () => {
   it('accepts exactly the source classes without normalizing raw text', () => {

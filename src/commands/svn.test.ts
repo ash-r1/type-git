@@ -1,10 +1,10 @@
-import svnDispatchBoundaries from '../../test/fixtures/svn-dispatch-boundaries.json';
 import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import svnDispatchBoundaries from '../../test/fixtures/svn-dispatch-boundaries.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
