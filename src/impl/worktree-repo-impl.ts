@@ -923,7 +923,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
     }
 
-    const remote = opts?.remote ?? 'origin';
+    const remote = checkedOperand('lfs.preUpload', 'remote', opts?.remote ?? 'origin');
     const batchSize = opts?.batchSize ?? PRE_UPLOAD_DEFAULT_BATCH_SIZE;
     const concurrency = opts?.concurrency ?? PRE_UPLOAD_DEFAULT_CONCURRENCY;
     if (!Number.isInteger(batchSize) || batchSize < 1) {
@@ -936,7 +936,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     // Get OIDs to upload
     let oids: string[];
     if (opts?.oids && opts.oids.length > 0) {
-      oids = opts.oids;
+      oids = checkedOperands('lfs.preUpload', 'oids', opts.oids);
     } else {
       // Get all LFS objects that need to be pushed
       const lsFilesResult = await this.runner.run(
@@ -1052,7 +1052,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
     }
 
-    const remote = opts?.remote ?? 'origin';
+    const remote = checkedOperand('lfs.preDownload', 'remote', opts?.remote ?? 'origin');
     const batchSize = opts?.batchSize ?? 50;
     if (!Number.isInteger(batchSize) || batchSize < 1) {
       throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
@@ -1066,7 +1066,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       // Get LFS objects for a specific ref
       const lsFilesResult = await this.runner.run(
         this.context,
-        ['lfs', 'ls-files', '--long', opts.ref],
+        ['lfs', 'ls-files', '--long', checkedOperand('lfs.preDownload', 'ref', opts.ref)],
         { signal: opts?.signal },
       );
 

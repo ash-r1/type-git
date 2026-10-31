@@ -725,7 +725,14 @@ export class GitImpl implements Git {
   ): Promise<void> {
     await this.runner.runOrThrow(
       { type: 'global' },
-      ['config', '--global', '--add', key, String(value)],
+      [
+        'config',
+        '--global',
+        '--add',
+        '--',
+        checkedOperand('config.add', 'key', key),
+        String(value),
+      ],
       { signal: opts?.signal },
     );
   }

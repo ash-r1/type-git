@@ -20,7 +20,7 @@ export function checkedOperand(command: string, name: string, value: string): st
   if (isOptionLike(value)) {
     throw new GitArgumentError(
       `${command}: ${name} must not start with '-' (got ${JSON.stringify(value)}); ` +
-        'Git would parse it as an option. Prefix paths with ./ to pass them literally.',
+        'Git would parse it as an option.',
     );
   }
   return value;
