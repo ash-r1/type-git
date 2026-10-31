@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';
+
 describe('selected-native pack-redundant deprecation policy', () => {
   for (const outcome of [
     { exitCode: 0, stdout: 'fixture.idx\nfixture.pack\n', stderr: '', aborted: false },

@@ -4,9 +4,9 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
-import { createGitSync } from '../impl/git-impl.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { createGitSync } from '../impl/git-impl.js';
 
 describe('fetch-pack sole full usage and diagnostic controls', () => {
   let root: string;

@@ -4,8 +4,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
-import { createGitSync } from '../impl/git-impl.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { createGitSync } from '../impl/git-impl.js';
 
 describe('rev-parse full usage and revision controls', () => {
   let root: string;

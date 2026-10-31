@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createNodeAdapters } from '../adapters/node/index.js';
-import { CliRunner } from '../runner/cli-runner.js';
 import corpus from '../../test/fixtures/parser-exit-corpus.json';
+import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { CliRunner } from '../runner/cli-runner.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import type { GitCommandName } from './types.js';
