@@ -20,6 +20,7 @@
 // priority groups, or pass command names (a name also selects its "name *"
 // operation scopes). --json prints the same data as JSON.
 import { readdir, readFile } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
 
 const root = new URL('../', import.meta.url);
 const json = async (path) => JSON.parse(await readFile(new URL(path, root), 'utf8'));
@@ -142,7 +143,7 @@ function markdown(report, facets) {
   return `${lines.join('\n')}\n`;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = process.argv.slice(2);
   const asJson = args.includes('--json');
   const names = args.filter((a) => a !== '--json').flatMap((a) => GROUPS[a] ?? [a]);
