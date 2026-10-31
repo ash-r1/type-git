@@ -54,7 +54,16 @@ export type OldMagnitudeLimits = [
   Yes<Valid<'-18446744073709551615k', OldMagnitude>>,
   No<Valid<'-18446744073709551616', OldMagnitude>>,
   No<Valid<'-0' | 'bad', OldMagnitude>>,
+  // Git 2.25 git_parse_unsigned has no end == value check, so a bare unit is zero.
+  Yes<Valid<'k', OldMagnitude>>,
+  Yes<Valid<'G', OldMagnitude>>,
+  No<Valid<'k', U64>>,
+  No<Valid<' k', OldMagnitude>>,
+  No<Valid<'-k', OldMagnitude>>,
+  No<Valid<'+k', OldMagnitude>>,
+  No<Valid<'kk', OldMagnitude>>,
 ];
+export const bareUnitMagnitude: Value<'m', OldMagnitude> = 0;
 export const negativeZeroMagnitude: Value<'-0', OldMagnitude> = 0;
 export const negativeOneMagnitude: Value<'-1', OldMagnitude> = 18446744073709551615n;
 export const negativeLargeMagnitude: Value<'-18446744073709551615k', OldMagnitude> = 1024;

@@ -178,7 +178,8 @@ type Word<
   T extends Tokens,
   N extends readonly unknown[],
 > = W extends '--end-of-options'
-  ? Done<readonly [...T, readonly [W], ...Operands<R>]>
+  ? // Later words are operands, but earlier deferred unknowns still reach the usage check.
+    Finish<readonly [...T, readonly [W], ...Operands<R>]>
   : W extends keyof Options<S>
     ? Bare<S, W, R, T, N>
     : W extends `--${string}`

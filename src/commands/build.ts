@@ -1459,7 +1459,7 @@ export function commandUsesNegativeMagnitude(
       (typeof parser === 'object' &&
         parser.kind === 'integer' &&
         !parser.signed &&
-        /^[ \t\r\n\v\f]*-/.test(String(arg[1]))) ||
+        /^(?:[ \t\r\n\v\f]*-|[kKmMgG]$)/.test(String(arg[1]))) ||
       ((parser === 'object-filter' || parser === 'object-filter-auto') &&
         typeof arg[1] === 'string' &&
         objectFilterUsesNegativeMagnitude(arg[1]))
