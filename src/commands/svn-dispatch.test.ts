@@ -50,6 +50,11 @@ it('reconstructs option values after the command word has been removed', () => {
     { operand: '-i' },
     { operand: 'init' },
   ]);
+  expect(svnParserTokens(['-i', 'x', '-', '-h'], options)).toEqual([
+    ['-i', 'x'],
+    { operand: '-' },
+    ['-h'],
+  ]);
   expect(svnParserTokens(['-i'], options)).toBeUndefined();
   expect(svnParserTokens(['--unknown'], options)).toBeUndefined();
   expect(svnParserTokens(['-h=value'], options)).toBeUndefined();
