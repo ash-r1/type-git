@@ -1,7 +1,7 @@
-import type { GitIntegerProfile } from '../constraints/git-integer.js';
-import type { GitDecimalCallbacks } from '../constraints/git-decimal.js';
-import type { GitBooleanSource } from '../constraints/git-boolean.js';
 import { createHash } from 'node:crypto';
+import type { GitBooleanSource } from '../constraints/git-boolean.js';
+import type { GitDecimalCallbacks } from '../constraints/git-decimal.js';
+import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { GitArgumentError } from '../core/types.js';
 import type { CommandSpec } from './spec.js';
 

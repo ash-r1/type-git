@@ -3,8 +3,8 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import { TypeGit } from '../adapters/node/index.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
@@ -61,7 +61,7 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     expect(alias.error).toBeUndefined();
     submoduleInitAlias =
       [0, 129].includes(alias.status!) && (alias.stdout + alias.stderr).startsWith('usage:');
-    if (!submoduleInitAlias && !legacy) {
+    if (!(submoduleInitAlias || legacy)) {
       expect(alias.stderr).toContain("unknown switch `i'");
     }
   });

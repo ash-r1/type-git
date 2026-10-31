@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { parseGitScalar } from './git-scalars.js';
 import { decimalCallbackFamily } from './git-decimal.js';
+import { parseGitScalar } from './git-scalars.js';
 import {
+  type GitTimestampParser,
   parseGitTimestamp,
   timestampCallbackFamily,
-  type GitTimestampParser,
 } from './git-timestamp.js';
 
 const modern = { kind: 'timestamp', conversion: 'checked', longBits: 64 } as const;
