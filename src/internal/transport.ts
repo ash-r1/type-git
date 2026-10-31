@@ -1,3 +1,4 @@
+import { checkedOperand, checkedOperands } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import type { FetchOpts, PushOpts } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext } from '../core/types.js';
@@ -178,12 +179,12 @@ export async function fetch(
 
   // Remote and refspec (must be last)
   if (opts?.remote) {
-    args.push(opts.remote);
+    args.push(checkedOperand('fetch', 'remote', opts.remote));
   }
 
   if (opts?.refspec) {
     const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-    args.push(...refspecs);
+    args.push(...checkedOperands('fetch', 'refspec', refspecs));
   }
 
   await runner.runOrThrow(context, args, {
@@ -330,12 +331,12 @@ export async function push(
 
   // Remote and refspec (must be last)
   if (opts?.remote) {
-    args.push(opts.remote);
+    args.push(checkedOperand('push', 'remote', opts.remote));
   }
 
   if (opts?.refspec) {
     const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-    args.push(...refspecs);
+    args.push(...checkedOperands('push', 'refspec', refspecs));
   }
 
   await runner.runOrThrow(context, args, {
