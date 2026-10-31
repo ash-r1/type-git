@@ -9,6 +9,7 @@ import type {
   GitCommandName,
   UsageCommand,
 } from '../commands/types.js';
+import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -394,6 +395,9 @@ export class GitImpl implements Git {
     path: string,
     opts?: CloneOpts & ExecOpts,
   ): Promise<WorktreeRepo | BareRepo> {
+    // Check operands before option probes can spawn Git.
+    const checkedUrl = checkedOperand('clone', 'url', url);
+    const checkedPath = checkedOperand('clone', 'path', path);
     await this.runner.validateFilterOptions({ type: 'global' }, 'clone', opts, {
       signal: opts?.signal,
     });
@@ -405,7 +409,7 @@ export class GitImpl implements Git {
       args.push('--progress');
     }
 
-    args.push(url, path);
+    args.push(checkedUrl, checkedPath);
 
     const destinationExisted = await this.adapters.fs.exists(path);
     const alreadyAborted = opts?.signal?.aborted;
@@ -490,7 +494,7 @@ export class GitImpl implements Git {
       args.push('--separate-git-dir', opts.separateGitDir);
     }
 
-    args.push(path);
+    args.push(checkedOperand('init', 'path', path));
 
     const destinationExisted = await this.adapters.fs.exists(path);
     const alreadyAborted = opts?.signal?.aborted;
@@ -560,7 +564,7 @@ export class GitImpl implements Git {
       args.push('--sort', opts.sort);
     }
 
-    args.push(url);
+    args.push(checkedOperand('lsRemote', 'url', url));
 
     const result = await this.runner.runOrThrow({ type: 'global' }, args, {
       signal: opts?.signal,
@@ -705,9 +709,13 @@ export class GitImpl implements Git {
     value: ConfigSchema[K],
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', key, String(value)], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      { type: 'global' },
+      ['config', '--global', '--', checkedOperand('config.set', 'key', key), String(value)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -720,7 +728,14 @@ export class GitImpl implements Git {
   ): Promise<void> {
     await this.runner.runOrThrow(
       { type: 'global' },
-      ['config', '--global', '--add', key, String(value)],
+      [
+        'config',
+        '--global',
+        '--add',
+        '--',
+        checkedOperand('config.add', 'key', key),
+        String(value),
+      ],
       { signal: opts?.signal },
     );
   }
@@ -729,9 +744,13 @@ export class GitImpl implements Git {
    * Unset a typed global config value
    */
   private async configUnset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      { type: 'global' },
+      ['config', '--global', '--unset', checkedOperand('config.unset', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -770,7 +789,7 @@ export class GitImpl implements Git {
       args.push('--add');
     }
 
-    args.push(key, value);
+    args.push('--', checkedOperand('config.setRaw', 'key', key), value);
 
     await this.runner.runOrThrow({ type: 'global' }, args, {
       signal: opts?.signal,
@@ -781,9 +800,13 @@ export class GitImpl implements Git {
    * Unset a raw global config value (for arbitrary keys)
    */
   private async configUnsetRaw(key: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      { type: 'global' },
+      ['config', '--global', '--unset', checkedOperand('config.unsetRaw', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**

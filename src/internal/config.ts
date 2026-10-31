@@ -1,3 +1,4 @@
+import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import type {
   ConfigEntry,
@@ -72,6 +73,7 @@ export function configValue<K extends ConfigKey>(
   return normalized as ConfigSchema[K];
 }
 
+/** Read one config value (or all values with `all`), returning undefined or [] when unset. */
 export async function readConfig(
   runner: CliRunner,
   context: ExecutionContext,
@@ -86,7 +88,7 @@ export async function readConfig(
   if (opts?.default !== undefined) {
     args.push('--default', opts.default);
   }
-  args.push(opts?.all ? '--get-all' : '--get', key);
+  args.push(opts?.all ? '--get-all' : '--get', checkedOperand('config.get', 'key', key));
   const result = await runner.run(context, args, opts);
   // Exit 1 means no matching key. Cancellation and all other failures must propagate.
   if (result.exitCode === 1 && !result.aborted) {

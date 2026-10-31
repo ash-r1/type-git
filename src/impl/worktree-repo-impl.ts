@@ -7,6 +7,7 @@ import type {
   GitCommandExecOpts,
   GitCommandName,
 } from '../commands/types.js';
+import { checkedOperand, checkedOperands } from '../core/operands.js';
 import {
   type ExclusiveQuery,
   validateInput,
@@ -442,11 +443,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     // Add remote name
-    args.push(remote);
+    args.push(checkedOperand('lsRemote', 'remote', remote));
 
     // Add specific refs if provided
     if (opts?.refs && opts.refs.length > 0) {
-      args.push(...opts.refs);
+      args.push(...checkedOperands('lsRemote', 'refs', opts.refs));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -512,7 +513,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     // Add tree-ish (required)
-    args.push(treeish);
+    args.push(checkedOperand('lsTree', 'treeish', treeish));
 
     // Add optional paths
     if (opts?.paths && opts.paths.length > 0) {
@@ -742,7 +743,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     // ref must be placed after all options (positional argument)
     if (opts?.ref) {
-      args.push(opts.ref);
+      args.push(checkedOperand('log', 'ref', opts.ref));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -828,7 +829,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['lfs', 'pull'];
 
     if (opts?.remote) {
-      args.push(opts.remote);
+      args.push(checkedOperand('lfs.pull', 'remote', opts.remote));
     }
 
     if (opts?.include !== undefined) {
@@ -874,13 +875,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       );
     }
     args.push(oids ? '--object-id' : '--all');
-    args.push(opts?.remote ?? 'origin');
+    args.push(checkedOperand('lfs.push', 'remote', opts?.remote ?? 'origin'));
 
     const values = oids ?? (opts?.ref ? [opts.ref] : []);
     if (opts?.stdin) {
       args.push('--stdin');
     } else {
-      args.push(...values);
+      args.push(...checkedOperands('lfs.push', 'ref', values));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -922,7 +923,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
     }
 
-    const remote = opts?.remote ?? 'origin';
+    const remote = checkedOperand('lfs.preUpload', 'remote', opts?.remote ?? 'origin');
     const batchSize = opts?.batchSize ?? PRE_UPLOAD_DEFAULT_BATCH_SIZE;
     const concurrency = opts?.concurrency ?? PRE_UPLOAD_DEFAULT_CONCURRENCY;
     if (!Number.isInteger(batchSize) || batchSize < 1) {
@@ -935,7 +936,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     // Get OIDs to upload
     let oids: string[];
     if (opts?.oids && opts.oids.length > 0) {
-      oids = opts.oids;
+      oids = checkedOperands('lfs.preUpload', 'oids', opts.oids);
     } else {
       // Get all LFS objects that need to be pushed
       const lsFilesResult = await this.runner.run(
@@ -1051,7 +1052,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
     }
 
-    const remote = opts?.remote ?? 'origin';
+    const remote = checkedOperand('lfs.preDownload', 'remote', opts?.remote ?? 'origin');
     const batchSize = opts?.batchSize ?? 50;
     if (!Number.isInteger(batchSize) || batchSize < 1) {
       throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
@@ -1065,7 +1066,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       // Get LFS objects for a specific ref
       const lsFilesResult = await this.runner.run(
         this.context,
-        ['lfs', 'ls-files', '--long', opts.ref],
+        ['lfs', 'ls-files', '--long', checkedOperand('lfs.preDownload', 'ref', opts.ref)],
         { signal: opts?.signal },
       );
 
@@ -1219,12 +1220,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.remote || opts?.refs) {
-      args.push(opts.remote ?? 'origin');
+      args.push(checkedOperand('lfs.fetch', 'remote', opts.remote ?? 'origin'));
     }
 
     if (opts?.refs) {
       const refList = Array.isArray(opts.refs) ? opts.refs : [opts.refs];
-      args.push(...refList);
+      args.push(...checkedOperands('lfs.fetch', 'refs', refList));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -1308,7 +1309,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.ref) {
-      args.push(opts.ref);
+      args.push(checkedOperand('lfs.lsFiles', 'ref', opts.ref));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -1345,7 +1346,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     const patternList = Array.isArray(patterns) ? patterns : [patterns];
-    args.push(...patternList);
+    args.push(...checkedOperands('lfs.track', 'patterns', patternList));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1381,7 +1382,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['lfs', 'untrack'];
 
     const patternList = Array.isArray(patterns) ? patterns : [patterns];
-    args.push(...patternList);
+    args.push(...checkedOperands('lfs.untrack', 'patterns', patternList));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1399,7 +1400,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--remote', opts.remote);
     }
 
-    args.push(path);
+    args.push(checkedOperand('lfs.lock', 'path', path));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1440,7 +1441,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--remote', opts.remote);
     }
 
-    args.push(pathOrId);
+    args.push(checkedOperand('lfs.unlock', 'pathOrId', pathOrId));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1546,7 +1547,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (patterns) {
       const patternList = Array.isArray(patterns) ? patterns : [patterns];
-      args.push(...patternList);
+      args.push(...checkedOperands('lfs.checkout', 'patterns', patternList));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -1809,11 +1810,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-b', opts.branch);
     }
 
-    args.push(path);
+    args.push(checkedOperand('worktree.add', 'path', path));
 
     // Add commit-ish after path (e.g., branch name, tag, or commit hash)
     if (opts?.commitish) {
-      args.push(opts.commitish);
+      args.push(checkedOperand('worktree.add', 'commitish', opts.commitish));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -1832,7 +1833,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--force');
     }
 
-    args.push(path);
+    args.push(checkedOperand('worktree.remove', 'path', path));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1870,7 +1871,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--reason', opts.reason);
     }
 
-    args.push(path);
+    args.push(checkedOperand('worktree.lock', 'path', path));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1878,9 +1879,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async worktreeUnlock(path: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['worktree', 'unlock', path], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['worktree', 'unlock', checkedOperand('worktree.unlock', 'path', path)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async worktreeMove(
@@ -1894,7 +1899,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--force');
     }
 
-    args.push(src, dst);
+    args.push(
+      checkedOperand('worktree.move', 'src', src),
+      checkedOperand('worktree.move', 'dst', dst),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -1908,7 +1916,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['worktree', 'repair'];
 
     if (paths && paths.length > 0) {
-      args.push(...paths);
+      args.push(...checkedOperands('worktree.repair', 'paths', paths));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -2115,10 +2123,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--recurse-submodules');
     }
 
-    args.push(name);
+    args.push(checkedOperand('branch.create', 'name', name));
 
     if (opts?.startPoint) {
-      args.push(opts.startPoint);
+      args.push(checkedOperand('branch.create', 'startPoint', opts.startPoint));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -2139,7 +2147,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-d');
     }
 
-    args.push(name);
+    args.push(checkedOperand('branch.delete', 'name', name));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -2147,9 +2155,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async branchRename(oldName: string, newName: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['branch', '-m', oldName, newName], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      [
+        'branch',
+        '-m',
+        checkedOperand('branch.rename', 'oldName', oldName),
+        checkedOperand('branch.rename', 'newName', newName),
+      ],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   // ==========================================================================
@@ -2209,7 +2226,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
       // Add source tree-ish if specified
       if (pathOpts?.source) {
-        args.push(pathOpts.source);
+        args.push(checkedOperand('checkout', 'source', pathOpts.source));
       }
 
       // Add -- separator and pathspecs
@@ -2273,10 +2290,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         args.push('--ignore-other-worktrees');
       }
 
-      args.push(targetOrPaths);
+      args.push(checkedOperand('checkout', 'target', targetOrPaths));
 
       if (branchOpts?.startPoint) {
-        args.push(branchOpts.startPoint);
+        args.push(checkedOperand('checkout', 'startPoint', branchOpts.startPoint));
       }
     }
 
@@ -2589,7 +2606,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (target) {
-      args.push(target);
+      args.push(checkedOperand('diff', 'target', target));
     }
 
     if (opts?.paths && opts.paths.length > 0) {
@@ -2760,7 +2777,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--into-name=${opts.intoName}`);
     }
 
-    args.push(branch);
+    args.push(checkedOperand('merge', 'branch', branch));
 
     const result = await this.runner.run(this.context, args, {
       signal: opts?.signal,
@@ -2997,11 +3014,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     // Remote and branch (must be last)
     if (opts?.remote) {
-      args.push(opts.remote);
+      args.push(checkedOperand('pull', 'remote', opts.remote));
     }
 
     if (opts?.branch) {
-      args.push(opts.branch);
+      args.push(checkedOperand('pull', 'branch', opts.branch));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3047,7 +3064,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (target) {
-      args.push(target);
+      args.push(checkedOperand('reset', 'target', target));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3300,10 +3317,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--ignore-other-worktrees');
     }
 
-    args.push(branch);
+    args.push(checkedOperand('switch', 'branch', branch));
 
     if (opts?.startPoint) {
-      args.push(opts.startPoint);
+      args.push(checkedOperand('switch', 'startPoint', opts.startPoint));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3354,7 +3371,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.pattern) {
-      args.push(opts.pattern);
+      args.push(checkedOperand('tag.list', 'pattern', opts.pattern));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -3413,10 +3430,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--create-reflog');
     }
 
-    args.push(name);
+    args.push(checkedOperand('tag.create', 'name', name));
 
     if (opts?.commit) {
-      args.push(opts.commit);
+      args.push(checkedOperand('tag.create', 'commit', opts.commit));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3425,16 +3442,24 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async tagDelete(name: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['tag', '-d', name], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['tag', '-d', checkedOperand('tag.delete', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async tagShow(name: string, opts?: ExecOpts): Promise<TagInfo> {
     // Try to get tag info using cat-file
-    const typeResult = await this.runner.runOrThrow(this.context, ['cat-file', '-t', name], {
-      signal: opts?.signal,
-    });
+    const typeResult = await this.runner.runOrThrow(
+      this.context,
+      ['cat-file', '-t', checkedOperand('tag.show', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
 
     const isAnnotated = typeResult.stdout.trim() === 'tag';
 
@@ -3513,11 +3538,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     commits: string | string[],
     opts?: CherryPickOpts & ExecOpts,
   ): Promise<void> {
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    // Check operands before option probes can spawn Git.
+    const commitList = control
+      ? []
+      : checkedOperands('cherryPick', 'commits', Array.isArray(commits) ? commits : [commits]);
     await this.runner.validateMainlineOptions(this.context, 'cherryPick', opts, {
       signal: opts?.signal,
     });
     const args = ['cherry-pick'];
-    const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {
       args.push('--abort');
     }
@@ -3595,7 +3624,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (!control) {
-      const commitList = Array.isArray(commits) ? commits : [commits];
       args.push(...commitList);
     }
 
@@ -3692,7 +3720,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--sparse');
     }
 
-    args.push(source, destination);
+    args.push(
+      checkedOperand('mv', 'source', source),
+      checkedOperand('mv', 'destination', destination),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -3850,7 +3881,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.upstream) {
-      args.push(opts.upstream);
+      args.push(checkedOperand('rebase', 'upstream', opts.upstream));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3952,11 +3983,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    // Check operands before option probes can spawn Git.
+    const commitList = control
+      ? []
+      : checkedOperands('revert', 'commits', Array.isArray(commits) ? commits : [commits]);
     await this.runner.validateMainlineOptions(this.context, 'revert', opts, {
       signal: opts?.signal,
     });
     const args = ['revert'];
-    const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {
       args.push('--abort');
     }
@@ -4018,7 +4053,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (!control) {
-      const commitList = Array.isArray(commits) ? commits : [commits];
       args.push(...commitList);
     }
 
@@ -4073,7 +4107,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--decorate=${opts.decorate}`);
     }
 
-    args.push(object);
+    args.push(checkedOperand('show', 'object', object));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4148,7 +4182,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         args.push('--quiet');
       }
 
-      args.push(refOrOpts);
+      args.push(checkedOperand('revParse', 'ref', refOrOpts));
 
       const result = await this.runner.run(this.context, args, { signal: opts?.signal });
       // --verify --quiet exits 1 without output when the ref cannot be resolved
@@ -4311,7 +4345,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['rev-list', '--count'];
 
     if (ref) {
-      args.push(ref);
+      args.push(checkedOperand('revListCount', 'ref', ref));
     } else {
       args.push('HEAD');
     }
@@ -4333,16 +4367,28 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   ): Promise<string | undefined> {
     if (newRef !== undefined) {
       // Set the symbolic ref
-      await this.runner.runOrThrow(this.context, ['symbolic-ref', name, newRef], {
-        signal: opts?.signal,
-      });
+      await this.runner.runOrThrow(
+        this.context,
+        [
+          'symbolic-ref',
+          checkedOperand('symbolicRef', 'name', name),
+          checkedOperand('symbolicRef', 'ref', newRef),
+        ],
+        {
+          signal: opts?.signal,
+        },
+      );
       return undefined;
     }
 
     // Read the symbolic ref
-    const result = await this.runner.runOrThrow(this.context, ['symbolic-ref', name], {
-      signal: opts?.signal,
-    });
+    const result = await this.runner.runOrThrow(
+      this.context,
+      ['symbolic-ref', checkedOperand('symbolicRef', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
 
     return result.stdout.trim();
   }
@@ -4498,7 +4544,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--depth', String(opts.depth));
     }
 
-    args.push(url, path);
+    args.push(
+      checkedOperand('submodule.add', 'url', url),
+      checkedOperand('submodule.add', 'path', path),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4518,7 +4567,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.all) {
       args.push('--all');
     } else {
-      args.push(path);
+      args.push(checkedOperand('submodule.deinit', 'path', path));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -4575,7 +4624,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--recursive');
     }
 
-    args.push(command);
+    args.push(checkedOperand('submodule.foreach', 'command', command));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4715,7 +4764,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-tags');
     }
 
-    args.push(name, url);
+    args.push(checkedOperand('remote.add', 'name', name), checkedOperand('remote.add', 'url', url));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4723,15 +4772,28 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async remoteRemove(name: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['remote', 'remove', name], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['remote', 'remove', checkedOperand('remote.remove', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async remoteRename(oldName: string, newName: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['remote', 'rename', oldName, newName], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      [
+        'remote',
+        'rename',
+        checkedOperand('remote.rename', 'oldName', oldName),
+        checkedOperand('remote.rename', 'newName', newName),
+      ],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async remoteGetUrl(name: string, opts?: RemoteUrlOpts & ExecOpts): Promise<string> {
@@ -4741,7 +4803,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--push');
     }
 
-    args.push(name);
+    args.push(checkedOperand('remote.getUrl', 'name', name));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4761,7 +4823,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--push');
     }
 
-    args.push(name, url);
+    args.push(
+      checkedOperand('remote.setUrl', 'name', name),
+      checkedOperand('remote.setUrl', 'url', url),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4782,10 +4847,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--delete');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.setHead', 'remote', remote));
 
     if (branch && !opts?.auto && !opts?.delete) {
-      args.push(branch);
+      args.push(checkedOperand('remote.setHead', 'branch', branch));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -4800,7 +4865,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-n');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.show', 'remote', remote));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4816,7 +4881,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--dry-run');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.prune', 'remote', remote));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4847,7 +4912,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (remotes && remotes.length > 0) {
-      args.push(...remotes);
+      args.push(...checkedOperands('remote.update', 'remotes', remotes));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -4866,7 +4931,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--add');
     }
 
-    args.push(remote, ...branches);
+    args.push(
+      checkedOperand('remote.setBranches', 'remote', remote),
+      ...checkedOperands('remote.setBranches', 'branches', branches),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4906,9 +4974,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     value: ConfigSchema[K],
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', key, String(value)], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--', checkedOperand('config.set', 'key', key), String(value)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -4919,18 +4991,26 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     value: ConfigSchema[K],
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--add', key, String(value)], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--add', '--', checkedOperand('config.add', 'key', key), String(value)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
    * Unset a typed config value
    */
   private async configUnset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--unset', checkedOperand('config.unset', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -4969,7 +5049,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--add');
     }
 
-    args.push(key, value);
+    args.push('--', checkedOperand('config.setRaw', 'key', key), value);
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4980,9 +5060,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    * Unset a raw config value (for arbitrary keys)
    */
   private async configUnsetRaw(key: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--unset', checkedOperand('config.unsetRaw', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -4997,14 +5081,27 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     newName: string,
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--rename-section', oldName, newName], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      [
+        'config',
+        '--rename-section',
+        checkedOperand('config.renameSection', 'oldName', oldName),
+        checkedOperand('config.renameSection', 'newName', newName),
+      ],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async configRemoveSection(name: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--remove-section', name], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--remove-section', checkedOperand('config.removeSection', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 }

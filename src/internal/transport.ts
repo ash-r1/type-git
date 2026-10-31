@@ -1,12 +1,24 @@
+import { checkedOperand, checkedOperands } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import type { FetchOpts, PushOpts } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext } from '../core/types.js';
 import type { CliRunner } from '../runner/cli-runner.js';
+
+/** Run `git fetch` with the convenience options; remote and refspecs must not look like options. */
 export async function fetch(
   runner: CliRunner,
   context: ExecutionContext,
   opts?: FetchOpts & ExecOpts,
 ): Promise<void> {
+  // Check operands before option probes can spawn Git.
+  const remote = opts?.remote ? checkedOperand('fetch', 'remote', opts.remote) : undefined;
+  const refspecs = opts?.refspec
+    ? checkedOperands(
+        'fetch',
+        'refspec',
+        Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec],
+      )
+    : [];
   await runner.validateFetchOptions(context, opts, { signal: opts?.signal });
   const args = ['fetch'];
 
@@ -177,14 +189,11 @@ export async function fetch(
   }
 
   // Remote and refspec (must be last)
-  if (opts?.remote) {
-    args.push(opts.remote);
+  if (remote) {
+    args.push(remote);
   }
 
-  if (opts?.refspec) {
-    const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-    args.push(...refspecs);
-  }
+  args.push(...refspecs);
 
   await runner.runOrThrow(context, args, {
     signal: opts?.signal,
@@ -192,6 +201,7 @@ export async function fetch(
   });
 }
 
+/** Run `git push` with the convenience options; remote and refspecs must not look like options. */
 export async function push(
   runner: CliRunner,
   context: ExecutionContext,
@@ -330,12 +340,12 @@ export async function push(
 
   // Remote and refspec (must be last)
   if (opts?.remote) {
-    args.push(opts.remote);
+    args.push(checkedOperand('push', 'remote', opts.remote));
   }
 
   if (opts?.refspec) {
     const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-    args.push(...refspecs);
+    args.push(...checkedOperands('push', 'refspec', refspecs));
   }
 
   await runner.runOrThrow(context, args, {
