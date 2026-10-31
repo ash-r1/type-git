@@ -10,6 +10,8 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
+// Match the bounded Windows native process allowance used by send-email.
+const nativeTimeout: number = process.platform === 'win32' ? 20000 : 10000;
 /** Observe native command availability; failed processes are errors, never missing commands. */
 const unavailable = (command: string) => {
   if (command === 'http-backend') {
@@ -22,8 +24,7 @@ const unavailable = (command: string) => {
   const probeStarted = performance.now();
   const result = spawnSync('git', [command, '-h'], {
     encoding: 'utf8',
-    // Match the bounded Windows native help allowance used by send-email.
-    timeout: process.platform === 'win32' ? 20000 : 10000,
+    timeout: nativeTimeout,
     env: { ...process.env, LC_ALL: 'C' },
   });
   if (result.error || result.signal || result.status === null) {
@@ -38,7 +39,7 @@ const unavailable = (command: string) => {
     }
     return true;
   }
-  if (![0, 129].includes(result.status) || !text.includes('usage:')) {
+  if (!([0, 129].includes(result.status) && text.includes('usage:'))) {
     throw new Error(`Cannot inspect ${command} help`);
   }
   return false;
@@ -55,7 +56,7 @@ describe('import and HTTP entrypoint grammars', () => {
       env,
       input,
       encoding: 'utf8',
-      timeout: 10000,
+      timeout: nativeTimeout,
     });
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-import-http-'));
@@ -120,7 +121,7 @@ describe('import and HTTP entrypoint grammars', () => {
     }
   });
   afterAll(async () => {
-    await rm(root, { recursive: true, force: true });
+    await rm(root, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
   });
   const compare = (
     command: GitCommandName,
@@ -340,7 +341,7 @@ describe('import and HTTP entrypoint grammars', () => {
         },
         encoding: 'utf8',
         input: '',
-        timeout: 10000,
+        timeout: nativeTimeout,
       });
       expect(result.error).toBeUndefined();
       expect(result.status, result.stderr).toBe(0);
