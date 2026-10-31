@@ -16,8 +16,8 @@ import { tmpdir } from 'node:os';
 import { delimiter, dirname, join, resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
-import { createGitSync } from '../impl/git-impl.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { createGitSync } from '../impl/git-impl.js';
 
 describe('no-index native usage and file comparison controls', () => {
   let root: string;

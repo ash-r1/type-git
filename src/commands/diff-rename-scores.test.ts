@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { validStringCallback } from '../constraints/string-callback.js';
-import { COMMAND_SPECS } from './generated.js';
 import { commandArguments } from './build.js';
+import { COMMAND_SPECS } from './generated.js';
+
 const flags = ['--break-rewrites', '-B', '--find-renames', '-M', '--find-copies', '-C'] as const;
 describe('shared diff rename/copy score callbacks', () => {
   it('keeps the source digit/dot/percent language and bare optional arguments', () => {
