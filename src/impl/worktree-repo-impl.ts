@@ -3538,11 +3538,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     commits: string | string[],
     opts?: CherryPickOpts & ExecOpts,
   ): Promise<void> {
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    // Check operands before option probes can spawn Git.
+    const commitList = control
+      ? []
+      : checkedOperands('cherryPick', 'commits', Array.isArray(commits) ? commits : [commits]);
     await this.runner.validateMainlineOptions(this.context, 'cherryPick', opts, {
       signal: opts?.signal,
     });
     const args = ['cherry-pick'];
-    const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {
       args.push('--abort');
     }
@@ -3620,8 +3624,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (!control) {
-      const commitList = Array.isArray(commits) ? commits : [commits];
-      args.push(...checkedOperands('cherryPick', 'commits', commitList));
+      args.push(...commitList);
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3980,11 +3983,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    // Check operands before option probes can spawn Git.
+    const commitList = control
+      ? []
+      : checkedOperands('revert', 'commits', Array.isArray(commits) ? commits : [commits]);
     await this.runner.validateMainlineOptions(this.context, 'revert', opts, {
       signal: opts?.signal,
     });
     const args = ['revert'];
-    const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {
       args.push('--abort');
     }
@@ -4046,8 +4053,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (!control) {
-      const commitList = Array.isArray(commits) ? commits : [commits];
-      args.push(...checkedOperands('revert', 'commits', commitList));
+      args.push(...commitList);
     }
 
     await this.runner.runOrThrow(this.context, args, {

@@ -10,6 +10,15 @@ export async function fetch(
   context: ExecutionContext,
   opts?: FetchOpts & ExecOpts,
 ): Promise<void> {
+  // Check operands before option probes can spawn Git.
+  const remote = opts?.remote ? checkedOperand('fetch', 'remote', opts.remote) : undefined;
+  const refspecs = opts?.refspec
+    ? checkedOperands(
+        'fetch',
+        'refspec',
+        Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec],
+      )
+    : [];
   await runner.validateFetchOptions(context, opts, { signal: opts?.signal });
   const args = ['fetch'];
 
@@ -180,14 +189,11 @@ export async function fetch(
   }
 
   // Remote and refspec (must be last)
-  if (opts?.remote) {
-    args.push(checkedOperand('fetch', 'remote', opts.remote));
+  if (remote) {
+    args.push(remote);
   }
 
-  if (opts?.refspec) {
-    const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-    args.push(...checkedOperands('fetch', 'refspec', refspecs));
-  }
+  args.push(...refspecs);
 
   await runner.runOrThrow(context, args, {
     signal: opts?.signal,

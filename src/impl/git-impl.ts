@@ -395,6 +395,9 @@ export class GitImpl implements Git {
     path: string,
     opts?: CloneOpts & ExecOpts,
   ): Promise<WorktreeRepo | BareRepo> {
+    // Check operands before option probes can spawn Git.
+    const checkedUrl = checkedOperand('clone', 'url', url);
+    const checkedPath = checkedOperand('clone', 'path', path);
     await this.runner.validateFilterOptions({ type: 'global' }, 'clone', opts, {
       signal: opts?.signal,
     });
@@ -406,7 +409,7 @@ export class GitImpl implements Git {
       args.push('--progress');
     }
 
-    args.push(checkedOperand('clone', 'url', url), checkedOperand('clone', 'path', path));
+    args.push(checkedUrl, checkedPath);
 
     const destinationExisted = await this.adapters.fs.exists(path);
     const alreadyAborted = opts?.signal?.aborted;

@@ -185,6 +185,13 @@ describe('convenience APIs reject option-like operands', () => {
   });
 
   describe('legitimate values still work', () => {
+    it('config.set and config.add store a value that starts with "-"', async () => {
+      await repo.config.set('user.name', '-1');
+      expect(await repo.config.get('user.name')).toBe('-1');
+      await repo.config.add('user.name', '-2');
+      expect(await repo.config.getAll('user.name')).toEqual(expect.arrayContaining(['-1', '-2']));
+    });
+
     it('config.setRaw stores a value that starts with "-"', async () => {
       await repo.config.setRaw('test.number', '-1');
       expect(await repo.config.getRaw('test.number')).toBe('-1');
