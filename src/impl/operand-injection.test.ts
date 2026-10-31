@@ -14,6 +14,7 @@ import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
+import { checkedOperands } from '../core/operands.js';
 import type { BareRepo, WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGit } from './git-impl.js';
@@ -198,7 +199,9 @@ describe('convenience APIs reject option-like operands', () => {
       await repo.switch('@{-1}');
       expect(await repo.branch.current()).toBe('side');
       await repo.fetch({ remote: 'origin', refspec: '+refs/heads/*:refs/remotes/origin/*' });
-      await repo.fetch({ remote: 'origin', refspec: ['HEAD', '^refs/heads/none'] });
+      // Negative refspecs need Git 2.29+, so check the guard itself rather than fetching.
+      const special = ['-', '^refs/heads/none', ':refs/heads/gone', '@{-1}', 'HEAD~1'];
+      expect(checkedOperands('fetch', 'refspec', special)).toEqual(special);
     });
 
     it('fetch with a normal remote and refspec succeeds', async () => {
