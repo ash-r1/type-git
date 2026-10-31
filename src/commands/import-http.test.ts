@@ -15,7 +15,10 @@ const nativeTimeout: number = process.platform === 'win32' ? 20000 : 10000;
 /** Observe native command availability; failed processes are errors, never missing commands. */
 const unavailable = (command: string) => {
   if (command === 'http-backend') {
-    const listing = spawnSync('git', ['--list-cmds=main'], { encoding: 'utf8', timeout: 10000 });
+    const listing = spawnSync('git', ['--list-cmds=main'], {
+      encoding: 'utf8',
+      timeout: nativeTimeout,
+    });
     if (listing.error || listing.signal || listing.status !== 0) {
       throw new Error('Cannot inspect Git command inventory');
     }
@@ -216,7 +219,7 @@ describe('import and HTTP entrypoint grammars', () => {
     const blob = spawnSync(
       'git',
       ['-C', repo.workdir, 'cat-file', 'blob', 'refs/heads/imported:binary'],
-      { env, timeout: 10000 },
+      { env, timeout: nativeTimeout },
     );
     expect(blob.error).toBeUndefined();
     expect(blob.signal).toBe(null);
