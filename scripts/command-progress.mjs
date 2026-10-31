@@ -31,7 +31,13 @@ export const GROUPS = {
 };
 
 const DELEGATION = /delegat|defer|\bat runtime\b|runtime (?:check|validation)|native Git (?:determines|decides|reports)|opaque|dynamic/i;
-const REMAINING = /remain|require|pending|not (?:yet )?(?:modeled|audited|establish)|separate (?:audit|work)|obligation|further audit|unsupported|completeness/i;
+// "remaining operands" names an operand slot, so only the verb marks open work.
+const REMAINING = /\bremain(?:s|ed)?\b|require|pending|not (?:yet )?(?:modeled|audited|establish)|separate (?:audit|work)|obligation|further audit|unsupported|completeness/i;
+const ACHIEVED = /\b(?:are|is|were|was) (?:now )?(?:modeled|checked|covered|encoded|exercised|recorded|tested|preserved|retained|rejected|accepted)\b|\bcover(?:s|ed)?\b|\bagrees?\b|\bpreserves?\b|\bmatch(?:es)?\b/i;
+// Delegation first, then explicit open work, then explicit achievements; a sentence that
+// matches none stays remaining so unclassified ledger text never reads as done.
+const classify = (s) =>
+  DELEGATION.test(s) ? 'delegation' : REMAINING.test(s) ? 'remaining' : ACHIEVED.test(s) ? 'achieved' : 'remaining';
 const VERSION = /Git ?(\d+\.\d+(?:\.\d+)?)/g;
 const LEGACY = /TYPE_GIT_USE_LEGACY_VERSION|Git 2\.25/;
 
@@ -108,9 +114,9 @@ export async function commandProgress(requested) {
           nativeComparison: { cases: native.reduce((n, c) => n + c.cases, 0), corpora: native },
           compilerTests: record.tests.filter((t) => t.startsWith('test/types/')),
           runtimeTests: record.tests.filter((t) => !t.startsWith('test/types/')),
-          achieved: text.filter((s) => !DELEGATION.test(s) && !REMAINING.test(s)),
-          delegation: text.filter((s) => DELEGATION.test(s)),
-          remaining: text.filter((s) => REMAINING.test(s) && !DELEGATION.test(s)),
+          achieved: text.filter((s) => classify(s) === 'achieved'),
+          delegation: text.filter((s) => classify(s) === 'delegation'),
+          remaining: text.filter((s) => classify(s) === 'remaining'),
         };
       }),
     };

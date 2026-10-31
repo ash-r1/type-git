@@ -30,6 +30,17 @@ describe('per-command progress report', () => {
     expect(new Set([...status.achieved, ...status.delegation, ...status.remaining]).size).toBe(total);
   });
 
+  it('keeps unclassified ledger text open and modeled remaining operands achieved', async () => {
+    const [stash] = await commandProgress(['stash']);
+    const create = stash.scopes.find((scope) => scope.scope === 'stash create');
+    expect(create.achieved).toEqual([]);
+    expect(create.remaining.length).toBeGreaterThan(0);
+    const apply = stash.scopes.find((scope) => scope.scope === 'stash apply');
+    const modeled = apply.achieved.find((s) => s.includes('literal remaining operands are modeled'));
+    expect(modeled).toBeDefined();
+    expect(apply.remaining).not.toContain(modeled);
+  });
+
   it('rejects commands without an audit record', async () => {
     await expect(commandProgress(['not-a-git-command'])).rejects.toThrow('no audit record');
   });
