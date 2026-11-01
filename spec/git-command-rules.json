@@ -6469,6 +6469,20 @@
         "key": "pathspec-from-file",
         "test": "present"
       }
+    },
+    {
+      "id": "stash-push-empty-pathspec",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642",
+      "reason": "parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-pathspec"
+        }
+      ]
     }
   ],
   "stash save": [
@@ -18093,6 +18107,20 @@
       "origin": "git",
       "reason": "Implicit push requires a separator before paths unless patch mode is active.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c"
+    },
+    {
+      "id": "stash-empty-pathspec",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642",
+      "reason": "parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-pathspec"
+        }
+      ]
     }
   ],
   "config": [
