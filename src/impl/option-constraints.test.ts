@@ -264,7 +264,10 @@ describe('option constraints against independent Git executions', () => {
         result.status === 0,
         `${JSON.stringify(options)}: ${result.stderr} ${rejected.join(',')}`,
       ).toBe(rejected.filter((id) => id !== 'add.all-ignoreRemoval').length === 0);
-      if (rejected.length > 0) {
+      // Kept independent of the rule table so that dropping the type-git rule still fails here.
+      const reinterpretedAll = options.all === true && options.ignoreRemoval === true;
+      expect(rejected.includes('add.all-ignoreRemoval')).toBe(reinterpretedAll);
+      if (rejected.length > 0 || reinterpretedAll) {
         await expect(repo.add('file', options as never)).rejects.toBeInstanceOf(GitArgumentError);
       } else {
         // The real emission order must reach the same native acceptance.
