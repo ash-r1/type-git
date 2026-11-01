@@ -93,6 +93,7 @@ const words = [
   ['--inter-hunk-context', '-2'],
   ['--no-auto-advance'],
   operand('file'),
+  operand(''),
 ];
 /** Final cmd_add rule diagnostics in Git 2.55.0; any other failure aborts generation. */
 const RULE_DIAGNOSTICS = [
@@ -105,7 +106,24 @@ const RULE_DIAGNOSTICS = [
   /^fatal: --chmod param '[^']*' must be either -x or \+x$/,
   /^fatal: '--pathspec-from-file' and pathspec arguments cannot be used together$/,
   /^fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'$/,
+  /^fatal: empty string is not a valid pathspec\. please use \. instead if you meant to match all paths$/,
 ];
+/**
+ * Edit mode hands operands to setup_revisions, which resolves them against revisions and the
+ * work tree; those outcomes are delegated, so a final non-interactive edit with an empty operand
+ * is not recorded.
+ */
+const delegatedEdit = (tokens) => {
+  let edit = false;
+  for (const token of tokens) {
+    if (Array.isArray(token) && token[0] === '-e') edit = true;
+    if (Array.isArray(token) && token[0] === '--no-edit') edit = false;
+  }
+  const interactive = tokens.some(
+    (token) => Array.isArray(token) && (token[0] === '-i' || token[0] === '-p'),
+  );
+  return edit && !interactive && tokens.some((token) => !Array.isArray(token) && token.operand === '');
+};
 /** Read NUL-separated input whenever the final native state selects NUL mode. */
 const pathspecInput = (tokens) =>
   tokens.some((token) => Array.isArray(token) && token[0] === '--pathspec-file-nul')
@@ -187,10 +205,21 @@ try {
       sequences.push([mode, a, b]);
     }
   }
+  // An empty pathspec is rejected after the final checks and inside interactive add, but not
+  // after a later --no-edit, a separator or a nonempty path.
+  sequences.push(
+    [['--'], operand('')],
+    [['-n'], ['--'], operand('')],
+    [operand('file'), operand('')],
+    [['-e'], ['--no-edit'], operand('')],
+    [['-i'], ['-e'], operand('')],
+    [['-e'], ['-p'], operand('')],
+    [['-p'], ['--'], operand('')],
+  );
   const unique = new Map(
     sequences.map((tokens) => pathspecInput(tokens)).map((tokens) => [JSON.stringify(tokens), tokens]),
   );
-  for (const tokens of unique.values()) record(tokens);
+  for (const tokens of unique.values()) if (!delegatedEdit(tokens)) record(tokens);
   const fixture = `${JSON.stringify(
     {
       profile:

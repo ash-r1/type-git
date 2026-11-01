@@ -15,6 +15,17 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
     },
   ],
+  addPathspec: [
+    {
+      id: 'add.empty-pathspec',
+      kind: 'forbid',
+      when: [{ key: 'paths', test: 'includes', valueKey: 'emptyPathspec' }],
+      origin: 'git',
+      reason:
+        'parse_pathspec rejects an empty pathspec in both the final and the interactive add path.',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
+    },
+  ],
   pathspec: [
     {
       id: 'pathspec.file-operands',
@@ -35,6 +46,10 @@ export const INPUT_DOMAINS = {
   lfsCheckout: {
     to: [undefined, '', 'output'],
     patterns: [undefined, '', 'file', [], ['file'], ['a', 'b']],
+  },
+  addPathspec: {
+    paths: [[], [''], ['file'], ['file', '']],
+    emptyPathspec: [''],
   },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],

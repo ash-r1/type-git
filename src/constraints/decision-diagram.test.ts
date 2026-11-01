@@ -216,7 +216,7 @@ describe('reduced ordered decision diagrams', () => {
   });
 
   it('handles operand cardinality and value predicates at their boundaries', () => {
-    for (const name of ['lfsCheckout', 'pathspec'] as const) {
+    for (const name of ['addPathspec', 'lfsCheckout', 'pathspec'] as const) {
       const rules = INPUT_CONSTRAINTS[name];
       const domain = INPUT_DOMAINS[name];
       expect(solve(rules, domain).accepted).toBe(

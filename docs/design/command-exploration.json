@@ -945,8 +945,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 13,
+      "rules": 14,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "dry-run": [
           "undefined",
           "true",
@@ -1075,7 +1079,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -1087,9 +1093,9 @@
           "true"
         ]
       },
-      "total": "17356437907200",
-      "accepted": "964023161472",
-      "nodes": 776,
+      "total": "48598026140160",
+      "accepted": "2321669371392",
+      "nodes": 1178,
       "isolatedRuleWitnesses": {
         "cli.add.pathspec-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
         "cli.add.pathspec-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
@@ -1103,7 +1109,8 @@
         "cli.add.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "cli.add.unified-interactive": "{\"operands\":[],\"unified\":0}",
         "cli.add.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
-        "cli.add.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}"
+        "cli.add.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "cli.add.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
