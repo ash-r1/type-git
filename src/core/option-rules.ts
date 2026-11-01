@@ -1,7 +1,7 @@
 /** Public option types and runtime validation are derived from the constraint model. */
 import { COMMAND_CONSTRAINTS, type CommandName } from '../constraints/commands.js';
 import { INPUT_CONSTRAINTS } from '../constraints/inputs.js';
-import { violations, type ScalarContext } from '../constraints/model.js';
+import { type ScalarContext, violations } from '../constraints/model.js';
 import type { Constrained } from '../constraints/types.js';
 import { GitArgumentError } from './types.js';
 

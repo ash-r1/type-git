@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from './build.js';
+
 describe('remote helper sole usage words', () => {
   for (const command of ['remote-fd', 'remote-ext'] as const) {
     it(`${command} accepts sole usage and ordinary two-word shapes`, () => {

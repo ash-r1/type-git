@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from './build.js';
+
 const legacy = { longBits: 64, sizeTBits: 64, readTreeExclude: 'legacy' } as const;
 const modern = { ...legacy, readTreeExclude: 'modern' } as const;
 describe('read-tree exclude callback without help', () => {

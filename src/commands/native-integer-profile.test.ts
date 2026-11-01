@@ -4,8 +4,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
-import { GitArgumentError } from '../core/types.js';
 import { parseLegacyGitInteger } from '../constraints/git-integer.js';
+import { GitArgumentError } from '../core/types.js';
 
 const integerError = /not in range|expects .*integer|expects .*numerical/;
 const cases = [

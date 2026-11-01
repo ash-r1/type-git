@@ -1,6 +1,6 @@
 import type { StringCallbackParser } from './string-callback.js';
-import type { UrlBytes } from './url-byte-types.js';
 import type { STRING_CALLBACKS } from './string-callbacks.generated.js';
+import type { UrlBytes } from './url-byte-types.js';
 
 type HexDigit =
   | '0'
