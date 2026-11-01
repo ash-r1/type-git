@@ -71,6 +71,10 @@ pnpm check:fix       # Fix all issues
 # Type Check
 pnpm typecheck       # TypeScript --noEmit
 
+# Audit progress
+pnpm commands:progress             # Per-command facets for the priority groups
+pnpm commands:progress core stash  # Named groups (core/next) or commands
+
 # Changeset (versioning)
 pnpm changeset       # Create a new changeset
 ```
