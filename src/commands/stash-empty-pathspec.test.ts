@@ -72,7 +72,9 @@ describe('stash push empty pathspec', () => {
   it('keeps the earlier help exit and nonempty paths', async () => {
     const help = await repo.command('stash push', [['-h'], ['--'], { operand: '' }]);
     const native = direct(['push', '-h', '--', '']);
-    expect(help.exitCode).toBe(129);
+    // Usage exits 129 up to Git 2.55 and 0 from Git 2.56; either way it precedes the pathspec.
+    expect([0, 129]).toContain(native.status);
+    expect(native.stdout).toContain('usage: git stash');
     expect(help.exitCode).toBe(native.status);
     expect(help.stdout).toBe(native.stdout);
     expect(commandArguments('stash push', [['--'], { operand: 'tracked' }])).toEqual([
