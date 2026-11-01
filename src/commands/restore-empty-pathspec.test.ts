@@ -87,7 +87,8 @@ describe('restore empty pathspec', () => {
   it('keeps the earlier help exit and nonempty paths', async () => {
     const help = await repo.command('restore', [['-h'], ['--'], { operand: '' }]);
     const native = direct(['-h', '--', '']);
-    expect(native.status).toBe(129);
+    // Usage exits 129 up to Git 2.55 and 0 from Git 2.56; either way it precedes the pathspec.
+    expect([0, 129]).toContain(native.status);
     expect(native.stdout).toContain('usage: git restore');
     expect(help.exitCode).toBe(native.status);
     expect(help.stdout).toBe(native.stdout);
