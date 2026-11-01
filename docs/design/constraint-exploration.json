@@ -7,18 +7,11 @@
     "nodes": 6
   },
   {
-    "command": "addPathspec",
-    "scope": "operands",
-    "total": "4",
-    "accepted": "2",
-    "nodes": 2
-  },
-  {
     "command": "pathspec",
     "scope": "operands",
-    "total": "18",
-    "accepted": "10",
-    "nodes": 6
+    "total": "15",
+    "accepted": "7",
+    "nodes": 11
   },
   {
     "command": "clone",

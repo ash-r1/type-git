@@ -3851,6 +3851,20 @@
           "test": "inactive"
         }
       ]
+    },
+    {
+      "id": "restore-empty-pathspec",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642",
+      "reason": "Every restore operand is a pathspec, and parse_pathspec rejects an empty one after option parsing (builtin/checkout.c:checkout_main); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-pathspec"
+        }
+      ]
     }
   ],
   "reset": [

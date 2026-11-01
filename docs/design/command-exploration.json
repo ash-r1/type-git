@@ -13978,8 +13978,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 19,
+      "rules": 20,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "source": [
           "undefined",
           "\"\"",
@@ -14087,7 +14091,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -14099,9 +14105,9 @@
           "true"
         ]
       },
-      "total": "204073344000",
-      "accepted": "968951808",
-      "nodes": 1208,
+      "total": "571405363200",
+      "accepted": "2200670208",
+      "nodes": 1790,
       "isolatedRuleWitnesses": {
         "restore-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
         "restore-patch-merge": "{\"merge\":true,\"operands\":[],\"patch\":true}",
@@ -14121,7 +14127,8 @@
         "restore-ignore-unmerged-merge": "{\"ignore-unmerged\":true,\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
         "restore-ignore-unmerged-patch": "{\"ignore-unmerged\":true,\"operands\":[],\"patch\":true}",
         "restore-destination-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":false}",
-        "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}"
+        "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}",
+        "restore-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {

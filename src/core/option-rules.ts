@@ -77,7 +77,16 @@ export function validatePathInput(
   paths: string | string[],
   opts?: { pathspecFromFile?: string },
 ): void {
-  validateInput('pathspec', { paths, ...opts }, name);
+  // Normalize so a single path and a list are checked alike; every listed path reaches Git.
+  validateInput(
+    'pathspec',
+    {
+      paths: Array.isArray(paths) ? paths : [paths],
+      pathspecFromFile: opts?.pathspecFromFile,
+      emptyPathspec: '',
+    },
+    name,
+  );
 }
 
 export function validateInput(

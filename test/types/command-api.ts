@@ -178,6 +178,12 @@ git.command('restore', [['--no-staged'], { operand: 'file' }]);
 git.command('restore', [['--source', 'HEAD'], ['--ours'], { operand: 'file' }]);
 // @ts-expect-error Conflict callback reenables a previously disabled merge.
 git.command('restore', [['--no-merge'], ['--conflict', 'diff3'], ['--staged'], { operand: 'file' }]);
+// @ts-expect-error parse_pathspec rejects an empty restore pathspec.
+git.command('restore', [['--'], { operand: '' }]);
+// @ts-expect-error Every restore operand is a pathspec, including later ones.
+git.command('restore', [['--staged'], { operand: 'file' }, { operand: '' }]);
+// Help exits before the pathspec is parsed.
+git.command('restore', [['-h'], ['--'], { operand: '' }]);
 // @ts-expect-error Explicit overlay is incompatible with patch mode.
 git.command('checkout', [['--patch'], ['--overlay'], { operand: 'file' }]);
 git.command('checkout', [['--patch'], ['--no-overlay'], { operand: 'file' }]);
