@@ -7,6 +7,7 @@ import type {
   GitCommandExecOpts,
   GitCommandName,
 } from '../commands/types.js';
+import { checkedOperand, checkedOperands } from '../core/operands.js';
 import {
   type ExclusiveQuery,
   validateOptions,
@@ -497,11 +498,11 @@ export class BareRepoImpl implements BareRepo {
     }
 
     // Add remote name
-    args.push(remote);
+    args.push(checkedOperand('lsRemote', 'remote', remote));
 
     // Add specific refs if provided
     if (opts?.refs && opts.refs.length > 0) {
-      args.push(...opts.refs);
+      args.push(...checkedOperands('lsRemote', 'refs', opts.refs));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -567,7 +568,7 @@ export class BareRepoImpl implements BareRepo {
     }
 
     // Add tree-ish (required)
-    args.push(treeish);
+    args.push(checkedOperand('lsTree', 'treeish', treeish));
 
     // Add optional paths
     if (opts?.paths && opts.paths.length > 0) {
@@ -619,7 +620,7 @@ export class BareRepoImpl implements BareRepo {
     if (typeof refOrOpts === 'string') {
       validateRevParseRefOpts(opts);
       addRefOptions(args, opts);
-      args.push(refOrOpts);
+      args.push(checkedOperand('revParse', 'ref', refOrOpts));
 
       const result = await this.runner.run(this.context, args, { signal: opts?.signal });
       // --verify --quiet exits 1 without output when the ref cannot be resolved
@@ -722,7 +723,7 @@ export class BareRepoImpl implements BareRepo {
     if (opts?.tags !== undefined) {
       args.push(opts.tags ? '--tags' : '--no-tags');
     }
-    args.push(name, url);
+    args.push(checkedOperand('remote.add', 'name', name), checkedOperand('remote.add', 'url', url));
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -730,15 +731,28 @@ export class BareRepoImpl implements BareRepo {
   }
 
   private async remoteRemove(name: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['remote', 'remove', name], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['remote', 'remove', checkedOperand('remote.remove', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async remoteRename(oldName: string, newName: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['remote', 'rename', oldName, newName], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      [
+        'remote',
+        'rename',
+        checkedOperand('remote.rename', 'oldName', oldName),
+        checkedOperand('remote.rename', 'newName', newName),
+      ],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async remoteGetUrl(name: string, opts?: RemoteUrlOpts & ExecOpts): Promise<string> {
@@ -748,7 +762,7 @@ export class BareRepoImpl implements BareRepo {
       args.push('--push');
     }
 
-    args.push(name);
+    args.push(checkedOperand('remote.getUrl', 'name', name));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -768,7 +782,10 @@ export class BareRepoImpl implements BareRepo {
       args.push('--push');
     }
 
-    args.push(name, url);
+    args.push(
+      checkedOperand('remote.setUrl', 'name', name),
+      checkedOperand('remote.setUrl', 'url', url),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -789,10 +806,10 @@ export class BareRepoImpl implements BareRepo {
       args.push('--delete');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.setHead', 'remote', remote));
 
     if (branch && !opts?.auto && !opts?.delete) {
-      args.push(branch);
+      args.push(checkedOperand('remote.setHead', 'branch', branch));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -807,7 +824,7 @@ export class BareRepoImpl implements BareRepo {
       args.push('-n');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.show', 'remote', remote));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -823,7 +840,7 @@ export class BareRepoImpl implements BareRepo {
       args.push('--dry-run');
     }
 
-    args.push(remote);
+    args.push(checkedOperand('remote.prune', 'remote', remote));
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -853,7 +870,7 @@ export class BareRepoImpl implements BareRepo {
     }
 
     if (remotes && remotes.length > 0) {
-      args.push(...remotes);
+      args.push(...checkedOperands('remote.update', 'remotes', remotes));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -872,7 +889,10 @@ export class BareRepoImpl implements BareRepo {
       args.push('--add');
     }
 
-    args.push(remote, ...branches);
+    args.push(
+      checkedOperand('remote.setBranches', 'remote', remote),
+      ...checkedOperands('remote.setBranches', 'branches', branches),
+    );
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -912,9 +932,13 @@ export class BareRepoImpl implements BareRepo {
     value: ConfigSchema[K],
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', key, String(value)], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--', checkedOperand('config.set', 'key', key), String(value)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -925,18 +949,26 @@ export class BareRepoImpl implements BareRepo {
     value: ConfigSchema[K],
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--add', key, String(value)], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--add', '--', checkedOperand('config.add', 'key', key), String(value)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
    * Unset a typed config value
    */
   private async configUnset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--unset', checkedOperand('config.unset', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -975,7 +1007,7 @@ export class BareRepoImpl implements BareRepo {
       args.push('--add');
     }
 
-    args.push(key, value);
+    args.push('--', checkedOperand('config.setRaw', 'key', key), value);
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -986,9 +1018,13 @@ export class BareRepoImpl implements BareRepo {
    * Unset a raw config value (for arbitrary keys)
    */
   private async configUnsetRaw(key: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--unset', checkedOperand('config.unsetRaw', 'key', key)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   /**
@@ -1003,14 +1039,27 @@ export class BareRepoImpl implements BareRepo {
     newName: string,
     opts?: ExecOpts,
   ): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--rename-section', oldName, newName], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      [
+        'config',
+        '--rename-section',
+        checkedOperand('config.renameSection', 'oldName', oldName),
+        checkedOperand('config.renameSection', 'newName', newName),
+      ],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 
   private async configRemoveSection(name: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['config', '--remove-section', name], {
-      signal: opts?.signal,
-    });
+    await this.runner.runOrThrow(
+      this.context,
+      ['config', '--remove-section', checkedOperand('config.removeSection', 'name', name)],
+      {
+        signal: opts?.signal,
+      },
+    );
   }
 }
