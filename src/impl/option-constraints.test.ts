@@ -227,6 +227,55 @@ describe('option constraints against independent Git executions', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 
+  it('checks add mode, dry-run and executable-bit combinations against Git', async () => {
+    for (const options of assignments({
+      all: [undefined, true],
+      dryRun: [undefined, true],
+      update: [undefined, true],
+      ignoreRemoval: [undefined, true],
+      ignoreMissing: [undefined, true],
+      chmod: [undefined, '+x', '-x', 'x'],
+    })) {
+      // Same emission order as WorktreeRepo.add.
+      const args = ['-C', repo.workdir, 'add'];
+      if (options.all) {
+        args.push('--all');
+      }
+      if (options.dryRun) {
+        args.push('--dry-run');
+      }
+      if (options.update) {
+        args.push('--update');
+      }
+      if (options.ignoreRemoval) {
+        args.push('--ignore-removal');
+      }
+      if (options.ignoreMissing) {
+        args.push('--ignore-missing');
+      }
+      if (options.chmod) {
+        args.push(`--chmod=${options.chmod}`);
+      }
+      args.push('--', 'file');
+      const result = raw(args);
+      const rejected = violations(COMMAND_CONSTRAINTS.add, options).map((rule) => rule.id);
+      // The only type-git rule rejects a combination that Git silently reinterprets as --no-all.
+      expect(
+        result.status === 0,
+        `${JSON.stringify(options)}: ${result.stderr} ${rejected.join(',')}`,
+      ).toBe(rejected.filter((id) => id !== 'add.all-ignoreRemoval').length === 0);
+      // Kept independent of the rule table so that dropping the type-git rule still fails here.
+      const reinterpretedAll = options.all === true && options.ignoreRemoval === true;
+      expect(rejected.includes('add.all-ignoreRemoval')).toBe(reinterpretedAll);
+      if (rejected.length > 0 || reinterpretedAll) {
+        await expect(repo.add('file', options as never)).rejects.toBeInstanceOf(GitArgumentError);
+      } else {
+        // The real emission order must reach the same native acceptance.
+        await expect(repo.add('file', options as never)).resolves.toBeUndefined();
+      }
+    }
+  });
+
   it('checks stash staged, untracked, all, file and explicit path combinations against Git', async () => {
     const file = join(root, 'paths');
     await writeFile(file, 'file\n');
