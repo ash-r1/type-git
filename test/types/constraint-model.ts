@@ -36,6 +36,20 @@ export async function checkConstraintModel(git: Git, repo: WorktreeRepo, flag: b
   // @ts-expect-error Git does not combine file input and a fixup message source.
   await repo.commit({ file: 'message', fixup: 'HEAD' });
   await repo.commit({ message: 'extra', fixup: 'HEAD' });
+  // @ts-expect-error repo.commit emits no paths, so include mode needs a pathspec file.
+  await repo.commit({ message: 'm', include: true });
+  await repo.commit({ message: 'm', include: true, pathspecFromFile: 'paths' });
+  // @ts-expect-error Only mode without paths needs allowEmpty or amend.
+  await repo.commit({ message: 'm', only: true });
+  await repo.commit({ message: 'm', only: true, allowEmpty: true });
+  await repo.commit({ message: 'm', only: true, amend: true });
+  await repo.commit({ message: 'm', only: true, pathspecFromFile: 'paths' });
+  // @ts-expect-error A plain fixup cancels the amend exemption for only mode.
+  await repo.commit({ only: true, amend: true, fixup: 'HEAD' });
+  // An amend: fixup implies allowEmpty.
+  await repo.commit({ only: true, fixup: 'amend:HEAD' });
+  // @ts-expect-error A reword: fixup cannot select content.
+  await repo.commit({ only: true, fixup: 'reword:HEAD' });
   await repo.diff(undefined, { nameOnly: true, context: 2, patch: true, stat: true });
   // @ts-expect-error Git rejects these two name output modes, even though it accepts patches with either.
   await repo.diff(undefined, { nameOnly: true, nameStatus: true });

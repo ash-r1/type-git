@@ -124,12 +124,19 @@ const sharedPredicates12 = [
 ] as const;
 const sharedPredicates13 = [
   {
+    key: 'operands',
+    test: 'includes',
+    valueKey: 'empty-pathspec',
+  },
+] as const;
+const sharedPredicates14 = [
+  {
     key: 'filter',
     test: 'equals',
     value: 'auto',
   },
 ] as const;
-const sharedPredicates14 = [
+const sharedPredicates15 = [
   {
     key: 'filter',
     test: 'present',
@@ -140,7 +147,7 @@ const sharedPredicates14 = [
     value: 'auto',
   },
 ] as const;
-const sharedPredicates15 = [
+const sharedPredicates16 = [
   {
     key: 'filter-history',
     test: 'equals',
@@ -152,7 +159,7 @@ const sharedPredicates15 = [
     value: 'auto',
   },
 ] as const;
-const sharedPredicates16 = [
+const sharedPredicates17 = [
   {
     key: 'filter-history',
     test: 'inactive',
@@ -163,25 +170,25 @@ const sharedPredicates16 = [
     value: 'combine:',
   },
 ] as const;
-const sharedPredicates17 = [
+const sharedPredicates18 = [
   {
     key: 'filter-history',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates18 = [
+const sharedPredicates19 = [
   {
     key: 'all',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates19 = [
+const sharedPredicates20 = [
   {
     key: '$value',
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates20 = [
+const sharedPredicates21 = [
   {
     key: 'delete',
     test: 'inactive',
@@ -255,29 +262,19 @@ const sharedPredicates20 = [
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates21 = [
-  {
-    key: 'detach',
-    test: 'active',
-  },
-  {
-    key: 'orphan',
-    test: 'present',
-  },
-] as const;
 const sharedPredicates22 = [
   {
     key: 'detach',
     test: 'active',
   },
   {
-    key: 'track',
+    key: 'orphan',
     test: 'present',
   },
 ] as const;
 const sharedPredicates23 = [
   {
-    key: 'orphan',
+    key: 'detach',
     test: 'active',
   },
   {
@@ -287,21 +284,21 @@ const sharedPredicates23 = [
 ] as const;
 const sharedPredicates24 = [
   {
+    key: 'orphan',
+    test: 'active',
+  },
+  {
+    key: 'track',
+    test: 'present',
+  },
+] as const;
+const sharedPredicates25 = [
+  {
     key: 'force',
     test: 'active',
   },
   {
     key: 'merge',
-    test: 'active',
-  },
-] as const;
-const sharedPredicates25 = [
-  {
-    key: 'patch',
-    test: 'active',
-  },
-  {
-    key: 'overlay',
     test: 'active',
   },
 ] as const;
@@ -311,11 +308,21 @@ const sharedPredicates26 = [
     test: 'active',
   },
   {
-    key: 'merge',
+    key: 'overlay',
     test: 'active',
   },
 ] as const;
 const sharedPredicates27 = [
+  {
+    key: 'patch',
+    test: 'active',
+  },
+  {
+    key: 'merge',
+    test: 'active',
+  },
+] as const;
+const sharedPredicates28 = [
   {
     key: 'pathspec-from-file',
     test: 'present',
@@ -325,7 +332,7 @@ const sharedPredicates27 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates28 = [
+const sharedPredicates29 = [
   {
     key: 'unified',
     test: 'present',
@@ -336,13 +343,13 @@ const sharedPredicates28 = [
     value: -1,
   },
 ] as const;
-const sharedPredicates29 = [
+const sharedPredicates30 = [
   {
     key: 'patch',
     test: 'active',
   },
 ] as const;
-const sharedPredicates30 = [
+const sharedPredicates31 = [
   {
     key: 'inter-hunk-context',
     test: 'present',
@@ -351,13 +358,6 @@ const sharedPredicates30 = [
     key: 'inter-hunk-context',
     test: 'notEquals',
     value: -1,
-  },
-] as const;
-const sharedPredicates31 = [
-  {
-    key: 'operands',
-    test: 'includes',
-    valueKey: 'empty-pathspec',
   },
 ] as const;
 const sharedPredicates32 = [
@@ -1392,14 +1392,14 @@ const sharedEffects0 = [
   {
     key: 'filter-history',
     when: {
-      all: sharedPredicates16,
+      all: sharedPredicates17,
     },
     set: 'combined',
   },
   {
     key: 'filter-history',
     when: {
-      all: sharedPredicates17,
+      all: sharedPredicates18,
     },
     set: 'single',
   },
@@ -2574,7 +2574,7 @@ const sharedOption172 = {
       source:
         'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
       reason: 'No positive filter can follow an auto filter without clearing it.',
-      when: sharedPredicates13,
+      when: sharedPredicates14,
     },
     {
       id: 'filter.auto-after-filter',
@@ -2583,7 +2583,7 @@ const sharedOption172 = {
       source:
         'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
       reason: 'Auto cannot be combined with a preceding filter.',
-      when: sharedPredicates14,
+      when: sharedPredicates15,
     },
     {
       id: 'filter.auto-after-transform',
@@ -2593,7 +2593,7 @@ const sharedOption172 = {
         'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
       reason:
         'Transforming a simple filter into a combined filter clears allow_auto_filter, even across --no-filter.',
-      when: sharedPredicates15,
+      when: sharedPredicates16,
     },
   ],
   effects: sharedEffects0,
@@ -2906,7 +2906,7 @@ const sharedOption234 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -2924,7 +2924,7 @@ const sharedOption235 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -2942,7 +2942,7 @@ const sharedOption236 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -2960,7 +2960,7 @@ const sharedOption237 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -3008,7 +3008,7 @@ const sharedOption245 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -3026,7 +3026,7 @@ const sharedOption246 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -3047,7 +3047,7 @@ const sharedOption248 = {
     {
       id: 'native.object-name-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source:
         'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -3938,7 +3938,7 @@ const sharedOption433 = {
       origin: 'git',
       source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
       reason: 'Pickaxe patterns cannot be empty.',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       nativeEmptyPickaxe: true,
     },
   ],
@@ -3954,7 +3954,7 @@ const sharedOption434 = {
       origin: 'git',
       source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
       reason: 'Pickaxe patterns cannot be empty.',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       nativeEmptyPickaxe: true,
     },
   ],
@@ -4835,7 +4835,7 @@ const sharedOption598 = {
     {
       id: 'merge.message-file-nonempty',
       kind: 'required',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       origin: 'git',
       source: 'Git 2.55.0 builtin/merge.c:option_read_message; strbuf.c:strbuf_read_file',
       reason:
@@ -5458,7 +5458,7 @@ const sharedOption710 = {
       origin: 'git',
       source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
       reason: 'Pickaxe patterns cannot be empty.',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       nativeEmptyPickaxe: true,
     },
   ],
@@ -6420,7 +6420,7 @@ const sharedOption866 = {
       origin: 'git',
       source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
       reason: 'Pickaxe patterns cannot be empty.',
-      required: sharedPredicates19,
+      required: sharedPredicates20,
       nativeEmptyPickaxe: true,
     },
   ],
@@ -12277,6 +12277,9 @@ const commandSpec18 = {
 } as const satisfies CommandSpec;
 const commandSpec19 = {
   argv: ['commit'],
+  initial: {
+    'empty-pathspec': '',
+  },
   options: {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
@@ -12768,6 +12771,88 @@ const commandSpec19 = {
       reason: 'Unknown commit message cleanup mode.',
       source:
         'Git 2.55.0 builtin/commit.c:cmd_commit -> sequencer.c:get_cleanup_mode (after option parsing, before dry-run)',
+    },
+    {
+      id: 'cli.commit.empty-pathspec',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
+      reason:
+        'Commit operands are pathspecs, and parse_pathspec rejects an empty one in prepare_index, including dry runs; a help exit happens first.',
+      when: sharedPredicates13,
+    },
+    {
+      id: 'cli.commit.only-paths',
+      kind: 'requiresAny',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      reason:
+        'Only mode without path operands or a pathspec file requires --allow-empty or --amend (builtin/commit.c:prepare_index); pathspec file contents are read later and stay native.',
+      when: {
+        key: 'only',
+        test: 'active',
+      },
+      guard: [
+        {
+          key: 'fixup',
+          test: 'inactive',
+        },
+      ],
+      choices: [
+        {
+          key: 'operands',
+          test: 'nonempty',
+        },
+        {
+          key: 'pathspec-from-file',
+          test: 'active',
+        },
+        {
+          key: 'allow-empty',
+          test: 'active',
+        },
+        {
+          key: 'amend',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'cli.commit.only-paths-fixup',
+      kind: 'requiresAny',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      reason:
+        'Only mode without path operands or a pathspec file and with a plain fixup requires --allow-empty; an amend: fixup implies it (builtin/commit.c:prepare_index).',
+      when: {
+        key: 'only',
+        test: 'active',
+      },
+      guard: [
+        {
+          key: 'fixup',
+          test: 'active',
+        },
+      ],
+      choices: [
+        {
+          key: 'operands',
+          test: 'nonempty',
+        },
+        {
+          key: 'pathspec-from-file',
+          test: 'active',
+        },
+        {
+          key: 'allow-empty',
+          test: 'active',
+        },
+        {
+          key: 'fixup',
+          test: 'startsWith',
+          value: 'amend:',
+        },
+      ],
     },
   ],
   source: 'builtin/commit.c',
@@ -14064,6 +14149,9 @@ const commandSpec19 = {
 } as const satisfies CommandSpec;
 const commandSpec20 = {
   argv: ['status'],
+  initial: {
+    'empty-pathspec': '',
+  },
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
@@ -14191,6 +14279,15 @@ const commandSpec20 = {
       origin: 'git',
       reason: 'Unknown submodule ignore mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'cli.status.empty-pathspec',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
+      reason:
+        'Every status operand is a pathspec, and parse_pathspec rejects an empty one after option parsing (builtin/commit.c:cmd_status); a help exit happens first.',
+      when: sharedPredicates13,
     },
   ],
   source: 'builtin/commit.c',
@@ -17080,7 +17177,7 @@ const commandSpec31 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates18,
+      guard: sharedPredicates19,
       origin: 'git',
       reason: 'This option requires a single selected remote.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
@@ -17102,7 +17199,7 @@ const commandSpec31 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates18,
+      guard: sharedPredicates19,
       origin: 'git',
       reason: 'This option requires a single selected remote.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
@@ -17124,7 +17221,7 @@ const commandSpec31 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates18,
+      guard: sharedPredicates19,
       origin: 'git',
       reason: 'This option requires a single selected remote.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
@@ -17146,7 +17243,7 @@ const commandSpec31 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates18,
+      guard: sharedPredicates19,
       origin: 'git',
       reason: 'This option requires a single selected remote.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
@@ -20331,7 +20428,7 @@ const commandSpec33 = {
       key: 'operands',
       min: 0,
       max: 2,
-      guard: sharedPredicates20,
+      guard: sharedPredicates21,
     },
     {
       id: 'branch-create-scope',
@@ -20339,7 +20436,7 @@ const commandSpec33 = {
       origin: 'git',
       reason: 'Creation cannot use a listing scope or the removed set-upstream mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
-      guard: sharedPredicates20,
+      guard: sharedPredicates21,
       when: [
         {
           key: 'operands',
@@ -20357,7 +20454,7 @@ const commandSpec33 = {
       origin: 'git',
       reason: 'Creation cannot use a listing scope or the removed set-upstream mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
-      guard: sharedPredicates20,
+      guard: sharedPredicates21,
       when: [
         {
           key: 'operands',
@@ -21386,7 +21483,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Detaching cannot create a branch.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates21,
+      when: sharedPredicates22,
     },
     {
       id: 'checkout-detach-tracking',
@@ -21394,7 +21491,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Orphan and detached modes reject explicitly specified tracking, including no-track.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates22,
+      when: sharedPredicates23,
     },
     {
       id: 'checkout-orphan-tracking',
@@ -21402,7 +21499,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Orphan and detached modes reject explicitly specified tracking, including no-track.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates23,
+      when: sharedPredicates24,
     },
     {
       id: 'checkout-force-merge',
@@ -21410,7 +21507,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Force and merge modes are incompatible.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates24,
+      when: sharedPredicates25,
     },
     {
       id: 'checkout-patch-overlay',
@@ -21418,7 +21515,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Patch mode rejects explicitly enabled overlay mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates25,
+      when: sharedPredicates26,
     },
     {
       id: 'checkout-patch-merge',
@@ -21426,7 +21523,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Patch mode cannot recreate a merge.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates26,
+      when: sharedPredicates27,
     },
     {
       id: 'checkout-file-patch',
@@ -21434,7 +21531,7 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Pathspec files cannot be used in patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates27,
+      when: sharedPredicates28,
     },
     {
       id: 'checkout-file-nul',
@@ -21463,12 +21560,12 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'checkout-inter-hunk-context-range',
@@ -21485,12 +21582,12 @@ const commandSpec34 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'checkout-file-detach',
@@ -21537,7 +21634,7 @@ const commandSpec34 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'checkout-patch-b',
@@ -22762,7 +22859,7 @@ const commandSpec35 = {
       origin: 'git',
       reason: 'Detaching cannot create a branch.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates21,
+      when: sharedPredicates22,
     },
     {
       id: 'switch-detach-tracking',
@@ -22770,7 +22867,7 @@ const commandSpec35 = {
       origin: 'git',
       reason: 'Orphan and detached modes reject explicitly specified tracking, including no-track.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates22,
+      when: sharedPredicates23,
     },
     {
       id: 'switch-orphan-tracking',
@@ -22778,7 +22875,7 @@ const commandSpec35 = {
       origin: 'git',
       reason: 'Orphan and detached modes reject explicitly specified tracking, including no-track.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates23,
+      when: sharedPredicates24,
     },
     {
       id: 'switch-force-merge',
@@ -22786,7 +22883,7 @@ const commandSpec35 = {
       origin: 'git',
       reason: 'Force and merge modes are incompatible.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates24,
+      when: sharedPredicates25,
     },
     {
       id: 'switch-arity',
@@ -23554,7 +23651,7 @@ const commandSpec36 = {
       origin: 'git',
       reason: 'Patch mode rejects explicitly enabled overlay mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates25,
+      when: sharedPredicates26,
     },
     {
       id: 'restore-patch-merge',
@@ -23562,7 +23659,7 @@ const commandSpec36 = {
       origin: 'git',
       reason: 'Patch mode cannot recreate a merge.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates26,
+      when: sharedPredicates27,
     },
     {
       id: 'restore-file-patch',
@@ -23570,7 +23667,7 @@ const commandSpec36 = {
       origin: 'git',
       reason: 'Pathspec files cannot be used in patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      when: sharedPredicates27,
+      when: sharedPredicates28,
     },
     {
       id: 'restore-file-nul',
@@ -23599,12 +23696,12 @@ const commandSpec36 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'restore-inter-hunk-context-range',
@@ -23621,12 +23718,12 @@ const commandSpec36 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'restore-paths',
@@ -23828,7 +23925,7 @@ const commandSpec36 = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
       reason:
         'Every restore operand is a pathspec, and parse_pathspec rejects an empty one after option parsing (builtin/checkout.c:checkout_main); a help exit happens first.',
-      when: sharedPredicates31,
+      when: sharedPredicates13,
     },
   ],
   source: 'builtin/checkout.c',
@@ -24584,12 +24681,12 @@ const commandSpec37 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'reset-inter-hunk-context-range',
@@ -24606,12 +24703,12 @@ const commandSpec37 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'reset-auto-advance',
@@ -24624,7 +24721,7 @@ const commandSpec37 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'reset-file-patch',
@@ -24632,7 +24729,7 @@ const commandSpec37 = {
       origin: 'git',
       reason: 'Pathspec files cannot be used in patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
-      when: sharedPredicates27,
+      when: sharedPredicates28,
     },
     {
       id: 'reset-file-nul',
@@ -25344,7 +25441,7 @@ const commandSpec38 = {
         {
           id: 'native.object-name-nonempty',
           kind: 'required',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           origin: 'git',
           source:
             'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -28685,12 +28782,12 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-inter-hunk-context-range',
@@ -28707,12 +28804,12 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-auto-advance',
@@ -28725,7 +28822,7 @@ const commandSpec45 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-patch-untracked',
@@ -28749,7 +28846,7 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Pathspec files cannot be used in patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates27,
+      when: sharedPredicates28,
     },
     {
       id: 'stash-push-file-nul',
@@ -28792,7 +28889,7 @@ const commandSpec45 = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
       reason:
         'parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.',
-      when: sharedPredicates31,
+      when: sharedPredicates13,
     },
   ],
   source: 'builtin/stash.c',
@@ -29314,12 +29411,12 @@ const commandSpec46 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-save-inter-hunk-context-range',
@@ -29336,12 +29433,12 @@ const commandSpec46 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-save-auto-advance',
@@ -29354,7 +29451,7 @@ const commandSpec46 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-save-patch-untracked',
@@ -35719,7 +35816,7 @@ const commandSpec82 = {
           source: 'Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)',
           reason:
             'A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
         },
       ],
     },
@@ -35755,7 +35852,7 @@ const commandSpec82 = {
           origin: 'git',
           source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
           reason: 'Pickaxe patterns cannot be empty.',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           nativeEmptyPickaxe: true,
         },
       ],
@@ -35772,7 +35869,7 @@ const commandSpec82 = {
           origin: 'git',
           source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
           reason: 'Pickaxe patterns cannot be empty.',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           nativeEmptyPickaxe: true,
         },
       ],
@@ -35794,7 +35891,7 @@ const commandSpec82 = {
           source: 'Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)',
           reason:
             'A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
         },
       ],
     },
@@ -53526,7 +53623,7 @@ const commandSpec184 = {
       id: 'cli.rev-list.diff-patch',
       kind: 'forbid',
       guard: sharedPredicates81,
-      when: sharedPredicates29,
+      when: sharedPredicates30,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -59072,7 +59169,7 @@ const commandSpec202 = {
         {
           id: 'native.object-name-nonempty',
           kind: 'required',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           origin: 'git',
           source:
             'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
@@ -63600,7 +63697,7 @@ const commandSpec229 = {
         {
           id: 'cli.submodule-add.short-branch',
           kind: 'required',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           origin: 'git',
           source: 'Git 2.55.0 git-submodule.sh',
           reason: 'The shell frontend rejects an empty separate short branch value.',
@@ -63827,7 +63924,7 @@ const commandSpec234 = {
         {
           id: 'cli.submodule-set-branch.short-branch',
           kind: 'required',
-          required: sharedPredicates19,
+          required: sharedPredicates20,
           origin: 'git',
           source: 'Git 2.55.0 git-submodule.sh',
           reason: 'The shell frontend rejects an empty separate short branch value.',
@@ -71415,12 +71512,12 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates28,
+      guard: sharedPredicates29,
       when: {
         key: 'unified',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-inter-hunk-context-range',
@@ -71437,12 +71534,12 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Explicit context requires patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      guard: sharedPredicates30,
+      guard: sharedPredicates31,
       when: {
         key: 'inter-hunk-context',
         test: 'present',
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-auto-advance',
@@ -71455,7 +71552,7 @@ const commandSpec307 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates29,
+      required: sharedPredicates30,
     },
     {
       id: 'stash-push-patch-untracked',
@@ -71479,7 +71576,7 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Pathspec files cannot be used in patch mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates27,
+      when: sharedPredicates28,
     },
     {
       id: 'stash-push-file-nul',
@@ -71536,7 +71633,7 @@ const commandSpec307 = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
       reason:
         'parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.',
-      when: sharedPredicates31,
+      when: sharedPredicates13,
     },
   ],
   source: 'builtin/stash.c',

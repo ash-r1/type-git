@@ -116,6 +116,28 @@ git.command('status', [['--ignored', 'matching'], ['--untracked-files', 'no']]);
 git.command('commit', [['--fixup', 'amend:HEAD'], ['-m', '']]);
 // @ts-expect-error Reword fixup forbids content selection.
 git.command('commit', [['--fixup', 'reword:HEAD'], ['--only']]);
+// @ts-expect-error parse_pathspec rejects an empty status pathspec.
+git.command('status', [{ operand: '' }]);
+// @ts-expect-error Every status operand is a pathspec, including those after the end marker.
+git.command('status', [['--short'], ['--'], { operand: 'file' }, { operand: '' }]);
+// Help exits before the status pathspec is parsed.
+git.command('status', [['-h'], ['--'], { operand: '' }]);
+// @ts-expect-error parse_pathspec rejects an empty commit pathspec, even in a dry run.
+git.command('commit', [['--dry-run'], ['--'], { operand: '' }]);
+git.command('commit', [['-h'], { operand: '' }]);
+// @ts-expect-error Only mode without paths needs --allow-empty or --amend.
+git.command('commit', [['-m', 'message'], ['--only']]);
+// @ts-expect-error The last --no-allow-empty removes the exemption.
+git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty'], ['--no-allow-empty']]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty']]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--amend']]);
+git.command('commit', [['-m', 'message'], ['--only'], { operand: 'file' }]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--pathspec-from-file', 'paths']]);
+// @ts-expect-error A plain fixup cancels the amend exemption.
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD']]);
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--no-fixup']]);
+git.command('commit', [['--only'], ['--fixup', 'amend:HEAD']]);
+git.command('commit', [['--only'], ['--fixup', 'HEAD'], ['--allow-empty']]);
 // @ts-expect-error Explicit revision cannot be combined with a selected branch.
 git.command('clone', [['--revision', 'HEAD'], ['--branch', 'main'], { operand: '.' }]);
 // @ts-expect-error Bundle URI and shallow history options conflict.

@@ -1409,16 +1409,20 @@
       ]
     },
     "total": "54226471004352",
-    "accepted": "334272137472",
-    "nodes": 707,
+    "accepted": "258719650560",
+    "nodes": 1354,
     "isolatedRuleWitnesses": {
       "commit.message-file-reuseMessage": "{\"message\":\"\",\"reuseMessage\":\"\"}",
       "commit.fixup-squash": "{\"fixup\":\"\",\"squash\":\"\"}",
-      "commit.include-only-all": "{\"include\":true,\"only\":true}",
+      "commit.include-only-all": "{\"include\":true,\"only\":true,\"pathspecFromFile\":\"value\"}",
       "commit.unsupported": "{\"reeditMessage\":\"\"}",
       "commit.fixup-message-source": "{\"fixup\":\"\",\"reuseMessage\":\"\"}",
       "commit.author-reset": "{\"author\":\"\",\"resetAuthor\":true}",
-      "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}"
+      "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}",
+      "commit.include-paths": "{\"include\":true}",
+      "commit.only-paths": "{\"only\":true}",
+      "commit.only-paths-fixup": "{\"fixup\":\"value\",\"only\":true}",
+      "commit.reword-content": null
     }
   },
   {
