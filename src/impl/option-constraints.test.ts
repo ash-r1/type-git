@@ -234,7 +234,7 @@ describe('option constraints against independent Git executions', () => {
       update: [undefined, true],
       ignoreRemoval: [undefined, true],
       ignoreMissing: [undefined, true],
-      chmod: [undefined, '+x', 'x'],
+      chmod: [undefined, '+x', '-x', 'x'],
     })) {
       // Same emission order as WorktreeRepo.add.
       const args = ['-C', repo.workdir, 'add'];
@@ -266,6 +266,9 @@ describe('option constraints against independent Git executions', () => {
       ).toBe(rejected.filter((id) => id !== 'add.all-ignoreRemoval').length === 0);
       if (rejected.length > 0) {
         await expect(repo.add('file', options as never)).rejects.toBeInstanceOf(GitArgumentError);
+      } else {
+        // The real emission order must reach the same native acceptance.
+        await expect(repo.add('file', options as never)).resolves.toBeUndefined();
       }
     }
   });

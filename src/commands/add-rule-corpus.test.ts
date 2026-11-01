@@ -83,7 +83,7 @@ describe('native git add final rules', () => {
         }
       };
       expect(accepted('legacy')).toBe(valid);
-      // The pinned 2.55.0 corpus records the opposite outcome for every listed case.
+      // Git 2.55.0 reverses each outcome: --no- keeps the pointer and an empty value clears it.
       expect(accepted('optional')).toBe(!valid);
     }
   });

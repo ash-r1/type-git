@@ -276,6 +276,66 @@
           "-n"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -426,6 +486,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -760,6 +840,66 @@
           "-v"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-v",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-v"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-v",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-v"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-v",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-v"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -910,6 +1050,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-v"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-v",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -1244,6 +1404,66 @@
           "-i"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "--chmod="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "--chmod=+xx"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -1390,6 +1610,26 @@
         "add",
         "-i",
         "--inter-hunk-context=1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "--inter-hunk-context=-1"
       ],
       "valid": true,
       "status": 0,
@@ -1728,6 +1968,66 @@
           "-p"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--chmod="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--chmod=+xx"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -1874,6 +2174,26 @@
         "add",
         "-p",
         "--inter-hunk-context=1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--inter-hunk-context=-1"
       ],
       "valid": true,
       "status": 0,
@@ -2200,6 +2520,66 @@
         "add",
         "-e",
         "--chmod=x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "--chmod="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "--chmod=+xx"
       ],
       "valid": true,
       "status": 0,
@@ -2371,6 +2751,26 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -2696,6 +3096,66 @@
           "-u"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-u",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-u"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-u",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-u"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-u",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-u"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -2846,6 +3306,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-u"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-u",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -3180,6 +3660,66 @@
           "-A"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-A",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-A"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "-A",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-A"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-A",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-A"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -3330,6 +3870,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-A"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-A",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -3664,6 +4224,66 @@
           "--no-all"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-all",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-all",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-all",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -3814,6 +4434,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-all",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -4148,6 +4788,66 @@
           "--ignore-removal"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-removal",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-removal"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-removal",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-removal"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-removal",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-removal"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -4298,6 +4998,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-removal"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-removal",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -4632,6 +5352,66 @@
           "--no-ignore-removal"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-ignore-removal",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-ignore-removal"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-ignore-removal",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-ignore-removal"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-ignore-removal",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-ignore-removal"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -4782,6 +5562,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-ignore-removal"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-ignore-removal",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -5116,6 +5916,66 @@
           "--renormalize"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--renormalize",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--renormalize"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--renormalize",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--renormalize"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--renormalize",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--renormalize"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -5266,6 +6126,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--renormalize"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--renormalize",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -5600,6 +6480,66 @@
           "--refresh"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--refresh",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--refresh"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--refresh",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--refresh"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--refresh",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--refresh"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -5750,6 +6690,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--refresh"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--refresh",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -6084,6 +7044,66 @@
           "--ignore-missing"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -6234,6 +7254,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
     },
     {
       "command": "add",
@@ -6582,6 +7622,69 @@
           "+x"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+x",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+x"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+x",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+x"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+x",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+x"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -6739,6 +7842,27 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+x"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+x",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -7090,6 +8214,69 @@
           "x"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "x"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "x"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "x"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -7257,6 +8444,27 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "x"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -7308,6 +8516,1782 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-n"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-v"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-v"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-i"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-i"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-p"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-e"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-e"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-u"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "-A"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--no-all"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--no-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--ignore-removal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--no-ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--no-ignore-removal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--renormalize"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--renormalize"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--refresh"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--refresh"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--chmod",
+          "+x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--chmod=+x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--pathspec-from-file",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--pathspec-from-file="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--no-pathspec-from-file"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--no-pathspec-from-file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--unified=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "-x"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        "file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-v"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-v"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-i"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-i"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-p"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-e"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-e"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-u"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "-A"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--no-all"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--no-all"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--no-ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--no-ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--renormalize"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--renormalize"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--refresh"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--refresh"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--chmod",
+          "+x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--chmod=+x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--pathspec-from-file",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--pathspec-from-file="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--no-pathspec-from-file"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--no-pathspec-from-file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          ""
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-v"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-v"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-i"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-i"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-p"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-e"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-e"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-u"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "-A"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--no-all"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--no-all"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--no-ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--no-ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--renormalize"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--renormalize"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--refresh"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--refresh"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--chmod",
+          "+x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--chmod=+x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--pathspec-from-file",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--pathspec-from-file="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--no-pathspec-from-file"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--no-pathspec-from-file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
     },
     {
       "command": "add",
@@ -7610,6 +10594,69 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=../oracle-paths",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=../oracle-paths",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=../oracle-paths",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
     },
     {
       "command": "add",
@@ -7765,6 +10812,27 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=../oracle-paths",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -8127,6 +11195,69 @@
           ""
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          ""
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          ""
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          ""
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -8263,6 +11394,27 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          ""
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -8611,6 +11763,66 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-pathspec-from-file"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-pathspec-from-file",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-pathspec-from-file"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-pathspec-from-file",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-pathspec-from-file"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-pathspec-from-file",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
     },
     {
       "command": "add",
@@ -8759,6 +11971,26 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-pathspec-from-file",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-pathspec-from-file"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -9095,6 +12327,66 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
     },
     {
       "command": "add",
@@ -9243,6 +12535,26 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -9603,6 +12915,69 @@
           "1"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=1",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=1",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=1",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -9735,6 +13110,27 @@
         "add",
         "--unified=1",
         "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=1",
+        "--inter-hunk-context=-1"
       ],
       "valid": false,
       "status": 128,
@@ -10111,6 +13507,69 @@
           "-1"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-1",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-1",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-1",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -10257,6 +13716,27 @@
         ],
         [
           "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-1",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
           "-2"
         ]
       ],
@@ -10619,6 +14099,69 @@
           "-2"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-2",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-2",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-2",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -10751,6 +14294,27 @@
         "add",
         "--unified=-2",
         "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=-2",
+        "--inter-hunk-context=-1"
       ],
       "valid": false,
       "status": 128,
@@ -11127,6 +14691,69 @@
           "1"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=1",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=1",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=1",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -11263,6 +14890,27 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=1",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -11330,6 +14978,598 @@
       "tokens": [
         [
           "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-n"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-v"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-v"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-i"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-i"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-p"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-e"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-e"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-u"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "-A"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--no-all"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--no-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--ignore-removal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--no-ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--no-ignore-removal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--renormalize"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--renormalize"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--refresh"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--refresh"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--chmod",
+          "+x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--chmod=+x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--pathspec-from-file",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--pathspec-from-file="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--no-pathspec-from-file"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--no-pathspec-from-file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--unified=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        "file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
           "-2"
         ],
         [
@@ -11635,6 +15875,69 @@
           "-2"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-2",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-2",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-2",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -11792,6 +16095,27 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-2",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
@@ -12127,6 +16451,66 @@
           "--no-auto-advance"
         ],
         [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        [
           "--pathspec-from-file",
           "../oracle-paths"
         ]
@@ -12277,6 +16661,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
     },
     {
       "command": "add",
@@ -12603,6 +17007,66 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "file",
+        "--chmod=-x"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "file",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "file",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
     },
     {
       "command": "add",
@@ -12761,6 +17225,26 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "file",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "add",
