@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments, commandUsesLsTreeModes } from './build.js';
+
 const bits = { longBits: 64, sizeTBits: 64, lsTreeModes: 'bits' } as const;
 const cmdmode = { ...bits, lsTreeModes: 'cmdmode' } as const;
 describe('ls-tree selected mode callbacks before help', () => {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from './build.js';
+
 const nativeOwned = {
   longBits: 64 as const,
   sizeTBits: 64 as const,

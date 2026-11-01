@@ -945,8 +945,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 13,
+      "rules": 14,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "dry-run": [
           "undefined",
           "true",
@@ -1075,7 +1079,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -1087,9 +1093,9 @@
           "true"
         ]
       },
-      "total": "17356437907200",
-      "accepted": "964023161472",
-      "nodes": 776,
+      "total": "48598026140160",
+      "accepted": "2321669371392",
+      "nodes": 1178,
       "isolatedRuleWitnesses": {
         "cli.add.pathspec-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
         "cli.add.pathspec-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
@@ -1103,7 +1109,8 @@
         "cli.add.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "cli.add.unified-interactive": "{\"operands\":[],\"unified\":0}",
         "cli.add.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
-        "cli.add.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}"
+        "cli.add.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "cli.add.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -13971,8 +13978,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 19,
+      "rules": 20,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "source": [
           "undefined",
           "\"\"",
@@ -14080,7 +14091,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -14092,9 +14105,9 @@
           "true"
         ]
       },
-      "total": "204073344000",
-      "accepted": "968951808",
-      "nodes": 1208,
+      "total": "571405363200",
+      "accepted": "2200670208",
+      "nodes": 1790,
       "isolatedRuleWitnesses": {
         "restore-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
         "restore-patch-merge": "{\"merge\":true,\"operands\":[],\"patch\":true}",
@@ -14114,7 +14127,8 @@
         "restore-ignore-unmerged-merge": "{\"ignore-unmerged\":true,\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
         "restore-ignore-unmerged-patch": "{\"ignore-unmerged\":true,\"operands\":[],\"patch\":true}",
         "restore-destination-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":false}",
-        "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}"
+        "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}",
+        "restore-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -17162,8 +17176,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 11,
+      "rules": 12,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "keep-index": [
           "undefined",
           "true",
@@ -17239,7 +17257,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -17251,9 +17271,9 @@
           "true"
         ]
       },
-      "total": "157464000",
-      "accepted": "4991040",
-      "nodes": 268,
+      "total": "440899200",
+      "accepted": "11646720",
+      "nodes": 419,
       "isolatedRuleWitnesses": {
         "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -17265,7 +17285,8 @@
         "stash-push-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
         "stash-push-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
         "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
-        "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}"
+        "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "stash-push-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -112917,8 +112938,12 @@
         "show": "stash show",
         "list": "stash list"
       },
-      "rules": 12,
+      "rules": 13,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "keep-index": [
           "undefined",
           "true",
@@ -112994,7 +113019,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -113011,9 +113038,9 @@
           "[\"value\"]"
         ]
       },
-      "total": "472392000",
-      "accepted": "13222080",
-      "nodes": 335,
+      "total": "1322697600",
+      "accepted": "31069440",
+      "nodes": 500,
       "isolatedRuleWitnesses": {
         "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -113026,7 +113053,8 @@
         "stash-push-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
         "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
         "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
-        "cli.stash.assumed-push-paths": "{\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}"
+        "cli.stash.assumed-push-paths": "{\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",
+        "stash-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from './build.js';
+
 describe('ls-remote ordered internal help', () => {
   it('accepts full help and sole completion', () => {
     for (const flag of ['--help-all', '--git-completion-helper', '--git-completion-helper-all']) {

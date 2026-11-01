@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { matches, violations, type Constraint } from './model.js';
 import { TIMESTAMP_DEFAULT } from './git-timestamp.js';
+import { type Constraint, matches, violations } from './model.js';
 
 const predicate = { key: 'age', test: 'timestampNotDefault' } as const;
 const rule: Constraint = {

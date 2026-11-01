@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments } from '../commands/build.js';
-import { parseGitDecimal, type GitDecimalParser } from './git-decimal.js';
-import { selectedGitDecimal } from './git-decimal.js';
+import { type GitDecimalParser, parseGitDecimal, selectedGitDecimal } from './git-decimal.js';
 
 const mainline: GitDecimalParser = {
   kind: 'decimal',

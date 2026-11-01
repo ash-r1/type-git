@@ -1,7 +1,7 @@
 /** Public option types and runtime validation are derived from the constraint model. */
 import { COMMAND_CONSTRAINTS, type CommandName } from '../constraints/commands.js';
 import { INPUT_CONSTRAINTS } from '../constraints/inputs.js';
-import { violations, type ScalarContext } from '../constraints/model.js';
+import { type ScalarContext, violations } from '../constraints/model.js';
 import type { Constrained } from '../constraints/types.js';
 import { GitArgumentError } from './types.js';
 
@@ -77,7 +77,16 @@ export function validatePathInput(
   paths: string | string[],
   opts?: { pathspecFromFile?: string },
 ): void {
-  validateInput('pathspec', { paths, ...opts }, name);
+  // Normalize so a single path and a list are checked alike; every listed path reaches Git.
+  validateInput(
+    'pathspec',
+    {
+      paths: Array.isArray(paths) ? paths : [paths],
+      pathspecFromFile: opts?.pathspecFromFile,
+      emptyPathspec: '',
+    },
+    name,
+  );
 }
 
 export function validateInput(

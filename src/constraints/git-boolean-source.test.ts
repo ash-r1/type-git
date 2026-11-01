@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest';
 import corpus from '../../test/fixtures/boolean-callback-corpus.json';
 import differences from '../../test/fixtures/boolean-source-overrides.json';
 import {
-  gitBoolean,
-  parseBooleanCallback,
   type GitBooleanCallback,
   type GitBooleanSource,
+  gitBoolean,
+  parseBooleanCallback,
 } from './git-boolean.js';
 
 describe('native-derived boolean source families', () => {

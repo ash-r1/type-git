@@ -1,7 +1,7 @@
-import type { NumberLiteralOrder } from './number-types.js';
 import type { GitDecimalParser } from './git-decimal.js';
 import type { AddDigit, AtMost, Digit, Reverse, State, Strip, Trim } from './git-integer-types.js';
 import type { IntegerDifferences } from './integer-type-tables.js';
+import type { NumberLiteralOrder } from './number-types.js';
 
 type SubtractDigits<
   A extends string,

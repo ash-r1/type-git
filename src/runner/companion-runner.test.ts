@@ -5,8 +5,8 @@ import { join } from 'node:path';
 import process from 'node:process';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
-import type { AuditEvent } from '../core/types.js';
 import type { EnvInheritance } from '../core/env.js';
+import type { AuditEvent } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
 import { CliRunner } from './cli-runner.js';
 

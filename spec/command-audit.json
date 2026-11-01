@@ -113,9 +113,11 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-create.test.ts",
+        "src/commands/stash-empty-pathspec.test.ts"
       ],
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open.",
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. An empty positional pathspec is rejected after option parsing and help, as Git 2.55.0 parse_pathspec does for direct and assumed push. Pathspec matching against the index and worktree (report_path_error), presence of local changes, --pathspec-from-file contents, untracked-file state and interactive --patch selection remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open.",
       "typedCommandAPI": true
     },
     "tag": {
@@ -524,10 +526,49 @@
         "src/commands/worktree-parser.test.ts",
         "test/types/worktree-parser-add-corpus.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/add-rule-corpus.test.ts",
+        "test/types/add-rule-corpus.ts",
+        "src/impl/option-constraints.test.ts",
+        "test/types/generated-command-constraints.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness.",
-      "typedCommandAPI": true
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Final add rules are modeled with 1,036 independent Git 2.55.0 cases covering the shared -A/--no-all/--ignore-removal/-u last-wins mode, interactive and edit precedence, empty and negated pathspec-file pointer states, the executable-bit value and context checks, and every typed cli.add rule is reached by a native refusal. Git 2.25.1 filename-pointer differences for these rules are covered by explicit legacy-profile cases. The convenience API rejects --ignore-missing without dry-run, invalid --chmod values and the all/ignoreRemoval pair whose emitted order resets --all, and these combinations are checked against the executing Git. Interactive selection, edit-patch application, configuration, index/worktree state, pathspec file contents and filesystem resolution are delegated to native Git at runtime. Pathspec magic validity depends on the inherited GIT_*_PATHSPECS environment and is delegated to native Git. Empty-string pathspec operands are rejected in the typed and convenience APIs wherever Git 2.55.0 reaches parse_pathspec (final and interactive add; the native convenience-API test was also run against Git 2.25.1); after a final edit mode they go to revision parsing and stay delegated. Completion and other parser modes require further audit. Finite native outcomes do not establish completeness.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/worktree-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/worktree-parser.test.ts",
+          "test/types/worktree-parser-add-corpus.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/add-rule-corpus.json",
+          "src/commands/add-rule-corpus.test.ts",
+          "test/fixtures/worktree-parser-corpus.json",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/add-rule-corpus.json",
+          "src/commands/add-rule-corpus.test.ts",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "serialization": [
+          "src/commands/add-rule-corpus.test.ts",
+          "src/commands/worktree-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/add-rule-corpus.mjs",
+          "scripts/worktree-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/add-rule-corpus.ts",
+          "test/types/worktree-parser-add-corpus.ts",
+          "test/types/generated-command-constraints.ts"
+        ]
+      }
     },
     "checkout": {
       "state": "partial",
@@ -880,9 +921,11 @@
         "test/types/checkout-parser-restore-corpus-5.ts",
         "test/types/checkout-parser-restore-corpus-6.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/restore-empty-pathspec.test.ts",
+        "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected like parse_pathspec does after option parsing, while help still exits first; repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. This empty-pathspec behavior is checked against the installed Git and is not yet recorded in a Git 2.55.0 native corpus. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true
     },
     "revert": {
@@ -1855,7 +1898,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Removal of refs/stash and its reflog has no argument-dependent state check and remains delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash apply": {
       "state": "partial",
@@ -1873,7 +1916,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a stash-like commit (builtin/stash.c:get_stash_info), index/worktree state, merge outcome and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash drop": {
       "state": "partial",
@@ -1891,7 +1934,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a refs/stash reflog entry (get_stash_info_assert) and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash pop": {
       "state": "partial",
@@ -1909,7 +1952,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a stash-like commit that is also a refs/stash reflog entry (get_stash_info_assert), index/worktree state, merge outcome and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash branch": {
       "state": "partial",
@@ -1927,7 +1970,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Branch-name validity and existence, resolution of the stash reference to a stash-like commit and worktree state remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash store": {
       "state": "partial",
@@ -1945,7 +1988,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Whether the single commit operand names a stash-like commit and the refs/stash reflog update remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash save": {
       "state": "partial",
@@ -1965,7 +2008,7 @@
         "src/commands/legacy-stash-parent.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Presence of local changes, untracked-file state and interactive --patch selection remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
     },
     "stash import": {
       "state": "partial",
@@ -1982,7 +2025,7 @@
         "test/types/stash-transfer-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax/resolution, export-chain topology, repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
+      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax and resolution and export-chain topology remain delegated to native Git. Repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
     },
     "stash export": {
       "state": "partial",
@@ -1999,7 +2042,7 @@
         "test/types/stash-transfer-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax/resolution, export-chain topology, repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
+      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax and resolution of each stash revision and the destination ref update remain delegated to native Git. Repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
     },
     "config set": {
       "state": "partial",
@@ -2236,10 +2279,11 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/stash-create.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Stash topology and working/index state; message behavior with non-ASCII and arbitrary control characters; independent cross-platform witnesses."
+      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words, and these legacy exits are covered by runtime witnesses that leave the exit to the selected Git. Whether a commit is created depends on tracked index/worktree changes (a clean tree exits 0 with no output) and remains delegated to native Git. Independent Git 2.55.0 corpus evidence, message behavior with non-ASCII and control characters, and cross-platform witnesses remain pending."
     },
     "show": {
       "state": "partial",
@@ -2585,7 +2629,7 @@
         "src/commands/revision-date-format.test.ts",
         "test/types/revision-date-format.ts"
       ],
-      "remaining": "Initial KEEP_UNKNOWN_OPT pass, own-flag/help timing, ordered retained-word prefix partition, separate stash-reference arity, later revision/diff parsing and color grammar are modeled. 1,150 independent native outcomes include both direct and root dispatch and valid dash-prefixed refs to distinguish object absence from syntax. Configuration/repository state, stash/revision object resolution, pathspec languages, remaining revision callbacks, completion and other parser modes remain open; finite examples and normalized state counts do not establish completeness. Existing selected C long 32/64, numeric/source profiles and legacy parent-help alternatives remain independently modeled; other profiles and callbacks remain partial. Stable full execution witnesses use Git 2.56.0; all unmodified Git 2.55.0 outcomes are separately observed, including abnormal native terminations without inferred argument validity. Required empty short values retain their separate argv word. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete."
+      "remaining": "Initial KEEP_UNKNOWN_OPT pass, own-flag/help timing, ordered retained-word prefix partition, separate stash-reference arity, later revision/diff parsing and color grammar are modeled. 1,150 independent native outcomes include both direct and root dispatch and valid dash-prefixed refs to distinguish object absence from syntax. Stash/revision object resolution and configuration/repository state remain delegated to native Git. Pathspec languages, remaining revision callbacks, completion and other parser modes remain open; finite examples and normalized state counts do not establish completeness. Existing selected C long 32/64, numeric/source profiles and legacy parent-help alternatives remain independently modeled; other profiles and callbacks remain partial. The stable corpus executes Git 2.56.0 against the pinned Git 2.55.0 option vocabulary, because unmodified Git 2.55.0 aborts on `stash show -G -L` (argv lifetime, fixed in 2.56.0); its 1,150 rows are therefore 2.56.0 execution evidence for the 2.55.0 option tables, not 2.55.0 execution evidence. All unmodified Git 2.55.0 outcomes are separately observed (--observe), including abnormal native terminations without inferred argument validity. Required empty short values retain their separate argv word. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete."
     },
     "merge-base": {
       "models": [],
@@ -6518,7 +6562,9 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/stash-create.test.ts",
+        "src/commands/stash-empty-pathspec.test.ts"
       ],
       "remaining": "Exact child dispatch, implicit push/path separator rules and delegated list behavior are modeled. Index/worktree/ref stash state, patch/untracked/file/callback phases, partial delegated revision and output/merge behavior, abbreviations/help and selected-version differences remain pending. Native success for an empty stash does not prove all stash lifecycle behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open. Additional audit: Exact child dispatch, optional-subcommand wrapper typo checks, assumed-push STOP_AT_NON_OPTION, native long prefix/negation resolution, help timing and retained leading-separator path boundaries are modeled. 4,978 independent native cases cover root and eight explicit stash subcommands. Configuration, repository/path/object resolution, completion/global help, further callback grammars and other parser modes remain open. Finite outcomes do not establish full argv reachability or audit completeness."
     },
