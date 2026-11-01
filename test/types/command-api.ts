@@ -244,6 +244,13 @@ git.command('notes merge', []);
 git.command('stash create', [{ operand: '--help' }, { operand: '--' }]);
 // @ts-expect-error Stash create does not parse options or a separator.
 git.command('stash create', [['--']]);
+// @ts-expect-error parse_pathspec rejects an empty stash pathspec after option parsing.
+git.command('stash push', [['--'], { operand: '' }]);
+// @ts-expect-error Assumed push applies the same pathspec check.
+git.command('stash', [['--'], { operand: '' }]);
+// Help exits before the pathspec is parsed.
+git.command('stash push', [['-h'], ['--'], { operand: '' }]);
+git.command('stash push', [['--'], { operand: 'path' }]);
 
 git.command('log', [['--default', 'HEAD'], ['--format', '%s']]);
 git.command('log', [['--graph'], ['--reverse'], ['--reverse']]);

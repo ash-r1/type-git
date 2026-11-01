@@ -1637,6 +1637,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "stash save": {
@@ -12731,6 +12734,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "config": {
