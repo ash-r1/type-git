@@ -20174,11 +20174,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -21383,7 +21378,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -21483,7 +21478,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -23806,11 +23801,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -25015,7 +25005,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -25115,7 +25105,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -26604,43 +26594,139 @@
       "command": "diff",
       "transitions": [
         {
-          "flag": "-S",
+          "flag": "-I",
           "rules": [
-            "revision.pickaxe-nonempty-S"
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
           ],
           "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
             "$value": [
               "undefined",
               "\"\"",
               "\"value\"",
               "\"0b\"",
-              "\"1kb\""
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
             ]
           },
-          "total": "5",
-          "accepted": "3",
+          "total": "42",
+          "accepted": "35",
           "isolatedRuleWitnesses": {
-            "revision.pickaxe-nonempty-S": "{}"
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
+          }
+        },
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S",
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "23",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}",
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
           "flag": "-G",
           "rules": [
-            "revision.pickaxe-nonempty-G"
+            "revision.pickaxe-nonempty-G",
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
           ],
           "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
             "$value": [
               "undefined",
               "\"\"",
               "\"value\"",
               "\"0b\"",
-              "\"1kb\""
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
             ]
           },
-          "total": "5",
-          "accepted": "3",
+          "total": "42",
+          "accepted": "23",
           "isolatedRuleWitnesses": {
-            "revision.pickaxe-nonempty-G": "{}"
+            "revision.pickaxe-nonempty-G": "{}",
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
+          }
+        },
+        {
+          "flag": "-O",
+          "rules": [
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "35",
+          "isolatedRuleWitnesses": {
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
@@ -26692,6 +26778,39 @@
           "accepted": "1",
           "isolatedRuleWitnesses": {
             "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--default",
+          "rules": [
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "35",
+          "isolatedRuleWitnesses": {
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
@@ -26841,7 +26960,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 21,
       "domains": {
         "no-output": [
           "undefined",
@@ -27113,6 +27232,10 @@
           "true",
           "false"
         ],
+        "diff-prescan-stopped": [
+          "undefined",
+          "true"
+        ],
         "l": [
           "undefined",
           "-2",
@@ -27151,6 +27274,11 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\""
+        ],
+        "diff-prescan-word": [
+          "undefined",
+          "true",
+          "false"
         ],
         "indent-heuristic": [
           "undefined",
@@ -27357,7 +27485,19 @@
           "undefined",
           "true"
         ],
-        "help": [
+        "diff-files-residual-error": [
+          "undefined",
+          "true"
+        ],
+        "diff-index-residual-misuse": [
+          "undefined",
+          "true"
+        ],
+        "diff-help-word": [
+          "undefined",
+          "true"
+        ],
+        "diff-usage": [
           "undefined",
           "true"
         ],
@@ -27968,11 +28108,26 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
         ]
       },
-      "total": "3669986489853337991561940251306130149286163527683826586415529984000000000000000000000000000000000000",
-      "accepted": "8195396991168787356959552501929047177813348875153710530257297080320000000000000000000000000000000",
-      "nodes": 7940,
+      "total": "4227824436311045366279355169504661931977660383891768227550690541568000000000000000000000000000000000000",
+      "accepted": "7080820896640693918353798784995853632522640909081197320738931955099238400000000000000000000000000000",
+      "nodes": 117747,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -27986,7 +28141,15 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
-        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "diff.files-residual-option": "{\"diff-files-residual-error\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-residual-option": "{\"cached\":true,\"diff-index-residual-misuse\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-revision-count": "{\"cached\":true,\"max-count\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-min-age": "{\"cached\":true,\"min-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-max-age": "{\"cached\":true,\"max-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.follow-without-path": "{\"follow\":true,\"operands\":[]}",
+        "diff.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[\"value\"]}"
       }
     },
     {
@@ -32257,7 +32420,7 @@
           }
         }
       ],
-      "rules": 5,
+      "rules": 8,
       "domains": {
         "no-index": [
           "undefined",
@@ -32786,8 +32949,16 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
-          "\"value\""
+          "\"value\"",
+          "\"-\""
+        ],
+        "operand1": [
+          "\"\"",
+          "undefined",
+          "\"value\"",
+          "\"-\""
         ],
         "inRepository": [
           "undefined",
@@ -32795,15 +32966,18 @@
           "true"
         ]
       },
-      "total": "25270340756301812088121275187200000000000000000000",
-      "accepted": "646920723361326389455904644792320000000000000000",
-      "nodes": 231,
+      "total": "202162726050414496704970201497600000000000000000000",
+      "accepted": "2443922732698344137944528658104320000000000000000",
+      "nodes": 553,
       "isolatedRuleWitnesses": {
-        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
-        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[\"value\",\"value\"]}",
-        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
-        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
-        "diff.no-index-paths": "{\"operands\":[]}"
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
+        "diff.no-index-paths": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "diff.no-index-stdin-operand0": "{\"operand0\":\"-\",\"operand1\":\"\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "diff.no-index-stdin-operand1": "{\"operand0\":\"\",\"operand1\":\"-\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "diff.no-index-follow": "{\"follow\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}"
       }
     },
     {
@@ -33921,11 +34095,6 @@
             "key": "follow",
             "value": "flag",
             "set": false
-          },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
           },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
@@ -35131,7 +35300,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -35231,7 +35400,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -37550,11 +37719,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -38759,7 +38923,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -38859,7 +39023,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -45069,17 +45233,6 @@
               }
             ]
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true,
-            "effects": [
-              {
-                "key": "revision-argument",
-                "set": true
-              }
-            ]
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -47060,7 +47213,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -47160,7 +47313,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -50175,17 +50328,6 @@
               }
             ]
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true,
-            "effects": [
-              {
-                "key": "revision-argument",
-                "set": true
-              }
-            ]
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -52166,7 +52308,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -52266,7 +52408,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -69426,11 +69568,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -70669,7 +70806,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -70769,7 +70906,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -73035,11 +73172,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -74244,7 +74376,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -74344,7 +74476,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -77851,11 +77983,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -79060,7 +79187,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -79160,7 +79287,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -85053,11 +85180,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -86262,7 +86384,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -86362,7 +86484,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -90595,11 +90717,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -91804,7 +91921,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -91904,7 +92021,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -100503,11 +100620,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -101712,7 +101824,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -101812,7 +101924,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -106422,11 +106534,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -106665,7 +106772,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -106765,7 +106872,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -109613,11 +109720,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -110822,7 +110924,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -110922,7 +111024,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
