@@ -34,17 +34,27 @@ const DELEGATION = /delegat|defer|\bat runtime\b|runtime (?:check|validation)|na
 // "remaining operands" names an operand slot, so only the verb marks open work.
 const REMAINING = /\bremain(?:s|ed)?\b|require|pending|not (?:yet )?(?:modeled|audited|establish)|separate (?:audit|work)|obligation|further audit|unsupported|completeness/i;
 const ACHIEVED = /\b(?:are|is|were|was) (?:now )?(?:modeled|checked|covered|encoded|exercised|recorded|tested|preserved|retained|rejected|accepted)\b|\bcover(?:s|ed)?\b|\bagrees?\b|\bpreserves?\b|\bmatch(?:es)?\b/i;
-// Delegation first, then explicit open work, then explicit achievements; a sentence that
-// matches none stays remaining so unclassified ledger text never reads as done.
+/**
+ * Classify one ledger clause. Explicit open work wins over delegation wording ("dynamic
+ * literals remain separate obligations" is still open), then delegation, then explicit
+ * achievements; a clause that matches none stays remaining so unclassified text never
+ * reads as done.
+ */
 const classify = (s) =>
-  DELEGATION.test(s) ? 'delegation' : REMAINING.test(s) ? 'remaining' : ACHIEVED.test(s) ? 'achieved' : 'remaining';
+  REMAINING.test(s) ? 'remaining' : DELEGATION.test(s) ? 'delegation' : ACHIEVED.test(s) ? 'achieved' : 'remaining';
 const VERSION = /Git ?(\d+\.\d+(?:\.\d+)?)/g;
 const LEGACY = /TYPE_GIT_USE_LEGACY_VERSION|Git 2\.25/;
 
-// "Git 2.55" next to "Git 2.55.0" names the same release.
+/** Deduplicate and sort Git versions; "Git 2.55" next to "Git 2.55.0" names the same release. */
 const releases = (named) => [...new Set(named)].filter((v, _, all) => !all.some((w) => w !== v && w.startsWith(`${v}.`))).sort();
-const sentences = (text) => (text ?? '').split(/(?<=[.;])\s+(?=[A-Z0-9`])/).map((s) => s.trim()).filter(Boolean);
+/**
+ * Split ledger text into classifiable clauses. Sentence and semicolon boundaries always
+ * separate clauses, since the ledger joins achieved and open items with them regardless of
+ * the next word's case.
+ */
+const sentences = (text) => (text ?? '').split(/(?<=\.)\s+|;\s+/).map((s) => s.trim()).filter(Boolean);
 
+/** Count native corpus cases per command scope, with the Git releases each fixture names. */
 async function loadCorpora() {
   const dir = new URL('test/fixtures/', root);
   const corpora = [];
@@ -65,6 +75,10 @@ async function loadCorpora() {
   return corpora;
 }
 
+/**
+ * Build the progress report for the requested commands; each name also selects its
+ * "name *" operation scopes. Throws when a name has no audit record.
+ */
 export async function commandProgress(requested) {
   const [audit, inventory, cli, exploration, corpora] = await Promise.all([
     json('spec/command-audit.json'),
@@ -123,6 +137,7 @@ export async function commandProgress(requested) {
   });
 }
 
+/** Render a progress report as a summary table followed by one section per scope. */
 function markdown(report, facets) {
   const lines = ['# Command progress', '',
     'Derived from spec/command-audit.json, the generated command schemas and the native corpora in test/fixtures. Delegation and remaining items are keyword-classified ledger sentences; the ledger text is authoritative.', '',

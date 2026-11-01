@@ -41,6 +41,14 @@ describe('per-command progress report', () => {
     expect(apply.remaining).not.toContain(modeled);
   });
 
+  it('splits semicolon clauses and keeps open work out of delegation', async () => {
+    const [{ scopes: [show] }] = await commandProgress(['show']);
+    const open = [...show.remaining, ...show.delegation].find((s) => /^dynamic or compiler-budget-exceeding literals/.test(s));
+    expect(open).toBeDefined();
+    expect(show.remaining).toContain(open);
+    expect(show.achieved.some((s) => /^Numeric bounds .* are checked/.test(s))).toBe(true);
+  });
+
   it('rejects commands without an audit record', async () => {
     await expect(commandProgress(['not-a-git-command'])).rejects.toThrow('no audit record');
   });
