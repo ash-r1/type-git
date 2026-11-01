@@ -30,6 +30,8 @@ export const GROUPS = {
   next: ['clone', 'fetch', 'pull', 'push', 'merge', 'rebase', 'reset', 'stash'],
 };
 
+// "remains delegated to native Git" names delegated work despite the open-work verb.
+const DELEGATED = /\bremain(?:s|ed)? delegated\b/i;
 const DELEGATION = /delegat|defer|\bat runtime\b|runtime (?:check|validation)|native Git (?:determines|decides|reports)|opaque|dynamic/i;
 // "remaining operands" names an operand slot, so only the verb marks open work.
 const REMAINING = /\bremain(?:s|ed)?\b|require|pending|not (?:yet )?(?:modeled|audited|establish)|separate (?:audit|work)|obligation|further audit|unsupported|completeness/i;
@@ -40,8 +42,8 @@ const ACHIEVED = /\b(?:are|is|were|was) (?:now )?(?:modeled|checked|covered|enco
  * achievements; a clause that matches none stays remaining so unclassified text never
  * reads as done.
  */
-const classify = (s) =>
-  REMAINING.test(s) ? 'remaining' : DELEGATION.test(s) ? 'delegation' : ACHIEVED.test(s) ? 'achieved' : 'remaining';
+export const classify = (s) =>
+  DELEGATED.test(s) ? 'delegation' : REMAINING.test(s) ? 'remaining' : DELEGATION.test(s) ? 'delegation' : ACHIEVED.test(s) ? 'achieved' : 'remaining';
 const VERSION = /Git ?(\d+\.\d+(?:\.\d+)?)/g;
 const LEGACY = /TYPE_GIT_USE_LEGACY_VERSION|Git 2\.25/;
 
@@ -52,7 +54,7 @@ const releases = (named) => [...new Set(named)].filter((v, _, all) => !all.some(
  * separate clauses, since the ledger joins achieved and open items with them regardless of
  * the next word's case.
  */
-const sentences = (text) => (text ?? '').split(/(?<=\.)\s+|;\s+/).map((s) => s.trim()).filter(Boolean);
+export const sentences = (text) => (text ?? '').split(/(?<=\.)\s+|;\s+/).map((s) => s.trim()).filter(Boolean);
 
 /** Count native corpus cases per command scope, with the Git releases each fixture names. */
 async function loadCorpora() {
@@ -65,10 +67,18 @@ async function loadCorpora() {
     const counts = new Map();
     for (const row of data.cases) {
       if (typeof row?.command !== 'string') continue;
-      const entry = counts.get(row.command) ?? { cases: 0, accepted: 0 };
-      entry.cases += 1;
-      if (row.valid === true || row.accepted === true) entry.accepted += 1;
-      counts.set(row.command, entry);
+      // A root-dispatch row ("stash" with argv "stash push ...") also counts toward the
+      // operation scope it reaches; only audited scopes are ever looked up.
+      const keys = [row.command];
+      if (Array.isArray(row.argv) && row.argv[0] === row.command && typeof row.argv[1] === 'string') {
+        keys.push(`${row.command} ${row.argv[1]}`);
+      }
+      for (const key of keys) {
+        const entry = counts.get(key) ?? { cases: 0, accepted: 0 };
+        entry.cases += 1;
+        if (row.valid === true || row.accepted === true) entry.accepted += 1;
+        counts.set(key, entry);
+      }
     }
     if (counts.size) corpora.push({ fixture: `test/fixtures/${name}`, versions: releases([...profile.matchAll(VERSION)].map((m) => m[1])), counts });
   }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { commandProgress, GROUPS } from './command-progress.mjs';
+import { classify, commandProgress, GROUPS, sentences } from './command-progress.mjs';
 
 describe('per-command progress report', () => {
   it('reports every facet for each priority command', async () => {
@@ -21,6 +21,17 @@ describe('per-command progress report', () => {
     const push = stash.scopes.find((scope) => scope.scope === 'stash push');
     expect(push.nativeComparison.cases).toBeGreaterThan(0);
     expect(push.versions.native).toContain('2.55.0');
+    // Root-dispatch rows ("stash" with argv "stash show ...") also count toward the operation.
+    const { readdir, readFile } = await import('node:fs/promises');
+    const dir = new URL('../test/fixtures/', import.meta.url);
+    let expected = 0;
+    for (const name of (await readdir(dir)).filter((n) => n.endsWith('.json'))) {
+      const cases = JSON.parse(await readFile(new URL(name, dir), 'utf8')).cases;
+      if (!Array.isArray(cases)) continue;
+      expected += cases.filter((row) => row?.command === 'stash show' || (row?.command === 'stash' && row.argv?.[0] === 'stash' && row.argv?.[1] === 'show')).length;
+    }
+    const show = stash.scopes.find((scope) => scope.scope === 'stash show');
+    expect(show.nativeComparison.cases).toBe(expected);
   });
 
   it('keeps every ledger sentence in exactly one bucket', async () => {
@@ -30,15 +41,19 @@ describe('per-command progress report', () => {
     expect(new Set([...status.achieved, ...status.delegation, ...status.remaining]).size).toBe(total);
   });
 
-  it('keeps unclassified ledger text open and modeled remaining operands achieved', async () => {
-    const [stash] = await commandProgress(['stash']);
-    const create = stash.scopes.find((scope) => scope.scope === 'stash create');
-    expect(create.achieved).toEqual([]);
-    expect(create.remaining.length).toBeGreaterThan(0);
-    const apply = stash.scopes.find((scope) => scope.scope === 'stash apply');
-    const modeled = apply.achieved.find((s) => s.includes('literal remaining operands are modeled'));
-    expect(modeled).toBeDefined();
-    expect(apply.remaining).not.toContain(modeled);
+  it('keeps unclassified ledger text open and modeled remaining operands achieved', () => {
+    expect(classify('Stash topology and working/index state')).toBe('remaining');
+    expect(classify('End markers and literal remaining operands are modeled with 4,978 native cases.')).toBe('achieved');
+    expect(classify('Other legacy parser differences remain open.')).toBe('remaining');
+  });
+
+  it('classifies work that remains delegated as delegation', () => {
+    expect(classify('Index/worktree state and configuration remain delegated to native Git.')).toBe('delegation');
+    expect(classify('dynamic or compiler-budget-exceeding literals remain separate obligations.')).toBe('remaining');
+  });
+
+  it('splits sentence and semicolon boundaries regardless of case', () => {
+    expect(sentences('A is modeled; b remains open. c is checked.')).toEqual(['A is modeled', 'b remains open.', 'c is checked.']);
   });
 
   it('splits semicolon clauses and keeps open work out of delegation', async () => {
