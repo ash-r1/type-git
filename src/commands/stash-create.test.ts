@@ -80,6 +80,13 @@ describe('stash create message words', () => {
     ['message', '--', '-no-message', '-h'],
     ['--end-of-options', '--help'],
     ['', 'empty', ''],
+    ['-no-x', '-h'],
+    ['-h', '-no-x'],
+    ['-no-'],
+    ['-no'],
+    ['-hno-x'],
+    ['-nh'],
+    ['-'],
   ];
 
   it('matches the selected Git for direct and root-dispatched calls', async () => {
@@ -124,17 +131,25 @@ describe('stash create message words', () => {
     for (const [command, args] of [
       ['stash push', [['-m', '-no-message']]],
       ['stash', [['-m', '-no-message']]],
+      ['stash push', [['-m', '-h']]],
+      ['stash', [['-m', '-h']]],
     ] as const) {
       const label = `${command} ${JSON.stringify(args)}`;
       const actual = await repo.command(command, args);
+      const message = args[0][1];
       if (legacy) {
         expect(actual.exitCode, label).toBe(129);
-        expect(actual.stderr, label).toContain('with two dashes');
+        if (message === '-h') {
+          expect(actual.stdout, label).toContain('usage: git stash');
+        } else {
+          expect(actual.stderr, label).toContain('with two dashes');
+        }
+        await writeFile(join(repo.workdir, 'tracked'), 'changed\n');
         continue;
       }
       expect(actual.exitCode, label).toBe(0);
       expect(direct(['log', '-1', '--format=%s', 'refs/stash']).stdout, label).toMatch(
-        /^On [^:]+: -no-message\n$/,
+        new RegExp(`^On [^:]+: ${message}\\n$`),
       );
       expect(direct(['stash', 'pop', '-q']).status, label).toBe(0);
     }
@@ -148,6 +163,14 @@ describe('stash create message words', () => {
       'create',
       '-no-message',
     ]);
+  });
+
+  it('still refuses a single-dash typo where the modern child parses options', () => {
+    for (const command of ['stash apply', 'stash drop', 'stash pop', 'stash save'] as const) {
+      expect(() => commandArguments(command, [{ operand: '-no-x' }]), command).toThrow(
+        GitArgumentError,
+      );
+    }
   });
 
   it('refuses option, separator and NUL tokens that have no create grammar', () => {
