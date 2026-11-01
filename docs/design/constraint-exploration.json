@@ -1114,10 +1114,13 @@
       ]
     },
     "total": "43046721",
-    "accepted": "4251528",
-    "nodes": 22,
+    "accepted": "3031182",
+    "nodes": 73,
     "isolatedRuleWitnesses": {
       "add.all-update": "{\"all\":true,\"update\":true}",
+      "add.all-ignoreRemoval": "{\"all\":true,\"ignoreRemoval\":true}",
+      "add.ignoreMissing-dryRun": "{\"ignoreMissing\":true}",
+      "add.chmod": null,
       "add.unsupported": "{\"patch\":false}"
     }
   },

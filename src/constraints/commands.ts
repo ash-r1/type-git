@@ -911,9 +911,38 @@ export const COMMAND_CONSTRAINTS = {
       id: 'add.all-update',
       kind: 'exclusive',
       keys: ['all', 'update'],
+      // The emitted --ignore-removal follows --all and resets Git's shared mode variable.
+      guard: [{ key: 'ignoreRemoval', test: 'inactive' }],
       origin: 'git',
       reason: 'Git rejects these simultaneous modes or operands.',
       source: git('builtin/add.c'),
+    },
+    {
+      id: 'add.all-ignoreRemoval',
+      kind: 'exclusive',
+      keys: ['all', 'ignoreRemoval'],
+      origin: 'type-git',
+      reason:
+        'The emitted --ignore-removal follows --all and silently resets the same Git mode to --no-all.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+    },
+    {
+      id: 'add.ignoreMissing-dryRun',
+      kind: 'requires',
+      when: active('ignoreMissing'),
+      required: [active('dryRun')],
+      origin: 'git',
+      reason: 'Ignoring missing paths requires dry-run.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+    },
+    {
+      id: 'add.chmod',
+      kind: 'value',
+      key: 'chmod',
+      allowed: ['+x', '-x'],
+      origin: 'git',
+      reason: 'The executable bit must be +x or -x.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
     },
     {
       id: 'add.unsupported',
