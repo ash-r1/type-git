@@ -1174,15 +1174,25 @@ export function commandHasLegacyStashHelp(
   }
   const spec: CommandSpec = commandSpecs()[command];
   const words = commandShapeArguments(command, args, inRepository).slice(1);
-  return initialParserPass(spec, words, true, {
-    origin: 'git',
-    reason: 'Legacy stash parses help in an empty parent pass before child dispatch.',
-    source: 'Git 2.25.1 builtin/stash.c:cmd_stash',
-    flags: ['-h', '--help'],
-    firstPassOptions: [],
-    firstPassLongNames: [],
-    keepDashDash: true,
-  }).exited;
+  try {
+    return initialParserPass(spec, words, true, {
+      origin: 'git',
+      reason: 'Legacy stash parses help in an empty parent pass before child dispatch.',
+      source: 'Git 2.25.1 builtin/stash.c:cmd_stash',
+      flags: ['-h', '--help'],
+      firstPassOptions: [],
+      firstPassLongNames: [],
+      keepDashDash: true,
+    }).exited;
+  } catch (error) {
+    // The legacy parent's typo check ("-no-x") is an error exit, not a help exit, and a
+    // modern child may accept the same word (stash create keeps it as message text).
+    // Leave the decision to the selected child grammar instead of refusing here.
+    if (error instanceof GitArgumentError) {
+      return false;
+    }
+    throw error;
+  }
 }
 
 /** Detect an actually reached modern --empty callback, including a split value that becomes an option. */
