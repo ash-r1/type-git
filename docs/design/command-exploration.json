@@ -17243,7 +17243,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -17255,9 +17257,9 @@
           "true"
         ]
       },
-      "total": "314928000",
-      "accepted": "9982080",
-      "nodes": 268,
+      "total": "440899200",
+      "accepted": "11646720",
+      "nodes": 419,
       "isolatedRuleWitnesses": {
         "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -17270,7 +17272,7 @@
         "stash-push-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
         "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
         "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
-        "stash-push-empty-pathspec": null
+        "stash-push-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -113003,7 +113005,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -113020,9 +113024,9 @@
           "[\"value\"]"
         ]
       },
-      "total": "944784000",
-      "accepted": "26444160",
-      "nodes": 335,
+      "total": "1322697600",
+      "accepted": "31069440",
+      "nodes": 500,
       "isolatedRuleWitnesses": {
         "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -113036,7 +113040,7 @@
         "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
         "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
         "cli.stash.assumed-push-paths": "{\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",
-        "stash-empty-pathspec": null
+        "stash-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
