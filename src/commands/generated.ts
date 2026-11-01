@@ -355,12 +355,19 @@ const sharedPredicates30 = [
 ] as const;
 const sharedPredicates31 = [
   {
+    key: 'operands',
+    test: 'includes',
+    valueKey: 'empty-pathspec',
+  },
+] as const;
+const sharedPredicates32 = [
+  {
     key: 'n',
     test: 'notEquals',
     value: -1,
   },
 ] as const;
-const sharedPredicates32 = [
+const sharedPredicates33 = [
   {
     key: 'message',
     test: 'present',
@@ -370,7 +377,7 @@ const sharedPredicates32 = [
     test: 'present',
   },
 ] as const;
-const sharedPredicates33 = [
+const sharedPredicates34 = [
   {
     key: 'patch',
     test: 'active',
@@ -380,7 +387,7 @@ const sharedPredicates33 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates34 = [
+const sharedPredicates35 = [
   {
     key: 'staged',
     test: 'active',
@@ -390,7 +397,7 @@ const sharedPredicates34 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates35 = [
+const sharedPredicates36 = [
   {
     key: 'pathspec-from-file',
     test: 'present',
@@ -398,13 +405,6 @@ const sharedPredicates35 = [
   {
     key: 'staged',
     test: 'active',
-  },
-] as const;
-const sharedPredicates36 = [
-  {
-    key: 'operands',
-    test: 'includes',
-    valueKey: 'empty-pathspec',
   },
 ] as const;
 const sharedPredicates37 = [
@@ -23490,6 +23490,9 @@ const commandSpec35 = {
 } as const satisfies CommandSpec;
 const commandSpec36 = {
   argv: ['restore'],
+  initial: {
+    'empty-pathspec': '',
+  },
   options: {
     '--source': sharedOption284,
     '-s': sharedOption284,
@@ -23817,6 +23820,15 @@ const commandSpec36 = {
           test: 'inactive',
         },
       ],
+    },
+    {
+      id: 'restore-empty-pathspec',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
+      reason:
+        'Every restore operand is a pathspec, and parse_pathspec rejects an empty one after option parsing (builtin/checkout.c:checkout_main); a help exit happens first.',
+      when: sharedPredicates31,
     },
   ],
   source: 'builtin/checkout.c',
@@ -25929,7 +25941,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-verify-filter-contains',
@@ -26066,7 +26078,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-annotate',
@@ -26217,7 +26229,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-edit',
@@ -26368,7 +26380,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-sign',
@@ -26519,7 +26531,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-message',
@@ -26670,7 +26682,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-file',
@@ -26821,7 +26833,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-local-user',
@@ -26972,7 +26984,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-trailer',
@@ -27123,7 +27135,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-name-force',
@@ -27274,7 +27286,7 @@ const commandSpec38 = {
           test: 'present',
         },
       ],
-      guard: sharedPredicates31,
+      guard: sharedPredicates32,
     },
     {
       id: 'tag-creation-arity',
@@ -27338,7 +27350,7 @@ const commandSpec38 = {
       origin: 'git',
       reason: 'File and inline tag messages cannot coexist.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
-      when: sharedPredicates32,
+      when: sharedPredicates33,
     },
     {
       id: 'tag-cleanup',
@@ -28721,7 +28733,7 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates33,
+      when: sharedPredicates34,
     },
     {
       id: 'stash-push-staged-untracked',
@@ -28729,7 +28741,7 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates34,
+      when: sharedPredicates35,
     },
     {
       id: 'stash-push-file-patch',
@@ -28757,7 +28769,7 @@ const commandSpec45 = {
       origin: 'git',
       reason: 'Staged-only stashing cannot use a pathspec file.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates35,
+      when: sharedPredicates36,
     },
     {
       id: 'stash-push-file-operands',
@@ -28780,7 +28792,7 @@ const commandSpec45 = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
       reason:
         'parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.',
-      when: sharedPredicates36,
+      when: sharedPredicates31,
     },
   ],
   source: 'builtin/stash.c',
@@ -29350,7 +29362,7 @@ const commandSpec46 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates33,
+      when: sharedPredicates34,
     },
     {
       id: 'stash-save-staged-untracked',
@@ -29358,7 +29370,7 @@ const commandSpec46 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates34,
+      when: sharedPredicates35,
     },
   ],
   source: 'builtin/stash.c',
@@ -71451,7 +71463,7 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates33,
+      when: sharedPredicates34,
     },
     {
       id: 'stash-push-staged-untracked',
@@ -71459,7 +71471,7 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Patch and staged-only stashing cannot include untracked files.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates34,
+      when: sharedPredicates35,
     },
     {
       id: 'stash-push-file-patch',
@@ -71487,7 +71499,7 @@ const commandSpec307 = {
       origin: 'git',
       reason: 'Staged-only stashing cannot use a pathspec file.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
-      when: sharedPredicates35,
+      when: sharedPredicates36,
     },
     {
       id: 'stash-push-file-operands',
@@ -71524,7 +71536,7 @@ const commandSpec307 = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
       reason:
         'parse_pathspec rejects an empty pathspec after option parsing (builtin/stash.c:push_stash); a help exit happens first.',
-      when: sharedPredicates36,
+      when: sharedPredicates31,
     },
   ],
   source: 'builtin/stash.c',
@@ -76617,7 +76629,7 @@ const commandSpec374 = {
     {
       id: 'cli.svn.commit-diff.message-file',
       kind: 'forbid',
-      when: sharedPredicates32,
+      when: sharedPredicates33,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'Explicit message and file options cannot both be defined, even when empty.',

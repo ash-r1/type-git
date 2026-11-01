@@ -277,41 +277,61 @@ describe('option constraints against independent Git executions', () => {
     }
   });
 
-  it('checks empty add pathspecs against Git', async () => {
-    for (const options of assignments({
-      paths: [[], [''], ['file'], ['file', ''], ['', 'file']],
-      dryRun: [undefined, true],
-      update: [undefined, true],
-    })) {
-      const paths = options.paths as string[];
-      const args = ['-C', repo.workdir, 'add'];
-      if (options.dryRun) {
-        args.push('--dry-run');
-      }
-      if (options.update) {
-        args.push('--update');
-      }
-      args.push('--', ...paths);
-      const result = raw(args);
-      const rejected = violations(INPUT_CONSTRAINTS.addPathspec, {
-        paths,
-        emptyPathspec: '',
-      }).map((rule) => rule.id);
-      // Kept independent of the rule table: Git refuses exactly the lists with an empty entry.
-      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
-        !paths.includes(''),
-      );
-      expect(rejected.length === 0).toBe(!paths.includes(''));
-      const { paths: _paths, ...opts } = options;
-      if (paths.includes('')) {
-        await expect(repo.add(paths, opts as never)).rejects.toBeInstanceOf(GitArgumentError);
-        if (paths.length === 1) {
-          await expect(repo.add('', opts as never)).rejects.toBeInstanceOf(GitArgumentError);
+  it('checks empty pathspecs in add, rm, path checkout and restore against Git', async () => {
+    // rm runs as a dry run so every case starts from the same tracked file.
+    const commands = [
+      { name: 'add', argv: ['add'], run: (paths: string[]) => repo.add(paths) },
+      {
+        name: 'rm',
+        argv: ['rm', '--dry-run'],
+        run: (paths: string[]) => repo.rm(paths, { dryRun: true }),
+      },
+      { name: 'checkout', argv: ['checkout'], run: (paths: string[]) => repo.checkout(paths) },
+      { name: 'restore', argv: ['restore'], run: (paths: string[]) => repo.restore(paths) },
+      {
+        name: 'restore --staged',
+        argv: ['restore', '--staged'],
+        run: (paths: string[]) => repo.restore(paths, { staged: true }),
+      },
+    ];
+    for (const command of commands) {
+      for (const paths of [[''], ['file'], ['file', ''], ['', 'file']]) {
+        const result = raw(['-C', repo.workdir, ...command.argv, '--', ...paths]);
+        const rejected = violations(INPUT_CONSTRAINTS.pathspec, { paths, emptyPathspec: '' });
+        const label = `${command.name} ${JSON.stringify(paths)}: ${result.stderr}`;
+        // Kept independent of the rule table: Git refuses exactly the lists with an empty entry.
+        expect(result.status === 0, label).toBe(!paths.includes(''));
+        expect(rejected.length === 0, label).toBe(!paths.includes(''));
+        if (paths.includes('')) {
+          expect(result.stderr, label).toContain('empty string is not a valid pathspec');
+          await expect(command.run(paths), label).rejects.toBeInstanceOf(GitArgumentError);
+        } else {
+          await expect(command.run(paths), label).resolves.toBeUndefined();
         }
-      } else {
-        await expect(repo.add(paths, opts as never)).resolves.toBeUndefined();
       }
     }
+    // A single string is checked like a one-element list.
+    await expect(repo.add('')).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(repo.restore('')).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(repo.rm('', { dryRun: true })).rejects.toBeInstanceOf(GitArgumentError);
+  });
+
+  it('treats an empty pathspec file option as omitted, as the convenience APIs emit it', async () => {
+    const run = vi.spyOn(
+      (repo as unknown as { runner: { runOrThrow: (...args: unknown[]) => unknown } }).runner,
+      'runOrThrow',
+    );
+    await expect(
+      repo.restore(['file'], { pathspecFromFile: '' } as never),
+    ).resolves.toBeUndefined();
+    expect(run.mock.calls.at(-1)?.[1]).toEqual(['restore', '--', 'file']);
+    await expect(repo.add(['file'], { pathspecFromFile: '' } as never)).resolves.toBeUndefined();
+    expect(run.mock.calls.at(-1)?.[1]).toEqual(['add', '--', 'file']);
+    run.mockRestore();
+    // A non-empty pathspec file still replaces command-line paths.
+    await expect(
+      repo.restore(['file'], { pathspecFromFile: 'paths' } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
   });
 
   it('checks stash staged, untracked, all, file and explicit path combinations against Git', async () => {
