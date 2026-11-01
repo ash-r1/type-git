@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { COMMAND_CONSTRAINTS } from '../constraints/commands.js';
 import { assignments } from '../constraints/explore.js';
+import { INPUT_CONSTRAINTS } from '../constraints/inputs.js';
 import { violations } from '../constraints/model.js';
 import type { CloneOpts, Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
@@ -272,6 +273,43 @@ describe('option constraints against independent Git executions', () => {
       } else {
         // The real emission order must reach the same native acceptance.
         await expect(repo.add('file', options as never)).resolves.toBeUndefined();
+      }
+    }
+  });
+
+  it('checks empty add pathspecs against Git', async () => {
+    for (const options of assignments({
+      paths: [[], [''], ['file'], ['file', ''], ['', 'file']],
+      dryRun: [undefined, true],
+      update: [undefined, true],
+    })) {
+      const paths = options.paths as string[];
+      const args = ['-C', repo.workdir, 'add'];
+      if (options.dryRun) {
+        args.push('--dry-run');
+      }
+      if (options.update) {
+        args.push('--update');
+      }
+      args.push('--', ...paths);
+      const result = raw(args);
+      const rejected = violations(INPUT_CONSTRAINTS.addPathspec, {
+        paths,
+        emptyPathspec: '',
+      }).map((rule) => rule.id);
+      // Kept independent of the rule table: Git refuses exactly the lists with an empty entry.
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        !paths.includes(''),
+      );
+      expect(rejected.length === 0).toBe(!paths.includes(''));
+      const { paths: _paths, ...opts } = options;
+      if (paths.includes('')) {
+        await expect(repo.add(paths, opts as never)).rejects.toBeInstanceOf(GitArgumentError);
+        if (paths.length === 1) {
+          await expect(repo.add('', opts as never)).rejects.toBeInstanceOf(GitArgumentError);
+        }
+      } else {
+        await expect(repo.add(paths, opts as never)).resolves.toBeUndefined();
       }
     }
   });

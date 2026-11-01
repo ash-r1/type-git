@@ -13,6 +13,8 @@ export type NativeAddRuleCases = readonly [
   Check<Accepted<[["-n"],["--unified","1"]]> extends false ? true : false>,
   Check<Accepted<[["-n"],["--unified","-2"]]> extends false ? true : false>,
   Check<Accepted<[["-n"],["--inter-hunk-context","-2"]]> extends false ? true : false>,
+  Check<Accepted<[["-n"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["-v"],{"operand":""}]> extends false ? true : false>,
   Check<Accepted<[["--pathspec-from-file","../oracle-paths"],{"operand":"file"}]> extends false ? true : false>,
   Check<Accepted<[{"operand":"file"},["--pathspec-from-file","../oracle-paths"]]> extends false ? true : false>,
   Check<Accepted<[["-u"],["-A"],["--no-all"]]> extends true ? true : false>,
@@ -50,4 +52,6 @@ export type NativeAddRuleCases = readonly [
   Check<Accepted<[["-e"],["--pathspec-from-file","../oracle-paths"],["--no-pathspec-from-file"]]> extends false ? true : false>,
   Check<Accepted<[["--no-pathspec-from-file"],["--pathspec-from-file","../oracle-paths"],["-e"]]> extends false ? true : false>,
   Check<Accepted<[["-e"],["--unified","1"],["--inter-hunk-context","1"]]> extends false ? true : false>,
+  Check<Accepted<[["-n"],["--"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["-e"],["--no-edit"],{"operand":""}]> extends false ? true : false>,
 ];

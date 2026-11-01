@@ -1935,6 +1935,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   ): Promise<void>;
   public async add(paths: string | string[], opts?: AddOpts & ExecOpts): Promise<void> {
     validatePathInput('add', paths, opts);
+    // repo.add has no edit mode, so every emitted path reaches parse_pathspec.
+    validateInput(
+      'addPathspec',
+      { paths: Array.isArray(paths) ? paths : [paths], emptyPathspec: '' },
+      'add',
+    );
     validateOptions('add', opts);
     const args = ['add'];
 

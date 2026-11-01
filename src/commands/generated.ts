@@ -9865,6 +9865,9 @@ const commandSpec0 = {
 } as const satisfies CommandSpec;
 const commandSpec1 = {
   argv: ['add'],
+  initial: {
+    'empty-pathspec': '',
+  },
   options: {
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
@@ -10073,6 +10076,33 @@ const commandSpec1 = {
       origin: 'git',
       reason: 'An explicit context other than -1 requires interactive mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+    },
+    {
+      id: 'cli.add.empty-pathspec',
+      kind: 'conflicts',
+      when: {
+        key: 'operands',
+        test: 'includes',
+        valueKey: 'empty-pathspec',
+      },
+      others: [
+        {
+          key: 'edit',
+          test: 'inactive',
+        },
+        {
+          key: 'interactive',
+          test: 'active',
+        },
+        {
+          key: 'patch',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'parse_pathspec rejects an empty pathspec after the final add checks and in interactive add; edit mode passes operands to setup_revisions instead.',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
     },
   ],
   source: 'builtin/add.c',

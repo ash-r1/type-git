@@ -4,6 +4,8 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 
+const EMPTY_PATHSPEC_RULE = /cli\.add\.empty-pathspec/;
+
 describe('native git add final rules', () => {
   it('matches the independent native corpus and preserves serialized argv', () => {
     const mismatches: string[] = [];
@@ -43,9 +45,23 @@ describe('native git add final rules', () => {
     expect([...reached].sort()).toEqual([...new Set(rules)].sort());
   });
 
-  it('keeps the Git 2.25.1 filename-pointer outcomes for final add rules', () => {
-    // Observed with Git 2.25.1: --no-pathspec-from-file clears the pointer and an empty
-    // value stays a nonnull file name, the reverse of Git 2.55.0 in both cases.
+  it('leaves empty operands in final edit mode to native revision parsing', () => {
+    // Edit mode passes operands to setup_revisions instead of parse_pathspec; the corpus does not
+    // record those state-dependent outcomes, so the wrapper must not claim a static refusal.
+    expect(commandArguments('add', [['-e'], { operand: '' }], true)).toEqual(['add', '-e', '']);
+    for (const tokens of [
+      [['-e'], ['--no-edit'], { operand: '' }],
+      [['-e'], ['-i'], { operand: '' }],
+      [['-e'], ['-p'], { operand: '' }],
+    ] as const) {
+      expect(() => commandArguments('add', tokens, true)).toThrow(EMPTY_PATHSPEC_RULE);
+    }
+  });
+
+  it('separates the legacy and optional filename-pointer profiles for final add rules', () => {
+    // Expected outcomes were transcribed by hand from a Git 2.25.1 build and are not replayed
+    // here: this test only checks the profile emulation. Under the legacy profile
+    // --no-pathspec-from-file clears the pointer and an empty value stays a nonnull file name.
     const legacy: [readonly unknown[], boolean][] = [
       [
         [

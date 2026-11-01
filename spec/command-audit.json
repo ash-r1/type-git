@@ -530,9 +530,10 @@
         "src/commands/add-rule-corpus.test.ts",
         "test/types/add-rule-corpus.ts",
         "src/impl/option-constraints.test.ts",
-        "test/types/generated-command-constraints.ts"
+        "test/types/generated-command-constraints.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Final add rules are modeled with 972 independent Git 2.55.0 cases covering the shared -A/--no-all/--ignore-removal/-u last-wins mode, interactive and edit precedence, empty and negated pathspec-file pointer states, the executable-bit value and context checks, and every typed cli.add rule is reached by a native refusal. Git 2.25.1 filename-pointer differences for these rules are covered by explicit legacy-profile cases. The convenience API rejects --ignore-missing without dry-run, invalid --chmod values and the all/ignoreRemoval pair whose emitted order resets --all, and these combinations are checked against the executing Git. Interactive selection, edit-patch application, configuration, index/worktree state, pathspec file contents and filesystem resolution are delegated to native Git at runtime. Pathspec magic validity depends on the inherited GIT_*_PATHSPECS environment and is delegated to native Git. Empty-string pathspec operands, which Git rejects before reading the index, remain unmodeled in the typed and convenience APIs. Completion and other parser modes require further audit. Finite native outcomes do not establish completeness.",
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Final add rules are modeled with 1,036 independent Git 2.55.0 cases covering the shared -A/--no-all/--ignore-removal/-u last-wins mode, interactive and edit precedence, empty and negated pathspec-file pointer states, the executable-bit value and context checks, and every typed cli.add rule is reached by a native refusal. Git 2.25.1 filename-pointer differences for these rules are covered by explicit legacy-profile cases. The convenience API rejects --ignore-missing without dry-run, invalid --chmod values and the all/ignoreRemoval pair whose emitted order resets --all, and these combinations are checked against the executing Git. Interactive selection, edit-patch application, configuration, index/worktree state, pathspec file contents and filesystem resolution are delegated to native Git at runtime. Pathspec magic validity depends on the inherited GIT_*_PATHSPECS environment and is delegated to native Git. Empty-string pathspec operands are rejected in the typed and convenience APIs wherever Git 2.55.0 reaches parse_pathspec (final and interactive add; the native convenience-API test was also run against Git 2.25.1); after a final edit mode they go to revision parsing and stay delegated. Completion and other parser modes require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true,
       "evidence": {
         "option-grammar": [
@@ -540,6 +541,13 @@
           "test/fixtures/parse-options-completion-corpus.json",
           "src/commands/worktree-parser.test.ts",
           "test/types/worktree-parser-add-corpus.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/add-rule-corpus.json",
+          "src/commands/add-rule-corpus.test.ts",
+          "test/fixtures/worktree-parser-corpus.json",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts"
         ],
         "combination-rules": [
           "test/fixtures/add-rule-corpus.json",

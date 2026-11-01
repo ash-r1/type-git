@@ -569,6 +569,25 @@
       "command": "add",
       "tokens": [
         [
+          "-n"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-n",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "-v"
         ],
         [
@@ -1133,6 +1152,25 @@
       "command": "add",
       "tokens": [
         [
+          "-v"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-v",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "-i"
         ],
         [
@@ -1697,6 +1735,25 @@
       "command": "add",
       "tokens": [
         [
+          "-i"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-i",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "-p"
         ],
         [
@@ -2256,6 +2313,25 @@
       "valid": true,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-p",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
     },
     {
       "command": "add",
@@ -3389,6 +3465,25 @@
       "command": "add",
       "tokens": [
         [
+          "-u"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-u",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "-A"
         ],
         [
@@ -3953,6 +4048,25 @@
       "command": "add",
       "tokens": [
         [
+          "-A"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-A",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--no-all"
         ],
         [
@@ -4517,6 +4631,25 @@
       "command": "add",
       "tokens": [
         [
+          "--no-all"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--no-all",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--ignore-removal"
         ],
         [
@@ -5076,6 +5209,25 @@
       "valid": true,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-removal"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--ignore-removal",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
     },
     {
       "command": "add",
@@ -5645,6 +5797,25 @@
       "command": "add",
       "tokens": [
         [
+          "--no-ignore-removal"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--no-ignore-removal",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--renormalize"
         ],
         [
@@ -6209,6 +6380,25 @@
       "command": "add",
       "tokens": [
         [
+          "--renormalize"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--renormalize",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--refresh"
         ],
         [
@@ -6773,6 +6963,25 @@
       "command": "add",
       "tokens": [
         [
+          "--refresh"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--refresh",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--ignore-missing"
         ],
         [
@@ -7328,6 +7537,25 @@
         "add",
         "--ignore-missing",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -7930,6 +8158,26 @@
       "tokens": [
         [
           "--chmod",
+          "+x"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=+x",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
           "x"
         ],
         [
@@ -8512,6 +8760,26 @@
         "add",
         "--chmod=x",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "x"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -9114,6 +9382,26 @@
       "tokens": [
         [
           "--chmod",
+          "-x"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=-x",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
           ""
         ],
         [
@@ -9706,6 +9994,26 @@
       "tokens": [
         [
           "--chmod",
+          ""
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
           "+xx"
         ],
         [
@@ -10288,6 +10596,26 @@
         "add",
         "--chmod=+xx",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "+xx"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--chmod=+xx",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -10890,6 +11218,26 @@
       "tokens": [
         [
           "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=../oracle-paths",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-from-file",
           ""
         ],
         [
@@ -11481,6 +11829,26 @@
       "command": "add",
       "tokens": [
         [
+          "--pathspec-from-file",
+          ""
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--pathspec-from-file=",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--no-pathspec-from-file"
         ],
         [
@@ -12040,6 +12408,25 @@
       "valid": true,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-pathspec-from-file"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--no-pathspec-from-file",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
     },
     {
       "command": "add",
@@ -12609,6 +12996,25 @@
       "command": "add",
       "tokens": [
         [
+          "--pathspec-file-nul"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--unified",
           "1"
         ],
@@ -13192,6 +13598,26 @@
         "add",
         "--unified=1",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--unified=1",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -13794,6 +14220,26 @@
       "tokens": [
         [
           "--unified",
+          "-1"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--unified=-1",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
           "-2"
         ],
         [
@@ -14376,6 +14822,26 @@
         "add",
         "--unified=-2",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--unified=-2",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -14968,6 +15434,26 @@
         "add",
         "--inter-hunk-context=1",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=1",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -15570,6 +16056,26 @@
       "tokens": [
         [
           "--inter-hunk-context",
+          "-1"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-1",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--inter-hunk-context",
           "-2"
         ],
         [
@@ -16161,6 +16667,26 @@
       "command": "add",
       "tokens": [
         [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--inter-hunk-context=-2",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--no-auto-advance"
         ],
         [
@@ -16716,6 +17242,25 @@
         "add",
         "--no-auto-advance",
         "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        ""
       ],
       "valid": false,
       "status": 128,
@@ -17284,6 +17829,589 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "file",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-v"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-v"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-i"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-i"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-p"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-u"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "-A"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--no-all"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--no-all"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--no-ignore-removal"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--no-ignore-removal"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--renormalize"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--renormalize"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--refresh"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--refresh"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--chmod",
+          "+x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--chmod=+x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--chmod",
+          "-x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--chmod=-x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--chmod",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--chmod="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--chmod",
+          "+xx"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--chmod=+xx"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param '+xx' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--pathspec-from-file",
+          ""
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--pathspec-from-file="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--no-pathspec-from-file"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--no-pathspec-from-file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--inter-hunk-context",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--inter-hunk-context=-1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "add",
+        "",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
     },
     {
       "command": "add",
@@ -19684,6 +20812,140 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "--no-edit"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "--no-edit",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
+          "-e"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "-e",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-e"
+        ],
+        [
+          "-p"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-e",
+        "-p",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
     }
   ]
 }

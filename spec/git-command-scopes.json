@@ -100,6 +100,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "rm": {
