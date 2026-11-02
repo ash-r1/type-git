@@ -7544,7 +7544,448 @@
       ]
     }
   ],
-  "diff": [],
+  "diff": [
+    {
+      "id": "diff.files-residual-option",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "inactive"
+        },
+        {
+          "key": "diff-files-residual-error",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "Without revisions or --cached, git diff runs its diff-files branch, which reports --merge-base and a non-first --help as invalid options unless -h was reached first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-residual-option",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-index-residual-misuse",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "--cached without revisions compares HEAD by hand; the diff-index branch accepts only --cached, --staged and --merge-base as residual words, so --base, --ours, --theirs, -q or a non-first --help reached before -h is a usage error. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-revision-count",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-count",
+          "test": "present"
+        },
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final revision count other than the -1 default after its residual loop; -h exits in that loop first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-min-age",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "min-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-max-age",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.follow-without-path",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--follow requires exactly one pathspec; without operands there is none unless --stdin (delegated) supplies paths. diff_setup_done runs inside setup_revisions, before any residual -h."
+    },
+    {
+      "id": "diff.follow-separated-paths",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated, as are paths read by --stdin."
+    },
+    {
+      "id": "diff.follow-full-diff",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--full-diff keeps paths out of the diff pathspec, so --follow never sees exactly one pathspec."
+    }
+  ],
   "diff-files": [
     {
       "id": "cli.diff-files.revision-count",
@@ -7648,6 +8089,49 @@
       "origin": "git",
       "source": "Git 2.55.0 diff-no-index.c:diff_no_index",
       "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs."
+    },
+    {
+      "id": "diff.no-index-stdin-operand0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "operand0",
+        "test": "equals",
+        "value": "-"
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index/fixup_paths",
+      "reason": "Standard input is never a directory, so a '-' path cannot enable trailing pathspecs: Git reaches the usage exit or the stdin/directory error."
+    },
+    {
+      "id": "diff.no-index-stdin-operand1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "operand1",
+        "test": "equals",
+        "value": "-"
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index/fixup_paths",
+      "reason": "Standard input is never a directory, so a '-' path cannot enable trailing pathspecs: Git reaches the usage exit or the stdin/directory error."
+    },
+    {
+      "id": "diff.no-index-follow",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "No-index pathspecs stay local to the comparison and never reach the diff pathspec, so --follow always lacks its single pathspec."
     }
   ],
   "reflog list": [
