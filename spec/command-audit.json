@@ -786,10 +786,54 @@
         "test/types/checkout-parser-switch-corpus-4.ts",
         "test/types/checkout-parser-switch-corpus-5.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
-      "typedCommandAPI": true
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. An empty start point is rejected in every switch mode (\"invalid reference\"), and an empty -c/-C/--orphan name fails the branch-name check; both are covered by Git 2.55.0 corpus cases, follow a help exit, and repo.switch rejects an empty target before running Git. Whether a nonempty target names a branch, a remote-tracking guess or a commit, and whether a nonempty new name passes check-ref-format, depend on repository state or the full ref-name grammar and are delegated to native Git at runtime, as are configuration, worktree state and conflicts. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts"
+        ],
+        "serialization": [
+          "src/commands/checkout-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/checkout-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts",
+          "test/types/checkout-parser-api.ts",
+          "test/types/command-api.ts"
+        ]
+      }
     },
     "cherry-pick": {
       "state": "partial",
@@ -932,8 +976,55 @@
         "src/commands/restore-empty-pathspec.test.ts",
         "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected like parse_pathspec does after option parsing, while help still exits first; repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. This empty-pathspec behavior is checked against the installed Git and is not yet recorded in a Git 2.55.0 native corpus. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
-      "typedCommandAPI": true
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected as parse_pathspec does after option parsing, in normal, staged, source, patch and pathspec-file modes, while help still exits first; Git 2.55.0 corpus cases cover these modes. repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. Pathspec magic, pathspec file contents, path matching, interactive patch selection, configuration and index/worktree state are delegated to native Git at runtime. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts",
+          "src/commands/restore-empty-pathspec.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts"
+        ],
+        "serialization": [
+          "src/commands/checkout-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/checkout-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts",
+          "test/types/checkout-parser-api.ts",
+          "test/types/command-api.ts"
+        ]
+      }
     },
     "revert": {
       "state": "partial",

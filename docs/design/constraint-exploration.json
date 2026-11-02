@@ -21,6 +21,13 @@
     "nodes": 11
   },
   {
+    "command": "switchTarget",
+    "scope": "operands",
+    "total": "2",
+    "accepted": "1",
+    "nodes": 2
+  },
+  {
     "command": "clone",
     "type": "CloneOpts",
     "domains": {

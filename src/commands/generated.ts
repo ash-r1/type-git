@@ -22714,6 +22714,9 @@ const commandSpec34 = {
 } as const satisfies CommandSpec;
 const commandSpec35 = {
   argv: ['switch'],
+  initial: {
+    'empty-operand': '',
+  },
   options: {
     '--create': sharedOption282,
     '-c': sharedOption282,
@@ -22918,6 +22921,66 @@ const commandSpec35 = {
         {
           key: 'merge',
           test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'switch-empty-start-point',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+      reason:
+        'An empty branch or start point never names a commit, so checkout_main dies with "invalid reference" in every switch mode; a help exit happens first.',
+      when: [
+        {
+          key: 'operands',
+          test: 'includes',
+          valueKey: 'empty-operand',
+        },
+      ],
+    },
+    {
+      id: 'switch-empty-create',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+      reason:
+        'An empty -c name fails the branch-name check ("\'\' is not a valid branch name"); a help exit happens first.',
+      when: [
+        {
+          key: 'create',
+          test: 'equals',
+          value: '',
+        },
+      ],
+    },
+    {
+      id: 'switch-empty-force-create',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+      reason:
+        'An empty -C name fails the branch-name check ("\'\' is not a valid branch name"); a help exit happens first.',
+      when: [
+        {
+          key: 'force-create',
+          test: 'equals',
+          value: '',
+        },
+      ],
+    },
+    {
+      id: 'switch-empty-orphan',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+      reason:
+        'An empty --orphan name fails the branch-name check ("\'\' is not a valid branch name"); a help exit happens first.',
+      when: [
+        {
+          key: 'orphan',
+          test: 'equals',
+          value: '',
         },
       ],
     },
