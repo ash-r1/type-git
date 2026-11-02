@@ -133,8 +133,10 @@ git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty']]);
 git.command('commit', [['-m', 'message'], ['--only'], ['--amend']]);
 git.command('commit', [['-m', 'message'], ['--only'], { operand: 'file' }]);
 git.command('commit', [['-m', 'message'], ['--only'], ['--pathspec-from-file', 'paths']]);
-// @ts-expect-error A plain fixup cancels the amend exemption.
+// Git 2.32+ refuses this, but older Git accepts it, so the wrapper leaves it to native Git.
 git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD']]);
+// @ts-expect-error A plain fixup without --amend or --allow-empty needs paths.
+git.command('commit', [['--only'], ['--fixup', 'HEAD']]);
 git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--no-fixup']]);
 git.command('commit', [['--only'], ['--fixup', 'amend:HEAD']]);
 git.command('commit', [['--only'], ['--fixup', 'HEAD'], ['--allow-empty']]);

@@ -12787,17 +12787,11 @@ const commandSpec19 = {
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
       reason:
-        'Only mode without path operands or a pathspec file requires --allow-empty or --amend (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git).',
+        'Only mode without path operands or a pathspec file requires --allow-empty, --amend or an amend: fixup (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git). Git 2.32 and later also refuse --amend with a plain fixup, but older Git accepts it, so that case is left to native Git.',
       when: {
         key: 'only',
         test: 'active',
       },
-      guard: [
-        {
-          key: 'fixup',
-          test: 'inactive',
-        },
-      ],
       choices: [
         {
           key: 'operands',
@@ -12813,38 +12807,6 @@ const commandSpec19 = {
         },
         {
           key: 'amend',
-          test: 'active',
-        },
-      ],
-    },
-    {
-      id: 'cli.commit.only-paths-fixup',
-      kind: 'requiresAny',
-      origin: 'git',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-      reason:
-        'Only mode without path operands or a pathspec file and with a plain fixup requires --allow-empty; an amend: fixup implies it (builtin/commit.c:prepare_index counts pathspec.nr after reading any pathspec file).',
-      when: {
-        key: 'only',
-        test: 'active',
-      },
-      guard: [
-        {
-          key: 'fixup',
-          test: 'active',
-        },
-      ],
-      choices: [
-        {
-          key: 'operands',
-          test: 'nonempty',
-        },
-        {
-          key: 'pathspec-from-file',
-          test: 'active',
-        },
-        {
-          key: 'allow-empty',
           test: 'active',
         },
         {

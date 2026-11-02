@@ -26,25 +26,11 @@ export const INPUT_CONSTRAINTS = {
         { key: 'pathspecFromFile', test: 'nonempty' },
         { key: 'allowEmpty', test: 'active' },
         { key: 'amend', test: 'active' },
-        { key: 'fixup', test: 'nonempty' },
-      ],
-      origin: 'git',
-      reason: 'Only mode without paths requires allowEmpty or amend.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-    },
-    {
-      id: 'commit.only-paths-fixup',
-      kind: 'requiresAny',
-      when: { key: 'only', test: 'active' },
-      guard: [{ key: 'fixup', test: 'nonempty' }],
-      choices: [
-        { key: 'pathspecFromFile', test: 'nonempty' },
-        { key: 'allowEmpty', test: 'active' },
         { key: 'fixup', test: 'startsWith', value: 'amend:' },
       ],
       origin: 'git',
-      reason:
-        'Only mode without paths and a plain fixup requires allowEmpty; an amend: fixup implies it.',
+      // Git 2.32+ also refuses amend with a plain fixup, but older Git accepts it.
+      reason: 'Only mode without paths requires allowEmpty, amend or an amend: fixup.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
     {

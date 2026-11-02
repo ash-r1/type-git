@@ -13,7 +13,7 @@ import type { GitCommandArgument } from './types.js';
 const EMPTY_PATHSPEC = 'empty string is not a valid pathspec';
 const NO_PATHS = 'No paths with --include/--only does not make sense';
 const EMPTY_PATHSPEC_RULE = /\.empty-pathspec\]/;
-const ONLY_PATHS_RULE = /\.only-paths(?:-fixup)?\]/;
+const ONLY_PATHS_RULE = /\.only-paths\]/;
 
 type Case = readonly [args: readonly GitCommandArgument[], words: readonly string[]];
 
@@ -163,12 +163,6 @@ describe('status and commit path operands', () => {
   });
 
   it('refuses only mode without paths unless an empty commit is allowed', () => {
-    const fixupCases: Case[] = [
-      [
-        [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--dry-run']],
-        ['--only', '--amend', '--fixup=HEAD', '--dry-run'],
-      ],
-    ];
     expectRefusal(
       'commit',
       [
@@ -196,10 +190,21 @@ describe('status and commit path operands', () => {
           [['--only'], ['--fixup', 'HEAD'], ['--dry-run']],
           ['--only', '--fixup=HEAD', '--dry-run'],
         ],
-        ...(fixupPrefixes ? fixupCases : []),
       ],
       NO_PATHS,
     );
+    // Git 2.32+ refuses --amend with a plain fixup here, but older Git accepts it, so the
+    // wrapper leaves that combination to native Git.
+    const amendFixup = ['--only', '--amend', '--fixup=HEAD', '--dry-run'];
+    expect(
+      commandArguments('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--dry-run']]),
+    ).toEqual(['commit', ...amendFixup]);
+    const native = direct('commit', amendFixup);
+    if (fixupPrefixes) {
+      expect(native.stderr).toContain(NO_PATHS);
+    } else {
+      expect(native.stderr).not.toContain(NO_PATHS);
+    }
     const fileCases: Case[] = [
       [
         [['--only'], ['--pathspec-from-file', 'paths'], ['--dry-run']],
@@ -244,7 +249,7 @@ describe('status and commit path operands', () => {
       { message: 'message', include: true, pathspecFromFile: '' },
       { message: 'message', only: true },
       { message: 'message', only: true, fixup: '' },
-      { only: true, amend: true, fixup: 'HEAD' },
+      { only: true, fixup: 'HEAD' },
       // Reword fixups exclude content selection.
       { only: true, fixup: 'reword:HEAD' },
       { all: true, fixup: 'reword:HEAD' },
@@ -262,6 +267,8 @@ describe('status and commit path operands', () => {
       { only: true, fixup: 'amend:HEAD' },
       // An empty fixup is not emitted, so --amend still exempts only mode.
       { only: true, amend: true, fixup: '' },
+      // Older Git accepts amend with a plain fixup; Git 2.32+ refuses it natively.
+      { only: true, amend: true, fixup: 'HEAD' },
     ]) {
       expect(() => {
         validateOptions('commit', opts);

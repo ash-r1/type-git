@@ -4072,7 +4072,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 25,
+      "rules": 24,
       "domains": {
         "empty-pathspec": [
           "undefined",
@@ -4356,8 +4356,8 @@
         ]
       },
       "total": "84022787103097500000000000",
-      "accepted": "1949333701956157440000",
-      "nodes": 19017,
+      "accepted": "1949870061123747840000",
+      "nodes": 18089,
       "isolatedRuleWitnesses": {
         "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
@@ -4382,8 +4382,7 @@
         "cli.commit.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
         "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.commit.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}",
-        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}",
-        "cli.commit.only-paths-fixup": "{\"fixup\":\"\",\"only\":true,\"operands\":[]}"
+        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}"
       }
     },
     {
