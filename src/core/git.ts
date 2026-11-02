@@ -13,7 +13,7 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from './repo.js';
-import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
+import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from './types.js';
 
 /**
  * Options for git clone
@@ -476,7 +476,7 @@ export interface Git extends GitCommandClient {
    *
    * Wraps: `git <argv...>`
    */
-  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult>;
 
   /**
    * Global config operations

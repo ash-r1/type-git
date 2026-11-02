@@ -142,6 +142,27 @@ export type ExecOpts = {
 };
 
 /**
+ * Options for `raw()` and typed `command()` calls.
+ *
+ * Extends {@link ExecOpts} with a per-call environment overlay.
+ */
+export type CommandExecOpts = ExecOpts & {
+  /**
+   * Extra environment variables for this call only, applied on top of the environment
+   * resolved from `createGit` / `open` options (`env`, `inheritEnv`, `home`, `pathPrefix`).
+   * Values here win over those settings, apply to any internal probe the call starts, and do
+   * not persist to later calls. Names must be non-empty, not `__proto__`, and contain neither `=` nor NUL;
+   * values must be strings without NUL.
+   *
+   * @example
+   * ```ts
+   * await repo.raw(['checkout', 'main'], { env: { GIT_LFS_SKIP_SMUDGE: '1' } });
+   * ```
+   */
+  env?: Record<string, string>;
+};
+
+/**
  * Result from raw Git command execution
  */
 export type GitOutputMode = 'text' | 'bytes';

@@ -248,7 +248,29 @@ export type RunOptions = ExecOpts & {
 
 type CommandRunOptions = RunOptions & { stdout?: GitOutputMode };
 
+/** Reject per-call environment entries that a process environment cannot represent. */
+function validateEnv(env: unknown): void {
+  if (env === undefined) {
+    return;
+  }
+  if (env === null || typeof env !== 'object' || Array.isArray(env)) {
+    throw new GitArgumentError('env must be an object of string values');
+  }
+  for (const [name, value] of Object.entries(env)) {
+    // `__proto__` cannot be copied onto the resolved environment as an own variable.
+    if (name === '' || name === '__proto__' || name.includes('=') || name.includes('\0')) {
+      throw new GitArgumentError(
+        `env name must be non-empty, not __proto__, and contain neither '=' nor NUL: ${JSON.stringify(name)}`,
+      );
+    }
+    if (typeof value !== 'string' || value.includes('\0')) {
+      throw new GitArgumentError(`env value for ${name} must be a string without NUL`);
+    }
+  }
+}
+
 function validateIO(opts: CommandRunOptions | undefined): void {
+  validateEnv(opts?.env);
   if (opts?.stdout !== undefined && opts.stdout !== 'text' && opts.stdout !== 'bytes') {
     throw new GitArgumentError('stdout must be text or bytes');
   }
@@ -1936,7 +1958,7 @@ export class CliRunner {
     executable?: CompanionExecutable,
     internal = false,
   ): Promise<RawResult<string | Uint8Array>> {
-    validateIO({ stdin: opts?.stdin });
+    validateIO({ stdin: opts?.stdin, env: opts?.env });
     const argv = executable
       ? [this.companionBinaries[executable], ...args]
       : this.buildArgv(context, args);

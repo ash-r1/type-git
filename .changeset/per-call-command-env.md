@@ -1,0 +1,5 @@
+---
+"type-git": minor
+---
+
+`raw()` and typed `command()` on `Git`, `TypeGit`, worktree and bare repositories accept a per-call `env` (new exported type `CommandExecOpts`; `GitCommandExecOpts` now extends it). The variables are applied on top of the environment resolved from `createGit` / `open` options for that call only, including any internal probe the call starts, so setting a variable such as `GIT_LFS_SKIP_SMUDGE` for one command no longer requires a separate `createGit` and `open`. Names must be non-empty without `=` or NUL and values must be strings without NUL; invalid entries throw `GitArgumentError` before any process starts. Previously, untyped JavaScript callers could already pass `env` to `raw()` without validation; entries whose value is not a string (for example `undefined`) now throw instead of being forwarded to the adapter.
