@@ -10,7 +10,6 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments, commandHasLegacyStashHelp } from './build.js';
 import type { GitCommandName } from './types.js';
 
-const WIP_MESSAGE = /^WIP on main: /;
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
 /**
@@ -135,19 +134,22 @@ describe('stash create message words', () => {
     const results = [];
     // Each run gets its own mtime so the previous run's index refresh cannot match it.
     let mtime = 978307200;
-    for (const run of [
-      () => repo.command('stash create', [{ operand: 'msg' }]),
-      async () => {
-        const result = direct(['stash', 'create', 'msg']);
-        return { exitCode: result.status, stdout: result.stdout, stderr: result.stderr };
-      },
-    ]) {
-      await writeFile(tracked, 'initial\n');
-      mtime += 86400;
-      await utimes(tracked, mtime, mtime);
-      results.push(await run());
+    try {
+      for (const run of [
+        () => repo.command('stash create', [{ operand: 'msg' }]),
+        () => {
+          const result = direct(['stash', 'create', 'msg']);
+          return { exitCode: result.status, stdout: result.stdout, stderr: result.stderr };
+        },
+      ]) {
+        await writeFile(tracked, 'initial\n');
+        mtime += 86400;
+        await utimes(tracked, mtime, mtime);
+        results.push(await run());
+      }
+    } finally {
+      await writeFile(tracked, 'changed\n');
     }
-    await writeFile(tracked, 'changed\n');
     const [actual, native] = results;
     expect(actual?.exitCode).toBe(native?.exitCode);
     expect(actual?.stdout).toBe('');
@@ -230,20 +232,5 @@ describe('native stash create corpus', () => {
       }
     }
     expect(mismatches).toEqual([]);
-  });
-
-  it('records the joined message, or no stash for a clean worktree', () => {
-    for (const row of corpus.cases) {
-      const label = `${row.state} ${JSON.stringify(row.argv)}`;
-      expect(row.created, label).toBe(row.state === 'modified');
-      if (!row.created) {
-        expect(row.message, label).toBeNull();
-        continue;
-      }
-      const joined = row.argv.slice(2).join(' ');
-      expect(row.message, label).toEqual(
-        joined ? `On main: ${joined}` : expect.stringMatching(WIP_MESSAGE),
-      );
-    }
   });
 });

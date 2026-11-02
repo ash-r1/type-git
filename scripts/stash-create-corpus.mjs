@@ -29,7 +29,7 @@ try {
   const words = ['message', '', ' ', '-h', '-hx', '-xh', '--help', '--help-all', '--he', '--', '--end-of-options',
     '--git-completion-helper', '-no-message', '-q', '--quiet', '--message=x', '-m', '--unknown', '-',
     'é', 'tab\there', 'line\nbreak', 'cr\rhere', '\u0001'];
-  const pairs = ['message', '-h', '--help', '--', '--end-of-options', '-no-message', '--unknown'];
+  const pairs = ['message', '', '-h', '--help', '--', '--end-of-options', '-no-message', '--unknown'];
   const sequences = [[], ...words.map(word => [word])];
   for (const first of pairs) for (const second of pairs) sequences.push([first, second]);
   for (const middle of ['--', '--end-of-options']) {
@@ -53,6 +53,8 @@ try {
         const shown = git(['log', '-1', '--format=%B', oid]);
         if (shown.status !== 0) throw new Error(`Cannot read stash message for ${JSON.stringify(argv)}`);
         message = shown.stdout.replace(/\n+$/, '');
+        const joined = sequence.join(' ');
+        if (state !== 'modified' || (joined ? message !== `On main: ${joined}` : !/^WIP on main: [0-9a-f]+ seed$/.test(message))) throw new Error(`Unexpected stash message for ${JSON.stringify(argv)}: ${JSON.stringify(message)}`);
       } else if (result.status === 0 && (result.stdout || state === 'modified')) {
         throw new Error(`Modified worktree created no stash for ${JSON.stringify(argv)}`);
       }
@@ -72,5 +74,5 @@ try {
       if (await readFile(target, 'utf8').catch(() => '') !== content) throw new Error(`${path} is stale`);
     } else await writeFile(target, content);
   }
-  console.log(`Generated/checked ${cases.length} independent stash create outcomes.`);
+  console.log(`Generated/checked ${cases.length / 2} native stash create runs recorded as ${cases.length} wrapper cases.`);
 } finally { await rm(directory, { recursive: true, force: true }); }
