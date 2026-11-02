@@ -7,7 +7,12 @@ import type {
   GitCommandExecOpts,
   GitCommandName,
 } from '../commands/types.js';
-import { checkedOperand, checkedOperands } from '../core/operands.js';
+import {
+  checkedOperand,
+  checkedOperands,
+  checkedOptionValue,
+  checkedRevision,
+} from '../core/operands.js';
 import {
   type ExclusiveQuery,
   validateInput,
@@ -742,8 +747,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     // ref must be placed after all options (positional argument)
-    if (opts?.ref) {
-      args.push(checkedOperand('log', 'ref', opts.ref));
+    if (opts?.ref !== undefined) {
+      args.push(checkedRevision('log', 'ref', opts.ref));
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -2126,8 +2131,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     args.push(checkedOperand('branch.create', 'name', name));
 
-    if (opts?.startPoint) {
-      args.push(checkedOperand('branch.create', 'startPoint', opts.startPoint));
+    if (opts?.startPoint !== undefined) {
+      args.push(checkedRevision('branch.create', 'startPoint', opts.startPoint));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -2226,8 +2231,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       }
 
       // Add source tree-ish if specified
-      if (pathOpts?.source) {
-        args.push(checkedOperand('checkout', 'source', pathOpts.source));
+      if (pathOpts?.source !== undefined) {
+        args.push(checkedRevision('checkout', 'source', pathOpts.source));
       }
 
       // Add -- separator and pathspecs
@@ -2293,8 +2298,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
       args.push(checkedOperand('checkout', 'target', targetOrPaths));
 
-      if (branchOpts?.startPoint) {
-        args.push(checkedOperand('checkout', 'startPoint', branchOpts.startPoint));
+      if (branchOpts?.startPoint !== undefined) {
+        args.push(checkedRevision('checkout', 'startPoint', branchOpts.startPoint));
       }
     }
 
@@ -2313,7 +2318,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['commit'];
 
     // Existing options
-    if (opts?.message) {
+    // An empty message is forwarded: Git honors `-m ''` (with allowEmptyMessage) instead of
+    // opening an editor.
+    if (opts?.message !== undefined) {
       args.push('-m', opts.message);
     }
 
@@ -2358,20 +2365,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--verbose');
     }
 
-    if (opts?.file) {
-      args.push('--file', opts.file);
+    if (opts?.file !== undefined) {
+      args.push('--file', checkedOptionValue('commit', 'file', opts.file));
     }
 
-    if (opts?.reuseMessage) {
-      args.push('--reuse-message', opts.reuseMessage);
+    if (opts?.reuseMessage !== undefined) {
+      args.push('--reuse-message', checkedOptionValue('commit', 'reuseMessage', opts.reuseMessage));
     }
 
-    if (opts?.fixup) {
-      args.push('--fixup', opts.fixup);
+    if (opts?.fixup !== undefined) {
+      args.push('--fixup', checkedOptionValue('commit', 'fixup', opts.fixup));
     }
 
-    if (opts?.squash) {
-      args.push('--squash', opts.squash);
+    if (opts?.squash !== undefined) {
+      args.push('--squash', checkedOptionValue('commit', 'squash', opts.squash));
     }
 
     if (opts?.resetAuthor) {
@@ -2606,8 +2613,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--word-diff=${opts.wordDiff}`);
     }
 
-    if (target) {
-      args.push(checkedOperand('diff', 'target', target));
+    if (target !== undefined) {
+      args.push(checkedRevision('diff', 'target', target));
     }
 
     if (opts?.paths && opts.paths.length > 0) {
@@ -3064,8 +3071,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
-    if (target) {
-      args.push(checkedOperand('reset', 'target', target));
+    if (target !== undefined) {
+      args.push(checkedRevision('reset', 'target', target));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3320,8 +3327,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     args.push(checkedOperand('switch', 'branch', branch));
 
-    if (opts?.startPoint) {
-      args.push(checkedOperand('switch', 'startPoint', opts.startPoint));
+    if (opts?.startPoint !== undefined) {
+      args.push(checkedRevision('switch', 'startPoint', opts.startPoint));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3748,8 +3755,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--skip');
     }
 
-    if (opts?.onto) {
-      args.push('--onto', opts.onto);
+    if (opts?.onto !== undefined) {
+      args.push('--onto', checkedOptionValue('rebase', 'onto', opts.onto));
     }
 
     if (opts?.rebaseMerges) {
@@ -3881,8 +3888,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-reapply-cherry-picks');
     }
 
-    if (opts?.upstream) {
-      args.push(checkedOperand('rebase', 'upstream', opts.upstream));
+    if (opts?.upstream !== undefined) {
+      args.push(checkedRevision('rebase', 'upstream', opts.upstream));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3916,8 +3923,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--worktree');
     }
 
-    if (opts?.source) {
-      args.push('--source', opts.source);
+    if (opts?.source !== undefined) {
+      args.push('--source', checkedOptionValue('restore', 'source', opts.source));
     }
 
     if (opts?.ours) {
