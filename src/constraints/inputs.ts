@@ -15,6 +15,52 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
     },
   ],
+  // repo.commit emits no paths. These stay runtime checks: modeling them in CommitOpts
+  // multiplies the compiler's work on every caller of the option type.
+  commitPaths: [
+    {
+      id: 'commit.only-paths',
+      kind: 'requiresAny',
+      when: { key: 'only', test: 'active' },
+      choices: [
+        { key: 'pathspecFromFile', test: 'nonempty' },
+        { key: 'allowEmpty', test: 'active' },
+        { key: 'amend', test: 'active' },
+        { key: 'fixup', test: 'nonempty' },
+      ],
+      origin: 'git',
+      reason: 'Only mode without paths requires allowEmpty or amend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.only-paths-fixup',
+      kind: 'requiresAny',
+      when: { key: 'only', test: 'active' },
+      guard: [{ key: 'fixup', test: 'nonempty' }],
+      choices: [
+        { key: 'pathspecFromFile', test: 'nonempty' },
+        { key: 'allowEmpty', test: 'active' },
+        { key: 'fixup', test: 'startsWith', value: 'amend:' },
+      ],
+      origin: 'git',
+      reason:
+        'Only mode without paths and a plain fixup requires allowEmpty; an amend: fixup implies it.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.reword-content',
+      kind: 'conflicts',
+      when: { key: 'fixup', test: 'startsWith', value: 'reword:' },
+      others: [
+        { key: 'include', test: 'active' },
+        { key: 'only', test: 'active' },
+        { key: 'all', test: 'active' },
+      ],
+      origin: 'git',
+      reason: 'A reword: fixup cannot include changed files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+  ],
   pathspec: [
     {
       id: 'pathspec.file-operands',
@@ -45,6 +91,15 @@ export const INPUT_DOMAINS = {
   lfsCheckout: {
     to: [undefined, '', 'output'],
     patterns: [undefined, '', 'file', [], ['file'], ['a', 'b']],
+  },
+  commitPaths: {
+    only: [undefined, false, true],
+    include: [undefined, false, true],
+    all: [undefined, false, true],
+    allowEmpty: [undefined, false, true],
+    amend: [undefined, false, true],
+    pathspecFromFile: [undefined, '', 'paths'],
+    fixup: [undefined, '', 'HEAD', 'amend:HEAD', 'reword:HEAD'],
   },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],

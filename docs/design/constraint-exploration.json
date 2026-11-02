@@ -7,6 +7,13 @@
     "nodes": 6
   },
   {
+    "command": "commitPaths",
+    "scope": "operands",
+    "total": "3645",
+    "accepted": "2880",
+    "nodes": 88
+  },
+  {
     "command": "pathspec",
     "scope": "operands",
     "total": "15",
@@ -1409,8 +1416,8 @@
       ]
     },
     "total": "54226471004352",
-    "accepted": "258719650560",
-    "nodes": 1354,
+    "accepted": "282845654784",
+    "nodes": 850,
     "isolatedRuleWitnesses": {
       "commit.message-file-reuseMessage": "{\"message\":\"\",\"reuseMessage\":\"\"}",
       "commit.fixup-squash": "{\"fixup\":\"\",\"squash\":\"\"}",
@@ -1419,10 +1426,7 @@
       "commit.fixup-message-source": "{\"fixup\":\"\",\"reuseMessage\":\"\"}",
       "commit.author-reset": "{\"author\":\"\",\"resetAuthor\":true}",
       "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}",
-      "commit.include-paths": "{\"include\":true}",
-      "commit.only-paths": "{\"only\":true}",
-      "commit.only-paths-fixup": "{\"fixup\":\"value\",\"only\":true}",
-      "commit.reword-content": null
+      "commit.include-paths": "{\"include\":true}"
     }
   },
   {

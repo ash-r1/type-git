@@ -12787,7 +12787,7 @@ const commandSpec19 = {
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
       reason:
-        'Only mode without path operands or a pathspec file requires --allow-empty or --amend (builtin/commit.c:prepare_index); pathspec file contents are read later and stay native.',
+        'Only mode without path operands or a pathspec file requires --allow-empty or --amend (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git).',
       when: {
         key: 'only',
         test: 'active',
@@ -12823,7 +12823,7 @@ const commandSpec19 = {
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
       reason:
-        'Only mode without path operands or a pathspec file and with a plain fixup requires --allow-empty; an amend: fixup implies it (builtin/commit.c:prepare_index).',
+        'Only mode without path operands or a pathspec file and with a plain fixup requires --allow-empty; an amend: fixup implies it (builtin/commit.c:prepare_index counts pathspec.nr after reading any pathspec file).',
       when: {
         key: 'only',
         test: 'active',

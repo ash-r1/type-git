@@ -1048,44 +1048,6 @@ export const COMMAND_CONSTRAINTS = {
       reason: 'Include mode needs a pathspec file because repo.commit emits no paths.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
-    {
-      id: 'commit.only-paths',
-      kind: 'requiresAny',
-      when: active('only'),
-      choices: [
-        { key: 'pathspecFromFile', test: 'nonempty' },
-        active('allowEmpty'),
-        active('amend'),
-        { key: 'fixup', test: 'nonempty' },
-      ],
-      origin: 'git',
-      reason: 'Only mode without paths requires allowEmpty or amend.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-    },
-    {
-      id: 'commit.only-paths-fixup',
-      kind: 'requiresAny',
-      when: active('only'),
-      guard: [{ key: 'fixup', test: 'nonempty' }],
-      choices: [
-        { key: 'pathspecFromFile', test: 'nonempty' },
-        active('allowEmpty'),
-        { key: 'fixup', test: 'startsWith', value: 'amend:' },
-      ],
-      origin: 'git',
-      reason:
-        'Only mode without paths and a plain fixup requires allowEmpty; an amend: fixup implies it.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-    },
-    {
-      id: 'commit.reword-content',
-      kind: 'conflicts',
-      when: { key: 'fixup', test: 'startsWith', value: 'reword:' },
-      others: [active('include'), active('only'), active('all')],
-      origin: 'git',
-      reason: 'A reword: fixup cannot include changed files.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-    },
   ],
   diff: [
     {

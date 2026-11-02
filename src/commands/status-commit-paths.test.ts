@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
-import { validateOptions } from '../core/option-rules.js';
+import { validateInput, validateOptions } from '../core/option-rules.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
@@ -250,7 +250,10 @@ describe('status and commit path operands', () => {
       { all: true, fixup: 'reword:HEAD' },
     ];
     for (const opts of refused) {
-      expect(() => validateOptions('commit', opts), JSON.stringify(opts)).toThrow(GitArgumentError);
+      expect(() => {
+        validateOptions('commit', opts);
+        validateInput('commitPaths', opts, 'commit');
+      }, JSON.stringify(opts)).toThrow(GitArgumentError);
     }
     for (const opts of [
       { message: 'message', only: true, allowEmpty: true },
@@ -260,7 +263,10 @@ describe('status and commit path operands', () => {
       // An empty fixup is not emitted, so --amend still exempts only mode.
       { only: true, amend: true, fixup: '' },
     ]) {
-      expect(() => validateOptions('commit', opts), JSON.stringify(opts)).not.toThrow();
+      expect(() => {
+        validateOptions('commit', opts);
+        validateInput('commitPaths', opts, 'commit');
+      }, JSON.stringify(opts)).not.toThrow();
     }
     // The executing Git refuses the emitted form of a rejected request.
     const native = direct('commit', ['-m', 'message', '--only']);
