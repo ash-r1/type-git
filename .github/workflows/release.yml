@@ -51,8 +51,11 @@ jobs:
       # newer commit's own run.
       - name: Confirm CI-tested commit is still main's tip
         id: tip
+        # Explicit bash enables pipefail, so a failed ls-remote fails the job instead of skipping
+        # the release with an empty TIP.
+        shell: bash
         run: |
-          TIP=$(git ls-remote origin refs/heads/main | cut -f1)
+          TIP=$(git ls-remote --exit-code origin refs/heads/main | cut -f1)
           if [ "$TIP" = "$HEAD_SHA" ]; then
             echo "current=true" >> "$GITHUB_OUTPUT"
           else
