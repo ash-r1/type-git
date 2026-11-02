@@ -95715,14 +95715,10 @@
           "undefined",
           "false",
           "true"
-        ],
-        "undefined": [
-          "undefined",
-          "null"
         ]
       },
-      "total": "492491587970400408000000000000",
-      "accepted": "11595788559570631680000000000",
+      "total": "246245793985200204000000000000",
+      "accepted": "5797894279785315840000000000",
       "nodes": 204,
       "isolatedRuleWitnesses": {
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
