@@ -1,0 +1,9544 @@
+{
+  "profile": "Git 2.55.0; fresh copy of a depth-1 file:// clone of a two-commit upstream for every case; --dry-run inserted after the options unless dryRun is false; isolated configuration",
+  "cases": [
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--depth=0",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--depth=x",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--no-depth",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--deepen' and '--depth' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--deepen=0",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--deepen=-1",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--no-deepen",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: options '--depth' and '--unshallow' cannot be used together"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--unshallow",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--jobs=x",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--jobs=",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--no-jobs",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--all",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: fetch --all does not take a repository argument"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--no-all",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--rebase",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--cleanup=strip",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--depth=0",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--depth=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--no-depth",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--deepen=0",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--deepen",
+          "-1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--deepen=-1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: negative depth in --deepen is not supported"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--no-deepen",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--jobs",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--jobs=2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--jobs",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--jobs=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--jobs",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--jobs=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects a numerical value"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--jobs",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "-j"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "-j",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--no-jobs"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--no-jobs",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--no-all"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--no-all",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--cleanup",
+          "strip"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--cleanup=strip",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--rebase"
+        ],
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--rebase",
+        "--dry-run",
+        "origin"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--no-deepen"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--no-deepen",
+        "--depth=1",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--deepen",
+          "0"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1",
+        "--deepen=0",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
+          "--no-depth"
+        ],
+        [
+          "--unshallow"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=1",
+        "--no-depth",
+        "--unshallow",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=x",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `deepen' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "x"
+        ],
+        [
+          "--deepen",
+          "1"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=x",
+        "--deepen=1",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `deepen' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "1k"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=1k",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--deepen",
+          "2147483648"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--deepen=2147483648",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: value 2147483648 for option `deepen' not in range [-2147483648,2147483647]"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "1k"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=1k",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "0x10"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=0x10",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--jobs",
+          "2147483648"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--jobs=2147483648",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: value 2147483648 for option `jobs' not in range [-2147483648,2147483647]"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j",
+          "2"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j2",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "-j",
+          "x"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-jx",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          ""
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth  is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--depth",
+          "2147483648"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--depth=2147483648",
+        "--dry-run"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "fatal: depth 2147483648 is not a positive number"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "--type-git-forwarded-probe"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--",
+        "--type-git-forwarded-probe"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: unknown option `type-git-forwarded-probe'"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "--type-git-forwarded-probe"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "origin",
+        "--type-git-forwarded-probe"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: unknown option `type-git-forwarded-probe'"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "--type-git-forwarded-probe"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--",
+        "origin",
+        "--type-git-forwarded-probe"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: unknown option `type-git-forwarded-probe'"
+    },
+    {
+      "command": "pull",
+      "dryRun": true,
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--",
+        "origin",
+        "main"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": false,
+      "tokens": [
+        [
+          "-j"
+        ],
+        {
+          "operand": "2"
+        }
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "2"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": false,
+      "tokens": [
+        [
+          "--jobs"
+        ],
+        {
+          "operand": "2"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--jobs",
+        "2"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "dryRun": false,
+      "tokens": [
+        [
+          "-j"
+        ],
+        {
+          "operand": "origin"
+        }
+      ],
+      "argv": [
+        "pull",
+        "-j",
+        "origin"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "dryRun": false,
+      "tokens": [
+        [
+          "-j"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-j"
+      ],
+      "valid": false,
+      "status": 1,
+      "diagnostic": "error: option `jobs' requires a value"
+    }
+  ]
+}
