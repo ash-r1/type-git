@@ -42,17 +42,13 @@ try {
   const cases = [];
   const prefixes = [];
   /** Classify one native outcome for the selected API scope. */
-  // Literal-type witnesses cover a selected subset: the contract type check is near its memory
-  // budget, and every row is still compared with the runtime builder.
+  // Literal-type witnesses cover one row per new rule family: the contract type check runs at its
+  // CI heap limit, and every row is still compared with the runtime builder.
   const o = operand;
   const witnesses = new Set([
-    ['diff', [['-h']]], ['diff', [['--merge-base']]], ['diff', [['-h'], ['--merge-base']]], ['diff', [['--merge-base'], ['-h']]],
-    ['diff', [['--base'], ['--help']]], ['diff', [['-h'], ['--help']]], ['diff', [['--cached'], ['--merge-base']]], ['diff', [['--cached'], ['--base']]],
-    ['diff', [['--cached'], ['-h']]], ['diff', [['--cached'], ['-n', 1]]], ['diff', [['--cached'], ['-n', -1]]], ['diff', [['--cached'], ['-n', 1], ['-h']]],
-    ['diff', [['--cached'], ['--max-age', 5]]], ['diff', [['--name-only'], ['--name-status'], ['-h']]], ['diff', [['-S', '--']]], ['diff', [['-S', '--no-index'], o('a'), o('b')]],
-    ['diff', [['-n', 3], ['-S', '--no-index']]], ['diff', [['-n', -1], ['-S', '--no-index']]], ['diff', [o('HEAD'), ['-S', '--no-index']]], ['diff', [['--default', '--no-index']]],
-    ['diff --no-index', [o('a'), o('b')]], ['diff --no-index', [o('a')]], ['diff --no-index', [o('-'), o('b'), o('x')]], ['diff --no-index', [o('a'), o('-'), o('x')]],
-    ['diff --no-index', [['-h'], ['--stat', 'bad']]], ['diff --no-index', [['--stat', 'bad'], ['-h']]],
+    ['diff', [['-h'], ['--merge-base']]], ['diff', [['--merge-base']]], ['diff', [['--cached'], ['--base']]],
+    ['diff', [['--name-only'], ['--name-status'], ['-h']]], ['diff', [['-S', '--no-index'], o('a'), o('b')]],
+    ['diff --no-index', [o('-'), o('b'), o('x')]],
   ].map(entry => JSON.stringify(entry)));
   const typed = new Set();
   const record = (command, tokens, target = cases) => {
