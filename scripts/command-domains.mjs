@@ -33,6 +33,11 @@ export function commandDomains(spec, referencedKeys) {
     }
   }
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
+  // A rule that tests operands for a declared initial value (an empty pathspec) needs that
+  // value in the operand domain, or exploration never reaches the rule.
+  const operandIncludes = spec.rules.flatMap(rule => [rule.when, rule.guard].flat().filter(Boolean))
+    .filter(predicate => predicate.key === 'operands' && predicate.test === 'includes' && predicate.valueKey in (spec.initial ?? {}));
+  for (const { valueKey } of operandIncludes) domains.operands.push([spec.initial[valueKey]], ['value', spec.initial[valueKey]]);
   if (spec.parserExit?.remainingPartition) domains[spec.parserExit.remainingPartition.operandKey] = [...domains.operands, [''], ['', 'value']];
   domains.operand0 = spec.rules.some(rule => referencedKeys(rule).includes('operand0'))
     ? ['', undefined, 'value']

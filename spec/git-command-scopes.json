@@ -100,6 +100,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "rm": {
@@ -1295,6 +1298,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "reset": {
@@ -1637,6 +1643,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "stash save": {
@@ -12731,6 +12740,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "config": {

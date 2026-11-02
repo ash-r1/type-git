@@ -22,10 +22,20 @@ export const INPUT_CONSTRAINTS = {
       key: 'paths',
       min: 0,
       max: 0,
-      when: { key: 'pathspecFromFile', test: 'present' },
+      // The convenience APIs emit --pathspec-from-file only for a non-empty value.
+      when: { key: 'pathspecFromFile', test: 'nonempty' },
       origin: 'git',
       reason: 'Pathspec files cannot be combined with command-line pathspecs.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+    },
+    {
+      id: 'pathspec.empty-pathspec',
+      kind: 'forbid',
+      when: [{ key: 'paths', test: 'includes', valueKey: 'emptyPathspec' }],
+      origin: 'git',
+      reason:
+        'parse_pathspec rejects an empty pathspec; add, rm, path checkout and restore all pass their paths to it.',
+      source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
     },
   ],
 } as const satisfies Record<string, readonly Constraint[]>;
@@ -38,6 +48,7 @@ export const INPUT_DOMAINS = {
   },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],
-    paths: [undefined, '', 'file', [], ['file'], ['a', 'b']],
+    paths: [[], [''], ['file'], ['file', ''], ['a', 'b']],
+    emptyPathspec: [''],
   },
 } as const;

@@ -178,6 +178,12 @@ git.command('restore', [['--no-staged'], { operand: 'file' }]);
 git.command('restore', [['--source', 'HEAD'], ['--ours'], { operand: 'file' }]);
 // @ts-expect-error Conflict callback reenables a previously disabled merge.
 git.command('restore', [['--no-merge'], ['--conflict', 'diff3'], ['--staged'], { operand: 'file' }]);
+// @ts-expect-error parse_pathspec rejects an empty restore pathspec.
+git.command('restore', [['--'], { operand: '' }]);
+// @ts-expect-error Every restore operand is a pathspec, including later ones.
+git.command('restore', [['--staged'], { operand: 'file' }, { operand: '' }]);
+// Help exits before the pathspec is parsed.
+git.command('restore', [['-h'], ['--'], { operand: '' }]);
 // @ts-expect-error Explicit overlay is incompatible with patch mode.
 git.command('checkout', [['--patch'], ['--overlay'], { operand: 'file' }]);
 git.command('checkout', [['--patch'], ['--no-overlay'], { operand: 'file' }]);
@@ -244,6 +250,20 @@ git.command('notes merge', []);
 git.command('stash create', [{ operand: '--help' }, { operand: '--' }]);
 // @ts-expect-error Stash create does not parse options or a separator.
 git.command('stash create', [['--']]);
+// @ts-expect-error parse_pathspec rejects an empty stash pathspec after option parsing.
+git.command('stash push', [['--'], { operand: '' }]);
+// @ts-expect-error Assumed push applies the same pathspec check.
+git.command('stash', [['--'], { operand: '' }]);
+// Help exits before the pathspec is parsed.
+git.command('stash push', [['-h'], ['--'], { operand: '' }]);
+git.command('stash push', [['--'], { operand: 'path' }]);
+// @ts-expect-error parse_pathspec rejects an empty add pathspec after the final checks.
+git.command('add', [['--'], { operand: '' }]);
+// @ts-expect-error Interactive add parses the same pathspec, even after edit mode.
+git.command('add', [['-e'], ['-i'], { operand: '' }]);
+// Final edit mode passes operands to revision parsing, which stays delegated.
+git.command('add', [['-e'], { operand: '' }]);
+git.command('add', [['-h'], { operand: '' }]);
 
 git.command('log', [['--default', 'HEAD'], ['--format', '%s']]);
 git.command('log', [['--graph'], ['--reverse'], ['--reverse']]);
