@@ -680,6 +680,19 @@ function buildArguments(
           'Use an explicit ["--"] separator before an operand starting with a dash',
         );
       }
+      // Shape passes skip semantic checks but must still refuse a forwarded option word: only a
+      // help exit that precedes the operand makes the forwarded child parser unreachable.
+      if (
+        spec.forwardedOperands &&
+        !(evaluationMode === 'shape' ? guard && guardExited : parserExited) &&
+        state.help !== true &&
+        operand.startsWith('-') &&
+        operand !== '-'
+      ) {
+        throw new GitArgumentError(
+          `${command}: ${spec.forwardedOperands.reason} [forwarded operand ${JSON.stringify(operand)}]`,
+        );
+      }
       if (!retainedWords.has(arg as object)) {
         operandIndexes?.push(argv.length);
       }
@@ -1428,16 +1441,25 @@ export function commandUsesIntegerProfile(
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
-    const parser = Object.hasOwn(spec.options, arg[0])
-      ? spec.options[arg[0]]?.parser
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    const parser = option
+      ? option.parser
       : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
         ? spec.numericOption.parser
         : undefined;
+    const profiled = (candidate: unknown) =>
+      typeof candidate === 'object' &&
+      candidate !== null &&
+      (candidate as { kind?: unknown }).kind === 'integer' &&
+      (candidate as { bits?: unknown }).bits === 32 &&
+      !(candidate as { nativeWidth?: unknown }).nativeWidth;
+    // A final scalar rule can parse a forwarded string value with the same native integer parser.
     return (
-      typeof parser === 'object' &&
-      parser.kind === 'integer' &&
-      parser.bits === 32 &&
-      !parser.nativeWidth
+      profiled(parser) ||
+      (option !== undefined &&
+        spec.rules.some(
+          (rule) => rule.kind === 'scalar' && rule.key === option.key && profiled(rule.parser),
+        ))
     );
   });
 }

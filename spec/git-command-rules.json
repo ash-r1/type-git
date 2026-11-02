@@ -14696,6 +14696,92 @@
       "origin": "git",
       "reason": "Fetch rejects a depth together with unshallow.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/pull.c"
+    },
+    {
+      "id": "cli.pull.deepen-minimum",
+      "kind": "range",
+      "key": "deepen",
+      "min": 0,
+      "origin": "git",
+      "reason": "Fetch rejects a negative forwarded deepen value.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.deepen-depth",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "deepen",
+          "test": "nonzero"
+        },
+        {
+          "key": "depth",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetch rejects a nonzero forwarded deepen value together with depth.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.deepen-unshallow",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "deepen",
+          "test": "nonzero"
+        },
+        {
+          "key": "unshallow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetch converts a nonzero forwarded deepen value to a depth, which unshallow rejects.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.depth-initial",
+      "kind": "scalar",
+      "key": "depth",
+      "parser": "depth-initial",
+      "origin": "git",
+      "reason": "Pull forwards only the final depth; fetch requires it to be positive after atoi conversion.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch; pinned 64-bit libc and 32-bit int profile"
+    },
+    {
+      "id": "cli.pull.jobs-forwarded",
+      "kind": "scalar",
+      "key": "jobs",
+      "parser": {
+        "kind": "integer",
+        "signed": true,
+        "bits": 32
+      },
+      "guard": [
+        {
+          "key": "jobs",
+          "test": "notEquals",
+          "value": true
+        }
+      ],
+      "origin": "git",
+      "reason": "Pull forwards only the final jobs value; fetch parses it as an OPTION_INTEGER.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch"
+    },
+    {
+      "id": "cli.pull.jobs-valueless",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "jobs",
+          "test": "equals",
+          "value": true
+        }
+      ],
+      "origin": "type-git",
+      "reason": "A valueless --jobs or -j is forwarded without a value; fetch then consumes the next forwarded word as the count, failing on an option word or no word and otherwise reinterpreting the repository operand.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch"
     }
   ],
   "rev-parse": [],

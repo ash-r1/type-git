@@ -95366,7 +95366,7 @@
           "--help"
         ]
       },
-      "rules": 3,
+      "rules": 9,
       "domains": {
         "verbose": [
           "undefined",
@@ -95548,7 +95548,24 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "\"-2147483649\"",
+          "\"-2147483648\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483647\"",
+          "\"2147483648\"",
+          "\"-0\"",
+          "\"08\"",
+          "\"0x10\"",
+          "\"0b10\"",
+          "\"  +010k\"",
+          "\"1m\"",
+          "\"-2g\"",
+          "\"1 \"",
+          "\"1\\n\"",
+          "\"1.5\""
         ],
         "dry-run": [
           "undefined",
@@ -95565,7 +95582,15 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"-4294967295\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483648\"",
+          "\"4294967297\"",
+          "\"1suffix\"",
+          "\"0x10\""
         ],
         "shallow-since": [
           "undefined",
@@ -95583,10 +95608,11 @@
         ],
         "deepen": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "unshallow": [
           "undefined",
@@ -95664,15 +95690,25 @@
           "undefined",
           "false",
           "true"
+        ],
+        "undefined": [
+          "undefined",
+          "null"
         ]
       },
-      "total": "20589113209464900000000000000",
-      "accepted": "5435525887298733600000000000",
-      "nodes": 33,
+      "total": "492491587970400408000000000000",
+      "accepted": "11595788559570631680000000000",
+      "nodes": 204,
       "isolatedRuleWitnesses": {
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.pull.all-repositories": "{\"all\":true,\"operands\":[\"value\"]}",
-        "cli.pull.depth-unshallow": "{\"depth\":\"\",\"operands\":[],\"unshallow\":true}"
+        "cli.pull.depth-unshallow": "{\"depth\":\"1kb\",\"operands\":[],\"unshallow\":true}",
+        "cli.pull.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
+        "cli.pull.deepen-depth": "{\"deepen\":1,\"depth\":\"1kb\",\"operands\":[]}",
+        "cli.pull.deepen-unshallow": "{\"deepen\":1,\"operands\":[],\"unshallow\":true}",
+        "cli.pull.depth-initial": "{\"depth\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-forwarded": "{\"jobs\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-valueless": "{\"jobs\":true,\"operands\":[]}"
       }
     },
     {
