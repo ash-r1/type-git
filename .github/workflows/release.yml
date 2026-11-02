@@ -10,11 +10,12 @@ on:
     types: [completed]
     branches: [main]
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   release:
     name: Release
+    # Job-level so CI completions that skip this job never enter the group and replace a pending
+    # release run.
+    concurrency: ${{ github.workflow }}-${{ github.ref }}
     # Skip when main has moved on: changesets/action resets to github.sha (main's tip), and the newer
     # commit's own CI run triggers the release for it.
     if: >-
@@ -46,8 +47,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # main may have moved while this run was queued or installing; leave the release to the
+      # newer commit's own run.
+      - name: Confirm CI-tested commit is still main's tip
+        id: tip
+        run: |
+          TIP=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [ "$TIP" = "$HEAD_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "main moved to $TIP; skipping release for $HEAD_SHA"
+            echo "current=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+
       - name: Create Release Pull Request or Publish
         id: changesets
+        if: steps.tip.outputs.current == 'true'
         uses: changesets/action@v1
         with:
           version: pnpm version-packages
