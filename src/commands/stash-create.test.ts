@@ -3,11 +3,14 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import corpus from '../../test/fixtures/stash-create-corpus.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments, commandHasLegacyStashHelp } from './build.js';
+import type { GitCommandName } from './types.js';
 
+const WIP_MESSAGE = /^WIP on main: /;
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
 /**
@@ -177,5 +180,42 @@ describe('stash create message words', () => {
     expect(() => commandArguments('stash create', [['--']])).toThrow(GitArgumentError);
     expect(() => commandArguments('stash create', [['-h'] as never])).toThrow(GitArgumentError);
     expect(() => commandArguments('stash create', [{ operand: 'a\0b' }])).toThrow(GitArgumentError);
+  });
+});
+
+describe('native stash create corpus', () => {
+  it('accepts every Git 2.55.0 message word and serializes it unchanged', () => {
+    const mismatches: string[] = [];
+    for (const row of corpus.cases) {
+      let argv: string[] | null = null;
+      try {
+        argv = commandArguments(row.command as GitCommandName, row.tokens, true);
+      } catch (error) {
+        if (!(error instanceof GitArgumentError)) {
+          throw error;
+        }
+      }
+      if ((argv !== null) !== row.valid) {
+        mismatches.push(`${row.state} ${JSON.stringify(row.argv)}: native=${row.valid}`);
+      } else if (argv) {
+        expect(argv, JSON.stringify(row.argv)).toEqual(row.argv);
+      }
+    }
+    expect(mismatches).toEqual([]);
+  });
+
+  it('records the joined message, or no stash for a clean worktree', () => {
+    for (const row of corpus.cases) {
+      const label = `${row.state} ${JSON.stringify(row.argv)}`;
+      expect(row.created, label).toBe(row.state === 'modified');
+      if (!row.created) {
+        expect(row.message, label).toBeNull();
+        continue;
+      }
+      const joined = row.argv.slice(2).join(' ');
+      expect(row.message, label).toEqual(
+        joined ? `On main: ${joined}` : expect.stringMatching(WIP_MESSAGE),
+      );
+    }
   });
 });
