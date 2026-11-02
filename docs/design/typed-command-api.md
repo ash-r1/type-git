@@ -1233,7 +1233,7 @@ The growing native-oracle contract suite outgrew a single compiler program: on
 checks the same roots as six programs run one after another, each under an
 8 GiB heap. Shard 1 carries `src/**/*`; the `test/types/*.ts` files are spread
 over all six by a deterministic size-based packing. Every contract file is an ES
-module that imports only `src` modules and declares no globals, so its
+module that imports no other contract file and declares no globals, so its
 diagnostics, including unused `@ts-expect-error` directives, do not depend on
 which other contract files share its program. The script refuses to run if
 `tsconfig.contracts.json` gains roots it does not split or if `test/types` gains
@@ -1448,8 +1448,8 @@ Both scoped and root-dispatched calls are checked. A valid `-h` ref matters afte
 `--end-of-options`: a missing ref failure does not make that spelling universally
 invalid. Runtime and compiler fixtures consume the same native outcomes. The
 compiler corpus is divided deterministically into files of at most 400 cases,
-all included together with every source and other fixture in the existing
-12 GiB contract project. No isolated compiler batches are used.
+all of them roots of the contract project that `pnpm test:types` checks (see
+the sharding note in Ordered reflog wrappers).
 
 Repository/configuration state, stash/revision object resolution, pathspec
 languages, remaining revision callbacks, completion and other native parser
@@ -1547,8 +1547,8 @@ Git supplies every expected outcome. A seeded repository has staged changes
 and valid object names `bad`, `1`, `-h`, `--`, and `file`, so consuming those
 words is not mistaken for a universal syntax error. Runtime and compiler checks
 cover every row. Compiler fixtures are deterministic shards of at most 400
-cases, all compiled together with every source and other contract root in the
-standard whole-contract project. No isolated compiler batches are used.
+cases, all of them roots of the contract project that `pnpm test:types`
+checks.
 
 These checks do not establish completeness: repository/configuration effects,
 nonempty object/ref resolution, tty-dependent columns, pathspecs, other callbacks,
@@ -1609,9 +1609,8 @@ native. This supplements the original 7,885-case option-pass corpus.
 native outcomes with tracked dash-prefixed files, valid dash-prefixed refs and
 file-backed LF/NUL stdin. Author/committer dates are fixed so diagnostic commit
 hashes also reproduce byte for byte. Deterministic compiler shards of at most 400 cases
-retain every outcome; all fixture files compile together with all source and
-other contract roots in the whole contract project. No isolated compiler batches
-or per-run incremental batch cache are used. Repository
+retain every outcome; all fixture files are roots of the contract project that
+`pnpm test:types` checks, with no per-run incremental batch cache. Repository
 and configuration state, ref/path ambiguity, pathspec languages and files,
 interactive modes, remaining callbacks and parser modes remain audit obligations.
 All scopes remain partial.
@@ -1864,9 +1863,10 @@ legacy empty-filename semantics. The generator now pins that source profile;
 all 4,978 regenerated native outcomes remain unchanged, and the focused compiler
 check including every stash assertion succeeds.
 
-The standard command uses `--max-old-space-size=12288` to retain the complete
-source/contract project. The repository is public and the typecheck job uses the
-16 GB `ubuntu-latest` runner documented above. Fresh success of the standard
+At the time, the standard command used `--max-old-space-size=12288` to retain the
+complete source/contract project in one program; it now checks the same roots in
+six sequential shards (see Ordered reflog wrappers). The repository is public and
+the typecheck job uses the 16 GB `ubuntu-latest` runner documented above. Fresh success of the standard
 command locally and on the exact PR head is required before merge. A diagnostic
 run or a failed standard run is not counted as that success.
 
