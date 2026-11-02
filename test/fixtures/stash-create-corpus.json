@@ -1,0 +1,8993 @@
+{
+  "profile": "Git 2.55.0; isolated seeded repository in clean and modified worktree states; every create word is message text joined by single spaces; stdin empty",
+  "cases": [
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [],
+      "argv": [
+        "stash",
+        "create"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": " "
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        " "
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": " "
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        " "
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-hx"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-hx"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-hx"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-hx"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-xh"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-xh"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-xh"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-xh"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--he"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--he"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--he"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--he"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--git-completion-helper"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--git-completion-helper"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-q"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--quiet"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--quiet"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--quiet"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--quiet"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--message=x"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--message=x"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--message=x"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--message=x"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-m"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-m"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-m"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-m"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "é"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "é"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "é"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "é"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "tab\there"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "tab\there"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "tab\there"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "tab\there"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "line\nbreak"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "line\nbreak"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "line\nbreak"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "line\nbreak"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "cr\rhere"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "cr\rhere"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "cr\rhere"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "cr\rhere"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "\u0001"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "\u0001"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "\u0001"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "\u0001"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "clean",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": false,
+      "message": null,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [],
+      "argv": [
+        "stash",
+        "create"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "WIP on main: a580bcc seed",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "WIP on main: a580bcc seed",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "WIP on main: a580bcc seed",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "WIP on main: a580bcc seed",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": " "
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        " "
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": " "
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        " "
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-hx"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-hx"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -hx",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-hx"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-hx"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -hx",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-xh"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-xh"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -xh",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-xh"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-xh"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -xh",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help-all",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help-all",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--he"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--he"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --he",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--he"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--he"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --he",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--git-completion-helper"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --git-completion-helper",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--git-completion-helper"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --git-completion-helper",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-q"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--quiet"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--quiet"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --quiet",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--quiet"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--quiet"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --quiet",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--message=x"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--message=x"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --message=x",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--message=x"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--message=x"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --message=x",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-m"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-m"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -m",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-m"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-m"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -m",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "é"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "é"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: é",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "é"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "é"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: é",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "tab\there"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "tab\there"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: tab\there",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "tab\there"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "tab\there"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: tab\there",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "line\nbreak"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "line\nbreak"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: line\nbreak",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "line\nbreak"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "line\nbreak"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: line\nbreak",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "cr\rhere"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "cr\rhere"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: cr\rhere",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "cr\rhere"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "cr\rhere"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: cr\rhere",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "\u0001"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "\u0001"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: \u0001",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "\u0001"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "\u0001"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: \u0001",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": ""
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main:  --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-h"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-h",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -h --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--help"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--help",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --help --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-no-message"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-no-message",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -no-message --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        ""
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown ",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "-no-message"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "-no-message"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown -no-message",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--unknown"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--unknown",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --unknown --unknown",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -- -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message -- -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q -- --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q -- --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -- --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        },
+        {
+          "operand": "--"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -- -- --",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --end-of-options -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "message"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "-h"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "message",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: message --end-of-options -h",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q --end-of-options --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "-q"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--help"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "-q",
+        "--end-of-options",
+        "--help"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: -q --end-of-options --help",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash create",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --end-of-options --end-of-options",
+      "diagnostic": ""
+    },
+    {
+      "command": "stash",
+      "state": "modified",
+      "tokens": [
+        {
+          "operand": "create"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "--end-of-options"
+        }
+      ],
+      "argv": [
+        "stash",
+        "create",
+        "--end-of-options",
+        "--end-of-options",
+        "--end-of-options"
+      ],
+      "valid": true,
+      "status": 0,
+      "created": true,
+      "message": "On main: --end-of-options --end-of-options --end-of-options",
+      "diagnostic": ""
+    }
+  ]
+}
