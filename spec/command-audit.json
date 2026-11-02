@@ -363,9 +363,12 @@
         "test/types/reference-parser-status-corpus-4.ts",
         "test/types/reference-parser-status-corpus-5.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/status-commit-paths.test.ts",
+        "scripts/status-commit-path-corpus.mjs",
+        "src/commands/status-commit-path-corpus.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in cmd_status, while help exits first. This case is checked against 26 independent Git 2.55.0 outcomes in test/fixtures/status-commit-path-corpus.json (scripts/status-commit-path-corpus.mjs), covering porcelain, short and NUL formats, the end marker and help before or after the operand, and against the executing Git in src/commands/status-commit-paths.test.ts. Auto column mode depends on whether standard output is a terminal and is delegated to native Git. Configuration and repository state, pathspec magic and filesystem resolution are delegated to native Git at runtime. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "log": {
@@ -640,9 +643,13 @@
         "test/types/reference-parser-commit-corpus-8.ts",
         "test/types/reference-parser-commit-corpus-9.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/status-commit-paths.test.ts",
+        "test/types/constraint-model.ts",
+        "scripts/status-commit-path-corpus.mjs",
+        "src/commands/status-commit-path-corpus.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in prepare_index, including dry-run and status-format modes, while help exits first. Only mode without path operands or a pathspec option is rejected unless --allow-empty, --amend or an amend: fixup is active, which matches prepare_index; --amend with a plain fixup is delegated to native Git, because Git 2.32 and later refuse it but older Git accepts it; it counts pathspec.nr after parse_pathspec_file reads the file, so only the presence of the pathspec option is modeled. repo.commit emits no paths, so its include mode is rejected without a nonempty pathspecFromFile and its only mode uses the same exemptions, and its reword: fixups are rejected with include, only or all, as runtime checks. These cases are checked against 411 independent Git 2.55.0 dry-run outcomes in test/fixtures/status-commit-path-corpus.json, covering -o/--only/--no-only, last-wins --allow-empty, --amend and --fixup negations, empty and amend: fixups, a pathspec file and empty operands, and every refusal from these rules is reached with its native diagnostic. The executing Git is compared in src/commands/status-commit-paths.test.ts, with the pathspec-file and fixup-prefix cases gated for the legacy Git 2.25.1 job. --reset-author without -C, -c or --amend is valid during an in-progress cherry-pick or rebase pick, so it is delegated to native Git. Pathspec files that name no paths, or cannot be opened, fail natively and are delegated to native Git. Author nickname lookup, amend and merge state, -C/-c/--fixup/--squash object resolution, pathspec file contents, pathspec magic and other configuration/repository state are delegated to native Git at runtime. Unknown --fixup suboptions, an ASCII-letter prefix before ':' other than amend or reword, are still accepted by the typed API and remain open. repo.commit still accepts an amend: or reword: fixup with a message, which Git refuses; modeling it in CommitOpts exceeds the compiler's union limit, so it remains open. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "diff": {
@@ -2307,10 +2314,39 @@
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
-        "src/commands/stash-create.test.ts"
+        "src/commands/stash-create.test.ts",
+        "test/types/stash-create-corpus.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words, and these legacy exits are covered by runtime witnesses that leave the exit to the selected Git. Whether a commit is created depends on tracked index/worktree changes (a clean tree exits 0 with no output) and remains delegated to native Git. Independent Git 2.55.0 corpus evidence, message behavior with non-ASCII and control characters, and cross-platform witnesses remain pending."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts",
+          "test/types/stash-create-corpus.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts",
+          "test/types/stash-create-corpus.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-create.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-create-corpus.mjs",
+          "src/commands/stash-create.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/stash-create-corpus.ts",
+          "test/types/command-api.ts"
+        ]
+      },
+      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. 190 independent Git 2.55.0 runs (scripts/stash-create-corpus.mjs; 95 word sequences in clean and modified worktrees), each recorded as a direct and a root-dispatched wrapper case (380 cases), cover help, completion, terminator, typo, cluster, unknown-option, empty and repeated-empty, space, non-ASCII (é) and TAB/LF/CR/U+0001 words on Linux; all exit 0, a clean tree creates nothing and a modified tree stores \"On <branch>: <joined words>\" or the WIP message for an empty join (checked by the generator), and the wrapper accepts and serializes every case unchanged. The corpus is finite and does not prove completeness over all message words. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words; these legacy exits are covered by runtime witnesses that leave the exit to the selected Git and were rechecked against a Git 2.25.1 build. Whether a commit is created depends on tracked index/worktree changes and remains delegated to native Git: a clean tree exits 0 with no output, while a tracked file that is only stat-dirty (rewritten with unchanged content) exits 1 with no output in 2.55.0, 2.25.1 and 2.43.0, because the quick tracked-change check sees the stat change and the refreshed index then has nothing to stash; a runtime witness compares that exit with native Git. An unborn HEAD and core.trustctime/core.checkStat, which change what counts as stat-dirty, are likewise delegated without a witness. Cross-platform (Windows argv and message encoding) witnesses remain pending."
     },
     "show": {
       "state": "partial",
