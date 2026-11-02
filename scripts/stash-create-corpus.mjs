@@ -38,6 +38,10 @@ try {
   const cases = [];
   for (const state of ['clean', 'modified']) {
     await writeFile(join(directory, 'file'), state === 'clean' ? 'one\n' : 'two\n');
+    // A same-content rewrite leaves the file stat-dirty, and create then exits 1 silently
+    // (its quick tracked-change check sees the stat change, the refresh finds nothing).
+    // Settle the index so each state is decided by content, not by the clock.
+    if (git(['update-index', '-q', '--refresh']).status > 1) throw new Error('Cannot refresh oracle index');
     for (const sequence of sequences) {
       const argv = ['stash', 'create', ...sequence];
       const result = git(argv);

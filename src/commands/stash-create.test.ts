@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm, utimes, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -127,6 +127,34 @@ describe('stash create message words', () => {
           expect(message, label).toMatch(/^WIP on /);
         }
       }
+    }
+  });
+
+  it('leaves the stat-dirty but content-clean exit to native Git', async () => {
+    const tracked = join(repo.workdir, 'tracked');
+    const results = [];
+    // Each run gets its own mtime so the previous run's index refresh cannot match it.
+    let mtime = 978307200;
+    for (const run of [
+      () => repo.command('stash create', [{ operand: 'msg' }]),
+      async () => {
+        const result = direct(['stash', 'create', 'msg']);
+        return { exitCode: result.status, stdout: result.stdout, stderr: result.stderr };
+      },
+    ]) {
+      await writeFile(tracked, 'initial\n');
+      mtime += 86400;
+      await utimes(tracked, mtime, mtime);
+      results.push(await run());
+    }
+    await writeFile(tracked, 'changed\n');
+    const [actual, native] = results;
+    expect(actual?.exitCode).toBe(native?.exitCode);
+    expect(actual?.stdout).toBe('');
+    expect(native?.stdout).toBe('');
+    if (process.platform !== 'win32') {
+      // The quick tracked-change check sees the stat change; the refreshed index has none.
+      expect(native?.exitCode).toBe(1);
     }
   });
 
