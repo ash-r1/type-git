@@ -28126,8 +28126,8 @@
         ]
       },
       "total": "4227824436311045366279355169504661931977660383891768227550690541568000000000000000000000000000000000000",
-      "accepted": "7080820896640693918353798784995853632522640909081197320738931955099238400000000000000000000000000000",
-      "nodes": 117747,
+      "accepted": "7474199952216795711487857305088447897057681655088575426191282214954598400000000000000000000000000000",
+      "nodes": 118263,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -28149,7 +28149,7 @@
         "diff.cached-max-age": "{\"cached\":true,\"max-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.follow-without-path": "{\"follow\":true,\"operands\":[]}",
         "diff.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
-        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[\"value\"]}"
+        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}"
       }
     },
     {

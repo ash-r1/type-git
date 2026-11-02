@@ -33605,6 +33605,10 @@ const commandSpec70 = {
       kind: 'forbid',
       when: [
         {
+          key: 'stdin',
+          test: 'inactive',
+        },
+        {
           key: 'follow',
           test: 'active',
         },
@@ -33618,7 +33622,7 @@ const commandSpec70 = {
       source:
         'Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec',
       reason:
-        '--follow requires exactly one pathspec; without operands there is none. diff_setup_done runs inside setup_revisions, before any residual -h.',
+        '--follow requires exactly one pathspec; without operands there is none unless --stdin (delegated) supplies paths. diff_setup_done runs inside setup_revisions, before any residual -h.',
     },
     {
       id: 'diff.follow-separated-paths',
@@ -33627,6 +33631,10 @@ const commandSpec70 = {
       min: 1,
       max: 1,
       when: [
+        {
+          key: 'stdin',
+          test: 'inactive',
+        },
         {
           key: 'follow',
           test: 'active',
@@ -33640,7 +33648,7 @@ const commandSpec70 = {
       source:
         'Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec',
       reason:
-        'After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated.',
+        'After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated, as are paths read by --stdin.',
     },
     {
       id: 'diff.follow-full-diff',

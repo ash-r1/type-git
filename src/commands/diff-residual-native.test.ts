@@ -51,10 +51,10 @@ describe('selected Git diff residual dispatch and raw-word scans', () => {
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
   });
-  const git = (args: string[]) => {
+  const git = (args: string[], input = '') => {
     const result = spawnSync('git', ['-C', join(root, 'repo'), ...args], {
       env,
-      input: '',
+      input,
       encoding: 'utf8',
       timeout: 10000,
     });
@@ -126,6 +126,17 @@ describe('selected Git diff residual dispatch and raw-word scans', () => {
 
     expect(git(['diff', '-S', '--']).status).not.toBe(0);
     rejects('diff', [['-S', '--']]);
+  });
+
+  it('leaves --follow paths read by --stdin to Git', () => {
+    expect(git(['diff', '--follow']).status).toBe(128);
+    rejects('diff', [['--follow']]);
+    expect(git(['diff', '--follow', '--stdin'], '--\na\n').status).toBe(0);
+    expect(commandArguments('diff', [['--follow'], ['--stdin']], true)).toEqual([
+      'diff',
+      '--follow',
+      '--stdin',
+    ]);
   });
 
   it('limits stdin comparisons to two paths and records legacy pathspec arity', () => {
