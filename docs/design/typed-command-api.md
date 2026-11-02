@@ -1148,8 +1148,8 @@ complete repository-dependent revision/path disambiguation, stdin languages,
 all callbacks or every early exit. All audit scopes remain partial.
 
 Identical later-phase dictionaries are shared in generated source and declaration
-types. `pnpm test:types` checks all source and contract roots together using the
-unchanged `tsconfig.contracts.json` project.
+types. `pnpm test:types` checks every root of the unchanged
+`tsconfig.contracts.json` project, split into shards as described below.
 
 The native corpus pins the observed Git 2.55 boolean and decimal callback
 families. Public calls without an explicit profile retain supported older Git
@@ -1227,11 +1227,19 @@ that older supported behavior. `CheckedCommandArguments` contexts can pin
 `integerProfile` independently to `bounded` or `decimal-cast`; a decimal callback
 pin does not silently fix the integer profile.
 
-The growing native-oracle contract suite is checked as one complete TypeScript
-project. `pnpm test:types` sets a 12 GiB Node old-space limit so every source and
-contract root can remain in the same program. This changes the compiler's
-memory allowance; it does not skip diagnostics, remove fixtures or split the
-full contract check into independent compiler runs.
+The growing native-oracle contract suite outgrew a single compiler program: on
+2026-11-02 one `tsc` run over all roots of `tsconfig.contracts.json` exhausted a
+12 GiB heap after 19 minutes. `pnpm test:types` (`scripts/test-types.mjs`) now
+checks the same roots as six programs run one after another, each under an
+8 GiB heap. Shard 1 carries `src/**/*`; the `test/types/*.ts` files are spread
+over all six by a deterministic size-based packing. Every contract file is an ES
+module that imports only `src` modules and declares no globals, so its
+diagnostics, including unused `@ts-expect-error` directives, do not depend on
+which other contract files share its program. The script refuses to run if
+`tsconfig.contracts.json` gains roots it does not split or if `test/types` gains
+a subdirectory. `--list` prints the plan and `--shard <n>` checks one shard.
+This changes how the roots are grouped into compiler runs; it does not skip
+diagnostics or remove fixtures.
 
 ## Repository-conditioned child commands
 
