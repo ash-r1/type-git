@@ -37,3 +37,35 @@ export function checkedOperands(
   }
   return [...values];
 }
+
+/**
+ * Return a revision operand unchanged, or throw when it is empty or option-like.
+ *
+ * Git never resolves an empty word as a revision, so `git reset ''` or `git diff ''` fail in every
+ * repository. Omitting the word instead would run a different command (`git reset` resets the
+ * index), so an empty string is refused rather than dropped.
+ */
+export function checkedRevision(command: string, name: string, value: string): string {
+  if (value === '') {
+    throw new GitArgumentError(
+      `${command}: ${name} must not be empty; Git rejects an empty revision.`,
+    );
+  }
+  return checkedOperand(command, name, value);
+}
+
+/**
+ * Return an option value unchanged, or throw when it is empty.
+ *
+ * Used for values Git resolves as a commit, tree or file (`--source`, `--onto`, `--fixup`, `--file`),
+ * where an empty string fails in every repository and omitting the option would run a different
+ * command.
+ */
+export function checkedOptionValue(command: string, name: string, value: string): string {
+  if (value === '') {
+    throw new GitArgumentError(
+      `${command}: ${name} must not be empty; Git rejects an empty value here.`,
+    );
+  }
+  return value;
+}
