@@ -1199,6 +1199,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "restore": {

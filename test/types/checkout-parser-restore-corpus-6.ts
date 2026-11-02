@@ -81,4 +81,11 @@ export type NativeCheckoutParserCases = readonly [
   Check<Accepted<[["--inter-hunk-context","0"],["-h"]]> extends true ? true : false>,
   Check<Accepted<[["--inter-hunk-context","1"],{"operand":"file"}]> extends false ? true : false>,
   Check<Accepted<[["--inter-hunk-context","1"],["-h"]]> extends true ? true : false>,
+  Check<Accepted<[{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["--"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[{"operand":"file"},{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["--staged"],["--"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["--patch"],["--"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[["--pathspec-from-file","-"],["--"],{"operand":""}]> extends false ? true : false>,
+  Check<Accepted<[{"operand":""},["-h"]]> extends true ? true : false>,
 ];

@@ -178,6 +178,15 @@ git.command('restore', [['--no-staged'], { operand: 'file' }]);
 git.command('restore', [['--source', 'HEAD'], ['--ours'], { operand: 'file' }]);
 // @ts-expect-error Conflict callback reenables a previously disabled merge.
 git.command('restore', [['--no-merge'], ['--conflict', 'diff3'], ['--staged'], { operand: 'file' }]);
+// @ts-expect-error An empty switch target is never a valid reference.
+git.command('switch', [['--'], { operand: '' }]);
+// @ts-expect-error An empty new branch name fails the branch-name check.
+git.command('switch', [['-c', ''], { operand: 'main' }]);
+// @ts-expect-error The same check applies to orphan branches.
+git.command('switch', [['--orphan', '']]);
+// Help exits before either check.
+git.command('switch', [['-c', ''], ['-h']]);
+git.command('switch', [['-c', 'topic'], { operand: 'main' }]);
 // @ts-expect-error parse_pathspec rejects an empty restore pathspec.
 git.command('restore', [['--'], { operand: '' }]);
 // @ts-expect-error Every restore operand is a pathspec, including later ones.

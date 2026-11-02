@@ -13163,8 +13163,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 11,
+      "rules": 15,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "create": [
           "undefined",
           "\"\"",
@@ -13259,7 +13263,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -13271,21 +13277,25 @@
           "true"
         ]
       },
-      "total": "12597120000",
-      "accepted": "181958400",
-      "nodes": 347,
+      "total": "35271936000",
+      "accepted": "350573184",
+      "nodes": 699,
       "isolatedRuleWitnesses": {
-        "switch-creation": "{\"force-create\":\"\",\"operands\":[],\"orphan\":\"\"}",
-        "switch-detach-create": "{\"create\":\"\",\"detach\":true,\"operands\":[]}",
-        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"\",\"operands\":[]}",
-        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-creation": "{\"force-create\":\"value\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-detach-create": "{\"create\":\"value\",\"detach\":true,\"operands\":[]}",
+        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"value\",\"operands\":[]}",
+        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
-        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"\",\"track\":\"direct\"}",
-        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"value\",\"track\":\"direct\"}",
+        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-arity": "{\"operands\":[\"value\",\"value\"]}",
         "switch-target": "{\"operands\":[]}",
-        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"\"}",
-        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}"
+        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"value\"}",
+        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
+        "switch-empty-start-point": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "switch-empty-create": "{\"create\":\"\",\"operands\":[]}",
+        "switch-empty-force-create": "{\"force-create\":\"\",\"operands\":[]}",
+        "switch-empty-orphan": "{\"operands\":[],\"orphan\":\"\"}"
       }
     },
     {
