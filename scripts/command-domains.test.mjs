@@ -68,3 +68,13 @@ it('finds a deferred parser-error witness and preserves the completion guard', (
   expect(violations([rule], witness).map(r => r.id)).toEqual([rule.id]);
   expect(violations([rule], { ...witness, completion: true })).toEqual([]);
 });
+
+
+it('does not treat a scalar rule integer parser as a keyed integer range', () => {
+  const rule = { id: 'scalar-integer', kind: 'scalar', key: 'jobs',
+    parser: { kind: 'integer', signed: true, bits: 32 },
+    origin: 'git', reason: 'Final forwarded value', source: 'fixture' };
+  const domains = commandDomains({ options: {}, rules: [rule] }, r => [r.key]);
+  expect(Object.keys(domains)).not.toContain('undefined');
+  expect(domains.jobs).toEqual([undefined]);
+});
