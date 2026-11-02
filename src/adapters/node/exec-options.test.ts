@@ -51,7 +51,7 @@ describe('NodeExecAdapter options', () => {
   });
 
   it('forwards windowsHide through TypeGit.create', async () => {
-    const git = await TypeGit.create({ windowsHide: true });
+    const git = await TypeGit.create({ windowsHide: true, skipVersionCheck: true });
     spawnMock.mockClear();
     await git.raw(['--version']);
     expect(spawnMock).toHaveBeenCalled();
