@@ -1,12 +1,14 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, rm, utimes, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import corpus from '../../test/fixtures/stash-create-corpus.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments, commandHasLegacyStashHelp } from './build.js';
+import type { GitCommandName } from './types.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
@@ -127,6 +129,37 @@ describe('stash create message words', () => {
     }
   });
 
+  it('leaves the stat-dirty but content-clean exit to native Git', async () => {
+    const tracked = join(repo.workdir, 'tracked');
+    const results = [];
+    // Each run gets its own mtime so the previous run's index refresh cannot match it.
+    let mtime = 978307200;
+    try {
+      for (const run of [
+        () => repo.command('stash create', [{ operand: 'msg' }]),
+        () => {
+          const result = direct(['stash', 'create', 'msg']);
+          return { exitCode: result.status, stdout: result.stdout, stderr: result.stderr };
+        },
+      ]) {
+        await writeFile(tracked, 'initial\n');
+        mtime += 86400;
+        await utimes(tracked, mtime, mtime);
+        results.push(await run());
+      }
+    } finally {
+      await writeFile(tracked, 'changed\n');
+    }
+    const [actual, native] = results;
+    expect(actual?.exitCode).toBe(native?.exitCode);
+    expect(actual?.stdout).toBe('');
+    expect(native?.stdout).toBe('');
+    if (process.platform !== 'win32') {
+      // The quick tracked-change check sees the stat change; the refreshed index has none.
+      expect(native?.exitCode).toBe(1);
+    }
+  });
+
   it('passes a dash-prefixed push message that only the legacy parent rejects', async () => {
     for (const [command, args] of [
       ['stash push', [['-m', '-no-message']]],
@@ -177,5 +210,27 @@ describe('stash create message words', () => {
     expect(() => commandArguments('stash create', [['--']])).toThrow(GitArgumentError);
     expect(() => commandArguments('stash create', [['-h'] as never])).toThrow(GitArgumentError);
     expect(() => commandArguments('stash create', [{ operand: 'a\0b' }])).toThrow(GitArgumentError);
+  });
+});
+
+describe('native stash create corpus', () => {
+  it('accepts every Git 2.55.0 message word and serializes it unchanged', () => {
+    const mismatches: string[] = [];
+    for (const row of corpus.cases) {
+      let argv: string[] | null = null;
+      try {
+        argv = commandArguments(row.command as GitCommandName, row.tokens, true);
+      } catch (error) {
+        if (!(error instanceof GitArgumentError)) {
+          throw error;
+        }
+      }
+      if ((argv !== null) !== row.valid) {
+        mismatches.push(`${row.state} ${JSON.stringify(row.argv)}: native=${row.valid}`);
+      } else if (argv) {
+        expect(argv, JSON.stringify(row.argv)).toEqual(row.argv);
+      }
+    }
+    expect(mismatches).toEqual([]);
   });
 });

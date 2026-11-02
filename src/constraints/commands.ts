@@ -1038,6 +1038,16 @@ export const COMMAND_CONSTRAINTS = {
       reason: 'Commit --all cannot use a pathspec file.',
       source: git('builtin/commit.c'),
     },
+    // repo.commit emits no path operands and skips an empty pathspecFromFile or fixup.
+    {
+      id: 'commit.include-paths',
+      kind: 'requires',
+      when: active('include'),
+      required: [{ key: 'pathspecFromFile', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'Include mode needs a pathspec file because repo.commit emits no paths.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
   ],
   diff: [
     {

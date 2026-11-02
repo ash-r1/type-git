@@ -2310,6 +2310,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult> {
     validateOptions('commit', opts);
+    validateInput('commitPaths', { ...opts }, 'commit');
     const args = ['commit'];
 
     // Existing options
