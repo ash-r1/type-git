@@ -4072,8 +4072,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 22,
+      "rules": 24,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -4337,7 +4341,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -4349,9 +4355,9 @@
           "true"
         ]
       },
-      "total": "30008138251106250000000000",
-      "accepted": "843374627086970880000",
-      "nodes": 9216,
+      "total": "84022787103097500000000000",
+      "accepted": "1949870061123747840000",
+      "nodes": 18089,
       "isolatedRuleWitnesses": {
         "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
@@ -4359,8 +4365,8 @@
         "cli.commit.fixup-squash": "{\"fixup\":\"\",\"operands\":[],\"squash\":\"\"}",
         "cli.commit.message-source": "{\"fixup\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
         "cli.commit.literal-message-source": "{\"message\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
-        "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[]}",
-        "cli.commit.patch-mode": "{\"only\":true,\"operands\":[],\"patch\":true}",
+        "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[\"value\"]}",
+        "cli.commit.patch-mode": "{\"only\":true,\"operands\":[\"value\"],\"patch\":true}",
         "cli.commit.all-paths": "{\"all\":true,\"operands\":[\"value\"]}",
         "cli.commit.pathspec-file-modes": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
         "cli.commit.pathspec-file-paths": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
@@ -4374,7 +4380,9 @@
         "cli.commit.unified-interactive": "{\"operands\":[],\"unified\":0}",
         "cli.commit.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
         "cli.commit.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
-        "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}"
+        "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
+        "cli.commit.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}",
+        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}"
       }
     },
     {
@@ -4913,8 +4921,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 5,
+      "rules": 6,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "verbose": [
           "undefined",
           "[]",
@@ -5021,7 +5033,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -5033,15 +5047,16 @@
           "true"
         ]
       },
-      "total": "20558499840",
-      "accepted": "3460708800",
-      "nodes": 68,
+      "total": "57563799552",
+      "accepted": "8305701120",
+      "nodes": 154,
       "isolatedRuleWitnesses": {
         "cli.status.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.status.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
         "cli.status.ignored": "{\"ignored\":\"\",\"operands\":[]}",
         "cli.status.ignored-untracked": "{\"ignored\":\"matching\",\"operands\":[],\"untracked-files\":\"\"}",
-        "cli.status.ignore-submodules": "{\"ignore-submodules\":\"\",\"operands\":[]}"
+        "cli.status.ignore-submodules": "{\"ignore-submodules\":\"\",\"operands\":[]}",
+        "cli.status.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -13163,8 +13178,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 11,
+      "rules": 15,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "create": [
           "undefined",
           "\"\"",
@@ -13259,7 +13278,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -13271,21 +13292,25 @@
           "true"
         ]
       },
-      "total": "12597120000",
-      "accepted": "181958400",
-      "nodes": 347,
+      "total": "35271936000",
+      "accepted": "350573184",
+      "nodes": 699,
       "isolatedRuleWitnesses": {
-        "switch-creation": "{\"force-create\":\"\",\"operands\":[],\"orphan\":\"\"}",
-        "switch-detach-create": "{\"create\":\"\",\"detach\":true,\"operands\":[]}",
-        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"\",\"operands\":[]}",
-        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-creation": "{\"force-create\":\"value\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-detach-create": "{\"create\":\"value\",\"detach\":true,\"operands\":[]}",
+        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"value\",\"operands\":[]}",
+        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
-        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"\",\"track\":\"direct\"}",
-        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"value\",\"track\":\"direct\"}",
+        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-arity": "{\"operands\":[\"value\",\"value\"]}",
         "switch-target": "{\"operands\":[]}",
-        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"\"}",
-        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}"
+        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"value\"}",
+        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
+        "switch-empty-start-point": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "switch-empty-create": "{\"create\":\"\",\"operands\":[]}",
+        "switch-empty-force-create": "{\"force-create\":\"\",\"operands\":[]}",
+        "switch-empty-orphan": "{\"operands\":[],\"orphan\":\"\"}"
       }
     },
     {
@@ -95483,7 +95508,7 @@
           "--help"
         ]
       },
-      "rules": 3,
+      "rules": 9,
       "domains": {
         "verbose": [
           "undefined",
@@ -95665,7 +95690,24 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "\"-2147483649\"",
+          "\"-2147483648\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483647\"",
+          "\"2147483648\"",
+          "\"-0\"",
+          "\"08\"",
+          "\"0x10\"",
+          "\"0b10\"",
+          "\"  +010k\"",
+          "\"1m\"",
+          "\"-2g\"",
+          "\"1 \"",
+          "\"1\\n\"",
+          "\"1.5\""
         ],
         "dry-run": [
           "undefined",
@@ -95682,7 +95724,15 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"-4294967295\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483648\"",
+          "\"4294967297\"",
+          "\"1suffix\"",
+          "\"0x10\""
         ],
         "shallow-since": [
           "undefined",
@@ -95700,10 +95750,11 @@
         ],
         "deepen": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "unshallow": [
           "undefined",
@@ -95783,13 +95834,19 @@
           "true"
         ]
       },
-      "total": "20589113209464900000000000000",
-      "accepted": "5435525887298733600000000000",
-      "nodes": 33,
+      "total": "246245793985200204000000000000",
+      "accepted": "5797894279785315840000000000",
+      "nodes": 204,
       "isolatedRuleWitnesses": {
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.pull.all-repositories": "{\"all\":true,\"operands\":[\"value\"]}",
-        "cli.pull.depth-unshallow": "{\"depth\":\"\",\"operands\":[],\"unshallow\":true}"
+        "cli.pull.depth-unshallow": "{\"depth\":\"1kb\",\"operands\":[],\"unshallow\":true}",
+        "cli.pull.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
+        "cli.pull.deepen-depth": "{\"deepen\":1,\"depth\":\"1kb\",\"operands\":[]}",
+        "cli.pull.deepen-unshallow": "{\"deepen\":1,\"operands\":[],\"unshallow\":true}",
+        "cli.pull.depth-initial": "{\"depth\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-forwarded": "{\"jobs\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-valueless": "{\"jobs\":true,\"operands\":[]}"
       }
     },
     {

@@ -96456,6 +96456,191 @@
     {
       "command": "switch",
       "tokens": [
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "switch",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid reference: "
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "switch",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid reference: "
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-c",
+          "x"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "switch",
+        "-c",
+        "x",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid reference: "
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "--detach"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "switch",
+        "--detach",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid reference: "
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "switch",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-c",
+          ""
+        ]
+      ],
+      "argv": [
+        "switch",
+        "-c",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '' is not a valid branch name"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-C",
+          ""
+        ]
+      ],
+      "argv": [
+        "switch",
+        "-C",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '' is not a valid branch name"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "--orphan",
+          ""
+        ]
+      ],
+      "argv": [
+        "switch",
+        "--orphan="
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '' is not a valid branch name"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-c",
+          ""
+        ],
+        {
+          "operand": "main"
+        }
+      ],
+      "argv": [
+        "switch",
+        "-c",
+        "",
+        "main"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '' is not a valid branch name"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-c",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "switch",
+        "-c",
+        "",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "switch",
+      "tokens": [
         [
           "--detach"
         ],
@@ -144262,6 +144447,148 @@
       "argv": [
         "restore",
         "--inter-hunk-context=1",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        {
+          "operand": "file"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        "file",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--patch"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        "--patch",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=-",
+        "--",
+        ""
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: empty string is not a valid pathspec. please use . instead if you meant to match all paths"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "",
         "-h"
       ],
       "valid": true,

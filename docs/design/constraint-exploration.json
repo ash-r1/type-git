@@ -7,11 +7,25 @@
     "nodes": 6
   },
   {
+    "command": "commitPaths",
+    "scope": "operands",
+    "total": "3645",
+    "accepted": "2916",
+    "nodes": 63
+  },
+  {
     "command": "pathspec",
     "scope": "operands",
     "total": "15",
     "accepted": "7",
     "nodes": 11
+  },
+  {
+    "command": "switchTarget",
+    "scope": "operands",
+    "total": "2",
+    "accepted": "1",
+    "nodes": 2
   },
   {
     "command": "clone",
@@ -1409,16 +1423,17 @@
       ]
     },
     "total": "54226471004352",
-    "accepted": "334272137472",
-    "nodes": 707,
+    "accepted": "282845654784",
+    "nodes": 850,
     "isolatedRuleWitnesses": {
       "commit.message-file-reuseMessage": "{\"message\":\"\",\"reuseMessage\":\"\"}",
       "commit.fixup-squash": "{\"fixup\":\"\",\"squash\":\"\"}",
-      "commit.include-only-all": "{\"include\":true,\"only\":true}",
+      "commit.include-only-all": "{\"include\":true,\"only\":true,\"pathspecFromFile\":\"value\"}",
       "commit.unsupported": "{\"reeditMessage\":\"\"}",
       "commit.fixup-message-source": "{\"fixup\":\"\",\"reuseMessage\":\"\"}",
       "commit.author-reset": "{\"author\":\"\",\"resetAuthor\":true}",
-      "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}"
+      "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}",
+      "commit.include-paths": "{\"include\":true}"
     }
   },
   {

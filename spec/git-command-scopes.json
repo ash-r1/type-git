@@ -588,6 +588,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "status": {
@@ -681,6 +684,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "worktree": {
@@ -1199,6 +1205,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "restore": {
@@ -9375,6 +9384,15 @@
         "key": "rebase",
         "value": "flag",
         "set": false
+      },
+      "--deepen": {
+        "key": "deepen",
+        "value": "integer",
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     },
     "parserExit": {
@@ -9388,6 +9406,11 @@
       "exceptFirst": [
         "--help"
       ]
+    },
+    "forwardedOperands": {
+      "origin": "type-git",
+      "reason": "Pull consumes its own -- and forwards the repository and refspec words to fetch without one, where fetch's parse-options reinterprets a dash-prefixed word as an option (for example --upload-pack runs a command); such operands are rejected even after --.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:parse_options/parse_repo_refspecs/run_fetch; builtin/fetch.c:cmd_fetch parse_options"
     }
   },
   "rev-parse": {

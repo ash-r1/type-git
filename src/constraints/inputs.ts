@@ -15,6 +15,38 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
     },
   ],
+  // repo.commit emits no paths. These stay runtime checks: modeling them in CommitOpts
+  // multiplies the compiler's work on every caller of the option type.
+  commitPaths: [
+    {
+      id: 'commit.only-paths',
+      kind: 'requiresAny',
+      when: { key: 'only', test: 'active' },
+      choices: [
+        { key: 'pathspecFromFile', test: 'nonempty' },
+        { key: 'allowEmpty', test: 'active' },
+        { key: 'amend', test: 'active' },
+        { key: 'fixup', test: 'startsWith', value: 'amend:' },
+      ],
+      origin: 'git',
+      // Git 2.32+ also refuses amend with a plain fixup, but older Git accepts it.
+      reason: 'Only mode without paths requires allowEmpty, amend or an amend: fixup.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.reword-content',
+      kind: 'conflicts',
+      when: { key: 'fixup', test: 'startsWith', value: 'reword:' },
+      others: [
+        { key: 'include', test: 'active' },
+        { key: 'only', test: 'active' },
+        { key: 'all', test: 'active' },
+      ],
+      origin: 'git',
+      reason: 'A reword: fixup cannot include changed files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+  ],
   pathspec: [
     {
       id: 'pathspec.file-operands',
@@ -38,6 +70,17 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
     },
   ],
+  switchTarget: [
+    {
+      id: 'switch.empty-branch',
+      kind: 'forbid',
+      when: [{ key: 'branch', test: 'equals', value: '' }],
+      origin: 'git',
+      reason:
+        'An empty switch target is never a valid reference or branch name, with or without create, force-create or orphan.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+    },
+  ],
 } as const satisfies Record<string, readonly Constraint[]>;
 
 /** Operand equivalence classes include omitted, empty strings, empty lists, and multiple operands. */
@@ -46,9 +89,21 @@ export const INPUT_DOMAINS = {
     to: [undefined, '', 'output'],
     patterns: [undefined, '', 'file', [], ['file'], ['a', 'b']],
   },
+  commitPaths: {
+    only: [undefined, false, true],
+    include: [undefined, false, true],
+    all: [undefined, false, true],
+    allowEmpty: [undefined, false, true],
+    amend: [undefined, false, true],
+    pathspecFromFile: [undefined, '', 'paths'],
+    fixup: [undefined, '', 'HEAD', 'amend:HEAD', 'reword:HEAD'],
+  },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],
     paths: [[], [''], ['file'], ['file', ''], ['a', 'b']],
     emptyPathspec: [''],
+  },
+  switchTarget: {
+    branch: ['', 'main'],
   },
 } as const;

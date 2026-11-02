@@ -133,6 +133,11 @@ export type CommandSpec = {
   separator: boolean;
   /** Native parser dispatch can stop at the first operand or treat all words as operands. */
   optionParsing?: 'stop-at-operand' | 'none';
+  /**
+   * Operands are forwarded to a child parser that reinterprets dash-prefixed words as options,
+   * so they are rejected even after this command's own `--`.
+   */
+  forwardedOperands?: Evidence;
   /** After the empty first parser, repository state selects a child command or success. */
   conditionalCommand?: ConditionalCommand;
   /** A usage exit with an explicitly checked prefix and uninterpreted following words. */
