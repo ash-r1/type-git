@@ -3260,6 +3260,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void> {
+    // An empty startPoint is not emitted, so only the always-emitted target is checked here.
+    validateInput('switchTarget', { branch }, 'switch');
     validateOptions('switch', opts);
     const args = ['switch'];
 

@@ -47,11 +47,15 @@ try {
     for (const flag of command === 'reset' ? ['--recurse-submodules'] : ['--conflict', '--recurse-submodules']) for (const value of ['', 'bad', 'merge', 'diff3', 'zdiff3', 'MERGE', 'yes', '0', '-1', '2147483648']) sequences.push([[flag, value], ['-h']], [['-h'], [flag, value]]);
     if (command === 'switch') {
       sequences.push([], [['--detach']], [['--no-detach']], [['--detach'], operand('main')], [['--'], operand('main'), ['--']], [operand('--end-of-options'), operand('main'), ['--']]);
+      // Empty start points and branch names are fatal in every mode; help still exits first.
+      for (const tokens of [ [operand('')], [['--'], operand('')], [['-c', 'x'], operand('')], [['--detach'], operand('')], [operand(''), ['-h']], [['-c', '']], [['-C', '']], [['--orphan', '']], [['-c', ''], operand('main')], [['-c', ''], ['-h']] ]) sequences.push(tokens);
       for (const tokens of [ [['--detach'], ['--no-track']], [['--detach'], ['--track']], [['--merge'], ['--discard-changes']], [['--merge'], ['--force']], [['--no-merge'], ['--discard-changes']], [['--conflict', 'diff3'], ['--no-merge'], ['--discard-changes']] ]) sequences.push([...tokens, operand('main')], [...tokens, ['-h']]);
     } else if (command === 'restore') {
       sequences.push([], [['--'], operand('file'), ['--'], ['-h']], [operand('--end-of-options'), operand('file'), ['--'], ['-h']]);
       for (const tokens of [ [], [['--staged']], [['--no-staged']], [['--worktree']], [['--no-worktree']], [['--staged'], ['--no-worktree']], [['--no-staged'], ['--worktree']], [['--source', 'HEAD']], [['--merge'], ['--source', 'HEAD']], [['--source', 'HEAD'], ['--ours']], [['--merge'], ['--ours']], [['--ignore-unmerged'], ['--merge']], [['--pathspec-from-file', '-']], [['--pathspec-file-nul']] ]) sequences.push([...tokens, operand('file')], [...tokens, ['-h']]);
       for (const flag of ['--unified', '--inter-hunk-context']) for (const value of ['bad', '-2', '-1', '0', '1']) sequences.push([[flag, value], operand('file')], [[flag, value], ['-h']]);
+      // parse_pathspec rejects an empty pathspec in every restore mode, after help exits.
+      for (const tokens of [ [operand('')], [['--'], operand('')], [operand('file'), operand('')], [['--staged'], ['--'], operand('')], [['--patch'], ['--'], operand('')], [['--pathspec-from-file', '-'], ['--'], operand('')], [operand(''), ['-h']] ]) sequences.push(tokens);
     }
     if (command === 'checkout' || command === 'reset') {
       sequences.push([]);

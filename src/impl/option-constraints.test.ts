@@ -316,6 +316,24 @@ describe('option constraints against independent Git executions', () => {
     await expect(repo.rm('', { dryRun: true })).rejects.toBeInstanceOf(GitArgumentError);
   });
 
+  it('checks empty switch targets against Git', async () => {
+    for (const [argv, opts] of [
+      [[], undefined],
+      [['-c'], { create: true }],
+      [['-C'], { forceCreate: true }],
+      [['--detach'], { detach: true }],
+    ] as const) {
+      const result = raw(['-C', repo.workdir, 'switch', ...argv, '']);
+      const label = `${JSON.stringify(argv)}: ${result.stderr}`;
+      // Kept independent of the rule table: Git never accepts an empty target.
+      expect(result.status, label).toBe(128);
+      expect(violations(INPUT_CONSTRAINTS.switchTarget, { branch: '' }), label).toHaveLength(1);
+      await expect(repo.switch('', opts), label).rejects.toBeInstanceOf(GitArgumentError);
+    }
+    expect(violations(INPUT_CONSTRAINTS.switchTarget, { branch: 'main' })).toHaveLength(0);
+    await expect(repo.switch('main')).resolves.toBeUndefined();
+  });
+
   it('treats an empty pathspec file option as omitted, as the convenience APIs emit it', async () => {
     const run = vi.spyOn(
       (repo as unknown as { runner: { runOrThrow: (...args: unknown[]) => unknown } }).runner,

@@ -70,6 +70,17 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642',
     },
   ],
+  switchTarget: [
+    {
+      id: 'switch.empty-branch',
+      kind: 'forbid',
+      when: [{ key: 'branch', test: 'equals', value: '' }],
+      origin: 'git',
+      reason:
+        'An empty switch target is never a valid reference or branch name, with or without create, force-create or orphan.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+    },
+  ],
 } as const satisfies Record<string, readonly Constraint[]>;
 
 /** Operand equivalence classes include omitted, empty strings, empty lists, and multiple operands. */
@@ -91,5 +102,8 @@ export const INPUT_DOMAINS = {
     pathspecFromFile: [undefined, '', 'paths'],
     paths: [[], [''], ['file'], ['file', ''], ['a', 'b']],
     emptyPathspec: [''],
+  },
+  switchTarget: {
+    branch: ['', 'main'],
   },
 } as const;
