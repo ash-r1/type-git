@@ -2289,10 +2289,39 @@
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
-        "src/commands/stash-create.test.ts"
+        "src/commands/stash-create.test.ts",
+        "test/types/stash-create-corpus.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words, and these legacy exits are covered by runtime witnesses that leave the exit to the selected Git. Whether a commit is created depends on tracked index/worktree changes (a clean tree exits 0 with no output) and remains delegated to native Git. Independent Git 2.55.0 corpus evidence, message behavior with non-ASCII and control characters, and cross-platform witnesses remain pending."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts",
+          "test/types/stash-create-corpus.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts",
+          "test/types/stash-create-corpus.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-create-corpus.json",
+          "src/commands/stash-create.test.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-create.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-create-corpus.mjs",
+          "src/commands/stash-create.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/stash-create-corpus.ts",
+          "test/types/command-api.ts"
+        ]
+      },
+      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. 190 independent Git 2.55.0 runs (scripts/stash-create-corpus.mjs; 95 word sequences in clean and modified worktrees), each recorded as a direct and a root-dispatched wrapper case (380 cases), cover help, completion, terminator, typo, cluster, unknown-option, empty and repeated-empty, space, non-ASCII (é) and TAB/LF/CR/U+0001 words on Linux; all exit 0, a clean tree creates nothing and a modified tree stores \"On <branch>: <joined words>\" or the WIP message for an empty join (checked by the generator), and the wrapper accepts and serializes every case unchanged. The corpus is finite and does not prove completeness over all message words. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words; these legacy exits are covered by runtime witnesses that leave the exit to the selected Git and were rechecked against a Git 2.25.1 build. Whether a commit is created depends on tracked index/worktree changes and remains delegated to native Git: a clean tree exits 0 with no output, while a tracked file that is only stat-dirty (rewritten with unchanged content) exits 1 with no output in 2.55.0, 2.25.1 and 2.43.0, because the quick tracked-change check sees the stat change and the refreshed index then has nothing to stash; a runtime witness compares that exit with native Git. An unborn HEAD and core.trustctime/core.checkStat, which change what counts as stat-dirty, are likewise delegated without a witness. Cross-platform (Windows argv and message encoding) witnesses remain pending."
     },
     "show": {
       "state": "partial",
