@@ -64,6 +64,31 @@ describe('independent initial depth atoi profile', () => {
       '--depth=2147483648',
     ]);
   });
+  it('refuses forwarded pull operands on the shape path without spawning Git', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.writeFile = undefined;
+    adapters.exec.spawn = vi.fn().mockResolvedValue(result(0));
+    const runner = new CliRunner(adapters);
+    expect(commandUsesDepthAtoi('pull', [['--depth', '1'], ['--'], { operand: '--x' }])).toBe(true);
+    await expect(
+      runner.runCommand(
+        { type: 'global' },
+        'pull',
+        [['--depth', '1'], ['--'], { operand: '--upload-pack=type-git-probe' }],
+        true,
+      ),
+    ).rejects.toThrow(GitArgumentError);
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+    // A preceding help exit keeps the forwarded word unreachable, as in a full evaluation.
+    await runner.runCommand(
+      { type: 'global' },
+      'pull',
+      [['--depth', '1'], ['-h'], ['--'], { operand: '--x' }],
+      true,
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+
   it('matches the parser exit exception for the first help-dispatch word', () => {
     expect(commandUsesDepthAtoi('fetch', [['--help'], ['--depth', '2147483648']])).toBe(true);
     expect(commandUsesDepthAtoi('fetch', [['--depth', '2147483648'], ['--help']])).toBe(false);

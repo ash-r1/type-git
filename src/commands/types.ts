@@ -1082,6 +1082,18 @@ type ApplyMailinfoOption<
       : Next
     : InvalidPass
   : InvalidPass;
+/** A forwarded operand starting with a dash becomes a child option, even after `--`. */
+type ForwardedOperandRejected<C extends GitCommandName, S, V extends string> = Spec<C> extends {
+  forwardedOperands: object;
+}
+  ? S extends { help: true } | { parserExited: true }
+    ? false
+    : V extends `-${infer Rest}`
+      ? Rest extends ''
+        ? false
+        : true
+      : false
+  : false;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -1100,24 +1112,26 @@ type ApplyToken<
     ? never
     : Put<Put<S, 'ended', true>, 'hasSeparator', true>
   : T extends { operand: infer V extends string }
-    ? S extends { operands: infer P extends readonly string[] }
-      ? AddOperand<
-          Put<
+    ? ForwardedOperandRejected<C, S, V> extends true
+      ? never
+      : S extends { operands: infer P extends readonly string[] }
+        ? AddOperand<
             Put<
-              Put<S, 'operands', readonly [...P, V]>,
-              'operand1',
-              P extends readonly [string]
-                ? V
-                : S extends { operand1: infer Second }
-                  ? Second
-                  : undefined
+              Put<
+                Put<S, 'operands', readonly [...P, V]>,
+                'operand1',
+                P extends readonly [string]
+                  ? V
+                  : S extends { operand1: infer Second }
+                    ? Second
+                    : undefined
+              >,
+              'operand0',
+              P extends readonly [] ? V : S extends { operand0: infer F } ? F : string
             >,
-            'operand0',
-            P extends readonly [] ? V : S extends { operand0: infer F } ? F : string
-          >,
-          V
-        >
-      : never
+            V
+          >
+        : never
     : ParsingEnded<C, S> extends true
       ? never
       : T extends readonly [infer K extends keyof O, ...unknown[]]

@@ -77,6 +77,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       if (!scope.optionAllowlist.includes(flag)) delete options[flag];
     }
     for (const flag of scope.omitOptions ?? []) delete options[flag];
+    if (scope.detachedWordScan) applyDetachedWordScan(command, options, scope.detachedWordScan);
     let parserExit = scope.parserExit;
     if (parserExit?.wrappers && !parserExit.firstPassTables) throw new Error(`${command}: parser wrappers require firstPassTables`);
     if (parserExit?.firstPassTables) {
@@ -88,7 +89,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
       if (exit.remainingSeparator && (exit.remainingOperands !== 'all' || !exit.remainingSeparator.source || !exit.remainingSeparator.reason || exit.remainingSeparator.origin !== 'git' || (exit.remainingSeparator.maxIndex !== undefined && (!Number.isSafeInteger(exit.remainingSeparator.maxIndex) || exit.remainingSeparator.maxIndex < 0)))) throw new Error(`${command}: invalid native operand separator policy`);
       if (exit.remainingSingleWordExits && (!remainingGroups?.includes('diff') || JSON.stringify(exit.remainingSingleWordExits) !== JSON.stringify(['--git-completion-helper', '--git-completion-helper-all']))) throw new Error(`${command}: remaining completion exits require the audited ONE_SHOT diff parser`);
-      const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;
+      const longForms = longOptionResolution ? withoutAbortingForms(parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated')) : undefined;
       if (longForms) for (const canonical of [...Object.values(longForms.plain), ...Object.values(longForms.attached)]) if (canonical !== null && !options[canonical]) throw new Error(`${command}: unresolved native long form ${canonical}`);
       if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);
       if (exit.remainingPartition) {
@@ -116,12 +117,12 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       for (const name of remainingGroups ?? []) Object.assign(remainingOptions, Object.fromEntries(Object.entries(groups[name].options).map(([flag, option]) => [flag, resolve(option)])));
       const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
       if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
-      const remainingLongForms = remainingGroups?.includes('diff') ? parseOptionLongForms(definitionsFor(remainingTables ?? [], command), false) : undefined;
+      const remainingLongForms = remainingGroups?.includes('diff') ? withoutAbortingForms(parseOptionLongForms(definitionsFor(remainingTables ?? [], command), false)) : undefined;
       if (remainingLongForms) for (const canonical of [...Object.values(remainingLongForms.plain), ...Object.values(remainingLongForms.attached)]) if (canonical !== null && !remainingOptions[canonical]) throw new Error(`${command}: unresolved retained native long form ${canonical}`);
       remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
       parserExit = { ...exit, ...(longForms ? { longForms } : {}), ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions, ...(remainingLongForms ? { remainingLongForms } : {}) };
     }
-    result[command] = { argv: command.split(' '), ...(scope.guiScript ? { guiScript: true } : {}), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.dispatchOptions ? { dispatchOptions: scope.dispatchOptions } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}), ...(scope.usageExit ? { usageExit: scope.usageExit } : {}), ...(scope.conditionalCommand ? { conditionalCommand: scope.conditionalCommand } : {}) };
+    result[command] = { argv: command.split(' '), ...(scope.guiScript ? { guiScript: true } : {}), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.dispatchOptions ? { dispatchOptions: scope.dispatchOptions } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}), ...(scope.usageExit ? { usageExit: scope.usageExit } : {}), ...(scope.forwardedOperands ? { forwardedOperands: scope.forwardedOperands } : {}), ...(scope.conditionalCommand ? { conditionalCommand: scope.conditionalCommand } : {}) };
   }
   for (const [command, scope] of Object.entries(scopes)) if (scope.inheritOptions) {
     const target = result[scope.inheritOptions];
@@ -142,6 +143,45 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     entry.parserExit.argumentOptions = options;
   }
   return result;
+}
+
+/** Native spellings that resolve to a negation whose callback aborts with BUG(). */
+const ABORTING_NEGATIONS = new Set(['--no-ignore-matching-lines']);
+/** Native resolution still reaches an aborting callback; record it as a rejected spelling. */
+function withoutAbortingForms(forms) {
+  const reject = table => Object.fromEntries(Object.entries(table).map(([word, canonical]) => [word, ABORTING_NEGATIONS.has(canonical) ? null : canonical]));
+  return { plain: reject(forms.plain), attached: reject(forms.attached) };
+}
+
+/**
+ * A command entrypoint that scans raw argv before its option parser (builtin/diff.c's explicit
+ * --no-index loop, setup_revisions' first "--" search) sees detached option values as words.
+ * Track whether a non-dash detached value already ended the prefix scan, and check each detached
+ * string value against the audited raw-word hazards. Every detached spelling is covered.
+ */
+function applyDetachedWordScan(command, options, scan) {
+  const { stopKey, wordKey, checks, origin, source, reason } = scan;
+  const keyPattern = /^[a-z][a-z0-9-]*$/;
+  if (origin !== 'git' || !source || !reason || !keyPattern.test(stopKey ?? '') || !keyPattern.test(wordKey ?? '') || stopKey === wordKey || !Array.isArray(checks) || !checks.length) throw new Error(`${command}: invalid detached word scan`);
+  if (Object.values(options).some(option => [option.key, ...(option.effects ?? []).map(effect => effect.key)].some(key => key === stopKey || key === wordKey))) throw new Error(`${command}: detached word scan keys collide with option state`);
+  for (const check of checks) if (check.origin !== 'git' || !check.source || !check.reason || !check.id || !check.when?.some(predicate => predicate.key === '$value')) throw new Error(`${command}: detached word checks must test the incoming value with evidence`);
+  for (const [flag, option] of Object.entries(options)) {
+    if (option.value === 'flag' || option.value === 'boolean' || option.value.startsWith('optional-')) continue;
+    if (!(option.separateValue || (!flag.startsWith('--') && !option.attachedValue))) continue;
+    if (option.repeat || !['string', 'integer'].includes(option.value)) throw new Error(`${command}: unaudited detached word shape ${flag}`);
+    // Integers are emitted in decimal: only a negative value keeps the leading dash.
+    const effects = option.value === 'integer'
+      ? [
+          { key: stopKey, set: true, when: { all: [{ key: option.key, test: 'positive' }] } },
+          { key: stopKey, set: true, when: { all: [{ key: option.key, test: 'equals', value: 0 }] } },
+        ]
+      : [
+          { key: wordKey, set: true },
+          { key: wordKey, set: false, when: { all: [{ key: option.key, test: 'startsWith', value: '-' }] } },
+          { key: stopKey, set: true, when: { all: [{ key: wordKey, test: 'equals', value: true }] } },
+        ];
+    options[flag] = { ...option, effects: [...(option.effects ?? []), ...effects], ...(option.value === 'string' ? { checks: [...(option.checks ?? []), ...checks] } : {}) };
+  }
 }
 
 /** Translate one evaluated C option array, retaining aliases, defaults and storage traits. */
@@ -182,7 +222,10 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       }
       if (long) options[`--${long}`] ??= base;
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= optional && long ? { ...base, emptyValueFlag: `--${long}` } : base;
-      if (long && !flags.includes('PARSE_OPT_NONEG')) {
+      // Git 2.55.0 diff.c:diff_opt_ignore_regex lacks PARSE_OPT_NONEG but calls
+      // BUG_ON_OPT_NEG: --no-ignore-matching-lines aborts the process instead of parsing.
+      const negationAborts = definition.file === 'diff.c' && callback === 'diff_opt_ignore_regex' && ABORTING_NEGATIONS.has(`--no-${long}`);
+      if (long && !flags.includes('PARSE_OPT_NONEG') && !negationAborts) {
         const negated = { ...base, value: 'flag', ...(numeric || numericCallback ? { set: 0, ...(parser.positive ? { parser: undefined } : {}) } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
         if (callback === 'parseopt_column_callback') Object.assign(negated, { parser: undefined, set: 'never' });
         if (callback === 'parse_opt_color_flag_cb') Object.assign(negated, { allowed: undefined, caseInsensitive: undefined, clear: undefined, set: 'never' });

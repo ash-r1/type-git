@@ -53,7 +53,7 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
+      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
       "typedCommandAPI": true
     },
     "reset": {
@@ -363,9 +363,12 @@
         "test/types/reference-parser-status-corpus-4.ts",
         "test/types/reference-parser-status-corpus-5.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/status-commit-paths.test.ts",
+        "scripts/status-commit-path-corpus.mjs",
+        "src/commands/status-commit-path-corpus.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in cmd_status, while help exits first. This case is checked against 26 independent Git 2.55.0 outcomes in test/fixtures/status-commit-path-corpus.json (scripts/status-commit-path-corpus.mjs), covering porcelain, short and NUL formats, the end marker and help before or after the operand, and against the executing Git in src/commands/status-commit-paths.test.ts. Auto column mode depends on whether standard output is a terminal and is delegated to native Git. Configuration and repository state, pathspec magic and filesystem resolution are delegated to native Git at runtime. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "log": {
@@ -469,7 +472,7 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
       "typedCommandAPI": true
     },
     "push": {
@@ -505,7 +508,7 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts"
       ],
-      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
+      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
       "typedCommandAPI": true
     },
     "add": {
@@ -640,9 +643,13 @@
         "test/types/reference-parser-commit-corpus-8.ts",
         "test/types/reference-parser-commit-corpus-9.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/status-commit-paths.test.ts",
+        "test/types/constraint-model.ts",
+        "scripts/status-commit-path-corpus.mjs",
+        "src/commands/status-commit-path-corpus.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in prepare_index, including dry-run and status-format modes, while help exits first. Only mode without path operands or a pathspec option is rejected unless --allow-empty, --amend or an amend: fixup is active, which matches prepare_index; --amend with a plain fixup is delegated to native Git, because Git 2.32 and later refuse it but older Git accepts it; it counts pathspec.nr after parse_pathspec_file reads the file, so only the presence of the pathspec option is modeled. repo.commit emits no paths, so its include mode is rejected without a nonempty pathspecFromFile and its only mode uses the same exemptions, and its reword: fixups are rejected with include, only or all, as runtime checks. These cases are checked against 411 independent Git 2.55.0 dry-run outcomes in test/fixtures/status-commit-path-corpus.json, covering -o/--only/--no-only, last-wins --allow-empty, --amend and --fixup negations, empty and amend: fixups, a pathspec file and empty operands, and every refusal from these rules is reached with its native diagnostic. The executing Git is compared in src/commands/status-commit-paths.test.ts, with the pathspec-file and fixup-prefix cases gated for the legacy Git 2.25.1 job. --reset-author without -C, -c or --amend is valid during an in-progress cherry-pick or rebase pick, so it is delegated to native Git. Pathspec files that name no paths, or cannot be opened, fail natively and are delegated to native Git. Author nickname lookup, amend and merge state, -C/-c/--fixup/--squash object resolution, pathspec file contents, pathspec magic and other configuration/repository state are delegated to native Git at runtime. Unknown --fixup suboptions, an ASCII-letter prefix before ':' other than amend or reword, are still accepted by the typed API and remain open. repo.commit still accepts an amend: or reword: fixup with a message, which Git refuses; modeling it in CommitOpts exceeds the compiler's union limit, so it remains open. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "diff": {
@@ -684,10 +691,23 @@
         "src/commands/revision-age.test.ts",
         "test/types/revision-age.ts",
         "src/commands/revision-date-format.test.ts",
-        "test/types/revision-date-format.ts"
+        "test/types/revision-date-format.ts",
+        "src/commands/diff-parser.test.ts",
+        "test/types/diff-parser-corpus.ts",
+        "test/fixtures/diff-parser-corpus.json",
+        "src/commands/diff-residual-native.test.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete.",
-      "typedCommandAPI": true
+      "remaining": "Residual diff-files and HEAD-by-hand diff-index words (including -h after setup_revisions), detached-value raw-word scans for --no-index and the first \"--\", --follow pathspec arity and the aborting --no-ignore-matching-lines negation are modeled for Git 2.55.0 and checked against an independent native corpus with literal-type witnesses for selected cases. Revision, path and revision-producing option resolution (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) selects repository-dependent modes and is delegated to native Git. Implicit no-index dispatch outside a repository or for out-of-tree paths is delegated to native Git. Abbreviated long spellings stay outside the canonical API and remain unmodeled, with only prefix soundness witnessed natively. An index-mode -h after a misuse word remains source-ordered without a native witness, because its usage output is indistinguishable. A bare \"-\" operand before the separator does not stop the raw --no-index scan natively and remains unmodeled. Pathspec magic with --follow, numeric shorthand, --end-of-options, configuration-dependent defaults, callback languages and binary output remain open. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "independent-git-tests": [
+          "test/fixtures/diff-parser-corpus.json (scripts/diff-parser-corpus.mjs, Git 2.55.0): residual dispatch, raw-word scans, no-index parser and long-name prefix soundness",
+          "src/commands/diff-residual-native.test.ts: selected and legacy Git 2.25.1 differences"
+        ],
+        "compiler-tests": [
+          "test/types/diff-parser-corpus.ts: literal-type witnesses for selected native corpus cases"
+        ]
+      }
     },
     "merge": {
       "state": "partial",
@@ -743,10 +763,37 @@
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/pull-forwarding-corpus.test.ts",
+        "test/types/pull-forwarding-corpus.ts",
+        "test/types/pull-forwarded-operands.ts",
+        "src/runner/depth-profiles.test.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Fetch-to-merge/rebase delegation, repeated passthrough argv, shallow transport rules and fetched revision state need phase-aware modeling. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
-      "typedCommandAPI": true
+      "remaining": "Pull forwards its fetch options and its repository and refspec words to fetch: 383 independent Git 2.55.0 cases cover the forwarded final --depth and --jobs values, every forwarded --deepen word, OPT_INTEGER suffix, hexadecimal and int-range boundaries, the deepen/depth/unshallow combinations, --all with a repository, and fetch's reinterpretation of dash-prefixed forwarded operands. Because pull drops its own -- before forwarding, dash-prefixed pull operands are rejected even after -- (a type-git restriction: Git runs them as fetch options, for example --upload-pack). A valueless --jobs or -j is rejected as well, since fetch consumes the next forwarded word as its value, and the native successes where that word is a numeric repository operand are recorded in the corpus. Pull's own pass is modeled with the native option tables, the pull-rebase and fetch-recurse callbacks and the final cleanup check. In Git 2.25.1 pull has no --deepen, --shallow-since, --shallow-exclude, --server-option or negotiation options, so native Git rejects them as unknown options there. The forwarded --jobs value is checked with the selected integer profile, so the 2.25.1 strtol conversion and the 2.55.0 suffix grammar are both modeled. A Git 2.25.1 native run of this corpus is not yet recorded. An invalid --deepen value followed by a pull help exit is refused at the value although Git prints usage; that ordering is not yet modeled. Remote names, URLs, refspec and refmap syntax, transport depth syntax such as 1x and remote resolution of words such as - are delegated to native fetch at runtime. The merge or rebase phase (strategy, squash, commit, ff, log, signoff and gpg-sign values and combinations) is reached only after a successful non-dry-run fetch with merge candidates and is selected by configuration and fast-forward state, so it is delegated to native git merge and git rebase. Repository/configuration state, abbreviations and completion remain separate obligations. Boolean callback literal and normalized-state grammars share source-backed profiles and a finite independent Git corpus. Finite native outcomes do not establish completeness.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "operand-grammar": [
+          "test/fixtures/pull-forwarding-corpus.json",
+          "src/commands/pull-forwarding-corpus.test.ts",
+          "test/types/pull-forwarding-corpus.ts",
+          "test/types/pull-forwarded-operands.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/pull-forwarding-corpus.json",
+          "src/commands/pull-forwarding-corpus.test.ts"
+        ],
+        "serialization": [
+          "src/commands/pull-forwarding-corpus.test.ts",
+          "src/runner/depth-profiles.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/pull-forwarding-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/pull-forwarding-corpus.ts",
+          "test/types/pull-forwarded-operands.ts"
+        ]
+      }
     },
     "switch": {
       "state": "partial",
@@ -779,10 +826,54 @@
         "test/types/checkout-parser-switch-corpus-4.ts",
         "test/types/checkout-parser-switch-corpus-5.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
-      "typedCommandAPI": true
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. An empty start point is rejected in every switch mode (\"invalid reference\"), and an empty -c/-C/--orphan name fails the branch-name check; both are covered by Git 2.55.0 corpus cases, follow a help exit, and repo.switch rejects an empty target before running Git. Whether a nonempty target names a branch, a remote-tracking guess or a commit, and whether a nonempty new name passes check-ref-format, depend on repository state or the full ref-name grammar and are delegated to native Git at runtime, as are configuration, worktree state and conflicts. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts"
+        ],
+        "serialization": [
+          "src/commands/checkout-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/checkout-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/checkout-parser-switch-corpus-1.ts",
+          "test/types/checkout-parser-switch-corpus-2.ts",
+          "test/types/checkout-parser-switch-corpus-3.ts",
+          "test/types/checkout-parser-switch-corpus-4.ts",
+          "test/types/checkout-parser-switch-corpus-5.ts",
+          "test/types/checkout-parser-api.ts",
+          "test/types/command-api.ts"
+        ]
+      }
     },
     "cherry-pick": {
       "state": "partial",
@@ -925,8 +1016,55 @@
         "src/commands/restore-empty-pathspec.test.ts",
         "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected like parse_pathspec does after option parsing, while help still exits first; repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. This empty-pathspec behavior is checked against the installed Git and is not yet recorded in a Git 2.55.0 native corpus. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
-      "typedCommandAPI": true
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected as parse_pathspec does after option parsing, in normal, staged, source, patch and pathspec-file modes, while help still exits first; Git 2.55.0 corpus cases cover these modes. repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. Pathspec magic, pathspec file contents, path matching, interactive patch selection, configuration and index/worktree state are delegated to native Git at runtime. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts",
+          "src/commands/restore-empty-pathspec.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts"
+        ],
+        "serialization": [
+          "src/commands/checkout-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/checkout-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/checkout-parser-restore-corpus-1.ts",
+          "test/types/checkout-parser-restore-corpus-2.ts",
+          "test/types/checkout-parser-restore-corpus-3.ts",
+          "test/types/checkout-parser-restore-corpus-4.ts",
+          "test/types/checkout-parser-restore-corpus-5.ts",
+          "test/types/checkout-parser-restore-corpus-6.ts",
+          "test/types/checkout-parser-api.ts",
+          "test/types/command-api.ts"
+        ]
+      }
     },
     "revert": {
       "state": "partial",
@@ -2494,9 +2632,22 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/diff-parser.test.ts",
+        "test/types/diff-parser-corpus.ts",
+        "test/fixtures/diff-parser-corpus.json",
+        "src/commands/diff-residual-native.test.ts"
       ],
-      "remaining": "Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
+      "remaining": "Help exits, unknown options, the two-path minimum, stdin paths without pathspecs and the --follow pathspec failure are checked against an independent Git 2.55.0 corpus with literal-type witnesses. Directory detection for pathspec operands and stdin/directory pairs is filesystem-dependent and delegated to native Git. The Git 2.25.1 exactly-two-paths difference is recorded in a native test rather than modeled as a separate grammar. Pathspec grammar, abbreviated long spellings, callback argument languages and binary output remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
+      "evidence": {
+        "independent-git-tests": [
+          "test/fixtures/diff-parser-corpus.json (scripts/diff-parser-corpus.mjs, Git 2.55.0): residual dispatch, raw-word scans, no-index parser and long-name prefix soundness",
+          "src/commands/diff-residual-native.test.ts: selected and legacy Git 2.25.1 differences"
+        ],
+        "compiler-tests": [
+          "test/types/diff-parser-corpus.ts: literal-type witnesses for selected native corpus cases"
+        ]
+      }
     },
     "reflog list": {
       "state": "partial",

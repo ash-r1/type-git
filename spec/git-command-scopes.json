@@ -588,6 +588,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "status": {
@@ -681,6 +684,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-pathspec": ""
     }
   },
   "worktree": {
@@ -1199,6 +1205,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "restore": {
@@ -2391,9 +2400,57 @@
       "color-flag"
     ],
     "options": {
+      "-h": {
+        "key": "diff-usage",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "diff-help-word",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "diff-files-residual-error",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          },
+          {
+            "key": "diff-index-residual-misuse",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
+      },
       "--merge-base": {
         "key": "merge-base",
-        "value": "flag"
+        "value": "flag",
+        "effects": [
+          {
+            "key": "diff-files-residual-error",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
       },
       "--cached": {
         "key": "cached",
@@ -2406,21 +2463,77 @@
       "--base": {
         "key": "max-count",
         "value": "flag",
-        "set": 1
+        "set": 1,
+        "effects": [
+          {
+            "key": "diff-index-residual-misuse",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
       },
       "--ours": {
         "key": "max-count",
         "value": "flag",
-        "set": 2
+        "set": 2,
+        "effects": [
+          {
+            "key": "diff-index-residual-misuse",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
       },
       "--theirs": {
         "key": "max-count",
         "value": "flag",
-        "set": 3
+        "set": 3,
+        "effects": [
+          {
+            "key": "diff-index-residual-misuse",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
       },
       "-q": {
         "key": "silent-removed",
-        "value": "flag"
+        "value": "flag",
+        "effects": [
+          {
+            "key": "diff-index-residual-misuse",
+            "set": true,
+            "when": {
+              "all": [
+                {
+                  "key": "diff-usage",
+                  "test": "inactive"
+                }
+              ]
+            }
+          }
+        ]
       }
     },
     "numericOption": {
@@ -2437,6 +2550,52 @@
         {
           "key": "no-walk",
           "set": false
+        }
+      ]
+    },
+    "detachedWordScan": {
+      "stopKey": "diff-prescan-stopped",
+      "wordKey": "diff-prescan-word",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff (explicit --no-index loop); revision.c:setup_revisions (first \"--\" search)",
+      "reason": "cmd_diff scans raw argv for --no-index until the first word without a leading dash, and setup_revisions takes the first raw \"--\" as the path separator before any option consumes its value. Detached option values are raw words in both scans.",
+      "checks": [
+        {
+          "id": "diff.detached-dashdash",
+          "kind": "forbid",
+          "when": [
+            {
+              "key": "$value",
+              "test": "equals",
+              "value": "--"
+            }
+          ],
+          "origin": "git",
+          "source": "Git 2.55.0 revision.c:setup_revisions",
+          "reason": "setup_revisions takes a detached \"--\" value as the path separator, so the option loses its value."
+        },
+        {
+          "id": "diff.detached-no-index",
+          "kind": "forbid",
+          "when": [
+            {
+              "key": "$value",
+              "test": "equals",
+              "value": "--no-index"
+            },
+            {
+              "key": "operandsBeforeSeparator",
+              "test": "lengthEquals",
+              "value": 0
+            },
+            {
+              "key": "diff-prescan-stopped",
+              "test": "inactive"
+            }
+          ],
+          "origin": "git",
+          "source": "Git 2.55.0 builtin/diff.c:cmd_diff",
+          "reason": "A detached --no-index value reached by the explicit no-index scan switches git diff to the separate no-index grammar; use the diff --no-index scope."
         }
       ]
     }
@@ -9225,6 +9384,15 @@
         "key": "rebase",
         "value": "flag",
         "set": false
+      },
+      "--deepen": {
+        "key": "deepen",
+        "value": "integer",
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     },
     "parserExit": {
@@ -9238,6 +9406,11 @@
       "exceptFirst": [
         "--help"
       ]
+    },
+    "forwardedOperands": {
+      "origin": "type-git",
+      "reason": "Pull consumes its own -- and forwards the repository and refspec words to fetch without one, where fetch's parse-options reinterprets a dash-prefixed word as an option (for example --upload-pack runs a command); such operands are rejected even after --.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:parse_options/parse_repo_refspecs/run_fetch; builtin/fetch.c:cmd_fetch parse_options"
     }
   },
   "rev-parse": {

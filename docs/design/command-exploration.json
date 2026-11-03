@@ -4072,8 +4072,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 22,
+      "rules": 24,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -4337,7 +4341,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -4349,9 +4355,9 @@
           "true"
         ]
       },
-      "total": "30008138251106250000000000",
-      "accepted": "843374627086970880000",
-      "nodes": 9216,
+      "total": "84022787103097500000000000",
+      "accepted": "1949870061123747840000",
+      "nodes": 18089,
       "isolatedRuleWitnesses": {
         "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
@@ -4359,8 +4365,8 @@
         "cli.commit.fixup-squash": "{\"fixup\":\"\",\"operands\":[],\"squash\":\"\"}",
         "cli.commit.message-source": "{\"fixup\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
         "cli.commit.literal-message-source": "{\"message\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
-        "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[]}",
-        "cli.commit.patch-mode": "{\"only\":true,\"operands\":[],\"patch\":true}",
+        "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[\"value\"]}",
+        "cli.commit.patch-mode": "{\"only\":true,\"operands\":[\"value\"],\"patch\":true}",
         "cli.commit.all-paths": "{\"all\":true,\"operands\":[\"value\"]}",
         "cli.commit.pathspec-file-modes": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
         "cli.commit.pathspec-file-paths": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
@@ -4374,7 +4380,9 @@
         "cli.commit.unified-interactive": "{\"operands\":[],\"unified\":0}",
         "cli.commit.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
         "cli.commit.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
-        "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}"
+        "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
+        "cli.commit.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}",
+        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}"
       }
     },
     {
@@ -4913,8 +4921,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 5,
+      "rules": 6,
       "domains": {
+        "empty-pathspec": [
+          "undefined",
+          "\"\""
+        ],
         "verbose": [
           "undefined",
           "[]",
@@ -5021,7 +5033,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -5033,15 +5047,16 @@
           "true"
         ]
       },
-      "total": "20558499840",
-      "accepted": "3460708800",
-      "nodes": 68,
+      "total": "57563799552",
+      "accepted": "8305701120",
+      "nodes": 154,
       "isolatedRuleWitnesses": {
         "cli.status.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.status.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
         "cli.status.ignored": "{\"ignored\":\"\",\"operands\":[]}",
         "cli.status.ignored-untracked": "{\"ignored\":\"matching\",\"operands\":[],\"untracked-files\":\"\"}",
-        "cli.status.ignore-submodules": "{\"ignore-submodules\":\"\",\"operands\":[]}"
+        "cli.status.ignore-submodules": "{\"ignore-submodules\":\"\",\"operands\":[]}",
+        "cli.status.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -13163,8 +13178,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 11,
+      "rules": 15,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "create": [
           "undefined",
           "\"\"",
@@ -13259,7 +13278,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -13271,21 +13292,25 @@
           "true"
         ]
       },
-      "total": "12597120000",
-      "accepted": "181958400",
-      "nodes": 347,
+      "total": "35271936000",
+      "accepted": "350573184",
+      "nodes": 699,
       "isolatedRuleWitnesses": {
-        "switch-creation": "{\"force-create\":\"\",\"operands\":[],\"orphan\":\"\"}",
-        "switch-detach-create": "{\"create\":\"\",\"detach\":true,\"operands\":[]}",
-        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"\",\"operands\":[]}",
-        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-creation": "{\"force-create\":\"value\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-detach-create": "{\"create\":\"value\",\"detach\":true,\"operands\":[]}",
+        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"value\",\"operands\":[]}",
+        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
-        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"\",\"track\":\"direct\"}",
-        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"value\",\"track\":\"direct\"}",
+        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
         "switch-arity": "{\"operands\":[\"value\",\"value\"]}",
         "switch-target": "{\"operands\":[]}",
-        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"\"}",
-        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}"
+        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"value\"}",
+        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
+        "switch-empty-start-point": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "switch-empty-create": "{\"create\":\"\",\"operands\":[]}",
+        "switch-empty-force-create": "{\"force-create\":\"\",\"operands\":[]}",
+        "switch-empty-orphan": "{\"operands\":[],\"orphan\":\"\"}"
       }
     },
     {
@@ -20174,11 +20199,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -21383,7 +21403,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -21483,7 +21503,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -23806,11 +23826,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -25015,7 +25030,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -25115,7 +25130,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -26604,43 +26619,139 @@
       "command": "diff",
       "transitions": [
         {
-          "flag": "-S",
+          "flag": "-I",
           "rules": [
-            "revision.pickaxe-nonempty-S"
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
           ],
           "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
             "$value": [
               "undefined",
               "\"\"",
               "\"value\"",
               "\"0b\"",
-              "\"1kb\""
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
             ]
           },
-          "total": "5",
-          "accepted": "3",
+          "total": "42",
+          "accepted": "35",
           "isolatedRuleWitnesses": {
-            "revision.pickaxe-nonempty-S": "{}"
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
+          }
+        },
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S",
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "23",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}",
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
           "flag": "-G",
           "rules": [
-            "revision.pickaxe-nonempty-G"
+            "revision.pickaxe-nonempty-G",
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
           ],
           "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
             "$value": [
               "undefined",
               "\"\"",
               "\"value\"",
               "\"0b\"",
-              "\"1kb\""
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
             ]
           },
-          "total": "5",
-          "accepted": "3",
+          "total": "42",
+          "accepted": "23",
           "isolatedRuleWitnesses": {
-            "revision.pickaxe-nonempty-G": "{}"
+            "revision.pickaxe-nonempty-G": "{}",
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
+          }
+        },
+        {
+          "flag": "-O",
+          "rules": [
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "35",
+          "isolatedRuleWitnesses": {
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
@@ -26692,6 +26803,39 @@
           "accepted": "1",
           "isolatedRuleWitnesses": {
             "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--default",
+          "rules": [
+            "diff.detached-dashdash",
+            "diff.detached-no-index"
+          ],
+          "domains": {
+            "diff-prescan-stopped": [
+              "undefined",
+              "true"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"--\"",
+              "\"--no-index\""
+            ],
+            "operandsBeforeSeparator": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "42",
+          "accepted": "35",
+          "isolatedRuleWitnesses": {
+            "diff.detached-dashdash": "{\"$value\":\"--\"}",
+            "diff.detached-no-index": "{\"$value\":\"--no-index\",\"operandsBeforeSeparator\":[]}"
           }
         },
         {
@@ -26841,7 +26985,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 21,
       "domains": {
         "no-output": [
           "undefined",
@@ -27113,6 +27257,10 @@
           "true",
           "false"
         ],
+        "diff-prescan-stopped": [
+          "undefined",
+          "true"
+        ],
         "l": [
           "undefined",
           "-2",
@@ -27151,6 +27299,11 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\""
+        ],
+        "diff-prescan-word": [
+          "undefined",
+          "true",
+          "false"
         ],
         "indent-heuristic": [
           "undefined",
@@ -27357,7 +27510,19 @@
           "undefined",
           "true"
         ],
-        "help": [
+        "diff-files-residual-error": [
+          "undefined",
+          "true"
+        ],
+        "diff-index-residual-misuse": [
+          "undefined",
+          "true"
+        ],
+        "diff-help-word": [
+          "undefined",
+          "true"
+        ],
+        "diff-usage": [
           "undefined",
           "true"
         ],
@@ -27968,11 +28133,26 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
         ]
       },
-      "total": "3669986489853337991561940251306130149286163527683826586415529984000000000000000000000000000000000000",
-      "accepted": "8195396991168787356959552501929047177813348875153710530257297080320000000000000000000000000000000",
-      "nodes": 7940,
+      "total": "4227824436311045366279355169504661931977660383891768227550690541568000000000000000000000000000000000000",
+      "accepted": "7474199952216795711487857305088447897057681655088575426191282214954598400000000000000000000000000000",
+      "nodes": 118263,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -27986,7 +28166,15 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
-        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "diff.files-residual-option": "{\"diff-files-residual-error\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-residual-option": "{\"cached\":true,\"diff-index-residual-misuse\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-revision-count": "{\"cached\":true,\"max-count\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-min-age": "{\"cached\":true,\"min-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-max-age": "{\"cached\":true,\"max-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.follow-without-path": "{\"follow\":true,\"operands\":[]}",
+        "diff.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}"
       }
     },
     {
@@ -32257,7 +32445,7 @@
           }
         }
       ],
-      "rules": 5,
+      "rules": 8,
       "domains": {
         "no-index": [
           "undefined",
@@ -32786,8 +32974,16 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
-          "\"value\""
+          "\"value\"",
+          "\"-\""
+        ],
+        "operand1": [
+          "\"\"",
+          "undefined",
+          "\"value\"",
+          "\"-\""
         ],
         "inRepository": [
           "undefined",
@@ -32795,15 +32991,18 @@
           "true"
         ]
       },
-      "total": "25270340756301812088121275187200000000000000000000",
-      "accepted": "646920723361326389455904644792320000000000000000",
-      "nodes": 231,
+      "total": "202162726050414496704970201497600000000000000000000",
+      "accepted": "2443922732698344137944528658104320000000000000000",
+      "nodes": 553,
       "isolatedRuleWitnesses": {
-        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
-        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[\"value\",\"value\"]}",
-        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
-        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
-        "diff.no-index-paths": "{\"operands\":[]}"
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
+        "diff.no-index-paths": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "diff.no-index-stdin-operand0": "{\"operand0\":\"-\",\"operand1\":\"\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "diff.no-index-stdin-operand1": "{\"operand0\":\"\",\"operand1\":\"-\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "diff.no-index-follow": "{\"follow\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}"
       }
     },
     {
@@ -33921,11 +34120,6 @@
             "key": "follow",
             "value": "flag",
             "set": false
-          },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
           },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
@@ -35131,7 +35325,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -35231,7 +35425,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -37550,11 +37744,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -38759,7 +38948,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -38859,7 +39048,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -45069,17 +45258,6 @@
               }
             ]
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true,
-            "effects": [
-              {
-                "key": "revision-argument",
-                "set": true
-              }
-            ]
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -47060,7 +47238,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -47160,7 +47338,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -50175,17 +50353,6 @@
               }
             ]
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true,
-            "effects": [
-              {
-                "key": "revision-argument",
-                "set": true
-              }
-            ]
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -52166,7 +52333,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -52266,7 +52433,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -69426,11 +69593,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -70669,7 +70831,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -70769,7 +70931,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -73035,11 +73197,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -74244,7 +74401,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -74344,7 +74501,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -77851,11 +78008,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -79060,7 +79212,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -79160,7 +79312,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -85053,11 +85205,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -86262,7 +86409,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -86362,7 +86509,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -90595,11 +90742,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -91804,7 +91946,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -91904,7 +92046,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -95366,7 +95508,7 @@
           "--help"
         ]
       },
-      "rules": 3,
+      "rules": 9,
       "domains": {
         "verbose": [
           "undefined",
@@ -95548,7 +95690,24 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "\"-2147483649\"",
+          "\"-2147483648\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483647\"",
+          "\"2147483648\"",
+          "\"-0\"",
+          "\"08\"",
+          "\"0x10\"",
+          "\"0b10\"",
+          "\"  +010k\"",
+          "\"1m\"",
+          "\"-2g\"",
+          "\"1 \"",
+          "\"1\\n\"",
+          "\"1.5\""
         ],
         "dry-run": [
           "undefined",
@@ -95565,7 +95724,15 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"-4294967295\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483648\"",
+          "\"4294967297\"",
+          "\"1suffix\"",
+          "\"0x10\""
         ],
         "shallow-since": [
           "undefined",
@@ -95583,10 +95750,11 @@
         ],
         "deepen": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "unshallow": [
           "undefined",
@@ -95666,13 +95834,19 @@
           "true"
         ]
       },
-      "total": "20589113209464900000000000000",
-      "accepted": "5435525887298733600000000000",
-      "nodes": 33,
+      "total": "246245793985200204000000000000",
+      "accepted": "5797894279785315840000000000",
+      "nodes": 204,
       "isolatedRuleWitnesses": {
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.pull.all-repositories": "{\"all\":true,\"operands\":[\"value\"]}",
-        "cli.pull.depth-unshallow": "{\"depth\":\"\",\"operands\":[],\"unshallow\":true}"
+        "cli.pull.depth-unshallow": "{\"depth\":\"1kb\",\"operands\":[],\"unshallow\":true}",
+        "cli.pull.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
+        "cli.pull.deepen-depth": "{\"deepen\":1,\"depth\":\"1kb\",\"operands\":[]}",
+        "cli.pull.deepen-unshallow": "{\"deepen\":1,\"operands\":[],\"unshallow\":true}",
+        "cli.pull.depth-initial": "{\"depth\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-forwarded": "{\"jobs\":\"\",\"operands\":[]}",
+        "cli.pull.jobs-valueless": "{\"jobs\":true,\"operands\":[]}"
       }
     },
     {
@@ -100503,11 +100677,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -101712,7 +101881,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -101812,7 +101981,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -106422,11 +106591,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -106665,7 +106829,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -106765,7 +106929,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -109613,11 +109777,6 @@
             "value": "flag",
             "set": false
           },
-          "--no-ignore-matching-lines": {
-            "key": "ignore-matching-lines",
-            "value": "flag",
-            "clear": true
-          },
           "--no-indent-heuristic": {
             "key": "indent-heuristic",
             "value": "flag",
@@ -110822,7 +110981,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",
@@ -110922,7 +111081,7 @@
             "--no-follow": "--no-follow",
             "--no-full-index": "--no-full-index",
             "--no-function-context": "--no-function-context",
-            "--no-ignore-matching-lines": "--no-ignore-matching-lines",
+            "--no-ignore-matching-lines": null,
             "--no-indent-heuristic": "--no-indent-heuristic",
             "--no-no-patch": "--patch",
             "--no-patch": "--no-patch",

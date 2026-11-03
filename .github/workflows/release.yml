@@ -3,7 +3,7 @@ name: Release
 # Publish only commits that already passed the full CI suite. The heavy
 # typecheck/test gates live in CI rather than prepublishOnly: re-running them
 # inside `changeset publish` duplicates ~40 minutes of work and the contract
-# typecheck (~12 GB peak heap) can exhaust a standard runner mid-publish.
+# typecheck (six ~3-5 GB tsc shards, about 20 minutes) would hold up the publish.
 on:
   workflow_run:
     workflows: [CI]

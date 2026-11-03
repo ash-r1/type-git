@@ -1208,6 +1208,20 @@
       "origin": "git",
       "reason": "Unknown submodule ignore mode.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+    },
+    {
+      "id": "cli.status.empty-pathspec",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642",
+      "reason": "Every status operand is a pathspec, and parse_pathspec rejects an empty one after option parsing (builtin/commit.c:cmd_status); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-pathspec"
+        }
+      ]
     }
   ],
   "commit": [
@@ -1620,6 +1634,54 @@
       "origin": "git",
       "reason": "Unknown commit message cleanup mode.",
       "source": "Git 2.55.0 builtin/commit.c:cmd_commit -> sequencer.c:get_cleanup_mode (after option parsing, before dry-run)"
+    },
+    {
+      "id": "cli.commit.empty-pathspec",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/pathspec.c#L638-L642",
+      "reason": "Commit operands are pathspecs, and parse_pathspec rejects an empty one in prepare_index, including dry runs; a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-pathspec"
+        }
+      ]
+    },
+    {
+      "id": "cli.commit.only-paths",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c",
+      "reason": "Only mode without path operands or a pathspec file requires --allow-empty, --amend or an amend: fixup (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git). Git 2.32 and later also refuse --amend with a plain fixup, but older Git accepts it, so that case is left to native Git.",
+      "when": {
+        "key": "only",
+        "test": "active"
+      },
+      "choices": [
+        {
+          "key": "operands",
+          "test": "nonempty"
+        },
+        {
+          "key": "pathspec-from-file",
+          "test": "active"
+        },
+        {
+          "key": "allow-empty",
+          "test": "active"
+        },
+        {
+          "key": "amend",
+          "test": "active"
+        },
+        {
+          "key": "fixup",
+          "test": "startsWith",
+          "value": "amend:"
+        }
+      ]
     }
   ],
   "push": [
@@ -3511,6 +3573,62 @@
         {
           "key": "merge",
           "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "switch-empty-start-point",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c",
+      "reason": "An empty branch or start point never names a commit, so checkout_main dies with \"invalid reference\" in every switch mode; a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
+    },
+    {
+      "id": "switch-empty-create",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c",
+      "reason": "An empty -c name fails the branch-name check (\"'' is not a valid branch name\"); a help exit happens first.",
+      "when": [
+        {
+          "key": "create",
+          "test": "equals",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "switch-empty-force-create",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c",
+      "reason": "An empty -C name fails the branch-name check (\"'' is not a valid branch name\"); a help exit happens first.",
+      "when": [
+        {
+          "key": "force-create",
+          "test": "equals",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "switch-empty-orphan",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c",
+      "reason": "An empty --orphan name fails the branch-name check (\"'' is not a valid branch name\"); a help exit happens first.",
+      "when": [
+        {
+          "key": "orphan",
+          "test": "equals",
+          "value": ""
         }
       ]
     }
@@ -7426,7 +7544,448 @@
       ]
     }
   ],
-  "diff": [],
+  "diff": [
+    {
+      "id": "diff.files-residual-option",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "inactive"
+        },
+        {
+          "key": "diff-files-residual-error",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "Without revisions or --cached, git diff runs its diff-files branch, which reports --merge-base and a non-first --help as invalid options unless -h was reached first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-residual-option",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-index-residual-misuse",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "--cached without revisions compares HEAD by hand; the diff-index branch accepts only --cached, --staged and --merge-base as residual words, so --base, --ours, --theirs, -q or a non-first --help reached before -h is a usage error. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-revision-count",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-count",
+          "test": "present"
+        },
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final revision count other than the -1 default after its residual loop; -h exits in that loop first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-min-age",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "min-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-max-age",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_files/builtin_diff_index; revision.c:setup_revisions",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.follow-without-path",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--follow requires exactly one pathspec; without operands there is none unless --stdin (delegated) supplies paths. diff_setup_done runs inside setup_revisions, before any residual -h."
+    },
+    {
+      "id": "diff.follow-separated-paths",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated, as are paths read by --stdin."
+    },
+    {
+      "id": "diff.follow-full-diff",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--full-diff keeps paths out of the diff pathspec, so --follow never sees exactly one pathspec."
+    }
+  ],
   "diff-files": [
     {
       "id": "cli.diff-files.revision-count",
@@ -7530,6 +8089,49 @@
       "origin": "git",
       "source": "Git 2.55.0 diff-no-index.c:diff_no_index",
       "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs."
+    },
+    {
+      "id": "diff.no-index-stdin-operand0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "operand0",
+        "test": "equals",
+        "value": "-"
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index/fixup_paths",
+      "reason": "Standard input is never a directory, so a '-' path cannot enable trailing pathspecs: Git reaches the usage exit or the stdin/directory error."
+    },
+    {
+      "id": "diff.no-index-stdin-operand1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "operand1",
+        "test": "equals",
+        "value": "-"
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index/fixup_paths",
+      "reason": "Standard input is never a directory, so a '-' path cannot enable trailing pathspecs: Git reaches the usage exit or the stdin/directory error."
+    },
+    {
+      "id": "diff.no-index-follow",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "No-index pathspecs stay local to the comparison and never reach the diff pathspec, so --follow always lacks its single pathspec."
     }
   ],
   "reflog list": [
@@ -14696,6 +15298,92 @@
       "origin": "git",
       "reason": "Fetch rejects a depth together with unshallow.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/pull.c"
+    },
+    {
+      "id": "cli.pull.deepen-minimum",
+      "kind": "range",
+      "key": "deepen",
+      "min": 0,
+      "origin": "git",
+      "reason": "Fetch rejects a negative forwarded deepen value.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.deepen-depth",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "deepen",
+          "test": "nonzero"
+        },
+        {
+          "key": "depth",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetch rejects a nonzero forwarded deepen value together with depth.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.deepen-unshallow",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "deepen",
+          "test": "nonzero"
+        },
+        {
+          "key": "unshallow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetch converts a nonzero forwarded deepen value to a depth, which unshallow rejects.",
+      "source": "Git 2.55.0 builtin/pull.c:run_fetch (opt_fetch); builtin/fetch.c:cmd_fetch; Git 2.25.1 pull has no --deepen"
+    },
+    {
+      "id": "cli.pull.depth-initial",
+      "kind": "scalar",
+      "key": "depth",
+      "parser": "depth-initial",
+      "origin": "git",
+      "reason": "Pull forwards only the final depth; fetch requires it to be positive after atoi conversion.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch; pinned 64-bit libc and 32-bit int profile"
+    },
+    {
+      "id": "cli.pull.jobs-forwarded",
+      "kind": "scalar",
+      "key": "jobs",
+      "parser": {
+        "kind": "integer",
+        "signed": true,
+        "bits": 32
+      },
+      "guard": [
+        {
+          "key": "jobs",
+          "test": "notEquals",
+          "value": true
+        }
+      ],
+      "origin": "git",
+      "reason": "Pull forwards only the final jobs value; fetch parses it as an OPTION_INTEGER.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch"
+    },
+    {
+      "id": "cli.pull.jobs-valueless",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "jobs",
+          "test": "equals",
+          "value": true
+        }
+      ],
+      "origin": "type-git",
+      "reason": "A valueless --jobs or -j is forwarded without a value; fetch then consumes the next forwarded word as the count, failing on an option word or no word and otherwise reinterpreting the repository operand.",
+      "source": "Git 2.25.1/2.55.0 builtin/pull.c:run_fetch; builtin/fetch.c:cmd_fetch"
     }
   ],
   "rev-parse": [],

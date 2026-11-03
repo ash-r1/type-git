@@ -116,6 +116,30 @@ git.command('status', [['--ignored', 'matching'], ['--untracked-files', 'no']]);
 git.command('commit', [['--fixup', 'amend:HEAD'], ['-m', '']]);
 // @ts-expect-error Reword fixup forbids content selection.
 git.command('commit', [['--fixup', 'reword:HEAD'], ['--only']]);
+// @ts-expect-error parse_pathspec rejects an empty status pathspec.
+git.command('status', [{ operand: '' }]);
+// @ts-expect-error Every status operand is a pathspec, including those after the end marker.
+git.command('status', [['--short'], ['--'], { operand: 'file' }, { operand: '' }]);
+// Help exits before the status pathspec is parsed.
+git.command('status', [['-h'], ['--'], { operand: '' }]);
+// @ts-expect-error parse_pathspec rejects an empty commit pathspec, even in a dry run.
+git.command('commit', [['--dry-run'], ['--'], { operand: '' }]);
+git.command('commit', [['-h'], { operand: '' }]);
+// @ts-expect-error Only mode without paths needs --allow-empty or --amend.
+git.command('commit', [['-m', 'message'], ['--only']]);
+// @ts-expect-error The last --no-allow-empty removes the exemption.
+git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty'], ['--no-allow-empty']]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty']]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--amend']]);
+git.command('commit', [['-m', 'message'], ['--only'], { operand: 'file' }]);
+git.command('commit', [['-m', 'message'], ['--only'], ['--pathspec-from-file', 'paths']]);
+// Git 2.32+ refuses this, but older Git accepts it, so the wrapper leaves it to native Git.
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD']]);
+// @ts-expect-error A plain fixup without --amend or --allow-empty needs paths.
+git.command('commit', [['--only'], ['--fixup', 'HEAD']]);
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--no-fixup']]);
+git.command('commit', [['--only'], ['--fixup', 'amend:HEAD']]);
+git.command('commit', [['--only'], ['--fixup', 'HEAD'], ['--allow-empty']]);
 // @ts-expect-error Explicit revision cannot be combined with a selected branch.
 git.command('clone', [['--revision', 'HEAD'], ['--branch', 'main'], { operand: '.' }]);
 // @ts-expect-error Bundle URI and shallow history options conflict.
@@ -178,6 +202,15 @@ git.command('restore', [['--no-staged'], { operand: 'file' }]);
 git.command('restore', [['--source', 'HEAD'], ['--ours'], { operand: 'file' }]);
 // @ts-expect-error Conflict callback reenables a previously disabled merge.
 git.command('restore', [['--no-merge'], ['--conflict', 'diff3'], ['--staged'], { operand: 'file' }]);
+// @ts-expect-error An empty switch target is never a valid reference.
+git.command('switch', [['--'], { operand: '' }]);
+// @ts-expect-error An empty new branch name fails the branch-name check.
+git.command('switch', [['-c', ''], { operand: 'main' }]);
+// @ts-expect-error The same check applies to orphan branches.
+git.command('switch', [['--orphan', '']]);
+// Help exits before either check.
+git.command('switch', [['-c', ''], ['-h']]);
+git.command('switch', [['-c', 'topic'], { operand: 'main' }]);
 // @ts-expect-error parse_pathspec rejects an empty restore pathspec.
 git.command('restore', [['--'], { operand: '' }]);
 // @ts-expect-error Every restore operand is a pathspec, including later ones.
