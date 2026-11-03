@@ -23,6 +23,10 @@ export function createNodeAdapters(options?: NodeAdaptersOptions): RuntimeAdapte
 
 export type TypeGitOptions = Omit<CreateGitOptions, 'adapters'> & NodeAdaptersOptions;
 
+/**
+ * Separate Node adapter options from `createGit` options so `windowsHide` reaches the
+ * execution adapter and is not forwarded to `createGit`.
+ */
 function splitOptions(options: TypeGitOptions | undefined): CreateGitOptions {
   const { windowsHide, ...gitOptions } = options ?? {};
   return {

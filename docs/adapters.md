@@ -36,18 +36,29 @@ The built-in adapters are `NodeExecAdapter` (`type-git/node`), `BunExecAdapter`
 
 ## Working directory
 
-The repository is always selected by an explicit flag, never by the process working directory
-alone:
+Git commands select the repository with an explicit flag. Companion programs (`scalar`,
+`gitk`, `gitweb`) take no such flag, so for them the runner selects the repository through
+`cwd` instead:
 
 | Context | argv | `cwd` sent to the adapter |
 | --- | --- | --- |
 | Repository-agnostic (`git.raw`, `git.version`, `clone`, `init`, …) | `git …` | `undefined` |
 | Worktree repository | `git -C <workdir> …` | `<workdir>` |
-| Bare repository | `git --git-dir <gitDir> …` | `undefined` (companion programs: `<gitDir>`) |
+| Bare repository | `git --git-dir <gitDir> …` | `undefined` |
+| Companion program, repository-agnostic | `<program> …` | `undefined` |
+| Companion program, worktree repository | `<program> …` | `<workdir>` |
+| Companion program, bare repository | `<program> …` | `<gitDir>` |
+
+When a credential helper is configured, Git argv starts with
+`git -c credential.helper=<helper>` before the context flag.
 
 `undefined` means "do not set one"; the child then inherits the host process's current
-directory. An adapter that requires a working directory should not reject these calls; the
-selected repository does not depend on it.
+directory. For Git commands run in a repository context and for companion programs, the
+selected repository does not depend on that directory, so an adapter that requires a working
+directory should not reject these calls. Repository-agnostic calls are different:
+`git.raw()` and `git.command()` run `git …` with `cwd: undefined`, so a command that needs a
+repository (for example `git.raw(['status'])`) resolves it from the host process's current
+directory, as the Git CLI would. Open a repository and use `repo.raw()` to avoid that.
 
 ## Processes started by common operations
 
@@ -122,7 +133,9 @@ The runner and repository methods call these `FsAdapter` methods:
   directory holding the file).
 - `createTempDirectory` (optional, since 0.6.0) / `deleteDirectory`: used for probes that
   need an empty repository. When it is missing, the runner creates a temp file with
-  `createTempFile` and uses the sibling path `<file>-repo`, removing both afterwards.
+  `createTempFile` and uses the sibling path `<file>-repo`, removing both afterward.
+  `deleteDirectory` is also called when `git init` failed before creating that directory, so
+  it must succeed when the path does not exist (the built-in adapters ignore a missing path).
 - `readFile` / `writeFile` (optional): when missing, the probes that need them are skipped and
   the command runs without that extra validation.
 

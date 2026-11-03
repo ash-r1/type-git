@@ -74,6 +74,10 @@ export type NodeExecAdapterOptions = {
 export class NodeExecAdapter implements ExecAdapter {
   private readonly windowsHide: boolean | undefined;
 
+  /**
+   * @param options - Vetted spawn options; see {@link NodeExecAdapterOptions}.
+   * @throws TypeError if `windowsHide` is present but not a boolean.
+   */
   public constructor(options?: NodeExecAdapterOptions) {
     const windowsHide = options?.windowsHide;
     if (windowsHide !== undefined && typeof windowsHide !== 'boolean') {

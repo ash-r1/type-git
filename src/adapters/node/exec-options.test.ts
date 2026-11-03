@@ -76,8 +76,10 @@ describe('NodeExecAdapter options', () => {
     );
   });
 
-  it('does not expose arbitrary spawn options', () => {
+  it('does not expose arbitrary spawn options', async () => {
     // @ts-expect-error shell would let Git arguments be reinterpreted by a shell
-    expect(() => new NodeExecAdapter({ shell: true })).not.toThrow();
+    const adapter = new NodeExecAdapter({ shell: true });
+    await adapter.spawn({ argv });
+    expect(lastSpawnOptions()).not.toHaveProperty('shell');
   });
 });
