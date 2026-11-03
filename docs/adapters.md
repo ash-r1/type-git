@@ -53,12 +53,13 @@ When a credential helper is configured, Git argv starts with
 `git -c credential.helper=<helper>` before the context flag.
 
 `undefined` means "do not set one"; the child then inherits the host process's current
-directory. For Git commands run in a repository context and for companion programs, the
-selected repository does not depend on that directory, so an adapter that requires a working
-directory should not reject these calls. Repository-agnostic calls are different:
-`git.raw()` and `git.command()` run `git …` with `cwd: undefined`, so a command that needs a
-repository (for example `git.raw(['status'])`) resolves it from the host process's current
-directory, as the Git CLI would. Open a repository and use `repo.raw()` to avoid that.
+directory. For Git commands run in a repository context and for companion programs run in a
+repository context, the selected repository does not depend on that directory, so an adapter
+that requires a working directory should not reject these calls. Repository-agnostic calls are
+different: `git.raw()`, `git.command()` and repository-agnostic companion programs run with
+`cwd: undefined`, so a command that needs a repository (for example `git.raw(['status'])`)
+resolves it from the host process's current directory, as the Git CLI would. Open a repository
+and use `repo.raw()` to avoid that.
 
 ## Processes started by common operations
 

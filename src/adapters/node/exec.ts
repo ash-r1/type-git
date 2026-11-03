@@ -108,6 +108,10 @@ export class NodeExecAdapter implements ExecAdapter {
     return (await this.spawnResult(options, handlers, true)) as SpawnResult<Uint8Array>;
   }
 
+  /**
+   * Run a process to completion and collect its output as text, or as bytes when `binary` is
+   * true. Applies the configured `windowsHide` option.
+   */
   private async spawnResult(
     options: SpawnOptions,
     handlers: StreamHandler | undefined,
@@ -206,6 +210,10 @@ export class NodeExecAdapter implements ExecAdapter {
     });
   }
 
+  /**
+   * Start a process and return a handle that streams its stdout lines. Applies the configured
+   * `windowsHide` option.
+   */
   public spawnStreaming(options: SpawnOptions): SpawnHandle {
     const { argv, env, inheritEnv, cwd, signal } = options;
 

@@ -37,6 +37,10 @@ function splitOptions(options: TypeGitOptions | undefined): CreateGitOptions {
 
 /** Git client preconfigured for Node. */
 export class TypeGit extends GitClient {
+  /**
+   * Create a client after checking the installed Git version. Node adapter options such as
+   * `windowsHide` are passed to the execution adapter.
+   */
   public static async create(options?: TypeGitOptions): Promise<TypeGit> {
     return new TypeGit(await createGit(splitOptions(options)));
   }
@@ -45,6 +49,7 @@ export class TypeGit extends GitClient {
   public constructor(constructorOptions?: TypeGitOptions);
   /** @internal */
   public constructor(git: Git);
+  /** Wrap an existing Git instance, or create one from options without the version check. */
   public constructor(optionsOrGit?: TypeGitOptions | Git) {
     super(
       optionsOrGit && 'open' in optionsOrGit
