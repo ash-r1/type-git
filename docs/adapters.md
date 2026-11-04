@@ -53,9 +53,12 @@ When a credential helper is configured, Git argv starts with
 `git -c credential.helper=<helper>` before the context flag.
 
 `undefined` means "do not set one"; the child then inherits the host process's current
-directory. For Git commands run in a repository context and for companion programs run in a
-repository context, the selected repository does not depend on that directory, so an adapter
-that requires a working directory should not reject these calls. Repository-agnostic calls are
+directory. For Git commands and companion programs run in a repository context, the runner
+passes the path given to `open()` (or `clone`/`init`) unchanged. When that path is absolute, the
+selected repository does not depend on the inherited directory, so an adapter that requires a
+working directory should not reject these calls. A relative path is resolved against the
+child's starting directory and can select a different repository, or fail, if the adapter
+starts children somewhere else; pass absolute paths when that matters. Repository-agnostic calls are
 different: `git.raw()`, `git.command()` and repository-agnostic companion programs run with
 `cwd: undefined`, so a command that needs a repository (for example `git.raw(['status'])`)
 resolves it from the host process's current directory, as the Git CLI would. Open a repository
