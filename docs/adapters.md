@@ -56,12 +56,14 @@ When a credential helper is configured, Git argv starts with
 directory. The runner passes repository paths unchanged, as the table shows: worktree Git
 commands get the path in `-C` and as `cwd`, worktree companion programs only as `cwd`, bare Git
 commands only in `--git-dir` (`cwd: undefined`), and bare companion programs only as `cwd`.
-`clone` and `init` are repository-agnostic: the destination is a positional argument. Use
-absolute repository paths: then the selected repository does not depend on the inherited
-directory, so an adapter that requires a working directory should not reject these calls. A
-relative worktree path is resolved twice (once by `cwd`, again by `-C`) and fails even with the
-built-in adapters (#329). Repository-agnostic calls are
-different: `git.raw()`, `git.command()` and repository-agnostic companion programs run with
+`clone` and `init` are repository-agnostic: the destination is a positional argument. For
+worktree calls, use absolute worktree paths: then the selected repository does not depend on the
+inherited directory. A relative worktree path is resolved twice (once by `cwd`, again by `-C`),
+so it can fail even with the built-in adapters: `'.'` works, but `'repo'` resolves to
+`repo/repo` (#329). Bare Git commands, `clone`, `init` and repository-agnostic calls get
+`cwd: undefined` whatever path is used, so an adapter that requires a working directory must
+handle `undefined` (for example by using the host's current directory) instead of rejecting
+these calls. Repository-agnostic calls are different: `git.raw()`, `git.command()` and repository-agnostic companion programs run with
 `cwd: undefined`, so a command that needs a repository (for example `git.raw(['status'])`)
 resolves it from the host process's current directory, as the Git CLI would. Open a repository
 and use `repo.raw()` to avoid that.
