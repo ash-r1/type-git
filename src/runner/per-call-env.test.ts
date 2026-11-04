@@ -59,6 +59,31 @@ describe('per-call env', () => {
     expect(options?.inheritEnv).toBe(false);
   });
 
+  const lowerBase = 'type_git_base';
+
+  it('replaces a configured variable that differs only in case on Windows', async () => {
+    const platform = Object.getOwnPropertyDescriptor(process, 'platform');
+    Object.defineProperty(process, 'platform', { value: 'win32' });
+    try {
+      await git.raw(['--version'], { env: { [lowerBase]: 'call' } });
+    } finally {
+      if (platform) {
+        Object.defineProperty(process, 'platform', platform);
+      }
+    }
+    const env = spawned.at(-1)?.env;
+    expect(env).toMatchObject({ [lowerBase]: 'call' });
+    expect(env).not.toHaveProperty('TYPE_GIT_BASE');
+  });
+
+  it('keeps variables that differ only in case on other platforms', async () => {
+    if (process.platform === 'win32') {
+      return;
+    }
+    await git.raw(['--version'], { env: { [lowerBase]: 'call' } });
+    expect(spawned.at(-1)?.env).toMatchObject({ [lowerBase]: 'call', TYPE_GIT_BASE: 'base' });
+  });
+
   it('does not persist env to later calls', async () => {
     const result = await repo.raw(['config', '--get', 'typegit.percall']);
     expect(result.exitCode).toBe(1);

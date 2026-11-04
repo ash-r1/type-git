@@ -269,6 +269,26 @@ function validateEnv(env: unknown): void {
   }
 }
 
+/**
+ * Apply per-call variables on top of the resolved environment. Windows treats names
+ * case-insensitively and passes only one of several same-named keys to the child, so an
+ * existing key that differs only in case is removed before the per-call value is set.
+ */
+function applyEnvOverride(env: Record<string, string>, override: Record<string, string>): void {
+  const isWindows = process.platform === 'win32';
+  for (const [name, value] of Object.entries(override)) {
+    if (isWindows) {
+      const lower = name.toLowerCase();
+      for (const key of Object.keys(env)) {
+        if (key !== name && key.toLowerCase() === lower) {
+          delete env[key];
+        }
+      }
+    }
+    env[name] = value;
+  }
+}
+
 /** Validate per-call stdin and env before any process starts. */
 function validateIO(opts: CommandRunOptions | undefined): void {
   validateEnv(opts?.env);
@@ -1980,7 +2000,7 @@ export class CliRunner {
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
     // the resolved environment.
     if (envOverride) {
-      Object.assign(env, envOverride);
+      applyEnvOverride(env, envOverride);
     }
 
     // Internal probes match diagnostics exactly; trace output would corrupt them.
