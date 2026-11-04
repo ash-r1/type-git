@@ -269,6 +269,7 @@ function validateEnv(env: unknown): void {
   }
 }
 
+/** Validate per-call stdin and env before any process starts. */
 function validateIO(opts: CommandRunOptions | undefined): void {
   validateEnv(opts?.env);
   if (opts?.stdout !== undefined && opts.stdout !== 'text' && opts.stdout !== 'bytes') {
@@ -1950,6 +1951,7 @@ export class CliRunner {
     return (await this.execute(context, args, opts, true, executable)) as RawResult<Uint8Array>;
   }
 
+  /** Validate per-call options, then spawn one Git or companion process and collect its result. */
   private async execute(
     context: ExecutionContext,
     args: string[],

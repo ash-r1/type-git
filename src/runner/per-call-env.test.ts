@@ -38,13 +38,16 @@ describe('per-call env', () => {
     git = await createGit({
       adapters: { exec, fs: new NodeFsAdapter() },
       env: { TYPE_GIT_BASE: 'base', GIT_CONFIG_COUNT: '0' },
+      skipVersionCheck: true,
     });
     dir = await mkdtemp(join(tmpdir(), 'type-git-per-call-env-'));
     repo = await git.init(join(dir, 'repo'));
   });
 
   afterAll(async () => {
-    await rm(dir, { recursive: true, force: true });
+    if (dir) {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 
   it('applies env to repository raw() over the configured env', async () => {
