@@ -14,10 +14,9 @@ import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGit } from '../impl/git-impl.js';
 
+// GIT_CONFIG_PARAMETERS works on every supported Git, unlike GIT_CONFIG_COUNT (Git 2.31+).
 const configEnv: Record<string, string> = {
-  GIT_CONFIG_COUNT: '1',
-  GIT_CONFIG_KEY_0: 'typegit.percall',
-  GIT_CONFIG_VALUE_0: 'yes',
+  GIT_CONFIG_PARAMETERS: "'typegit.percall=yes'",
 };
 
 describe('per-call env', () => {
@@ -37,7 +36,7 @@ describe('per-call env', () => {
     };
     git = await createGit({
       adapters: { exec, fs: new NodeFsAdapter() },
-      env: { TYPE_GIT_BASE: 'base', GIT_CONFIG_COUNT: '0' },
+      env: { TYPE_GIT_BASE: 'base' },
       skipVersionCheck: true,
     });
     dir = await mkdtemp(join(tmpdir(), 'type-git-per-call-env-'));
@@ -87,8 +86,8 @@ describe('per-call env', () => {
   it('does not persist env to later calls', async () => {
     const result = await repo.raw(['config', '--get', 'typegit.percall']);
     expect(result.exitCode).toBe(1);
-    expect(spawned.at(-1)?.env).toMatchObject({ GIT_CONFIG_COUNT: '0' });
-    expect(spawned.at(-1)?.env).not.toHaveProperty('GIT_CONFIG_KEY_0');
+    expect(spawned.at(-1)?.env).toMatchObject({ TYPE_GIT_BASE: 'base' });
+    expect(spawned.at(-1)?.env).not.toHaveProperty('GIT_CONFIG_PARAMETERS');
   });
 
   it('applies env to repository-agnostic raw()', async () => {
