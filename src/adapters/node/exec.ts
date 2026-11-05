@@ -54,7 +54,38 @@ async function* streamToAsyncIterable(
   }
 }
 
+/**
+ * Options for {@link NodeExecAdapter}.
+ *
+ * Only vetted `child_process.spawn` options are accepted. Options such as `shell` would let
+ * Git arguments be reinterpreted by a shell, and `stdio`/`cwd`/`env` are controlled per call
+ * through {@link SpawnOptions}, so they are deliberately not exposed here.
+ */
+export type NodeExecAdapterOptions = {
+  /**
+   * Hide the console window that Windows would otherwise create for each spawned process
+   * (Node's `windowsHide`). It has no effect on other platforms.
+   *
+   * @default false (Node's default)
+   */
+  windowsHide?: boolean;
+};
+
 export class NodeExecAdapter implements ExecAdapter {
+  private readonly windowsHide: boolean | undefined;
+
+  /**
+   * @param options - Vetted spawn options; see {@link NodeExecAdapterOptions}.
+   * @throws TypeError if `windowsHide` is present but not a boolean.
+   */
+  public constructor(options?: NodeExecAdapterOptions) {
+    const windowsHide = options?.windowsHide;
+    if (windowsHide !== undefined && typeof windowsHide !== 'boolean') {
+      throw new TypeError('windowsHide must be a boolean');
+    }
+    this.windowsHide = windowsHide;
+  }
+
   public getCapabilities(): Capabilities {
     return {
       canSpawnProcess: true,
@@ -77,6 +108,10 @@ export class NodeExecAdapter implements ExecAdapter {
     return (await this.spawnResult(options, handlers, true)) as SpawnResult<Uint8Array>;
   }
 
+  /**
+   * Run a process to completion and collect its output as text, or as bytes when `binary` is
+   * true. Applies the configured `windowsHide` option.
+   */
   private async spawnResult(
     options: SpawnOptions,
     handlers: StreamHandler | undefined,
@@ -103,6 +138,7 @@ export class NodeExecAdapter implements ExecAdapter {
         cwd,
         env: resolveChildEnv(env, inheritEnv),
         stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
+        ...(this.windowsHide === undefined ? {} : { windowsHide: this.windowsHide }),
       });
 
       if (!binary) {
@@ -174,6 +210,10 @@ export class NodeExecAdapter implements ExecAdapter {
     });
   }
 
+  /**
+   * Start a process and return a handle that streams its stdout lines. Applies the configured
+   * `windowsHide` option.
+   */
   public spawnStreaming(options: SpawnOptions): SpawnHandle {
     const { argv, env, inheritEnv, cwd, signal } = options;
 
@@ -187,6 +227,7 @@ export class NodeExecAdapter implements ExecAdapter {
       cwd,
       env: resolveChildEnv(env, inheritEnv),
       stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
+      ...(this.windowsHide === undefined ? {} : { windowsHide: this.windowsHide }),
     });
 
     let aborted = false;
