@@ -248,7 +248,50 @@ export type RunOptions = ExecOpts & {
 
 type CommandRunOptions = RunOptions & { stdout?: GitOutputMode };
 
+/** Reject per-call environment entries that a process environment cannot represent. */
+function validateEnv(env: unknown): void {
+  if (env === undefined) {
+    return;
+  }
+  if (env === null || typeof env !== 'object' || Array.isArray(env)) {
+    throw new GitArgumentError('env must be an object of string values');
+  }
+  for (const [name, value] of Object.entries(env)) {
+    // `__proto__` cannot be copied onto the resolved environment as an own variable.
+    if (name === '' || name === '__proto__' || name.includes('=') || name.includes('\0')) {
+      throw new GitArgumentError(
+        `env name must be non-empty, not __proto__, and contain neither '=' nor NUL: ${JSON.stringify(name)}`,
+      );
+    }
+    if (typeof value !== 'string' || value.includes('\0')) {
+      throw new GitArgumentError(`env value for ${name} must be a string without NUL`);
+    }
+  }
+}
+
+/**
+ * Apply per-call variables on top of the resolved environment. Windows treats names
+ * case-insensitively and passes only one of several same-named keys to the child, so an
+ * existing key that differs only in case is removed before the per-call value is set.
+ */
+function applyEnvOverride(env: Record<string, string>, override: Record<string, string>): void {
+  const isWindows = process.platform === 'win32';
+  for (const [name, value] of Object.entries(override)) {
+    if (isWindows) {
+      const lower = name.toLowerCase();
+      for (const key of Object.keys(env)) {
+        if (key !== name && key.toLowerCase() === lower) {
+          delete env[key];
+        }
+      }
+    }
+    env[name] = value;
+  }
+}
+
+/** Validate per-call stdin and env before any process starts. */
 function validateIO(opts: CommandRunOptions | undefined): void {
+  validateEnv(opts?.env);
   if (opts?.stdout !== undefined && opts.stdout !== 'text' && opts.stdout !== 'bytes') {
     throw new GitArgumentError('stdout must be text or bytes');
   }
@@ -1928,6 +1971,7 @@ export class CliRunner {
     return (await this.execute(context, args, opts, true, executable)) as RawResult<Uint8Array>;
   }
 
+  /** Validate per-call options, then spawn one Git or companion process and collect its result. */
   private async execute(
     context: ExecutionContext,
     args: string[],
@@ -1936,7 +1980,7 @@ export class CliRunner {
     executable?: CompanionExecutable,
     internal = false,
   ): Promise<RawResult<string | Uint8Array>> {
-    validateIO({ stdin: opts?.stdin });
+    validateIO({ stdin: opts?.stdin, env: opts?.env });
     const argv = executable
       ? [this.companionBinaries[executable], ...args]
       : this.buildArgv(context, args);
@@ -1956,7 +2000,7 @@ export class CliRunner {
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
     // the resolved environment.
     if (envOverride) {
-      Object.assign(env, envOverride);
+      applyEnvOverride(env, envOverride);
     }
 
     // Internal probes match diagnostics exactly; trace output would corrupt them.

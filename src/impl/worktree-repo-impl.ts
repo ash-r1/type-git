@@ -141,6 +141,7 @@ import type {
   WorktreeRepo,
 } from '../core/repo.js';
 import type {
+  CommandExecOpts,
   ExecOpts,
   ExecutionContext,
   GitOpenOptions,
@@ -389,7 +390,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   /** Execute a raw Git command without typed argument validation. */
-  public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  public async raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
