@@ -52,7 +52,13 @@ import type {
   RevParseQuietRefOpts,
   RevParseRefOpts,
 } from '../core/repo.js';
-import type { ExecOpts, ExecutionContext, GitOutputMode, RawResult } from '../core/types.js';
+import type {
+  CommandExecOpts,
+  ExecOpts,
+  ExecutionContext,
+  GitOutputMode,
+  RawResult,
+} from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
@@ -444,7 +450,7 @@ export class BareRepoImpl implements BareRepo {
   }
 
   /** Execute a raw Git command without typed argument validation. */
-  public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  public raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 

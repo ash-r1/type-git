@@ -5,7 +5,7 @@ import type { CheckedOptions, ExclusiveQuery } from './option-rules.js';
  */
 
 import type { LsRemoteRef } from '../parsers/index.js';
-import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
+import type { CommandExecOpts, ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 
 /**
  * Base repository interface
@@ -17,7 +17,7 @@ export interface RepoBase extends GitCommandClient {
    *
    * Wraps: `git <argv...>`
    */
-  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult>;
 
   /**
    * Check if this repository is a worktree repository (has working directory)

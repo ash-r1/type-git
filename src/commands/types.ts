@@ -31,7 +31,7 @@ import type {
   StringCallbackValue,
 } from '../constraints/string-callback-types.js';
 import type { Constrained, ConstraintRequirement } from '../constraints/types.js';
-import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
+import type { CommandExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
@@ -143,7 +143,7 @@ export type GitCommandArgument<C extends GitCommandName> =
   | LocalCommandArgument<DispatchTarget<C>>
   | LegacyDocumentationArgument<C>
   | LegacyDocumentationArgument<DispatchTarget<C>>;
-export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
+export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = CommandExecOpts & {
   stdin?: string | Uint8Array;
   stdout?: Mode;
 };

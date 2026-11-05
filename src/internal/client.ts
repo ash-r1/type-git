@@ -8,7 +8,7 @@ import type {
   LsRemoteResult,
 } from '../core/git.js';
 import type { BareRepo, WorktreeRepo } from '../core/repo.js';
-import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
+import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 /** Runtime-independent convenience client. Runtime entrypoints supply the adapters. */
 export class GitClient implements Git {
   public constructor(private readonly git: Git) {}
@@ -108,7 +108,7 @@ export class GitClient implements Git {
   }
 
   /** Execute a raw Git command without typed argument validation. */
-  public get raw(): (argv: string[], opts?: ExecOpts) => Promise<RawResult> {
+  public get raw(): (argv: string[], opts?: CommandExecOpts) => Promise<RawResult> {
     return this.git.raw.bind(this.git);
   }
 

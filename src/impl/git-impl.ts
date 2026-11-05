@@ -38,7 +38,13 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from '../core/repo.js';
-import type { ExecOpts, GitOpenOptions, GitOutputMode, RawResult } from '../core/types.js';
+import type {
+  CommandExecOpts,
+  ExecOpts,
+  GitOpenOptions,
+  GitOutputMode,
+  RawResult,
+} from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
@@ -672,7 +678,7 @@ export class GitImpl implements Git {
   }
 
   /** Execute a raw Git command without typed argument validation. */
-  public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  public raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }
 

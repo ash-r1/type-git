@@ -114,7 +114,8 @@
     "!dist/**/*.map",
     "README.md",
     "LICENSE",
-    "docs/migrations"
+    "docs/migrations",
+    "docs/adapters.md"
   ],
   "repository": {
     "type": "git",
