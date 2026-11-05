@@ -118,6 +118,10 @@ const git = await createGit({
 });
 ```
 
+On Windows, pass `{ windowsHide: true }` to `TypeGit.create()` or `createNodeAdapters()` to keep
+Git from opening console windows. To write your own `ExecAdapter` (for example one that only
+allows specific invocations), see the [adapter contract](docs/adapters.md).
+
 ### Full Example
 
 ```typescript
