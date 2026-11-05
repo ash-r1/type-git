@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('full internal help in reference parsers', () => {
   let root: string;
@@ -73,7 +74,7 @@ describe('full internal help in reference parsers', () => {
         const expected = native([command, ...words]);
         expect([0, 129]).toContain(expected.status);
         expect(expected.stdout + expected.stderr).toContain('usage:');
-        const actual = await repo.command(command, args as never);
+        const actual = await strict(repo).command(command, args as never);
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);
         expect(actual.stderr).toBe(expected.stderr);
@@ -84,7 +85,7 @@ describe('full internal help in reference parsers', () => {
       const expected = native([command, ...words, '--help-all']);
       expect(expected.status).not.toBe(0);
       expect(expected.stderr).toMatch(/invalid|unknown|expects|unsupported|takes no value/);
-      const actual = repo.command(command, [[flag, 'invalid'], ['--help-all']] as never);
+      const actual = strict(repo).command(command, [[flag, 'invalid'], ['--help-all']] as never);
       await expect(actual).rejects.toBeInstanceOf(GitArgumentError);
       await expect(actual).rejects.toMatchObject({ message: expect.stringContaining(flag) });
     }, 120_000);

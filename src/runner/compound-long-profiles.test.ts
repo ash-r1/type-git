@@ -7,6 +7,7 @@ import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments } from '../commands/build.js';
 import { validCompoundDecimal } from '../constraints/compound-decimal.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Adapter response preserving native width metadata or command output. */
@@ -44,7 +45,7 @@ describe('complete compound long profiles', () => {
       .mockResolvedValueOnce(response(129, '', 'usage: git shortlog\n'));
     const env = { TYPE_GIT_COMPOUND_TEST: 'yes' };
     const signal = new AbortController().signal;
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', '-18446744073709551540'], ['-h']],
@@ -74,7 +75,7 @@ describe('complete compound long profiles', () => {
       .fn()
       .mockResolvedValueOnce(response(0, 'sizeof-long: 4\nsizeof-size_t: 8\n'))
       .mockResolvedValueOnce(response(129, '', 'usage: git shortlog\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', '-4294967220'], ['-h']],
@@ -85,7 +86,7 @@ describe('complete compound long profiles', () => {
   it('does not query widths for values after an audited help exit', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, '', 'usage: git shortlog\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-h'], ['-w', '-4294967220']],
@@ -97,7 +98,7 @@ describe('complete compound long profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', '-4294967220'], ['-h']],
@@ -112,7 +113,7 @@ describe('complete compound long profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'shortlog',
         [['-w', '-4294967220'], ['-w', '-18446744073709551540'], ['-h']],
@@ -129,7 +130,7 @@ describe('complete compound long profiles', () => {
       .mockResolvedValueOnce(response(0, 'sizeof-long: 4\nsizeof-size_t: 8\n'))
       .mockResolvedValueOnce(response(129, '', 'usage: git shortlog\n'));
     const value = '-4294967220,-18446744073709551610,9';
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', value], ['-h']],
@@ -153,7 +154,7 @@ describe('complete compound long profiles', () => {
       .fn()
       .mockResolvedValue(response(129, '', 'error: -w[<width>[,<indent1>[,<indent2>]]]'));
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'shortlog',
         [['-w', '-4294967220,-18446744073709551610,9'], ['-h']],
@@ -169,7 +170,7 @@ describe('complete compound long profiles', () => {
       .mockResolvedValueOnce(response(129, '', 'erreur : valeur inconnue'))
       .mockResolvedValueOnce(response(129, '', 'native original failure'));
     const value = '-4294967220,-18446744073709551610,9';
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', value], ['-h']],
@@ -186,7 +187,7 @@ describe('complete compound long profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [['-w', '-4294967220,-18446744073709551610,9'], ['-h']],
@@ -202,7 +203,7 @@ describe('complete compound long profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'shortlog',
         [['-w', '-4294967220'], ['-h'], { operand: 'bad\0word' }],
@@ -273,7 +274,7 @@ describe('selected native compound callback results', () => {
           }),
         );
       }
-      const run = new CliRunner(createNodeAdapters()).runCommand(
+      const run = new StrictCommandRunner(new CliRunner(createNodeAdapters())).runCommand(
         { type: 'worktree', workdir: cwd },
         'shortlog',
         [['-w', value], ['-h']],

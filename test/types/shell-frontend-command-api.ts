@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('shell', []);
 git.command('shell', [['-c', 'custom argument']]);
 git.command('shell', [{ operand: 'cvs server' }]);
@@ -59,6 +58,7 @@ git.command('shell', [['-h']]);
 
 
 import type { GitCommandName } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type AssertNoCommand<T extends never> = T;
 export type SourcedLibrariesHaveNoStandaloneCommand = AssertNoCommand<
   Extract<GitCommandName, 'sh-setup' | 'sh-i18n'>

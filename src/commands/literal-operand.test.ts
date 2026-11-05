@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import { initialParserPass } from './initial-parser-pass.js';
@@ -124,13 +125,13 @@ describe('operand objects never become live options', () => {
       const repo = await git.init(join(root, 'repo'));
       const marker = join(root, 'pwned');
       await expect(
-        repo.command('fetch', [
+        strict(repo).command('fetch', [
           { operand: join(root, 'missing') },
           { operand: `--upload-pack=touch ${marker}; git-upload-pack` },
         ]),
       ).rejects.toThrow(GitArgumentError);
       expect(existsSync(marker)).toBe(false);
-      await expect(repo.command('reset', [{ operand: '--hard' }])).rejects.toThrow(refusal);
+      await expect(strict(repo).command('reset', [{ operand: '--hard' }])).rejects.toThrow(refusal);
     } finally {
       await rm(root, { recursive: true, force: true });
     }

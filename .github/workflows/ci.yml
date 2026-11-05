@@ -154,6 +154,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
+      - name: Check lightweight entry size budget
+        run: pnpm size:check
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:

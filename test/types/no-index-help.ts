@@ -1,5 +1,6 @@
-import type { Git, GitCommandArgument, RawResult, TypeGit } from '../../src/index.js';
-declare const git: Git;
+import type { RawResult, TypeGit } from '../../src/index.js';
+import type { GitCommandArgument, Strict, StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('diff --no-index', [['--help-all']]);
 git.command('diff --no-index', [['--name-only'], ['--help-all'], ['--unknown-tail', 'kept']]);
 git.command('diff --no-index', [{ operand: 'first-path' }, ['--help-all'], ['--word-diff', 'invalid']]);
@@ -38,5 +39,5 @@ git.command('diff --no-index', [['--help-all'], ['--unknown-tail', '\0']]);
 // @ts-expect-error No ignored-word vocabulary on unrelated commands.
 git.command('diff-files', [['--help-all'], ['--unknown-tail']]);
 
-declare const noIndexNodeClient: TypeGit;
+declare const noIndexNodeClient: Strict<TypeGit>;
 noIndexNodeClient.command('diff --no-index', [['--help-all'], ['--unknown-tail']]);

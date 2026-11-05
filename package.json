@@ -47,6 +47,16 @@
         "default": "./dist/adapters/deno/index.cjs"
       }
     },
+    "./strict": {
+      "import": {
+        "types": "./dist/strict/index.d.ts",
+        "default": "./dist/strict/index.js"
+      },
+      "require": {
+        "types": "./dist/strict/index.d.cts",
+        "default": "./dist/strict/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "engines": {
@@ -55,6 +65,7 @@
   "packageManager": "pnpm@10.26.2",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "size:check": "node scripts/size-budget.mjs",
     "test": "vitest",
     "test:ci": "vitest run",
     "test:bun": "bun test test/bun/",

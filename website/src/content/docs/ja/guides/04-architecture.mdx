@@ -68,6 +68,8 @@ await git.version();             // gitバージョン取得
 await git.raw(['help']);         // 任意のgitコマンド実行
 ```
 
+Gitのオプション文法で検証したいコマンドは、`type-git/strict`の`strict()`でクライアントやリポジトリを包み、`command()`を呼びます。[0.7.0への移行](/type-git/ja/guides/08-migrating-0-7/)を参照してください。
+
 ### Repo（リポジトリ固有）
 
 リポジトリコンテキストが必要な操作：

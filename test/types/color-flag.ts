@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const alternative: 'always' | 'bad';
 git.command('grep', [['--color'], ['--help-all']]);

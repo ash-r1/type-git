@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('describe', [['--abbrev', '+010'], ['--long']]);
 git.command('describe', [['--abbrev', '2147483648'], ['--long']]);
 git.command('describe', [['--abbrev'], ['--long']]);

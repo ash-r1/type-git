@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('diff-index', [{ operand: 'HEAD' }]);
 git.command('diff-index', [['--min-age', '-1'], ['--max-age', '18446744073709551615'], { operand: 'HEAD' }]);
 git.command('diff-index', [['--min-age', '1'], ['--min-age', '-1'], { operand: 'HEAD' }]);

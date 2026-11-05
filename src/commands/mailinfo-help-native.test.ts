@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('mailinfo internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('mailinfo internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['mailinfo', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('mailinfo', args as never);
+    const actual = await strict(repo).command('mailinfo', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -85,7 +86,10 @@ describe('mailinfo internal help and callback order', () => {
   });
   it('retains reached quoted-CR failures and skips later values after actual help', async () => {
     await expect(
-      repo.command('mailinfo', [['--quoted-cr', 'invalid-action'], ['--help-all']] as never),
+      strict(repo).command('mailinfo', [
+        ['--quoted-cr', 'invalid-action'],
+        ['--help-all'],
+      ] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['mailinfo', '--quoted-cr=invalid-action', '--help-all']).status).not.toBe(0);
     await compare(
@@ -101,7 +105,7 @@ describe('mailinfo internal help and callback order', () => {
   });
   it('keeps required encoding values and final-arity usage separate', async () => {
     await expect(
-      repo.command('mailinfo', [['--encoding', '--help-all']] as never),
+      strict(repo).command('mailinfo', [['--encoding', '--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['mailinfo', '--encoding=--help-all']).status).not.toBe(0);
     await compare(
@@ -109,17 +113,17 @@ describe('mailinfo internal help and callback order', () => {
       ['--encoding=--help-all', '--help-all'],
     );
     await expect(
-      repo.command('mailinfo', [['--'], { operand: '--help-all' }] as never),
+      strict(repo).command('mailinfo', [['--'], { operand: '--help-all' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['mailinfo', '--', '--help-all']).status).not.toBe(0);
   });
   it('preserves reached completion and parser-boundary errors', async () => {
     await expect(
-      repo.command('mailinfo', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('mailinfo', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['mailinfo', '--git-completion-helper', '--help-all']).status).not.toBe(0);
     await expect(
-      repo.command('mailinfo', [['--'], ['--help-all']] as never),
+      strict(repo).command('mailinfo', [['--'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

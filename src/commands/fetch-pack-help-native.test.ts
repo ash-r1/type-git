@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('fetch-pack sole full usage and diagnostic controls', () => {
   let root: string;
@@ -109,7 +110,7 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('fetch-pack', args as never, { stdin: input });
+      const actual = await strict(git).command('fetch-pack', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -172,9 +173,11 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
     }
   });
   it('retains missing destination validation', async () => {
-    await expect(repo.command('fetch-pack', [] as never)).rejects.toBeInstanceOf(GitArgumentError);
-    await expect(repo.command('fetch-pack', [['--diag-url']] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('fetch-pack', [] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
+    await expect(
+      strict(repo).command('fetch-pack', [['--diag-url']] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

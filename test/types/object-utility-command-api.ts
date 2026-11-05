@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('cat-file', [['-t'], { operand: 'HEAD' }]);
 git.command('cat-file', [{ operand: 'commit' }, { operand: 'HEAD' }]);
 git.command('cat-file', [['--batch'], ['--textconv'], ['--path', 'tracked'], { operand: 'ignored' }]);

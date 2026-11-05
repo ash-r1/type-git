@@ -7,6 +7,7 @@ import { TypeGit } from '../adapters/node/index.js';
 import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -309,7 +310,7 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
       child.workdir,
       'module',
     ]);
-    const added = await repo.command('submodule add', addArgs);
+    const added = await strict(repo).command('submodule add', addArgs);
     expect(added.exitCode).toBe(0);
     expect(added.aborted).toBe(false);
     expect(await readFile(join(repo.workdir, 'module', 'content'), 'utf8')).toBe('child\n');

@@ -7,6 +7,7 @@ import fixture from '../../test/fixtures/fast-import-config-ulong-native.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 let root: string;
@@ -60,13 +61,13 @@ it.for(fixture.cases)('matches native $flag ($valueKind: $valueText)', async (ro
   const build = () => commandArguments('fast-import', tokens, true);
   if (native.status !== 0) {
     await expect(
-      repo.command('fast-import', tokens as never, { stdin: 'done\n' }),
+      strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' }),
     ).rejects.toBeInstanceOf(GitArgumentError);
     if (!selectedDependent) {
       expect(build).toThrow(GitArgumentError);
     }
   } else {
-    const actual = await repo.command('fast-import', tokens as never, { stdin: 'done\n' });
+    const actual = await strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' });
     expect(actual.exitCode).toBe(0);
     if (!selectedDependent) {
       expect(build()).toEqual(words);
@@ -93,7 +94,7 @@ it('validates reached callbacks before overwrite/help and keeps representation g
       expect(native.signal).toBeNull();
       expect(native.status).toBe(128);
       await expect(
-        repo.command('fast-import', tokens as never, { stdin: 'done\n' }),
+        strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' }),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
     expect(() => commandArguments('fast-import', [['-h'], [flag, '1\0']], true)).toThrow(

@@ -17,11 +17,17 @@ import { createBunAdapters } from 'type-git/bun';
 // Test 4: Deno adapter types
 import { createDenoAdapters } from 'type-git/deno';
 
+// Test 5: Strict entry point types
+import { strict, type StrictGit } from 'type-git/strict';
+
 // Type assertions to ensure types are correctly inferred
 async function testTypes(): Promise<void> {
   // Test createGit function signature
   const adapters = createNodeAdapters();
-  const git: Git = await createGit({ adapters });
+  const plain: Git = await createGit({ adapters });
+  // @ts-expect-error The lightweight entry point no longer declares command().
+  void plain.command;
+  const git: StrictGit = strict(plain);
 
   // Test Git interface methods
   const version: string = await git.version();
@@ -125,7 +131,7 @@ function testErrorTypes(error: unknown): void {
 }
 
 // Export to prevent unused warnings
-function testNumericCommandTypes(git: Git, count: number): void {
+function testNumericCommandTypes(git: StrictGit, count: number): void {
   git.command('grep', [['-12'], { operand: 'pattern' }]);
   git.command('grep', [[`-${count}`], { operand: 'pattern' }]);
   git.command('archive', [['-123'], ['--list']]);
@@ -139,7 +145,7 @@ function testNumericCommandTypes(git: Git, count: number): void {
 
 export { testTypes, testErrorTypes, testNumericCommandTypes };
 
-export function testFallbackCommandTypes(git: Git): void {
+export function testFallbackCommandTypes(git: StrictGit): void {
   git.command('config', [{ operand: 'get' }, ['--all'], { operand: 'test.key' }]);
   // @ts-expect-error Root dispatch must retain the child's conflicting option rule.
   git.command('config', [{ operand: 'get' }, ['--all'], ['--default', ''], { operand: 'test.key' }]);
@@ -153,7 +159,7 @@ export function testFallbackCommandTypes(git: Git): void {
   git.command('stash', [{ operand: 'path' }]);
 }
 
-export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648, bad: 1 | 'bad'): void {
+export function testNativeIntegerTypes(git: StrictGit, mixed: 1 | 2147483648, bad: 1 | 'bad'): void {
   git.command('column', [['--width', '  +010k'], ['-h']]);
   git.command('pack-objects', [['--max-pack-size', 18446744073709551615n], ['-h']]);
   git.command('pack-objects', [['--max-pack-size', '0x0'], ['--stdout']]);
@@ -169,7 +175,7 @@ export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648, bad: 1 |
   git.command('pack-objects', [['--max-pack-size', '0b1k'], ['--stdout']]);
 }
 
-export function testNumericCallbackTypes(git: Git): void {
+export function testNumericCallbackTypes(git: StrictGit): void {
   git.command('describe', [['--abbrev', '2147483648'], ['--long']]);
   git.command('cherry-pick', [['--mainline', '-4294967295'], ['-h']]);
   git.command('grep', [['-9223372036854775808'], { operand: 'needle' }]);
@@ -182,7 +188,7 @@ export function testNumericCallbackTypes(git: Git): void {
   git.command('rev-list', [['--max-count', '1k'], ['--all']]);
 }
 
-export function testUniversalCallbackFailures(git: Git): void {
+export function testUniversalCallbackFailures(git: StrictGit): void {
   // @ts-expect-error Zero mainline fails for every observed ABI.
   git.command('cherry-pick', [['--mainline', '0'], ['-h']]);
   // @ts-expect-error Zero abbreviation conflicts with long on every observed ABI.
@@ -192,7 +198,7 @@ export function testUniversalCallbackFailures(git: Git): void {
 }
 
 /** Verify packed declarations apply decoded filter grammar and native numeric bounds. */
-export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void {
+export function testObjectFilterByteTypes(git: StrictGit, dynamicCount: number): void {
   git.command('fetch', [['--filter', `tree:${dynamicCount}`]]);
   git.command('fetch', [['--filter', 'tree:18446744073709551615']]);
   git.command('fetch', [['--filter', 'combine:tree:%2b1']]);
@@ -205,7 +211,7 @@ export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void 
 }
 
 /** Verify packed declarations reject known argv NUL while preserving unrelated dynamic words. */
-export function testArgvStringTypes(git: Git, dynamic: string): void {
+export function testArgvStringTypes(git: StrictGit, dynamic: string): void {
   // @ts-expect-error Other dynamic tokens cannot erase a known NUL value.
   git.command('log', [['--format', 'a\0b'], { operand: dynamic }, ['-h']]);
   git.command('log', [['--format', 'text'], ['-h']]);
@@ -216,7 +222,7 @@ export function testArgvStringTypes(git: Git, dynamic: string): void {
 }
 
 /** Verify packed declarations check callbacks before help and preserve ignored words after help. */
-export function testParserExitTypes(git: Git, dynamic: string): void {
+export function testParserExitTypes(git: StrictGit, dynamic: string): void {
   git.command('branch', [['--color', 'AuTo'], ['-h']]);
   git.command('branch', [['-h'], ['--color', 'invalid'], ['--track', 'invalid']]);
   git.command('branch', [['--color', dynamic], ['-h']]);
@@ -229,7 +235,7 @@ export function testParserExitTypes(git: Git, dynamic: string): void {
   git.command('show-branch', [['-h'], ['--color', 'a\0b']]);
 }
 
-export function testBooleanCallbackTypes(git: Git, dynamic: string): void {
+export function testBooleanCallbackTypes(git: StrictGit, dynamic: string): void {
   git.command('push', [['--signed', 'IF-ASKED'], ['-h']]);
   git.command('push', [['--signed', undefined], ['-h']]);
   git.command('fetch', [['--porcelain'], ['--recurse-submodules', '0k']]);
@@ -245,7 +251,7 @@ export function testBooleanCallbackTypes(git: Git, dynamic: string): void {
 }
 
 /** Check packaged compound numeric declarations, dynamic inputs, and reached callback failures. */
-export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
+export function testCompoundDecimalTypes(git: StrictGit, dynamic: string): void {
   git.command('shortlog', [['-w', '-18446744073709551540'], ['-h']]);
   git.command('shortlog', [['-w', dynamic], ['-h']]);
   git.command('shortlog', [['-h'], ['-w', '76\n']]);
@@ -259,7 +265,7 @@ export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
 }
 
 /** Verify packaged initial-pass declarations for reached callbacks, help, and dynamic inputs. */
-export function testPhasedParserExitTypes(git: Git, dynamic: string): void {
+export function testPhasedParserExitTypes(git: StrictGit, dynamic: string): void {
   git.command('log', [['--color', 'invalid'], ['-h']]);
   git.command('log', [['-n', '-h']]);
   git.command('log', [['--decorate', dynamic], ['-h']]);
@@ -271,7 +277,7 @@ export function testPhasedParserExitTypes(git: Git, dynamic: string): void {
 }
 
 /** Check packaged literal depth constraints and independently available helper init aliases. */
-export function testObservedDepthAndInitTypes(git: Git, dynamic: string): void {
+export function testObservedDepthAndInitTypes(git: StrictGit, dynamic: string): void {
   git.command('fetch', [['--all'], ['--depth', '2147483648']]);
   git.command('fetch', [['--all'], ['--depth', '-4294967295']]);
   git.command('fetch', [['--all'], ['--depth', dynamic]]);
@@ -284,7 +290,7 @@ export function testObservedDepthAndInitTypes(git: Git, dynamic: string): void {
 }
 
 /** Verify packaged case-sensitive callback languages and first-separator semantics. */
-export function testStringCallbackTypes(git: Git, dynamic: string): void {
+export function testStringCallbackTypes(git: StrictGit, dynamic: string): void {
   git.command('fast-export', [['--anonymize-map', 'one:two:'], ['-h']]);
   git.command('fast-export', [['-h'], ['--anonymize-map', ':']]);
   git.command('fast-import', [['--signed-tags', 'sign-if-invalid=']]);
@@ -295,7 +301,7 @@ export function testStringCallbackTypes(git: Git, dynamic: string): void {
   git.command('fast-import', [['--signed-tags', 'strip=key']]);
 }
 
-export function testResidualArgvTypes(git: Git): void {
+export function testResidualArgvTypes(git: StrictGit): void {
   git.command('log', [['-n', '-L'], { operand: '1,1:file' }, { operand: '0' }]);
   git.command('log', [['--'], ['--color', 'invalid']]);
   git.command('fast-export', [['-G', '--'], ['-h']]);
@@ -306,7 +312,7 @@ export function testResidualArgvTypes(git: Git): void {
 }
 
 /** Check installed declaration types for ordered reflog help and callback execution. */
-export function testReflogWrapperTypes(git: Git): void {
+export function testReflogWrapperTypes(git: StrictGit): void {
   git.command('reflog show', [['--decorate', 'invalid'], ['-h']]);
   git.command('reflog', [{ operand: 'show' }, ['-G', '-L'], ['-h']]);
   git.command('reflog show', [['--help'], ['--decorate', 'invalid']]);
@@ -317,7 +323,7 @@ export function testReflogWrapperTypes(git: Git): void {
 }
 
 /** Validate installed format-patch declarations across native parser phases. */
-export function testFormatPatchParserTypes(git: Git): void {
+export function testFormatPatchParserTypes(git: StrictGit): void {
   git.command('format-patch', [['-n'], ['-k'], ['-h']]);
   git.command('format-patch', [['--cover-from-description', 'invalid'], ['-h']]);
   git.command('format-patch', [['-h'], ['--thread', 'invalid']]);
@@ -328,7 +334,7 @@ export function testFormatPatchParserTypes(git: Git): void {
 }
 
 /** Check installed declarations for repository-dependent stash-list parsing. */
-export function testConditionalStashTypes(git: Git): void {
+export function testConditionalStashTypes(git: StrictGit): void {
   git.command('stash list', [['--format', '%gs'], ['--max-count', '1']]);
   git.command('stash list', [['--color', 'invalid']]);
   git.command('stash', [{ operand: 'list' }, ['--graph']]);
@@ -338,7 +344,7 @@ export function testConditionalStashTypes(git: Git): void {
   git.command('stash list', [['-h'], ['--format', '\0']]);
 }
 
-export function testNativeStashParserTypes(git: Git): void {
+export function testNativeStashParserTypes(git: StrictGit): void {
   git.command('stash push', [['--unified', '-2'], ['-h']]);
   git.command('stash pop', [{ operand: '-qh' }]);
   git.command('stash apply', [{ operand: '--label-o=ours' }, ['-h']]);
@@ -353,7 +359,7 @@ export function testNativeStashParserTypes(git: Git): void {
 }
 
 /** Keep universal child failures distinct from source-dependent parent help. */
-export function testNativeStashWithoutHelp(git: Git): void {
+export function testNativeStashWithoutHelp(git: StrictGit): void {
   // @ts-expect-error Without parent help, clear rejects positional operands.
   git.command('stash clear', [{ operand: 'file' }]);
   // @ts-expect-error A reached integer callback rejects malformed syntax.
@@ -365,7 +371,7 @@ export function testNativeStashWithoutHelp(git: Git): void {
 }
 
 /** Check assumed push while preserving legacy parent help alternatives. */
-export function testAssumedStashTypes(git: Git): void {
+export function testAssumedStashTypes(git: StrictGit): void {
   git.command('stash', [['--patch'], { operand: 'file' }, ['--unified', 'bad']]);
   git.command('stash', [['--'], ['--unified', 'bad']]);
   git.command('stash', [['--unified', '-2'], ['-h']]);
@@ -377,7 +383,7 @@ export function testAssumedStashTypes(git: Git): void {
 }
 
 /** Check transfer declarations while retaining source-dependent parent help. */
-export function testStashTransferTypes(git: Git): void {
+export function testStashTransferTypes(git: StrictGit): void {
   git.command('stash import', [{ operand: 'one' }, { operand: 'two' }, ['-h']]);
   git.command('stash import', [['--']]);
   git.command('stash export', [['--print'], ['--to-ref', 'refs/exported'], ['-h']]);
@@ -389,7 +395,7 @@ export function testStashTransferTypes(git: Git): void {
 }
 
 /** Check partition declarations without narrowing away legacy parent help. */
-export function testStashShowPartitionTypes(git: Git): void {
+export function testStashShowPartitionTypes(git: StrictGit): void {
   git.command('stash show', [['--color', 'bad'], ['-h']]);
   git.command('stash show', [['--'], ['--default', 'foo']]);
   git.command('stash show', [['--'], ['-h'], { operand: '-unknown' }]);
@@ -400,7 +406,7 @@ export function testStashShowPartitionTypes(git: Git): void {
 }
 
 /** Check ordinary worktree parser declarations from the freshly packed public API. */
-export function testWorktreeParserTypes(git: Git): void {
+export function testWorktreeParserTypes(git: StrictGit): void {
   git.command('add', [{ operand: '--dry-r' }, ['-h']]);
   git.command('rm', [{ operand: '-nh' }]);
   git.command('mv', [['--'], { operand: 'file' }, ['-h']]);
@@ -412,7 +418,7 @@ export function testWorktreeParserTypes(git: Git): void {
 }
 
 /** Verify reference parser declarations from the freshly packed public API. */
-export function testReferenceParserTypes(git: Git): void {
+export function testReferenceParserTypes(git: StrictGit): void {
   git.command('branch', [['--contains']]);
   git.command('tag', [['--column', 'never,row'], ['-n', '0']]);
   git.command('status', [['--untracked-files', '-1']]);
@@ -428,7 +434,7 @@ export function testReferenceParserTypes(git: Git): void {
 }
 
 /** Check checkout-family declarations from the freshly packed public API. */
-export function testCheckoutParserTypes(git: Git): void {
+export function testCheckoutParserTypes(git: StrictGit): void {
   git.command('switch', [{ operand: '--det' }, ['-h']]);
   git.command('restore', [['--'], ['-h']]);
   git.command('reset', [{ operand: 'file' }, { operand: 'other' }, ['--'], ['-h']]);
@@ -442,7 +448,7 @@ export function testCheckoutParserTypes(git: Git): void {
 }
 
 /** Check native alias declarations from the freshly packed public API. */
-export function testAliasParserTypes(git: Git): void {
+export function testAliasParserTypes(git: StrictGit): void {
   git.command('clone', [{ operand: '--recur' }, ['-h']]);
   git.command('fetch', [{ operand: '--negotiation-t=HEAD' }, ['-h']]);
   git.command('push', [{ operand: '--bra' }, ['-h']]);
@@ -453,7 +459,7 @@ export function testAliasParserTypes(git: Git): void {
   git.command('clone', [['--'], { operand: 'one' }, { operand: 'two' }, ['-h']]);
 }
 
-function mandatorySubcommandContracts(git: Git) {
+function mandatorySubcommandContracts(git: StrictGit) {
   git.command('refs', [{ operand: 'list' }, ['--count', 1]]);
   git.command('refs', [['-h'], { operand: 'list' }, ['--count', 'bad']]);
   git.command('refs', [{ operand: 'verify' }, { operand: '--help' }]);

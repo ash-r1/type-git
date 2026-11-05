@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const unknownMemory: RegExp = /unknown option.*max-memory/;
 
@@ -76,7 +77,7 @@ describe('native range-diff maximum memory callback', () => {
           const expected = native(
             first ? [help, `--max-memory=${value}`] : [`--max-memory=${value}`, help],
           );
-          if (!registered && !first) {
+          if (!(registered || first)) {
             expect(expected.stderr).toMatch(unknownMemory);
             continue;
           }
@@ -84,11 +85,11 @@ describe('native range-diff maximum memory callback', () => {
             ? [[help], ['--max-memory', value]]
             : [['--max-memory', value], [help]];
           if (expected.stderr.includes('invalid max-memory value')) {
-            await expect(repo.command('range-diff', args as never)).rejects.toBeInstanceOf(
+            await expect(strict(repo).command('range-diff', args as never)).rejects.toBeInstanceOf(
               GitArgumentError,
             );
           } else {
-            const actual = await repo.command('range-diff', args as never);
+            const actual = await strict(repo).command('range-diff', args as never);
             expect(actual.exitCode).toBe(expected.status);
             expect(actual.stdout).toBe(expected.stdout);
             expect(actual.stderr).toBe(expected.stderr);
@@ -98,7 +99,7 @@ describe('native range-diff maximum memory callback', () => {
     }
     for (const help of ['-h', '--help-all']) {
       const expected = native([help, '--type-git-unknown-tail', 'raw']);
-      const actual = await repo.command('range-diff', [
+      const actual = await strict(repo).command('range-diff', [
         [help],
         ['--type-git-unknown-tail', 'raw'],
       ] as never);
@@ -107,7 +108,7 @@ describe('native range-diff maximum memory callback', () => {
       expect(actual.stderr).toBe(expected.stderr);
     }
     const expected = native(['--no-max-memory', '-h']);
-    const actual = await repo.command('range-diff', [['--no-max-memory'], ['-h']]);
+    const actual = await strict(repo).command('range-diff', [['--no-max-memory'], ['-h']]);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);

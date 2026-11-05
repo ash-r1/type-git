@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
+import type { StrictGit } from '../../src/strict/index.js';
 
-declare const noIndexUnionGit: Git;
+declare const noIndexUnionGit: StrictGit;
 declare const noIndexUnionFlag: '--diff-algorithm' | '--stat-width';
 // @ts-expect-error Every possible earlier callback must reach the usage exit.
 noIndexUnionGit.command('diff --no-index', [

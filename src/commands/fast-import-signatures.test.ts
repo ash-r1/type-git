@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
+import { strict } from '../strict/index.js';
 
 type Format = 'sha1' | 'sha256';
 type SignatureFormat = 'ssh' | 'openpgp';
@@ -439,9 +440,13 @@ describe.each(signatureFormats)('fast-import real %s signatures', (signatureForm
           return;
         }
         const repo = await new TypeGit({ inheritEnv: false, env }).open(actualDir);
-        const actual = await repo.command('fast-import', [['--quiet'], [flag, value]] as never, {
-          stdin,
-        });
+        const actual = await strict(repo).command(
+          'fast-import',
+          [['--quiet'], [flag, value]] as never,
+          {
+            stdin,
+          },
+        );
         expect(actual.exitCode).toBe(native.exitCode);
         expect(actual.stdout).toBe(native.stdout);
         // Preserve all other diagnostics; only the crash-report PID varies between executions.

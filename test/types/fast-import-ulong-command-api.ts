@@ -1,6 +1,6 @@
 // Native Git 2.55.0 LP64 observations; binary prefixes remain selected-runtime dependent.
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 // @ts-expect-error Independent native callback rejected this known value.
 git.command('fast-import', [['--quiet'], ["--active-branches", ""]]);
 // @ts-expect-error Independent native callback rejected this known value.

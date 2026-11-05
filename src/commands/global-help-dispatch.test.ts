@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import type { GitCommandName } from './types.js';
@@ -83,7 +84,7 @@ describe('global first-word documentation dispatch', () => {
       }
       const args = [['--help'], [selector]];
       // Runtime corpus inputs are checked separately from the literal compiler contracts.
-      const actual = await repo.command(command, args as never);
+      const actual = await strict(repo).command(command, args as never);
       expect(actual.exitCode, label).toBe(native.status);
       expect(actual.stdout, label).toBe(native.stdout);
       expect(actual.stderr, label).toBe(native.stderr);
@@ -105,7 +106,7 @@ describe('global first-word documentation dispatch', () => {
     expect(native.stderr).toContain('count=bad');
     const args = [['--help'], { operand: 'list' }, ['--count', 'bad']];
     expect(() => commandArguments('refs', args)).toThrow('unknown option --count');
-    await expect(repo.command('refs', args as never)).rejects.toThrow(GitArgumentError);
+    await expect(strict(repo).command('refs', args as never)).rejects.toThrow(GitArgumentError);
   });
 
   it.each([
@@ -154,7 +155,7 @@ describe('global first-word documentation dispatch', () => {
     expect(native.stdout + native.stderr).toContain(
       words.some((word) => word === '--') ? 'native-doc-viewer' : 'usage: git help',
     );
-    const actual = await repo.command(command, args as never);
+    const actual = await strict(repo).command(command, args as never);
     expect(actual.exitCode).toBe(native.status);
     expect(actual.stdout).toBe(native.stdout);
     expect(actual.stderr).toBe(native.stderr);

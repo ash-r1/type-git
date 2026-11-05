@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('pack-redundant', [['--all']]);
 git.command('pack-redundant', [['--all'], ['--verbose']]);
 git.command('pack-redundant', [['--all'], ['--i-still-use-this']]);

@@ -7,6 +7,7 @@ import fixture from '../../test/fixtures/fast-import-ulong-native.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 let root: string;
@@ -59,11 +60,11 @@ it.for(fixture.cases)('matches native $flag ($valueKind: $valueText)', async (ro
   if (row.nativeExit !== 0) {
     expect(build).toThrow(GitArgumentError);
     await expect(
-      repo.command('fast-import', tokens as never, { stdin: 'done\n' }),
+      strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' }),
     ).rejects.toBeInstanceOf(GitArgumentError);
   } else {
     expect(build()).toEqual(words);
-    const actual = await repo.command('fast-import', tokens as never, { stdin: 'done\n' });
+    const actual = await strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' });
     expect(actual.exitCode).toBe(native.status);
   }
 });

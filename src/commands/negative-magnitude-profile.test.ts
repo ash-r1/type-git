@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('native unsigned magnitude sign profiles', () => {
   it.each([
@@ -23,7 +24,10 @@ describe('native unsigned magnitude sign profiles', () => {
     expect(native.error).toBeUndefined();
     expect(native.signal).toBeNull();
     expect(native.status).toBe(129);
-    const result = new TypeGit().command('pack-objects', [['--max-pack-size', value], ['-h']]);
+    const result = strict(new TypeGit()).command('pack-objects', [
+      ['--max-pack-size', value],
+      ['-h'],
+    ]);
     if (/expects .*integer|not in range/.test(native.stderr)) {
       await expect(result).rejects.toBeInstanceOf(GitArgumentError);
     } else {
@@ -39,7 +43,7 @@ describe('native unsigned magnitude sign profiles', () => {
     });
     expect(native.error).toBeUndefined();
     expect(native.signal).toBeNull();
-    const result = new TypeGit().command('clone', [['--filter', filter], ['-h']]);
+    const result = strict(new TypeGit()).command('clone', [['--filter', filter], ['-h']]);
     if (native.stderr.includes('invalid filter-spec')) {
       expect(native.status).toBe(128);
       await expect(result).rejects.toBeInstanceOf(GitArgumentError);

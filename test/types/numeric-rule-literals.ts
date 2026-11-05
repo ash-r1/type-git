@@ -2,6 +2,7 @@
 import type { NumberLiteralOrder, PositiveNumberMatch, SafeIntegerAtLeast } from '../../src/constraints/number-types.js';
 import type { Constrained } from '../../src/constraints/types.js';
 import type { TypeGit } from '../../src/adapters/node/index.js';
+import type { Strict } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 export type NumericOrderCases = readonly [
   Check<NumberLiteralOrder<-9007199254740992, -10> extends -1 ? true : false>,
@@ -225,7 +226,7 @@ export type RuleCases = readonly [
   Check<([{ value: 0 }] extends [Constrained<{ value: 0 }, readonly [{ id: 'fixture'; origin: 'git'; reason: 'ECMAScript comparison fixture'; source: 'src/constraints/model.ts'; kind: 'required'; required: readonly [{ key: 'value'; test: 'positive' }] }]>] ? true : false) extends false ? true : false>,
   Check<([{ value: number }] extends [Constrained<{ value: number }, readonly [{ id: 'fixture'; origin: 'git'; reason: 'ECMAScript comparison fixture'; source: 'src/constraints/model.ts'; kind: 'range'; key: 'value'; min: 0 }]>] ? true : false) extends true ? true : false>,
 ];
-declare const git: TypeGit;
+declare const git: Strict<TypeGit>;
 declare const dynamic: number;
 git.command('log', [['--expand-tabs', dynamic]]);
 git.command('log', [['--expand-tabs', 0]]);

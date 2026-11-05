@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('merge-ours internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('merge-ours internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['merge-ours', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('merge-ours', args as never);
+    const actual = await strict(repo).command('merge-ours', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -112,7 +113,7 @@ describe('merge-ours internal help and callback order', () => {
   });
   it('preserves a tagged separator while rejecting a separator option tuple', async () => {
     await compare([{ operand: '--' }], ['--']);
-    await expect(repo.command('merge-ours', [['--']] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('merge-ours', [['--']] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
   });

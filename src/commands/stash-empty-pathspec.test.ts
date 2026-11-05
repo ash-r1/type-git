@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const EMPTY_PATHSPEC = 'empty string is not a valid pathspec';
@@ -70,7 +71,7 @@ describe('stash push empty pathspec', () => {
   });
 
   it('keeps the earlier help exit and nonempty paths', async () => {
-    const help = await repo.command('stash push', [['-h'], ['--'], { operand: '' }]);
+    const help = await strict(repo).command('stash push', [['-h'], ['--'], { operand: '' }]);
     const native = direct(['push', '-h', '--', '']);
     // Usage exits 129 up to Git 2.55 and 0 from Git 2.56; either way it precedes the pathspec.
     expect([0, 129]).toContain(native.status);

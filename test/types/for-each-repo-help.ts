@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('for-each-repo', [['--help-all']]);
 git.command('for-each-repo', [['--git-completion-helper']]);
 git.command('for-each-repo', [['--git-completion-helper-all']]);
