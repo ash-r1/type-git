@@ -46,7 +46,8 @@
         "types": "./dist/adapters/deno/index.d.cts",
         "default": "./dist/adapters/deno/index.cjs"
       }
-    }
+    },
+    "./package.json": "./package.json"
   },
   "engines": {
     "node": ">=20.0.0"
