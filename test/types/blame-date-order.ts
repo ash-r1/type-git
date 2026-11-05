@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 for (const command of ['blame', 'annotate', 'pickaxe'] as const) {
   git.command(command, [['--date', 'iso'], { operand: 'HEAD' }, ['--'], { operand: 'file' }]);
   git.command(command, [['-h'], ['--date', 'invalid'], ['--diff-algorithm', 'invalid']]);

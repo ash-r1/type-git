@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -115,7 +116,7 @@ describe('object and utility command grammars', () => {
       ['--path=tracked', '-t', 'HEAD'],
       false,
     );
-    const result = await repo.command('cat-file', [['--batch-check']], { stdin: 'HEAD\n' });
+    const result = await strict(repo).command('cat-file', [['--batch-check']], { stdin: 'HEAD\n' });
     expect(result.stdout).toContain(' commit ');
   });
 
@@ -232,7 +233,7 @@ describe('object and utility command grammars', () => {
     compare('var', [{ operand: 'GIT_AUTHOR_IDENT' }], ['GIT_AUTHOR_IDENT'], true);
     compare('var', [{ operand: 'UNKNOWN' }], ['UNKNOWN'], false);
     compare('var', [['-l'], ['-l']], ['-l', '-l'], false);
-    const result = await repo.command('version', []);
+    const result = await strict(repo).command('version', []);
     expect(result.stdout).toContain('git version');
   });
 

@@ -1,7 +1,7 @@
-import type { Git } from '../../src/core/git.js';
 import type { CompoundDecimalLiteral } from '../../src/constraints/compound-decimal-types.js';
 import type { GitDecimalValue } from '../../src/constraints/git-decimal-types.js';
 import type { COMPOUND_DECIMALS } from '../../src/constraints/compound-decimals.generated.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 type Equal<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
 export type CompoundCases = readonly [
@@ -13,7 +13,7 @@ export type CompoundCases = readonly [
   Check<Equal<CompoundDecimalLiteral<string, 'shortlog-wrap'>, true>>,
   Check<Equal<CompoundDecimalLiteral<`1,${string}`, 'show-branch-reflog'>, true>>,
 ];
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 git.command('shortlog', [['-w', '-18446744073709551540'], ['-h']]);
 git.command('shortlog', [['-w', '0,2147483647,2147483647'], ['-h']]);

@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('diff-index final revision count', () => {
   let root: string;
@@ -24,7 +25,10 @@ describe('diff-index final revision count', () => {
   };
   const compare = async (args: readonly unknown[], words: string[]) => {
     const expected = native(['diff-index', ...words, 'HEAD']);
-    const actual = await repo.command('diff-index', [...args, { operand: 'HEAD' }] as never);
+    const actual = await strict(repo).command('diff-index', [
+      ...args,
+      { operand: 'HEAD' },
+    ] as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -65,7 +69,7 @@ describe('diff-index final revision count', () => {
   it.each(['0', '1', '-2'])('rejects a final non-sentinel count %s', async (count) => {
     expect(native(['diff-index', `--max-count=${count}`, 'HEAD']).status).toBe(129);
     await expect(
-      repo.command('diff-index', [['--max-count', count], { operand: 'HEAD' }] as never),
+      strict(repo).command('diff-index', [['--max-count', count], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   }, 120_000);
 
@@ -102,7 +106,7 @@ describe('diff-index final revision count', () => {
     for (const flag of ['--max-count', '-n']) {
       expect(native(['diff-index', '--max-count=-1', flag, '1', 'HEAD']).status).toBe(129);
       await expect(
-        repo.command('diff-index', [
+        strict(repo).command('diff-index', [
           ['--max-count', '-1'],
           [flag, '1'],
           { operand: 'HEAD' },
@@ -131,7 +135,7 @@ describe('diff-index final revision count', () => {
         expect(expected.status).toBe(128);
         expect(expected.stderr).toMatch(/not an integer/);
         await expect(
-          repo.command('diff-index', [...args, { operand: 'HEAD' }] as never),
+          strict(repo).command('diff-index', [...args, { operand: 'HEAD' }] as never),
         ).rejects.toBeInstanceOf(GitArgumentError);
       }
     }

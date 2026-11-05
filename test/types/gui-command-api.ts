@@ -1,6 +1,6 @@
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('gui', []);
 git.command('gui', [{ operand: 'citool' }, ['--amend'], ['--nocommit'], ['--commitmsg']]);
 git.command('citool', [['--amend']]);

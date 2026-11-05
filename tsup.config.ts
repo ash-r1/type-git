@@ -9,6 +9,7 @@ export default defineConfig({
     'adapters/node/index': 'src/adapters/node/index.ts',
     'adapters/bun/index': 'src/adapters/bun/index.ts',
     'adapters/deno/index': 'src/adapters/deno/index.ts',
+    'strict/index': 'src/strict/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: declarations
@@ -17,6 +18,7 @@ export default defineConfig({
         'adapters/node/index': join(declarations, 'adapters/node/index.d.ts'),
         'adapters/bun/index': join(declarations, 'adapters/bun/index.d.ts'),
         'adapters/deno/index': join(declarations, 'adapters/deno/index.d.ts'),
+        'strict/index': join(declarations, 'strict/index.d.ts'),
       } }
     : true,
   splitting: true,

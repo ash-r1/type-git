@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import type { RawResult } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('native blame color ambiguity', () => {
   let root: string;
@@ -65,7 +66,8 @@ describe('native blame color ambiguity', () => {
   for (const command of ['blame', 'annotate', 'pickaxe'] as const) {
     it(`${command}: rejects reached ambiguity and preserves ignored tails`, async () => {
       // Exercise runtime rejection even for inputs that the literal API type rejects.
-      const invoke = repo.command.bind(repo) as unknown as (
+      const strictRepo = strict(repo);
+      const invoke = strictRepo.command.bind(strictRepo) as unknown as (
         commandName: string,
         args: readonly unknown[],
       ) => Promise<RawResult>;
@@ -109,7 +111,11 @@ describe('native blame color ambiguity', () => {
       const before = await snapshot();
       const expected = native([command, '--color-lines', '--', 'file']);
       expect(expected.status).toBe(0);
-      const actual = await repo.command(command, [['--color-lines'], ['--'], { operand: 'file' }]);
+      const actual = await strict(repo).command(command, [
+        ['--color-lines'],
+        ['--'],
+        { operand: 'file' },
+      ]);
       expect({ exitCode: actual.exitCode, stdout: actual.stdout, stderr: actual.stderr }).toEqual({
         exitCode: expected.status,
         stdout: expected.stdout,

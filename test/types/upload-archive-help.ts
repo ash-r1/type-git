@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('upload-archive', [['-h']]);
 git.command('upload-archive', [['--help-all']]);
 git.command('upload-archive', [{ operand: '-h' }]);

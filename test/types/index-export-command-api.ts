@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('update-index', [['-z'], ['--stdin']]);
 git.command('update-index', [{ operand: 'file' }, ['--stdin']]);
 // @ts-expect-error Stdin must be the final argument.

@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('fast-import', [['--date-format', 'raw'], ['--depth', 8191]]);
 git.command('fast-import', [['--import-marks', 'one'], ['--import-marks', 'two']]);
 git.command('fast-import', [['--signed-tags', 'sign-if-invalid=key']]);

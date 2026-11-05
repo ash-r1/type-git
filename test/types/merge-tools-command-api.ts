@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('merge-recursive', [['--ours'], ['--theirs'], ['--'], { operand: 'HEAD' }, { operand: 'other' }]);
 git.command('merge-subtree', [['--'], { operand: 'HEAD' }, { operand: 'other' }]);
 // @ts-expect-error Heads must follow a separator.

@@ -1,4 +1,3 @@
-import type { GitCommandClient } from '../commands/types.js';
 import type { CheckedOptions, ExclusiveQuery } from './option-rules.js';
 /**
  * Repository interfaces - operations that require a repository context
@@ -10,7 +9,7 @@ import type { CommandExecOpts, ExecOpts, GitProgress, LfsMode, RawResult } from 
 /**
  * Base repository interface
  */
-export interface RepoBase extends GitCommandClient {
+export interface RepoBase {
   readonly kind: 'worktree' | 'bare';
   /**
    * Execute a raw git command in this repository context

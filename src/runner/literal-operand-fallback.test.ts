@@ -7,6 +7,7 @@ import {
 } from '../commands/build.js';
 import type { GitCommandName } from '../commands/types.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const refusal = 'Use an explicit ["--"] separator before an operand starting with a dash';
@@ -33,7 +34,12 @@ async function expectRefused(
 ): Promise<string[][]> {
   const { runtime, spawned } = adapters();
   setup?.(runtime);
-  const run = new CliRunner(runtime).runCommand({ type: 'global' }, command, args as never, true);
+  const run = new StrictCommandRunner(new CliRunner(runtime)).runCommand(
+    { type: 'global' },
+    command,
+    args as never,
+    true,
+  );
   await expect(run).rejects.toBeInstanceOf(GitArgumentError);
   await expect(run).rejects.toThrow(refusal);
   for (const argv of spawned) {
@@ -113,7 +119,7 @@ describe('shape-mode fallbacks refuse dash operand objects', () => {
   it('keeps honored separators, option tuples and proven exits executable', async () => {
     const { runtime, spawned } = adapters();
     runtime.fs.writeFile = undefined;
-    await new CliRunner(runtime).runCommand(
+    await new StrictCommandRunner(new CliRunner(runtime)).runCommand(
       { type: 'global' },
       'fetch',
       [['--depth', '2147483648'], ['--upload-pack', 'git-upload-pack'], ['--'], { operand: '-x' }],

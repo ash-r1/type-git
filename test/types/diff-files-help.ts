@@ -1,5 +1,5 @@
-import type { Git, GitCommandArgument } from '../../src/index.js';
-declare const git: Git;
+import type { GitCommandArgument, StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('diff-files', [['--help-all']]);
 git.command('diff-files', [['--name-only'], { operand: 'file' }]);
 // @ts-expect-error Full usage must be the sole word.

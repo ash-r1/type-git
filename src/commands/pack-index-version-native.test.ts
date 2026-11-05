@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const parserError: RegExp = /bad .*index.version|unsupported index version/;
 
@@ -81,10 +82,10 @@ describe('native pack index version parsers', () => {
             : [['--index-version', value], ['-h']];
           if (parserError.test(native.stderr)) {
             await expect(
-              repo.command(command, args as never, { stdin: '' }),
+              strict(repo).command(command, args as never, { stdin: '' }),
             ).rejects.toBeInstanceOf(GitArgumentError);
           } else {
-            const actual = await repo.command(command, args as never, { stdin: '' });
+            const actual = await strict(repo).command(command, args as never, { stdin: '' });
             expect(actual.exitCode, `${command} ${value}`).toBe(native.status);
             expect(actual.stdout).toBe(native.stdout);
             expect(actual.stderr).toBe(native.stderr);

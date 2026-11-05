@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('help', [['--all'], ['--no-aliases'], ['--no-external-commands']]);
 git.command('help', [['--guides'], ['--man'], ['--no-man']]);
 // @ts-expect-error Listing modes exclude explicit document operands.

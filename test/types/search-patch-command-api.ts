@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('blame', [{ operand: 'tracked' }]);
 git.command('annotate', [['--'], { operand: 'tracked' }, { operand: 'HEAD' }]);
 git.command('blame', [['--line-porcelain'], ['--no-porcelain'], ['--progress'], { operand: 'tracked' }]);
@@ -56,6 +55,7 @@ git.command('format-patch', [['--thread', 'invalid'], ['-h']]);
 git.command('format-patch', [['-o', 'out'], ['-o', 'out'], ['-h']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type ProfileCheck<T extends true> = T;
 export type FormatPatchIntegerSourceProfiles = readonly [
   ProfileCheck<[CheckedCommandArguments<'format-patch', [['--stdout'], ['--start-number', '2147483648'], {operand:'HEAD..HEAD'}]>] extends [never] ? false : true>,

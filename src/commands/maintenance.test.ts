@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -260,7 +261,7 @@ describe('maintenance, storage and ref command grammars', () => {
       ['--all', '--include=refs/heads/*'],
       true,
     );
-    const result = await repo.command('refs list', [['--format', '%(refname)']]);
+    const result = await strict(repo).command('refs list', [['--format', '%(refname)']]);
     expect(result.stdout).toContain(branch);
   });
 
@@ -282,7 +283,7 @@ describe('maintenance, storage and ref command grammars', () => {
     compare('update-server-info', [{ operand: 'extra' }], ['extra'], false);
     compare('stage', [['--dry-run'], { operand: 'tracked' }], ['--dry-run', 'tracked'], true);
     compare('stage', [['--pathspec-file-nul']], ['--pathspec-file-nul'], false);
-    const result = await repo.command('fsck', [['--connectivity-only']]);
+    const result = await strict(repo).command('fsck', [['--connectivity-only']]);
     expect(result.exitCode).toBe(0);
   });
 });

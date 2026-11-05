@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('source-specific filename parser states', () => {
@@ -43,11 +44,11 @@ expect(versionResult.signal).toBeNull();
 expect(versionResult.status).toBe(0);
 const modern = /^git version 2\.(55|56)\./.test(versionResult.stdout);
 const older = /^git version 2\.(25|47)\./.test(versionResult.stdout);
-if (!modern && !older) {
+if (!(modern || older)) {
   console.warn('Filename profile comparisons are unverified for this Git version.');
 }
 
-describe.skipIf(!modern && !older)('native filename state through the public API', () => {
+describe.skipIf(!(modern || older))('native filename state through the public API', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
@@ -90,14 +91,14 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     async () => {
       native(['--list', '--file=:(optional)missing'], 0);
       await expect(
-        repo.command('tag', [['--list'], ['--file', ':(optional)missing']]),
+        strict(repo).command('tag', [['--list'], ['--file', ':(optional)missing']]),
       ).resolves.toMatchObject({ exitCode: 0 });
     },
   );
   it.skipIf(!older)('honors the older clearing negation after a supplied filename', async () => {
     native(['--list', '--file=message', '--no-file'], 0);
     await expect(
-      repo.command('tag', [['--list'], ['--file', 'message'], ['--no-file']]),
+      strict(repo).command('tag', [['--list'], ['--file', 'message'], ['--no-file']]),
     ).resolves.toMatchObject({ exitCode: 0 });
   });
   it('combines an empty ordering filename with native wrapping options', async () => {
@@ -112,7 +113,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     expect(result.signal).toBeNull();
     expect(result.status, result.stderr).toBe(0);
     await expect(
-      repo.command(
+      strict(repo).command(
         'shortlog',
         [
           ['-O', ''],
@@ -124,16 +125,20 @@ describe.skipIf(!modern && !older)('native filename state through the public API
   });
   it('rejects listing with an ordinary retained filename', async () => {
     native(['--list', '--file=message'], 129);
-    await expect(repo.command('tag', [['--list'], ['--file', 'message']])).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
+    await expect(
+      strict(repo).command('tag', [['--list'], ['--file', 'message']]),
+    ).rejects.toBeInstanceOf(GitArgumentError);
   });
   it.skipIf(!modern)(
     'does not turn an optional missing update into a clear of the prior filename',
     async () => {
       native(['--list', '--file=message', '--file=:(optional)missing'], 129);
       await expect(
-        repo.command('tag', [['--list'], ['--file', 'message'], ['--file', ':(optional)missing']]),
+        strict(repo).command('tag', [
+          ['--list'],
+          ['--file', 'message'],
+          ['--file', ':(optional)missing'],
+        ]),
       ).rejects.toBeInstanceOf(GitArgumentError);
     },
   );
@@ -147,7 +152,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
       );
       await writeFile(join(repo.workdir, 'tracked'), 'after\n');
       await writeFile(join(repo.workdir, 'paths'), 'tracked\0');
-      const result = await repo.command('commit', [
+      const result = await strict(repo).command('commit', [
         ['-m', 'mixed states'],
         ['--file', ':(optional)absent'],
         ['--pathspec-from-file', ':(optional)paths'],
@@ -177,7 +182,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     async () => {
       const words = ['--list', '--file=:(optional)message/child'];
       const expected = native(words, process.platform === 'win32' ? 0 : 128);
-      const result = await repo.command('tag', [
+      const result = await strict(repo).command('tag', [
         ['--list'],
         ['--file', ':(optional)message/child'],
       ]);
@@ -209,7 +214,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
       if (process.platform === 'win32') {
         expect(expected.stderr).toContain("options '-m' and '-F' cannot be used together");
         await expect(
-          repo.command('commit', [
+          strict(repo).command('commit', [
             ['--dry-run'],
             ['-m', 'inline'],
             ['-F', 'message'],
@@ -219,7 +224,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
         return;
       }
       expect(expected.stderr).toContain('could not stat message/child');
-      const result = await repo.command('commit', [
+      const result = await strict(repo).command('commit', [
         ['--dry-run'],
         ['-m', 'inline'],
         ['-F', 'message'],
@@ -237,7 +242,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     if (process.platform === 'win32') {
       expect(expected.stderr).toContain('color');
       await expect(
-        repo.command('tag', [
+        strict(repo).command('tag', [
           ['--list'],
           ['--file', ':(optional)message/child'],
           ['--color', 'invalid'],
@@ -246,7 +251,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
       return;
     }
     expect(expected.stderr).toContain('could not stat message/child');
-    const result = await repo.command('tag', [
+    const result = await strict(repo).command('tag', [
       ['--list'],
       ['--file', ':(optional)message/child'],
       ['--color', 'invalid'],
@@ -256,7 +261,7 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     const earlier = native(['--list', '--color=invalid', '--file=:(optional)message/child'], 129);
     expect(earlier.status).toBe(129);
     await expect(
-      repo.command('tag', [
+      strict(repo).command('tag', [
         ['--list'],
         ['--color', 'invalid'],
         ['--file', ':(optional)message/child'],

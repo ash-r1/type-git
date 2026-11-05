@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -178,7 +179,7 @@ describe('native shell frontends', () => {
       // Actual older parsers report usage with 129; others use 0. Neither is rewritten.
       expect([0, 129]).toContain(native.status);
       expect(native.stdout + native.stderr).toContain('usage: git help');
-      const actual = await repo.command(command, [['--help'], ['--help']]);
+      const actual = await strict(repo).command(command, [['--help'], ['--help']]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
@@ -215,7 +216,7 @@ describe('native shell frontends', () => {
       // Usage exits vary between actual Git parsers; do not turn 129 into success.
       expect([0, 129]).toContain(native.status);
       expect(native.stdout + native.stderr).toContain('usage: git help');
-      const actual = await repo.command(command, [['--help'], [selector]]);
+      const actual = await strict(repo).command(command, [['--help'], [selector]]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
@@ -260,7 +261,7 @@ describe('native shell frontends', () => {
       } else {
         expect(native.stdout + native.stderr).toContain('usage: git help');
       }
-      const actual = await repo.command(command, [['--help'], [selector]]);
+      const actual = await strict(repo).command(command, [['--help'], [selector]]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
@@ -304,7 +305,7 @@ describe('native shell frontends', () => {
         expect(native.status, native.stderr).toBe(0);
         expect(native.stdout).toContain('native-doc-viewer');
       }
-      const actual = await repo.command(command, [['--help'], [selector]]);
+      const actual = await strict(repo).command(command, [['--help'], [selector]]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);

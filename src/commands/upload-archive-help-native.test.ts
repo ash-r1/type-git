@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 const packetLengthHeader = /^[0-9a-f]{4}$/;
 const decodeSideband = (stdout: string): { ack: boolean; flushes: number; bands: string[] } => {
@@ -140,7 +141,7 @@ describe('archive frontend sole usage and sideband protocol controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('upload-archive', args as never, { stdin: input });
+      const actual = await strict(git).command('upload-archive', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       if (input) {
@@ -192,7 +193,7 @@ describe('archive frontend sole usage and sideband protocol controls', () => {
       [['--help-all'], { operand: root }],
       [{ operand: root }, ['--help']],
     ]) {
-      await expect(repo.command('upload-archive', args as never)).rejects.toBeInstanceOf(
+      await expect(strict(repo).command('upload-archive', args as never)).rejects.toBeInstanceOf(
         GitArgumentError,
       );
     }

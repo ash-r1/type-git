@@ -7,6 +7,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -209,7 +210,7 @@ describe('import and HTTP entrypoint grammars', () => {
         '\ncommit refs/heads/imported\ncommitter Test <test@example.com> 0 +0000\ndata 6\nimport\nM 100644 :1 binary\ndone\n',
       ),
     ]);
-    const imported = await repo.command('fast-import', [['--quiet'], ['--done']], {
+    const imported = await strict(repo).command('fast-import', [['--quiet'], ['--done']], {
       stdin: new Uint8Array(stream),
       stdout: 'bytes',
     });

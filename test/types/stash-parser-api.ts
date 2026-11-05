@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const branch: '--quiet' | '--quiet=1';
 git.command('stash push', [['--unified', '-2'], ['-h']]);
@@ -33,6 +32,7 @@ git.command('stash push', [['--unified', '2147483648'], ['-h']]);
 git.command('stash save', [['--inter-hunk-context', '2147483648'], ['-h']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Assert<T extends true> = T;
 type ClearHelp = readonly [{ readonly operand: 'file' }, readonly ['-h']];
 export type LegacyParentClearHelp = Assert<[CheckedCommandArguments<'stash clear', ClearHelp>] extends [never] ? false : true>;

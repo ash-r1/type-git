@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 git.command('range-diff', [['--max-memory', '0'], ['-h']]);
 git.command('range-diff', [['--max-memory', '1'], ['-h']]);

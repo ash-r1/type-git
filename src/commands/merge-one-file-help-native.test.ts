@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('merge-one-file first raw help and safe native controls', () => {
   let root: string;
@@ -87,7 +88,7 @@ describe('merge-one-file first raw help and safe native controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('merge-one-file', args as never);
+      const actual = await strict(git).command('merge-one-file', args as never);
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -130,7 +131,7 @@ describe('merge-one-file first raw help and safe native controls', () => {
   });
   it('does not turn later -h into a usage exit', async () => {
     await expect(
-      repo.command('merge-one-file', [{ operand: 'a' }, { operand: '-h' }] as never),
+      strict(repo).command('merge-one-file', [{ operand: 'a' }, { operand: '-h' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     const words = ['a', '-h', 'c', 'missing', '100644', '120000', '100644'];
     const result = await compare(

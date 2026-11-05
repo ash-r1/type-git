@@ -8,6 +8,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 const objectSnapshot = async (directory: string): Promise<Record<string, string>> => {
   const hashes: Record<string, string> = {};
@@ -165,7 +166,7 @@ describe('unpack-objects sole full usage and pack verification controls', () => 
             }),
           )
         : repo;
-      const actual = await git.command('unpack-objects', args as never, { stdin: input });
+      const actual = await strict(git).command('unpack-objects', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -221,7 +222,7 @@ describe('unpack-objects sole full usage and pack verification controls', () => 
   });
   it('retains ordinary operand rejection', async () => {
     await expect(
-      repo.command('unpack-objects', [{ operand: 'ordinary' }] as never),
+      strict(repo).command('unpack-objects', [{ operand: 'ordinary' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

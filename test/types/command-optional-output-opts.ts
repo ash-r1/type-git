@@ -1,11 +1,10 @@
 import type { GitCommandExecOpts } from '../../src/commands/types.js';
-import type { Git } from '../../src/core/git.js';
-import type { BareRepo, WorktreeRepo } from '../../src/core/repo.js';
 import type { GitOutputMode, RawResult } from '../../src/core/types.js';
+import type { StrictBareRepo, StrictGit, StrictWorktreeRepo } from '../../src/strict/index.js';
 
-declare const git: Git;
-declare const repo: WorktreeRepo;
-declare const bare: BareRepo;
+declare const git: StrictGit;
+declare const repo: StrictWorktreeRepo;
+declare const bare: StrictBareRepo;
 
 type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
   ? true

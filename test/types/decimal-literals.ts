@@ -1,7 +1,4 @@
-import type {
-  GitDecimalLiteral as Valid,
-  GitDecimalValue as Value,
-} from '../../src/constraints/git-decimal-types.js';
+import type { GitDecimalLiteral as Valid, GitDecimalValue as Value } from '../../src/constraints/git-decimal-types.js';
 type Cast = { kind: 'decimal'; longBits: 64; bits: 32; signed: true; conversion: 'cast' };
 type Mainline = Cast & { positive: true };
 type Abbrev = Cast & { nonzeroMinimum: 4; default: 'unknown' };

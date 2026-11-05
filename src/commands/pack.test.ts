@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -122,7 +123,7 @@ describe('pack command constraints', () => {
         },
       },
     }).open(repo.workdir);
-    const created = await audited.command('pack-objects', [['--stdout']], {
+    const created = await strict(audited).command('pack-objects', [['--stdout']], {
       stdin: `${object}\n`,
       stdout: 'bytes',
     });
@@ -134,17 +135,19 @@ describe('pack command constraints', () => {
     const framed = new Uint8Array(created.stdout.length + 16);
     framed.set(created.stdout, 8);
     const bytes = framed.subarray(8, -8);
-    const indexed = await repo.command('index-pack', [['--stdin'], ['--fix-thin']], {
+    const indexed = await strict(repo).command('index-pack', [['--stdin'], ['--fix-thin']], {
       stdin: bytes,
     });
     expect(indexed.exitCode, indexed.stderr).toBe(0);
     expect(indexed.aborted).toBe(false);
-    const unpacked = await repo.command('unpack-objects', [['-n'], ['--strict']], { stdin: bytes });
+    const unpacked = await strict(repo).command('unpack-objects', [['-n'], ['--strict']], {
+      stdin: bytes,
+    });
     expect(unpacked.exitCode, unpacked.stderr).toBe(0);
     expect(unpacked.aborted).toBe(false);
     const controller = new AbortController();
     controller.abort();
-    const cancelled = await repo.command('pack-objects', [['--stdout']], {
+    const cancelled = await strict(repo).command('pack-objects', [['--stdout']], {
       stdout: 'bytes',
       signal: controller.signal,
     });
@@ -214,7 +217,7 @@ describe('pack command constraints', () => {
       }
     }
   });
-  it.skipIf(!packHelp.includes('--stdin-packs') || !packHelp.includes('--cruft'))(
+  it.skipIf(!(packHelp.includes('--stdin-packs') && packHelp.includes('--cruft')))(
     'matches stdin packs and cruft revision-mode implications',
     () => {
       compare(

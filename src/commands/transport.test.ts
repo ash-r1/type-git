@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -135,7 +136,7 @@ describe('local transport command grammars', () => {
     for (const command of ['upload-pack', 'receive-pack'] as const) {
       const expected = direct([command, '--advertise-refs', repo.workdir]);
       expect(expected.status).toBe(0);
-      const actual = await repo.command(
+      const actual = await strict(repo).command(
         command,
         [['--advertise-refs'], { operand: repo.workdir }],
         { stdout: 'bytes' },

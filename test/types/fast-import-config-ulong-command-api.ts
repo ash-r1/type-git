@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 // @ts-expect-error Native unsigned configuration callback rejects this literal.
 git.command('fast-import', [['--quiet'], ["--max-pack-size", ""]]);
 git.command('fast-import', [['--quiet'], ["--max-pack-size", "0"]]);

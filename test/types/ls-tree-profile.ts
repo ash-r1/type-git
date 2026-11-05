@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('ls-tree', [['--help-all']]);
 git.command('ls-tree', [['--git-completion-helper']]);
 git.command('ls-tree', [['--git-completion-helper-all']]);

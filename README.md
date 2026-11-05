@@ -89,19 +89,35 @@ import { TypeGit } from 'type-git/node';
 const git = await TypeGit.create({ useLegacyVersion: true });
 ```
 
-### Typed CLI commands
+### Typed CLI commands (`type-git/strict`)
 
-Use `command()` for registered CLI operations, including ones without a parsed convenience method:
+For registered CLI operations without a parsed convenience method, import `strict` from
+`type-git/strict`. It wraps a client or repository and adds a grammar-checked `command()`:
 
 ```typescript
-const hash = await git.command('hash-object', [['--stdin']], { stdin: 'hello' });
-await repo.command('remote add', [{ operand: 'origin' }, { operand: '/path/to/upstream' }]);
+import { strict } from 'type-git/strict';
+
+const strictGit = strict(git);
+const hash = await strictGit.command('hash-object', [['--stdin']], { stdin: 'hello' });
+
+const strictRepo = strict(repo);
+await strictRepo.command('remote add', [{ operand: 'origin' }, { operand: '/path/to/upstream' }]);
+await strictRepo.status(); // every other method is still available
 ```
 
 Option tuples and operand objects retain ordering and repeated flags. Literal combinations are
-checked against declarative rules; dynamic input is validated at runtime. The result contains
-raw stdout, stderr, and exit status. See the [API design and pinned baselines](docs/design/typed-command-api.md)
-and [coverage ledger](docs/design/command-coverage.md) for the currently registered scopes and remaining audit work.
+checked against Git's option grammar at compile time; dynamic input is validated at runtime,
+including probes of the selected Git executable where its parser behavior differs between
+builds. The result contains raw stdout, stderr, and exit status. See the
+[API design and pinned baselines](docs/design/typed-command-api.md) and
+[coverage ledger](docs/design/command-coverage.md) for the registered scopes and remaining audit
+work.
+
+The grammar catalogue is large, so it lives only in `type-git/strict`. The main entry point
+(`type-git`, `type-git/node`, `type-git/bun`, `type-git/deno`) keeps `raw()`, the high-level API,
+and the runtime checks against argument injection, and neither its bundle nor its type
+declarations include the catalogue. For an application that only calls high-level methods such
+as `repo.status()`, the bundled size is about 180 KB minified instead of about 1.6 MB.
 
 ### Advanced Usage
 

@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Readonly helper observation, separate from the original command result. */
@@ -55,7 +56,7 @@ describe('observed submodule helper init alias', () => {
       .mockResolvedValueOnce(response(0));
     const env = { TYPE_GIT_SUBMODULE_TEST: 'yes' };
     const signal = new AbortController().signal;
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'submodule update',
       [['-i']],
@@ -81,7 +82,12 @@ describe('observed submodule helper init alias', () => {
         response(129, '', "error: unknown switch `i'\nusage: git submodule update\n"),
       );
     await expect(
-      new CliRunner(adapters).runCommand({ type: 'global' }, 'submodule update', [['-i']], true),
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+        { type: 'global' },
+        'submodule update',
+        [['-i']],
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
   });
@@ -91,7 +97,7 @@ describe('observed submodule helper init alias', () => {
       .fn()
       .mockResolvedValueOnce(response(129, 'usage: patched helper\n', 'fatal: unrelated failure\n'))
       .mockResolvedValueOnce(response(128, '', 'native original'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'submodule update',
       [['-i']],
@@ -104,7 +110,7 @@ describe('observed submodule helper init alias', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'submodule update',
       [['-i']],
@@ -119,7 +125,7 @@ describe('observed submodule helper init alias', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'submodule update',
         [['-i'], { operand: 'bad\0word' }],
@@ -131,7 +137,7 @@ describe('observed submodule helper init alias', () => {
   it('does not probe a frontend alias replaced by a later long spelling', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(0));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'submodule update',
       [['-i'], ['--init']],
@@ -147,7 +153,7 @@ describe('observed submodule helper init alias', () => {
         response(128, '', "fatal: 'update' is not a valid submodule--helper subcommand\n"),
       )
       .mockResolvedValueOnce(response(0));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'submodule update',
       [['-i']],

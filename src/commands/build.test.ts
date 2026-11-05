@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import type { GitCommandName } from './types.js';
@@ -87,7 +88,9 @@ describe('typed command arguments', () => {
     const native = spawnSync('git', ['hash-object', '--stdin'], { input, encoding: 'utf8' });
     expect(native.error).toBeUndefined();
     expect(native.status).toBe(0);
-    const actual = await new TypeGit().command('hash-object', [['--stdin']], { stdin: input });
+    const actual = await strict(new TypeGit()).command('hash-object', [['--stdin']], {
+      stdin: input,
+    });
     expect(actual.exitCode).toBe(0);
     expect(actual.stdout).toBe(native.stdout);
   });
@@ -171,7 +174,7 @@ describe('typed commands against Git LFS', () => {
       );
     }
     expect(direct.error, name).toBeUndefined();
-    const actual = await repo.command(name, [['--help']]);
+    const actual = await strict(repo).command(name, [['--help']]);
     expect(actual.exitCode, name).toBe(direct.status);
     expect(actual.stdout, name).toBe(direct.stdout);
   }, 30000);
@@ -235,7 +238,7 @@ describe('typed commands against Git LFS', () => {
       });
       expect(direct.status, JSON.stringify(args)).toBe(0);
     }
-    const actual = await git.command('hash-object', [['--stdin']], { stdin: 'hello' });
+    const actual = await strict(git).command('hash-object', [['--stdin']], { stdin: 'hello' });
     expect(actual.stdout.trim()).toBe('b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0');
   });
 
@@ -262,20 +265,25 @@ describe('typed commands against Git LFS', () => {
     expect(
       commandArguments('remote show', [['-v'], ['-n'], ['--verbose'], { operand: 'origin' }]),
     ).toEqual(['remote', '-v', '--verbose', 'show', '-n', 'origin']);
-    expect((await repo.command('remote add', target)).exitCode).toBe(0);
-    const actual = await repo.command('remote show', [['-v'], ['-n'], { operand: 'origin' }]);
+    expect((await strict(repo).command('remote add', target)).exitCode).toBe(0);
+    const actual = await strict(repo).command('remote show', [
+      ['-v'],
+      ['-n'],
+      { operand: 'origin' },
+    ]);
     const direct = spawnSync('git', ['-C', repo.workdir, 'remote', '-v', 'show', '-n', 'origin'], {
       env,
       encoding: 'utf8',
     });
     expect(actual.stdout).toBe(direct.stdout);
     expect(
-      (await repo.command('remote set-url', [{ operand: 'origin' }, { operand: '..' }])).exitCode,
+      (await strict(repo).command('remote set-url', [{ operand: 'origin' }, { operand: '..' }]))
+        .exitCode,
     ).toBe(0);
-    expect((await repo.command('remote get-url', [{ operand: 'origin' }])).stdout.trim()).toBe(
-      '..',
-    );
-    expect((await repo.command('remote remove', [{ operand: 'origin' }])).exitCode).toBe(0);
+    expect(
+      (await strict(repo).command('remote get-url', [{ operand: 'origin' }])).stdout.trim(),
+    ).toBe('..');
+    expect((await strict(repo).command('remote remove', [{ operand: 'origin' }])).exitCode).toBe(0);
   });
 
   it('checks basic command combinations and honors flags that Git ignores in interactive mode', () => {
@@ -342,32 +350,34 @@ describe('typed commands against Git LFS', () => {
     expect(help.error).toBeUndefined();
     expect(help.status).toBe(0);
     const pointer = help.stdout.includes('--no-extensions')
-      ? await git.command('lfs pointer', [['--file', file], ['--no-extensions']])
-      : await git.command('lfs pointer', [['--file', file]]);
+      ? await strict(git).command('lfs pointer', [['--file', file], ['--no-extensions']])
+      : await strict(git).command('lfs pointer', [['--file', file]]);
     expect(pointer.exitCode, pointer.stderr).toBe(0);
     expect(pointer.stdout).toContain('version https://git-lfs.github.com/spec/v1');
-    const checked = await repo.command('lfs pointer', [['--check'], ['--stdin']], {
+    const checked = await strict(repo).command('lfs pointer', [['--check'], ['--stdin']], {
       stdin: pointer.stdout,
     });
     expect(checked.exitCode).toBe(0);
-    const invalid = await repo.command('lfs pointer', [['--check'], ['--stdin']], {
+    const invalid = await strict(repo).command('lfs pointer', [['--check'], ['--stdin']], {
       stdin: 'invalid pointer',
     });
     expect(invalid.exitCode).toBe(1);
     const bare = await git.init(join(root, 'bare'), { bare: true });
-    expect((await bare.command('lfs version', [])).stdout).toContain('git-lfs/');
+    expect((await strict(bare).command('lfs version', [])).stdout).toContain('git-lfs/');
   });
 
   it('allows ignored strict flags outside checking mode and effective false flags', async () => {
     const file = join(root, 'file.bin');
     await writeFile(file, 'hello');
     expect(
-      (await git.command('lfs pointer', [['--file', file], ['--strict'], ['--no-strict']]))
+      (await strict(git).command('lfs pointer', [['--file', file], ['--strict'], ['--no-strict']]))
         .exitCode,
     ).toBe(0);
-    expect((await repo.command('lfs checkout', [['--ours'], ['--ours', false]])).exitCode).toBe(0);
-    await expect(repo.command('lfs checkout', [['--ours']] as never)).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
+    expect(
+      (await strict(repo).command('lfs checkout', [['--ours'], ['--ours', false]])).exitCode,
+    ).toBe(0);
+    await expect(
+      strict(repo).command('lfs checkout', [['--ours']] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });
