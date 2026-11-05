@@ -43,14 +43,14 @@ console.log('   ✓ Deno adapter entry point works');
 console.log('5. Testing strict entry point (type-git/strict)...');
 const { strict } = await import('type-git/strict');
 assert(typeof strict === 'function', 'strict should be exported from strict entry');
-assert.strictEqual(main.GitCommandClient, undefined);
+assert.strictEqual(main.strict, undefined, 'strict() should only be exported from type-git/strict');
 console.log('   ✓ Strict entry point works');
 
 // Test 6: Runtime test - actually use the library
 console.log('6. Testing runtime functionality...');
 const git = new node.TypeGit();
 assert.strictEqual(git.command, undefined, 'lightweight clients no longer expose command()');
-  const version = await git.version();
+const version = await git.version();
 assert(version, 'version() should return a string');
 assert(version.match(/^\d+\.\d+/), 'version should be in semver format');
 

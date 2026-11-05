@@ -47,6 +47,13 @@ describe('entry-point boundary', () => {
         files.filter((file) => file.startsWith('commands/') || file.startsWith('strict/')),
       ).toEqual([]);
       expect(files).toContain('runner/cli-runner.ts');
+      // Package self-references would bypass the relative import walk above.
+      const selfReferences = files.filter((file) =>
+        /\bfrom\s*['"]type-git(?:\/[^'"]*)?['"]|\brequire\(\s*['"]type-git/.test(
+          readFileSync(resolve(src, file), 'utf8'),
+        ),
+      );
+      expect(selfReferences).toEqual([]);
     });
   }
 

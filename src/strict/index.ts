@@ -69,13 +69,14 @@ export function strict<T extends Git | WorktreeRepo | BareRepo>(target: T): Stri
   if (host === undefined) {
     throw new GitArgumentError('strict() expects a Git client or repository created by type-git');
   }
-  const command = (
+  // Async so that any failure surfaces as a rejected promise, as the former method did.
+  const command = async (
     name: GitCommandName,
     args: readonly unknown[],
     opts?: CommandRunOptions & { stdout?: GitOutputMode },
   ): Promise<RawResult<string | Uint8Array>> => {
     const current = commandHostOf(target) ?? host;
-    return strictRunner(current).runCommand(
+    return await strictRunner(current).runCommand(
       current.context,
       name,
       args,

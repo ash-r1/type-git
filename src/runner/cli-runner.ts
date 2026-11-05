@@ -259,15 +259,6 @@ export function validateIO(opts: CommandRunOptions | undefined): void {
 }
 
 /**
- * CLI Runner for executing Git commands
- *
- * Handles:
- * - Command construction based on execution context
- * - Progress tracking from stderr (Git and LFS)
- * - Abort signal handling
- * - Error mapping
- */
-/**
  * Execution hooks shared with the grammar-checked command runner in `type-git/strict`.
  *
  * Not part of the public API: the strict entry point reaches the runner's adapters and
@@ -314,6 +305,15 @@ export function cliRunnerInternals(runner: CliRunner): CliRunnerInternals {
   return internalsOf!(runner);
 }
 
+/**
+ * CLI Runner for executing Git commands
+ *
+ * Handles:
+ * - Command construction based on execution context
+ * - Progress tracking from stderr (Git and LFS)
+ * - Abort signal handling
+ * - Error mapping
+ */
 export class CliRunner {
   static {
     internalsOf = (runner) => ({

@@ -43,7 +43,7 @@ console.log('   ✓ Deno adapter entry point works');
 console.log('5. Testing strict entry point (type-git/strict)...');
 const { strict } = require('type-git/strict');
 assert(typeof strict === 'function', 'strict should be exported from strict entry');
-assert.strictEqual(main.GitCommandClient, undefined);
+assert.strictEqual(main.strict, undefined, 'strict() should only be exported from type-git/strict');
 console.log('   ✓ Strict entry point works');
 
 // Test 6: Runtime test - actually use the library

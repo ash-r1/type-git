@@ -142,7 +142,7 @@ export type ExecOpts = {
 };
 
 /**
- * Options for `raw()` and typed `command()` calls.
+ * Options for `raw()` and `strict(...).command()` calls.
  *
  * Extends {@link ExecOpts} with a per-call environment overlay.
  */
