@@ -21,9 +21,9 @@ import type { GitCommandClient, GitCommandName } from '../commands/types.js';
 import type { Git } from '../core/git.js';
 import type { BareRepo, WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError, type GitOutputMode, type RawResult } from '../core/types.js';
-import { type CommandHost, commandHostOf } from '../internal/command-host.js';
+import { commandHostOf } from '../internal/command-host.js';
 import type { CommandRunOptions } from '../runner/cli-runner.js';
-import { StrictCommandRunner } from './command-runner.js';
+import { strictCommandRunner } from './command-runner.js';
 
 export type {
   CheckedCommandArguments,
@@ -41,20 +41,6 @@ export type StrictGit = Strict<Git>;
 export type StrictWorktreeRepo = Strict<WorktreeRepo>;
 /** Bare repository with grammar-checked `command()`. */
 export type StrictBareRepo = Strict<BareRepo>;
-
-const runners: WeakMap<CommandHost['runner'], StrictCommandRunner> = new WeakMap<
-  CommandHost['runner'],
-  StrictCommandRunner
->();
-
-function strictRunner(host: CommandHost): StrictCommandRunner {
-  let runner = runners.get(host.runner);
-  if (runner === undefined) {
-    runner = new StrictCommandRunner(host.runner);
-    runners.set(host.runner, runner);
-  }
-  return runner;
-}
 
 /**
  * Add grammar-checked `command()` to a Git client or repository.
@@ -76,7 +62,7 @@ export function strict<T extends Git | WorktreeRepo | BareRepo>(target: T): Stri
     opts?: CommandRunOptions & { stdout?: GitOutputMode },
   ): Promise<RawResult<string | Uint8Array>> => {
     const current = commandHostOf(target) ?? host;
-    return await strictRunner(current).runCommand(
+    return await strictCommandRunner(current.runner).runCommand(
       current.context,
       name,
       args,

@@ -1267,3 +1267,18 @@ export class StrictCommandRunner {
     return await execute(build(command, args, inRepository, abi));
   }
 }
+
+const runners: WeakMap<CliRunner, StrictCommandRunner> = new WeakMap<
+  CliRunner,
+  StrictCommandRunner
+>();
+
+/** The grammar-checked runner bound to a CliRunner, created once per runner. */
+export function strictCommandRunner(runner: CliRunner): StrictCommandRunner {
+  let strict = runners.get(runner);
+  if (strict === undefined) {
+    strict = new StrictCommandRunner(runner);
+    runners.set(runner, strict);
+  }
+  return strict;
+}
