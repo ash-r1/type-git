@@ -17,9 +17,11 @@ import {
   validateRevParseRefOpts,
 } from '../core/option-rules.js';
 import { GitError } from '../core/types.js';
+import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 import { parseLfsFilesJson, parseLfsStatusJson } from '../internal/lfs-output.js';
 import { fetch as fetchRepository, push as pushRepository } from '../internal/transport.js';
+import { strictCommandRunner } from '../strict/command-runner.js';
 /**
  * WorktreeRepo implementation - repository with working directory
  */
@@ -214,6 +216,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public constructor(runner: CliRunner, workdir: string, options?: GitOpenOptions) {
     this.runner = runner;
     this.workdir = workdir;
+    registerCommandHost(this, () => ({
+      runner: this.runner,
+      context: this.context,
+      inRepository: true,
+    }));
 
     if (options?.lfs) {
       this._lfsMode = options.lfs;
@@ -386,7 +393,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     args: readonly unknown[],
     opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>> {
-    return await this.runner.runCommand(this.context, command, args, true, opts);
+    return await strictCommandRunner(this.runner).runCommand(
+      this.context,
+      command,
+      args,
+      true,
+      opts,
+    );
   }
 
   /** Execute a raw Git command without typed argument validation. */

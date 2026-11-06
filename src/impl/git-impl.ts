@@ -11,7 +11,9 @@ import type {
 } from '../commands/types.js';
 import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
+import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
+import { strictCommandRunner } from '../strict/command-runner.js';
 /**
  * Git implementation - repository-agnostic operations
  */
@@ -266,6 +268,11 @@ export class GitImpl implements Git {
 
   public constructor(options: CreateGitOptions) {
     this.runner = new CliRunner(options.adapters, options);
+    registerCommandHost(this, () => ({
+      runner: this.runner,
+      context: { type: 'global' },
+      inRepository: undefined,
+    }));
     this.adapters = options.adapters;
 
     // Initialize global config operations
@@ -674,7 +681,13 @@ export class GitImpl implements Git {
     args: readonly unknown[],
     opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>> {
-    return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
+    return await strictCommandRunner(this.runner).runCommand(
+      { type: 'global' },
+      command,
+      args,
+      undefined,
+      opts,
+    );
   }
 
   /** Execute a raw Git command without typed argument validation. */

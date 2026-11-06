@@ -60,9 +60,10 @@ log_info "Building package..."
 pnpm build
 log_success "Package built"
 
-# Entry points must stay thin: the generated command tables belong in shared
-# chunks emitted once per format, not inlined into every entry bundle.
-OVERSIZED_ENTRIES="$(find "$ROOT_DIR/dist" -name 'index.js' -size +256k -o -name 'index.cjs' -size +256k)"
+# Entry points must stay thin: shared code belongs in chunks emitted once per
+# format, not inlined into every entry bundle. The strict entry is the only
+# importer of the generated command tables, so it alone may carry them.
+OVERSIZED_ENTRIES="$(find "$ROOT_DIR/dist" -path "$ROOT_DIR/dist/strict" -prune -o \( -name 'index.js' -o -name 'index.cjs' \) -size +256k -print)"
 if [ -n "$OVERSIZED_ENTRIES" ]; then
   log_error "Entry bundles duplicate shared code (enable tsup splitting):"
   echo "$OVERSIZED_ENTRIES"

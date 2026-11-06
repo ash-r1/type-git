@@ -14,8 +14,10 @@ import {
   validateRevParseQuery,
   validateRevParseRefOpts,
 } from '../core/option-rules.js';
+import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 import { fetch as fetchRepository, push as pushRepository } from '../internal/transport.js';
+import { strictCommandRunner } from '../strict/command-runner.js';
 /**
  * BareRepo implementation - repository without working directory
  */
@@ -363,6 +365,11 @@ export class BareRepoImpl implements BareRepo {
   public constructor(runner: CliRunner, gitDir: string, _options?: unknown) {
     this.runner = runner;
     this.gitDir = gitDir;
+    registerCommandHost(this, () => ({
+      runner: this.runner,
+      context: this.context,
+      inRepository: true,
+    }));
 
     // Initialize remote operations
     this.remote = {
@@ -446,7 +453,13 @@ export class BareRepoImpl implements BareRepo {
     args: readonly unknown[],
     opts: GitCommandExecOpts<GitOutputMode> | undefined,
   ): Promise<RawResult<string | Uint8Array>> {
-    return await this.runner.runCommand(this.context, command, args, true, opts);
+    return await strictCommandRunner(this.runner).runCommand(
+      this.context,
+      command,
+      args,
+      true,
+      opts,
+    );
   }
 
   /** Execute a raw Git command without typed argument validation. */
