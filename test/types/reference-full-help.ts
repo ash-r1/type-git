@@ -1,5 +1,5 @@
-import type {Git} from '../../src/index.js';
-declare const git:Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git:StrictGit;
 for(const command of ['branch','for-each-ref','tag','show-branch'] as const){
  git.command(command,[['--help-all']]);
  git.command(command,[['--help-all'],['--git-completion-helper']]);

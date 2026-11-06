@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('shortlog', [['--group', 'AUTHOR'], ['-w', '76,6,9'], { operand: 'HEAD' }]);
 git.command('show-branch', [['--merge-base'], ['--independent']]);
 git.command('show-branch', [['--list'], ['--no-more'], ['--merge-base']]);

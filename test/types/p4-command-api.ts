@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('p4', [{ operand: 'submit' }, ['--conflict', 'ask'], ['--update-shelve', 1]]);
 git.command('p4 commit', [['--conflict', 'skip']]);
 // @ts-expect-error Choice validation precedes help.

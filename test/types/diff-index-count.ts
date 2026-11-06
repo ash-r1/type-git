@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('diff-index', [{ operand: 'HEAD' }]);
 git.command('diff-index', [['--max-count', '-1'], { operand: 'HEAD' }]);
 git.command('diff-index', [['--max-count', '1'], ['--max-count', '-1'], { operand: 'HEAD' }]);

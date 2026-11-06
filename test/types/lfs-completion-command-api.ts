@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('lfs __complete', [{ operand: '' }]);
 git.command('lfs __completeNoDesc', [{ operand: 'fetch' }, { operand: '--recent' }, { operand: '' }]);
 git.command('lfs __complete', [{ operand: '--help' }]);

@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const blameColorGit: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const blameColorGit: StrictGit;
 declare const blameColorUnion: '--color' | '--color-lines';
 for (const command of ['blame', 'annotate', 'pickaxe'] as const) {
   blameColorGit.command(command, [['--color-lines'], ['-h']]);

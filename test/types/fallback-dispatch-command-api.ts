@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('config', [{ operand: 'test.value' }]);
 git.command('config', [['--edit'], { operand: 'ignored' }]);
 git.command('config', [{ operand: 'get' }, ['--all'], { operand: 'test.value' }]);
@@ -31,9 +30,8 @@ git.command('reflog', [{ operand: 'exists' }, { operand: 'HEAD' }, { operand: 'e
 git.command('reflog', [{ operand: 'exists' }]);
 
 import type { RawResult } from '../../src/core/types.js';
-import type { BareRepo, WorktreeRepo } from '../../src/core/repo.js';
-declare const worktree: WorktreeRepo;
-declare const bare: BareRepo;
+declare const worktree: StrictWorktreeRepo;
+declare const bare: StrictBareRepo;
 const bytes: Promise<RawResult<Uint8Array>> = git.command('config', [{ operand: 'get' }, { operand: 'test.value' }], { stdout: 'bytes' });
 const worktreeBytes: Promise<RawResult<Uint8Array>> = worktree.command('config', [{ operand: 'get' }, { operand: 'test.value' }], { stdout: 'bytes' });
 const bareBytes: Promise<RawResult<Uint8Array>> = bare.command('config', [{ operand: 'get' }, { operand: 'test.value' }], { stdout: 'bytes' });
@@ -48,6 +46,7 @@ declare const templateOperation: `g${string}`;
 git.command('config', [{ operand: templateOperation }, ['--all'], { operand: 'test.value' }]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictBareRepo, StrictGit, StrictWorktreeRepo } from '../../src/strict/index.js';
 type MixedDispatchArguments = readonly [
   { readonly operand: 'get' | 'edit' },
   { readonly operand: 'test.value' },

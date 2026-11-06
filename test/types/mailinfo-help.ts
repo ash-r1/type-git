@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('mailinfo', [['--help-all']]);
 git.command('mailinfo', [['--git-completion-helper']]);
 git.command('mailinfo', [['--git-completion-helper-all']]);

@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('ls-remote', [['-h']]);
 git.command('ls-remote', [['--help-all']]);
 git.command('ls-remote', [['--git-completion-helper']]);

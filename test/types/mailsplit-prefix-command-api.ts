@@ -1,6 +1,7 @@
 import type { TypeGit } from '../../src/adapters/node/index.js';
 import type { GitDecimalValue } from '../../src/constraints/git-decimal-types.js';
-declare const git: TypeGit;
+import type { Strict } from '../../src/strict/index.js';
+declare const git: Strict<TypeGit>;
 type Check<T extends true> = T;
 
 git.command('mailsplit', [['-d', '4suffix'], ['-f', '5suffix'], ['-o', 'out']]);

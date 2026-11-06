@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('rev-list', [{ operand: 'HEAD' }]);
 git.command('rev-list', [['--count'], ['--all']]);
 git.command('rev-list', [['--objects']]);

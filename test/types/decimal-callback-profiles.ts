@@ -1,6 +1,6 @@
-import type { Git } from '../../src/core/git.js';
 import type { GitDecimalLiteral as Valid, GitDecimalValue as Value } from '../../src/constraints/git-decimal-types.js';
 import type { LegacyGitDecimal } from '../../src/constraints/git-decimal.js';
+import type { StrictGit } from '../../src/strict/index.js';
 
 type Mainline32 = { kind: 'decimal'; longBits: 32; bits: 32; signed: true; conversion: 'cast'; positive: true };
 type Count = { kind: 'decimal'; longBits: 64; bits: 32; signed: true; conversion: 'checked'; nativeCallback: 'revision-count' };
@@ -21,7 +21,7 @@ export const saturated: Value<'2147483648', Mainline32> = 2147483647;
 export const prefix: Value<'  -001k', LegacyCount> = -1;
 export const absentPrefix: Value<'bad', LegacyCount> = 0;
 
-declare const git: Git;
+declare const git: StrictGit;
 git.command('rev-list', [['--max-count', '1k'], ['--all']]);
 git.command('rev-list', [['--max-count', ''], ['--all']]);
 git.command('apply', [['-p', '1k'], ['--check']]);

@@ -1,7 +1,7 @@
 import type { CheckedCommandArguments, GitCommandArgument } from '../../src/commands/types.js';
-import type { Git } from '../../src/core/git.js';
 import type { GitOutputMode, RawResult } from '../../src/core/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 // Primary Git scopes come from COMMAND_SPECS argv/executable metadata, not a handpicked list.
 git.command('hash-object', [['--help'], ['--man']]);
 git.command('hash-object', [['--help'], ['-m']]);
