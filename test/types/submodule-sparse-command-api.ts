@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('submodule', []);
 git.command('submodule update', [['--init'], ['--filter', 'blob:none']]);
 git.command('submodule update', [['--require-init'], ['--filter', 'blob:none']]);
@@ -40,6 +39,7 @@ git.command('submodule update', [['-i'], ['--init']]);
 git.command('submodule update', [['--init'], ['-i']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 type Accepted<A extends readonly import('../../src/commands/types.js').GitCommandArgument<'submodule update'>[], P extends import('../../src/commands/gui-syntax.js').CommandGrammarContext> = [CheckedCommandArguments<'submodule update', A, P>] extends [never] ? false : true;
 export type SubmoduleInitSourceCases = readonly [

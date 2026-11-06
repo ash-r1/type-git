@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('column', [['--width', '  +010k'], ['-h']]);
 git.command('column', [['--width', '-2G'], ['-h']]);
 git.command('pack-objects', [['--max-pack-size', 18446744073709551615n], ['-h']]);

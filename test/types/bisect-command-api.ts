@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const term: string;
 declare const choice: 'fixed' | 'broken';
 git.command('bisect start', [['--no-checkout'], ['--term-good', 'fixed'], ['--term-bad', 'broken']]);

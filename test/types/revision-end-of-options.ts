@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 // Words after --end-of-options are operands, even when they look like options.
 git.command('log', [{ operand: '--end-of-options' }, { operand: '--bogus' }]);
 git.command('log', [{ operand: 'HEAD' }, { operand: '--end-of-options' }, { operand: '--bogus' }]);

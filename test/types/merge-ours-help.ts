@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('merge-ours', [['--help-all']]);
 git.command('merge-ours', [['--help-all'], { operand: 'ignored' }]);
 git.command('merge-ours', [{ operand: '--git-completion-helper' }]);

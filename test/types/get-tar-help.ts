@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('get-tar-commit-id', []);
 git.command('get-tar-commit-id', [], { stdin: new Uint8Array(1024) });
 git.command('get-tar-commit-id', [['-h']]);

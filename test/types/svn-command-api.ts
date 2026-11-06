@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('svn clone', [['--log-window-size', '18446744073709551616'], ['-h']]);
 git.command('svn clone', [['--log-window-size', 18446744073709551616n], ['-h']]);
 git.command('svn clone', [['--log-window-size', '1_000'], ['-h']]);

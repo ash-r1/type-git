@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 // Values ignored after help remain serializable but need not belong to the callback grammar.
 git.command('branch', [['-h'], ['--track', 'invalid']]);

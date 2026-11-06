@@ -1,5 +1,5 @@
-import type {Git} from '../../src/index.js';
-declare const git:Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git:StrictGit;
 git.command('grep',[['--threads',1],['--help'],['--threads','invalid']]);
 git.command('grep',[['--threads',-1],['--help']]);
 git.command('grep',[['--cached'],['--no-index'],['--help']]);

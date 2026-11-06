@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('read-tree', [['--exclude-per-directory', 'other'], ['-h']]);
 git.command('read-tree', [['--exclude-per-directory', ''], ['-u'], ['--help-all']]);
 git.command('read-tree', [['-u'], ['--exclude-per-directory', '.gitignore'], ['--exclude-per-directory', '.gitignore'], ['-h']]);

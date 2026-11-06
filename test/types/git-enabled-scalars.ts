@@ -3,6 +3,7 @@
 import type { GitEnabledLiteral } from '../../src/constraints/git-enabled-types.js';
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
 import type { TypeGit } from '../../src/adapters/node/index.js';
+import type { Strict } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 export type NativeEnabledCases = readonly [
   Check<GitEnabledLiteral<""> extends false ? true : false>,
@@ -489,7 +490,7 @@ export type NativeFetchConstraints = readonly [
   Check<([CheckedCommandArguments<'fetch', readonly [readonly ['--porcelain'], readonly ['--recurse-submodules', "-0x1g"]]>] extends [never] ? false : true) extends false ? true : false>,
   Check<([CheckedCommandArguments<'fetch', readonly [readonly ['--porcelain'], readonly ['--recurse-submodules', "-0x2g"]]>] extends [never] ? false : true) extends false ? true : false>,
  ];
-declare const git: TypeGit;
+declare const git: Strict<TypeGit>;
 declare const dynamic: string;
 git.command('fetch', [['--porcelain'], ['--recurse-submodules', dynamic]]);
 git.command('fetch', [['--porcelain'], ['--recurse-submodules', '-0x0k']]);

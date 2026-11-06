@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
 import type { GitBooleanCallbackLiteral, GitBooleanCallbackValue, GitBooleanLiteral, GitBooleanValue } from '../../src/constraints/git-boolean-types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Equal<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
 type Check<T extends true> = T;
 export type CallbackStateCases = readonly [
@@ -17,7 +17,7 @@ export type CallbackStateCases = readonly [
   Check<Equal<GitBooleanCallbackLiteral<string, 'fetch-recurse'>, true>>,
   Check<Equal<GitBooleanLiteral<undefined>, false>>,
 ];
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 git.command('push', [['--recurse-submodules', '0k'], ['-h']]);
 git.command('push', [['--recurse-submodules', 'only'], ['--recurse-submodules', 'only-is-on-demand'], ['-h']]);

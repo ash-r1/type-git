@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('mailinfo', [['-u'], ['-n'], ['--encoding', 'UTF-8'], ['--quoted-cr', 'strip'], { operand: 'message' }, { operand: 'patch' }]);
 // @ts-expect-error Invalid callback values cannot be overwritten.
 git.command('mailinfo', [['--quoted-cr', 'STRIP'], ['--quoted-cr', 'strip'], { operand: 'message' }, { operand: 'patch' }]);

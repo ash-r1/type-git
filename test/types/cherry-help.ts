@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('cherry', [['--help-all']]);
 git.command('cherry', [['--git-completion-helper']]);
 git.command('cherry', [['--git-completion-helper-all']]);

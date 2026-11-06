@@ -20,7 +20,8 @@ export type FiniteUnion = Assert<Equal<
 >>;
 
 import type { TypeGit } from '../../src/adapters/node/index.js';
-declare const git: TypeGit;
+import type { Strict } from '../../src/strict/index.js';
+declare const git: Strict<TypeGit>;
 git.command('svn', [{ operand: 'ignored' }, { operand: 'fetch' }, ['--log-window-size', '1'], ['-h']]);
 git.command('svn', [['-i', 'fetch'], { operand: 'init' }, ['--log-window-size', '1'], ['-h']]);
 // @ts-expect-error selected fetch still rejects an invalid integer before help

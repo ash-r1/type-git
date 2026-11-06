@@ -1,5 +1,6 @@
 import type { TypeGit } from '../../src/adapters/node/index.js';
-declare const git: TypeGit;
+import type { Strict } from '../../src/strict/index.js';
+declare const git: Strict<TypeGit>;
 
 git.command('svn clone', [['--m'], ['-h']]);
 git.command('svn', [{ operand: 'clone' }, ['--m'], ['-h']]);

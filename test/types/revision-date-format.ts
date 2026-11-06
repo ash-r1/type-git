@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('log', [['--date', 'iso8601-strict-local']]);
 git.command('log', [['--date', 'local']]);
 git.command('show', [['--date', 'format:']]);

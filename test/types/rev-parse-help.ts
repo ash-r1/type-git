@@ -1,5 +1,5 @@
-import type { Git, GitCommandArgument } from '../../src/index.js';
-declare const git: Git;
+import type { GitCommandArgument, StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('rev-parse', [['--help-all']]);
 git.command('rev-parse', [['--help-all'], { operand: 'HEAD' }]);
 git.command('rev-parse', [['--verify'], ['--help-all']]);

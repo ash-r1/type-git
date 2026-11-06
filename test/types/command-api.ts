@@ -1,6 +1,6 @@
-import type { Git } from '../../src/core/git.js';
 import type { GitCommandArgument } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('lfs version', []);
 git.command('lfs pointer', [['--file', 'file.bin']]);
 git.command('lfs pointer', [['--check'], ['--stdin']], { stdin: 'pointer' });
