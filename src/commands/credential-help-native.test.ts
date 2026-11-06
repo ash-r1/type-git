@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('credential sole usage and helperless operation controls', () => {
   let root: string;
@@ -98,7 +99,7 @@ describe('credential sole usage and helperless operation controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('credential', args as never, { stdin: input });
+      const actual = await strict(git).command('credential', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -143,13 +144,13 @@ describe('credential sole usage and helperless operation controls', () => {
   it('rejects non-usage operands and multiword help', async () => {
     expect(native(['credential', 'ordinary', '--help']).status).toBe(129);
     await expect(
-      repo.command('credential', [{ operand: 'ordinary' }, ['--help']] as never),
+      strict(repo).command('credential', [{ operand: 'ordinary' }, ['--help']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('credential', [{ operand: 'ordinary' }] as never),
+      strict(repo).command('credential', [{ operand: 'ordinary' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('credential', [['-h'], { operand: 'ignored' }] as never),
+      strict(repo).command('credential', [['-h'], { operand: 'ignored' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

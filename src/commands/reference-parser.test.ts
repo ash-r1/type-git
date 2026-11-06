@@ -7,6 +7,7 @@ import corpus from '../../test/fixtures/reference-parser-corpus.json';
 import { isLiteralOperandRefusal } from '../../test/support/literal-operand.js';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import { initialParserPass } from './initial-parser-pass.js';
@@ -100,7 +101,7 @@ describe('selected-native final untracked modes', () => {
             ? [word.slice(0, word.indexOf('=')), word.slice(word.indexOf('=') + 1)]
             : [word],
         );
-        const actual = await repo.command('status', tokens as never);
+        const actual = await strict(repo).command('status', tokens as never);
         expect(actual.exitCode, JSON.stringify(words)).toBe(native.status);
         expect(actual.stdout).toBe(native.stdout);
         expect(actual.stderr).toBe(native.stderr);

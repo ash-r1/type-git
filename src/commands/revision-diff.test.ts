@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -254,26 +255,30 @@ describe('revision and diff parser constraints', () => {
   it('executes each new command and preserves detached --default values', async () => {
     expect(
       (
-        await repo.command('log', [
+        await strict(repo).command('log', [
           ['--default', 'HEAD'],
           ['--format', '%s'],
         ])
       ).stdout,
     ).toBe('second\ninitial\n');
-    expect((await repo.command('show', [['--no-patch'], ['--format', '%s']])).stdout).toBe(
+    expect((await strict(repo).command('show', [['--no-patch'], ['--format', '%s']])).stdout).toBe(
       'second\n',
     );
-    expect((await repo.command('diff', [])).exitCode).toBe(0);
-    expect((await repo.command('diff-files', [])).exitCode).toBe(0);
-    expect((await repo.command('diff-index', [{ operand: 'HEAD' }])).exitCode).toBe(0);
-    expect((await repo.command('diff-tree', [{ operand: 'HEAD' }])).exitCode).toBe(0);
+    expect((await strict(repo).command('diff', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('diff-files', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('diff-index', [{ operand: 'HEAD' }])).exitCode).toBe(0);
+    expect((await strict(repo).command('diff-tree', [{ operand: 'HEAD' }])).exitCode).toBe(0);
     expect(() => commandArguments('log', [['--max-count', 2147483648]])).toThrow(GitArgumentError);
     expect(() => commandArguments('log', [['--expand-tabs', -1]])).toThrow(GitArgumentError);
   });
   it('uses a separate no-index grammar and enforces its two required paths', async () => {
     expect(
-      (await repo.command('diff --no-index', [{ operand: 'tracked' }, { operand: 'tracked' }]))
-        .exitCode,
+      (
+        await strict(repo).command('diff --no-index', [
+          { operand: 'tracked' },
+          { operand: 'tracked' },
+        ])
+      ).exitCode,
     ).toBe(0);
     expect(() => commandArguments('diff --no-index', [{ operand: 'tracked' }])).toThrow(
       GitArgumentError,

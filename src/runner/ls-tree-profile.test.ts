@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const result = (exitCode: number, stdout = '', stderr = '', aborted = false) => ({
@@ -29,11 +30,17 @@ describe('selected ls-tree mode observation', () => {
     a.exec.spawn = spawn;
     const signal = new AbortController().signal;
     const env = { LS_TREE_PROFILE_TEST: 'yes' };
-    const actual = await new CliRunner(a).runCommand({ type: 'global' }, 'ls-tree', args, true, {
-      env,
-      signal,
-      stdin: 'caller',
-    });
+    const actual = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'ls-tree',
+      args,
+      true,
+      {
+        env,
+        signal,
+        stdin: 'caller',
+      },
+    );
     expect(actual.stdout).toBe('original help');
     expect(spawn).toHaveBeenCalledTimes(4);
     for (const call of spawn.mock.calls.slice(0, 3)) {
@@ -53,7 +60,7 @@ describe('selected ls-tree mode observation', () => {
     }
     a.exec.spawn = spawn;
     const listingArgs = [['--long'], ['--name-only'], { operand: 'HEAD' }];
-    const actual = await new CliRunner(a).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(a)).runCommand(
       { type: 'global' },
       'ls-tree',
       listingArgs,
@@ -76,7 +83,12 @@ describe('selected ls-tree mode observation', () => {
     }
     a.exec.spawn = spawn;
     await expect(
-      new CliRunner(a).runCommand({ type: 'global' }, 'ls-tree', args, true),
+      new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'ls-tree',
+        args,
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(spawn).toHaveBeenCalledTimes(3);
   });
@@ -92,7 +104,12 @@ describe('selected ls-tree mode observation', () => {
         spawn.mockResolvedValueOnce(r);
       }
       a.exec.spawn = spawn;
-      const actual = await new CliRunner(a).runCommand({ type: 'global' }, 'ls-tree', args, true);
+      const actual = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'ls-tree',
+        args,
+        true,
+      );
       expect(actual.stderr).toBe('original native error');
       expect(spawn).toHaveBeenCalledTimes(4);
       expect(spawn.mock.calls[3]?.[0].argv.slice(-4)).toEqual([
@@ -107,9 +124,15 @@ describe('selected ls-tree mode observation', () => {
     const a = createNodeAdapters();
     const spawn = vi.fn().mockResolvedValueOnce(result(-1, '', '', true));
     a.exec.spawn = spawn;
-    const actual = await new CliRunner(a).runCommand({ type: 'global' }, 'ls-tree', args, true, {
-      stdout: 'bytes',
-    });
+    const actual = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'ls-tree',
+      args,
+      true,
+      {
+        stdout: 'bytes',
+      },
+    );
     expect(actual.aborted).toBe(true);
     expect(actual.stdout).toEqual(new Uint8Array(0));
     expect(spawn).toHaveBeenCalledTimes(1);
@@ -119,7 +142,12 @@ describe('selected ls-tree mode observation', () => {
     const spawn = vi.fn();
     a.exec.spawn = spawn;
     await expect(
-      new CliRunner(a).runCommand({ type: 'global' }, 'ls-tree', [...args, ['--long', true]], true),
+      new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'ls-tree',
+        [...args, ['--long', true]],
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(spawn).not.toHaveBeenCalled();
   });

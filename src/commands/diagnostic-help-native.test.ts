@@ -7,6 +7,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const unknownCommand: RegExp = /not a git command/;
 const invalidMode: RegExp = /invalid --(?:mode|diagnose) value/;
@@ -80,7 +81,7 @@ for (const [command, mode] of [
       const before = await snapshot();
       const parity = async (args: readonly unknown[], words: string[]): Promise<void> => {
         const expected = native(words);
-        const actual = await repo.command(command, args as never, { stdin: '' });
+        const actual = await strict(repo).command(command, args as never, { stdin: '' });
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);
         expect(actual.stderr).toBe(expected.stderr);
@@ -91,7 +92,7 @@ for (const [command, mode] of [
           const expected = native([`${mode}=${value}`, help]);
           if (invalidMode.test(expected.stderr)) {
             await expect(
-              repo.command(command, [[mode, value], [help]] as never),
+              strict(repo).command(command, [[mode, value], [help]] as never),
             ).rejects.toBeInstanceOf(GitArgumentError);
           } else {
             await parity([[mode, value], [help]], [`${mode}=${value}`, help]);
@@ -109,9 +110,9 @@ for (const [command, mode] of [
         expect(expected.status).toBe(0);
         await parity([[helper]], [helper]);
         expect(native([helper, '-h']).stderr).toMatch(unknownOption);
-        await expect(repo.command(command, [[helper], ['-h']] as never)).rejects.toBeInstanceOf(
-          GitArgumentError,
-        );
+        await expect(
+          strict(repo).command(command, [[helper], ['-h']] as never),
+        ).rejects.toBeInstanceOf(GitArgumentError);
         await parity([['-h'], [helper]], ['-h', helper]);
       }
       await parity(

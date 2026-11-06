@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -204,7 +205,7 @@ describe('merge, rebase and sequencer parser grammars', () => {
         );
       }
       compare(name, [['--quit'], ['--max-count', 1]], ['--quit', '--max-count=1']);
-      expect((await repo.command(name, [['--quit'], ['-S']])).exitCode).toBe(0);
+      expect((await strict(repo).command(name, [['--quit'], ['-S']])).exitCode).toBe(0);
       expect(() => commandArguments(name, [])).toThrow(GitArgumentError);
     }
     compare(
@@ -225,11 +226,12 @@ describe('merge, rebase and sequencer parser grammars', () => {
   });
   it('supports merge-base modes and concatenated commit-tree messages', async () => {
     expect(
-      (await repo.command('merge-base', [{ operand: 'HEAD' }, { operand: 'HEAD' }])).exitCode,
+      (await strict(repo).command('merge-base', [{ operand: 'HEAD' }, { operand: 'HEAD' }]))
+        .exitCode,
     ).toBe(0);
-    expect((await repo.command('merge-base', [['--independent']])).exitCode).toBe(1);
+    expect((await strict(repo).command('merge-base', [['--independent']])).exitCode).toBe(1);
     expect(
-      (await repo.command('merge-base', [['--all'], ['--fork-point'], { operand: 'HEAD' }]))
+      (await strict(repo).command('merge-base', [['--all'], ['--fork-point'], { operand: 'HEAD' }]))
         .exitCode,
     ).toBe(0);
     compare(
@@ -249,7 +251,7 @@ describe('merge, rebase and sequencer parser grammars', () => {
     );
     const file = join(root, 'message');
     await writeFile(file, 'file paragraph\n');
-    const result = await repo.command('commit-tree', [
+    const result = await strict(repo).command('commit-tree', [
       ['-p', 'HEAD'],
       ['-m', 'first paragraph'],
       ['-F', file],

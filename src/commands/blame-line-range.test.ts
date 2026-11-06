@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { strict } from '../strict/index.js';
 
 describe('deferred blame line-range numeric boundaries', () => {
   let root: string;
@@ -67,7 +68,7 @@ describe('deferred blame line-range numeric boundaries', () => {
           ],
         ]) {
           await expect(
-            repo.command(command, [
+            strict(repo).command(command, [
               ...ranges,
               { operand: 'HEAD' },
               ['--'],
@@ -86,7 +87,7 @@ describe('deferred blame line-range numeric boundaries', () => {
         const expected = native([command, ...words]);
         expect([0, 129]).toContain(expected.status);
         expect(expected.stdout + expected.stderr).toContain('usage:');
-        const actual = await repo.command(command, args as never);
+        const actual = await strict(repo).command(command, args as never);
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);
         expect(actual.stderr).toBe(expected.stderr);
@@ -96,7 +97,7 @@ describe('deferred blame line-range numeric boundaries', () => {
       for (const value of ['', ',', '1', '3,1', '1,999', '/base/', '1,+2', '3,-2']) {
         const expected = native([command, '-L', value, 'HEAD', '--', 'file']);
         expect(expected.status).toBe(0);
-        const actual = await repo.command(command, [
+        const actual = await strict(repo).command(command, [
           ['-L', value],
           { operand: 'HEAD' },
           ['--'],

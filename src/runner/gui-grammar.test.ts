@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import * as syntax from '../commands/gui-syntax.js';
 import type { RuntimeAdapters } from '../core/adapters.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 function adapters(): RuntimeAdapters {
@@ -44,9 +45,15 @@ describe('selected GUI frontend', () => {
     const runtime = adapters();
     const runner = new CliRunner(runtime).withOptions({ env: { MARKER: 'base' } });
     await expect(
-      runner.runCommand({ type: 'global' }, 'gui browser', args, undefined, {
-        env: { CALL: 'value' },
-      }),
+      new StrictCommandRunner(runner).runCommand(
+        { type: 'global' },
+        'gui browser',
+        args,
+        undefined,
+        {
+          env: { CALL: 'value' },
+        },
+      ),
     ).rejects.toThrow('argument syntax');
     expect(runtime.fs.readFile).toHaveBeenCalledWith('/selected/git-gui');
     expect(runtime.exec.spawn).toHaveBeenCalledTimes(2);
@@ -58,7 +65,7 @@ describe('selected GUI frontend', () => {
   it('passes the observed legacy words unchanged when that parser is identified', async () => {
     vi.spyOn(syntax, 'guiGrammarFromSource').mockReturnValue('path-loop');
     const runtime = adapters();
-    const result = await new CliRunner(runtime).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(runtime)).runCommand(
       { type: 'global' },
       'gui browser',
       args,
@@ -78,7 +85,12 @@ describe('selected GUI frontend', () => {
   it('defers unknown source and does not infer GUI grammar from a Git version', async () => {
     vi.spyOn(syntax, 'guiGrammarFromSource').mockReturnValue(undefined);
     const runtime = adapters();
-    await new CliRunner(runtime).runCommand({ type: 'global' }, 'gui browser', args, undefined);
+    await new StrictCommandRunner(new CliRunner(runtime)).runCommand(
+      { type: 'global' },
+      'gui browser',
+      args,
+      undefined,
+    );
     expect(runtime.exec.spawn).toHaveBeenCalledTimes(2);
   });
 
@@ -87,7 +99,12 @@ describe('selected GUI frontend', () => {
     runtime.fs.readFile = vi.fn(async () => {
       throw new Error('unreadable source');
     });
-    await new CliRunner(runtime).runCommand({ type: 'global' }, 'gui browser', args, undefined);
+    await new StrictCommandRunner(new CliRunner(runtime)).runCommand(
+      { type: 'global' },
+      'gui browser',
+      args,
+      undefined,
+    );
     expect(runtime.exec.spawn).toHaveBeenCalledTimes(2);
   });
 
@@ -104,7 +121,7 @@ describe('selected GUI frontend', () => {
       exitCode: 0,
       aborted: false,
     }));
-    const result = await new CliRunner(runtime).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(runtime)).runCommand(
       { type: 'global' },
       'gui browser',
       args,
@@ -118,7 +135,12 @@ describe('selected GUI frontend', () => {
     vi.spyOn(syntax, 'guiLaunchFromSource').mockReturnValue('direct-tcl');
     const runtime = adapters();
     await expect(
-      new CliRunner(runtime).runCommand({ type: 'global' }, 'gui', [['--version']], undefined),
+      new StrictCommandRunner(new CliRunner(runtime)).runCommand(
+        { type: 'global' },
+        'gui',
+        [['--version']],
+        undefined,
+      ),
     ).rejects.toThrow('argument syntax');
     expect(runtime.exec.spawn).toHaveBeenCalledTimes(1);
     expect(vi.mocked(runtime.exec.spawn).mock.calls[0]?.[0].argv).toEqual(['git', '--exec-path']);
@@ -129,7 +151,7 @@ describe('selected GUI frontend', () => {
     vi.spyOn(syntax, 'guiGrammarFromSource').mockReturnValue('positional');
     const runtime = adapters();
     await expect(
-      new CliRunner(runtime).runCommand(
+      new StrictCommandRunner(new CliRunner(runtime)).runCommand(
         { type: 'global' },
         'gui',
         [{ operand: '--working-dir' }, { operand: '/repository' }],
@@ -142,9 +164,15 @@ describe('selected GUI frontend', () => {
   it('rejects malformed IO before any source lookup or process probe', async () => {
     const runtime = adapters();
     await expect(
-      new CliRunner(runtime).runCommand({ type: 'global' }, 'gui browser', args, undefined, {
-        stdout: 'invalid' as 'text',
-      }),
+      new StrictCommandRunner(new CliRunner(runtime)).runCommand(
+        { type: 'global' },
+        'gui browser',
+        args,
+        undefined,
+        {
+          stdout: 'invalid' as 'text',
+        },
+      ),
     ).rejects.toThrow();
     expect(runtime.exec.spawn).not.toHaveBeenCalled();
     expect(runtime.fs.readFile).not.toHaveBeenCalled();

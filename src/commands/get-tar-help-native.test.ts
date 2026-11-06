@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('get-tar-commit-id sole usage and tar input controls', () => {
   let root: string;
@@ -103,7 +104,9 @@ describe('get-tar-commit-id sole usage and tar input controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('get-tar-commit-id', args as never, { stdin: input });
+      const actual = await strict(git).command('get-tar-commit-id', args as never, {
+        stdin: input,
+      });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -140,13 +143,13 @@ describe('get-tar-commit-id sole usage and tar input controls', () => {
   it('rejects non-usage operands and multiword help', async () => {
     expect(native(['get-tar-commit-id', 'ordinary', '--help']).status).toBe(129);
     await expect(
-      repo.command('get-tar-commit-id', [{ operand: 'ordinary' }, ['--help']] as never),
+      strict(repo).command('get-tar-commit-id', [{ operand: 'ordinary' }, ['--help']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('get-tar-commit-id', [{ operand: 'ordinary' }] as never),
+      strict(repo).command('get-tar-commit-id', [{ operand: 'ordinary' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('get-tar-commit-id', [['-h'], { operand: 'ignored' }] as never),
+      strict(repo).command('get-tar-commit-id', [['-h'], { operand: 'ignored' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

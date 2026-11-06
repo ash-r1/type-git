@@ -12,6 +12,7 @@ import {
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { commandArguments } from './build.js';
 
 const high = 'combine:sparse:oid=é';
@@ -81,15 +82,19 @@ describe('selected C char object-filter validation', () => {
           if (native.status === 128) {
             expect(native.stderr).toContain('must escape char in sub-filter-spec');
             await expect(
-              runner.runCommand({ type: 'global' }, 'clone', [['--filter', filter], ['-h']]),
+              new StrictCommandRunner(runner).runCommand({ type: 'global' }, 'clone', [
+                ['--filter', filter],
+                ['-h'],
+              ]),
             ).rejects.toBeInstanceOf(GitArgumentError);
           } else {
             expect([0, 129]).toContain(native.status);
             expect(native.stdout + native.stderr).toContain('usage:');
-            const actual = await runner.runCommand({ type: 'global' }, 'clone', [
-              ['--filter', filter],
-              ['-h'],
-            ]);
+            const actual = await new StrictCommandRunner(runner).runCommand(
+              { type: 'global' },
+              'clone',
+              [['--filter', filter], ['-h']],
+            );
             expect(actual.exitCode).toBe(native.status);
             expect(actual.stdout).toBe(native.stdout);
             expect(actual.stderr).toBe(native.stderr);
@@ -173,7 +178,9 @@ describe('selected C char object-filter validation', () => {
         aborted: false,
       });
     const signal = new AbortController().signal;
-    const actual = await new CliRunner(adapters, { gitBinary: '/selected/git' }).runCommand(
+    const actual = await new StrictCommandRunner(
+      new CliRunner(adapters, { gitBinary: '/selected/git' }),
+    ).runCommand(
       { type: 'worktree', workdir: '/selected/repo' },
       'clone',
       [['--filter', high], ['-h']],
@@ -212,7 +219,7 @@ describe('selected C char object-filter validation', () => {
       .fn()
       .mockResolvedValue({ exitCode: 143, stdout: '', stderr: '', aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'clone',
       [['--filter', high], ['-h']],
@@ -229,7 +236,7 @@ describe('selected C char object-filter validation', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'clone',
         [['--filter', 'combine:sparse:oid=é\u0001'], ['-h']],

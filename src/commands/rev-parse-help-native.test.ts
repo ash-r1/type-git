@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('rev-parse full usage and revision controls', () => {
   let root: string;
@@ -107,7 +108,7 @@ describe('rev-parse full usage and revision controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('rev-parse', args as never, { stdin: input });
+      const actual = await strict(git).command('rev-parse', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);

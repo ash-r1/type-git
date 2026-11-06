@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const unavailableOption: RegExp = /unknown option.*max-new-filters/;
 
@@ -67,7 +68,7 @@ describe('native commit-graph filter count callback', () => {
     words: string[],
   ): Promise<SpawnSyncReturns<string>> => {
     const expected = native(words);
-    const actual = await repo.command('commit-graph write', args as never, { stdin: '' });
+    const actual = await strict(repo).command('commit-graph write', args as never, { stdin: '' });
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -110,7 +111,10 @@ describe('native commit-graph filter count callback', () => {
           expect(expected.status).toBe(129);
           expect(expected.stderr).toContain('expects a numerical value');
           await expect(
-            repo.command('commit-graph write', [['--max-new-filters', value], [flag]] as never),
+            strict(repo).command('commit-graph write', [
+              ['--max-new-filters', value],
+              [flag],
+            ] as never),
           ).rejects.toBeInstanceOf(GitArgumentError);
         }
       }

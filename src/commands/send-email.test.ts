@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('send-email option phases without delivery', () => {
@@ -411,10 +412,10 @@ describe('send-email option phases without delivery', () => {
     expect(native.status).toBe(mode === 'help' ? 1 : mode === 'completion' || valid ? 0 : 128);
     if (mode === 'dry-run' && !valid) {
       await expect(
-        repo.command('send-email', tokens as never, { stdin: '' }),
+        strict(repo).command('send-email', tokens as never, { stdin: '' }),
       ).rejects.toBeInstanceOf(GitArgumentError);
     } else {
-      const result = await repo.command('send-email', tokens as never, { stdin: '' });
+      const result = await strict(repo).command('send-email', tokens as never, { stdin: '' });
       expect(result.exitCode).toBe(native.status);
     }
   });

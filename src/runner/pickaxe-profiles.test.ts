@@ -1,6 +1,7 @@
 import { expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const response = (exitCode: number, stderr = '', aborted = false) => ({
@@ -20,7 +21,7 @@ it('retains an empty callback accepted by the selected old executable', async ()
       ),
     )
     .mockResolvedValueOnce(response(0));
-  const result = await new CliRunner(adapters).runCommand(
+  const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
     { type: 'global' },
     'diff',
     [
@@ -38,7 +39,7 @@ it('rejects a reached empty callback on the modern executable even if overwritte
     .fn()
     .mockResolvedValue(response(129, 'error: -S requires a non-empty argument\n'));
   await expect(
-    new CliRunner(adapters).runCommand(
+    new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'diff',
       [
@@ -58,7 +59,7 @@ it('retains original stdin, environment and cancellation after unknown observati
     .mockResolvedValueOnce(response(134, 'native original crash'));
   const signal = new AbortController().signal;
   const env = { TYPE_GIT_PICKAXE_TEST: 'yes' };
-  const result = await new CliRunner(adapters).runCommand(
+  const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
     { type: 'global' },
     'diff',
     [['-S', '']],
@@ -76,7 +77,7 @@ it('retains original stdin, environment and cancellation after unknown observati
 it('returns an aborted observation without executing the original command', async () => {
   const adapters = createNodeAdapters();
   adapters.exec.spawn = vi.fn().mockResolvedValue(response(-1, '', true));
-  const result = await new CliRunner(adapters).runCommand(
+  const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
     { type: 'global' },
     'diff',
     [['-S', '']],
@@ -88,7 +89,12 @@ it('returns an aborted observation without executing the original command', asyn
 it('does not mistake a help-looking pattern for a parser exit', async () => {
   const adapters = createNodeAdapters();
   adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, 'usage: git diff\n'));
-  await new CliRunner(adapters).runCommand({ type: 'global' }, 'diff', [['-S', '-h']], true);
+  await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+    { type: 'global' },
+    'diff',
+    [['-S', '-h']],
+    true,
+  );
   expect(adapters.exec.spawn.mock.calls.map((call) => call[0].argv)).toEqual([
     ['git', 'diff', '-S', '-h'],
   ]);
@@ -100,7 +106,12 @@ it('still observes a callback reached after a nonterminal diff help word', async
     .fn()
     .mockResolvedValue(response(129, 'error: -S requires a non-empty argument\n'));
   await expect(
-    new CliRunner(adapters).runCommand({ type: 'global' }, 'diff', [['-h'], ['-S', '']], true),
+    new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+      { type: 'global' },
+      'diff',
+      [['-h'], ['-S', '']],
+      true,
+    ),
   ).rejects.toBeInstanceOf(GitArgumentError);
   expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
 });
@@ -115,7 +126,7 @@ it('preserves native failure code and stderr under the old callback family', asy
       ),
     )
     .mockResolvedValueOnce({ ...response(-1, 'native abort'), signal: 'SIGABRT' });
-  const result = await new CliRunner(adapters).runCommand(
+  const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
     { type: 'global' },
     'diff',
     [['-S', '']],
@@ -127,7 +138,7 @@ it('preserves native failure code and stderr under the old callback family', asy
 it('does not observe delegated callbacks when final tool-help returns first', async () => {
   const adapters = createNodeAdapters();
   adapters.exec.spawn = vi.fn().mockResolvedValue(response(0));
-  await new CliRunner(adapters).runCommand(
+  await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
     { type: 'global' },
     'difftool',
     [['-S', ''], ['--tool-help']],

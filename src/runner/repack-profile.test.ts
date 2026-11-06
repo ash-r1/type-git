@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandUsesRepackMaxPackSize } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const response = (exitCode: number, stdout = '', stderr = '', aborted = false) => ({
@@ -20,11 +21,17 @@ describe('selected repack callback timing', () => {
       .mockResolvedValueOnce(response(129, 'original help'));
     const env = { TYPE_GIT_REPACK_PROFILE: 'yes' };
     const signal = new AbortController().signal;
-    const result = await new CliRunner(a).runCommand({ type: 'global' }, 'repack', args, true, {
-      env,
-      signal,
-      stdin: 'original',
-    });
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'repack',
+      args,
+      true,
+      {
+        env,
+        signal,
+        stdin: 'original',
+      },
+    );
     expect(result.stdout).toBe('original help');
     expect(a.exec.spawn).toHaveBeenCalledTimes(2);
     expect(vi.mocked(a.exec.spawn).mock.calls[0]![0]).toEqual(
@@ -49,7 +56,12 @@ describe('selected repack callback timing', () => {
         ),
       );
     await expect(
-      new CliRunner(a).runCommand({ type: 'global' }, 'repack', args, true),
+      new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'repack',
+        args,
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(a.exec.spawn).toHaveBeenCalledTimes(1);
   });
@@ -64,7 +76,12 @@ describe('selected repack callback timing', () => {
         .fn()
         .mockResolvedValueOnce(response(128, '', diagnostic))
         .mockResolvedValueOnce(response(128, '', 'original failure'));
-      const result = await new CliRunner(a).runCommand({ type: 'global' }, 'repack', args, true);
+      const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'repack',
+        args,
+        true,
+      );
       expect(result.stderr).toBe('original failure');
       expect(vi.mocked(a.exec.spawn).mock.calls[1]![0].argv).toEqual([
         'git',
@@ -77,7 +94,12 @@ describe('selected repack callback timing', () => {
   it('propagates aborts before executing the original command', async () => {
     const a = createNodeAdapters();
     a.exec.spawn = vi.fn().mockResolvedValue(response(130, '', 'aborted', true));
-    const result = await new CliRunner(a).runCommand({ type: 'global' }, 'repack', args, true);
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'repack',
+      args,
+      true,
+    );
     expect(result.aborted).toBe(true);
     expect(a.exec.spawn).toHaveBeenCalledTimes(1);
   });
@@ -85,7 +107,7 @@ describe('selected repack callback timing', () => {
     const a = createNodeAdapters();
     a.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(a).runCommand(
+      new StrictCommandRunner(new CliRunner(a)).runCommand(
         { type: 'global' },
         'repack',
         [['--max-pack-size', true], ['-h']],

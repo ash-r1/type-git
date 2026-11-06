@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
@@ -234,7 +235,7 @@ describe('patch application parser grammars', () => {
     const actual = direct(['am', '--quit', '--whitespace=invalid', 'ignored-file']);
     expect(actual.status, actual.stderr).toBe(0);
     await mkdir(stray);
-    const wrapped = await repo.command('am', [
+    const wrapped = await strict(repo).command('am', [
       ['--quit'],
       ['--whitespace', 'invalid'],
       { operand: 'ignored-file' },
@@ -273,16 +274,16 @@ describe('patch application parser grammars', () => {
         expect(native.signal).toBe(null);
         expect(native.status, native.stderr).toBe(0);
         await mkdir(stray);
-        const wrapped = await repo.command('am', flags.map((f) => [f]) as never);
+        const wrapped = await strict(repo).command('am', flags.map((f) => [f]) as never);
         expect(wrapped.exitCode, wrapped.stderr).toBe(0);
       }
     }
   });
 
   it('applies a patch and a mail series through the public API', async () => {
-    const checked = await repo.command('apply', [['--check']], { stdin: patch });
+    const checked = await strict(repo).command('apply', [['--check']], { stdin: patch });
     expect(checked.exitCode, checked.stderr).toBe(0);
-    const applied = await repo.command('apply', [], { stdin: patch });
+    const applied = await strict(repo).command('apply', [], { stdin: patch });
     expect(applied.exitCode, applied.stderr).toBe(0);
     expect(await readFile(join(repo.workdir, 'tracked'), 'utf8')).toBe('two\n');
     await repo.add('tracked');
@@ -290,7 +291,9 @@ describe('patch application parser grammars', () => {
     const mail = direct(['format-patch', '-1', '--stdout']);
     expect(mail.status, mail.stderr).toBe(0);
     expect(direct(['reset', '--hard', 'HEAD~1']).status).toBe(0);
-    const result = await repo.command('am', [['--patch-format', 'mbox']], { stdin: mail.stdout });
+    const result = await strict(repo).command('am', [['--patch-format', 'mbox']], {
+      stdin: mail.stdout,
+    });
     expect(result.exitCode, result.stderr).toBe(0);
     expect(await readFile(join(repo.workdir, 'tracked'), 'utf8')).toBe('two\n');
   });

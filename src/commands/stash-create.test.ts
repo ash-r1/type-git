@@ -7,6 +7,7 @@ import corpus from '../../test/fixtures/stash-create-corpus.json';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments, commandHasLegacyStashHelp } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -99,7 +100,7 @@ describe('stash create message words', () => {
         ['stash', [{ operand: 'create' }, ...operands]],
       ] as const) {
         const label = `${command} ${JSON.stringify(words)}`;
-        const actual = await repo.command(command, args);
+        const actual = await strict(repo).command(command, args);
         const native = direct(['stash', 'create', ...words]);
         expect(actual.exitCode, label).toBe(native.status);
         expect(actual.stderr, label).toBe(native.stderr);
@@ -136,7 +137,7 @@ describe('stash create message words', () => {
     let mtime = 978307200;
     try {
       for (const run of [
-        () => repo.command('stash create', [{ operand: 'msg' }]),
+        () => strict(repo).command('stash create', [{ operand: 'msg' }]),
         () => {
           const result = direct(['stash', 'create', 'msg']);
           return { exitCode: result.status, stdout: result.stdout, stderr: result.stderr };
@@ -168,7 +169,7 @@ describe('stash create message words', () => {
       ['stash', [['-m', '-h']]],
     ] as const) {
       const label = `${command} ${JSON.stringify(args)}`;
-      const actual = await repo.command(command, args);
+      const actual = await strict(repo).command(command, args);
       const message = args[0][1];
       if (legacy) {
         expect(actual.exitCode, label).toBe(129);

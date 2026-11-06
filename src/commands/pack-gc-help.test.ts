@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('pack-objects and gc internal help', () => {
@@ -67,7 +68,7 @@ describe('pack-objects and gc internal help', () => {
     words: string[],
   ) => {
     const expected = native([command, ...words]);
-    const actual = await repo.command(command, args as never);
+    const actual = await strict(repo).command(command, args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -96,7 +97,7 @@ describe('pack-objects and gc internal help', () => {
     });
     it(`${command}: reached multiword completion still rejects`, async () => {
       await expect(
-        repo.command(command, [['--git-completion-helper'], ['--help-all']] as never),
+        strict(repo).command(command, [['--git-completion-helper'], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const result = native([command, '--git-completion-helper', '--help-all']);
       expect(result.status).toBe(129);
@@ -104,10 +105,10 @@ describe('pack-objects and gc internal help', () => {
     });
     it(`${command}: help preserves representation constraints`, async () => {
       await expect(
-        repo.command(command, [['--help-all'], [option, true]] as never),
+        strict(repo).command(command, [['--help-all'], [option, true]] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       await expect(
-        repo.command(command, [['--help-all'], { operand: '\0' }] as never),
+        strict(repo).command(command, [['--help-all'], { operand: '\0' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     });
   }
@@ -119,7 +120,7 @@ describe('pack-objects and gc internal help', () => {
         ['--help-all', `${flag}=invalid`],
       );
       await expect(
-        repo.command('pack-objects', [[flag, 'invalid'], ['--help-all']] as never),
+        strict(repo).command('pack-objects', [[flag, 'invalid'], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const result = native(['pack-objects', `${flag}=invalid`, '--help-all']);
       expect(result.status).toBe(129);

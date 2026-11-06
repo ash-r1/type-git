@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 /** Compare complete readonly execution against the selected Git, including older callbacks. */
 describe('selected native numeric callback implementations', () => {
@@ -59,13 +60,16 @@ describe('selected native numeric callback implementations', () => {
       });
       const repo = await git.open(root);
       if (native.status === 0) {
-        const result = await repo.command('rev-list', [['--max-count', value], ['--all']] as never);
+        const result = await strict(repo).command('rev-list', [
+          ['--max-count', value],
+          ['--all'],
+        ] as never);
         expect(result.exitCode).toBe(native.status);
         expect(result.stdout).toBe(native.stdout);
       } else {
         expect(native.stderr).toContain('not an integer');
         await expect(
-          repo.command('rev-list', [['--max-count', value], ['--all']] as never),
+          strict(repo).command('rev-list', [['--max-count', value], ['--all']] as never),
         ).rejects.toBeInstanceOf(GitArgumentError);
       }
     });
@@ -78,13 +82,13 @@ describe('selected native numeric callback implementations', () => {
     });
     const repo = await git.open(root);
     if (native.status === 0) {
-      const result = await repo.command('diff-files', [['--unified', '-1']] as never);
+      const result = await strict(repo).command('diff-files', [['--unified', '-1']] as never);
       expect(result.exitCode).toBe(0);
       expect(result.stdout).toBe(native.stdout);
     } else {
       expect(native.stderr).toContain('expects a non-negative integer');
       await expect(
-        repo.command('diff-files', [['--unified', '-1']] as never),
+        strict(repo).command('diff-files', [['--unified', '-1']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
   });
@@ -98,7 +102,7 @@ describe('selected native numeric callback implementations', () => {
     });
     const repo = await git.open(root);
     if (native.status === 0) {
-      const result = await repo.command('apply', [['-p', '1k'], ['--check']] as never, {
+      const result = await strict(repo).command('apply', [['-p', '1k'], ['--check']] as never, {
         stdin: patch,
       });
       expect(result.exitCode).toBe(0);
@@ -106,7 +110,7 @@ describe('selected native numeric callback implementations', () => {
     } else {
       expect(native.stderr).toContain('expects a non-negative integer');
       await expect(
-        repo.command('apply', [['-p', '1k'], ['--check']] as never, { stdin: patch }),
+        strict(repo).command('apply', [['-p', '1k'], ['--check']] as never, { stdin: patch }),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
   });
@@ -118,7 +122,7 @@ describe('selected native numeric callback implementations', () => {
     });
     const repo = await git.open(root);
     if (native.status === 0) {
-      const actual = await repo.command('log', [
+      const actual = await strict(repo).command('log', [
         ['--max-count', '2'],
         ['--unified', '-1'],
         ['--all'],
@@ -128,7 +132,11 @@ describe('selected native numeric callback implementations', () => {
     } else {
       expect(native.stderr).toContain('expects a non-negative integer');
       await expect(
-        repo.command('log', [['--max-count', '2'], ['--unified', '-1'], ['--all']] as never),
+        strict(repo).command('log', [
+          ['--max-count', '2'],
+          ['--unified', '-1'],
+          ['--all'],
+        ] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
   });
@@ -143,7 +151,10 @@ describe('selected native numeric callback implementations', () => {
       (native.status === 0 || native.status === 129) &&
       (native.stdout + native.stderr).includes('usage:')
     ) {
-      const actual = await repo.command('daemon', [['--max-connections', '1k'], ['-h']] as never);
+      const actual = await strict(repo).command('daemon', [
+        ['--max-connections', '1k'],
+        ['-h'],
+      ] as never);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
@@ -151,7 +162,7 @@ describe('selected native numeric callback implementations', () => {
       expect(native.status).toBe(128);
       expect(native.stderr).toContain('invalid max-connections');
       await expect(
-        repo.command('daemon', [['--max-connections', '1k'], ['-h']] as never),
+        strict(repo).command('daemon', [['--max-connections', '1k'], ['-h']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
   });
@@ -168,7 +179,7 @@ describe('selected native numeric callback implementations', () => {
           (native.status === 0 || native.status === 129) &&
           (native.stdout + native.stderr).includes('usage:')
         ) {
-          const actual = await repo.command('daemon', [[flag, value], ['-h']] as never);
+          const actual = await strict(repo).command('daemon', [[flag, value], ['-h']] as never);
           expect(actual.exitCode).toBe(native.status);
           expect(actual.stdout).toBe(native.stdout);
           expect(actual.stderr).toBe(native.stderr);
@@ -176,7 +187,7 @@ describe('selected native numeric callback implementations', () => {
           expect(native.status).toBe(128);
           expect(native.stderr).toContain('expecting a non-negative integer');
           await expect(
-            repo.command('daemon', [[flag, value], ['-h']] as never),
+            strict(repo).command('daemon', [[flag, value], ['-h']] as never),
           ).rejects.toBeInstanceOf(GitArgumentError);
         }
       }
@@ -199,11 +210,11 @@ describe('selected native numeric callback implementations', () => {
       if (/error:/.test(native.stderr)) {
         expect(native.stderr).toMatch(/numerical value|integer|range/);
         await expect(
-          repo.command('fsmonitor--daemon', [['--ipc-threads', value], ['-h']] as never),
+          strict(repo).command('fsmonitor--daemon', [['--ipc-threads', value], ['-h']] as never),
         ).rejects.toBeInstanceOf(GitArgumentError);
         continue;
       }
-      const actual = await repo.command('fsmonitor--daemon', [
+      const actual = await strict(repo).command('fsmonitor--daemon', [
         ['--ipc-threads', value],
         ['-h'],
       ] as never);

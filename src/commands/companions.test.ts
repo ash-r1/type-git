@@ -7,6 +7,7 @@ import { createNodeAdapters, TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -75,10 +76,13 @@ describe.skipIf(!available)('scalar native grammar and routing', () => {
     }
   };
   it('executes real scalar instead of a nonexistent git subcommand', async () => {
-    const result = await repo.command('scalar version', [['--build-options']]);
+    const result = await strict(repo).command('scalar version', [['--build-options']]);
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toContain('git version');
-    const dispatched = await repo.command('scalar', [{ operand: 'version' }, ['--build-options']]);
+    const dispatched = await strict(repo).command('scalar', [
+      { operand: 'version' },
+      ['--build-options'],
+    ]);
     expect(dispatched.exitCode).toBe(0);
     expect(dispatched.stderr).toBe(result.stderr);
     compare('scalar list', [], [], true);
@@ -197,7 +201,7 @@ describe('GUI and CGI executable selection', () => {
       adapters,
       companionBinaries: { gitk: '/fixture/gitk', gitweb: '/fixture/gitweb.cgi' },
     });
-    await git.command('gitk', [
+    await strict(git).command('gitk', [
       ['--select-commit', 'HEAD'],
       { operand: '--all' },
       ['--'],
@@ -209,7 +213,7 @@ describe('GUI and CGI executable selection', () => {
       }),
       undefined,
     );
-    await git.command('gitweb', [['--nproc', 2]]);
+    await strict(git).command('gitweb', [['--nproc', 2]]);
     expect(spawn).toHaveBeenLastCalledWith(
       expect.objectContaining({ argv: ['/fixture/gitweb.cgi', '--nproc=2'] }),
       undefined,

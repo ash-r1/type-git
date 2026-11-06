@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -116,7 +117,7 @@ describe('index, ref update and low-level merge grammars', () => {
         false,
       );
     }
-    const result = await repo.command('update-ref', [['--stdin']], {
+    const result = await strict(repo).command('update-ref', [['--stdin']], {
       stdin: `verify HEAD ${direct(['rev-parse', 'HEAD']).stdout.trim()}\n`,
     });
     expect(result.exitCode).toBe(0);

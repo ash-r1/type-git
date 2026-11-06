@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('streaming blame revision date callbacks', () => {
   let root: string;
@@ -59,7 +60,7 @@ describe('streaming blame revision date callbacks', () => {
   for (const command of ['blame', 'annotate', 'pickaxe'] as const) {
     const compare = async (args: readonly unknown[], words: string[]) => {
       const expected = native([command, ...words]);
-      const actual = await repo.command(command, args as never);
+      const actual = await strict(repo).command(command, args as never);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);
@@ -82,7 +83,7 @@ describe('streaming blame revision date callbacks', () => {
           expect(expected.stderr).toMatch(
             /(?:unknown date format|date format missing colon separator)/,
           );
-          const result = repo.command(command, args as never);
+          const result = strict(repo).command(command, args as never);
           await expect(result).rejects.toBeInstanceOf(GitArgumentError);
           await expect(result).rejects.toMatchObject({
             message: `--date: invalid revision-date-format value ${value}`,
@@ -120,7 +121,7 @@ describe('streaming blame revision date callbacks', () => {
       const expected = native([command, 'HEAD', '--date=invalid', '-h']);
       expect(expected.status).toBe(128);
       expect(expected.stderr).toContain('unknown date format');
-      const result = repo.command(command, [
+      const result = strict(repo).command(command, [
         { operand: 'HEAD' },
         ['--date', 'invalid'],
         ['-h'],
@@ -139,7 +140,7 @@ describe('streaming blame revision date callbacks', () => {
         expect(expected.stderr).toContain(
           first === '--date' ? 'unknown date format' : 'diff-algorithm',
         );
-        const result = repo.command(command, [
+        const result = strict(repo).command(command, [
           [first, 'invalid'],
           ['-h'],
           [second, 'invalid'],

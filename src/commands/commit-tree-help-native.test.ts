@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('commit-tree internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('commit-tree internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['commit-tree', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('commit-tree', args as never);
+    const actual = await strict(repo).command('commit-tree', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -107,15 +108,15 @@ describe('commit-tree internal help and callback order', () => {
   });
   it('keeps consumed message values, literal operands and reached completion errors', async () => {
     await expect(
-      repo.command('commit-tree', [['-m', '--help-all']] as never),
+      strict(repo).command('commit-tree', [['-m', '--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['commit-tree', '-m', '--help-all']).status).toBe(128);
     await compare([['--'], { operand: '--help-all' }], ['--', '--help-all']);
     await expect(
-      repo.command('commit-tree', [['--'], ['--help-all']] as never),
+      strict(repo).command('commit-tree', [['--'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('commit-tree', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('commit-tree', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['commit-tree', '--git-completion-helper', '--help-all']).status).toBe(129);
   });
