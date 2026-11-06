@@ -7,6 +7,7 @@ import corpus from '../../test/fixtures/conditional-stash-corpus.json';
 import { refusesLiteralOperand } from '../../test/support/literal-operand.js';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { conditionalCommandPaths } from './conditional-command.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -114,27 +115,31 @@ describe('conditional stash-list delegation', () => {
       await writeFile(join(repo.workdir, 'file'), 'one\n');
       await repo.add('file');
       await repo.commit({ message: 'seed' });
-      expect((await repo.command('stash list', [['--color', 'bad']])).exitCode).toBe(0);
-      expect((await repo.command('stash', [{ operand: 'list' }, ['--graph']])).exitCode).toBe(0);
+      expect((await strict(repo).command('stash list', [['--color', 'bad']])).exitCode).toBe(0);
+      expect(
+        (await strict(repo).command('stash', [{ operand: 'list' }, ['--graph']])).exitCode,
+      ).toBe(0);
       await writeFile(join(repo.workdir, 'file'), 'two\n');
-      expect((await repo.command('stash push', [['--message', 'saved']])).exitCode).toBe(0);
-      const invalid = await repo.command('stash list', [['--color', 'bad']]);
+      expect((await strict(repo).command('stash push', [['--message', 'saved']])).exitCode).toBe(0);
+      const invalid = await strict(repo).command('stash list', [['--color', 'bad']]);
       const nativeInvalid = direct(['stash', 'list', '--color=bad']);
       expect(nativeInvalid.status).not.toBe(0);
       expect(invalid.exitCode).toBe(nativeInvalid.status);
       expect(invalid.stderr).toBe(nativeInvalid.stderr);
       expect(invalid.stderr).toContain('color');
-      expect((await repo.command('stash list', [['--format', '%gs']])).stdout).toContain('saved');
+      expect((await strict(repo).command('stash list', [['--format', '%gs']])).stdout).toContain(
+        'saved',
+      );
       const nativeHelp = direct(['stash', 'list', '--decorate=bad', '-h']);
       expect([0, 129]).toContain(nativeHelp.status);
       expect(nativeHelp.stdout + nativeHelp.stderr).toContain('usage:');
-      const help = await repo.command('stash list', [['--decorate', 'bad'], ['-h']]);
+      const help = await strict(repo).command('stash list', [['--decorate', 'bad'], ['-h']]);
       expect(help.exitCode).toBe(nativeHelp.status);
       expect(help.stdout).toBe(nativeHelp.stdout);
       expect(help.stderr).toBe(nativeHelp.stderr);
       const nativeGraph = direct(['stash', 'list', '--graph']);
       expect(nativeGraph.status).not.toBe(0);
-      const graph = await repo.command('stash', [{ operand: 'list' }, ['--graph']]);
+      const graph = await strict(repo).command('stash', [{ operand: 'list' }, ['--graph']]);
       expect(graph.exitCode).toBe(nativeGraph.status);
       expect(graph.stderr).toBe(nativeGraph.stderr);
     } finally {

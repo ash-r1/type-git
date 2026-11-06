@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -247,7 +248,7 @@ describe('protocol and text utility grammars', () => {
       compare('url-parse', [], [], false);
       compare('checkout--worker', [], [], true, '0000');
       compare('checkout--worker', [{ operand: 'extra' }], ['extra'], false);
-      const result = await repo.command('checkout--worker', [], { stdin: '0000' });
+      const result = await strict(repo).command('checkout--worker', [], { stdin: '0000' });
       expect(result.stdout).toBe('0000');
     },
   );

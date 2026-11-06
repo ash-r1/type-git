@@ -12,6 +12,7 @@ import type {
   TraceEvent,
 } from '../core/types.js';
 import { GitError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 // Mock adapters
@@ -930,7 +931,12 @@ describe('selected Git executable ABI', () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 4\n' });
     const runner = new CliRunner(adapters, { gitBinary: 'git32' });
     await expect(
-      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', 4294967296]], true),
+      new StrictCommandRunner(runner).runCommand(
+        { type: 'global' },
+        'backfill',
+        [['--min-batch-size', 4294967296]],
+        true,
+      ),
     ).rejects.toThrow('invalid integer');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
@@ -941,7 +947,7 @@ describe('selected Git executable ABI', () => {
   it('uses selected 64-bit size_t even when its C long is 32-bit', async () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
     const runner = new CliRunner(adapters, { gitBinary: './git64' });
-    await runner.runCommand(
+    await new StrictCommandRunner(runner).runCommand(
       { type: 'worktree', workdir: '/repo' },
       'backfill',
       [['--min-batch-size', 4294967296]],
@@ -972,7 +978,7 @@ describe('selected Git executable ABI', () => {
     const adapters = createMockAdapters({ stdout: 'git version custom\n' });
     const runner = new CliRunner(adapters);
     await expect(
-      runner.runCommand(
+      new StrictCommandRunner(runner).runCommand(
         { type: 'bare', gitDir: '/repo.git' },
         'backfill',
         [['--min-batch-size', 4294967296]],
@@ -986,7 +992,7 @@ describe('selected Git executable ABI', () => {
     const runner = new CliRunner(adapters);
     const abort = new AbortController();
     abort.abort();
-    const result = await runner.runCommand(
+    const result = await new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'backfill',
       [['--min-batch-size', 1]],
@@ -1003,7 +1009,12 @@ describe('ABI-independent command preflight', () => {
     const adapters = createMockAdapters();
     const runner = new CliRunner(adapters);
     await expect(
-      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', '-1k']], true),
+      new StrictCommandRunner(runner).runCommand(
+        { type: 'global' },
+        'backfill',
+        [['--min-batch-size', '-1k']],
+        true,
+      ),
     ).rejects.toThrow('invalid integer');
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
@@ -1011,7 +1022,7 @@ describe('ABI-independent command preflight', () => {
     const adapters = createMockAdapters();
     const runner = new CliRunner(adapters);
     await expect(
-      runner.runCommand(
+      new StrictCommandRunner(runner).runCommand(
         { type: 'global' },
         'backfill',
         [['--min-batch-size', 4294967296], ['--not-a-real-option']],
@@ -1023,7 +1034,7 @@ describe('ABI-independent command preflight', () => {
   it('executes ABI-independent valid input without requiring build metadata', async () => {
     const adapters = createMockAdapters({ stdout: 'command output' });
     const runner = new CliRunner(adapters, { gitBinary: 'selected-git' });
-    const result = await runner.runCommand(
+    const result = await new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'backfill',
       [['--min-batch-size', 1]],
@@ -1041,7 +1052,7 @@ describe('ABI-independent command preflight', () => {
 describe('selected Git ABI for object-filter bounds', () => {
   it('returns binary-profile cancellation without executing the command', async () => {
     const adapters = createMockAdapters({ exitCode: -1, aborted: true });
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'clone',
       [['--filter', 'blob:limit=0b10'], ['-h']],
@@ -1053,7 +1064,7 @@ describe('selected Git ABI for object-filter bounds', () => {
   it('fails missing byte output capability before probing the binary profile', async () => {
     const adapters = createMockAdapters();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'clone',
         [['--filter', 'blob:limit=0b10'], ['-h']],
@@ -1084,7 +1095,7 @@ describe('selected Git ABI for object-filter bounds', () => {
           }
         : { exitCode: 0, stdout: 'executed', stderr: '', aborted: false },
     );
-    const result = new CliRunner(adapters).runCommand(
+    const result = new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'clone',
       [['--filter', 'blob:limit=0b10'], ['-h']],
@@ -1104,7 +1115,7 @@ describe('selected Git ABI for object-filter bounds', () => {
       stdout: 'sizeof-long: 8\nsizeof-size_t: 8\n',
     });
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'clone',
         [['--filter', 'blob:limit=4294967296'], ['-h']],
@@ -1118,7 +1129,7 @@ describe('selected Git ABI for object-filter bounds', () => {
   ])('validates the reported C long width (%i bytes) before executing', async (bytes) => {
     const adapters = createMockAdapters({ stdout: `sizeof-long: ${bytes}\nsizeof-size_t: 8\n` });
     const runner = new CliRunner(adapters, { gitBinary: 'selected-filter-git' });
-    const result = runner.runCommand(
+    const result = new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'clone',
       [['--filter', 'blob:limit=4294967296'], ['-h']],
@@ -1143,7 +1154,7 @@ describe('selected Git ABI for shortlog wrapping', () => {
   it('probes and accepts unsigned-long32 wrap negation from the selected Git', async () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
     const runner = new CliRunner(adapters, { gitBinary: 'selected-git32-long' });
-    await runner.runCommand(
+    await new StrictCommandRunner(runner).runCommand(
       { type: 'worktree', workdir: '/repo' },
       'shortlog',
       [['-w', '-4294967295,0,0'], { operand: 'HEAD' }],
@@ -1169,7 +1180,7 @@ describe('selected Git ABI for shortlog wrapping', () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 8\nsizeof-size_t: 8\n' });
     const runner = new CliRunner(adapters, { gitBinary: 'selected-git64-long' });
     await expect(
-      runner.runCommand(
+      new StrictCommandRunner(runner).runCommand(
         { type: 'global' },
         'shortlog',
         [['-w', '-4294967295,0,0'], { operand: 'HEAD' }],
@@ -1188,7 +1199,7 @@ describe('selected native structured integer parsers', () => {
   it('uses selected C long for unsigned pack storage, independently of size_t', async () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
     await expect(
-      new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters, { gitBinary: 'selected-git' })).runCommand(
         { type: 'worktree', workdir: '/repo' },
         'pack-objects',
         [['--max-pack-size', '4294967296'], ['-h']],
@@ -1229,7 +1240,7 @@ describe('selected native structured integer parsers', () => {
             aborted: false,
           },
     );
-    const result = new CliRunner(adapters).runCommand(
+    const result = new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'column',
       [['--width', '0b10'], ['-h']],
@@ -1267,7 +1278,9 @@ describe('readonly selected integer-family probe', () => {
           }
         : { exitCode: 129, stdout: 'usage: git column', stderr: '', aborted: false },
     );
-    const result = new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+    const result = new StrictCommandRunner(
+      new CliRunner(adapters, { gitBinary: 'selected-git' }),
+    ).runCommand(
       { type: 'worktree', workdir: '/repo' },
       'column',
       [['--width', '4294967297'], ['-h']],
@@ -1289,7 +1302,7 @@ describe('readonly selected integer-family probe', () => {
   });
   it('returns cancellation from the family probe without executing the requested command', async () => {
     const adapters = createMockAdapters({ aborted: true, exitCode: -1 });
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'column',
       [['--width', '2147483648'], ['-h']],
@@ -1301,7 +1314,7 @@ describe('readonly selected integer-family probe', () => {
   it('rejects a universally invalid spelling before family probes', async () => {
     const adapters = createMockAdapters();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'column',
         [['--width', 'bad'], ['-h']],
@@ -1334,7 +1347,9 @@ describe('selected unsigned magnitude sign policy', () => {
           }
         : { exitCode: 129, stdout: 'usage: git pack-objects', stderr: '', aborted: false },
     );
-    const result = new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+    const result = new StrictCommandRunner(
+      new CliRunner(adapters, { gitBinary: 'selected-git' }),
+    ).runCommand(
       { type: 'worktree', workdir: '/repo' },
       'pack-objects',
       [['--max-pack-size', '-0'], ['-h']],
@@ -1356,7 +1371,7 @@ describe('selected unsigned magnitude sign policy', () => {
   });
   it('returns cancellation from the sign probe without executing the requested command', async () => {
     const adapters = createMockAdapters({ aborted: true, exitCode: -1 });
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'pack-objects',
       [['--max-pack-size', '-0'], ['-h']],
@@ -1368,7 +1383,7 @@ describe('selected unsigned magnitude sign policy', () => {
   it('fails missing byte output capability before any sign probes', async () => {
     const adapters = createMockAdapters();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'pack-objects',
         [['--max-pack-size', '-0'], ['-h']],

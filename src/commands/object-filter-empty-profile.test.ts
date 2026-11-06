@@ -11,6 +11,7 @@ import {
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { commandArguments } from './build.js';
 
 const empty = [
@@ -94,7 +95,10 @@ describe('selected Git empty combined-filter components', () => {
           timeout: 5000,
         });
         expect(native.error).toBeUndefined();
-        const call = runner.runCommand({ type: 'global' }, 'clone', [['--filter', filter], ['-h']]);
+        const call = new StrictCommandRunner(runner).runCommand({ type: 'global' }, 'clone', [
+          ['--filter', filter],
+          ['-h'],
+        ]);
         if (native.status === 128) {
           expect(native.stderr, filter).toContain('invalid filter-spec');
           await expect(call, filter).rejects.toBeInstanceOf(GitArgumentError);

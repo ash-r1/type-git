@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('diff-index final timestamp filters', () => {
   let root: string;
@@ -24,7 +25,10 @@ describe('diff-index final timestamp filters', () => {
   };
   const compare = async (args: readonly unknown[], words: string[]) => {
     const expected = native(['diff-index', ...words, 'HEAD']);
-    const actual = await repo.command('diff-index', [...args, { operand: 'HEAD' }] as never);
+    const actual = await strict(repo).command('diff-index', [
+      ...args,
+      { operand: 'HEAD' },
+    ] as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -69,7 +73,7 @@ describe('diff-index final timestamp filters', () => {
     for (const value of ['0', '1', '2147483647', '-2147483648']) {
       expect(native(['diff-index', `${flag}=${value}`, 'HEAD']).status).toBe(129);
       await expect(
-        repo.command('diff-index', [[flag, value], { operand: 'HEAD' }] as never),
+        strict(repo).command('diff-index', [[flag, value], { operand: 'HEAD' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
   }, 120_000);
@@ -94,7 +98,7 @@ describe('diff-index final timestamp filters', () => {
     ).toBe(0);
     expect(native(['diff-index', `${flag}=-1`, `${flag}=1`, 'HEAD']).status).toBe(129);
     await expect(
-      repo.command('diff-index', [[flag, '-1'], [flag, '1'], { operand: 'HEAD' }] as never),
+      strict(repo).command('diff-index', [[flag, '-1'], [flag, '1'], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   }, 120_000);
 
@@ -166,7 +170,11 @@ describe('diff-index final timestamp filters', () => {
       if (expected.status === 128) {
         expect(expected.stderr).toContain('not a number of seconds since epoch');
         await expect(
-          repo.command('diff-index', [[flag, value], [flag, '-1'], { operand: 'HEAD' }] as never),
+          strict(repo).command('diff-index', [
+            [flag, value],
+            [flag, '-1'],
+            { operand: 'HEAD' },
+          ] as never),
         ).rejects.toBeInstanceOf(GitArgumentError);
       } else {
         expect(expected.status).toBe(0);
@@ -197,7 +205,7 @@ describe('diff-index final timestamp filters', () => {
         if (expected.status === 128) {
           expect(expected.stderr).toContain('not a number of seconds since epoch');
           await expect(
-            repo.command('diff-index', [...args, { operand: 'HEAD' }] as never),
+            strict(repo).command('diff-index', [...args, { operand: 'HEAD' }] as never),
           ).rejects.toBeInstanceOf(GitArgumentError);
         } else {
           expect((await compare(args, words)).status).toBe(expected.status);

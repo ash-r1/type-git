@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError, type RawResult } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('read-tree exclude callbacks in dry-run payloads', () => {
   let root: string;
@@ -87,7 +88,7 @@ describe('read-tree exclude callbacks in dry-run payloads', () => {
         expect(await snapshot()).toEqual(before);
         let actual: RawResult | undefined;
         try {
-          actual = await repo.command('read-tree', args as never);
+          actual = await strict(repo).command('read-tree', args as never);
         } catch (error) {
           expect(error).toBeInstanceOf(GitArgumentError);
           expect(expected.status).not.toBe(0);

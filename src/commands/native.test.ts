@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
@@ -125,7 +126,7 @@ describe('native CLI scopes', () => {
         }
       }
     }
-    const added = await repo.command('worktree add', [
+    const added = await strict(repo).command('worktree add', [
       ['--detach'],
       { operand: join(root, 'linked') },
       { operand: 'HEAD' },
@@ -133,25 +134,25 @@ describe('native CLI scopes', () => {
     expect(added.exitCode).toBe(0);
     expect(
       (
-        await repo.command('worktree lock', [
+        await strict(repo).command('worktree lock', [
           ['--reason', 'test'],
           { operand: join(root, 'linked') },
         ])
       ).exitCode,
     ).toBe(0);
     expect(
-      (await repo.command('worktree unlock', [{ operand: join(root, 'linked') }])).exitCode,
+      (await strict(repo).command('worktree unlock', [{ operand: join(root, 'linked') }])).exitCode,
     ).toBe(0);
     expect(
       (
-        await repo.command('worktree move', [
+        await strict(repo).command('worktree move', [
           { operand: join(root, 'linked') },
           { operand: join(root, 'moved') },
         ])
       ).exitCode,
     ).toBe(0);
     expect(
-      (await repo.command('worktree remove', [{ operand: join(root, 'moved') }])).exitCode,
+      (await strict(repo).command('worktree remove', [{ operand: join(root, 'moved') }])).exitCode,
     ).toBe(0);
     expect(() =>
       commandArguments('worktree add', [['--orphan'], ['--no-track'], { operand: 'dir' }]),
@@ -182,10 +183,12 @@ describe('native CLI scopes', () => {
     // An observed legacy empty filename remains a conflicting message source.
     if (legacy) {
       expect(nativeEmpty.status).not.toBe(0);
-      await expect(repo.command('commit', emptyFileArgs)).rejects.toBeInstanceOf(GitArgumentError);
+      await expect(strict(repo).command('commit', emptyFileArgs)).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
     } else {
       expect(nativeEmpty.status).toBe(0);
-      expect((await repo.command('commit', emptyFileArgs)).exitCode).toBe(0);
+      expect((await strict(repo).command('commit', emptyFileArgs)).exitCode).toBe(0);
     }
     for (const mode of ['--dry-run', '--short', '-z']) {
       const argv = ['--fixup=amend:HEAD', '-m', 'extra', mode];
@@ -203,7 +206,7 @@ describe('native CLI scopes', () => {
   });
 
   it('supports clone aliases and rejects incompatible revision and bundle modes', async () => {
-    const result = await repo.command('clone', [
+    const result = await strict(repo).command('clone', [
       ['--naked'],
       { operand: repo.workdir },
       { operand: join(root, 'cloned') },
@@ -384,15 +387,15 @@ describe('native CLI scopes', () => {
 
   it('executes stash push/store/apply/pop/drop/clear and validates their operand grammars', async () => {
     await writeFile(join(repo.workdir, 'tracked'), 'stash change\n');
-    expect((await repo.command('stash push', [['--message', 'saved']])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash push', [['--message', 'saved']])).exitCode).toBe(0);
     const stash = direct(['rev-parse', 'refs/stash']).stdout.trim();
-    expect((await repo.command('stash drop', [])).exitCode).toBe(0);
-    expect((await repo.command('stash store', [{ operand: stash }])).exitCode).toBe(0);
-    expect((await repo.command('stash apply', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash drop', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash store', [{ operand: stash }])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash apply', [])).exitCode).toBe(0);
     expect(direct(['reset', '--hard']).status).toBe(0);
-    expect((await repo.command('stash pop', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash pop', [])).exitCode).toBe(0);
     expect(direct(['reset', '--hard']).status).toBe(0);
-    expect((await repo.command('stash clear', [])).exitCode).toBe(0);
+    expect((await strict(repo).command('stash clear', [])).exitCode).toBe(0);
     for (const flags of [
       ['--all', '--no-include-untracked', '--staged'],
       ['--no-include-untracked', '--all', '--staged'],
@@ -418,10 +421,11 @@ describe('native CLI scopes', () => {
       }
     }
     if (process.env.TYPE_GIT_USE_LEGACY_VERSION !== 'true') {
-      const exported = await repo.command('stash export', [['--print']]);
+      const exported = await strict(repo).command('stash export', [['--print']]);
       expect(exported.exitCode).toBe(0);
       expect(
-        (await repo.command('stash import', [{ operand: exported.stdout.trim() }])).exitCode,
+        (await strict(repo).command('stash import', [{ operand: exported.stdout.trim() }]))
+          .exitCode,
       ).toBe(0);
       expect(
         direct(['stash', 'export', '--print', '--to-ref=refs/stashes/export']).status,

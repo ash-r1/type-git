@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Minimal adapter response used to exercise parser-profile transport behavior. */
@@ -72,7 +73,9 @@ describe('selected conflict callback timing', () => {
         )
         .mockResolvedValue(result(129, 'usage: git switch\n'));
       const controller = new AbortController();
-      const run = new CliRunner(adapters, { gitBinary: '/chosen/git' }).runCommand(
+      const run = new StrictCommandRunner(
+        new CliRunner(adapters, { gitBinary: '/chosen/git' }),
+      ).runCommand(
         { type: 'worktree', workdir: '/chosen/repo' },
         'switch',
         [['--conflict', 'bad'], ['-h']],
@@ -115,7 +118,7 @@ describe('selected conflict callback timing', () => {
       .fn()
       .mockResolvedValueOnce(result(128, 'unrecognized probe'))
       .mockResolvedValue(result(128, 'native original error'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'switch',
       [['--conflict', 'bad'], ['-h']],
@@ -130,7 +133,7 @@ describe('selected conflict callback timing', () => {
       const adapters = createNodeAdapters();
       adapters.exec.spawn = vi.fn().mockResolvedValue(result(129, diagnostic));
       const env = { LC_ALL: 'fr_FR.UTF-8', LANGUAGE: 'fr' };
-      const actual = await new CliRunner(adapters).runCommand(
+      const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'switch',
         [['--conflict', 'bad'], ['-h']],
@@ -157,7 +160,7 @@ describe('selected conflict callback timing', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'switch',
       [['--conflict', 'bad'], ['-h']],
@@ -218,7 +221,7 @@ describe('native conflict callback ordering', () => {
         });
         expect(native.error).toBeUndefined();
         expect([0, 129]).toContain(native.status);
-        const run = new CliRunner(createNodeAdapters()).runCommand(
+        const run = new StrictCommandRunner(new CliRunner(createNodeAdapters())).runCommand(
           { type: 'worktree', workdir: cwd },
           command,
           args,

@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { parseLegacyGitInteger } from '../constraints/git-integer.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const integerError = /not in range|expects .*integer|expects .*numerical/;
 const cases = [
@@ -34,7 +35,7 @@ describe('selected native integer parser family', () => {
     expect(native.signal).toBeNull();
     expect([0, 129], native.stderr).toContain(native.status);
     const git = new TypeGit();
-    const result = git.command('column', [[flag, value], ['-h']]);
+    const result = strict(git).command('column', [[flag, value], ['-h']]);
     if (integerError.test(native.stderr)) {
       await expect(result).rejects.toBeInstanceOf(GitArgumentError);
     } else {
@@ -59,10 +60,14 @@ describe('selected native integer parser family', () => {
       expect(native.signal).toBeNull();
       const git = new TypeGit({ inheritEnv: false, env });
       const repo = await git.open(root);
-      const result = repo.command('pack-objects', [['--stdout'], ['--compression', '4294967297']], {
-        stdin: '',
-        stdout: 'bytes',
-      });
+      const result = strict(repo).command(
+        'pack-objects',
+        [['--stdout'], ['--compression', '4294967297']],
+        {
+          stdin: '',
+          stdout: 'bytes',
+        },
+      );
       if (integerError.test(native.stderr.toString())) {
         expect(native.status).toBe(129);
         await expect(result).rejects.toBeInstanceOf(GitArgumentError);

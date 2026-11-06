@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -284,7 +285,7 @@ describe('history walking, bundles and repository inspection grammars', () => {
       ['--format=unknown', '--format=lines'],
       false,
     );
-    const result = await repo.command('repo info', [{ operand: 'object.format' }]);
+    const result = await strict(repo).command('repo info', [{ operand: 'object.format' }]);
     expect(result.stdout).toContain('object.format=sha1');
   });
 });

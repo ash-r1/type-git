@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { SpawnResult } from '../core/adapters.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const result = (exitCode = 0, stderr = '', stdout = ''): SpawnResult => ({
@@ -57,7 +58,7 @@ describe('numeric callback probe transport', () => {
           .mockResolvedValue(result(0, '', 'actual-output'));
         const runner = new CliRunner(adapters, { gitBinary: '/selected/git' });
         const controller = new AbortController();
-        const promise = runner.runCommand(
+        const promise = new StrictCommandRunner(runner).runCommand(
           { type: 'worktree', workdir: '/selected/repo' },
           item.command,
           item.args,
@@ -103,7 +104,7 @@ describe('numeric callback probe transport', () => {
       .mockResolvedValueOnce(result(128, 'fatal: localized or custom frontend\n'))
       .mockResolvedValue(result(128, 'original native error\n'));
     const runner = new CliRunner(adapters);
-    const actual = await runner.runCommand(
+    const actual = await new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'rev-list',
       [['--max-count', '1k'], ['--all']],
@@ -125,7 +126,7 @@ describe('numeric callback probe transport', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'apply',
       [['-p', '1k'], ['--check']],
@@ -142,7 +143,7 @@ describe('numeric callback probe transport', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'rev-list',
         [['--max-count', 9007199254740992], ['--all']],
@@ -156,7 +157,7 @@ describe('numeric callback probe transport', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'rev-list',
         [['--max-count', '1\0bad'], ['--all']],

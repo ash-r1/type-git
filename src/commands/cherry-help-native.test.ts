@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('cherry internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('cherry internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['cherry', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('cherry', args as never);
+    const actual = await strict(repo).command('cherry', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -92,7 +93,7 @@ describe('cherry internal help and callback order', () => {
     await compare([['--help-all'], ['--abbrev', 'bad']], ['--help-all', '--abbrev=bad']);
     for (const value of ['bad', '--help-all']) {
       await expect(
-        repo.command('cherry', [['--abbrev', value], ['--help-all']] as never),
+        strict(repo).command('cherry', [['--abbrev', value], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const result = native(['cherry', `--abbrev=${value}`, '--help-all']);
       expect(result.status).toBe(129);
@@ -101,11 +102,11 @@ describe('cherry internal help and callback order', () => {
   });
   it('retains end-of-options literals and reached completion errors', async () => {
     await compare([['--'], { operand: '--help-all' }], ['--', '--help-all']);
-    await expect(repo.command('cherry', [['--'], ['--help-all']] as never)).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
     await expect(
-      repo.command('cherry', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('cherry', [['--'], ['--help-all']] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(
+      strict(repo).command('cherry', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['cherry', '--git-completion-helper', '--help-all']).status).toBe(129);
   });

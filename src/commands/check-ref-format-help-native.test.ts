@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('check-ref-format sole full usage and refname controls', () => {
   let root: string;
@@ -97,7 +98,7 @@ describe('check-ref-format sole full usage and refname controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('check-ref-format', args as never, { stdin: input });
+      const actual = await strict(git).command('check-ref-format', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -140,7 +141,7 @@ describe('check-ref-format sole full usage and refname controls', () => {
     }
   });
   it('retains missing refname validation', async () => {
-    await expect(repo.command('check-ref-format', [] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('check-ref-format', [] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
   });

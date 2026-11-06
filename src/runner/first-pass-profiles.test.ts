@@ -10,6 +10,7 @@ import {
   commandUsesNativeABI,
 } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Adapter response for the selected executable's readonly parser observation. */
@@ -40,7 +41,7 @@ describe('observed initial parser profiles', () => {
   it('executes ordinary empty handling once without a parser observation', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(0));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['--empty', 'drop'], { operand: 'HEAD' }],
@@ -60,7 +61,7 @@ describe('observed initial parser profiles', () => {
       .fn()
       .mockResolvedValueOnce(response(129, '', 'error: empty object directory is invalid\n'))
       .mockResolvedValueOnce(response(128, '', 'native original'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['--empty', 'bad'], ['-h']],
@@ -74,7 +75,7 @@ describe('observed initial parser profiles', () => {
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, '', 'usage: git cherry-pick\n'));
     const env = { TYPE_GIT_FIRST_PASS_TEST: 'yes' };
     const signal = new AbortController().signal;
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['--empty', 'bad'], ['-h']],
@@ -99,7 +100,7 @@ describe('observed initial parser profiles', () => {
       .fn()
       .mockResolvedValueOnce(response(128, '', 'erreur : choix inconnu'))
       .mockResolvedValueOnce(response(129, '', 'native original'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['--empty', 'bad'], ['-h']],
@@ -112,7 +113,7 @@ describe('observed initial parser profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['--empty', 'bad'], ['-h']],
@@ -164,7 +165,7 @@ describe('observed initial parser profiles', () => {
         env,
         encoding: 'utf8',
       });
-      const run = new CliRunner(createNodeAdapters()).runCommand(
+      const run = new StrictCommandRunner(new CliRunner(createNodeAdapters())).runCommand(
         { type: 'worktree', workdir: cwd },
         'log',
         [['-n', '--decorate=m'], ['--all']],
@@ -200,7 +201,7 @@ describe('observed initial parser profiles', () => {
   it('does not observe an empty option after an initial help word', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, '', 'usage: git cherry-pick\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'cherry-pick',
       [['-h'], ['--empty', 'bad']],
@@ -212,7 +213,7 @@ describe('observed initial parser profiles', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'cherry-pick',
         [['--empty', 'bad'], ['-h'], { operand: 'bad\0word' }],
@@ -253,7 +254,7 @@ describe('observed initial parser profiles', () => {
         timeout: 10000,
       });
       expect(native.error).toBeUndefined();
-      const run = new CliRunner(createNodeAdapters()).runCommand(
+      const run = new StrictCommandRunner(new CliRunner(createNodeAdapters())).runCommand(
         { type: 'worktree', workdir: cwd },
         'cherry-pick',
         [['--empty', 'bad'], ['-h']],

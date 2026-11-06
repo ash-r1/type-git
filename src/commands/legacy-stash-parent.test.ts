@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
+import { strict } from '../strict/index.js';
 import { commandHasLegacyStashHelp } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -66,7 +67,7 @@ describe('source-dependent stash parent help', () => {
         });
         expect(native.error, JSON.stringify(row.words)).toBeUndefined();
         expect(native.signal).toBeNull();
-        const actual = await repo.command(row.command as GitCommandName, row.args as never);
+        const actual = await strict(repo).command(row.command as GitCommandName, row.args as never);
         expect(actual.exitCode, JSON.stringify(row.words)).toBe(native.status);
         expect(actual.stdout).toBe(native.stdout);
         expect(actual.stderr).toBe(native.stderr);

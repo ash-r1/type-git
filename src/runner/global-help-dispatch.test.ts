@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 describe('documentation transport before local parser profiles', () => {
@@ -12,7 +13,7 @@ describe('documentation transport before local parser profiles', () => {
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/unused-documentation-profile');
     adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'clone',
       [['--help'], ['--help-all'], ['--depth', 'bad']],
@@ -41,7 +42,7 @@ describe('documentation transport before local parser profiles', () => {
     adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'clone',
         [['--help'], ['--depth', 'bad']],

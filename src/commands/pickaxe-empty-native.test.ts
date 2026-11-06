@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 it('matches selected native rejection or acceptance of overwritten empty pickaxe', async () => {
   const root = await mkdtemp(join(tmpdir(), 'type-git-pickaxe-empty-'));
@@ -44,11 +45,11 @@ it('matches selected native rejection or acceptance of overwritten empty pickaxe
           ...tails.filter((word) => word !== '--oneline').map((operand) => ({ operand })),
         ];
         if (native.status === 0) {
-          expect((await repo.command(command, args as never)).exitCode).toBe(0);
+          expect((await strict(repo).command(command, args as never)).exitCode).toBe(0);
         } else {
           expect(native.status).toBe(129);
           expect(native.stderr).toContain('requires a non-empty argument');
-          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
         }

@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('ls-files internal help and callback order', () => {
@@ -62,7 +63,7 @@ describe('ls-files internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['ls-files', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('ls-files', args as never);
+    const actual = await strict(repo).command('ls-files', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -85,7 +86,7 @@ describe('ls-files internal help and callback order', () => {
       );
     }
     await expect(
-      repo.command('ls-files', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('ls-files', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     const failed = native(['ls-files', '--git-completion-helper', '--help-all']);
     expect(failed.status).toBe(129);
@@ -94,7 +95,7 @@ describe('ls-files internal help and callback order', () => {
   it('retains reached numeric callbacks but bypasses later ones', async () => {
     await compare([['-h'], ['--abbrev', 'bad']], ['-h', '--abbrev=bad']);
     await expect(
-      repo.command('ls-files', [['--abbrev', 'bad'], ['-h']] as never),
+      strict(repo).command('ls-files', [['--abbrev', 'bad'], ['-h']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     const failed = native(['ls-files', '--abbrev=bad', '-h']);
     expect(failed.status).toBe(129);

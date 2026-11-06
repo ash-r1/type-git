@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Adapter transcript for readonly parser capability observations. */
@@ -22,7 +23,7 @@ describe('boolean parser observations', () => {
       .mockResolvedValueOnce(response(129, '', 'usage: git pull\n'))
       .mockResolvedValue(response(129, '', 'usage: git pull\n'));
     const env = { TYPE_GIT_BOOL_TEST: 'yes' };
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'pull',
       [['--rebase', 'preserve'], ['-h']],
@@ -46,7 +47,7 @@ describe('boolean parser observations', () => {
       .fn()
       .mockResolvedValue(response(129, '', "error: preserve: 'preserve' superseded by 'merges'\n"));
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'pull',
         [['--rebase', 'p'], ['-h']],
@@ -63,7 +64,7 @@ describe('boolean parser observations', () => {
         response(128, '', 'fatal: bad recurse-submodules argument: only-is-on-demand\n'),
       );
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'push',
         [['--recurse-submodules', 'only-is-on-demand'], ['-h']],
@@ -77,7 +78,7 @@ describe('boolean parser observations', () => {
     adapters.exec.spawn = vi
       .fn()
       .mockResolvedValue(response(129, '', 'erreur : valeur inconnue\n'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'pull',
       [['--rebase', 'p'], ['-h']],
@@ -91,7 +92,7 @@ describe('boolean parser observations', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'pull',
       [['--rebase', 'p'], ['-h']],
@@ -111,7 +112,7 @@ describe('boolean parser observations', () => {
       .mockResolvedValueOnce(response(129, '', 'usage: git checkout\n'));
     const signal = new AbortController().signal;
     const env = { TYPE_GIT_BOOL_TEST: 'grammar' };
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'worktree', workdir: '/isolated-context' },
       'checkout',
       [['--recurse-submodules', '-2147483648'], ['-h']],
@@ -144,7 +145,7 @@ describe('boolean parser observations', () => {
       .fn()
       .mockResolvedValue(response(128, '', 'fatal: bad numeric config value'));
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'checkout',
         [['--recurse-submodules', '0b1'], ['-h']],
@@ -160,7 +161,7 @@ describe('boolean parser observations', () => {
       .fn()
       .mockResolvedValueOnce(response(128, '', 'erreur : valeur inconnue'))
       .mockResolvedValueOnce(response(129, '', 'usage: git checkout\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'checkout',
       [['--recurse-submodules', 'm'], ['-h']],
@@ -178,7 +179,7 @@ describe('boolean parser observations', () => {
   it('returns an aborted config observation without running the command', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'checkout',
       [['--recurse-submodules', 'm'], ['-h']],
@@ -191,7 +192,7 @@ describe('boolean parser observations', () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'pull',
         [['--rebase', 'p'], ['-h'], { operand: 'a\0b' }],
@@ -203,7 +204,7 @@ describe('boolean parser observations', () => {
   it('avoids observations for ignored words after help', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, '', 'usage: git pull\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'pull',
       [['-h'], ['--rebase', 'p']],
@@ -261,7 +262,7 @@ describe('selected native boolean callbacks', () => {
         timeout: 10000,
       });
       expect(native.error).toBeUndefined();
-      const run = new CliRunner(createNodeAdapters()).runCommand(
+      const run = new StrictCommandRunner(new CliRunner(createNodeAdapters())).runCommand(
         { type: 'worktree', workdir: cwd },
         command,
         [[flag, value], ['-h']],

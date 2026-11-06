@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments, commandUsesNativeABI } from './build.js';
 import { commandSpecs } from './catalogue.js';
 import type { GitCommandName } from './types.js';
@@ -183,13 +184,13 @@ describe('native fallback and first-word dispatch', () => {
       false,
     );
     compare('config', [{ operand: 'edit' }, { operand: 'ignored' }], ['edit', 'ignored'], false);
-    const result = await repo.command('config', [
+    const result = await strict(repo).command('config', [
       { operand: 'get' },
       ['--all'],
       { operand: 'test.value' },
     ]);
     expect(result.stdout.trim()).toBe('one');
-    const bytes = await repo.command(
+    const bytes = await strict(repo).command(
       'config',
       [{ operand: 'get' }, ['--all'], { operand: 'test.value' }],
       { stdout: 'bytes' },
