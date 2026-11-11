@@ -27,6 +27,7 @@ function rejection(row: Row): string | null {
 }
 
 const rows = corpus.cases as Row[];
+/** Describe one mismatch with both outcomes for the failure message. */
 const describeRow = (row: Row, message: string | null): string =>
   `${JSON.stringify(row.argv)}: native=${row.valid}${row.valid ? '' : ` (${row.diagnostic})`}, wrapper=${message ?? 'accepted'}`;
 

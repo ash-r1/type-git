@@ -21,6 +21,7 @@ function git(args, allowSignal = false) {
     return result;
   } finally { closeSync(input); }
 }
+/** Represent a literal argv word independently of the option resolver. */
 const operand = value => ({ operand: value });
 /**
  * Spell API tokens independently. Long values attach with "=" (setup_revisions takes --default
@@ -207,6 +208,7 @@ try {
     if (tokens.slice(0, separator < 0 ? tokens.length : separator).some(token => !Array.isArray(token))) return 'repository';
     return undefined;
   };
+  /** Row metadata naming the native-owned reason, if any. */
   const extra = tokens => {
     const reason = delegatedBy(tokens);
     return reason ? { delegated: reason } : {};
@@ -239,7 +241,7 @@ try {
     [['--follow'], operand('a')], [['--follow'], ['--'], operand('a')], [['--follow'], ['--'], operand('a'), operand('b')], [['--follow'], operand('a'), operand('b')],
     [['--follow'], ['--full-diff'], operand('a')], [['--follow'], ['--stdin']], [['--follow'], ['--stdin'], ['--'], operand('a')],
     // A later count re-enables walking; the last --max-depth wins.
-    [['--no-walk'], ['-n', 1], ['--graph']], [['-n', 1], ['--no-walk'], ['--graph']], [['--max-depth', 1], ['--max-depth', -1]], [['--max-depth', -1], ['--max-depth', 0]],
+    [['--no-walk'], ['-n', 1], ['--graph']], [['-n', 1], ['--no-walk'], ['--graph']], [['--no-walk'], ['--graph'], ['--not']], [['--max-depth', 1], ['--max-depth', -1]], [['--max-depth', -1], ['--max-depth', 0]],
     [['--max-depth', 1], ['-h']], [['--max-depth', 1], ['--'], operand('a')], [['--max-depth', 1], ['--cached']],
   ]) await record('combinations', tokens, extra(tokens));
 

@@ -55685,6 +55685,32 @@
    "group": "combinations",
    "tokens": [
     [
+     "--no-walk"
+    ],
+    [
+     "--graph"
+    ],
+    [
+     "--not"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--no-walk",
+    "--graph",
+    "--not"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--no-walk' and '--graph' cannot be used together",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
      "--max-depth",
      1
     ],
