@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -115,7 +116,7 @@ describe('file, ref and object inspection grammars', () => {
       const expected = direct([command, ...argv], input);
       expect(expected.status, expected.stderr).toBe(0);
       expect(commandArguments(command, args, true)).toEqual([command, ...argv]);
-      const result = await repo.command(command, args as never, { stdin: input });
+      const result = await strict(repo).command(command, args as never, { stdin: input });
       expect(result.exitCode, result.stderr).toBe(0);
       expect(result.stdout).toBe(expected.stdout);
     }
@@ -301,7 +302,7 @@ describe('file, ref and object inspection grammars', () => {
           : ['ignored'];
       const expected = direct([command, ...operands], input);
       expect(expected.status, expected.stderr).toBe(0);
-      const result = await repo.command(
+      const result = await strict(repo).command(
         command,
         operands.map((operand) => ({ operand })) as never,
         {
@@ -312,7 +313,7 @@ describe('file, ref and object inspection grammars', () => {
       expect(result.stdout).toBe(expected.stdout);
     }
     const blob = direct(['rev-parse', 'HEAD:tracked']).stdout.trim();
-    const result = await repo.command('unpack-file', [{ operand: blob }]);
+    const result = await strict(repo).command('unpack-file', [{ operand: blob }]);
     expect(result.exitCode, result.stderr).toBe(0);
     const file = join(repo.workdir, result.stdout.trim());
     expect(await readFile(file, 'utf8')).toBe('one\n');
@@ -321,7 +322,7 @@ describe('file, ref and object inspection grammars', () => {
       // Unsigned objects fail verification, but their invocation is valid.
       const object = command === 'verify-tag' ? 'v1' : 'HEAD';
       const actual = direct([command, object]);
-      const wrapped = await repo.command(command, [{ operand: object }] as never);
+      const wrapped = await strict(repo).command(command, [{ operand: object }] as never);
       expect(wrapped.exitCode).toBe(actual.status);
     }
     expect(direct(['repack', '-ad']).status).toBe(0);
@@ -331,7 +332,7 @@ describe('file, ref and object inspection grammars', () => {
     if (!index) {
       throw new Error('Missing generated pack index');
     }
-    const verified = await repo.command('verify-pack', [
+    const verified = await strict(repo).command('verify-pack', [
       ['--stat-only'],
       { operand: join('.git', 'objects', 'pack', index) },
     ]);
@@ -359,7 +360,7 @@ describe('file, ref and object inspection grammars', () => {
     compare('format-rev', [['--format', '%H']], ['--format=%H']);
     const expected = direct(['format-rev', '--format=%H', '--stdin-mode=rev'], 'HEAD\n');
     expect(expected.status, expected.stderr).toBe(0);
-    const result = await repo.command(
+    const result = await strict(repo).command(
       'format-rev',
       [
         ['--format', '%H'],

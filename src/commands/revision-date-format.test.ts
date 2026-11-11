@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('revision date format callback', () => {
   let root: string;
@@ -24,7 +25,7 @@ describe('revision date format callback', () => {
   };
   const compare = async (args: readonly unknown[], words: string[]) => {
     const expected = native(['log', '--format=%ad', ...words, 'HEAD']);
-    const actual = await repo.command('log', [
+    const actual = await strict(repo).command('log', [
       ['--format', '%ad'],
       ...args,
       { operand: 'HEAD' },
@@ -111,7 +112,7 @@ describe('revision date format callback', () => {
     expect(expected.status).toBe(128);
     expect(expected.stderr).toMatch(/(?:unknown date format|date format missing colon separator)/);
     await expect(
-      repo.command('log', [['--date', value], { operand: 'HEAD' }] as never),
+      strict(repo).command('log', [['--date', value], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   }, 120_000);
 
@@ -120,7 +121,7 @@ describe('revision date format callback', () => {
       const words = tail.length === 1 ? [tail[0]!] : [`${tail[0]}=${tail[1]}`];
       expect(native(['log', '--date=invalid', ...words, 'HEAD']).status).toBe(128);
       await expect(
-        repo.command('log', [['--date', 'invalid'], tail, { operand: 'HEAD' }] as never),
+        strict(repo).command('log', [['--date', 'invalid'], tail, { operand: 'HEAD' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
     expect(
@@ -174,10 +175,12 @@ describe('revision date format callback', () => {
       const args = first ? [['-h'], ['--date', 'invalid']] : [['--date', 'invalid'], ['-h']];
       const words = first ? ['-h', '--date=invalid'] : ['--date=invalid', '-h'];
       const expected = native([...command.split(' '), ...words]);
-      const outcome = await repo.command(command, args as never).then(
-        (value) => ({ ok: true as const, value }),
-        (error: unknown) => ({ ok: false as const, error }),
-      );
+      const outcome = await strict(repo)
+        .command(command, args as never)
+        .then(
+          (value) => ({ ok: true as const, value }),
+          (error: unknown) => ({ ok: false as const, error }),
+        );
       if (!outcome.ok) {
         expect(outcome.error).toBeInstanceOf(GitArgumentError);
         expect(expected.status).not.toBe(0);
@@ -192,7 +195,7 @@ describe('revision date format callback', () => {
   it('keeps stash-list date parsing behind its repository-ref gate', async () => {
     const compareList = async () => {
       const expected = native(['stash', 'list', '--date=invalid']);
-      const actual = await repo.command('stash list', [['--date', 'invalid']]);
+      const actual = await strict(repo).command('stash list', [['--date', 'invalid']]);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);

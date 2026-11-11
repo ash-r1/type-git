@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 const response = (exitCode: number, stdout = '', stderr = '', aborted = false) => ({
@@ -31,11 +32,17 @@ describe('selected read-tree exclude callback observation', () => {
     a.exec.spawn = spawn;
     const env = { READ_TREE_PROFILE_TEST: 'yes' };
     const signal = new AbortController().signal;
-    const result = await new CliRunner(a).runCommand({ type: 'global' }, 'read-tree', args, true, {
-      env,
-      signal,
-      stdin: 'caller',
-    });
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'read-tree',
+      args,
+      true,
+      {
+        env,
+        signal,
+        stdin: 'caller',
+      },
+    );
     expect(result.stdout).toBe('original help');
     expect(spawn).toHaveBeenCalledTimes(4);
     for (const call of spawn.mock.calls.slice(0, 3)) {
@@ -61,7 +68,7 @@ describe('selected read-tree exclude callback observation', () => {
       { operand: 'HEAD' },
       ['-u'],
     ];
-    const result = await new CliRunner(a).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
       { type: 'global' },
       'read-tree',
       payload,
@@ -87,7 +94,12 @@ describe('selected read-tree exclude callback observation', () => {
     }
     a.exec.spawn = spawn;
     await expect(
-      new CliRunner(a).runCommand({ type: 'global' }, 'read-tree', args, true),
+      new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'read-tree',
+        args,
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(spawn).toHaveBeenCalledTimes(3);
   });
@@ -103,7 +115,12 @@ describe('selected read-tree exclude callback observation', () => {
         spawn.mockResolvedValueOnce(result);
       }
       a.exec.spawn = spawn;
-      const result = await new CliRunner(a).runCommand({ type: 'global' }, 'read-tree', args, true);
+      const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+        { type: 'global' },
+        'read-tree',
+        args,
+        true,
+      );
       expect(result.stderr).toBe('original failure');
       expect(spawn).toHaveBeenCalledTimes(4);
       expect(spawn.mock.calls[3]?.[0].argv).toEqual([
@@ -120,9 +137,15 @@ describe('selected read-tree exclude callback observation', () => {
       .fn()
       .mockResolvedValueOnce(usage)
       .mockResolvedValueOnce(response(130, '', 'aborted', true));
-    const result = await new CliRunner(a).runCommand({ type: 'global' }, 'read-tree', args, true, {
-      stdout: 'bytes',
-    });
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'read-tree',
+      args,
+      true,
+      {
+        stdout: 'bytes',
+      },
+    );
     expect(result.aborted).toBe(true);
     expect(result.stdout).toEqual(new Uint8Array(0));
     expect(a.exec.spawn).toHaveBeenCalledTimes(2);
@@ -132,9 +155,15 @@ describe('selected read-tree exclude callback observation', () => {
     a.exec.spawn = vi.fn();
     const control = new AbortController();
     control.abort();
-    const result = await new CliRunner(a).runCommand({ type: 'global' }, 'read-tree', args, true, {
-      signal: control.signal,
-    });
+    const result = await new StrictCommandRunner(new CliRunner(a)).runCommand(
+      { type: 'global' },
+      'read-tree',
+      args,
+      true,
+      {
+        signal: control.signal,
+      },
+    );
     expect(result.aborted).toBe(true);
     expect(a.exec.spawn).not.toHaveBeenCalled();
   });
@@ -143,7 +172,7 @@ describe('selected read-tree exclude callback observation', () => {
     a.exec.spawn = vi.fn();
     for (const value of [true, '\0']) {
       await expect(
-        new CliRunner(a).runCommand(
+        new StrictCommandRunner(new CliRunner(a)).runCommand(
           { type: 'global' },
           'read-tree',
           [['--exclude-per-directory', value], ['-h']],

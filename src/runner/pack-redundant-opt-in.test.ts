@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 describe('selected-native pack-redundant deprecation policy', () => {
@@ -14,7 +15,7 @@ describe('selected-native pack-redundant deprecation policy', () => {
       adapters.exec.spawn = spawn;
       const signal = new AbortController().signal;
       const env = { PACK_REDUNDANT_FIXTURE: 'yes' };
-      const actual = await new CliRunner(adapters).runCommand(
+      const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'pack-redundant',
         [['--all']],
@@ -40,7 +41,12 @@ describe('selected-native pack-redundant deprecation policy', () => {
     const spawn = vi.fn();
     adapters.exec.spawn = spawn;
     await expect(
-      new CliRunner(adapters).runCommand({ type: 'global' }, 'pack-redundant', [], true),
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+        { type: 'global' },
+        'pack-redundant',
+        [],
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(spawn).not.toHaveBeenCalled();
   });

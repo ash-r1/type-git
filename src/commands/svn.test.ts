@@ -8,6 +8,7 @@ import svnDispatchBoundaries from '../../test/fixtures/svn-dispatch-boundaries.j
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import { svnDispatch } from './svn-dispatch.js';
@@ -77,7 +78,7 @@ async function withLocalSvn(
       ).status,
     ).toBe(0);
     const git = new TypeGit({ inheritEnv: false, env });
-    await git.command('svn clone', [
+    await strict(git).command('svn clone', [
       ['--stdlayout'],
       { operand: url },
       { operand: join(root, 'repo') },
@@ -144,7 +145,7 @@ describe('Subversion operation tables', () => {
             expect(native.signal).toBeNull();
             expect(native.status, native.stderr).toBe(0);
             const repo = await new TypeGit({ inheritEnv: false, env }).open(root);
-            const actual = await repo.command(
+            const actual = await strict(repo).command(
               (named ? entry.command : 'svn') as never,
               [...(named ? [] : [{ operand: entry.command.slice(4) }]), token, ['-h']] as never,
             );
@@ -208,13 +209,13 @@ describe('Subversion operation tables', () => {
           const repo = await new TypeGit({ inheritEnv: false, env }).open(root);
           if (entry.nativeAccepts) {
             expect(commandArguments('svn', entry.args, true)).toEqual(['svn', ...entry.words]);
-            const actual = await repo.command('svn', entry.args as never);
+            const actual = await strict(repo).command('svn', entry.args as never);
             expect(actual.exitCode).toBe(native.status);
             expect(actual.stdout).toBe(native.stdout);
             expect(actual.stderr).toBe(native.stderr);
           } else {
             try {
-              const actual = await repo.command('svn', entry.args as never);
+              const actual = await strict(repo).command('svn', entry.args as never);
               expect(actual.exitCode).toBe(native.status);
             } catch (error) {
               expect(error).toBeInstanceOf(GitArgumentError);
@@ -283,7 +284,7 @@ describe('Subversion operation tables', () => {
             encoding: 'utf8',
             timeout: 10000,
           });
-          const actual = await repo.command('svn', args as never);
+          const actual = await strict(repo).command('svn', args as never);
           expect(actual.exitCode).toBe(native.status);
           expect(actual.stdout).toBe(native.stdout);
           expect(actual.stderr).toBe(native.stderr);
@@ -509,12 +510,14 @@ describe('Subversion operation tables', () => {
     'reads metadata from an isolated local SVN repository',
     async () => {
       await withLocalSvn(async ({ url, repo }) => {
-        expect((await repo.command('svn info', [])).stdout).toContain(`${url}/trunk`);
-        expect((await repo.command('svn find-rev', [{ operand: 'r1' }])).stdout.trim()).toMatch(
-          /^[0-9a-f]{40}$/,
+        expect((await strict(repo).command('svn info', [])).stdout).toContain(`${url}/trunk`);
+        expect(
+          (await strict(repo).command('svn find-rev', [{ operand: 'r1' }])).stdout.trim(),
+        ).toMatch(/^[0-9a-f]{40}$/);
+        expect((await strict(repo).command('svn log', [['--limit', 1]])).stdout).toContain(
+          'fixture',
         );
-        expect((await repo.command('svn log', [['--limit', 1]])).stdout).toContain('fixture');
-        expect((await repo.command('svn proplist', [])).stdout).toContain('Properties on');
+        expect((await strict(repo).command('svn proplist', [])).stdout).toContain('Properties on');
       });
     },
     60000,
@@ -533,9 +536,9 @@ describe('Subversion operation tables', () => {
           'svn migrate',
           'svn gc',
         ] as const) {
-          expect((await repo.command(command, [])).exitCode).toBe(0);
+          expect((await strict(repo).command(command, [])).exitCode).toBe(0);
         }
-        await repo.command('svn rebase', [['--local']]);
+        await strict(repo).command('svn rebase', [['--local']]);
       });
     },
     60000,
@@ -544,13 +547,13 @@ describe('Subversion operation tables', () => {
     'accepts local dry runs and a configuration-supplied commit-diff revision',
     async () => {
       await withLocalSvn(async ({ url, repo }) => {
-        await repo.command('svn dcommit', [['--dry-run']]);
-        await repo.command('svn branch', [['--dry-run'], { operand: 'fixture-branch' }]);
-        await repo.command('svn tag', [['--dry-run'], { operand: 'fixture-tag' }]);
+        await strict(repo).command('svn dcommit', [['--dry-run']]);
+        await strict(repo).command('svn branch', [['--dry-run'], { operand: 'fixture-branch' }]);
+        await strict(repo).command('svn tag', [['--dry-run'], { operand: 'fixture-tag' }]);
         await repo.raw(['config', 'svn.revision', 'HEAD']);
         expect(
           (
-            await repo.command('svn commit-diff', [
+            await strict(repo).command('svn commit-diff', [
               { operand: 'HEAD' },
               { operand: 'HEAD' },
               { operand: `${url}/trunk` },
@@ -566,13 +569,13 @@ describe('Subversion operation tables', () => {
     async () => {
       await withLocalSvn(async ({ root, url, git, repo }) => {
         await repo.raw(['config', 'svn.revision', '1']);
-        await repo.command('svn reset', []);
-        await git.command('svn init', [
+        await strict(repo).command('svn reset', []);
+        await strict(git).command('svn init', [
           ['--stdlayout'],
           { operand: url },
           { operand: join(root, 'initialized') },
         ]);
-        await git.command('svn multi-init', [
+        await strict(git).command('svn multi-init', [
           ['--trunk', 'trunk'],
           { operand: url },
           { operand: join(root, 'multi') },

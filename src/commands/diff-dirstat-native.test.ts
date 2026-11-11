@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const continuing = ['diff', 'diff-files', 'diff-index', 'diff-tree', 'rev-list'] as const;
@@ -159,7 +160,7 @@ describe('native dirstat parameter grammar and help placement', () => {
         value === undefined ? flag : flag.startsWith('--') ? `${flag}=${value}` : `${flag}${value}`;
       const expected = native(['diff', token]);
       const execute = async () =>
-        repo.command('diff', [value === undefined ? [flag] : [flag, value]] as never, {
+        strict(repo).command('diff', [value === undefined ? [flag] : [flag, value]] as never, {
           stdin: '',
         });
       if (expected.status === 0) {
@@ -250,7 +251,7 @@ describe('native dirstat parameter grammar and help placement', () => {
                 }
                 expect(() => commandArguments(command, args)).toThrow();
               } else {
-                const actual = await repo.command(command, args as never, { stdin: '' });
+                const actual = await strict(repo).command(command, args as never, { stdin: '' });
                 expect(actual.exitCode).toBe(expected.status ?? -1);
                 expect(actual.signal ?? null).toBe(expected.signal);
                 expect(actual.stdout).toBe(expected.stdout);

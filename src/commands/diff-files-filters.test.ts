@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('diff-files final revision filters', () => {
   let root: string;
@@ -24,7 +25,7 @@ describe('diff-files final revision filters', () => {
   };
   const compare = async (args: readonly unknown[], words: string[]) => {
     const expected = native(['diff-files', ...words]);
-    const actual = await repo.command('diff-files', args as never);
+    const actual = await strict(repo).command('diff-files', args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -69,7 +70,7 @@ describe('diff-files final revision filters', () => {
     for (const value of ['4', '2147483647']) {
       expect(native(['diff-files', `--max-count=${value}`]).status).toBe(129);
       await expect(
-        repo.command('diff-files', [['--max-count', value]] as never),
+        strict(repo).command('diff-files', [['--max-count', value]] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
     expect(
@@ -85,13 +86,13 @@ describe('diff-files final revision filters', () => {
     ).toBe(0);
     expect(native(['diff-files', '--max-count=3', '--max-count=4']).status).toBe(129);
     await expect(
-      repo.command('diff-files', [
+      strict(repo).command('diff-files', [
         ['--max-count', '3'],
         ['--max-count', '4'],
       ] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['diff-files', '-4']).status).toBe(129);
-    await expect(repo.command('diff-files', [['-4']] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('diff-files', [['-4']] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
   }, 120_000);
@@ -113,7 +114,7 @@ describe('diff-files final revision filters', () => {
         const expected = native(['diff-files', ...words]);
         if (expected.status === 128) {
           expect(expected.stderr).toContain('not an integer');
-          await expect(repo.command('diff-files', args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command('diff-files', args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
         } else {
@@ -130,7 +131,7 @@ describe('diff-files final revision filters', () => {
     for (const value of ['0', '1', '-2147483648']) {
       expect(native(['diff-files', '--base', `${flag}=${value}`]).status).toBe(129);
       await expect(
-        repo.command('diff-files', [['--base'], [flag, value]] as never),
+        strict(repo).command('diff-files', [['--base'], [flag, value]] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
     for (const sentinel of ['-1', '18446744073709551615']) {
@@ -196,7 +197,7 @@ describe('diff-files final revision filters', () => {
         const expected = native(['diff-files', ...words]);
         if (expected.status === 128) {
           expect(expected.stderr).toMatch(/not (?:an integer|a number of seconds since epoch)/);
-          await expect(repo.command('diff-files', args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command('diff-files', args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
         } else {

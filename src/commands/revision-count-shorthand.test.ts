@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import type { GitCommandName } from './types.js';
 
 const commands: readonly [GitCommandName, readonly string[]][] = [
@@ -108,12 +109,12 @@ describe('revision count shorthand', () => {
         if (command === 'diff-files' && expected.status === 129) {
           // diff-files rejects a final parsed count above3 before running its diff.
           expect(expected.stderr).toContain('usage: git diff-files');
-          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
           continue;
         }
-        const actual = await repo.command(command, args as never);
+        const actual = await strict(repo).command(command, args as never);
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);
         expect(actual.stderr).toBe(expected.stderr);
@@ -150,7 +151,7 @@ describe('revision count shorthand', () => {
               ? [['--onto', 'baseline'], { operand: 'baseline..side' }]
               : suffix.map((word) => ({ operand: word }))),
           ];
-          const actual = await actualRepo.command(command, args as never);
+          const actual = await strict(actualRepo).command(command, args as never);
           expect(actual.exitCode).toBe(expected.status);
           expect(actual.stdout).toBe(expected.stdout);
           expect(actual.stderr).toBe(expected.stderr);
@@ -170,7 +171,7 @@ describe('revision count shorthand', () => {
       if (expected.status === 128) {
         expect(expected.stderr).not.toBe('');
       }
-      const actual = await repo.command('whatchanged', [
+      const actual = await strict(repo).command('whatchanged', [
         ...(optIn ? [['--i-still-use-this']] : []),
         { operand: 'HEAD' },
       ] as never);
@@ -188,7 +189,7 @@ describe('revision count shorthand', () => {
     const expected = native([command, ...words]);
     expect([0, 129]).toContain(expected.status);
     expect(expected.stdout + expected.stderr).toContain('usage:');
-    const actual = await repo.command(command, words.map((word) => [word]) as never);
+    const actual = await strict(repo).command(command, words.map((word) => [word]) as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -198,7 +199,7 @@ describe('revision count shorthand', () => {
     const expected = native(['shortlog', '-2147483648', '-h']);
     expect(expected.status).toBe(128);
     await expect(
-      repo.command('shortlog', [['-2147483648'], ['-h']] as never),
+      strict(repo).command('shortlog', [['-2147483648'], ['-h']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 
@@ -211,7 +212,7 @@ describe('revision count shorthand', () => {
     );
     const expected = native(['log', ...words, 'HEAD']);
     expect(expected.status).toBe(0);
-    const actual = await repo.command('log', [...tokens, { operand: 'HEAD' }] as never);
+    const actual = await strict(repo).command('log', [...tokens, { operand: 'HEAD' }] as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -220,7 +221,7 @@ describe('revision count shorthand', () => {
   it('keeps numeric path operands behind a separator outside the count parser', async () => {
     const expected = native(['log', 'HEAD', '--', '-2147483648']);
     expect(expected.status).toBe(0);
-    const actual = await repo.command('log', [
+    const actual = await strict(repo).command('log', [
       { operand: 'HEAD' },
       ['--'],
       { operand: '-2147483648' },
@@ -235,7 +236,7 @@ describe('revision count shorthand', () => {
     expect(expected.status).toBe(128);
     expect(expected.stderr).toMatch(/not (?:an integer|a non-negative integer)/);
     await expect(
-      repo.command('log', [['-2147483648'], { operand: 'HEAD' }] as never),
+      strict(repo).command('log', [['-2147483648'], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('grep internal help and filename suppression', () => {
   let root: string;
@@ -57,7 +58,7 @@ describe('grep internal help and filename suppression', () => {
 
   const compare = async (args: readonly unknown[], words: string[]) => {
     const expected = native(['grep', ...words]);
-    const actual = await repo.command('grep', args as never);
+    const actual = await strict(repo).command('grep', args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -83,7 +84,7 @@ describe('grep internal help and filename suppression', () => {
       expect(expected.status).toBe(129);
       expect(expected.stderr).toContain('expects "always", "auto", or "never"');
       await expect(
-        repo.command('grep', [['--color', value], ['--help-all']] as never),
+        strict(repo).command('grep', [['--color', value], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const help = await compare(
         [['--help-all'], ['--color', value]],
@@ -125,7 +126,7 @@ describe('grep internal help and filename suppression', () => {
     expect(invalid.status).toBe(129);
     expect(invalid.stderr).toMatch(/expects (?:a numerical|an integer) value/);
     await expect(
-      repo.command('grep', [['--threads', 'invalid'], ['--help-all']] as never),
+      strict(repo).command('grep', [['--threads', 'invalid'], ['--help-all']] as never),
     ).rejects.toMatchObject({
       name: 'GitArgumentError',
       message: '--threads: invalid integer value invalid',
@@ -164,7 +165,7 @@ describe('grep internal help and filename suppression', () => {
         const expected = native(['grep', ...words]);
         expect(expected.status).toBe(129);
         expect(expected.stderr).toContain('unknown option');
-        await expect(repo.command('grep', args as never)).rejects.toThrow('one-word]');
+        await expect(strict(repo).command('grep', args as never)).rejects.toThrow('one-word]');
       }
     }
   }, 120_000);
@@ -209,7 +210,7 @@ describe('grep internal help and filename suppression', () => {
     const expected = native(['grep', '--threads=invalid', '--help']);
     expect(expected.status).toBe(129);
     expect(expected.stderr).toMatch(/expects (?:a numerical|an integer) value/);
-    const result = repo.command('grep', [['--threads', 'invalid'], ['--help']] as never);
+    const result = strict(repo).command('grep', [['--threads', 'invalid'], ['--help']] as never);
     await expect(result).rejects.toBeInstanceOf(GitArgumentError);
     await expect(result).rejects.toMatchObject({
       message: '--threads: invalid integer value invalid',
@@ -228,13 +229,13 @@ describe('grep internal help and filename suppression', () => {
     expect(expected.status).toBe(129);
     expect(expected.stderr).toMatch(/expects (?:a numerical|an integer) value/);
     await expect(
-      repo.command('grep', [['-h'], ['--threads', 'invalid'], ['-e', 'base']] as never),
+      strict(repo).command('grep', [['-h'], ['--threads', 'invalid'], ['-e', 'base']] as never),
     ).rejects.toMatchObject({
       name: 'GitArgumentError',
       message: '--threads: invalid integer value invalid',
     });
     expect(native(['grep', '-h', '--threads=1']).status).toBe(128);
-    await expect(repo.command('grep', [['-h'], ['--threads', 1]] as never)).rejects.toThrow(
+    await expect(strict(repo).command('grep', [['-h'], ['--threads', 1]] as never)).rejects.toThrow(
       '[cli.grep.pattern]',
     );
   }, 120_000);

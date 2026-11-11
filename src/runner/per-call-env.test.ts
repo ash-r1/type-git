@@ -13,6 +13,7 @@ import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGit } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 // GIT_CONFIG_PARAMETERS works on every supported Git, unlike GIT_CONFIG_COUNT (Git 2.31+).
 const configEnv: Record<string, string> = {
@@ -96,9 +97,13 @@ describe('per-call env', () => {
   });
 
   it('applies env to typed command()', async () => {
-    const result = await repo.command('config', [['--get'], { operand: 'typegit.percall' }], {
-      env: configEnv,
-    });
+    const result = await strict(repo).command(
+      'config',
+      [['--get'], { operand: 'typegit.percall' }],
+      {
+        env: configEnv,
+      },
+    );
     expect(result.exitCode).toBe(0);
     expect(result.stdout.trim()).toBe('yes');
     expect(spawned.at(-1)?.env).toMatchObject(configEnv);
@@ -118,7 +123,7 @@ describe('per-call env', () => {
     const before = spawned.length;
     await expect(repo.raw(['status'], { env: env as never })).rejects.toThrow(GitArgumentError);
     await expect(repo.raw(['status'], { env: env as never })).rejects.toThrow(message);
-    await expect(repo.command('status', [], { env: env as never })).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('status', [], { env: env as never })).rejects.toBeInstanceOf(
       GitArgumentError,
     );
     expect(spawned.length).toBe(before);

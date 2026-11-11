@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('var sole usage and variable query controls', () => {
   let root: string;
@@ -94,7 +95,7 @@ describe('var sole usage and variable query controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('var', args as never, { stdin: input });
+      const actual = await strict(git).command('var', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -130,13 +131,13 @@ describe('var sole usage and variable query controls', () => {
   it('rejects non-usage operands and multiword help', async () => {
     expect(native(['var', 'ordinary', '--help']).status).toBe(129);
     await expect(
-      repo.command('var', [{ operand: 'ordinary' }, ['--help']] as never),
+      strict(repo).command('var', [{ operand: 'ordinary' }, ['--help']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
-    await expect(repo.command('var', [{ operand: 'ordinary' }] as never)).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
     await expect(
-      repo.command('var', [['-h'], { operand: 'ignored' }] as never),
+      strict(repo).command('var', [{ operand: 'ordinary' }] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(
+      strict(repo).command('var', [['-h'], { operand: 'ignored' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('trailer and tag internal help', () => {
@@ -67,7 +68,7 @@ describe('trailer and tag internal help', () => {
     words: string[],
   ) => {
     const expected = native([command, ...words]);
-    const actual = await repo.command(command, args as never);
+    const actual = await strict(repo).command(command, args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -96,7 +97,7 @@ describe('trailer and tag internal help', () => {
     });
     it(`${command}: reached multiword completion still rejects`, async () => {
       await expect(
-        repo.command(command, [['--git-completion-helper'], ['--help-all']] as never),
+        strict(repo).command(command, [['--git-completion-helper'], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const result = native([command, '--git-completion-helper', '--help-all']);
       expect(result.status).toBe(129);
@@ -106,10 +107,10 @@ describe('trailer and tag internal help', () => {
     });
     it(`${command}: help preserves representation constraints`, async () => {
       await expect(
-        repo.command(command, [['--help-all'], [option, true]] as never),
+        strict(repo).command(command, [['--help-all'], [option, true]] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       await expect(
-        repo.command(command, [['--help-all'], { operand: '\0' }] as never),
+        strict(repo).command(command, [['--help-all'], { operand: '\0' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     });
   }
@@ -121,7 +122,7 @@ describe('trailer and tag internal help', () => {
         ['--help-all', `${flag}=invalid`],
       );
       await expect(
-        repo.command('interpret-trailers', [[flag, 'invalid'], ['--help-all']] as never),
+        strict(repo).command('interpret-trailers', [[flag, 'invalid'], ['--help-all']] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       const result = native(['interpret-trailers', `${flag}=invalid`, '--help-all']);
       expect(result.status).toBe(129);
@@ -136,7 +137,10 @@ describe('trailer and tag internal help', () => {
       ['--only-input', '--trailer=Key: value', '--help-all'],
     );
     await expect(
-      repo.command('interpret-trailers', [['--only-input'], ['--trailer', 'Key: value']] as never),
+      strict(repo).command('interpret-trailers', [
+        ['--only-input'],
+        ['--trailer', 'Key: value'],
+      ] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
   it('interpret-trailers: a required help-looking trailer value does not bypass the next callback', () => {

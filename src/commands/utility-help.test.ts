@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('internal help in utility parsers', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('internal help in utility parsers', () => {
     words: string[],
   ) => {
     const expected = native([command, ...words]);
-    const actual = await repo.command(command, args as never);
+    const actual = await strict(repo).command(command, args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -92,7 +93,7 @@ describe('internal help in utility parsers', () => {
         const expected = native([command, flag, '--help-all']);
         expect(expected.status).toBe(129);
         expect(expected.stderr).toContain('unknown option');
-        const actual = repo.command(command, [[flag], ['--help-all']] as never);
+        const actual = strict(repo).command(command, [[flag], ['--help-all']] as never);
         await expect(actual).rejects.toBeInstanceOf(GitArgumentError);
         await expect(actual).rejects.toMatchObject({
           message: expect.stringContaining(`cli.${command}.${flag.slice(6)}-one-word`),
@@ -115,7 +116,7 @@ describe('internal help in utility parsers', () => {
         const expected = native([command, `${flag}=invalid`, help]);
         expect(expected.status).toBe(129);
         expect(expected.stderr).toMatch(/integer|numerical/);
-        const actual = repo.command(command, [[flag, 'invalid'], [help]] as never);
+        const actual = strict(repo).command(command, [[flag, 'invalid'], [help]] as never);
         await expect(actual).rejects.toBeInstanceOf(GitArgumentError);
         await expect(actual).rejects.toMatchObject({ message: expect.stringContaining(flag) });
       }
@@ -123,9 +124,9 @@ describe('internal help in utility parsers', () => {
     it(`${command}: the end marker keeps help as an operand`, async () => {
       const expected = native([command, '--', '--help-all']);
       expect(expected.status).toBe(129);
-      await expect(repo.command(command, ['--', ['--help-all']] as never)).rejects.toBeInstanceOf(
-        GitArgumentError,
-      );
+      await expect(
+        strict(repo).command(command, ['--', ['--help-all']] as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
     });
   }
   it('help preempts final padding, file opening and reflog mode checks', async () => {

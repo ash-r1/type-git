@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('retained revision initial parser phases', () => {
   let root: string;
@@ -66,7 +67,7 @@ describe('retained revision initial parser phases', () => {
       const args = first ? [['-h'], ['--date', 'invalid']] : [['--date', 'invalid'], ['-h']];
       const words = first ? ['-h', '--date=invalid'] : ['--date=invalid', '-h'];
       const expected = native([command, ...words]);
-      const actual = await repo.command(command, args as never);
+      const actual = await strict(repo).command(command, args as never);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);
@@ -83,10 +84,12 @@ describe('retained revision initial parser phases', () => {
         const args = first ? [['-h'], [flag, 'invalid']] : [[flag, 'invalid'], ['-h']];
         const words = first ? ['-h', `${flag}=invalid`] : [`${flag}=invalid`, '-h'];
         const expected = native([command, ...words]);
-        const outcome = await repo.command(command, args as never).then(
-          (result) => ({ ok: true as const, value: result }),
-          (error: unknown) => ({ ok: false as const, error }),
-        );
+        const outcome = await strict(repo)
+          .command(command, args as never)
+          .then(
+            (result) => ({ ok: true as const, value: result }),
+            (error: unknown) => ({ ok: false as const, error }),
+          );
         if (!outcome.ok) {
           expect(outcome.error).toBeInstanceOf(GitArgumentError);
           expect(expected.status).not.toBe(0);
@@ -107,7 +110,11 @@ describe('retained revision initial parser phases', () => {
     'replay',
   ] as const)('lets initial help preempt the unused separator for %s', async (command) => {
     const expected = native([command, '-h', '--', '--date=invalid']);
-    const actual = await repo.command(command, [['-h'], ['--'], ['--date', 'invalid']] as never);
+    const actual = await strict(repo).command(command, [
+      ['-h'],
+      ['--'],
+      ['--date', 'invalid'],
+    ] as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -122,7 +129,7 @@ describe('retained revision initial parser phases', () => {
         ? ['-h', '--onto=HEAD', '--advance=branch']
         : ['--onto=HEAD', '--advance=branch', '-h'];
       const expected = native(['replay', ...words]);
-      const actual = await repo.command('replay', args as never);
+      const actual = await strict(repo).command('replay', args as never);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);
@@ -151,12 +158,16 @@ describe('retained revision initial parser phases', () => {
         revision,
       ]);
       if (expected.status === 128 && expected.stderr.includes('unknown date format')) {
-        await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(GitArgumentError);
-      } else {
-        const outcome = await repo.command(command, args as never).then(
-          (result) => ({ ok: true as const, value: result }),
-          (error: unknown) => ({ ok: false as const, error }),
+        await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
+          GitArgumentError,
         );
+      } else {
+        const outcome = await strict(repo)
+          .command(command, args as never)
+          .then(
+            (result) => ({ ok: true as const, value: result }),
+            (error: unknown) => ({ ok: false as const, error }),
+          );
         if (!outcome.ok) {
           expect(outcome.error).toBeInstanceOf(GitArgumentError);
           expect(expected.status).not.toBe(0);
@@ -173,7 +184,7 @@ describe('retained revision initial parser phases', () => {
     const expected = native(['backfill', '--diff-merges=cc', 'HEAD']);
     expect(expected.status).not.toBe(0);
     await expect(
-      repo.command('backfill', [['--diff-merges', 'cc'], { operand: 'HEAD' }] as never),
+      strict(repo).command('backfill', [['--diff-merges', 'cc'], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   }, 120_000);
   it('preserves integer number representation checks only before reached callbacks', async () => {
@@ -184,7 +195,7 @@ describe('retained revision initial parser phases', () => {
         ['--min-batch-size', 1],
         ...(help ? [['-h']] : []),
       ];
-      await expect(repo.command('backfill', args as never)).rejects.toBeInstanceOf(
+      await expect(strict(repo).command('backfill', args as never)).rejects.toBeInstanceOf(
         GitArgumentError,
       );
     }
@@ -195,7 +206,7 @@ describe('retained revision initial parser phases', () => {
         '--min-batch-size=1',
         '-h',
       ]);
-      const actual = await repo.command('backfill', [
+      const actual = await strict(repo).command('backfill', [
         ['--min-batch-size', value],
         ['--min-batch-size', 1],
         ['-h'],
@@ -213,7 +224,7 @@ describe('retained revision initial parser phases', () => {
         ? ['-h', `--min-batch-size=${large}`]
         : [`--min-batch-size=${large}`, '-h', `--min-batch-size=${large}`];
       const expected = native(['backfill', ...words]);
-      const actual = await repo.command('backfill', args as never);
+      const actual = await strict(repo).command('backfill', args as never);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);

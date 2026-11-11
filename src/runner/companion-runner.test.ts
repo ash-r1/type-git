@@ -8,6 +8,7 @@ import { createNodeAdapters } from '../adapters/node/index.js';
 import type { EnvInheritance } from '../core/env.js';
 import type { AuditEvent } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 import { CliRunner } from './cli-runner.js';
 
 function fixture() {
@@ -159,7 +160,7 @@ describe('standalone execution against actual process adapters', () => {
     });
     const backing = new Uint8Array([99, 0, 255, 128, 13, 10, 99]);
     const input = backing.subarray(1, 6);
-    const result = await git.command(
+    const result = await strict(git).command(
       'gitk',
       [
         { operand: '-e' },

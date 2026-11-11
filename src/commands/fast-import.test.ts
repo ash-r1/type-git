@@ -6,6 +6,7 @@ import { afterAll, beforeAll, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 let root: string;
@@ -73,7 +74,7 @@ it.for(
   expect(native.status, native.stderr).toBe(parserHelp ? 0 : 128);
   const tokens = [['--quiet'], [help], [flag, value]];
   expect(commandArguments('fast-import', tokens, true)).toEqual(words);
-  const actual = await repo.command('fast-import', tokens as never, { stdin: 'done\n' });
+  const actual = await strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' });
   expect(actual.exitCode).toBe(native.status);
 });
 it.for(
@@ -105,9 +106,9 @@ it('preserves ignored tail operands and the NUL representation boundary', async 
   expect(native.error).toBeUndefined();
   expect(native.signal).toBeNull();
   expect(native.status).toBe(parserHelp ? 0 : 128);
-  expect((await repo.command('fast-import', tokens as never, { stdin: 'done\n' })).exitCode).toBe(
-    native.status,
-  );
+  expect(
+    (await strict(repo).command('fast-import', tokens as never, { stdin: 'done\n' })).exitCode,
+  ).toBe(native.status);
   expect(() => commandArguments('fast-import', [['-h'], ['--signed-tags', 'bad\0']], true)).toThrow(
     GitArgumentError,
   );
@@ -133,7 +134,7 @@ it('leaves earlier input-feature failures to the native stream parser', async ()
   expect(native.status).not.toBeNull();
   expect(native.status).not.toBe(0);
   expect(native.stderr).toContain('type-git-invalid-feature');
-  const actual = await repo.command('fast-import', tokens as never, { stdin });
+  const actual = await strict(repo).command('fast-import', tokens as never, { stdin });
   expect(actual.exitCode).toBe(native.status);
   expect(actual.stderr).toContain('type-git-invalid-feature');
 });

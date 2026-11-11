@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { commandArguments, commandUsesDepthAtoi } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Native result without shell or network side effects. */
@@ -30,7 +31,7 @@ describe('independent initial depth atoi profile', () => {
       }
       return result(0);
     });
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--all'], ['--depth', '2147483648']],
@@ -49,7 +50,7 @@ describe('independent initial depth atoi profile', () => {
     adapters.fs.writeFile = undefined;
     adapters.fs.createTempFile = vi.fn();
     adapters.exec.spawn = vi.fn().mockResolvedValue(result(0));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--all'], ['--depth', '2147483648']],
@@ -71,7 +72,7 @@ describe('independent initial depth atoi profile', () => {
     const runner = new CliRunner(adapters);
     expect(commandUsesDepthAtoi('pull', [['--depth', '1'], ['--'], { operand: '--x' }])).toBe(true);
     await expect(
-      runner.runCommand(
+      new StrictCommandRunner(runner).runCommand(
         { type: 'global' },
         'pull',
         [['--depth', '1'], ['--'], { operand: '--upload-pack=type-git-probe' }],
@@ -80,7 +81,7 @@ describe('independent initial depth atoi profile', () => {
     ).rejects.toThrow(GitArgumentError);
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
     // A preceding help exit keeps the forwarded word unreachable, as in a full evaluation.
-    await runner.runCommand(
+    await new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'pull',
       [['--depth', '1'], ['-h'], ['--'], { operand: '--x' }],
@@ -121,7 +122,7 @@ describe('independent initial depth atoi profile', () => {
       .mockResolvedValueOnce(result(0));
     const env = { TYPE_GIT_DEPTH_TEST: 'yes' };
     const signal = new AbortController().signal;
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--all'], ['--depth', '2147483648']],
@@ -156,7 +157,7 @@ describe('independent initial depth atoi profile', () => {
       .fn()
       .mockResolvedValue(result(128, 'fatal: depth 2147483648 is not a positive number\n'));
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'fetch',
         [['--all'], ['--depth', '2147483648']],
@@ -190,9 +191,15 @@ describe('independent initial depth atoi profile', () => {
       audit: { onAudit, onTrace },
     });
     await expect(
-      runner.runCommand({ type: 'global' }, 'fetch', [['--all'], ['--depth', '2147483648']], true, {
-        env: { GIT_TRACE_SETUP: '1' },
-      }),
+      new StrictCommandRunner(runner).runCommand(
+        { type: 'global' },
+        'fetch',
+        [['--all'], ['--depth', '2147483648']],
+        true,
+        {
+          env: { GIT_TRACE_SETUP: '1' },
+        },
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
     const env = adapters.exec.spawn.mock.calls[0]![0].env as Record<string, string>;
@@ -217,7 +224,7 @@ describe('independent initial depth atoi profile', () => {
       );
     const onAudit = vi.fn();
     const runner = new CliRunner(adapters, { audit: { onAudit, onTrace: vi.fn() } });
-    await runner.runCommand(
+    await new StrictCommandRunner(runner).runCommand(
       { type: 'global' },
       'fetch',
       [['--all'], ['--depth', '2147483648']],
@@ -260,7 +267,7 @@ describe('independent initial depth atoi profile', () => {
       .fn()
       .mockResolvedValueOnce(result(128, 'erreur : profondeur invalide'))
       .mockResolvedValueOnce(result(128, 'native original'));
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--all'], ['--depth', '2147483648']],
@@ -277,7 +284,7 @@ describe('independent initial depth atoi profile', () => {
     adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
-    const actual = await new CliRunner(adapters).runCommand(
+    const actual = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--depth', '2147483648']],
@@ -294,7 +301,12 @@ describe('independent initial depth atoi profile', () => {
     adapters.fs.createTempFile = vi.fn();
     adapters.exec.spawn = vi.fn();
     await expect(
-      new CliRunner(adapters).runCommand({ type: 'global' }, 'fetch', [['--depth', '1\0']], true),
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+        { type: 'global' },
+        'fetch',
+        [['--depth', '1\0']],
+        true,
+      ),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.fs.createTempFile).not.toHaveBeenCalled();
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
@@ -303,7 +315,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn();
     adapters.exec.spawn = vi.fn().mockResolvedValue(result(0, 'usage: git fetch\n'));
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'fetch',
       [['--depth', 'bad'], ['-h']],

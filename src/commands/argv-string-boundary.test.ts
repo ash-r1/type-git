@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -19,7 +20,12 @@ describe('argv representation before command interpretation', () => {
       const adapters = createNodeAdapters();
       adapters.exec.spawn = vi.fn();
       await expect(
-        new CliRunner(adapters).runCommand({ type: 'global' }, command, args, true),
+        new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+          { type: 'global' },
+          command,
+          args,
+          true,
+        ),
       ).rejects.toBeInstanceOf(GitArgumentError);
       expect(adapters.exec.spawn).not.toHaveBeenCalled();
     });

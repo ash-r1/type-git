@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { RuntimeAdapters } from '../core/adapters.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { CliRunner } from './cli-runner.js';
 
 /** Model distinct observed filename parser results without a Git version guess. */
@@ -42,7 +43,7 @@ describe('selected native filename profile', () => {
   ])('rejects checked shortlog overflow before probes (filename=%s)', async (filename) => {
     const adapters = runtime(0, 0);
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'shortlog',
         [...(filename ? [['-O', '']] : []), ['-w', '4294967297,0,0']],
@@ -55,9 +56,9 @@ describe('selected native filename profile', () => {
     [0, 0],
   ])('uses observed clearing negation without a Git version guess (%i/%i)', async (negate, empty) => {
     const adapters = runtime(negate, empty);
-    const result = await new CliRunner(adapters)
-      .withOptions({ env: { BASE: 'retained' } })
-      .runCommand({ type: 'global' }, 'tag', negated, true, { env: { CALL: 'same' } });
+    const result = await new StrictCommandRunner(
+      new CliRunner(adapters).withOptions({ env: { BASE: 'retained' } }),
+    ).runCommand({ type: 'global' }, 'tag', negated, true, { env: { CALL: 'same' } });
     expect(result.stdout).toBe('executed');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
     for (const [options] of vi.mocked(adapters.exec.spawn).mock.calls) {
@@ -67,30 +68,48 @@ describe('selected native filename profile', () => {
   it('retains the filename when the observed parser ignores negation', async () => {
     const adapters = runtime(129, 0);
     await expect(
-      new CliRunner(adapters).runCommand({ type: 'global' }, 'tag', negated, true),
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+        { type: 'global' },
+        'tag',
+        negated,
+        true,
+      ),
     ).rejects.toThrow('Tag creation options');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
   });
   it('defers an unrecognized/non-repository profile to native execution', async () => {
     const adapters = runtime(128, 128);
     expect(
-      (await new CliRunner(adapters).runCommand({ type: 'global' }, 'tag', negated, true)).stdout,
+      (
+        await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+          { type: 'global' },
+          'tag',
+          negated,
+          true,
+        )
+      ).stdout,
     ).toBe('executed');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
   });
   it('rejects malformed IO before performing profile probes', async () => {
     const adapters = runtime(0, 0);
     await expect(
-      new CliRunner(adapters).runCommand({ type: 'global' }, 'tag', negated, true, {
-        stdout: 'invalid' as 'text',
-      }),
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
+        { type: 'global' },
+        'tag',
+        negated,
+        true,
+        {
+          stdout: 'invalid' as 'text',
+        },
+      ),
     ).rejects.toThrow();
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
   it('rejects an independent invalid option before performing profile probes', async () => {
     const adapters = runtime(0, 0);
     await expect(
-      new CliRunner(adapters).runCommand(
+      new StrictCommandRunner(new CliRunner(adapters)).runCommand(
         { type: 'global' },
         'tag',
         [...negated, ['--unknown']],
@@ -101,7 +120,7 @@ describe('selected native filename profile', () => {
   });
   it('skips both profile probes when all ABI and filename variants accept the input', async () => {
     const adapters = runtime(0, 0);
-    await new CliRunner(adapters).runCommand(
+    await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'shortlog',
       [
@@ -131,7 +150,9 @@ describe('optional filename lookup through selected Git', () => {
         aborted: false,
       };
     });
-    const result = await new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+    const result = await new StrictCommandRunner(
+      new CliRunner(adapters, { gitBinary: 'selected-git' }),
+    ).runCommand(
       { type: 'worktree', workdir: '/repo' },
       'commit',
       [
@@ -168,7 +189,7 @@ describe('optional filename lookup through selected Git', () => {
       stderr: argv.includes('--no-file') ? 'usage: git tag' : '',
       aborted: argv.includes('--file=:(optional)missing'),
     }));
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'tag',
       [['--list'], ['--file', ':(optional)missing']],
@@ -193,7 +214,7 @@ describe('optional filename lookup through selected Git', () => {
           : '',
       aborted: false,
     }));
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'tag',
       [['--list'], ['--file', ':(optional)denied']],
