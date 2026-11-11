@@ -21787,7 +21787,7 @@
           }
         }
       ],
-      "rules": 15,
+      "rules": 16,
       "domains": {
         "quiet": [
           "undefined",
@@ -22961,15 +22961,20 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
           "[\"value\"]"
         ]
       },
-      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
-      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
-      "nodes": 17668,
+      "total": "764405757458023827385329840914905393951318060480431308999120388096000000000000000000000000000000000000000",
+      "accepted": "796592585189610821130936417325386915104330450705752529727763269436833792000000000000000000000000000000",
+      "nodes": 28327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -22977,6 +22982,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -25414,7 +25420,7 @@
           }
         }
       ],
-      "rules": 15,
+      "rules": 16,
       "domains": {
         "quiet": [
           "undefined",
@@ -26588,15 +26594,20 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
           "[\"value\"]"
         ]
       },
-      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
-      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
-      "nodes": 17668,
+      "total": "764405757458023827385329840914905393951318060480431308999120388096000000000000000000000000000000000000000",
+      "accepted": "796592585189610821130936417325386915104330450705752529727763269436833792000000000000000000000000000000",
+      "nodes": 28327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -26604,6 +26615,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -26985,7 +26997,7 @@
           }
         }
       ],
-      "rules": 21,
+      "rules": 24,
       "domains": {
         "no-output": [
           "undefined",
@@ -28151,8 +28163,8 @@
         ]
       },
       "total": "4227824436311045366279355169504661931977660383891768227550690541568000000000000000000000000000000000000",
-      "accepted": "7474199952216795711487857305088447897057681655088575426191282214954598400000000000000000000000000000",
-      "nodes": 118263,
+      "accepted": "7474199716923931567713794271025129550629930934568206960191552728135106560000000000000000000000000000",
+      "nodes": 184691,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -28160,6 +28172,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -28174,7 +28187,9 @@
         "diff.cached-max-age": "{\"cached\":true,\"max-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.follow-without-path": "{\"follow\":true,\"operands\":[]}",
         "diff.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
-        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}"
+        "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}",
+        "diff.max-depth-without-trees": "{\"max-depth\":1,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.max-depth-zero-without-trees": "{\"max-depth\":0,\"operands\":[],\"operandsBeforeSeparator\":[]}"
       }
     },
     {
@@ -28437,7 +28452,7 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 17,
       "domains": {
         "no-output": [
           "undefined",
@@ -29568,11 +29583,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "5767121626912388272454477537766775948878256972074584635795832832000000000000000000000000000000000000",
-      "accepted": "2926927496845995484628411607831802563504767455412039475091891814400000000000000000000000000000000",
-      "nodes": 23947,
+      "total": "17301364880737164817363432613300327846634770916223753907387498496000000000000000000000000000000000000",
+      "accepted": "8780782464612112225870110420253383103001878865804150459962117167513600000000000000000000000000000",
+      "nodes": 35376,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -29580,6 +29600,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -29851,7 +29872,7 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 17,
       "domains": {
         "no-output": [
           "undefined",
@@ -30981,11 +31002,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "6291405411177150842677611859381937398776280333172274148140908544000000000000000000000000000000000000",
-      "accepted": "1170770998738398193851364643132721025401906982164815790036756725760000000000000000000000000000000",
-      "nodes": 15943,
+      "total": "18874216233531452528032835578145812196328840999516822444422725632000000000000000000000000000000000000",
+      "accepted": "3512312985844844890348044168101353241200751546321660183984846867005440000000000000000000000000000",
+      "nodes": 23896,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -30993,6 +31019,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -31247,7 +31274,7 @@
           }
         }
       ],
-      "rules": 14,
+      "rules": 15,
       "domains": {
         "no-output": [
           "undefined",
@@ -32369,11 +32396,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "1572851352794287710669402964845484349694070083293068537035227136000000000000000000000000000000000000",
-      "accepted": "2634234747161395936165570447048622307154290709870835527582702632960000000000000000000000000000000",
-      "nodes": 11842,
+      "total": "4718554058382863132008208894536453049082210249879205611105681408000000000000000000000000000000000000",
+      "accepted": "7902704210373138734878562057255437416447963929094145024371837968056320000000000000000000000000000",
+      "nodes": 18087,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -32381,6 +32413,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -35709,7 +35742,7 @@
           }
         }
       ],
-      "rules": 15,
+      "rules": 16,
       "domains": {
         "walk-reflogs": [
           "undefined",
@@ -36883,15 +36916,20 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
           "[\"value\"]"
         ]
       },
-      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
-      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
-      "nodes": 17668,
+      "total": "764405757458023827385329840914905393951318060480431308999120388096000000000000000000000000000000000000000",
+      "accepted": "796592585189610821130936417325386915104330450705752529727763269436833792000000000000000000000000000000",
+      "nodes": 28327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -36899,6 +36937,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -39372,7 +39411,7 @@
           }
         }
       ],
-      "rules": 15,
+      "rules": 16,
       "domains": {
         "empty-stash-reference": [
           "undefined",
@@ -40501,11 +40540,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "11009959469560013974685820753918390447858490583051479759246589952000000000000000000000000000000000000",
-      "accepted": "8780782490537986453885234823495407690514302366236118425275675443200000000000000000000000000000000",
-      "nodes": 18958,
+      "total": "33029878408680041924057462261755171343575471749154439277739769856000000000000000000000000000000000000",
+      "accepted": "26342347393836336677610331260760149309005636597412451379886351502540800000000000000000000000000000",
+      "nodes": 28930,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"stash-operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[],\"stash-operands\":[]}",
@@ -40513,6 +40557,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"stash-operands\":[]}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"stash-operands\":[],\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"stash-operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[],\"stash-operands\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[],\"stash-operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[],\"stash-operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\",\"stash-operands\":[]}",
@@ -47640,7 +47685,7 @@
           }
         }
       ],
-      "rules": 24,
+      "rules": 25,
       "domains": {
         "S": [
           "undefined",
@@ -48860,6 +48905,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "argumentTokens": [
           "[]",
           "[\"value\"]",
@@ -48868,9 +48918,9 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "3302232872218662934304624912752391301869694021275463254876200076574720000000000000000000000000000000000000000",
-      "accepted": "495657610025888259348913735316668773314151339969296412869961327417753600000000000000000000000000000000000",
-      "nodes": 77274,
+      "total": "9906698616655988802913874738257173905609082063826389764628600229724160000000000000000000000000000000000000000",
+      "accepted": "1486972825687273532777747979007388908194750174650738055491824769615423078400000000000000000000000000000000",
+      "nodes": 107830,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"skip\":true}",
@@ -48878,6 +48928,7 @@
         "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"skip\":true}",
         "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"reverse\":true,\"skip\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"skip\":true}",
+        "revision.no-walk-graph": "{\"argumentTokens\":[],\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[],\"skip\":true}",
         "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"skip\":true}",
         "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"skip\":true}",
         "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"show-linear-break\":\"\",\"skip\":true}",
@@ -52735,7 +52786,7 @@
           }
         }
       ],
-      "rules": 23,
+      "rules": 24,
       "domains": {
         "S": [
           "undefined",
@@ -53930,6 +53981,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "argumentTokens": [
           "[]",
           "[\"value\"]",
@@ -53938,9 +53994,9 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "15288115149160476547706596818298107879026361209608626179982407761920000000000000000000000000000000000000000",
-      "accepted": "3253279912744323981164479502105048549335549026690481876564637751705600000000000000000000000000000000000",
-      "nodes": 48871,
+      "total": "45864345447481429643119790454894323637079083628825878539947223285760000000000000000000000000000000000000000",
+      "accepted": "9759839709416362739054627732111635318986588359341313236247893231691366400000000000000000000000000000000",
+      "nodes": 68468,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"skip\":true}",
@@ -53948,6 +54004,7 @@
         "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"skip\":true}",
         "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"reverse\":true,\"skip\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"skip\":true}",
+        "revision.no-walk-graph": "{\"argumentTokens\":[],\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[],\"skip\":true}",
         "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"skip\":true}",
         "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"skip\":true}",
         "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"show-linear-break\":\"\",\"skip\":true}",
@@ -67120,7 +67177,7 @@
           }
         }
       ],
-      "rules": 48,
+      "rules": 49,
       "domains": {
         "missing": [
           "undefined",
@@ -68306,14 +68363,12 @@
           "false",
           "true"
         ],
-        "argumentTokens": [
-          "[]",
-          "[\"value\"]",
-          "[\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
-        ],
         "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "argumentTokens": [
           "[]",
           "[\"value\"]",
           "[\"value\",\"value\"]",
@@ -68321,58 +68376,59 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "12230492119328381238165277454638486303221088967686900943985926209536000000000000000000000000000000000000000",
-      "accepted": "7989162351061104371050663458563640424918380433658775431494471978372300800000000000000000000000000000000",
-      "nodes": 598191,
+      "total": "7338295271597028742899166472783091781932653380612140566391555725721600000000000000000000000000000000000000",
+      "accepted": "4793497396287141528765929712649099187594637449664282267613525527352049664000000000000000000000000000000",
+      "nodes": 653759,
       "isolatedRuleWitnesses": {
-        "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"test-bitmap\":true}",
-        "diff.pickaxe-regex": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-regex\":true,\"test-bitmap\":true}",
-        "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-all\":true,\"verify-objects\":true}",
-        "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"reverse\":true,\"verify-objects\":true,\"walk-reflogs\":true}",
-        "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"show-linear-break\":\"\",\"verify-objects\":true}",
-        "revision.children-parents": "{\"argumentTokens\":[],\"children\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"rewrite-parents\":true,\"verify-objects\":true}",
-        "revision.limited-reflog": "{\"argumentTokens\":[],\"limited\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true,\"walk-reflogs\":true}",
-        "revision.combined-paths": "{\"argumentTokens\":[],\"combined-all-paths\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "revision.object-filter": "{\"argumentTokens\":[],\"filter\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"test-bitmap\":true}",
-        "cli.rev-list.missing-promisor": "{\"argumentTokens\":[],\"exclude-promisor-objects\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.nul-output": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"rev-list-nul\":true,\"verbose-header\":true,\"verify-objects\":true}",
-        "cli.rev-list.notes": "{\"argumentTokens\":[],\"notes-enabled\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.default-notes": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"show-notes-by-default\":true,\"verify-objects\":true}",
-        "cli.rev-list.marked-count-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
-        "cli.rev-list.marked-count-objects-edge": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
-        "cli.rev-list.marked-count-objects-edge-aggressive": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge-aggressive\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
-        "cli.rev-list.marked-count-verify-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.input": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[]}",
-        "cli.rev-list.revision-diff": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"revision-diff\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-patch": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-u": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"u\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-unified": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"unified\":-2,\"verify-objects\":true}",
-        "cli.rev-list.diff-raw": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"raw\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-patch-with-raw": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch-with-raw\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-patch-with-stat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch-with-stat\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-numstat": "{\"argumentTokens\":[],\"numstat\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-shortstat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"shortstat\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-summary": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"summary\":true,\"verify-objects\":true}",
-        "cli.rev-list.diff-stat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat\":\"\",\"verify-objects\":true}",
-        "cli.rev-list.diff-stat-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-width\":-2,\"verify-objects\":true}",
-        "cli.rev-list.diff-stat-name-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-name-width\":-2,\"verify-objects\":true}",
-        "cli.rev-list.diff-stat-graph-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-graph-width\":-2,\"verify-objects\":true}",
-        "cli.rev-list.diff-stat-count": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-count\":-2,\"verify-objects\":true}",
-        "cli.rev-list.diff-compact-summary": "{\"argumentTokens\":[],\"compact-summary\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-binary": "{\"argumentTokens\":[],\"binary\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-dirstat": "{\"argumentTokens\":[],\"dirstat\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-cumulative": "{\"argumentTokens\":[],\"cumulative\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-dirstat-by-file": "{\"argumentTokens\":[],\"dirstat-by-file\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-name-only": "{\"argumentTokens\":[],\"name-only\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-name-status": "{\"argumentTokens\":[],\"name-status\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.diff-check": "{\"argumentTokens\":[],\"check\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.search-S": "{\"S\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.search-G": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
-        "cli.rev-list.search-follow": "{\"argumentTokens\":[],\"follow\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}"
+        "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"verify-objects\":true}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"test-bitmap\":true}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"pickaxe-regex\":true,\"test-bitmap\":true}",
+        "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"verify-objects\":true}",
+        "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"reverse\":true,\"verify-objects\":true,\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"verify-objects\":true}",
+        "revision.no-walk-graph": "{\"argumentTokens\":[],\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"verify-objects\":true}",
+        "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"verify-objects\":true}",
+        "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"show-linear-break\":\"\",\"verify-objects\":true}",
+        "revision.children-parents": "{\"argumentTokens\":[],\"children\":true,\"operands\":[],\"rewrite-parents\":true,\"verify-objects\":true}",
+        "revision.limited-reflog": "{\"argumentTokens\":[],\"limited\":true,\"operands\":[],\"verify-objects\":true,\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"argumentTokens\":[],\"combined-all-paths\":true,\"operands\":[],\"verify-objects\":true}",
+        "revision.object-filter": "{\"argumentTokens\":[],\"filter\":\"\",\"operands\":[],\"test-bitmap\":true}",
+        "cli.rev-list.missing-promisor": "{\"argumentTokens\":[],\"exclude-promisor-objects\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.nul-output": "{\"argumentTokens\":[],\"operands\":[],\"rev-list-nul\":true,\"verbose-header\":true,\"verify-objects\":true}",
+        "cli.rev-list.notes": "{\"argumentTokens\":[],\"notes-enabled\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.default-notes": "{\"argumentTokens\":[],\"operands\":[],\"show-notes-by-default\":true,\"verify-objects\":true}",
+        "cli.rev-list.marked-count-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects\":true,\"operands\":[]}",
+        "cli.rev-list.marked-count-objects-edge": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge\":true,\"operands\":[]}",
+        "cli.rev-list.marked-count-objects-edge-aggressive": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge-aggressive\":true,\"operands\":[]}",
+        "cli.rev-list.marked-count-verify-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.input": "{\"argumentTokens\":[],\"operands\":[]}",
+        "cli.rev-list.revision-diff": "{\"argumentTokens\":[],\"operands\":[],\"revision-diff\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch": "{\"argumentTokens\":[],\"operands\":[],\"patch\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-u": "{\"argumentTokens\":[],\"operands\":[],\"u\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-unified": "{\"argumentTokens\":[],\"operands\":[],\"unified\":-2,\"verify-objects\":true}",
+        "cli.rev-list.diff-raw": "{\"argumentTokens\":[],\"operands\":[],\"raw\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch-with-raw": "{\"argumentTokens\":[],\"operands\":[],\"patch-with-raw\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch-with-stat": "{\"argumentTokens\":[],\"operands\":[],\"patch-with-stat\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-numstat": "{\"argumentTokens\":[],\"numstat\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-shortstat": "{\"argumentTokens\":[],\"operands\":[],\"shortstat\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-summary": "{\"argumentTokens\":[],\"operands\":[],\"summary\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-stat": "{\"argumentTokens\":[],\"operands\":[],\"stat\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-width": "{\"argumentTokens\":[],\"operands\":[],\"stat-width\":-2,\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-name-width": "{\"argumentTokens\":[],\"operands\":[],\"stat-name-width\":-2,\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-graph-width": "{\"argumentTokens\":[],\"operands\":[],\"stat-graph-width\":-2,\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-count": "{\"argumentTokens\":[],\"operands\":[],\"stat-count\":-2,\"verify-objects\":true}",
+        "cli.rev-list.diff-compact-summary": "{\"argumentTokens\":[],\"compact-summary\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-binary": "{\"argumentTokens\":[],\"binary\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-dirstat": "{\"argumentTokens\":[],\"dirstat\":\"\",\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-cumulative": "{\"argumentTokens\":[],\"cumulative\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-dirstat-by-file": "{\"argumentTokens\":[],\"dirstat-by-file\":\"\",\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-name-only": "{\"argumentTokens\":[],\"name-only\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-name-status": "{\"argumentTokens\":[],\"name-status\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-check": "{\"argumentTokens\":[],\"check\":true,\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-S": "{\"S\":\"\",\"argumentTokens\":[],\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-G": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-follow": "{\"argumentTokens\":[],\"follow\":true,\"operands\":[],\"verify-objects\":true}"
       }
     },
     {
@@ -71215,7 +71271,7 @@
           }
         }
       ],
-      "rules": 18,
+      "rules": 19,
       "domains": {
         "no-output": [
           "undefined",
@@ -72350,11 +72406,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "33973589220356614550459104040662461953391913799130280399960906137600000000000000000000000000000000000",
-      "accepted": "2107387797729116748932456357638897845723432567896668422066162106368000000000000000000000000000000",
-      "nodes": 6289,
+      "total": "101920767661069843651377312121987385860175741397390841199882718412800000000000000000000000000000000000",
+      "accepted": "6322163374520720802626479502582435834161352783378988331172724360609792000000000000000000000000000",
+      "nodes": 10163,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": null,
@@ -72362,6 +72423,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -74785,7 +74847,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 14,
       "domains": {
         "boundary": [
           "undefined",
@@ -75896,11 +75958,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "294909628648928945750513055908528315567638140617450350694105088000000000000000000000000000000000000",
-      "accepted": "658558686790348984041392611762155576788572677467708881895675658240000000000000000000000000000000",
-      "nodes": 7940,
+      "total": "884728885946786837251539167725584946702914421852351052082315264000000000000000000000000000000000000",
+      "accepted": "1975676054537725250820774844557011198175422744805933853491476362690560000000000000000000000000000",
+      "nodes": 12973,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -75908,6 +75975,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -79596,7 +79664,7 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 20,
       "domains": {
         "no-output": [
           "undefined",
@@ -80753,14 +80821,12 @@
           "false",
           "true"
         ],
-        "argumentTokens": [
-          "[]",
-          "[\"value\"]",
-          "[\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
-        ],
         "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "argumentTokens": [
           "[]",
           "[\"value\"]",
           "[\"value\",\"value\"]",
@@ -80768,29 +80834,30 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "129022962533906413765849461959981138060841686520134528428670976000000000000000000000000000000000000000000",
-      "accepted": "8166033200833241750175743926725892916887188025817175788398328319836160000000000000000000000000000000",
-      "nodes": 87176,
+      "total": "77413777520343848259509677175988682836505011912080717057202585600000000000000000000000000000000000000000",
+      "accepted": "4899487598986025137392912113260765020724754370794925387087727212625920000000000000000000000000000000",
+      "nodes": 91424,
       "isolatedRuleWitnesses": {
-        "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "diff.pickaxe-regex": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-regex\":true,\"revert\":\"\",\"tags\":\"\"}",
-        "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-all\":true,\"revert\":\"\",\"tags\":\"\"}",
-        "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"reverse\":true,\"revert\":\"\",\"tags\":\"\",\"walk-reflogs\":true}",
-        "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"show-linear-break\":\"\",\"tags\":\"\"}",
-        "revision.children-parents": "{\"argumentTokens\":[],\"children\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"rewrite-parents\":true,\"tags\":\"\"}",
-        "revision.limited-reflog": "{\"argumentTokens\":[],\"limited\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\",\"walk-reflogs\":true}",
-        "revision.combined-paths": "{\"argumentTokens\":[],\"combined-all-paths\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "revision.object-filter": "{\"argumentTokens\":[],\"filter\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "cli.replay.mode-required": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"tags\":\"\"}",
-        "cli.replay.exclusive-onto": "{\"argumentTokens\":[],\"onto\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "cli.replay.exclusive-advance": "{\"advance\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "cli.replay.contained": "{\"argumentTokens\":[],\"contained\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
-        "cli.replay.ref-action": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"ref-action\":\"\",\"revert\":\"\",\"tags\":\"\"}",
-        "cli.replay.input": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\"}"
+        "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"pickaxe-regex\":true,\"revert\":\"\",\"tags\":\"\"}",
+        "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true,\"revert\":\"\",\"tags\":\"\"}",
+        "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"reverse\":true,\"revert\":\"\",\"tags\":\"\",\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "revision.no-walk-graph": null,
+        "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"revert\":\"\",\"show-linear-break\":\"\",\"tags\":\"\"}",
+        "revision.children-parents": "{\"argumentTokens\":[],\"children\":true,\"operands\":[],\"revert\":\"\",\"rewrite-parents\":true,\"tags\":\"\"}",
+        "revision.limited-reflog": "{\"argumentTokens\":[],\"limited\":true,\"operands\":[],\"revert\":\"\",\"tags\":\"\",\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"argumentTokens\":[],\"combined-all-paths\":true,\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "revision.object-filter": "{\"argumentTokens\":[],\"filter\":\"\",\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "cli.replay.mode-required": "{\"argumentTokens\":[],\"operands\":[],\"tags\":\"\"}",
+        "cli.replay.exclusive-onto": "{\"argumentTokens\":[],\"onto\":\"\",\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "cli.replay.exclusive-advance": "{\"advance\":\"\",\"argumentTokens\":[],\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "cli.replay.contained": "{\"argumentTokens\":[],\"contained\":true,\"operands\":[],\"revert\":\"\",\"tags\":\"\"}",
+        "cli.replay.ref-action": "{\"argumentTokens\":[],\"operands\":[],\"ref-action\":\"\",\"revert\":\"\",\"tags\":\"\"}",
+        "cli.replay.input": "{\"argumentTokens\":[],\"operands\":[],\"revert\":\"\"}"
       }
     },
     {
@@ -81033,7 +81100,7 @@
           }
         }
       ],
-      "rules": 20,
+      "rules": 21,
       "domains": {
         "S": [
           "undefined",
@@ -82304,6 +82371,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
@@ -82311,19 +82383,14 @@
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\"]"
         ],
-        "operandsBeforeSeparator": [
-          "undefined",
-          "[]",
-          "[\"value\"]"
-        ],
         "hasSeparator": [
           "undefined",
           "true"
         ]
       },
       "total": "38090946596710506447553757310013263130382370251597974070316823239532216320000000000000000000000000000000000000000",
-      "accepted": "26094473294541730124097643087042508719415213003220520254120918581420973096960000000000000000000000000000000000",
-      "nodes": 45621,
+      "accepted": "26094473100465637604683680600766178470178548295887532206572679577308674046033920000000000000000000000000000000",
+      "nodes": 60712,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -82331,6 +82398,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\"],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"graph\":true,\"operands\":[\"value\"],\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[\"value\"]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[\"value\"],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[\"value\"]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[\"value\"]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[\"value\"],\"show-linear-break\":\"\"}",
@@ -82587,7 +82655,7 @@
           }
         }
       ],
-      "rules": 20,
+      "rules": 21,
       "domains": {
         "S": [
           "undefined",
@@ -83858,6 +83926,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
@@ -83865,19 +83938,14 @@
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\"]"
         ],
-        "operandsBeforeSeparator": [
-          "undefined",
-          "[]",
-          "[\"value\"]"
-        ],
         "hasSeparator": [
           "undefined",
           "true"
         ]
       },
       "total": "38090946596710506447553757310013263130382370251597974070316823239532216320000000000000000000000000000000000000000",
-      "accepted": "26094473294541730124097643087042508719415213003220520254120918581420973096960000000000000000000000000000000000",
-      "nodes": 45621,
+      "accepted": "26094473100465637604683680600766178470178548295887532206572679577308674046033920000000000000000000000000000000",
+      "nodes": 60712,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -83885,6 +83953,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\"],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"graph\":true,\"operands\":[\"value\"],\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[\"value\"]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[\"value\"],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[\"value\"]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[\"value\"]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[\"value\"],\"show-linear-break\":\"\"}",
@@ -86853,7 +86922,7 @@
           }
         }
       ],
-      "rules": 23,
+      "rules": 24,
       "domains": {
         "no-output": [
           "undefined",
@@ -88207,11 +88276,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "42316308348880170921821570415172733069466918893727176592270993559388160000000000000000000000000000000000000000000000000000",
-      "accepted": "3309211935004542564749844343466436433861739252733552616748927495674055884800000000000000000000000000000000000000000000",
-      "nodes": 21726,
+      "total": "126948925046640512765464711245518199208400756681181529776812980678164480000000000000000000000000000000000000000000000000000",
+      "accepted": "9927635775701588870867459575628154048374861024022837088363698792746661917491200000000000000000000000000000000000000000",
+      "nodes": 31441,
       "isolatedRuleWitnesses": {
         "diff.output-formats": null,
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -88219,6 +88293,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -88590,7 +88665,7 @@
           }
         }
       ],
-      "rules": 20,
+      "rules": 21,
       "domains": {
         "S": [
           "undefined",
@@ -89861,6 +89936,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
@@ -89868,19 +89948,14 @@
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\"]"
         ],
-        "operandsBeforeSeparator": [
-          "undefined",
-          "[]",
-          "[\"value\"]"
-        ],
         "hasSeparator": [
           "undefined",
           "true"
         ]
       },
       "total": "38090946596710506447553757310013263130382370251597974070316823239532216320000000000000000000000000000000000000000",
-      "accepted": "26094473294541730124097643087042508719415213003220520254120918581420973096960000000000000000000000000000000000",
-      "nodes": 45621,
+      "accepted": "26094473100465637604683680600766178470178548295887532206572679577308674046033920000000000000000000000000000000",
+      "nodes": 60712,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -89888,6 +89963,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\"],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"graph\":true,\"operands\":[\"value\"],\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[\"value\"]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[\"value\"],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[\"value\"]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[\"value\"]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[\"value\"],\"show-linear-break\":\"\"}",
@@ -92330,7 +92406,7 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 17,
       "domains": {
         "quiet": [
           "undefined",
@@ -93504,15 +93580,20 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
           "[\"value\"]"
         ]
       },
-      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
-      "accepted": "88510287504622903455163167020833709520384167851660073726778808467456000000000000000000000000000000000",
-      "nodes": 21883,
+      "total": "764405757458023827385329840914905393951318060480431308999120388096000000000000000000000000000000000000000",
+      "accepted": "265530861729870273710312139108462305034776816901917509909254423145611264000000000000000000000000000000",
+      "nodes": 34210,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"i-still-use-this\":true,\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"i-still-use-this\":true,\"operands\":[]}",
@@ -93520,6 +93601,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"i-still-use-this\":true,\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"i-still-use-this\":true,\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"i-still-use-this\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"i-still-use-this\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"i-still-use-this\":true,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"i-still-use-this\":true,\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"i-still-use-this\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -93785,7 +93867,7 @@
           }
         }
       ],
-      "rules": 14,
+      "rules": 15,
       "domains": {
         "no-output": [
           "undefined",
@@ -94923,11 +95005,16 @@
           "undefined",
           "false",
           "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
         ]
       },
-      "total": "95550719682252978423166230114363174243914757560053913624890048512000000000000000000000000000000000000",
-      "accepted": "156473543981386918608234884554688165044964868166327630338412536397824000000000000000000000000000000",
-      "nodes": 13627,
+      "total": "286652159046758935269498690343089522731744272680161740874670145536000000000000000000000000000000000000",
+      "accepted": "469420630558163519595016103066745860686480444165889883589574783775277056000000000000000000000000000",
+      "nodes": 20862,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -94935,6 +95022,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -102265,7 +102353,7 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 17,
       "domains": {
         "rewrite-parents": [
           "undefined",
@@ -103505,6 +103593,11 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "argumentTokens": [
           "undefined",
           "[]",
@@ -103512,9 +103605,9 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "792535889332479104233109979060573912448726565106111181170288018377932800000000000000000000000000000000000000000",
-      "accepted": "148663295057364702609747337938864631849789574470333886392677315162874576896000000000000000000000000000000000",
-      "nodes": 11475,
+      "total": "2377607667997437312699329937181721737346179695318333543510864055133798400000000000000000000000000000000000000000",
+      "accepted": "445989883855277789648219633840799022933291698097531080323742277186139008794624000000000000000000000000000000",
+      "nodes": 17885,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[\"value\"],\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[\"value\"],\"find-object\":\"\",\"operands\":[]}",
@@ -103522,6 +103615,7 @@
         "diff.object-pickaxe-all": "{\"argumentTokens\":[\"value\"],\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"argumentTokens\":[\"value\"],\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"argumentTokens\":[\"value\"],\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"argumentTokens\":[\"value\"],\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"argumentTokens\":[\"value\"],\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"argumentTokens\":[\"value\"],\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"argumentTokens\":[\"value\"],\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -111374,7 +111468,7 @@
           }
         }
       ],
-      "rules": 15,
+      "rules": 16,
       "domains": {
         "walk-reflogs": [
           "undefined",
@@ -112548,15 +112642,20 @@
           "false",
           "true"
         ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
         "pathsAfterSeparator": [
           "undefined",
           "[]",
           "[\"value\"]"
         ]
       },
-      "total": "254801919152674609128443280304968464650439353493477102999706796032000000000000000000000000000000000000000",
-      "accepted": "265530862513868710365489501062501128561152503554980221180336425402368000000000000000000000000000000000",
-      "nodes": 17668,
+      "total": "764405757458023827385329840914905393951318060480431308999120388096000000000000000000000000000000000000000",
+      "accepted": "796592585189610821130936417325386915104330450705752529727763269436833792000000000000000000000000000000",
+      "nodes": 28327,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -112564,6 +112663,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",

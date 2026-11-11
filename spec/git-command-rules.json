@@ -7984,6 +7984,151 @@
       "origin": "git",
       "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
       "reason": "--full-diff keeps paths out of the diff pathspec, so --follow never sees exactly one pathspec."
+    },
+    {
+      "id": "diff.max-depth-without-trees",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "positive"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files/run_diff_index; builtin/diff.c:cmd_diff",
+      "reason": "Without revisions git diff compares the worktree (diff-files) or, with --cached, the index (HEAD by hand); both die when the final --max-depth is non-negative, after -h has exited the residual loop. A negative final value disables the limit. Revision operands and pending-object options select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.max-depth-zero-without-trees",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "equals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files/run_diff_index; builtin/diff.c:cmd_diff",
+      "reason": "Without revisions git diff compares the worktree (diff-files) or, with --cached, the index (HEAD by hand); both die when the final --max-depth is non-negative, after -h has exited the residual loop. A negative final value disables the limit. Revision operands and pending-object options select repository-dependent modes and are delegated."
     }
   ],
   "diff-files": [
