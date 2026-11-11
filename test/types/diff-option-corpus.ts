@@ -14,4 +14,7 @@ export type NativeDiffOptionCases = readonly [
   Check<Accepted<[["--stat","80,40"]]> extends true ? true : false>,
   Check<Accepted<[["--color","bad"]]> extends false ? true : false>,
   Check<Accepted<[["--no-no-patch"]]> extends true ? true : false>,
+  Check<Accepted<[["--find-object","HEAD"],["--pickaxe-regex"]]> extends false ? true : false>,
+  Check<Accepted<[["--exclude-hidden","bad"]]> extends false ? true : false>,
+  Check<Accepted<[["--exclude-hidden","fetch"]]> extends true ? true : false>,
 ];

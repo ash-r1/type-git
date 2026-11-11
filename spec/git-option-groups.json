@@ -267,7 +267,12 @@
       },
       "--exclude-hidden": {
         "key": "exclude-hidden",
-        "value": "string"
+        "value": "string",
+        "allowed": [
+          "fetch",
+          "receive",
+          "uploadpack"
+        ]
       },
       "--expand-tabs": {
         "key": "expand-tabs",

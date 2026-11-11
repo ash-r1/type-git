@@ -4488,6 +4488,7 @@ const sharedOption496 = {
 const sharedOption497 = {
   key: 'exclude-hidden',
   value: 'string',
+  allowed: ['fetch', 'receive', 'uploadpack'],
 } as const;
 const sharedOption498 = {
   key: 'expand-tabs',
@@ -6021,6 +6022,7 @@ const sharedOption768 = {
 const sharedOption769 = {
   key: 'exclude-hidden',
   value: 'string',
+  allowed: ['fetch', 'receive', 'uploadpack'],
   effects: sharedEffects19,
 } as const;
 const sharedOption770 = {
@@ -33935,6 +33937,52 @@ const commandSpec70 = {
         'Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files/run_diff_index; builtin/diff.c:cmd_diff',
       reason:
         'Without revisions git diff compares the worktree (diff-files) or, with --cached, the index (HEAD by hand); both die when the final --max-depth is non-negative, after -h has exited the residual loop. A negative final value disables the limit. Revision operands and pending-object options select repository-dependent modes and are delegated.',
+    },
+    {
+      id: 'diff.object-pickaxe-regex',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'diff-usage',
+          test: 'inactive',
+        },
+        {
+          key: 'find-object',
+          test: 'present',
+        },
+        {
+          key: 'pickaxe-regex',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      source:
+        'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
+      reason:
+        '--find-object with --pickaxe-regex sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance. -h exits the residual loop first.',
+    },
+    {
+      id: 'diff.object-pickaxe-ignore-case',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'diff-usage',
+          test: 'inactive',
+        },
+        {
+          key: 'find-object',
+          test: 'present',
+        },
+        {
+          key: 'regexp-ignore-case',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      source:
+        'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
+      reason:
+        '--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance. -h exits the residual loop first.',
     },
   ],
   source: 'builtin/diff.c; revision.c; diff.c; diff-merges.c',
@@ -64129,11 +64177,7 @@ const commandSpec209 = {
       value: 'optional-string',
       allowed: ['strict', 'loose'],
     },
-    '--exclude-hidden': {
-      key: 'exclude-hidden',
-      value: 'string',
-      allowed: ['fetch', 'receive', 'uploadpack'],
-    },
+    '--exclude-hidden': sharedOption497,
     '--help-all': {
       key: 'full-help',
       value: 'flag',

@@ -70,6 +70,8 @@ function classify(argv, state, result) {
 
 try {
   await writeFile(join(directory, 'oracle-input'), '');
+  // An untracked -O order file that survives every state reset.
+  await writeFile(join(directory, 'order'), 'b\na\n');
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   if (git(['init', '-qb', 'main']).status !== 0) throw new Error('Cannot initialize oracle');
   for (const [path, content] of [['a', 'one\n'], ['b', 'two\n'], ['x', 'three\n'], ['d1/f', 'left\n']]) {
@@ -170,19 +172,20 @@ try {
   };
   // Rows whose outcome Git decides from state the argument grammar cannot see. These rows are
   // checked for soundness only: the builder must not refuse what Git accepted.
-  // - repository: refs, objects, stdin, merge state or whether an operand names a revision;
+  // - repository: refs, stdin, merge state, object names other than the fixture's HEAD, or
+  //   whether an operand names a revision;
   // - regex: POSIX regcomp acceptance of a pattern ('[' fails to compile);
   // - configuration: pretty.<name> format aliases and the configured -m/on diff-merges mode;
   // - content: --rotate-to/--skip-to paths that must occur in the produced diff;
   // - filesystem: the -O order file and the --output path ('' cannot be opened);
   // - undefined: an empty output-indicator argument makes diff_opt_char read past its terminator.
-  const repositoryDependent = new Set(['--all', '--branches', '--tags', '--remotes', '--glob', '--exclude', '--bisect', '--reflog', '--indexed-objects', '--alternate-refs', '--stdin', '--default', '--merge', '--not', '--find-object', '--ancestry-path', '--exclude-hidden', '--single-worktree', '--exclude-promisor-objects', '--notes', '--show-notes', '--no-kept-objects', '--unpacked', '-g', '--walk-reflogs']);
+  const repositoryDependent = new Set(['--all', '--branches', '--tags', '--remotes', '--glob', '--exclude', '--bisect', '--reflog', '--indexed-objects', '--alternate-refs', '--stdin', '--default', '--merge', '--not', '--ancestry-path', '--single-worktree', '--exclude-promisor-objects', '--notes', '--show-notes', '--no-kept-objects']);
   const regexOptions = new Set(['--author', '--committer', '--grep', '-G', '-I', '--ignore-matching-lines', '--word-diff-regex', '--color-words']);
   /** Classify one token as native-owned, or undefined when the grammar decides it. */
   const delegation = token => {
     if (!Array.isArray(token)) return undefined;
     const [name, value] = token;
-    if (repositoryDependent.has(name)) return 'repository';
+    if (repositoryDependent.has(name) || (name === '--find-object' && value !== 'HEAD')) return 'repository';
     if (regexOptions.has(name) && value === '[') return 'regex';
     if ((name === '--format' || name === '--pretty') && value === 'bad') return 'configuration';
     if ((name === '--rotate-to' || name === '--skip-to') && value !== 'b') return 'content';
@@ -221,7 +224,7 @@ try {
   // Rule combinations: pairs over the mode, pickaxe, walk-shape and follow families, in both orders.
   const family = [
     ['--name-only'], ['--name-status'], ['--check'], ['-s'], ['--raw'], ['--stat'], ['--numstat'], ['--patch'], ['--summary'], ['--compact-summary'], ['--quiet'], ['--exit-code'],
-    ['-S', 'x'], ['-G', 'x'], ['--find-object', 'HEAD'], ['--pickaxe-regex'], ['--pickaxe-all'],
+    ['-S', 'x'], ['-G', 'x'], ['--find-object', 'HEAD'], ['--pickaxe-regex'], ['--pickaxe-all'], ['-i'],
     ['--graph'], ['--reverse'], ['-g'], ['--boundary'], ['--maximal-only'], ['--children'], ['--parents'], ['--show-linear-break'], ['--no-walk'], ['--do-walk'],
     ['--grep-reflog', 'x'], ['--graph-lane-limit', 1], ['--combined-all-paths'], ['-c'], ['--cc'], ['-m'], ['--remerge-diff'], ['--filter', 'blob:none'], ['--objects'],
     ['--follow'], ['--full-diff'], ['--left-right'], ['--cherry-pick'], ['--left-only'], ['--first-parent'], ['--simplify-by-decoration'], ['--since-as-filter', '2000-01-01'],
@@ -263,6 +266,7 @@ try {
     [['--max-depth', 1]], [['--max-depth', -1]], [['--max-depth', 1], ['--max-depth', -1]], [['--max-depth', 1], ['-h']],
     [['--no-walk'], ['--graph']], [['--no-walk'], ['-n', 1], ['--graph']], [['--graph'], ['--reverse']],
     [['--name-only'], ['--name-status']], [['--stat', '80,40']], [['--color', 'bad']], [['--no-no-patch']],
+    [['--find-object', 'HEAD'], ['--pickaxe-regex']], [['--exclude-hidden', 'bad']], [['--exclude-hidden', 'fetch']],
   ].map(tokens => {
     const row = [...groups.options, ...groups.combinations].find(entry => JSON.stringify(entry.tokens) === JSON.stringify(tokens));
     if (!row || row.delegated) throw new Error(`Missing grammar-decided witness ${JSON.stringify(tokens)}`);

@@ -2512,8 +2512,7 @@
     "diff",
     "--exclude-hidden=fetch"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -2528,8 +2527,7 @@
     "diff",
     "--exclude-hidden=receive"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -2544,8 +2542,7 @@
     "diff",
     "--exclude-hidden=uploadpack"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -2563,8 +2560,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: unsupported section for hidden refs: bad",
-   "delegated": "repository"
+   "diagnostic": "fatal: unsupported section for hidden refs: bad"
   },
   {
    "command": "diff",
@@ -2582,8 +2578,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: unsupported section for hidden refs: ",
-   "delegated": "repository"
+   "diagnostic": "fatal: unsupported section for hidden refs: "
   },
   {
    "command": "diff",
@@ -2919,8 +2914,7 @@
     "diff",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -6916,8 +6910,7 @@
     "diff",
     "--unpacked"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -6935,8 +6928,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --unpacked=<packfile> no longer supported",
-   "delegated": "repository"
+   "diagnostic": "fatal: --unpacked=<packfile> no longer supported"
   },
   {
    "command": "diff",
@@ -7024,8 +7016,7 @@
     "diff",
     "--walk-reflogs"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -7613,10 +7604,7 @@
     "-O",
     "order"
    ],
-   "valid": false,
-   "status": 128,
-   "state": "modified",
-   "diagnostic": "fatal: failed to read orderfile 'order': No such file or directory",
+   "valid": true,
    "delegated": "filesystem"
   },
   {
@@ -7891,8 +7879,7 @@
     "diff",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -8360,8 +8347,7 @@
     "--name-only",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -8396,6 +8382,24 @@
     "diff",
     "--name-only",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--name-only"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--name-only",
+    "-i"
    ],
    "valid": true
   },
@@ -8451,8 +8455,7 @@
     "--name-only",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -9265,8 +9268,7 @@
     "--name-status",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -9301,6 +9303,24 @@
     "diff",
     "--name-status",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--name-status"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--name-status",
+    "-i"
    ],
    "valid": true
   },
@@ -9356,8 +9376,7 @@
     "--name-status",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -10170,8 +10189,7 @@
     "--check",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -10206,6 +10224,24 @@
     "diff",
     "--check",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--check"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--check",
+    "-i"
    ],
    "valid": true
   },
@@ -10261,8 +10297,7 @@
     "--check",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -11078,8 +11113,7 @@
     "-s",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -11114,6 +11148,24 @@
     "diff",
     "-s",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-s"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-s",
+    "-i"
    ],
    "valid": true
   },
@@ -11169,8 +11221,7 @@
     "-s",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -11977,8 +12028,7 @@
     "--raw",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -12013,6 +12063,24 @@
     "diff",
     "--raw",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--raw"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--raw",
+    "-i"
    ],
    "valid": true
   },
@@ -12068,8 +12136,7 @@
     "--raw",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -12876,8 +12943,7 @@
     "--stat",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -12912,6 +12978,24 @@
     "diff",
     "--stat",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--stat",
+    "-i"
    ],
    "valid": true
   },
@@ -12967,8 +13051,7 @@
     "--stat",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -13775,8 +13858,7 @@
     "--numstat",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -13811,6 +13893,24 @@
     "diff",
     "--numstat",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--numstat"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--numstat",
+    "-i"
    ],
    "valid": true
   },
@@ -13866,8 +13966,7 @@
     "--numstat",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -14674,8 +14773,7 @@
     "--patch",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -14710,6 +14808,24 @@
     "diff",
     "--patch",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--patch"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--patch",
+    "-i"
    ],
    "valid": true
   },
@@ -14765,8 +14881,7 @@
     "--patch",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -15573,8 +15688,7 @@
     "--summary",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -15609,6 +15723,24 @@
     "diff",
     "--summary",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--summary"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--summary",
+    "-i"
    ],
    "valid": true
   },
@@ -15664,8 +15796,7 @@
     "--summary",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -16472,8 +16603,7 @@
     "--compact-summary",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -16508,6 +16638,24 @@
     "diff",
     "--compact-summary",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--compact-summary"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--compact-summary",
+    "-i"
    ],
    "valid": true
   },
@@ -16563,8 +16711,7 @@
     "--compact-summary",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -17371,8 +17518,7 @@
     "--quiet",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -17407,6 +17553,24 @@
     "diff",
     "--quiet",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--quiet"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--quiet",
+    "-i"
    ],
    "valid": true
   },
@@ -17462,8 +17626,7 @@
     "--quiet",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -18270,8 +18433,7 @@
     "--exit-code",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -18306,6 +18468,24 @@
     "diff",
     "--exit-code",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--exit-code"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--exit-code",
+    "-i"
    ],
    "valid": true
   },
@@ -18361,8 +18541,7 @@
     "--exit-code",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -19201,8 +19380,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together"
   },
   {
    "command": "diff",
@@ -19241,6 +19419,26 @@
     "-S",
     "x",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-S",
+    "x",
+    "-i"
    ],
    "valid": true
   },
@@ -19302,8 +19500,7 @@
     "x",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -20200,8 +20397,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together"
   },
   {
    "command": "diff",
@@ -20243,6 +20439,26 @@
     "-G",
     "x",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-G",
+    "x",
+    "-i"
    ],
    "valid": true
   },
@@ -20304,8 +20520,7 @@
     "x",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -20932,8 +21147,7 @@
     "--find-object=HEAD",
     "--name-only"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -20952,8 +21166,7 @@
     "--find-object=HEAD",
     "--name-status"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -20972,8 +21185,7 @@
     "--find-object=HEAD",
     "--check"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -20992,8 +21204,7 @@
     "--find-object=HEAD",
     "-s"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21012,8 +21223,7 @@
     "--find-object=HEAD",
     "--raw"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21032,8 +21242,7 @@
     "--find-object=HEAD",
     "--stat"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21052,8 +21261,7 @@
     "--find-object=HEAD",
     "--numstat"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21072,8 +21280,7 @@
     "--find-object=HEAD",
     "--patch"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21092,8 +21299,7 @@
     "--find-object=HEAD",
     "--summary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21112,8 +21318,7 @@
     "--find-object=HEAD",
     "--compact-summary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21132,8 +21337,7 @@
     "--find-object=HEAD",
     "--quiet"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21152,8 +21356,7 @@
     "--find-object=HEAD",
     "--exit-code"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21177,8 +21380,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together"
   },
   {
    "command": "diff",
@@ -21202,8 +21404,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '-G', '-S', and '--find-object' cannot be used together"
   },
   {
    "command": "diff",
@@ -21225,8 +21426,7 @@
    "valid": false,
    "status": "SIGABRT",
    "state": "clean",
-   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
-   "delegated": "repository"
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
   },
   {
    "command": "diff",
@@ -21248,8 +21448,29 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--find-object=HEAD",
+    "-i"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
   },
   {
    "command": "diff",
@@ -21268,8 +21489,7 @@
     "--find-object=HEAD",
     "--graph"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21288,8 +21508,7 @@
     "--find-object=HEAD",
     "--reverse"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21308,8 +21527,7 @@
     "--find-object=HEAD",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21328,8 +21546,7 @@
     "--find-object=HEAD",
     "--boundary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21348,8 +21565,7 @@
     "--find-object=HEAD",
     "--maximal-only"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21368,8 +21584,7 @@
     "--find-object=HEAD",
     "--children"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21388,8 +21603,7 @@
     "--find-object=HEAD",
     "--parents"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21408,8 +21622,7 @@
     "--find-object=HEAD",
     "--show-linear-break"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21428,8 +21641,7 @@
     "--find-object=HEAD",
     "--no-walk"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21448,8 +21660,7 @@
     "--find-object=HEAD",
     "--do-walk"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21472,8 +21683,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'"
   },
   {
    "command": "diff",
@@ -21496,8 +21706,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
   },
   {
    "command": "diff",
@@ -21519,8 +21728,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc",
-   "delegated": "repository"
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
   },
   {
    "command": "diff",
@@ -21539,8 +21747,7 @@
     "--find-object=HEAD",
     "-c"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21559,8 +21766,7 @@
     "--find-object=HEAD",
     "--cc"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21579,8 +21785,7 @@
     "--find-object=HEAD",
     "-m"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21599,8 +21804,7 @@
     "--find-object=HEAD",
     "--remerge-diff"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21623,8 +21827,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: object filtering requires --objects",
-   "delegated": "repository"
+   "diagnostic": "fatal: object filtering requires --objects"
   },
   {
    "command": "diff",
@@ -21643,8 +21846,7 @@
     "--find-object=HEAD",
     "--objects"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21666,8 +21868,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --follow requires exactly one pathspec",
-   "delegated": "repository"
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
   },
   {
    "command": "diff",
@@ -21686,8 +21887,7 @@
     "--find-object=HEAD",
     "--full-diff"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21706,8 +21906,7 @@
     "--find-object=HEAD",
     "--left-right"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21726,8 +21925,7 @@
     "--find-object=HEAD",
     "--cherry-pick"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21746,8 +21944,7 @@
     "--find-object=HEAD",
     "--left-only"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21766,8 +21963,7 @@
     "--find-object=HEAD",
     "--first-parent"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21786,8 +21982,7 @@
     "--find-object=HEAD",
     "--simplify-by-decoration"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21807,8 +22002,7 @@
     "--find-object=HEAD",
     "--since-as-filter=2000-01-01"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21828,8 +22022,7 @@
     "--find-object=HEAD",
     "--max-count=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21849,8 +22042,7 @@
     "--find-object=HEAD",
     "--max-count-oldest=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21870,8 +22062,7 @@
     "--find-object=HEAD",
     "--skip=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21892,8 +22083,7 @@
     "-n",
     "1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -21916,8 +22106,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: max-depth is not supported for worktree diffs",
-   "delegated": "repository"
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
   },
   {
    "command": "diff",
@@ -22198,8 +22387,7 @@
    "valid": false,
    "status": "SIGABRT",
    "state": "clean",
-   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
-   "delegated": "repository"
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
   },
   {
    "command": "diff",
@@ -22216,6 +22404,24 @@
     "diff",
     "--pickaxe-regex",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--pickaxe-regex",
+    "-i"
    ],
    "valid": true
   },
@@ -22271,8 +22477,7 @@
     "--pickaxe-regex",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -23100,8 +23305,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
   },
   {
    "command": "diff",
@@ -23118,6 +23322,24 @@
     "diff",
     "--pickaxe-all",
     "--pickaxe-regex"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--pickaxe-all"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--pickaxe-all",
+    "-i"
    ],
    "valid": true
   },
@@ -23173,8 +23395,7 @@
     "--pickaxe-all",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -23731,6 +23952,924 @@
    "group": "combinations",
    "tokens": [
     [
+     "-i"
+    ],
+    [
+     "--name-only"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--name-only"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--name-status"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--name-status"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--check"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--check"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-s"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-s"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--raw"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--raw"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--stat"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--stat"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--numstat"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--numstat"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--patch"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--patch"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--summary"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--summary"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--compact-summary"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--compact-summary"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--quiet"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--quiet"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--exit-code"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--exit-code"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-S",
+     "x"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-S",
+    "x"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-G",
+     "x"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-G",
+    "x"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--find-object=HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--pickaxe-regex"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--pickaxe-regex"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--pickaxe-all"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--graph"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--graph"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--reverse"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--reverse"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-g"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-g"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--boundary"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--boundary"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--maximal-only"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--maximal-only"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--children"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--children"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--parents"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--parents"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--show-linear-break"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--show-linear-break"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--no-walk"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--no-walk"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--do-walk"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--do-walk"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--grep-reflog",
+     "x"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--grep-reflog=x"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--graph-lane-limit",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--graph-lane-limit=1"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--combined-all-paths"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--combined-all-paths"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-c"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-c"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--cc"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--cc"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-m"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-m"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--remerge-diff"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--remerge-diff"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--filter",
+     "blob:none"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--filter=blob:none"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: object filtering requires --objects"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--objects"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--objects"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--follow"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--follow"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--full-diff"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--full-diff"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--left-right"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--left-right"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--cherry-pick"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--cherry-pick"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--left-only"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--left-only"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--first-parent"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--first-parent"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--simplify-by-decoration"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--simplify-by-decoration"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--since-as-filter",
+     "2000-01-01"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--since-as-filter=2000-01-01"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--max-count",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--max-count=1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--max-count-oldest",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--max-count-oldest=1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--skip",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--skip=1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "-n",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "-n",
+    "1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--max-depth",
+     1
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-i",
+    "--max-depth=1"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
      "--graph"
     ],
     [
@@ -23999,8 +25138,7 @@
     "--graph",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -24035,6 +25173,24 @@
     "diff",
     "--graph",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--graph"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--graph",
+    "-i"
    ],
    "valid": true
   },
@@ -24078,8 +25234,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -24910,8 +26065,7 @@
     "--reverse",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -24946,6 +26100,24 @@
     "diff",
     "--reverse",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--reverse"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--reverse",
+    "-i"
    ],
    "valid": true
   },
@@ -24989,8 +26161,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together"
   },
   {
    "command": "diff",
@@ -25558,8 +26729,7 @@
     "-g",
     "--name-only"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25577,8 +26747,7 @@
     "-g",
     "--name-status"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25596,8 +26765,7 @@
     "-g",
     "--check"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25615,8 +26783,7 @@
     "-g",
     "-s"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25634,8 +26801,7 @@
     "-g",
     "--raw"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25653,8 +26819,7 @@
     "-g",
     "--stat"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25672,8 +26837,7 @@
     "-g",
     "--numstat"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25691,8 +26855,7 @@
     "-g",
     "--patch"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25710,8 +26873,7 @@
     "-g",
     "--summary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25729,8 +26891,7 @@
     "-g",
     "--compact-summary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25748,8 +26909,7 @@
     "-g",
     "--quiet"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25767,8 +26927,7 @@
     "-g",
     "--exit-code"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25788,8 +26947,7 @@
     "-S",
     "x"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25809,8 +26967,7 @@
     "-G",
     "x"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25829,8 +26986,7 @@
     "-g",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25848,8 +27004,7 @@
     "-g",
     "--pickaxe-regex"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25867,8 +27022,25 @@
     "-g",
     "--pickaxe-all"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-g"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-g",
+    "-i"
+   ],
+   "valid": true
   },
   {
    "command": "diff",
@@ -25889,8 +27061,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -25911,8 +27082,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together"
   },
   {
    "command": "diff",
@@ -25930,8 +27100,7 @@
     "-g",
     "--boundary"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25949,8 +27118,7 @@
     "-g",
     "--maximal-only"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -25971,8 +27139,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -25990,8 +27157,7 @@
     "-g",
     "--parents"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26009,8 +27175,7 @@
     "-g",
     "--show-linear-break"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26028,8 +27193,7 @@
     "-g",
     "--no-walk"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26047,8 +27211,7 @@
     "-g",
     "--do-walk"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26067,8 +27230,7 @@
     "-g",
     "--grep-reflog=x"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26090,8 +27252,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
   },
   {
    "command": "diff",
@@ -26112,8 +27273,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc",
-   "delegated": "repository"
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
   },
   {
    "command": "diff",
@@ -26131,8 +27291,7 @@
     "-g",
     "-c"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26150,8 +27309,7 @@
     "-g",
     "--cc"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26169,8 +27327,7 @@
     "-g",
     "-m"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26188,8 +27345,7 @@
     "-g",
     "--remerge-diff"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26211,8 +27367,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: object filtering requires --objects",
-   "delegated": "repository"
+   "diagnostic": "fatal: object filtering requires --objects"
   },
   {
    "command": "diff",
@@ -26230,8 +27385,7 @@
     "-g",
     "--objects"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26252,8 +27406,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --follow requires exactly one pathspec",
-   "delegated": "repository"
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
   },
   {
    "command": "diff",
@@ -26271,8 +27424,7 @@
     "-g",
     "--full-diff"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26290,8 +27442,7 @@
     "-g",
     "--left-right"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26312,8 +27463,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -26334,8 +27484,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -26353,8 +27502,7 @@
     "-g",
     "--first-parent"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26375,8 +27523,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -26395,8 +27542,7 @@
     "-g",
     "--since-as-filter=2000-01-01"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26415,8 +27561,7 @@
     "-g",
     "--max-count=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26435,8 +27580,7 @@
     "-g",
     "--max-count-oldest=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26455,8 +27599,7 @@
     "-g",
     "--skip=1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26476,8 +27619,7 @@
     "-n",
     "1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26499,8 +27641,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: max-depth is not supported for worktree diffs",
-   "delegated": "repository"
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
   },
   {
    "command": "diff",
@@ -26775,8 +27916,7 @@
     "--boundary",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -26811,6 +27951,24 @@
     "diff",
     "--boundary",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--boundary"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--boundary",
+    "-i"
    ],
    "valid": true
   },
@@ -26866,8 +28024,7 @@
     "--boundary",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -27677,8 +28834,7 @@
     "--maximal-only",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -27713,6 +28869,24 @@
     "diff",
     "--maximal-only",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--maximal-only"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--maximal-only",
+    "-i"
    ],
    "valid": true
   },
@@ -27768,8 +28942,7 @@
     "--maximal-only",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -28579,8 +29752,7 @@
     "--children",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -28615,6 +29787,24 @@
     "diff",
     "--children",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--children"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--children",
+    "-i"
    ],
    "valid": true
   },
@@ -28676,8 +29866,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -29490,8 +30679,7 @@
     "--parents",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -29526,6 +30714,24 @@
     "diff",
     "--parents",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--parents"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--parents",
+    "-i"
    ],
    "valid": true
   },
@@ -29581,8 +30787,7 @@
     "--parents",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -30392,8 +31597,7 @@
     "--show-linear-break",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -30428,6 +31632,24 @@
     "diff",
     "--show-linear-break",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--show-linear-break"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--show-linear-break",
+    "-i"
    ],
    "valid": true
   },
@@ -30486,8 +31708,7 @@
     "--show-linear-break",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -31294,8 +32515,7 @@
     "--no-walk",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -31330,6 +32550,24 @@
     "diff",
     "--no-walk",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--no-walk"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--no-walk",
+    "-i"
    ],
    "valid": true
   },
@@ -31388,8 +32626,7 @@
     "--no-walk",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -32196,8 +33433,7 @@
     "--do-walk",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -32232,6 +33468,24 @@
     "diff",
     "--do-walk",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--do-walk"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--do-walk",
+    "-i"
    ],
    "valid": true
   },
@@ -32287,8 +33541,7 @@
     "--do-walk",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -33155,8 +34408,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'"
   },
   {
    "command": "diff",
@@ -33196,6 +34448,28 @@
     "diff",
     "--grep-reflog=x",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: the option '--grep-reflog' requires '--walk-reflogs'"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--grep-reflog",
+     "x"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--grep-reflog=x",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -33263,8 +34537,7 @@
     "--grep-reflog=x",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -34224,8 +35497,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
   },
   {
    "command": "diff",
@@ -34265,6 +35537,28 @@
     "diff",
     "--graph-lane-limit=1",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--graph-lane-limit",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--graph-lane-limit=1",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -34332,8 +35626,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'",
-   "delegated": "repository"
+   "diagnostic": "fatal: the option '--graph-lane-limit' requires '--graph'"
   },
   {
    "command": "diff",
@@ -35278,8 +36571,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc",
-   "delegated": "repository"
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
   },
   {
    "command": "diff",
@@ -35317,6 +36609,27 @@
     "diff",
     "--combined-all-paths",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--combined-all-paths"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--combined-all-paths",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -35384,8 +36697,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc",
-   "delegated": "repository"
+   "diagnostic": "fatal: --combined-all-paths makes no sense without -c or --cc"
   },
   {
    "command": "diff",
@@ -36247,8 +37559,7 @@
     "-c",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -36283,6 +37594,24 @@
     "diff",
     "-c",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-c"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-c",
+    "-i"
    ],
    "valid": true
   },
@@ -36338,8 +37667,7 @@
     "-c",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -37143,8 +38471,7 @@
     "--cc",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -37179,6 +38506,24 @@
     "diff",
     "--cc",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--cc"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--cc",
+    "-i"
    ],
    "valid": true
   },
@@ -37234,8 +38579,7 @@
     "--cc",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -38039,8 +39383,7 @@
     "-m",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -38075,6 +39418,24 @@
     "diff",
     "-m",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-m",
+    "-i"
    ],
    "valid": true
   },
@@ -38130,8 +39491,7 @@
     "-m",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -38939,8 +40299,7 @@
     "--remerge-diff",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -38975,6 +40334,24 @@
     "diff",
     "--remerge-diff",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--remerge-diff"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--remerge-diff",
+    "-i"
    ],
    "valid": true
   },
@@ -39030,8 +40407,7 @@
     "--remerge-diff",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -39898,8 +41274,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: object filtering requires --objects",
-   "delegated": "repository"
+   "diagnostic": "fatal: object filtering requires --objects"
   },
   {
    "command": "diff",
@@ -39939,6 +41314,28 @@
     "diff",
     "--filter=blob:none",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: object filtering requires --objects"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--filter",
+     "blob:none"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--filter=blob:none",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -40009,8 +41406,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: object filtering requires --objects",
-   "delegated": "repository"
+   "diagnostic": "fatal: object filtering requires --objects"
   },
   {
    "command": "diff",
@@ -40907,8 +42303,7 @@
     "--objects",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -40943,6 +42338,24 @@
     "diff",
     "--objects",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--objects"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--objects",
+    "-i"
    ],
    "valid": true
   },
@@ -40998,8 +42411,7 @@
     "--objects",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -41848,8 +43260,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --follow requires exactly one pathspec",
-   "delegated": "repository"
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
   },
   {
    "command": "diff",
@@ -41887,6 +43298,27 @@
     "diff",
     "--follow",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--follow"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--follow",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -41954,8 +43386,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: --follow requires exactly one pathspec",
-   "delegated": "repository"
+   "diagnostic": "fatal: --follow requires exactly one pathspec"
   },
   {
    "command": "diff",
@@ -42828,8 +44259,7 @@
     "--full-diff",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -42864,6 +44294,24 @@
     "diff",
     "--full-diff",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--full-diff"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--full-diff",
+    "-i"
    ],
    "valid": true
   },
@@ -42919,8 +44367,7 @@
     "--full-diff",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -43727,8 +45174,7 @@
     "--left-right",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -43763,6 +45209,24 @@
     "diff",
     "--left-right",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--left-right"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--left-right",
+    "-i"
    ],
    "valid": true
   },
@@ -43818,8 +45282,7 @@
     "--left-right",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -44626,8 +46089,7 @@
     "--cherry-pick",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -44662,6 +46124,24 @@
     "diff",
     "--cherry-pick",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--cherry-pick"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--cherry-pick",
+    "-i"
    ],
    "valid": true
   },
@@ -44720,8 +46200,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -45528,8 +47007,7 @@
     "--left-only",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -45564,6 +47042,24 @@
     "diff",
     "--left-only",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--left-only"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--left-only",
+    "-i"
    ],
    "valid": true
   },
@@ -45622,8 +47118,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -46430,8 +47925,7 @@
     "--first-parent",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -46466,6 +47960,24 @@
     "diff",
     "--first-parent",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--first-parent"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--first-parent",
+    "-i"
    ],
    "valid": true
   },
@@ -46521,8 +48033,7 @@
     "--first-parent",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -47329,8 +48840,7 @@
     "--simplify-by-decoration",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -47365,6 +48875,24 @@
     "diff",
     "--simplify-by-decoration",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--simplify-by-decoration"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--simplify-by-decoration",
+    "-i"
    ],
    "valid": true
   },
@@ -47423,8 +48951,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
-   "delegated": "repository"
+   "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
   },
   {
    "command": "diff",
@@ -48249,8 +49776,7 @@
     "--since-as-filter=2000-01-01",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -48287,6 +49813,25 @@
     "diff",
     "--since-as-filter=2000-01-01",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--since-as-filter",
+     "2000-01-01"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--since-as-filter=2000-01-01",
+    "-i"
    ],
    "valid": true
   },
@@ -48345,8 +49890,7 @@
     "--since-as-filter=2000-01-01",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -49195,8 +50739,7 @@
     "--max-count=1",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -49233,6 +50776,25 @@
     "diff",
     "--max-count=1",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--max-count",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--max-count=1",
+    "-i"
    ],
    "valid": true
   },
@@ -49291,8 +50853,7 @@
     "--max-count=1",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -50144,8 +51705,7 @@
     "--max-count-oldest=1",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -50182,6 +51742,25 @@
     "diff",
     "--max-count-oldest=1",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--max-count-oldest",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--max-count-oldest=1",
+    "-i"
    ],
    "valid": true
   },
@@ -50240,8 +51819,7 @@
     "--max-count-oldest=1",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -51096,8 +52674,7 @@
     "--skip=1",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -51134,6 +52711,25 @@
     "diff",
     "--skip=1",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--skip",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--skip=1",
+    "-i"
    ],
    "valid": true
   },
@@ -51192,8 +52788,7 @@
     "--skip=1",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -52060,8 +53655,7 @@
     "1",
     "--find-object=HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -52100,6 +53694,26 @@
     "-n",
     "1",
     "--pickaxe-all"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-n",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "-n",
+    "1",
+    "-i"
    ],
    "valid": true
   },
@@ -52161,8 +53775,7 @@
     "1",
     "-g"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -53086,8 +54699,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: max-depth is not supported for worktree diffs",
-   "delegated": "repository"
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
   },
   {
    "command": "diff",
@@ -53127,6 +54739,28 @@
     "diff",
     "--max-depth=1",
     "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff",
+    "--max-depth=1",
+    "-i"
    ],
    "valid": false,
    "status": 128,
@@ -53197,8 +54831,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: max-depth is not supported for worktree diffs",
-   "delegated": "repository"
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
   },
   {
    "command": "diff",
