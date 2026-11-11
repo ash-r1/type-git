@@ -47,6 +47,16 @@
         "default": "./dist/adapters/deno/index.cjs"
       }
     },
+    "./strict": {
+      "import": {
+        "types": "./dist/strict/index.d.ts",
+        "default": "./dist/strict/index.js"
+      },
+      "require": {
+        "types": "./dist/strict/index.d.cts",
+        "default": "./dist/strict/index.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "engines": {

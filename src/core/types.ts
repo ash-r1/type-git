@@ -142,7 +142,7 @@ export type ExecOpts = {
 };
 
 /**
- * Options for `raw()` and typed `command()` calls.
+ * Options for `raw()` and `strict(...).command()` calls.
  *
  * Extends {@link ExecOpts} with a per-call environment overlay.
  */
@@ -627,3 +627,6 @@ export type AuditConfig = {
    */
   onTrace?: (trace: TraceEvent) => void;
 };
+
+/** Standalone upstream programs that `strict(...).command()` can launch next to Git. */
+export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';

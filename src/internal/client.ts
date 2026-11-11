@@ -9,9 +9,12 @@ import type {
 } from '../core/git.js';
 import type { BareRepo, WorktreeRepo } from '../core/repo.js';
 import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
+import { commandHostOf, registerCommandHost } from './command-host.js';
 /** Runtime-independent convenience client. Runtime entrypoints supply the adapters. */
 export class GitClient implements Git {
-  public constructor(private readonly git: Git) {}
+  public constructor(private readonly git: Git) {
+    registerCommandHost(this, () => commandHostOf(git));
+  }
   public get open(): (path: string, opts?: GitOpenOptions) => Promise<WorktreeRepo> {
     return this.git.open.bind(this.git);
   }

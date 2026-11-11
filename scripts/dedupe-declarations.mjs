@@ -8,6 +8,9 @@
 import { readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 
+// Entries smaller than this keep their own ESM body; the saving would be negligible.
+const REEXPORT_THRESHOLD = 64 * 1024;
+
 const SPECIFIER = /(\bfrom\s*|\bimport\s*\(\s*)(['"])(\.{1,2}\/[^'"]+)\.js\2/g;
 
 function typesTargets(exports, root) {
@@ -62,5 +65,18 @@ export async function dedupeDeclarations(root, outDir = 'dist') {
     if (next !== text) await writeFile(file, next);
   }
   await Promise.all([...removed].map((file) => rm(file)));
+  // An entry whose declarations are inlined rather than chunked (for example the large
+  // `strict` entry, whose catalogue types no other entry shares) would otherwise ship its
+  // whole body twice. When the ESM entry is byte-identical to its CJS twin once specifiers
+  // are mapped, reduce it to a re-export of that twin.
+  for (const file of entries) {
+    if (!file.endsWith('.d.ts')) continue;
+    const twin = `${file.slice(0, -'.d.ts'.length)}.d.cts`;
+    if (!files.includes(file) || !files.includes(twin)) continue;
+    const [esmText, cjsText] = await Promise.all([readFile(file, 'utf8'), readFile(twin, 'utf8')]);
+    if (esmToCjs(esmText) !== cjsText || esmText.length < REEXPORT_THRESHOLD) continue;
+    const name = twin.slice(dirname(twin).length + 1, -'.d.cts'.length);
+    await writeFile(file, `export * from './${name}.cjs';\n`);
+  }
   return [...removed].map((file) => relative(root, file));
 }
