@@ -40,6 +40,7 @@ const serialize = tokens => tokens.flatMap(token => {
 
 // Repository states: a clean worktree, then staged and unstaged edits without whitespace errors.
 const exitCodeFlags = new Set(['--exit-code', '--quiet']);
+/** Reset the oracle repository to HEAD, then apply the edits of the requested state. */
 async function seedState(state) {
   for (const args of [['reset', '-q', '--hard', 'main'], ['clean', '-fdq', '-e', 'oracle-input', '-e', 'order']]) if (git(args).status !== 0) throw new Error('Cannot restore oracle');
   if (state === 'modified') {
@@ -180,7 +181,7 @@ try {
   // - content: --rotate-to/--skip-to paths that must occur in the produced diff;
   // - filesystem: the -O order file and the --output path ('' cannot be opened);
   // - undefined: an empty output-indicator argument makes diff_opt_char read past its terminator.
-  const repositoryDependent = new Set(['--all', '--branches', '--tags', '--remotes', '--glob', '--exclude', '--bisect', '--reflog', '--indexed-objects', '--alternate-refs', '--stdin', '--default', '--merge', '--not', '--ancestry-path', '--single-worktree', '--exclude-promisor-objects', '--notes', '--show-notes', '--no-kept-objects']);
+  const repositoryDependent = new Set(['--all', '--branches', '--tags', '--remotes', '--glob', '--exclude', '--bisect', '--reflog', '--indexed-objects', '--alternate-refs', '--stdin', '--default', '--merge', '--ancestry-path', '--single-worktree', '--exclude-promisor-objects', '--notes', '--show-notes', '--no-kept-objects']);
   const regexOptions = new Set(['--author', '--committer', '--grep', '-G', '-I', '--ignore-matching-lines', '--word-diff-regex', '--color-words']);
   /** Classify one token as native-owned, or undefined when the grammar decides it. */
   const delegation = token => {
@@ -266,7 +267,7 @@ try {
   // the contract type-check heap; every row is still compared with the runtime builder.
   const witnesses = [
     [['--max-depth', 1]], [['--max-depth', -1]], [['--max-depth', 1], ['--max-depth', -1]], [['--max-depth', 1], ['-h']],
-    [['--no-walk'], ['--graph']], [['--no-walk'], ['-n', 1], ['--graph']], [['--graph'], ['--reverse']],
+    [['--no-walk'], ['--graph']], [['--no-walk'], ['--graph'], ['--not']], [['--no-walk'], ['-n', 1], ['--graph']], [['--graph'], ['--reverse']],
     [['--name-only'], ['--name-status']], [['--stat', '80,40']], [['--color', 'bad']], [['--no-no-patch']],
     [['--find-object', 'HEAD'], ['--pickaxe-regex']], [['--exclude-hidden', 'bad']], [['--exclude-hidden', 'fetch']],
   ].map(tokens => {

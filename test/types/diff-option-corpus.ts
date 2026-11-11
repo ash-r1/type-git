@@ -8,6 +8,7 @@ export type NativeDiffOptionCases = readonly [
   Check<Accepted<[["--max-depth",1],["--max-depth",-1]]> extends true ? true : false>,
   Check<Accepted<[["--max-depth",1],["-h"]]> extends true ? true : false>,
   Check<Accepted<[["--no-walk"],["--graph"]]> extends false ? true : false>,
+  Check<Accepted<[["--no-walk"],["--graph"],["--not"]]> extends false ? true : false>,
   Check<Accepted<[["--no-walk"],["-n",1],["--graph"]]> extends true ? true : false>,
   Check<Accepted<[["--graph"],["--reverse"]]> extends false ? true : false>,
   Check<Accepted<[["--name-only"],["--name-status"]]> extends false ? true : false>,

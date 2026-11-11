@@ -4938,8 +4938,7 @@
     "diff",
     "--not"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff",
@@ -55703,8 +55702,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--no-walk' and '--graph' cannot be used together",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--no-walk' and '--graph' cannot be used together"
   },
   {
    "command": "diff",
