@@ -69,8 +69,10 @@ import {
  *
  * Validates typed argv against the generated command catalogue, observes only the native
  * parser traits that affect validity, and then executes the original ordered words through
- * the shared CliRunner execution path. Lives outside the lightweight runner so the catalogue
- * and probes are loaded only by `type-git/strict`.
+ * the shared CliRunner execution path. Lives outside the lightweight runner so that a later
+ * step can load the catalogue and probes only from `type-git/strict`. For now the deprecated
+ * `command()` and `CliRunner.runCommand()` still import this module statically, so the main
+ * entry points load it as well.
  */
 export class StrictCommandRunner {
   private readonly runner: ReturnType<typeof cliRunnerInternals>;
