@@ -1,5 +1,5 @@
-import type { Git, GitCommandArgument } from '../../src/index.js';
-declare const git: Git;
+import type { GitCommandArgument, StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const colorOrPrefix: '--color' | '--src-prefix';
 
 // diff: accepted modes are ASCII case insensitive; the bare option means always.

@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('backfill', []);
 git.command('backfill', [['--diff-filter', '']]);
 git.command('backfill', [['--follow'], ['--no-follow']]);

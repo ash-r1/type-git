@@ -1,8 +1,8 @@
-import type { Git } from '../../src/core/git.js';
 import type { InitialParserPass } from '../../src/commands/initial-parser-pass-types.js';
 import { COMMAND_SPECS } from '../../src/commands/generated.js';
+import type { StrictGit } from '../../src/strict/index.js';
 
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const choice: 'bad' | 'full';
 git.command('reflog show', [['--decorate', 'bad'], ['-h']]);

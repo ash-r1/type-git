@@ -1,8 +1,8 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('repack', [['--max-pack-size', 'invalid'], ['-h']]);
 git.command('repack', [['-h'], ['--max-pack-size', 'invalid']]);
 import type { CheckedCommandArguments, GitCommandArgument } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 type Accepted<A extends readonly GitCommandArgument<'repack'>[], P extends 'immediate'|'deferred'> = [CheckedCommandArguments<'repack',A,{repackMaxPackSize:P}>] extends [never] ? false : true;
 export type RepackProfileCases = readonly [

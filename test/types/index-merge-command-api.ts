@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('update-ref', [{ operand: 'refs/heads/test' }, { operand: 'HEAD' }]);
 git.command('update-ref', [['-d'], { operand: 'refs/heads/test' }]);
 git.command('update-ref', [['--stdin'], ['-z'], ['--batch-updates']]);

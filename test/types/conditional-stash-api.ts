@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 // These child options are ignored when refs/stash does not exist.
 git.command('stash list', [['--color', 'bad']]);
@@ -24,6 +23,7 @@ git.command('stash list', [['--max-count', {}]]);
 git.command('stash list', [['--unknown']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Check<T extends true> = T;
 export type ConditionalPinnedSourceProfiles = readonly [
   Check<[CheckedCommandArguments<'stash list', [['--decorate', 'bad']], {booleanSource:'modern'}>] extends [never] ? false : true>,

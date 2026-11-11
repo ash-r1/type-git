@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('bundle', [{ operand: 'verify' }, { operand: '--quiet' }, { operand: 'file.bundle' }]);
 git.command('commit-graph', [['--object-dir', '.git/objects'], { operand: 'verify' }]);
 git.command('multi-pack-index', [['--no-progress'], { operand: 'verify' }]);

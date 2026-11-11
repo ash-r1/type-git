@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const either: '0' | '1';
 for (const command of ['blame', 'annotate', 'pickaxe'] as const) {

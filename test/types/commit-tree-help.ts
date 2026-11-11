@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('commit-tree', [['--help-all']]);
 git.command('commit-tree', [['--git-completion-helper']]);
 git.command('commit-tree', [['--git-completion-helper-all']]);

@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 for (const command of ['describe', 'name-rev'] as const) {
   git.command(command, [['-h']]);
   git.command(command, [['--help-all']]);

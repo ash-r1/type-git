@@ -1,5 +1,5 @@
-import type {Git} from '../../src/index.js';
-declare const git:Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git:StrictGit;
 git.command('backfill',[['--date','invalid'],['-h']]);
 git.command('backfill',[['-h'],['--min-batch-size','invalid']]);
 git.command('last-modified',[['--date','invalid'],['-h']]);

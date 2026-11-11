@@ -1,6 +1,6 @@
-import type { Git } from '../../src/core/git.js';
 import type { GitCommandArgument } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const task: string;
 git.command('maintenance run', [['--task', 'InCrEmEnTaL-RePaCk'], ['--auto']]);
 git.command('maintenance run', [['--task', 'gc'], ['--task', 'GC']]);

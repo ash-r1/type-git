@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('send-email', [['--identity', 'fixture'], ['--dump-aliases']]);
 // @ts-expect-error Alias inspection excludes ordinary send options.
 git.command('send-email', [['--dump-aliases'], ['--dry-run']]);
