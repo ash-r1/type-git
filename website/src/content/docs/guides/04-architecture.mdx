@@ -68,6 +68,8 @@ await git.version();             // Get git version
 await git.raw(['help']);         // Run any git command
 ```
 
+For registered CLI operations checked against Git's option grammar, wrap a client or repository with `strict()` from `type-git/strict` and call `command()`. See [Migrating to 0.7.0](/type-git/guides/08-migrating-0-7/).
+
 ### Repo (Repository-Specific)
 
 Operations that require a repository context:

@@ -30,6 +30,16 @@ describe('strict()', () => {
     await rm(root, { recursive: true, force: true });
   });
 
+  it('leaves command() off lightweight clients and repositories', async () => {
+    const git = new TypeGit({ inheritEnv: true, env });
+    const repo = await git.init(join(root, 'repo'));
+    const bare = await git.init(join(root, 'bare.git'), { bare: true });
+    for (const target of [git, repo, bare]) {
+      expect('command' in target).toBe(false);
+      expect((target as unknown as { command?: unknown }).command).toBeUndefined();
+    }
+  });
+
   it('adds command() to clients, worktree repositories, and bare repositories', async () => {
     const git = new TypeGit({ inheritEnv: true, env });
     const repo = strict(await git.init(join(root, 'repo')));

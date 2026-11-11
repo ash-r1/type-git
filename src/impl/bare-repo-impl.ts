@@ -1,12 +1,3 @@
-import type {
-  CheckedCommandArguments,
-  CheckedDocumentationArguments,
-  DocumentationCommand,
-  DocumentationPrefix,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-} from '../commands/types.js';
 import { checkedOperand, checkedOperands } from '../core/operands.js';
 import {
   type ExclusiveQuery,
@@ -17,7 +8,6 @@ import {
 import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 import { fetch as fetchRepository, push as pushRepository } from '../internal/transport.js';
-import { strictCommandRunner } from '../strict/command-runner.js';
 /**
  * BareRepo implementation - repository without working directory
  */
@@ -54,13 +44,7 @@ import type {
   RevParseQuietRefOpts,
   RevParseRefOpts,
 } from '../core/repo.js';
-import type {
-  CommandExecOpts,
-  ExecOpts,
-  ExecutionContext,
-  GitOutputMode,
-  RawResult,
-} from '../core/types.js';
+import type { CommandExecOpts, ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
@@ -404,62 +388,6 @@ export class BareRepoImpl implements BareRepo {
 
   private get context(): ExecutionContext {
     return { type: 'bare', gitDir: this.gitDir };
-  }
-
-  /**
-   * Execute a typed Git command with validated arguments in this repository context
-   */
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult>;
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult>;
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-  public async command(
-    command: GitCommandName,
-    args: readonly unknown[],
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>> {
-    return await strictCommandRunner(this.runner).runCommand(
-      this.context,
-      command,
-      args,
-      true,
-      opts,
-    );
   }
 
   /** Execute a raw Git command without typed argument validation. */

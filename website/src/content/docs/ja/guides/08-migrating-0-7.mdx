@@ -1,0 +1,41 @@
+---
+title: 0.7.0への移行
+description: 文法検証付きのcommand()がtype-git/strictへ移動しました
+---
+
+0.7.0では、type-gitを軽量なメインエントリーポイントと、必要なときだけ読み込むstrictエントリーポイントに分けました。文法検証付きの`command()`は`Git`・`WorktreeRepo`・`BareRepo`・`TypeGit`から`type-git/strict`へ移動しました。それ以外のAPIは名前も形も変わりません。
+
+## 理由
+
+0.6.0の`command()`は、428のコマンドスコープについてGitのオプション文法カタログで引数を検証していました。このカタログの重さは、`command()`を使わないアプリケーションにもかかっていました。`repo.status()`だけを使うアプリケーションでは、minify後のバンドルが約1.6MBから約180KBに、メインエントリーポイントが読み込む型定義が約5MBから約350KBに減ります。
+
+## メインエントリーポイントに残るもの
+
+- クライアントとリポジトリの`raw()`
+- 高レベルAPI（`status()`・`log()`・`commit()`・`branch.create()`・`lfs.*`など）。オプションの型と実行時チェックは0.6.0と同じです
+- 引数インジェクション対策。Gitがオプションとして読むoperand、NUL文字、空のpathspecは、引き続きGitの実行前に拒否されます
+- パーサー、アダプター、`GitError`、`GitArgumentError`
+
+## `command()`呼び出しの移行
+
+クライアントやリポジトリを`strict()`で包みます。包んだオブジェクトは元のメンバーをすべて持っています。
+
+```ts
+import { TypeGit } from 'type-git/node';
+import { strict } from 'type-git/strict';
+
+const git = await TypeGit.create();
+const repo = strict(await git.open('./my-repo'));
+
+await repo.command('log', [['--oneline'], ['-n', '5']]);
+await repo.status();
+await strict(git).command('hash-object', [['--stdin']], { stdin: 'hello' });
+```
+
+`command()`の引数・オプション・戻り値・エラーは変わりません。文法検証が不要なら、`raw()`で任意のGitコマンドを実行できます。
+
+```ts
+await repo.raw(['log', '--oneline', '-n', '5']);
+```
+
+`GitCommandArgument`・`GitCommandClient`・`GitCommandExecOpts`・`GitCommandName`は`type-git/strict`からexportされるようになりました。あわせて`Strict<T>`・`StrictGit`・`StrictWorktreeRepo`・`StrictBareRepo`もexportされます。

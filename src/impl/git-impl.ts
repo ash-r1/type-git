@@ -1,19 +1,7 @@
-import type {
-  CheckedCommandArguments,
-  CheckedDocumentationArguments,
-  CheckedUsageArguments,
-  DocumentationCommand,
-  DocumentationPrefix,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-  UsageCommand,
-} from '../commands/types.js';
 import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
-import { strictCommandRunner } from '../strict/command-runner.js';
 /**
  * Git implementation - repository-agnostic operations
  */
@@ -40,13 +28,7 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from '../core/repo.js';
-import type {
-  CommandExecOpts,
-  ExecOpts,
-  GitOpenOptions,
-  GitOutputMode,
-  RawResult,
-} from '../core/types.js';
+import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
@@ -615,79 +597,6 @@ export class GitImpl implements Git {
   private async supportsInitialBranch(): Promise<boolean> {
     const version = await this.version();
     return compareVersions(version, '2.28.0') >= 0;
-  }
-
-  /**
-   * Execute a typed Git command with validated arguments (repository-agnostic)
-   */
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult>;
-  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
-    command: C,
-    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-
-  public command<C extends UsageCommand, const A extends readonly unknown[]>(
-    command: C,
-    args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public command<C extends UsageCommand, const A extends readonly unknown[]>(
-    command: C,
-    args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult>;
-  public command<C extends UsageCommand, const A extends readonly unknown[]>(
-    command: C,
-    args: A & NoInfer<CheckedUsageArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult>;
-  public command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-  public async command(
-    command: GitCommandName,
-    args: readonly unknown[],
-    opts: GitCommandExecOpts<GitOutputMode> | undefined,
-  ): Promise<RawResult<string | Uint8Array>> {
-    return await strictCommandRunner(this.runner).runCommand(
-      { type: 'global' },
-      command,
-      args,
-      undefined,
-      opts,
-    );
   }
 
   /** Execute a raw Git command without typed argument validation. */

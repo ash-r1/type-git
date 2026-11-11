@@ -1,8 +1,12 @@
 # Typed command API and audit workflow
 
-`Git`, `WorktreeRepo`, and `BareRepo` expose `command(name, arguments, executionOptions)` for CLI operations without a parsed convenience method:
+`strict()` from `type-git/strict` adds `command(name, arguments, executionOptions)` to a `Git` client, `WorktreeRepo`, or `BareRepo` for CLI operations without a parsed convenience method. The main `type-git` entry point does not load this grammar; see [Migrating to 0.7.0](../migrations/0.7.0.md). In the examples below, `git` and `repo` are values returned by `strict()`:
 
 ```ts
+import { strict } from 'type-git/strict';
+
+const git = strict(client);
+const repo = strict(await client.open(path));
 const hash = await git.command('hash-object', [['--stdin']], { stdin: 'hello' });
 await repo.command('remote add', [
   ['--mirror', 'fetch'],

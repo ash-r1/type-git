@@ -8,6 +8,16 @@ type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ?
 type Check<T extends true> = T;
 
 export async function strictEntry(git: Git, client: TypeGit, repo: WorktreeRepo, bare: BareRepo): Promise<void> {
+  // The lightweight interfaces no longer carry the grammar-checked command().
+  // @ts-expect-error command() moved to type-git/strict
+  void git.command;
+  // @ts-expect-error command() moved to type-git/strict
+  void client.command;
+  // @ts-expect-error command() moved to type-git/strict
+  void repo.command;
+  // @ts-expect-error command() moved to type-git/strict
+  void bare.command;
+
   // strict() keeps every original member and adds command().
   const strictRepo = strict(repo);
   const status: StatusPorcelain = await strictRepo.status();

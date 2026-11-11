@@ -17,7 +17,6 @@ import { validateOptions as checkOptions } from '../core/option-rules.js';
  */
 
 import process from 'node:process';
-import type { GitCommandName } from '../commands/types.js';
 import type {
   ExecAdapter,
   FsAdapter,
@@ -40,7 +39,6 @@ import type {
 } from '../core/types.js';
 import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
-import { strictCommandRunner } from '../strict/command-runner.js';
 
 /**
  * Regex patterns for error message extraction
@@ -773,42 +771,6 @@ export class CliRunner {
       longBits = bytes === '4' ? 32 : 64;
     }
     checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar, depthAtoiBits });
-  }
-
-  public runCommand(
-    context: ExecutionContext,
-    command: GitCommandName,
-    args: readonly unknown[],
-    inRepository: boolean | undefined,
-    opts: RunOptions & { stdout: 'bytes' },
-  ): Promise<RawResult<Uint8Array>>;
-  public runCommand(
-    context: ExecutionContext,
-    command: GitCommandName,
-    args: readonly unknown[],
-    inRepository: boolean | undefined,
-    opts?: RunOptions & { stdout?: 'text' },
-  ): Promise<RawResult>;
-  public runCommand(
-    context: ExecutionContext,
-    command: GitCommandName,
-    args: readonly unknown[],
-    inRepository: boolean | undefined,
-    opts: CommandRunOptions | undefined,
-  ): Promise<RawResult<string | Uint8Array>>;
-  /**
-   * Validate argv, observe only relevant native parser traits, and execute the original ordered words.
-   *
-   * @deprecated Use `strict()` from `type-git/strict`; this delegates to its runner.
-   */
-  public async runCommand(
-    context: ExecutionContext,
-    command: GitCommandName,
-    args: readonly unknown[],
-    inRepository: boolean | undefined,
-    opts?: CommandRunOptions,
-  ): Promise<RawResult<string | Uint8Array>> {
-    return strictCommandRunner(this).runCommand(context, command, args, inRepository, opts);
   }
 
   /** Text execution remains independent of extra command output-mode options. */

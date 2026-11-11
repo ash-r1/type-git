@@ -65,6 +65,7 @@
   "packageManager": "pnpm@10.26.2",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "size:check": "node scripts/size-budget.mjs",
     "test": "vitest",
     "test:ci": "vitest run",
     "test:bun": "bun test test/bun/",

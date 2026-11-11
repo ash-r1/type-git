@@ -103,13 +103,6 @@ export class GitClient implements Git {
     return this.git.version.bind(this.git);
   }
 
-  /**
-   * Execute a typed Git command with validated arguments (repository-agnostic)
-   */
-  public get command(): Git['command'] {
-    return this.git.command.bind(this.git);
-  }
-
   /** Execute a raw Git command without typed argument validation. */
   public get raw(): (argv: string[], opts?: CommandExecOpts) => Promise<RawResult> {
     return this.git.raw.bind(this.git);
