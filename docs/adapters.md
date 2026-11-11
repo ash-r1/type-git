@@ -63,10 +63,10 @@ so it can fail even with the built-in adapters: `'.'` works, but `'repo'` resolv
 `repo/repo` (#329). Bare Git commands, `clone`, `init` and repository-agnostic calls get
 `cwd: undefined` whatever path is used, so an adapter that requires a working directory must
 handle `undefined` (for example by using the host's current directory) instead of rejecting
-these calls. Repository-agnostic calls are different: `git.raw()`, `strict(git).command()` and repository-agnostic companion programs run with
-`cwd: undefined`, so a command that needs a repository (for example `git.raw(['status'])`)
-resolves it from the host process's current directory, as the Git CLI would. Open a repository
-and use `repo.raw()` to avoid that.
+these calls. Repository-agnostic calls are different: `git.raw()`, `strict(git).command()`
+and repository-agnostic companion programs run with `cwd: undefined`, so a command that needs a
+repository (for example `git.raw(['status'])`) resolves it from the host process's current
+directory, as the Git CLI would. Open a repository and use `repo.raw()` to avoid that.
 
 ## Processes started by common operations
 

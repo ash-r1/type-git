@@ -32,6 +32,7 @@ const BUDGET = {
 const LIGHTWEIGHT = ['.', './node', './bun', './deno'];
 const SPECIFIER = /\b(?:from|import)\s*\(?\s*['"](\.{1,2}\/[^'"]+)['"]/g;
 
+/** Sum the bytes of every declaration file reachable from `entry` through relative imports. */
 async function declarationBytes(entry) {
   const seen = new Set();
   const queue = [entry];

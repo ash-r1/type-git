@@ -14,6 +14,10 @@ import { describe, expect, it } from 'vitest';
 const src = dirname(fileURLToPath(import.meta.url));
 const SPECIFIER = /\b(?:from|import)\s*\(?\s*['"](\.{1,2}\/[^'"]+)['"]/g;
 
+/**
+ * Collect the source files reachable from `entry` through relative value and type imports.
+ * Specifiers are expected to name files with a `.js` extension, as everywhere in `src`.
+ */
 function reachable(entry: string): Set<string> {
   const seen = new Set<string>();
   const queue = [resolve(src, entry)];
@@ -23,7 +27,16 @@ function reachable(entry: string): Set<string> {
       continue;
     }
     seen.add(file);
-    const text = readFileSync(file, 'utf8');
+    let text: string;
+    try {
+      text = readFileSync(file, 'utf8');
+    } catch (error) {
+      throw new Error(
+        `${relative(src, file)} is imported but could not be read; ` +
+          'use a relative specifier that names the file with a .js extension',
+        { cause: error },
+      );
+    }
     for (const match of text.matchAll(SPECIFIER)) {
       const target = resolve(dirname(file), (match[1] as string).replace(/\.js$/, '.ts'));
       queue.push(target);
