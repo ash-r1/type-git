@@ -267,7 +267,12 @@
       },
       "--exclude-hidden": {
         "key": "exclude-hidden",
-        "value": "string"
+        "value": "string",
+        "allowed": [
+          "fetch",
+          "receive",
+          "uploadpack"
+        ]
       },
       "--expand-tabs": {
         "key": "expand-tabs",
@@ -923,6 +928,78 @@
           "boundary",
           "maximal-only"
         ]
+      },
+      {
+        "id": "revision.no-walk-graph",
+        "kind": "forbid",
+        "guard": [
+          {
+            "key": "operandsBeforeSeparator",
+            "test": "lengthEquals",
+            "value": 0
+          },
+          {
+            "key": "all",
+            "test": "inactive"
+          },
+          {
+            "key": "branches",
+            "test": "inactive"
+          },
+          {
+            "key": "bisect",
+            "test": "inactive"
+          },
+          {
+            "key": "tags",
+            "test": "inactive"
+          },
+          {
+            "key": "remotes",
+            "test": "inactive"
+          },
+          {
+            "key": "glob",
+            "test": "inactive"
+          },
+          {
+            "key": "reflog",
+            "test": "inactive"
+          },
+          {
+            "key": "indexed-objects",
+            "test": "inactive"
+          },
+          {
+            "key": "alternate-refs",
+            "test": "inactive"
+          },
+          {
+            "key": "stdin",
+            "test": "inactive"
+          },
+          {
+            "key": "default",
+            "test": "inactive"
+          },
+          {
+            "key": "merge",
+            "test": "inactive"
+          }
+        ],
+        "when": [
+          {
+            "key": "no-walk",
+            "test": "active"
+          },
+          {
+            "key": "graph",
+            "test": "active"
+          }
+        ],
+        "origin": "git",
+        "source": "Git 2.55.0 revision.c:setup_revisions; handle_revision_opt (-n, --max-count, --max-count-oldest and -<n> clear no_walk)",
+        "reason": "setup_revisions dies when --no-walk is still in effect together with --graph; a later count option re-enables walking. An uninteresting revision (^A, A..B, or one after --not) also clears no_walk while pending objects are added, so revision operands and pending-object options are delegated; a bare --not adds nothing and keeps the rule."
       },
       {
         "id": "revision.graph-lanes",

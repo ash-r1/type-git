@@ -64,7 +64,9 @@ jobs:
 
   test-legacy-git:
     name: Test (Legacy Git 2.25)
-    runs-on: ubuntu-latest
+    # Git 2.25.1 predates C23 (`thread_local` is now a keyword) and current libcurl
+    # headers, so build it on the 24.04 toolchain instead of the newest image.
+    runs-on: ubuntu-24.04
     steps:
       - name: Cache Git 2.25.1
         id: cache-git
