@@ -1,5 +1,26 @@
 # type-git
 
+## 0.7.0
+
+### Minor Changes
+
+- [#332](https://github.com/ash-r1/type-git/pull/332) [`0c4be45`](https://github.com/ash-r1/type-git/commit/0c4be45c582cebe8452e2169dbce48bef78b853f) Thanks [@ash-r1](https://github.com/ash-r1)! - Add the `type-git/strict` entry point. `strict()` wraps a `Git` client, `TypeGit`, worktree repository or bare repository and returns a view with every original member plus the grammar-checked `command()`. Its implementation now lives in this entry point (`CliRunner.runCommand()` and the existing `command()` methods delegate to it). `type-git/strict` also exports `GitCommandArgument`, `GitCommandClient`, `GitCommandExecOpts`, `GitCommandName`, `CheckedCommandArguments`, `Strict<T>`, `StrictGit`, `StrictWorktreeRepo` and `StrictBareRepo`, and the main entry point now exports `CompanionExecutable`.
+
+- [#331](https://github.com/ash-r1/type-git/pull/331) [`06a29e3`](https://github.com/ash-r1/type-git/commit/06a29e30928051f606b951b604600781045ad974) Thanks [@ash-r1](https://github.com/ash-r1)! - **Breaking:** the grammar-checked `command()` is now available only through `type-git/strict`.
+
+  `Git`, `WorktreeRepo`, `BareRepo` and `TypeGit` no longer have `command()`, and `CliRunner.runCommand()` is removed; wrap a client or repository with `strict()` from `type-git/strict` instead (the wrapper keeps every other member). `GitCommandArgument`, `GitCommandClient`, `GitCommandExecOpts` and `GitCommandName` are no longer exported from the main entry point; import them from `type-git/strict`.
+
+  The main entry point keeps `raw()`, the high-level API and the runtime checks against argument injection, but no longer loads the option-grammar catalogue or its types. An application that only calls high-level methods such as `repo.status()` now bundles to about 180 KB minified (1.6 MB in 0.6.0), and its type check no longer reads the 5 MB catalogue declarations. See `docs/migrations/0.7.0.md`.
+
+### Patch Changes
+
+- [#336](https://github.com/ash-r1/type-git/pull/336) [`d534106`](https://github.com/ash-r1/type-git/commit/d5341065cd43159a23fac5972ff470421f806689) Thanks [@ash-r1](https://github.com/ash-r1)! - Align typed `git diff` arguments with Git 2.55.0 option grammar and rule combinations, checked against an independent corpus of 3,090 native outcomes covering every typed diff option spelling, sampled value grammars, rule-family pairs and operand forms:
+
+  - `--max-depth` with a non-negative value is refused without revisions (Git dies for worktree and `--cached` index diffs).
+  - `--find-object` with `--pickaxe-regex` or `-i` is refused for `git diff` (Git aborts with `BUG()` when computing the diff).
+  - `--no-walk` still in effect together with `--graph` is refused for revision-walking commands, as `setup_revisions` does; a later `-n`/`--max-count` re-enables walking.
+  - `--exclude-hidden` accepts only `fetch`, `receive` and `uploadpack`.
+
 ## 0.6.0
 
 ### Minor Changes
