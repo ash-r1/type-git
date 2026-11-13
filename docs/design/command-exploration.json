@@ -20157,6 +20157,54 @@
               {
                 "key": "check",
                 "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
+                "set": false
               }
             ]
           },
@@ -20166,7 +20214,7 @@
             "set": false
           },
           "--no-compact-summary": {
-            "key": "compact-summary",
+            "key": "stat-with-summary",
             "value": "flag",
             "set": false
           },
@@ -21792,8 +21840,13 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 23,
       "domains": {
+        "no-output": [
+          "undefined",
+          "true",
+          "false"
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -21853,15 +21906,15 @@
         ],
         "L": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
-        "no-output": [
-          "undefined",
-          "false",
-          "true"
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "patch": [
           "undefined",
@@ -21910,15 +21963,18 @@
         ],
         "patch-with-stat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "numstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "shortstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat": [
           "undefined",
@@ -21926,11 +21982,13 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "cumulative": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat-by-file": [
           "undefined",
@@ -21938,7 +21996,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "summary": [
           "undefined",
@@ -21950,7 +22009,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "stat-width": [
           "undefined",
@@ -21958,7 +22018,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-name-width": [
           "undefined",
@@ -21966,7 +22027,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-graph-width": [
           "undefined",
@@ -21974,7 +22036,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-count": [
           "undefined",
@@ -21982,7 +22045,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "compact-summary": [
           "undefined",
@@ -22362,6 +22426,10 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\""
+        ],
+        "stat-with-summary": [
+          "undefined",
+          "false"
         ],
         "no-abbrev": [
           "undefined",
@@ -22973,12 +23041,17 @@
         "pathsAfterSeparator": [
           "undefined",
           "[]",
-          "[\"value\"]"
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
         ]
       },
-      "total": "611524605966419061908263872731924315161054448384345047199296310476800000000000000000000000000000000000000",
-      "accepted": "637274066270092408932323465170616355620162712597251516731613810133250867200000000000000000000000000000",
-      "nodes": 28184,
+      "total": "97148304122569956308085909440830853835007766895406765664670154594713600000000000000000000000000000000000000",
+      "accepted": "32616659966915606320215533678694760348557170918556331512189782834290045747200000000000000000000000000000",
+      "nodes": 107657,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -22994,8 +23067,15 @@
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
-        "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
-        "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
+        "revision.line-pathspec": "{\"L\":[],\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "revision.line-full-diff": "{\"L\":[],\"full-diff\":true,\"operands\":[]}",
+        "log.follow-without-path": "{\"follow\":true,\"operands\":[]}",
+        "log.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "log.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}",
+        "log.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "log.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}",
+        "log.line-check": "{\"L\":[],\"check\":true,\"operands\":[]}",
+        "log.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}"
       }
     },
     {
@@ -23794,6 +23874,54 @@
               {
                 "key": "check",
                 "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
+                "set": false
               }
             ]
           },
@@ -23803,7 +23931,7 @@
             "set": false
           },
           "--no-compact-summary": {
-            "key": "compact-summary",
+            "key": "stat-with-summary",
             "value": "flag",
             "set": false
           },
@@ -25429,8 +25557,20 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 23,
       "domains": {
+        "no-walk": [
+          "undefined",
+          "true",
+          "false",
+          "\"sorted\"",
+          "\"unsorted\""
+        ],
+        "no-output": [
+          "undefined",
+          "true",
+          "false"
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -25490,15 +25630,15 @@
         ],
         "L": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
-        "no-output": [
-          "undefined",
-          "false",
-          "true"
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "patch": [
           "undefined",
@@ -25547,15 +25687,18 @@
         ],
         "patch-with-stat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "numstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "shortstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat": [
           "undefined",
@@ -25563,11 +25706,13 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "cumulative": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat-by-file": [
           "undefined",
@@ -25575,7 +25720,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "summary": [
           "undefined",
@@ -25587,7 +25733,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "stat-width": [
           "undefined",
@@ -25595,7 +25742,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-name-width": [
           "undefined",
@@ -25603,7 +25751,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-graph-width": [
           "undefined",
@@ -25611,7 +25760,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-count": [
           "undefined",
@@ -25619,7 +25769,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "compact-summary": [
           "undefined",
@@ -26000,6 +26151,10 @@
           "\"0b\"",
           "\"1kb\""
         ],
+        "stat-with-summary": [
+          "undefined",
+          "false"
+        ],
         "no-abbrev": [
           "undefined",
           "true"
@@ -26186,13 +26341,6 @@
         ],
         "dense": [
           "undefined",
-          "true"
-        ],
-        "no-walk": [
-          "undefined",
-          "false",
-          "\"sorted\"",
-          "\"unsorted\"",
           "true"
         ],
         "encode-email-headers": [
@@ -26610,12 +26758,17 @@
         "pathsAfterSeparator": [
           "undefined",
           "[]",
-          "[\"value\"]"
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
         ]
       },
-      "total": "611524605966419061908263872731924315161054448384345047199296310476800000000000000000000000000000000000000",
-      "accepted": "637274066270092408932323465170616355620162712597251516731613810133250867200000000000000000000000000000",
-      "nodes": 28184,
+      "total": "97148304122569956308085909440830853835007766895406765664670154594713600000000000000000000000000000000000000",
+      "accepted": "32616659966915606320215533678694760348557170918556331512189782834290045747200000000000000000000000000000",
+      "nodes": 107657,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -26623,7 +26776,7 @@
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
         "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
         "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
-        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":\"sorted\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "revision.no-walk-graph": "{\"graph\":true,\"no-walk\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
         "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
@@ -26631,8 +26784,15 @@
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
-        "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
-        "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
+        "revision.line-pathspec": "{\"L\":[],\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "revision.line-full-diff": "{\"L\":[],\"full-diff\":true,\"operands\":[]}",
+        "show.follow-without-path": "{\"follow\":true,\"operands\":[]}",
+        "show.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "show.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}",
+        "show.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "show.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}",
+        "show.line-check": "{\"L\":[],\"check\":true,\"operands\":[]}",
+        "show.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}"
       }
     },
     {
@@ -114099,6 +114259,11 @@
       ],
       "rules": 0,
       "domains": {
+        "no-output": [
+          "undefined",
+          "true",
+          "false"
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -114158,15 +114323,15 @@
         ],
         "L": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
-        "no-output": [
-          "undefined",
-          "false",
-          "true"
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "patch": [
           "undefined",
@@ -114215,15 +114380,18 @@
         ],
         "patch-with-stat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "numstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "shortstat": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat": [
           "undefined",
@@ -114231,11 +114399,13 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "cumulative": [
           "undefined",
-          "true"
+          "true",
+          "false"
         ],
         "dirstat-by-file": [
           "undefined",
@@ -114243,7 +114413,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "summary": [
           "undefined",
@@ -114255,7 +114426,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "true"
+          "true",
+          "false"
         ],
         "stat-width": [
           "undefined",
@@ -114263,7 +114435,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-name-width": [
           "undefined",
@@ -114271,7 +114444,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-graph-width": [
           "undefined",
@@ -114279,7 +114453,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "stat-count": [
           "undefined",
@@ -114287,7 +114462,8 @@
           "-1",
           "0",
           "1",
-          "2"
+          "2",
+          "false"
         ],
         "compact-summary": [
           "undefined",
@@ -114667,6 +114843,10 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\""
+        ],
+        "stat-with-summary": [
+          "undefined",
+          "false"
         ],
         "no-abbrev": [
           "undefined",
@@ -115271,8 +115451,8 @@
           "true"
         ]
       },
-      "total": "67947178440713229100918208081324923906783827598260560799921812275200000000000000000000000000000000000000",
-      "accepted": "67947178440713229100918208081324923906783827598260560799921812275200000000000000000000000000000000000000",
+      "total": "4047846005107081512836912893367952243125323620641948569361256441446400000000000000000000000000000000000000",
+      "accepted": "4047846005107081512836912893367952243125323620641948569361256441446400000000000000000000000000000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
