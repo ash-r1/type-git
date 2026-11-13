@@ -1,6 +1,6 @@
-import type { Git, GitCommandArgument } from '../../src/index.js';
 import type { CompoundDecimalLiteral } from '../../src/constraints/compound-decimal-types.js';
-declare const git: Git;
+import type { GitCommandArgument, StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 type Check<T extends true> = T;
 type Equal<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;

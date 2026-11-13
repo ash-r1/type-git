@@ -33,7 +33,9 @@ src/
 │   └── cli-runner.ts         # CliRunner (command construction, progress tracking)
 ├── parsers/        # Output parsing utilities
 │   └── index.ts    # Git output parsers (status, log, progress, etc.)
-└── index.ts        # Main entry point
+├── commands/       # Option-grammar catalogue for strict command() (strict entry only)
+├── strict/         # `type-git/strict` entry: strict() wrapper and grammar-checked runner
+└── index.ts        # Main (lightweight) entry point
 ```
 
 ### Three-Level API Design
@@ -41,6 +43,10 @@ src/
 1. **Raw API**: `git.raw(argv)` / `repo.raw(argv)` - Returns RawResult (stdout, stderr, exitCode)
 2. **Typed API**: `repo.status()`, `repo.log()` - Type-safe with parsed output
 3. **High-Level API**: `repo.commit()`, `repo.branch.create()` - Convenience methods
+4. **Strict API** (`type-git/strict`): `strict(repo).command(name, args)` - argv checked against
+   Git's option grammar. Main entry points must not import `src/commands/` or `src/strict/`
+   (enforced by `src/entry-boundary.test.ts` and `pnpm size:check`); injection checks stay in
+   the main entry.
 
 ### Key Design Principles
 
@@ -54,6 +60,7 @@ src/
 ```bash
 # Build
 pnpm build           # TypeScript compilation
+pnpm size:check      # Lightweight entry bundle/declaration budget (after build)
 
 # Test
 pnpm test            # Vitest (watch mode)

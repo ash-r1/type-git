@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('refs', [{ operand: 'list' }, ['--count', 1]]);
 git.command('refs', [{ operand: 'verify' }, ['--verbose']]);
 git.command('refs', [{ operand: 'list' }, ['--shell'], ['--python'], ['-h']]);
@@ -36,6 +35,7 @@ git.command('refs', [{ operand: uncertain }, ['-h']]);
 git.command('refs', [{ operand: 'verify' }, ['--help-all']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Assert<T extends true> = T;
 type ParentCountHelp = readonly [{ readonly operand: 'list' }, readonly ['--count', '2147483648'], readonly ['-h']];
 export type MandatoryBoundedContext = Assert<[CheckedCommandArguments<'refs', ParentCountHelp, { integerProfile: 'bounded' }>] extends [never] ? true : false>;

@@ -39,9 +39,17 @@ assert(deno.createDenoAdapters, 'createDenoAdapters should be exported from deno
 assert(typeof deno.createDenoAdapters === 'function', 'createDenoAdapters should be a function');
 console.log('   ✓ Deno adapter entry point works');
 
-// Test 5: Runtime test - actually use the library
-console.log('5. Testing runtime functionality...');
+// Test 5: Strict entry point
+console.log('5. Testing strict entry point (type-git/strict)...');
+const { strict } = await import('type-git/strict');
+assert(typeof strict === 'function', 'strict should be exported from strict entry');
+assert.strictEqual(main.strict, undefined, 'strict() should only be exported from type-git/strict');
+console.log('   ✓ Strict entry point works');
+
+// Test 6: Runtime test - actually use the library
+console.log('6. Testing runtime functionality...');
 const git = new node.TypeGit();
+assert.strictEqual(git.command, undefined, 'lightweight clients no longer expose command()');
 const version = await git.version();
 assert(version, 'version() should return a string');
 assert(version.match(/^\d+\.\d+/), 'version should be in semver format');
@@ -54,12 +62,12 @@ for (const value of ['0x10', 16n]) {
   assert.strictEqual(native.signal, null);
   assert([0, 129].includes(native.status), 'Git help must finish normally');
   assert.match(native.stdout + native.stderr, /usage: git column/);
-  const actual = await git.command('column', [['--width', value], ['-h']]);
+  const actual = await strict(git).command('column', [['--width', value], ['-h']]);
   assert.strictEqual(actual.exitCode, native.status);
   assert.strictEqual(actual.stdout, native.stdout);
   assert.strictEqual(actual.stderr, native.stderr);
 }
-await assert.rejects(git.command('column', [['--width', 2147483648], ['-h']]), { name: 'GitArgumentError', message: /invalid integer/ });
+await assert.rejects(strict(git).command('column', [['--width', 2147483648], ['-h']]), { name: 'GitArgumentError', message: /invalid integer/ });
 console.log(`   ✓ Runtime works (Git version: ${version})`);
 
 console.log('\n✓ All ESM integration tests passed!\n');

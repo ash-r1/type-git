@@ -7,6 +7,7 @@ import { expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { parseGitDecimal } from '../constraints/git-decimal.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const inputs = [
   {
@@ -115,7 +116,7 @@ it.for(cases)('matches native mailsplit prefix conversion and output files for $
     expect(native.error).toBeUndefined();
     expect(native.signal).toBeNull();
     expect(native.status).not.toBeNull();
-    const operation = new TypeGit({ inheritEnv: false, env }).command(
+    const operation = strict(new TypeGit({ inheritEnv: false, env })).command(
       'mailsplit',
       [['-b'], [flag, value], ['-o', actualDir]] as never,
       { stdin },

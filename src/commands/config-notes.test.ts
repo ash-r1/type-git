@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
@@ -46,16 +47,23 @@ describe('config and notes command grammars', () => {
     'round-trips dash-prefixed config values after option parsing has stopped',
     async () => {
       expect(
-        (await repo.command('config set', [{ operand: 'test.value' }, { operand: '--literal' }]))
-          .exitCode,
+        (
+          await strict(repo).command('config set', [
+            { operand: 'test.value' },
+            { operand: '--literal' },
+          ])
+        ).exitCode,
       ).toBe(0);
-      expect((await repo.command('config get', [{ operand: 'test.value' }])).stdout).toBe(
+      expect((await strict(repo).command('config get', [{ operand: 'test.value' }])).stdout).toBe(
         '--literal\n',
       );
       expect(
-        (await repo.command('config set', [{ operand: 'test.value' }, { operand: '--' }])).exitCode,
+        (await strict(repo).command('config set', [{ operand: 'test.value' }, { operand: '--' }]))
+          .exitCode,
       ).toBe(0);
-      expect((await repo.command('config get', [{ operand: 'test.value' }])).stdout).toBe('--\n');
+      expect((await strict(repo).command('config get', [{ operand: 'test.value' }])).stdout).toBe(
+        '--\n',
+      );
       expect(() => commandArguments('config get', [{ operand: 'test.value' }, ['--all']])).toThrow(
         GitArgumentError,
       );
@@ -63,19 +71,25 @@ describe('config and notes command grammars', () => {
         commandArguments('config set', [{ operand: 'test.value' }, ['--'], { operand: 'x' }]),
       ).toThrow(GitArgumentError);
       expect(
-        (await repo.command('config rename-section', [{ operand: 'test' }, { operand: 'renamed' }]))
-          .exitCode,
+        (
+          await strict(repo).command('config rename-section', [
+            { operand: 'test' },
+            { operand: 'renamed' },
+          ])
+        ).exitCode,
       ).toBe(0);
-      expect((await repo.command('config unset', [{ operand: 'renamed.value' }])).exitCode).toBe(0);
       expect(
-        (await repo.command('config set', [{ operand: 'renamed.value' }, { operand: '1' }]))
+        (await strict(repo).command('config unset', [{ operand: 'renamed.value' }])).exitCode,
+      ).toBe(0);
+      expect(
+        (await strict(repo).command('config set', [{ operand: 'renamed.value' }, { operand: '1' }]))
           .exitCode,
       ).toBe(0);
-      expect((await repo.command('config remove-section', [{ operand: 'renamed' }])).exitCode).toBe(
-        0,
-      );
-      expect((await repo.command('config list', [])).exitCode).toBe(0);
-      expect((await repo.command('config edit', [])).exitCode).toBe(0);
+      expect(
+        (await strict(repo).command('config remove-section', [{ operand: 'renamed' }])).exitCode,
+      ).toBe(0);
+      expect((await strict(repo).command('config list', [])).exitCode).toBe(0);
+      expect((await strict(repo).command('config edit', [])).exitCode).toBe(0);
     },
   );
 
@@ -135,17 +149,19 @@ describe('config and notes command grammars', () => {
     ).toEqual(['notes', '--ref=custom', 'add', '-m', 'one', '-m', 'two']);
     expect(
       (
-        await repo.command('notes add', [
+        await strict(repo).command('notes add', [
           ['--ref', 'custom'],
           ['-m', 'one'],
           ['-m', 'two'],
         ])
       ).exitCode,
     ).toBe(0);
-    expect((await repo.command('notes show', [['--ref', 'custom']])).stdout).toBe('one\n\ntwo\n');
+    expect((await strict(repo).command('notes show', [['--ref', 'custom']])).stdout).toBe(
+      'one\n\ntwo\n',
+    );
     expect(
       (
-        await repo.command('notes append', [
+        await strict(repo).command('notes append', [
           ['--ref', 'custom'],
           ['-m', 'three'],
         ])
@@ -153,29 +169,32 @@ describe('config and notes command grammars', () => {
     ).toBe(0);
     expect(
       (
-        await repo.command('notes edit', [
+        await strict(repo).command('notes edit', [
           ['--ref', 'custom'],
           ['-m', 'replacement'],
         ])
       ).exitCode,
     ).toBe(0);
-    expect((await repo.command('notes list', [['--ref', 'custom']])).exitCode).toBe(0);
-    expect((await repo.command('notes', [['--ref', 'custom']])).exitCode).toBe(0);
-    expect((await repo.command('notes get-ref', [['--ref', 'custom']])).stdout).toBe(
+    expect((await strict(repo).command('notes list', [['--ref', 'custom']])).exitCode).toBe(0);
+    expect((await strict(repo).command('notes', [['--ref', 'custom']])).exitCode).toBe(0);
+    expect((await strict(repo).command('notes get-ref', [['--ref', 'custom']])).stdout).toBe(
       'refs/notes/custom\n',
     );
     await repo.commit({ message: 'second', allowEmpty: true });
     expect(
-      (await repo.command('notes copy', [['--ref', 'custom'], { operand: 'HEAD~1' }])).exitCode,
+      (await strict(repo).command('notes copy', [['--ref', 'custom'], { operand: 'HEAD~1' }]))
+        .exitCode,
     ).toBe(0);
     expect(
-      (await repo.command('notes remove', [['--ref', 'custom'], { operand: 'HEAD' }])).exitCode,
+      (await strict(repo).command('notes remove', [['--ref', 'custom'], { operand: 'HEAD' }]))
+        .exitCode,
     ).toBe(0);
-    expect((await repo.command('notes prune', [['--ref', 'custom'], ['--dry-run']])).exitCode).toBe(
-      0,
-    );
     expect(
-      (await repo.command('notes merge', [['--ref', 'merged'], { operand: 'custom' }])).exitCode,
+      (await strict(repo).command('notes prune', [['--ref', 'custom'], ['--dry-run']])).exitCode,
+    ).toBe(0);
+    expect(
+      (await strict(repo).command('notes merge', [['--ref', 'merged'], { operand: 'custom' }]))
+        .exitCode,
     ).toBe(0);
     for (const flags of [
       ['--commit', '--abort'],
@@ -201,7 +220,7 @@ describe('config and notes command grammars', () => {
     await repo.commit({ message: 'tracked' });
     await writeFile(join(repo.workdir, 'tracked'), 'changed\n');
     let words = ['--help', '--', 'message'];
-    let created = await repo.command(
+    let created = await strict(repo).command(
       'stash create',
       words.map((operand) => ({ operand })),
     );
@@ -214,7 +233,7 @@ describe('config and notes command grammars', () => {
       expect(created.stdout).toContain('usage: git stash');
       // A leading separator ends that parent pass and is kept as message text.
       words = ['--', '--help', 'message'];
-      created = await repo.command(
+      created = await strict(repo).command(
         'stash create',
         words.map((operand) => ({ operand })),
       );

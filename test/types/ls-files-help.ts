@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('ls-files', [['--help-all']]);
 git.command('ls-files', [['--git-completion-helper']]);
 git.command('ls-files', [['--git-completion-helper-all']]);

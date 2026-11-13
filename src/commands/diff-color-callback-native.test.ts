@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 const cleanEnvironment = Object.fromEntries(
@@ -123,7 +124,7 @@ describe('native diff color callback order', () => {
                 }
                 expect(() => commandArguments(command, args)).toThrow();
               } else {
-                const actual = await repo.command(command, args as never, { stdin: '' });
+                const actual = await strict(repo).command(command, args as never, { stdin: '' });
                 expect(actual.exitCode).toBe(expected.status);
                 expect(actual.stdout).toBe(expected.stdout);
                 expect(actual.stderr).toBe(expected.stderr);

@@ -3,6 +3,7 @@ import corpus from '../../test/fixtures/parser-exit-corpus.json';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';
+import { StrictCommandRunner } from '../strict/command-runner.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 import type { GitCommandName } from './types.js';
@@ -105,7 +106,7 @@ describe('ordered exits in audited single-pass parsers', () => {
       aborted: false,
     });
     const args = [['-h'], ['--filter', 'blob:limit=0b1']] as const;
-    const result = await new CliRunner(adapters).runCommand(
+    const result = await new StrictCommandRunner(new CliRunner(adapters)).runCommand(
       { type: 'global' },
       'clone',
       args,

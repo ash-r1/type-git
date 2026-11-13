@@ -1,0 +1,41 @@
+---
+title: Migrating to 0.7.0
+description: The grammar-checked command() moves to type-git/strict
+---
+
+0.7.0 splits type-git into a lightweight main entry point and an opt-in strict entry point. The grammar-checked `command()` moves from `Git`, `WorktreeRepo`, `BareRepo` and `TypeGit` to `type-git/strict`. Everything else keeps its name and shape.
+
+## Why
+
+In 0.6.0, `command()` checked argv against a catalogue of Git's option grammar for 428 command scopes. Every application paid for that catalogue, even one that never called `command()`. For an application that only calls `repo.status()`, the minified bundle drops from about 1.6 MB to about 180 KB, and the type declarations loaded by the main entry point drop from about 5 MB to about 350 KB.
+
+## What stays in the main entry point
+
+- `raw()` on clients and repositories
+- The high-level API (`status()`, `log()`, `commit()`, `branch.create()`, `lfs.*`, and so on) with the same option types and runtime option checks
+- The checks against argument injection: operands that Git would read as options, NUL characters, and empty pathspecs are still rejected before Git runs
+- Parsers, adapters, `GitError` and `GitArgumentError`
+
+## Moving `command()` calls
+
+Wrap the client or repository with `strict()`. The wrapper keeps every original member:
+
+```ts
+import { TypeGit } from 'type-git/node';
+import { strict } from 'type-git/strict';
+
+const git = await TypeGit.create();
+const repo = strict(await git.open('./my-repo'));
+
+await repo.command('log', [['--oneline'], ['-n', '5']]);
+await repo.status();
+await strict(git).command('hash-object', [['--stdin']], { stdin: 'hello' });
+```
+
+Arguments, options, results and errors of `command()` are unchanged. If you do not need grammar checks, `raw()` runs any Git command:
+
+```ts
+await repo.raw(['log', '--oneline', '-n', '5']);
+```
+
+`GitCommandArgument`, `GitCommandClient`, `GitCommandExecOpts` and `GitCommandName` are now exported from `type-git/strict`, together with `Strict<T>`, `StrictGit`, `StrictWorktreeRepo` and `StrictBareRepo`.

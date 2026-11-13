@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -108,7 +109,7 @@ describe('merge strategies and tool frontends', () => {
       compare(command, [['--help']], ['--help'], true);
       compare(command, [['--help'], ['--']], ['--help', '--'], true);
       compare(command, [['--ours'], ['--help']], ['--ours', '--help'], false);
-      const actual = await repo.command(command, [['--help']]);
+      const actual = await strict(repo).command(command, [['--help']]);
       expect(actual.exitCode, actual.stderr).toBe(0);
       expect(actual.aborted).toBe(false);
     }
@@ -365,7 +366,7 @@ describe('merge strategies and tool frontends', () => {
       return;
     }
     expect(actual.status, actual.stderr).toBe(0);
-    const result = await repo.command('difftool', args);
+    const result = await strict(repo).command('difftool', args);
     expect(result.exitCode, result.stderr).toBe(0);
   });
   it('preserves mergetool selection and ignored request-pull tail arguments', () => {

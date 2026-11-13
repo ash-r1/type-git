@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('merge-index sole usage and clean-index controls', () => {
   let root: string;
@@ -64,7 +65,7 @@ describe('merge-index sole usage and clean-index controls', () => {
     const before = await snapshot();
     const expected = native(['merge-index', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('merge-index', args as never);
+    const actual = await strict(repo).command('merge-index', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -87,13 +88,15 @@ describe('merge-index sole usage and clean-index controls', () => {
     }
   });
   it('preserves rejection and tagged native program/path behavior', async () => {
-    await expect(repo.command('merge-index', [] as never)).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(strict(repo).command('merge-index', [] as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
     await expect(
-      repo.command('merge-index', [{ operand: 'program' }] as never),
+      strict(repo).command('merge-index', [{ operand: 'program' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     for (const flag of ['-h', '--help-all']) {
       await expect(
-        repo.command('merge-index', [[flag], { operand: 'missing' }] as never),
+        strict(repo).command('merge-index', [[flag], { operand: 'missing' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       await compare([{ operand: flag }, { operand: 'missing' }], [flag, 'missing']);
     }

@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const numericWord: `${number}`;
 declare const ambiguous: 'one' | '-h';
@@ -25,6 +24,7 @@ git.command('stash show', [['--color', 'bad']]);
 git.command('stash show', [['--'], { operand: dynamic }, { operand: 'x\0y' }]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Assert<T extends true> = T;
 export type ModernShowOwnFlag = Assert<[CheckedCommandArguments<'stash show', readonly [{ readonly operand: '--include-untracked=1' }, readonly ['-h']], { stashParent: 'modern' }>] extends [never] ? true : false>;
 

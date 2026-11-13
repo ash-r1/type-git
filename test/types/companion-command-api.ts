@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('scalar version', [['--build-options']]);
 git.command('scalar', [{ operand: 'version' }, ['--build-options']]);
 git.command('scalar clone', [['--no-maintenance'], { operand: 'url' }]);
@@ -21,9 +20,9 @@ git.command('gitweb', [['--nproc', -1]]);
 
 
 import type { RawResult } from '../../src/core/types.js';
-import type { WorktreeRepo, BareRepo } from '../../src/core/repo.js';
-declare const worktree: WorktreeRepo;
-declare const bare: BareRepo;
+import type { StrictBareRepo, StrictGit, StrictWorktreeRepo } from '../../src/strict/index.js';
+declare const worktree: StrictWorktreeRepo;
+declare const bare: StrictBareRepo;
 const globalBytes: Promise<RawResult<Uint8Array>> = git.command('scalar version', [], { stdout: 'bytes' });
 const worktreeBytes: Promise<RawResult<Uint8Array>> = worktree.command('scalar version', [], { stdout: 'bytes' });
 const bareBytes: Promise<RawResult<Uint8Array>> = bare.command('scalar version', [], { stdout: 'bytes' });

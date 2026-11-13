@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('internal help in ordinary maintenance parsers', () => {
   let root: string;
@@ -68,7 +69,7 @@ describe('internal help in ordinary maintenance parsers', () => {
     words: string[],
   ) => {
     const expected = native([command, ...words]);
-    const actual = await repo.command(command, args as never);
+    const actual = await strict(repo).command(command, args as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
     expect(actual.stderr).toBe(expected.stderr);
@@ -114,7 +115,7 @@ describe('internal help in ordinary maintenance parsers', () => {
           const expected = native([command, ...args.map((a) => a[0]!)]);
           expect(expected.status).toBe(129);
           expect(expected.stderr).toContain('unknown option');
-          const actual = repo.command(command, args as never);
+          const actual = strict(repo).command(command, args as never);
           await expect(actual).rejects.toBeInstanceOf(GitArgumentError);
           await expect(actual).rejects.toMatchObject({
             message: expect.stringContaining(`cli.${command}.${flag.slice(6)}-one-word`),

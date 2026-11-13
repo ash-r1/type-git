@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('unpack-file internal help and callback order', () => {
   let root: string;
@@ -65,7 +66,7 @@ describe('unpack-file internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['unpack-file', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('unpack-file', args as never);
+    const actual = await strict(repo).command('unpack-file', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -95,7 +96,7 @@ describe('unpack-file internal help and callback order', () => {
     } finally {
       await rm(expectedFile);
     }
-    const actual = await repo.command('unpack-file', [{ operand: blob }] as never);
+    const actual = await strict(repo).command('unpack-file', [{ operand: blob }] as never);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stderr).toBe(expected.stderr);
     expect(actual.stdout.trim()).toMatch(/^\.merge_file_[A-Za-z0-9]+$/);
@@ -116,14 +117,16 @@ describe('unpack-file internal help and callback order', () => {
   it('keeps multiword usage and wrapper operand-count errors separate', async () => {
     for (const flag of ['-h', '--help-all']) {
       await expect(
-        repo.command('unpack-file', [[flag], { operand: 'ignored' }] as never),
+        strict(repo).command('unpack-file', [[flag], { operand: 'ignored' }] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
       expect(native(['unpack-file', flag, 'ignored']).status).not.toBe(0);
     }
-    await expect(repo.command('unpack-file', [] as never)).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(strict(repo).command('unpack-file', [] as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
     expect(native(['unpack-file']).status).not.toBe(0);
     await expect(
-      repo.command('unpack-file', [
+      strict(repo).command('unpack-file', [
         ['--help-all'],
         { operand: 'one' },
         { operand: 'two' },
@@ -133,7 +136,7 @@ describe('unpack-file internal help and callback order', () => {
   });
   it('preserves the literal marker control and invalid tuple boundary', async () => {
     await compare([{ operand: '--' }], ['--']);
-    await expect(repo.command('unpack-file', [['--']] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('unpack-file', [['--']] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
   });

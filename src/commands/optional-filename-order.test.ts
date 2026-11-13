@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const nativeVersion = spawnSync('git', ['--version'], { encoding: 'utf8', timeout: 10000 });
 expect(nativeVersion.error).toBeUndefined();
@@ -39,7 +40,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
         expect(native.status).toBe(129);
         expect(native.stderr).toContain('color');
         await expect(
-          repo.command('tag', [
+          strict(repo).command('tag', [
             ['--list'],
             ['--file', ':(optional)message/child'],
             ['--color', 'invalid'],
@@ -49,7 +50,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       }
       expect(native.status).toBe(128);
       expect(native.stderr).toContain('could not stat message/child');
-      const result = await repo.command('tag', [
+      const result = await strict(repo).command('tag', [
         ['--list'],
         ['--file', ':(optional)message/child'],
         ['--color', 'invalid'],
@@ -82,7 +83,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       expect(native.status).toBe(129);
       expect(native.stderr).toMatch(/option .*color.* expects/);
       await expect(
-        repo.command('tag', [
+        strict(repo).command('tag', [
           ['--list'],
           ['--color', 'invalid'],
           ['--file', ':(optional)message/child'],
@@ -126,7 +127,9 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       expect(native.error).toBeUndefined();
       expect(native.status).toBe(129);
       expect(native.stderr).toContain('color');
-      await expect(repo.command('tag', args as never)).rejects.toBeInstanceOf(GitArgumentError);
+      await expect(strict(repo).command('tag', args as never)).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
     } finally {
       await rm(root, { recursive: true, force: true });
     }
@@ -160,7 +163,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       if (process.platform === 'win32') {
         expect(native.status).toBe(129);
         await expect(
-          repo.command('tag', [
+          strict(repo).command('tag', [
             ['--list'],
             ['--file', ':(optional)file/child'],
             { operand: tail },
@@ -169,7 +172,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
         return;
       }
       expect(native.status).toBe(128);
-      const result = await repo.command('tag', [
+      const result = await strict(repo).command('tag', [
         ['--list'],
         ['--file', ':(optional)file/child'],
         { operand: tail },
@@ -178,7 +181,7 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       expect(result.stderr).toBe(native.stderr);
       // ENOENT returns to parsing, so the same later syntax still rejects.
       await expect(
-        repo.command('tag', [
+        strict(repo).command('tag', [
           ['--list'],
           ['--file', ':(optional)missing'],
           { operand: tail },

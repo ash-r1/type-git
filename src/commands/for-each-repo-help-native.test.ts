@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('for-each-repo internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('for-each-repo internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['for-each-repo', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('for-each-repo', args as never);
+    const actual = await strict(repo).command('for-each-repo', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -115,14 +116,14 @@ describe('for-each-repo internal help and callback order', () => {
   });
   it('retains reached completion and representation errors', async () => {
     await expect(
-      repo.command('for-each-repo', [
+      strict(repo).command('for-each-repo', [
         ['--config', 'typegit.missing'],
         { operand: 'unused' },
         ['--help-all'],
       ] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
-      repo.command('for-each-repo', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('for-each-repo', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['for-each-repo', '--git-completion-helper', '--help-all']).status).not.toBe(0);
   });

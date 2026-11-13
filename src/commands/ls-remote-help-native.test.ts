@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('ls-remote internal help and callback order', () => {
   let root: string;
@@ -61,7 +62,7 @@ describe('ls-remote internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['ls-remote', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('ls-remote', args as never);
+    const actual = await strict(repo).command('ls-remote', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -92,7 +93,7 @@ describe('ls-remote internal help and callback order', () => {
     expect(result.status).toBe(0);
     expect(result.stdout).toBe(`${root}\n`);
     await expect(
-      repo.command('ls-remote', [['-h'], ['--git-completion-helper']] as never),
+      strict(repo).command('ls-remote', [['-h'], ['--git-completion-helper']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     const failed = native(['ls-remote', '-h', '--git-completion-helper']);
     expect(failed.status).toBe(129);
@@ -112,7 +113,11 @@ describe('ls-remote internal help and callback order', () => {
       ['--get-url', '--', root, '-h'],
     );
     await expect(
-      repo.command('ls-remote', [['--get-url'], { operand: root }, ['--help-all']] as never),
+      strict(repo).command('ls-remote', [
+        ['--get-url'],
+        { operand: root },
+        ['--help-all'],
+      ] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
   it('does not mistake required help-looking values for exits', async () => {
@@ -125,7 +130,7 @@ describe('ls-remote internal help and callback order', () => {
       ['--server-option=-h', '--help-all'],
     );
     await expect(
-      repo.command('ls-remote', [
+      strict(repo).command('ls-remote', [
         ['--upload-pack', '--help-all'],
         ['--git-completion-helper'],
       ] as never),

@@ -1,7 +1,6 @@
-import type { Git } from '../../src/core/git.js';
 import type { InitialParserPass } from '../../src/commands/initial-parser-pass-types.js';
 import type { COMMAND_SPECS } from '../../src/commands/generated.js';
-declare const git: Git;
+declare const git: StrictGit;
 declare const dynamic: string;
 
 git.command('log', [['-n', '-L'], { operand: '1,1:file' }, { operand: '0' }]);
@@ -32,6 +31,7 @@ export type RetainedWords = readonly [
 ];
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type ProfileCheck<T extends true> = T;
 export type ResidualTraitProfiles = readonly [
   ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate=m'], ['--all']]>] extends [never] ? false : true>,

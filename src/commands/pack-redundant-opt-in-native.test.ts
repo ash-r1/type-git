@@ -8,6 +8,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 const objectSnapshot = async (directory: string): Promise<Record<string, string>> => {
   const hashes: Record<string, string> = {};
@@ -129,7 +130,7 @@ describe('selected-native pack-redundant opt-in controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('pack-redundant', args as never, { stdin: input });
+      const actual = await strict(git).command('pack-redundant', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -184,11 +185,11 @@ describe('selected-native pack-redundant opt-in controls', () => {
     }
   });
   it('retains missing pack/all input validation', async () => {
-    await expect(repo.command('pack-redundant', [] as never)).rejects.toBeInstanceOf(
+    await expect(strict(repo).command('pack-redundant', [] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
     );
     await expect(
-      repo.command('pack-redundant', [['--i-still-use-this']] as never),
+      strict(repo).command('pack-redundant', [['--i-still-use-this']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

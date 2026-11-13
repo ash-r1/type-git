@@ -1,6 +1,6 @@
-import type { Git } from '../../src/core/git.js';
 import type { StringCallbackLiteral } from '../../src/constraints/string-callback-types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 declare const dynamic: string;
 declare const symbolic: `${string}:`;
 declare const invalidUnion: 'verbatim' | 'bogus';

@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 const VALUES = [
   '',
@@ -94,17 +95,17 @@ describe('selected native revision timestamp callback', () => {
           expected.status === 128 &&
           expected.stderr.includes('not a number of seconds since epoch')
         ) {
-          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
         } else if (command === 'diff-index' && expected.status === 129) {
           // Parsed non-default age filters are forbidden by diff-index's final state check.
           expect(expected.stderr).toContain('usage: git diff-index');
-          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+          await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
         } else {
-          const actual = await repo.command(command, args as never);
+          const actual = await strict(repo).command(command, args as never);
           expect(actual.exitCode, `${flag}=${JSON.stringify(value)}`).toBe(expected.status);
           expect(actual.stdout).toBe(expected.stdout);
           expect(actual.stderr).toBe(expected.stderr);
@@ -131,9 +132,11 @@ describe('selected native revision timestamp callback', () => {
         expected.status === 128 &&
         expected.stderr.includes('not a number of seconds since epoch')
       ) {
-        await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(GitArgumentError);
+        await expect(strict(repo).command(command, args as never)).rejects.toBeInstanceOf(
+          GitArgumentError,
+        );
       } else {
-        const actual = await repo.command(command, args as never);
+        const actual = await strict(repo).command(command, args as never);
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);
         expect(actual.stderr).toBe(expected.stderr);

@@ -1,5 +1,4 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+declare const git: StrictGit;
 git.command('stash import', [{ operand: 'one' }, { operand: 'two' }, ['-h']]);
 git.command('stash import', [['--']]);
 git.command('stash import', [{ operand: '--end-of-options' }, ['-h']]);
@@ -19,5 +18,6 @@ git.command('stash export', [['--print'], ['--to-ref', 'refs/exported']]);
 git.command('stash export', [['-h'], ['--to-ref', 'x\0y']]);
 
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
+import type { StrictGit } from '../../src/strict/index.js';
 type Assert<T extends true> = T;
 export type ModernExportNoPrint = Assert<[CheckedCommandArguments<'stash export', readonly [{ readonly operand: '--no-print' }, readonly ['-h']], { stashParent: 'modern' }>] extends [never] ? true : false>;

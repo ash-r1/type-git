@@ -13,7 +13,7 @@ The built-in adapters are `NodeExecAdapter` (`type-git/node`), `BunExecAdapter`
 | Method | Called by the runner | Notes |
 | --- | --- | --- |
 | `spawn(options, handlers?)` | Yes, for every text-output command and every internal probe | Required. |
-| `spawnBytes(options, handlers?)` | Only for `command(..., { stdout: 'bytes' })` | Optional. See [Without `spawnBytes`](#without-spawnbytes). |
+| `spawnBytes(options, handlers?)` | Only for `strict(...).command(..., { stdout: 'bytes' })` | Optional. See [Without `spawnBytes`](#without-spawnbytes). |
 | `spawnStreaming(options)` | No | Optional; offered to callers of the adapter only. |
 | `getCapabilities()` | No | Required by the interface; informational. |
 
@@ -63,10 +63,10 @@ so it can fail even with the built-in adapters: `'.'` works, but `'repo'` resolv
 `repo/repo` (#329). Bare Git commands, `clone`, `init` and repository-agnostic calls get
 `cwd: undefined` whatever path is used, so an adapter that requires a working directory must
 handle `undefined` (for example by using the host's current directory) instead of rejecting
-these calls. Repository-agnostic calls are different: `git.raw()`, `git.command()` and repository-agnostic companion programs run with
-`cwd: undefined`, so a command that needs a repository (for example `git.raw(['status'])`)
-resolves it from the host process's current directory, as the Git CLI would. Open a repository
-and use `repo.raw()` to avoid that.
+these calls. Repository-agnostic calls are different: `git.raw()`, `strict(git).command()`
+and repository-agnostic companion programs run with `cwd: undefined`, so a command that needs a
+repository (for example `git.raw(['status'])`) resolves it from the host process's current
+directory, as the Git CLI would. Open a repository and use `repo.raw()` to avoid that.
 
 ## Processes started by common operations
 
@@ -80,7 +80,7 @@ and use `repo.raw()` to avoid that.
   If `<path>` does not exist, step 1 fails to start (the built-in Node adapter reports
   `spawn git ENOENT` because the working directory is missing) and `open` throws a
   `GitError` with kind `SpawnFailed`; step 2 does not run.
-- Typed `command()` calls may start **internal probes** before the real command when the
+- Typed `strict(...).command()` calls may start **internal probes** before the real command when the
   result depends on how the installed Git parses an argument (for example `git <command> -h`,
   `git --exec-path`, or a probe inside a throwaway bare repository created with
   `git init --bare --quiet <tempdir>` in a fresh temporary directory). Probes use the same
@@ -124,7 +124,7 @@ as a failure needs to check the exit code and output of the command (or use a cu
 ## Without `spawnBytes`
 
 `spawnBytes` is optional. Without it, any call that requests byte output
-(`command(..., { stdout: 'bytes' })`) throws a `GitError` with kind `CapabilityMissing`
+(`strict(...).command(..., { stdout: 'bytes' })`) throws a `GitError` with kind `CapabilityMissing`
 ("The selected execution adapter does not support binary stdout") instead of starting the
 command. Text-mode probes may still run before that error, and a call whose `AbortSignal` is
 already aborted returns `aborted: true` first. Text-output calls are unaffected.

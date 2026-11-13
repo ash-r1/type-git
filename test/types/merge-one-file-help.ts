@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('merge-one-file', [['-h']]);
 git.command('merge-one-file', [{ operand: '-h' }]);
 git.command('merge-one-file', [{ operand: '-h' }, { operand: 'ignored' }, ['-h']]);

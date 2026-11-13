@@ -7,6 +7,7 @@ import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { createGitSync } from '../impl/git-impl.js';
+import { strict } from '../strict/index.js';
 
 describe('archive writer sole usage and archive protocol controls', () => {
   let root: string;
@@ -103,7 +104,9 @@ describe('archive writer sole usage and archive protocol controls', () => {
             }),
           )
         : repo;
-      const actual = await git.command('upload-archive--writer', args as never, { stdin: input });
+      const actual = await strict(git).command('upload-archive--writer', args as never, {
+        stdin: input,
+      });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
@@ -145,9 +148,9 @@ describe('archive writer sole usage and archive protocol controls', () => {
       [['--help-all'], { operand: root }],
       [{ operand: root }, ['--help']],
     ]) {
-      await expect(repo.command('upload-archive--writer', args as never)).rejects.toBeInstanceOf(
-        GitArgumentError,
-      );
+      await expect(
+        strict(repo).command('upload-archive--writer', args as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
     }
   });
 });

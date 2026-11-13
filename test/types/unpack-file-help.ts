@@ -1,5 +1,5 @@
-import type { Git } from '../../src/index.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('unpack-file', [['-h']]);
 git.command('unpack-file', [['--help-all']]);
 git.command('unpack-file', [{ operand: 'missing-blob' }]);

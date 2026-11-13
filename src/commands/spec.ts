@@ -1,5 +1,6 @@
 import type { GitScalarParser } from '../constraints/git-scalars.js';
 import type { Constraint, Evidence, Predicate } from '../constraints/model.js';
+import type { CompanionExecutable } from '../core/types.js';
 
 /** Representation boundary shared by every command before Git-specific interpretation. */
 export const ARGV_STRING_CONSTRAINT = {
@@ -101,7 +102,7 @@ export type OptionSpec = {
     set: string | number | boolean;
   }[];
 };
-export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';
+export type { CompanionExecutable };
 export type ConditionalCommand = Evidence & {
   when: { refExists: string };
   invoke: {

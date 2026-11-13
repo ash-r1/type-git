@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 
 describe('ls-tree internal help and callback order', () => {
@@ -62,7 +63,7 @@ describe('ls-tree internal help and callback order', () => {
     const before = await snapshot();
     const expected = native(['ls-tree', ...words]);
     expect(await snapshot()).toEqual(before);
-    const actual = await repo.command('ls-tree', args as never);
+    const actual = await strict(repo).command('ls-tree', args as never);
     expect(await snapshot()).toEqual(before);
     expect(actual.exitCode).toBe(expected.status);
     expect(actual.stdout).toBe(expected.stdout);
@@ -88,14 +89,14 @@ describe('ls-tree internal help and callback order', () => {
       ['--help-all', '--git-completion-helper'],
     );
     await expect(
-      repo.command('ls-tree', [['--git-completion-helper'], ['--help-all']] as never),
+      strict(repo).command('ls-tree', [['--git-completion-helper'], ['--help-all']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['ls-tree', '--git-completion-helper', '--help-all']).status).toBe(129);
   });
   it('skips only numeric callbacks after a real help exit', async () => {
     await compare([['-h'], ['--abbrev', 'bad']], ['-h', '--abbrev=bad']);
     await expect(
-      repo.command('ls-tree', [['--abbrev', 'bad'], ['-h']] as never),
+      strict(repo).command('ls-tree', [['--abbrev', 'bad'], ['-h']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['ls-tree', '--abbrev=bad', '-h']).status).toBe(129);
   });
@@ -109,7 +110,7 @@ describe('ls-tree internal help and callback order', () => {
       const expected = native(['ls-tree', ...words]);
       if (expected.stderr.startsWith('error: options ')) {
         await expect(
-          repo.command('ls-tree', words.map((flag) => [flag]) as never),
+          strict(repo).command('ls-tree', words.map((flag) => [flag]) as never),
         ).rejects.toBeInstanceOf(GitArgumentError);
       } else {
         await compare(
@@ -124,7 +125,11 @@ describe('ls-tree internal help and callback order', () => {
     const expected = native(['ls-tree', '--format=%(path)', '--long', '--help-all']);
     if (expected.stderr.startsWith('error: unknown option')) {
       await expect(
-        repo.command('ls-tree', [['--format', '%(path)'], ['--long'], ['--help-all']] as never),
+        strict(repo).command('ls-tree', [
+          ['--format', '%(path)'],
+          ['--long'],
+          ['--help-all'],
+        ] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     } else {
       await compare(

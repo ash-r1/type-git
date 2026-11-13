@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
+import type { StrictGit } from '../../src/strict/index.js';
 
-declare const git: Git;
+declare const git: StrictGit;
 
 // A leading unknown short still runs native Git's single-dash long typo check.
 // @ts-expect-error -follow requires two dashes even before a completion exit.

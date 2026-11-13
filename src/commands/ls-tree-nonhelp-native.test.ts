@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError, type RawResult } from '../core/types.js';
+import { strict } from '../strict/index.js';
 
 describe('ls-tree non-help mode families', () => {
   let root: string;
@@ -59,7 +60,7 @@ describe('ls-tree non-help mode families', () => {
     const result = native(['ls-tree', '--long', '--name-only']);
     expect(result.status).toBe(129);
     await expect(
-      repo.command('ls-tree', [['--long'], ['--name-only']] as never),
+      strict(repo).command('ls-tree', [['--long'], ['--name-only']] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
   it('matches native listings or rejects native-invalid mode/value combinations without changing fixture bytes', async () => {
@@ -96,7 +97,7 @@ describe('ls-tree non-help mode families', () => {
       expect(await snapshot()).toEqual(before);
       let actual: RawResult | undefined;
       try {
-        actual = await repo.command('ls-tree', args as never);
+        actual = await strict(repo).command('ls-tree', args as never);
       } catch (error) {
         expect(error).toBeInstanceOf(GitArgumentError);
         expect(expected.status).not.toBe(0);

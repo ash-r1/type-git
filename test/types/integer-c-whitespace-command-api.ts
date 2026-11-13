@@ -1,5 +1,5 @@
-import type { Git } from '../../src/core/git.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 git.command('fast-import', [["--max-pack-size", "                                                                                                                                                                1"]]);
 // @ts-expect-error Native callback rejects this known numeric suffix after C whitespace.
 git.command('fast-import', [["--max-pack-size", "                                                                                                                                                                9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"]]);

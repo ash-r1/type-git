@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { strict } from '../strict/index.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
@@ -173,7 +174,7 @@ describe('help and daemon entrypoint grammars', () => {
       true,
       packet,
     );
-    const publicResult = await repo.command(
+    const publicResult = await strict(repo).command(
       'daemon',
       [['--serve'], ['--export-all'], ['--base-path', basePath], ['--log-destination', 'stderr']],
       { stdin: new Uint8Array(Buffer.from(packet)), stdout: 'bytes' },
@@ -290,7 +291,7 @@ describe('help and daemon entrypoint grammars', () => {
     }
   });
   it('rejects supported fsmonitor signed32 overflow before a later overwrite', (context) => {
-    if (!fsmonitorAvailable || !native255) {
+    if (!(fsmonitorAvailable && native255)) {
       context.skip();
       return;
     }

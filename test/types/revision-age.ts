@@ -1,6 +1,6 @@
-import type { Git } from '../../src/index.js';
 import type { CheckedCommandArguments } from '../../src/commands/types.js';
-declare const git: Git;
+import type { StrictGit } from '../../src/strict/index.js';
+declare const git: StrictGit;
 // Unpinned clients preserve valid old-family atoi inputs; selected runtime Git owns validation.
 git.command('log', [['--max-age', '1x'], { operand: 'HEAD' }]);
 git.command('log', [['--min-age', '18446744073709551616'], { operand: 'HEAD' }]);
