@@ -85,6 +85,9 @@ jobs:
           curl -fsS --retry 3 https://www.kernel.org/pub/software/scm/git/git-2.25.1.tar.gz -o git.tar.gz
           tar -xzf git.tar.gz
           cd git-2.25.1
+          # Git 2.25 aliases CURLUSESSL_TRY for libcurl before 7.16.4. Newer libcurl
+          # headers no longer define CURLOPT_USE_SSL as a macro, so drop the stale aliases.
+          sed -i '/^#define CURLOPT_USE_SSL CURLOPT_FTP_SSL$/d; /^#define CURLUSESSL_TRY CURLFTPSSL_TRY$/d' http.h
           make prefix=$HOME/git-2.25.1 all -j$(nproc)
           make prefix=$HOME/git-2.25.1 install
 
