@@ -17,6 +17,7 @@ export type NativeLogShowOptionCases = readonly [
   Check<Accepted<'log', [["--stat"],["--quiet"],["-L","1,1:a"]]> extends false ? true : false>,
   Check<Accepted<'log', [["--raw"],["-L","1,1:a"]]> extends true ? true : false>,
   Check<Accepted<'log', [["--stat"],["--no-no-patch"],["-L","1,1:a"]]> extends true ? true : false>,
+  Check<Accepted<'log', [["--stat"],["-s"],["-p"],["-L","1,1:a"]]> extends true ? true : false>,
   Check<Accepted<'log', [["--compact-summary"],["--no-compact-summary"],["-L","1,1:a"]]> extends false ? true : false>,
   Check<Accepted<'show', [["--find-object","HEAD"],["--pickaxe-regex"]]> extends false ? true : false>,
 ];

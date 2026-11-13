@@ -2275,7 +2275,9 @@
       ],
       "remainingOverrides": [
         "--no-compact-summary",
-        "--no-no-patch"
+        "--no-no-patch",
+        "--no-patch",
+        "-s"
       ]
     },
     "options": {
@@ -2404,6 +2406,140 @@
         "key": "stat-with-summary",
         "value": "flag",
         "set": false
+      },
+      "-s": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
       }
     },
     "numericOption": {
@@ -2470,7 +2606,9 @@
       ],
       "remainingOverrides": [
         "--no-compact-summary",
-        "--no-no-patch"
+        "--no-no-patch",
+        "--no-patch",
+        "-s"
       ]
     },
     "options": {
@@ -2599,6 +2737,140 @@
         "key": "stat-with-summary",
         "value": "flag",
         "set": false
+      },
+      "-s": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
       }
     },
     "numericOption": {

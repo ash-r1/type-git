@@ -7629,7 +7629,7 @@
       "kind": "conflicts",
       "origin": "git",
       "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
-      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; --no-no-patch resets every format, while --no-compact-summary only clears the summary flag and keeps the stat format.",
+      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
       "guard": [
         {
           "key": "no-output",
@@ -7851,7 +7851,7 @@
       "kind": "conflicts",
       "origin": "git",
       "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
-      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; --no-no-patch resets every format, while --no-compact-summary only clears the summary flag and keeps the stat format.",
+      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
       "guard": [
         {
           "key": "no-output",

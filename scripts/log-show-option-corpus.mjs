@@ -269,6 +269,9 @@ try {
     [['--no-quiet'], ['--quiet'], ['--name-only']], [['-q'], ['--name-status']], [['--quiet'], ['-s']], [['--quiet'], ['--check']], [['--quiet'], ['-p'], ['--check']],
     // --no-no-patch resets every format; --no-compact-summary keeps the stat format it added.
     [['--stat'], ['--no-no-patch'], ['-L', '1,1:a']], [['--numstat'], ['--no-no-patch'], ['-L', '1,1:a']], [['--stat'], ['--no-no-patch'], ['--name-only']],
+    // -s and --no-patch replace the whole output format, so a later -p does not revive a stat.
+    [['--stat'], ['-s'], ['-p'], ['-L', '1,1:a']], [['--stat'], ['--no-patch'], ['-p'], ['-L', '1,1:a']], [['--numstat'], ['-s'], ['-p'], ['-L', '1,1:a']],
+    [['--stat-width', '10'], ['-s'], ['-p'], ['-L', '1,1:a']], [['-s'], ['--stat'], ['-p'], ['-L', '1,1:a']],
     [['--compact-summary'], ['--no-compact-summary'], ['-L', '1,1:a']], [['--no-compact-summary'], ['-L', '1,1:a']], [['--no-no-patch'], ['--stat'], ['-L', '1,1:a']],
     // Reflog walks and -L, decided by the commit-graph.
     [['-L', '1,1:a'], ['--walk-reflogs']], [['-L', '1,1:a'], ['-g'], ['--no-walk']],
@@ -309,6 +312,7 @@ try {
     ['log', [['--stat'], ['--quiet'], ['-L', '1,1:a']]],
     ['log', [['--raw'], ['-L', '1,1:a']]],
     ['log', [['--stat'], ['--no-no-patch'], ['-L', '1,1:a']]],
+    ['log', [['--stat'], ['-s'], ['-p'], ['-L', '1,1:a']]],
     ['log', [['--compact-summary'], ['--no-compact-summary'], ['-L', '1,1:a']]],
     ['show', [['--find-object', 'HEAD'], ['--pickaxe-regex']]],
   ];

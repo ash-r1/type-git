@@ -124840,6 +124840,292 @@
    "group": "combinations",
    "tokens": [
     [
+     "--stat"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "log",
+    "--stat",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "show",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "show",
+    "--stat",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "log",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat"
+    ],
+    [
+     "--no-patch"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "log",
+    "--stat",
+    "--no-patch",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "show",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat"
+    ],
+    [
+     "--no-patch"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "show",
+    "--stat",
+    "--no-patch",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "log",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--numstat"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "log",
+    "--numstat",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "show",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--numstat"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "show",
+    "--numstat",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "log",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat-width",
+     "10"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "log",
+    "--stat-width=10",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "show",
+   "group": "combinations",
+   "tokens": [
+    [
+     "--stat-width",
+     "10"
+    ],
+    [
+     "-s"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "show",
+    "--stat-width=10",
+    "-s",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": true
+  },
+  {
+   "command": "log",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-s"
+    ],
+    [
+     "--stat"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "log",
+    "-s",
+    "--stat",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": false,
+   "status": 128,
+   "diagnostic": "fatal: -L does not yet support the requested diff format"
+  },
+  {
+   "command": "show",
+   "group": "combinations",
+   "tokens": [
+    [
+     "-s"
+    ],
+    [
+     "--stat"
+    ],
+    [
+     "-p"
+    ],
+    [
+     "-L",
+     "1,1:a"
+    ]
+   ],
+   "argv": [
+    "show",
+    "-s",
+    "--stat",
+    "-p",
+    "-L",
+    "1,1:a"
+   ],
+   "valid": false,
+   "status": 128,
+   "diagnostic": "fatal: -L does not yet support the requested diff format"
+  },
+  {
+   "command": "log",
+   "group": "combinations",
+   "tokens": [
+    [
      "--compact-summary"
     ],
     [

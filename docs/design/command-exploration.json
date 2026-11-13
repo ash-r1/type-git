@@ -19457,6 +19457,54 @@
               {
                 "key": "check",
                 "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
+                "set": false
               }
             ]
           },
@@ -19475,6 +19523,54 @@
               },
               {
                 "key": "check",
+                "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
                 "set": false
               }
             ]
@@ -21935,6 +22031,94 @@
           "false",
           "true"
         ],
+        "stat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "compact-summary": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-name-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-count": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
         "u": [
           "undefined",
           "true"
@@ -21961,97 +22145,9 @@
           "undefined",
           "true"
         ],
-        "patch-with-stat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "numstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "shortstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "cumulative": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat-by-file": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
         "summary": [
           "undefined",
           "true"
-        ],
-        "stat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "stat-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-name-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-graph-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-count": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "compact-summary": [
-          "undefined",
-          "true",
-          "false"
         ],
         "binary": [
           "undefined",
@@ -23174,6 +23270,54 @@
               {
                 "key": "check",
                 "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
+                "set": false
               }
             ]
           },
@@ -23192,6 +23336,54 @@
               },
               {
                 "key": "check",
+                "set": false
+              },
+              {
+                "key": "stat",
+                "set": false
+              },
+              {
+                "key": "numstat",
+                "set": false
+              },
+              {
+                "key": "shortstat",
+                "set": false
+              },
+              {
+                "key": "dirstat",
+                "set": false
+              },
+              {
+                "key": "dirstat-by-file",
+                "set": false
+              },
+              {
+                "key": "cumulative",
+                "set": false
+              },
+              {
+                "key": "compact-summary",
+                "set": false
+              },
+              {
+                "key": "patch-with-stat",
+                "set": false
+              },
+              {
+                "key": "stat-width",
+                "set": false
+              },
+              {
+                "key": "stat-name-width",
+                "set": false
+              },
+              {
+                "key": "stat-graph-width",
+                "set": false
+              },
+              {
+                "key": "stat-count",
                 "set": false
               }
             ]
@@ -25659,6 +25851,94 @@
           "false",
           "true"
         ],
+        "stat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "compact-summary": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-name-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-count": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
         "u": [
           "undefined",
           "true"
@@ -25685,97 +25965,9 @@
           "undefined",
           "true"
         ],
-        "patch-with-stat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "numstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "shortstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "cumulative": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat-by-file": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
         "summary": [
           "undefined",
           "true"
-        ],
-        "stat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "stat-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-name-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-graph-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-count": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "compact-summary": [
-          "undefined",
-          "true",
-          "false"
         ],
         "binary": [
           "undefined",
@@ -114352,6 +114544,94 @@
           "false",
           "true"
         ],
+        "stat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "false",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "compact-summary": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-name-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "stat-count": [
+          "undefined",
+          "false",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
         "u": [
           "undefined",
           "true"
@@ -114378,97 +114658,9 @@
           "undefined",
           "true"
         ],
-        "patch-with-stat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "numstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "shortstat": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "cumulative": [
-          "undefined",
-          "true",
-          "false"
-        ],
-        "dirstat-by-file": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
         "summary": [
           "undefined",
           "true"
-        ],
-        "stat": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
-        ],
-        "stat-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-name-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-graph-width": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "stat-count": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2",
-          "false"
-        ],
-        "compact-summary": [
-          "undefined",
-          "true",
-          "false"
         ],
         "binary": [
           "undefined",

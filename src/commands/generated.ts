@@ -1707,20 +1707,6 @@ const sharedEffects6 = [
     key: 'check',
     set: false,
   },
-] as const;
-const sharedEffects7 = [
-  {
-    key: 'name-only',
-    set: false,
-  },
-  {
-    key: 'name-status',
-    set: false,
-  },
-  {
-    key: 'check',
-    set: false,
-  },
   {
     key: 'stat',
     set: false,
@@ -1770,19 +1756,19 @@ const sharedEffects7 = [
     set: false,
   },
 ] as const;
-const sharedEffects8 = [
+const sharedEffects7 = [
   {
     key: 'limited',
     set: true,
   },
 ] as const;
-const sharedEffects9 = [
+const sharedEffects8 = [
   {
     key: 'combined-all-paths',
     set: false,
   },
 ] as const;
-const sharedEffects10 = [
+const sharedEffects9 = [
   {
     key: 'limited',
     set: true,
@@ -1800,7 +1786,7 @@ const sharedEffects10 = [
     set: 1,
   },
 ] as const;
-const sharedEffects11 = [
+const sharedEffects10 = [
   {
     key: 'max-count-mode',
     set: 'newest',
@@ -1810,7 +1796,7 @@ const sharedEffects11 = [
     set: false,
   },
 ] as const;
-const sharedEffects12 = [
+const sharedEffects11 = [
   {
     key: 'max-count-mode',
     set: 'oldest',
@@ -1820,13 +1806,13 @@ const sharedEffects12 = [
     set: false,
   },
 ] as const;
-const sharedEffects13 = [
+const sharedEffects12 = [
   {
     key: 'rewrite-parents',
     set: true,
   },
 ] as const;
-const sharedEffects14 = [
+const sharedEffects13 = [
   {
     key: 'limited',
     set: true,
@@ -1836,9 +1822,23 @@ const sharedEffects14 = [
     set: true,
   },
 ] as const;
-const sharedEffects15 = [
+const sharedEffects14 = [
   {
     key: 'no-walk',
+    set: false,
+  },
+] as const;
+const sharedEffects15 = [
+  {
+    key: 'name-only',
+    set: false,
+  },
+  {
+    key: 'name-status',
+    set: false,
+  },
+  {
+    key: 'check',
     set: false,
   },
 ] as const;
@@ -4370,7 +4370,7 @@ const sharedOption452 = {
   key: 'no-output',
   value: 'flag',
   set: false,
-  effects: sharedEffects7,
+  effects: sharedEffects6,
 } as const;
 const sharedOption453 = {
   key: 'function-context',
@@ -4470,7 +4470,7 @@ const sharedOption472 = {
 const sharedOption473 = {
   key: 'ancestry-path',
   value: 'optional-string',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
 } as const;
 const sharedOption474 = {
   key: 'author',
@@ -4505,12 +4505,12 @@ const sharedOption481 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'dense-combined',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption482 = {
   key: 'cherry',
   value: 'flag',
-  effects: sharedEffects10,
+  effects: sharedEffects9,
   checks: [
     {
       id: 'revision.cherry-prior-conflict',
@@ -4525,7 +4525,7 @@ const sharedOption482 = {
 const sharedOption483 = {
   key: 'cherry-mark',
   value: 'flag',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
   checks: [
     {
       id: 'revision.cherry-mark-prior-conflict',
@@ -4540,7 +4540,7 @@ const sharedOption483 = {
 const sharedOption484 = {
   key: 'cherry-pick',
   value: 'flag',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
   checks: [
     {
       id: 'revision.cherry-pick-prior-conflict',
@@ -4555,7 +4555,7 @@ const sharedOption484 = {
 const sharedOption485 = {
   key: 'children',
   value: 'flag',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
 } as const;
 const sharedOption486 = {
   key: 'combined-all-paths',
@@ -4583,7 +4583,7 @@ const sharedOption491 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'first-parent',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption492 = {
   key: 'default',
@@ -4612,7 +4612,7 @@ const sharedOption494 = {
     'm',
     'on',
   ],
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption495 = {
   key: 'no-walk',
@@ -4711,7 +4711,7 @@ const sharedOption513 = {
 const sharedOption514 = {
   key: 'left-only',
   value: 'flag',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
   checks: [
     {
       id: 'revision.left-only-prior-conflict',
@@ -4740,7 +4740,7 @@ const sharedOption518 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
-  effects: sharedEffects11,
+  effects: sharedEffects10,
   checks: [
     {
       id: 'revision.count-after-oldest',
@@ -4756,7 +4756,7 @@ const sharedOption519 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
-  effects: sharedEffects12,
+  effects: sharedEffects11,
   checks: [
     {
       id: 'revision.oldest-after-count',
@@ -4813,7 +4813,7 @@ const sharedOption527 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'none',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption528 = {
   key: 'encode-email-headers',
@@ -4892,7 +4892,7 @@ const sharedOption544 = {
 const sharedOption545 = {
   key: 'parents',
   value: 'flag',
-  effects: sharedEffects13,
+  effects: sharedEffects12,
 } as const;
 const sharedOption546 = {
   key: 'perl-regexp',
@@ -4918,7 +4918,7 @@ const sharedOption551 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'remerge',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption552 = {
   key: 'remotes',
@@ -4936,7 +4936,7 @@ const sharedOption554 = {
 const sharedOption555 = {
   key: 'right-only',
   value: 'flag',
-  effects: sharedEffects8,
+  effects: sharedEffects7,
   checks: [
     {
       id: 'revision.right-only-prior-conflict',
@@ -4975,12 +4975,12 @@ const sharedOption561 = {
 const sharedOption562 = {
   key: 'simplify-by-decoration',
   value: 'flag',
-  effects: sharedEffects14,
+  effects: sharedEffects13,
 } as const;
 const sharedOption563 = {
   key: 'simplify-merges',
   value: 'flag',
-  effects: sharedEffects14,
+  effects: sharedEffects13,
 } as const;
 const sharedOption564 = {
   key: 'since-as-filter',
@@ -5047,19 +5047,19 @@ const sharedOption574 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'combined',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption575 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'on',
-  effects: sharedEffects9,
+  effects: sharedEffects8,
 } as const;
 const sharedOption576 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
-  effects: sharedEffects15,
+  effects: sharedEffects14,
 } as const;
 const sharedOption577 = {
   key: 't',
@@ -5082,95 +5082,101 @@ const sharedOption580 = {
 const sharedOption581 = {
   key: 'no-output',
   value: 'flag',
-  set: false,
-  effects: sharedEffects6,
+  set: true,
+  effects: sharedEffects15,
 } as const;
 const sharedOption582 = {
+  key: 'no-output',
+  value: 'flag',
+  set: false,
+  effects: sharedEffects15,
+} as const;
+const sharedOption583 = {
   key: 'compact-summary',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption583 = {
+const sharedOption584 = {
   key: 'merge-base',
   value: 'flag',
 } as const;
-const sharedOption584 = {
+const sharedOption585 = {
   key: 'no-index',
   value: 'flag',
 } as const;
-const sharedOption585 = {
-  key: 'rewrite',
-  value: 'flag',
-} as const;
 const sharedOption586 = {
-  key: 'updateref',
+  key: 'rewrite',
   value: 'flag',
 } as const;
 const sharedOption587 = {
-  key: 'rewrite',
+  key: 'updateref',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption588 = {
-  key: 'updateref',
+  key: 'rewrite',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption589 = {
-  key: 'single-worktree',
+  key: 'updateref',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption590 = {
+  key: 'single-worktree',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption591 = {
   key: 'L',
   value: 'string',
 } as const;
-const sharedOption591 = {
+const sharedOption592 = {
   key: 'untracked-mode',
   value: 'flag',
   set: 'include',
 } as const;
-const sharedOption592 = {
+const sharedOption593 = {
   key: 'stat',
   value: 'flag',
 } as const;
-const sharedOption593 = {
+const sharedOption594 = {
   key: 'summary',
   value: 'flag',
 } as const;
-const sharedOption594 = {
+const sharedOption595 = {
   key: 'compact-summary',
   value: 'flag',
 } as const;
-const sharedOption595 = {
+const sharedOption596 = {
   parser: sharedScalarParser0,
   key: 'log',
   value: 'optional-integer',
   set: 20,
 } as const;
-const sharedOption596 = {
+const sharedOption597 = {
   key: 'squash',
   value: 'flag',
 } as const;
-const sharedOption597 = {
+const sharedOption598 = {
   key: 'rerere-autoupdate',
   value: 'flag',
 } as const;
-const sharedOption598 = {
+const sharedOption599 = {
   key: 'verify-signatures',
   value: 'flag',
 } as const;
-const sharedOption599 = {
+const sharedOption600 = {
   key: 'strategy',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption600 = {
+const sharedOption601 = {
   key: 'strategy-option',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption601 = {
+const sharedOption602 = {
   key: 'file',
   value: 'string',
   checks: [
@@ -5185,105 +5191,105 @@ const sharedOption601 = {
     },
   ],
 } as const;
-const sharedOption602 = {
+const sharedOption603 = {
   key: 'into-name',
   value: 'string',
 } as const;
-const sharedOption603 = {
+const sharedOption604 = {
   key: 'allow-unrelated-histories',
   value: 'flag',
 } as const;
-const sharedOption604 = {
+const sharedOption605 = {
   key: 'autostash',
   value: 'flag',
 } as const;
-const sharedOption605 = {
+const sharedOption606 = {
   key: 'stat',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption606 = {
+const sharedOption607 = {
   key: 'summary',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption607 = {
+const sharedOption608 = {
   parser: sharedScalarParser0,
   key: 'log',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption608 = {
+const sharedOption609 = {
   key: 'squash',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption609 = {
+const sharedOption610 = {
   key: 'commit',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption610 = {
+const sharedOption611 = {
   key: 'rerere-autoupdate',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption611 = {
+const sharedOption612 = {
   key: 'verify-signatures',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption612 = {
+const sharedOption613 = {
   key: 'strategy-option',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption613 = {
+const sharedOption614 = {
   key: 'into-name',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption614 = {
+const sharedOption615 = {
   key: 'allow-unrelated-histories',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption615 = {
+const sharedOption616 = {
   key: 'autostash',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption616 = {
+const sharedOption617 = {
   key: 'onto',
   value: 'string',
 } as const;
-const sharedOption617 = {
+const sharedOption618 = {
   key: 'no-stat',
   value: 'flag',
 } as const;
-const sharedOption618 = {
+const sharedOption619 = {
   key: 'committer-date-is-author-date',
   value: 'flag',
 } as const;
-const sharedOption619 = {
+const sharedOption620 = {
   key: 'ignore-date',
   value: 'flag',
 } as const;
-const sharedOption620 = {
+const sharedOption621 = {
   key: 'am-options',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption621 = {
+const sharedOption622 = {
   key: 'ignore-whitespace',
   value: 'flag',
 } as const;
-const sharedOption622 = {
+const sharedOption623 = {
   key: 'force-rebase',
   value: 'flag',
 } as const;
-const sharedOption623 = {
+const sharedOption624 = {
   key: 'backend',
   value: 'flag',
   set: 'merge',
@@ -5298,11 +5304,11 @@ const sharedOption623 = {
     },
   ],
 } as const;
-const sharedOption624 = {
+const sharedOption625 = {
   key: 'preserve-merges',
   value: 'flag',
 } as const;
-const sharedOption625 = {
+const sharedOption626 = {
   key: 'keep-empty',
   value: 'flag',
   set: true,
@@ -5318,189 +5324,189 @@ const sharedOption625 = {
   ],
   effects: sharedEffects18,
 } as const;
-const sharedOption626 = {
+const sharedOption627 = {
   key: 'exec',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption627 = {
+const sharedOption628 = {
   key: 'rebase-merges',
   value: 'optional-string',
   allowed: ['', 'rebase-cousins', 'no-rebase-cousins'],
 } as const;
-const sharedOption628 = {
+const sharedOption629 = {
   key: 'no-stat',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption629 = {
+const sharedOption630 = {
   key: 'committer-date-is-author-date',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption630 = {
+const sharedOption631 = {
   key: 'ignore-date',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption631 = {
+const sharedOption632 = {
   key: 'ignore-whitespace',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption632 = {
+const sharedOption633 = {
   key: 'no-ff',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption633 = {
+const sharedOption634 = {
   key: 'root',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption634 = {
+const sharedOption635 = {
   key: 'patch',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption635 = {
+const sharedOption636 = {
   key: 'no-output',
   value: 'flag',
   set: true,
   effects: sharedEffects20,
 } as const;
-const sharedOption636 = {
+const sharedOption637 = {
   key: 'u',
   value: 'flag',
   effects: sharedEffects19,
-} as const;
-const sharedOption637 = {
-  key: 'unified',
-  value: 'optional-integer',
-  effects: sharedEffects19,
-  parser: sharedScalarParser2,
 } as const;
 const sharedOption638 = {
   key: 'unified',
   value: 'optional-integer',
   effects: sharedEffects19,
   parser: sharedScalarParser2,
-  emptyValueFlag: '--unified',
 } as const;
 const sharedOption639 = {
+  key: 'unified',
+  value: 'optional-integer',
+  effects: sharedEffects19,
+  parser: sharedScalarParser2,
+  emptyValueFlag: '--unified',
+} as const;
+const sharedOption640 = {
   key: 'function-context',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption640 = {
+const sharedOption641 = {
   key: 'raw',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption641 = {
+const sharedOption642 = {
   key: 'patch-with-raw',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption642 = {
+const sharedOption643 = {
   key: 'patch-with-stat',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption643 = {
+const sharedOption644 = {
   key: 'numstat',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption644 = {
+const sharedOption645 = {
   key: 'shortstat',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption645 = {
+const sharedOption646 = {
   key: 'dirstat',
   value: 'optional-string',
   effects: sharedEffects19,
   parser: 'diff-dirstat',
 } as const;
-const sharedOption646 = {
+const sharedOption647 = {
   key: 'cumulative',
   value: 'flag',
   effects: sharedEffects19,
   parser: 'diff-dirstat',
 } as const;
-const sharedOption647 = {
+const sharedOption648 = {
   key: 'dirstat-by-file',
   value: 'optional-string',
   effects: sharedEffects19,
   parser: 'diff-dirstat',
 } as const;
-const sharedOption648 = {
+const sharedOption649 = {
   key: 'check',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption649 = {
+const sharedOption650 = {
   key: 'summary',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption650 = {
+const sharedOption651 = {
   key: 'name-only',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption651 = {
+const sharedOption652 = {
   key: 'name-status',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption652 = {
+const sharedOption653 = {
   key: 'stat',
   value: 'optional-string',
   effects: sharedEffects19,
   parser: 'diff-stat',
 } as const;
-const sharedOption653 = {
+const sharedOption654 = {
   key: 'stat-width',
   value: 'integer',
   effects: sharedEffects19,
   parser: sharedScalarParser3,
 } as const;
-const sharedOption654 = {
+const sharedOption655 = {
   key: 'stat-name-width',
   value: 'integer',
   effects: sharedEffects19,
   parser: sharedScalarParser3,
 } as const;
-const sharedOption655 = {
+const sharedOption656 = {
   key: 'stat-graph-width',
   value: 'integer',
   effects: sharedEffects19,
   parser: sharedScalarParser3,
 } as const;
-const sharedOption656 = {
+const sharedOption657 = {
   key: 'stat-count',
   value: 'integer',
   effects: sharedEffects19,
   parser: sharedScalarParser3,
 } as const;
-const sharedOption657 = {
+const sharedOption658 = {
   key: 'compact-summary',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption658 = {
+const sharedOption659 = {
   key: 'binary',
   value: 'flag',
   effects: sharedEffects19,
 } as const;
-const sharedOption659 = {
+const sharedOption660 = {
   key: 'full-index',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption660 = {
+const sharedOption661 = {
   key: 'color',
   value: 'optional-string',
   set: 'always',
@@ -5508,289 +5514,289 @@ const sharedOption660 = {
   caseInsensitive: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption661 = {
+const sharedOption662 = {
   parser: 'diff-ws-error-highlight',
   key: 'ws-error-highlight',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption662 = {
+const sharedOption663 = {
   key: 'z',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption663 = {
+const sharedOption664 = {
   key: 'abbrev',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption664 = {
+const sharedOption665 = {
   key: 'src-prefix',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption665 = {
+const sharedOption666 = {
   key: 'dst-prefix',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption666 = {
+const sharedOption667 = {
   key: 'line-prefix',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption667 = {
+const sharedOption668 = {
   key: 'no-prefix',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption668 = {
+const sharedOption669 = {
   key: 'default-prefix',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption669 = {
+const sharedOption670 = {
   parser: sharedScalarParser4,
   key: 'inter-hunk-context',
   value: 'integer',
   effects: sharedEffects21,
 } as const;
-const sharedOption670 = {
+const sharedOption671 = {
   key: 'output-indicator-new',
   value: 'string',
   parser: 'diff-output-indicator',
   effects: sharedEffects21,
 } as const;
-const sharedOption671 = {
+const sharedOption672 = {
   key: 'output-indicator-old',
   value: 'string',
   parser: 'diff-output-indicator',
   effects: sharedEffects21,
 } as const;
-const sharedOption672 = {
+const sharedOption673 = {
   key: 'output-indicator-context',
   value: 'string',
   parser: 'diff-output-indicator',
-  effects: sharedEffects21,
-} as const;
-const sharedOption673 = {
-  parser: 'diff-break-score',
-  key: 'break-rewrites',
-  value: 'optional-string',
   effects: sharedEffects21,
 } as const;
 const sharedOption674 = {
   parser: 'diff-break-score',
   key: 'break-rewrites',
   value: 'optional-string',
-  emptyValueFlag: '--break-rewrites',
   effects: sharedEffects21,
 } as const;
 const sharedOption675 = {
-  parser: 'diff-rename-score',
-  key: 'find-renames',
+  parser: 'diff-break-score',
+  key: 'break-rewrites',
   value: 'optional-string',
+  emptyValueFlag: '--break-rewrites',
   effects: sharedEffects21,
 } as const;
 const sharedOption676 = {
   parser: 'diff-rename-score',
   key: 'find-renames',
   value: 'optional-string',
-  emptyValueFlag: '--find-renames',
   effects: sharedEffects21,
 } as const;
 const sharedOption677 = {
-  key: 'irreversible-delete',
-  value: 'flag',
+  parser: 'diff-rename-score',
+  key: 'find-renames',
+  value: 'optional-string',
+  emptyValueFlag: '--find-renames',
   effects: sharedEffects21,
 } as const;
 const sharedOption678 = {
-  parser: 'diff-rename-score',
-  key: 'find-copies',
-  value: 'optional-string',
+  key: 'irreversible-delete',
+  value: 'flag',
   effects: sharedEffects21,
 } as const;
 const sharedOption679 = {
   parser: 'diff-rename-score',
   key: 'find-copies',
   value: 'optional-string',
-  emptyValueFlag: '--find-copies',
   effects: sharedEffects21,
 } as const;
 const sharedOption680 = {
+  parser: 'diff-rename-score',
+  key: 'find-copies',
+  value: 'optional-string',
+  emptyValueFlag: '--find-copies',
+  effects: sharedEffects21,
+} as const;
+const sharedOption681 = {
   key: 'find-copies-harder',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption681 = {
+const sharedOption682 = {
   key: 'no-renames',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption682 = {
+const sharedOption683 = {
   key: 'rename-empty',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption683 = {
+const sharedOption684 = {
   key: 'follow',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption684 = {
+const sharedOption685 = {
   parser: sharedScalarParser0,
   key: 'l',
   value: 'integer',
   effects: sharedEffects21,
 } as const;
-const sharedOption685 = {
+const sharedOption686 = {
   key: 'minimal',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption686 = {
+const sharedOption687 = {
   key: 'ignore-all-space',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption687 = {
+const sharedOption688 = {
   key: 'ignore-space-change',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption688 = {
+const sharedOption689 = {
   key: 'ignore-space-at-eol',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption689 = {
+const sharedOption690 = {
   key: 'ignore-cr-at-eol',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption690 = {
+const sharedOption691 = {
   key: 'ignore-blank-lines',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption691 = {
+const sharedOption692 = {
   key: 'ignore-matching-lines',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption692 = {
+const sharedOption693 = {
   key: 'indent-heuristic',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption693 = {
+const sharedOption694 = {
   key: 'patience',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption694 = {
+const sharedOption695 = {
   key: 'histogram',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption695 = {
+const sharedOption696 = {
   key: 'diff-algorithm',
   value: 'string',
   allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
   caseInsensitive: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption696 = {
+const sharedOption697 = {
   key: 'anchored',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption697 = {
+const sharedOption698 = {
   key: 'word-diff',
   value: 'optional-string',
   allowed: ['plain', 'color', 'porcelain', 'none'],
   effects: sharedEffects21,
 } as const;
-const sharedOption698 = {
+const sharedOption699 = {
   key: 'word-diff-regex',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption699 = {
+const sharedOption700 = {
   key: 'color-words',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption700 = {
+const sharedOption701 = {
   parser: 'diff-color-moved',
   key: 'color-moved',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption701 = {
+const sharedOption702 = {
   parser: 'diff-color-moved-ws',
   key: 'color-moved-ws',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption702 = {
+const sharedOption703 = {
   key: 'relative',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption703 = {
+const sharedOption704 = {
   key: 'text',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption704 = {
+const sharedOption705 = {
   key: 'R',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption705 = {
+const sharedOption706 = {
   key: 'exit-code',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption706 = {
+const sharedOption707 = {
   key: 'quiet',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption707 = {
+const sharedOption708 = {
   key: 'ext-diff',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption708 = {
+const sharedOption709 = {
   key: 'textconv',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption709 = {
+const sharedOption710 = {
   key: 'ignore-submodules',
   value: 'optional-string',
   allowed: ['all', 'dirty', 'untracked', 'none'],
   effects: sharedEffects21,
 } as const;
-const sharedOption710 = {
+const sharedOption711 = {
   key: 'submodule',
   value: 'optional-string',
   allowed: ['short', 'log', 'diff'],
   effects: sharedEffects21,
 } as const;
-const sharedOption711 = {
+const sharedOption712 = {
   key: 'ita-invisible-in-index',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption712 = {
+const sharedOption713 = {
   key: 'ita-visible-in-index',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption713 = {
+const sharedOption714 = {
   key: 'G',
   value: 'string',
   checks: [
@@ -5807,240 +5813,240 @@ const sharedOption713 = {
   nativeEmptyPickaxe: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption714 = {
+const sharedOption715 = {
   key: 'pickaxe-all',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption715 = {
+const sharedOption716 = {
   key: 'pickaxe-regex',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption716 = {
+const sharedOption717 = {
   key: 'O',
   value: 'string',
   emptyIsUnset: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption717 = {
+const sharedOption718 = {
   key: 'rotate-to',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption718 = {
+const sharedOption719 = {
   key: 'skip-to',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption719 = {
+const sharedOption720 = {
   key: 'find-object',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption720 = {
+const sharedOption721 = {
   parser: 'diff-filter-letters',
   key: 'diff-filter',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption721 = {
+const sharedOption722 = {
   parser: sharedScalarParser0,
   key: 'max-depth',
   value: 'integer',
   effects: sharedEffects21,
 } as const;
-const sharedOption722 = {
+const sharedOption723 = {
   key: 'output',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption723 = {
+const sharedOption724 = {
   key: 'no-output',
   value: 'flag',
   set: false,
   effects: sharedEffects20,
 } as const;
-const sharedOption724 = {
+const sharedOption725 = {
   key: 'function-context',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption725 = {
+const sharedOption726 = {
   key: 'compact-summary',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption726 = {
+const sharedOption727 = {
   key: 'full-index',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption727 = {
+const sharedOption728 = {
   key: 'color',
   value: 'flag',
   set: 'never',
   effects: sharedEffects21,
 } as const;
-const sharedOption728 = {
+const sharedOption729 = {
   key: 'no-abbrev',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption729 = {
+const sharedOption730 = {
   key: 'find-copies-harder',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption730 = {
+const sharedOption731 = {
   key: 'rename-empty',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption731 = {
+const sharedOption732 = {
   key: 'follow',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption732 = {
+const sharedOption733 = {
   key: 'indent-heuristic',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption733 = {
+const sharedOption734 = {
   parser: 'diff-color-moved',
   key: 'color-moved',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption734 = {
+const sharedOption735 = {
   key: 'color-moved-ws',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption735 = {
+const sharedOption736 = {
   key: 'relative',
   value: 'flag',
   clear: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption736 = {
+const sharedOption737 = {
   key: 'text',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption737 = {
+const sharedOption738 = {
   key: 'exit-code',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption738 = {
+const sharedOption739 = {
   key: 'quiet',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption739 = {
+const sharedOption740 = {
   key: 'ext-diff',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption740 = {
+const sharedOption741 = {
   key: 'textconv',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption741 = {
+const sharedOption742 = {
   key: 'abbrev-commit',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption742 = {
+const sharedOption743 = {
   key: 'max-age',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption743 = {
+const sharedOption744 = {
   key: 'all',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption744 = {
+const sharedOption745 = {
   key: 'all-match',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption745 = {
+const sharedOption746 = {
   key: 'alternate-refs',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption746 = {
+const sharedOption747 = {
   key: 'always',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption747 = {
+const sharedOption748 = {
   key: 'ancestry-path',
   value: 'optional-string',
   effects: sharedEffects22,
 } as const;
-const sharedOption748 = {
+const sharedOption749 = {
   key: 'author',
   value: 'string',
   repeat: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption749 = {
+const sharedOption750 = {
   key: 'author-date-order',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption750 = {
+const sharedOption751 = {
   key: 'basic-regexp',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption751 = {
+const sharedOption752 = {
   key: 'min-age',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption752 = {
+const sharedOption753 = {
   key: 'bisect',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption753 = {
+const sharedOption754 = {
   key: 'boundary',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption754 = {
+const sharedOption755 = {
   key: 'branches',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption755 = {
+const sharedOption756 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'dense-combined',
   effects: sharedEffects23,
 } as const;
-const sharedOption756 = {
+const sharedOption757 = {
   key: 'cherry',
   value: 'flag',
   effects: sharedEffects24,
@@ -6055,7 +6061,7 @@ const sharedOption756 = {
     },
   ],
 } as const;
-const sharedOption757 = {
+const sharedOption758 = {
   key: 'cherry-mark',
   value: 'flag',
   effects: sharedEffects22,
@@ -6070,7 +6076,7 @@ const sharedOption757 = {
     },
   ],
 } as const;
-const sharedOption758 = {
+const sharedOption759 = {
   key: 'cherry-pick',
   value: 'flag',
   effects: sharedEffects22,
@@ -6085,56 +6091,56 @@ const sharedOption758 = {
     },
   ],
 } as const;
-const sharedOption759 = {
+const sharedOption760 = {
   key: 'children',
   value: 'flag',
   effects: sharedEffects22,
 } as const;
-const sharedOption760 = {
+const sharedOption761 = {
   key: 'combined-all-paths',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption761 = {
+const sharedOption762 = {
   key: 'committer',
   value: 'string',
   repeat: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption762 = {
+const sharedOption763 = {
   key: 'count',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption763 = {
+const sharedOption764 = {
   key: 'date',
   value: 'string',
   parser: 'revision-date-format',
   effects: sharedEffects21,
 } as const;
-const sharedOption764 = {
+const sharedOption765 = {
   key: 'date-order',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption765 = {
+const sharedOption766 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'first-parent',
   effects: sharedEffects23,
 } as const;
-const sharedOption766 = {
+const sharedOption767 = {
   key: 'default',
   value: 'string',
   separateValue: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption767 = {
+const sharedOption768 = {
   key: 'dense',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption768 = {
+const sharedOption769 = {
   key: 'diff-merges',
   value: 'string',
   allowed: [
@@ -6154,39 +6160,39 @@ const sharedOption768 = {
   ],
   effects: sharedEffects23,
 } as const;
-const sharedOption769 = {
+const sharedOption770 = {
   key: 'no-walk',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption770 = {
+const sharedOption771 = {
   key: 'encode-email-headers',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption771 = {
+const sharedOption772 = {
   key: 'encoding',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption772 = {
+const sharedOption773 = {
   key: 'exclude',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption773 = {
+const sharedOption774 = {
   key: 'exclude-first-parent-only',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption774 = {
+const sharedOption775 = {
   key: 'exclude-hidden',
   value: 'string',
   allowed: ['fetch', 'receive', 'uploadpack'],
   effects: sharedEffects21,
 } as const;
-const sharedOption775 = {
+const sharedOption776 = {
   key: 'expand-tabs',
   value: 'optional-integer',
   set: 8,
@@ -6204,85 +6210,85 @@ const sharedOption775 = {
   ],
   effects: sharedEffects21,
 } as const;
-const sharedOption776 = {
+const sharedOption777 = {
   key: 'extended-regexp',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption777 = {
+const sharedOption778 = {
   key: 'first-parent',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption778 = {
+const sharedOption779 = {
   key: 'fixed-strings',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption779 = {
+const sharedOption780 = {
   key: 'format',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption780 = {
+const sharedOption781 = {
   key: 'full-diff',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption781 = {
+const sharedOption782 = {
   key: 'full-history',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption782 = {
+const sharedOption783 = {
   key: 'glob',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption783 = {
+const sharedOption784 = {
   key: 'graph',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption784 = {
+const sharedOption785 = {
   key: 'graph-lane-limit',
   value: 'integer',
   parser: sharedScalarParser6,
   effects: sharedEffects21,
 } as const;
-const sharedOption785 = {
+const sharedOption786 = {
   key: 'grep',
   value: 'string',
   repeat: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption786 = {
+const sharedOption787 = {
   key: 'grep-reflog',
   value: 'string',
   repeat: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption787 = {
+const sharedOption788 = {
   key: 'ignore-missing',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption788 = {
+const sharedOption789 = {
   key: 'in-commit-order',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption789 = {
+const sharedOption790 = {
   key: 'indexed-objects',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption790 = {
+const sharedOption791 = {
   key: 'invert-grep',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption791 = {
+const sharedOption792 = {
   key: 'left-only',
   value: 'flag',
   effects: sharedEffects22,
@@ -6297,23 +6303,23 @@ const sharedOption791 = {
     },
   ],
 } as const;
-const sharedOption792 = {
+const sharedOption793 = {
   key: 'left-right',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption793 = {
+const sharedOption794 = {
   key: 'log-size',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption794 = {
+const sharedOption795 = {
   key: 'max-age',
   value: 'integer',
   parser: sharedScalarParser7,
   effects: sharedEffects21,
 } as const;
-const sharedOption795 = {
+const sharedOption796 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
@@ -6329,7 +6335,7 @@ const sharedOption795 = {
     },
   ],
 } as const;
-const sharedOption796 = {
+const sharedOption797 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
@@ -6354,200 +6360,200 @@ const sharedOption796 = {
     },
   ],
 } as const;
-const sharedOption797 = {
+const sharedOption798 = {
   key: 'max-parents',
   value: 'integer',
   parser: sharedScalarParser6,
   effects: sharedEffects21,
 } as const;
-const sharedOption798 = {
+const sharedOption799 = {
   key: 'maximal-only',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption799 = {
+const sharedOption800 = {
   key: 'merge',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption800 = {
+const sharedOption801 = {
   key: 'merges',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption801 = {
+const sharedOption802 = {
   key: 'min-age',
   value: 'integer',
   parser: sharedScalarParser7,
   effects: sharedEffects21,
 } as const;
-const sharedOption802 = {
+const sharedOption803 = {
   key: 'min-parents',
   value: 'integer',
   parser: sharedScalarParser6,
   effects: sharedEffects21,
 } as const;
-const sharedOption803 = {
+const sharedOption804 = {
   key: 'abbrev-commit',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption804 = {
+const sharedOption805 = {
   key: 'no-commit-id',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption805 = {
+const sharedOption806 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'none',
   effects: sharedEffects23,
 } as const;
-const sharedOption806 = {
+const sharedOption807 = {
   key: 'encode-email-headers',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption807 = {
+const sharedOption808 = {
   key: 'expand-tabs',
   value: 'flag',
   set: 0,
   effects: sharedEffects21,
 } as const;
-const sharedOption808 = {
+const sharedOption809 = {
   key: 'graph',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption809 = {
+const sharedOption810 = {
   key: 'no-kept-objects',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption810 = {
+const sharedOption811 = {
   key: 'no-max-parents',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption811 = {
+const sharedOption812 = {
   key: 'no-merges',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption812 = {
+const sharedOption813 = {
   key: 'no-min-parents',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption813 = {
+const sharedOption814 = {
   key: 'no-notes',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption814 = {
+const sharedOption815 = {
   key: 'show-signature',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption815 = {
+const sharedOption816 = {
   key: 'standard-notes',
   value: 'flag',
   set: false,
   effects: sharedEffects21,
 } as const;
-const sharedOption816 = {
+const sharedOption817 = {
   key: 'no-walk',
   value: 'optional-string',
   allowed: ['sorted', 'unsorted'],
   effects: sharedEffects21,
 } as const;
-const sharedOption817 = {
+const sharedOption818 = {
   key: 'not',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption818 = {
+const sharedOption819 = {
   key: 'notes',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption819 = {
+const sharedOption820 = {
   key: 'objects',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption820 = {
+const sharedOption821 = {
   key: 'objects-edge',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption821 = {
+const sharedOption822 = {
   key: 'objects-edge-aggressive',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption822 = {
+const sharedOption823 = {
   key: 'oneline',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption823 = {
+const sharedOption824 = {
   key: 'parents',
   value: 'flag',
   effects: sharedEffects27,
 } as const;
-const sharedOption824 = {
+const sharedOption825 = {
   key: 'perl-regexp',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption825 = {
+const sharedOption826 = {
   key: 'pretty',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption826 = {
+const sharedOption827 = {
   key: 'reflog',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption827 = {
+const sharedOption828 = {
   key: 'regexp-ignore-case',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption828 = {
+const sharedOption829 = {
   key: 'relative-date',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption829 = {
+const sharedOption830 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'remerge',
   effects: sharedEffects23,
 } as const;
-const sharedOption830 = {
+const sharedOption831 = {
   key: 'remotes',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption831 = {
+const sharedOption832 = {
   key: 'remove-empty',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption832 = {
+const sharedOption833 = {
   key: 'reverse',
   value: 'flag',
   toggle: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption833 = {
+const sharedOption834 = {
   key: 'right-only',
   value: 'flag',
   effects: sharedEffects22,
@@ -6562,73 +6568,73 @@ const sharedOption833 = {
     },
   ],
 } as const;
-const sharedOption834 = {
+const sharedOption835 = {
   key: 'root',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption835 = {
+const sharedOption836 = {
   key: 'show-linear-break',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption836 = {
+const sharedOption837 = {
   key: 'show-notes',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption837 = {
+const sharedOption838 = {
   key: 'show-notes-by-default',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption838 = {
+const sharedOption839 = {
   key: 'show-pulls',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption839 = {
+const sharedOption840 = {
   key: 'show-signature',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption840 = {
+const sharedOption841 = {
   key: 'simplify-by-decoration',
   value: 'flag',
   effects: sharedEffects28,
 } as const;
-const sharedOption841 = {
+const sharedOption842 = {
   key: 'simplify-merges',
   value: 'flag',
   effects: sharedEffects28,
 } as const;
-const sharedOption842 = {
+const sharedOption843 = {
   key: 'since-as-filter',
   value: 'string',
   effects: sharedEffects21,
 } as const;
-const sharedOption843 = {
+const sharedOption844 = {
   key: 'single-worktree',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption844 = {
+const sharedOption845 = {
   key: 'skip',
   value: 'flag',
   modeGroup: '&cmd',
   modeValue: "'s'",
 } as const;
-const sharedOption845 = {
+const sharedOption846 = {
   key: 'sparse',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption846 = {
+const sharedOption847 = {
   key: 'standard-notes',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption847 = {
+const sharedOption848 = {
   key: 'stdin',
   value: 'flag',
   checks: [
@@ -6643,111 +6649,111 @@ const sharedOption847 = {
   ],
   effects: sharedEffects21,
 } as const;
-const sharedOption848 = {
+const sharedOption849 = {
   key: 'tags',
   value: 'optional-string',
   effects: sharedEffects21,
 } as const;
-const sharedOption849 = {
+const sharedOption850 = {
   key: 'topo-order',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption850 = {
+const sharedOption851 = {
   key: 'unpacked',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption851 = {
+const sharedOption852 = {
   key: 'verify-objects',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption852 = {
+const sharedOption853 = {
   key: 'walk-reflogs',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption853 = {
+const sharedOption854 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'combined',
   effects: sharedEffects23,
 } as const;
-const sharedOption854 = {
+const sharedOption855 = {
   key: 'mainline',
   value: 'integer',
   parser: sharedScalarParser9,
 } as const;
-const sharedOption855 = {
+const sharedOption856 = {
   key: 'no-commit',
   value: 'flag',
 } as const;
-const sharedOption856 = {
+const sharedOption857 = {
   key: 't',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption857 = {
+const sharedOption858 = {
   key: 'v',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption858 = {
+const sharedOption859 = {
   key: 'filter',
   value: 'string',
   parser: 'object-filter',
   effects: sharedEffects21,
 } as const;
-const sharedOption859 = {
+const sharedOption860 = {
   key: 'filter',
   value: 'flag',
   clear: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption860 = {
+const sharedOption861 = {
   key: 'quit',
   value: 'flag',
   modeGroup: '&cmd',
   modeValue: "'q'",
 } as const;
-const sharedOption861 = {
+const sharedOption862 = {
   key: 'continue',
   value: 'flag',
   modeGroup: '&cmd',
   modeValue: "'c'",
 } as const;
-const sharedOption862 = {
+const sharedOption863 = {
   key: 'abort',
   value: 'flag',
   modeGroup: '&cmd',
   modeValue: "'a'",
 } as const;
-const sharedOption863 = {
+const sharedOption864 = {
   key: 'ff',
   value: 'flag',
 } as const;
-const sharedOption864 = {
+const sharedOption865 = {
   key: 'empty',
   value: 'string',
   allowed: ['stop', 'drop', 'keep'],
 } as const;
-const sharedOption865 = {
+const sharedOption866 = {
   key: 'no-commit',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption866 = {
+const sharedOption867 = {
   key: 'mainline',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption867 = {
+const sharedOption868 = {
   key: 'ff',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption868 = {
+const sharedOption869 = {
   key: 'S',
   value: 'string',
   checks: [
@@ -6764,7 +6770,7 @@ const sharedOption868 = {
   nativeEmptyPickaxe: true,
   effects: sharedEffects21,
 } as const;
-const sharedOption869 = {
+const sharedOption870 = {
   key: 'skip',
   value: 'integer',
   parser: sharedScalarParser6,
@@ -6780,899 +6786,899 @@ const sharedOption869 = {
   ],
   effects: sharedEffects21,
 } as const;
-const sharedOption870 = {
+const sharedOption871 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'on',
   effects: sharedEffects23,
 } as const;
-const sharedOption871 = {
+const sharedOption872 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser6,
   effects: sharedEffects29,
 } as const;
-const sharedOption872 = {
+const sharedOption873 = {
   key: 'r',
   value: 'flag',
   effects: sharedEffects21,
 } as const;
-const sharedOption873 = {
+const sharedOption874 = {
   key: 'p',
   value: 'string',
 } as const;
-const sharedOption874 = {
+const sharedOption875 = {
   key: 'm',
   value: 'string',
 } as const;
-const sharedOption875 = {
+const sharedOption876 = {
   key: 'include',
   value: 'string',
 } as const;
-const sharedOption876 = {
+const sharedOption877 = {
   key: 'binary',
   value: 'flag',
 } as const;
-const sharedOption877 = {
+const sharedOption878 = {
   key: 'numstat',
   value: 'flag',
 } as const;
-const sharedOption878 = {
+const sharedOption879 = {
   key: '3way',
   value: 'flag',
 } as const;
-const sharedOption879 = {
+const sharedOption880 = {
   key: 'reverse',
   value: 'flag',
 } as const;
-const sharedOption880 = {
+const sharedOption881 = {
   key: 'reject',
   value: 'flag',
 } as const;
-const sharedOption881 = {
+const sharedOption882 = {
   key: 'directory',
   value: 'string',
 } as const;
-const sharedOption882 = {
+const sharedOption883 = {
   key: 'no-add',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption883 = {
+const sharedOption884 = {
   key: 'binary',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption884 = {
+const sharedOption885 = {
   key: '3way',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption885 = {
+const sharedOption886 = {
   key: 'ignore-space-change',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption886 = {
+const sharedOption887 = {
   key: 'reject',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption887 = {
+const sharedOption888 = {
   key: 'utf8',
   value: 'flag',
 } as const;
-const sharedOption888 = {
+const sharedOption889 = {
   key: 'keep-non-patch',
   value: 'flag',
 } as const;
-const sharedOption889 = {
+const sharedOption890 = {
   key: 'message-id',
   value: 'flag',
 } as const;
-const sharedOption890 = {
+const sharedOption891 = {
   key: 'keep-cr',
   value: 'flag',
 } as const;
-const sharedOption891 = {
+const sharedOption892 = {
   key: 'scissors',
   value: 'flag',
 } as const;
-const sharedOption892 = {
+const sharedOption893 = {
   key: 'quoted-cr',
   value: 'string',
   allowed: ['nowarn', 'warn', 'strip'],
 } as const;
-const sharedOption893 = {
+const sharedOption894 = {
   key: 'C',
   value: 'string',
 } as const;
-const sharedOption894 = {
+const sharedOption895 = {
   key: 'resolved',
   value: 'flag',
   modeGroup: '&resume_mode',
   modeValue: 'RESUME_RESOLVED',
 } as const;
-const sharedOption895 = {
+const sharedOption896 = {
   key: 'message-id',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption896 = {
+const sharedOption897 = {
   key: 'scissors',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption897 = {
+const sharedOption898 = {
   key: 'f',
   value: 'flag',
 } as const;
-const sharedOption898 = {
+const sharedOption899 = {
   key: 'deleted',
   value: 'flag',
 } as const;
-const sharedOption899 = {
+const sharedOption900 = {
   key: 'modified',
   value: 'flag',
 } as const;
-const sharedOption900 = {
+const sharedOption901 = {
   key: 'others',
   value: 'flag',
 } as const;
-const sharedOption901 = {
+const sharedOption902 = {
   key: 'ignored',
   value: 'flag',
 } as const;
-const sharedOption902 = {
+const sharedOption903 = {
   key: 'stage',
   value: 'flag',
 } as const;
-const sharedOption903 = {
+const sharedOption904 = {
   key: 'killed',
   value: 'flag',
 } as const;
-const sharedOption904 = {
+const sharedOption905 = {
   key: 'unmerged',
   value: 'flag',
 } as const;
-const sharedOption905 = {
+const sharedOption906 = {
   key: 'exclude-from',
   value: 'string',
 } as const;
-const sharedOption906 = {
+const sharedOption907 = {
   key: 'exclude-standard',
   value: 'flag',
 } as const;
-const sharedOption907 = {
+const sharedOption908 = {
   key: 'full-name',
   value: 'flag',
 } as const;
-const sharedOption908 = {
+const sharedOption909 = {
   key: 'debug',
   value: 'flag',
-} as const;
-const sharedOption909 = {
-  key: 'unmerged',
-  value: 'flag',
-  set: false,
 } as const;
 const sharedOption910 = {
-  key: 'debug',
+  key: 'unmerged',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption911 = {
-  key: 'branches',
-  value: 'flag',
-} as const;
-const sharedOption912 = {
-  key: 'heads',
-  value: 'flag',
-} as const;
-const sharedOption913 = {
-  key: 'branches',
+  key: 'debug',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption914 = {
+const sharedOption912 = {
+  key: 'branches',
+  value: 'flag',
+} as const;
+const sharedOption913 = {
   key: 'heads',
+  value: 'flag',
+} as const;
+const sharedOption914 = {
+  key: 'branches',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption915 = {
+  key: 'heads',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption916 = {
   key: 'long',
   value: 'flag',
   modeGroup: '&cmdmode',
   modeValue: 'MODE_LONG',
   nativeLsTreeMode: true,
 } as const;
-const sharedOption916 = {
+const sharedOption917 = {
   key: 'full-tree',
   value: 'flag',
 } as const;
-const sharedOption917 = {
+const sharedOption918 = {
   key: 'full-name',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption918 = {
+const sharedOption919 = {
   key: 'full-tree',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption919 = {
+const sharedOption920 = {
   key: 'shell',
   value: 'flag',
 } as const;
-const sharedOption920 = {
+const sharedOption921 = {
   key: 'perl',
   value: 'flag',
 } as const;
-const sharedOption921 = {
+const sharedOption922 = {
   key: 'python',
   value: 'flag',
 } as const;
-const sharedOption922 = {
+const sharedOption923 = {
   key: 'tcl',
   value: 'flag',
 } as const;
-const sharedOption923 = {
+const sharedOption924 = {
   parser: sharedScalarParser0,
   key: 'count',
   value: 'integer',
 } as const;
-const sharedOption924 = {
+const sharedOption925 = {
   key: 'start-after',
   value: 'string',
 } as const;
-const sharedOption925 = {
+const sharedOption926 = {
   key: 'exclude',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption926 = {
+const sharedOption927 = {
   key: 'include-root-refs',
   value: 'flag',
 } as const;
-const sharedOption927 = {
+const sharedOption928 = {
   key: 'shell',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption928 = {
+const sharedOption929 = {
   key: 'perl',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption929 = {
+const sharedOption930 = {
   key: 'python',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption930 = {
+const sharedOption931 = {
   key: 'tcl',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption931 = {
+const sharedOption932 = {
   parser: sharedScalarParser0,
   key: 'count',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption932 = {
+const sharedOption933 = {
   key: 'start-after',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption933 = {
+const sharedOption934 = {
   key: 'exclude',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption934 = {
+const sharedOption935 = {
   key: 'sort',
   value: 'flag',
   repeat: true,
   clear: true,
   effects: sharedEffects32,
 } as const;
-const sharedOption935 = {
+const sharedOption936 = {
   key: 'include-root-refs',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption936 = {
-  key: 'verify',
-  value: 'flag',
-} as const;
 const sharedOption937 = {
-  key: 'h',
+  key: 'verify',
   value: 'flag',
 } as const;
 const sharedOption938 = {
-  key: 'dereference',
+  key: 'h',
   value: 'flag',
 } as const;
 const sharedOption939 = {
+  key: 'dereference',
+  value: 'flag',
+} as const;
+const sharedOption940 = {
   key: 'verify',
   value: 'flag',
   set: false,
-} as const;
-const sharedOption940 = {
-  key: 'raw',
-  value: 'flag',
 } as const;
 const sharedOption941 = {
   key: 'raw',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption942 = {
+  key: 'raw',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption943 = {
   key: 'human-readable',
   value: 'flag',
 } as const;
-const sharedOption943 = {
+const sharedOption944 = {
   key: 'non-matching',
   value: 'flag',
 } as const;
-const sharedOption944 = {
+const sharedOption945 = {
   key: 'no-index',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption945 = {
+const sharedOption946 = {
   key: 'prefix',
   value: 'string',
 } as const;
-const sharedOption946 = {
+const sharedOption947 = {
   key: 'prefix',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption947 = {
+const sharedOption948 = {
   key: 'strict',
   value: 'flag',
 } as const;
-const sharedOption948 = {
+const sharedOption949 = {
   key: 'strict',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption949 = {
+const sharedOption950 = {
   key: 'stat-only',
   value: 'flag',
 } as const;
-const sharedOption950 = {
+const sharedOption951 = {
   key: 'strip-comments',
   value: 'flag',
   modeGroup: '&mode',
   modeValue: 'STRIP_COMMENTS',
 } as const;
-const sharedOption951 = {
+const sharedOption952 = {
   key: 'comment-lines',
   value: 'flag',
   modeGroup: '&mode',
   modeValue: 'COMMENT_LINES',
 } as const;
-const sharedOption952 = {
+const sharedOption953 = {
   key: 'always',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption953 = {
+const sharedOption954 = {
   key: 'normalize',
   value: 'flag',
 } as const;
-const sharedOption954 = {
+const sharedOption955 = {
   key: 'cruft',
   value: 'flag',
 } as const;
-const sharedOption955 = {
+const sharedOption956 = {
   parser: sharedScalarParser10,
   key: 'max-cruft-size',
   value: 'integer',
 } as const;
-const sharedOption956 = {
+const sharedOption957 = {
   key: 'aggressive',
   value: 'flag',
 } as const;
-const sharedOption957 = {
+const sharedOption958 = {
   key: 'expire-to',
   value: 'string',
 } as const;
-const sharedOption958 = {
+const sharedOption959 = {
   key: 'cruft',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption959 = {
+const sharedOption960 = {
   key: 'aggressive',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption960 = {
+const sharedOption961 = {
   key: 'expire-to',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption961 = {
+const sharedOption962 = {
   key: 'config-file',
   value: 'string',
 } as const;
-const sharedOption962 = {
+const sharedOption963 = {
   key: 'config-file',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption963 = {
+const sharedOption964 = {
   key: 'object-dir',
   value: 'string',
 } as const;
-const sharedOption964 = {
+const sharedOption965 = {
   key: 'shallow',
   value: 'flag',
 } as const;
-const sharedOption965 = {
+const sharedOption966 = {
   key: 'object-dir',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption966 = {
+const sharedOption967 = {
   key: 'shallow',
   value: 'flag',
   set: false,
-} as const;
-const sharedOption967 = {
-  key: 'stdin-packs',
-  value: 'flag',
 } as const;
 const sharedOption968 = {
   key: 'stdin-packs',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption969 = {
+  key: 'stdin-packs',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption970 = {
   key: 'bitmap',
   value: 'flag',
 } as const;
-const sharedOption970 = {
+const sharedOption971 = {
   key: 'base',
   value: 'string',
 } as const;
-const sharedOption971 = {
+const sharedOption972 = {
   key: 'incremental',
   value: 'flag',
 } as const;
-const sharedOption972 = {
+const sharedOption973 = {
   key: 'write-chain-file',
   value: 'flag',
 } as const;
-const sharedOption973 = {
+const sharedOption974 = {
   key: 'bitmap',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption974 = {
+const sharedOption975 = {
   key: 'base',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption975 = {
-  key: 'incremental',
-  value: 'flag',
-  set: false,
-} as const;
 const sharedOption976 = {
-  key: 'write-chain-file',
+  key: 'incremental',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption977 = {
-  key: 'no-reflog',
+  key: 'write-chain-file',
   value: 'flag',
+  set: false,
 } as const;
 const sharedOption978 = {
   key: 'no-reflog',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption979 = {
+  key: 'no-reflog',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption980 = {
   key: 'include',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption980 = {
+const sharedOption981 = {
   key: 'include',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption981 = {
-  key: 'unreachable',
-  value: 'flag',
-} as const;
 const sharedOption982 = {
-  key: 'dangling',
+  key: 'unreachable',
   value: 'flag',
 } as const;
 const sharedOption983 = {
-  key: 'cache',
+  key: 'dangling',
   value: 'flag',
 } as const;
 const sharedOption984 = {
-  key: 'reflogs',
+  key: 'cache',
   value: 'flag',
 } as const;
 const sharedOption985 = {
-  key: 'full',
+  key: 'reflogs',
   value: 'flag',
 } as const;
 const sharedOption986 = {
-  key: 'connectivity-only',
+  key: 'full',
   value: 'flag',
 } as const;
 const sharedOption987 = {
-  key: 'lost-found',
+  key: 'connectivity-only',
   value: 'flag',
 } as const;
 const sharedOption988 = {
-  key: 'name-objects',
+  key: 'lost-found',
   value: 'flag',
 } as const;
 const sharedOption989 = {
-  key: 'references',
+  key: 'name-objects',
   value: 'flag',
 } as const;
 const sharedOption990 = {
-  key: 'unreachable',
+  key: 'references',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption991 = {
-  key: 'dangling',
+  key: 'unreachable',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption992 = {
-  key: 'cache',
+  key: 'dangling',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption993 = {
-  key: 'reflogs',
+  key: 'cache',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption994 = {
-  key: 'full',
+  key: 'reflogs',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption995 = {
-  key: 'connectivity-only',
+  key: 'full',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption996 = {
-  key: 'lost-found',
+  key: 'connectivity-only',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption997 = {
-  key: 'name-objects',
+  key: 'lost-found',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption998 = {
-  key: 'references',
+  key: 'name-objects',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption999 = {
-  key: 'exclude-promisor-objects',
+  key: 'references',
   value: 'flag',
+  set: false,
 } as const;
 const sharedOption1000 = {
   key: 'exclude-promisor-objects',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1001 = {
+  key: 'exclude-promisor-objects',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1002 = {
   key: 'batch-updates',
   value: 'flag',
 } as const;
-const sharedOption1002 = {
+const sharedOption1003 = {
   key: 'no-deref',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1003 = {
+const sharedOption1004 = {
   key: 'no-create',
   value: 'flag',
 } as const;
-const sharedOption1004 = {
+const sharedOption1005 = {
   key: 'no-create',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1005 = {
+const sharedOption1006 = {
   key: 'super-prefix',
   value: 'string',
 } as const;
-const sharedOption1006 = {
+const sharedOption1007 = {
   key: 'm',
   value: 'flag',
 } as const;
-const sharedOption1007 = {
+const sharedOption1008 = {
   key: 'u',
   value: 'flag',
 } as const;
-const sharedOption1008 = {
+const sharedOption1009 = {
   key: 'i',
   value: 'flag',
 } as const;
-const sharedOption1009 = {
+const sharedOption1010 = {
   key: 'super-prefix',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1010 = {
+const sharedOption1011 = {
   key: 'no-sparse-checkout',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1011 = {
-  key: 'stdout',
-  value: 'flag',
-} as const;
 const sharedOption1012 = {
-  key: 'ours',
+  key: 'stdout',
   value: 'flag',
 } as const;
 const sharedOption1013 = {
-  key: 'theirs',
+  key: 'ours',
   value: 'flag',
 } as const;
 const sharedOption1014 = {
+  key: 'theirs',
+  value: 'flag',
+} as const;
+const sharedOption1015 = {
   key: 'stdout',
   value: 'flag',
   set: false,
-} as const;
-const sharedOption1015 = {
-  parser: 'object-filter',
-  key: 'filter',
-  value: 'string',
 } as const;
 const sharedOption1016 = {
   parser: 'object-filter',
   key: 'filter',
+  value: 'string',
+} as const;
+const sharedOption1017 = {
+  parser: 'object-filter',
+  key: 'filter',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1017 = {
+const sharedOption1018 = {
   key: 'a',
   value: 'flag',
 } as const;
-const sharedOption1018 = {
+const sharedOption1019 = {
   key: 'A',
   value: 'flag',
 } as const;
-const sharedOption1019 = {
+const sharedOption1020 = {
   parser: sharedScalarParser0,
   key: 'name-hash-version',
   value: 'integer',
 } as const;
-const sharedOption1020 = {
+const sharedOption1021 = {
   key: 'path-walk',
   value: 'flag',
 } as const;
-const sharedOption1021 = {
+const sharedOption1022 = {
   key: 'write-bitmap-index',
   value: 'flag',
 } as const;
-const sharedOption1022 = {
+const sharedOption1023 = {
   key: 'delta-islands',
   value: 'flag',
 } as const;
-const sharedOption1023 = {
+const sharedOption1024 = {
   key: 'keep-unreachable',
   value: 'flag',
 } as const;
-const sharedOption1024 = {
+const sharedOption1025 = {
   key: 'threads',
   value: 'string',
 } as const;
-const sharedOption1025 = {
+const sharedOption1026 = {
   key: 'keep-pack',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1026 = {
+const sharedOption1027 = {
   parser: sharedScalarParser0,
   key: 'geometric',
   value: 'integer',
 } as const;
-const sharedOption1027 = {
+const sharedOption1028 = {
   key: 'path-walk',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1028 = {
+const sharedOption1029 = {
   key: 'write-bitmap-index',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1029 = {
+const sharedOption1030 = {
   key: 'delta-islands',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1030 = {
+const sharedOption1031 = {
   key: 'keep-unreachable',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1031 = {
+const sharedOption1032 = {
   key: 'keep-pack',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption1032 = {
+const sharedOption1033 = {
   key: 'list',
   value: 'flag',
   modeGroup: '&cmdmode',
   modeValue: 'MODE_LIST',
 } as const;
-const sharedOption1033 = {
+const sharedOption1034 = {
   key: 'delete',
   value: 'flag',
   modeGroup: '&cmdmode',
   modeValue: 'MODE_DELETE',
 } as const;
-const sharedOption1034 = {
+const sharedOption1035 = {
   key: 'edit',
   value: 'flag',
   modeGroup: '&cmdmode',
   modeValue: 'MODE_EDIT',
 } as const;
-const sharedOption1035 = {
+const sharedOption1036 = {
   key: 'graft',
   value: 'flag',
   modeGroup: '&cmdmode',
   modeValue: 'MODE_GRAFT',
 } as const;
-const sharedOption1036 = {
+const sharedOption1037 = {
   key: 'config',
   value: 'string',
 } as const;
-const sharedOption1037 = {
-  key: 'output-directory',
-  value: 'string',
-} as const;
 const sharedOption1038 = {
-  key: 'suffix',
+  key: 'output-directory',
   value: 'string',
 } as const;
 const sharedOption1039 = {
-  key: 'output-directory',
-  value: 'flag',
-  clear: true,
+  key: 'suffix',
+  value: 'string',
 } as const;
 const sharedOption1040 = {
-  key: 'suffix',
+  key: 'output-directory',
   value: 'flag',
   clear: true,
 } as const;
 const sharedOption1041 = {
-  key: 'build-options',
+  key: 'suffix',
   value: 'flag',
+  clear: true,
 } as const;
 const sharedOption1042 = {
   key: 'build-options',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1043 = {
+  key: 'build-options',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1044 = {
   key: 'documentation-help',
   value: 'flag',
   firstOnly: true,
 } as const;
-const sharedOption1044 = {
+const sharedOption1045 = {
   key: 'b',
   value: 'flag',
 } as const;
-const sharedOption1045 = {
+const sharedOption1046 = {
   key: 'no-divider',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1046 = {
+const sharedOption1047 = {
   key: 'component',
   value: 'string',
-} as const;
-const sharedOption1047 = {
-  key: 'allow-unknown-hook-name',
-  value: 'flag',
 } as const;
 const sharedOption1048 = {
   key: 'allow-unknown-hook-name',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1049 = {
+  key: 'allow-unknown-hook-name',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1050 = {
   parser: sharedScalarParser0,
   key: 'timeout',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption1050 = {
+const sharedOption1051 = {
   key: 'revision-diff',
   value: 'flag',
 } as const;
-const sharedOption1051 = {
+const sharedOption1052 = {
   key: 'use-bitmap-index',
   value: 'flag',
 } as const;
-const sharedOption1052 = {
-  key: 'all-progress',
-  value: 'flag',
-} as const;
 const sharedOption1053 = {
-  key: 'all-progress-implied',
+  key: 'all-progress',
   value: 'flag',
 } as const;
 const sharedOption1054 = {
-  key: 'all-progress',
+  key: 'all-progress-implied',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1055 = {
-  key: 'all-progress-implied',
+  key: 'all-progress',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption1056 = {
+  key: 'all-progress-implied',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1057 = {
   key: 'update-refs',
   value: 'string',
   allowed: ['branches', 'head'],
 } as const;
-const sharedOption1057 = {
+const sharedOption1058 = {
   key: 'format',
   value: 'string',
   allowed: ['nul', 'lines', 'table'],
 } as const;
-const sharedOption1058 = {
+const sharedOption1059 = {
   key: 'format',
   value: 'flag',
   set: 'nul',
 } as const;
-const sharedOption1059 = {
+const sharedOption1060 = {
   key: 'diff-filter',
   value: 'string',
   repeat: true,
   skipEmpty: true,
 } as const;
-const sharedOption1060 = {
+const sharedOption1061 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'dense-combined',
   effects: sharedEffects37,
 } as const;
-const sharedOption1061 = {
+const sharedOption1062 = {
   key: 'combined-all-paths',
   value: 'flag',
   effects: sharedEffects38,
 } as const;
-const sharedOption1062 = {
+const sharedOption1063 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'first-parent',
   effects: sharedEffects37,
 } as const;
-const sharedOption1063 = {
+const sharedOption1064 = {
   key: 'diff-merges',
   value: 'string',
   allowed: [
@@ -7692,65 +7698,65 @@ const sharedOption1063 = {
   ],
   effects: sharedEffects37,
 } as const;
-const sharedOption1064 = {
+const sharedOption1065 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'none',
   effects: sharedEffects37,
 } as const;
-const sharedOption1065 = {
+const sharedOption1066 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'remerge',
   effects: sharedEffects37,
 } as const;
-const sharedOption1066 = {
+const sharedOption1067 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'combined',
   effects: sharedEffects37,
 } as const;
-const sharedOption1067 = {
+const sharedOption1068 = {
   key: 'diff-merges',
   value: 'flag',
   set: 'on',
   effects: sharedEffects37,
 } as const;
-const sharedOption1068 = {
+const sharedOption1069 = {
   key: 'max-depth',
   value: 'flag',
   set: -1,
 } as const;
-const sharedOption1069 = {
+const sharedOption1070 = {
   key: 'show-trees',
   value: 'flag',
 } as const;
-const sharedOption1070 = {
+const sharedOption1071 = {
   key: 'max-depth',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption1071 = {
+const sharedOption1072 = {
   parser: sharedScalarParser0,
   key: 'creation-factor',
   value: 'integer',
 } as const;
-const sharedOption1072 = {
+const sharedOption1073 = {
   parser: sharedScalarParser0,
   key: 'creation-factor',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption1073 = {
+const sharedOption1074 = {
   key: 'no-dual-color',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1074 = {
+const sharedOption1075 = {
   key: 's',
   value: 'flag',
 } as const;
-const sharedOption1075 = {
+const sharedOption1076 = {
   key: 'color',
   value: 'optional-string',
   set: 'always',
@@ -7761,209 +7767,209 @@ const sharedOption1075 = {
       'Git 2.25.1 and 2.55.0 builtin/blame.c:cmd_blame color-lines/color-by-age table and parse_options_step before parse_revision_opt; parse-options.c:parse_long_opt',
   },
 } as const;
-const sharedOption1076 = {
+const sharedOption1077 = {
   key: 'M',
   value: 'optional-string',
 } as const;
-const sharedOption1077 = {
+const sharedOption1078 = {
   key: 'C',
   value: 'optional-string',
 } as const;
-const sharedOption1078 = {
+const sharedOption1079 = {
   key: 'revs-file',
   value: 'string',
 } as const;
-const sharedOption1079 = {
+const sharedOption1080 = {
   key: 'blame-reverse',
   value: 'flag',
   effects: sharedEffects39,
 } as const;
-const sharedOption1080 = {
+const sharedOption1081 = {
   key: 'c',
   value: 'flag',
 } as const;
-const sharedOption1081 = {
+const sharedOption1082 = {
   key: 'show-number',
   value: 'flag',
 } as const;
-const sharedOption1082 = {
+const sharedOption1083 = {
   key: 'show-stats',
   value: 'flag',
 } as const;
-const sharedOption1083 = {
+const sharedOption1084 = {
   key: 'score-debug',
   value: 'flag',
 } as const;
-const sharedOption1084 = {
+const sharedOption1085 = {
   key: 'show-name',
   value: 'flag',
 } as const;
-const sharedOption1085 = {
+const sharedOption1086 = {
   key: 'line-porcelain',
   value: 'flag',
   effects: sharedEffects40,
 } as const;
-const sharedOption1086 = {
+const sharedOption1087 = {
   key: 'show-email',
   value: 'flag',
 } as const;
-const sharedOption1087 = {
+const sharedOption1088 = {
   key: 'ignore-rev',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1088 = {
+const sharedOption1089 = {
   key: 'ignore-revs-file',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1089 = {
+const sharedOption1090 = {
   key: 'color-lines',
   value: 'flag',
 } as const;
-const sharedOption1090 = {
+const sharedOption1091 = {
   key: 'color-by-age',
   value: 'flag',
 } as const;
-const sharedOption1091 = {
+const sharedOption1092 = {
   key: 'contents',
   value: 'string',
 } as const;
-const sharedOption1092 = {
+const sharedOption1093 = {
   key: 'show-stats',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1093 = {
+const sharedOption1094 = {
   key: 'score-debug',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1094 = {
+const sharedOption1095 = {
   key: 'show-name',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1095 = {
+const sharedOption1096 = {
   key: 'show-number',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1096 = {
+const sharedOption1097 = {
   key: 'line-porcelain',
   value: 'flag',
   set: false,
   effects: sharedEffects41,
 } as const;
-const sharedOption1097 = {
+const sharedOption1098 = {
   key: 'show-email',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1098 = {
+const sharedOption1099 = {
   key: 'ignore-rev',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption1099 = {
+const sharedOption1100 = {
   key: 'ignore-revs-file',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption1100 = {
+const sharedOption1101 = {
   key: 'color-lines',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1101 = {
+const sharedOption1102 = {
   key: 'color-by-age',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1102 = {
+const sharedOption1103 = {
   key: 'minimal',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1103 = {
+const sharedOption1104 = {
   key: 'contents',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1104 = {
+const sharedOption1105 = {
   key: 'invert-match',
   value: 'flag',
 } as const;
-const sharedOption1105 = {
+const sharedOption1106 = {
   key: 'word-regexp',
   value: 'flag',
 } as const;
-const sharedOption1106 = {
+const sharedOption1107 = {
   key: 'line-number',
   value: 'flag',
 } as const;
-const sharedOption1107 = {
+const sharedOption1108 = {
   key: 'files-with-matches',
   value: 'flag',
 } as const;
-const sharedOption1108 = {
+const sharedOption1109 = {
   key: 'files-without-match',
   value: 'flag',
 } as const;
-const sharedOption1109 = {
+const sharedOption1110 = {
   key: 'only-matching',
   value: 'flag',
 } as const;
-const sharedOption1110 = {
+const sharedOption1111 = {
   parser: sharedScalarParser13,
   key: 'context',
   value: 'integer',
 } as const;
-const sharedOption1111 = {
+const sharedOption1112 = {
   parser: sharedScalarParser4,
   key: 'before-context',
   value: 'integer',
 } as const;
-const sharedOption1112 = {
+const sharedOption1113 = {
   parser: sharedScalarParser4,
   key: 'after-context',
   value: 'integer',
 } as const;
-const sharedOption1113 = {
+const sharedOption1114 = {
   key: 'threads',
   value: 'integer',
   parser: sharedScalarParser0,
 } as const;
-const sharedOption1114 = {
+const sharedOption1115 = {
   key: 'show-function',
   value: 'flag',
 } as const;
-const sharedOption1115 = {
+const sharedOption1116 = {
   key: 'max-count',
   value: 'integer',
   parser: sharedScalarParser0,
 } as const;
-const sharedOption1116 = {
+const sharedOption1117 = {
   key: 'no-binary',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1117 = {
+const sharedOption1118 = {
   key: 'numbered',
   value: 'flag',
 } as const;
-const sharedOption1118 = {
+const sharedOption1119 = {
   key: 'reroll-count',
   value: 'string',
 } as const;
-const sharedOption1119 = {
+const sharedOption1120 = {
   key: 'numbered',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1120 = {
+const sharedOption1121 = {
   key: 'output-directory',
   value: 'string',
   checks: [
@@ -7978,275 +7984,275 @@ const sharedOption1120 = {
     },
   ],
 } as const;
-const sharedOption1121 = {
+const sharedOption1122 = {
   key: 'keep-subject',
   value: 'flag',
 } as const;
-const sharedOption1122 = {
+const sharedOption1123 = {
   key: 'extra-files',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1123 = {
+const sharedOption1124 = {
   key: 'output',
   value: 'string',
   emptyIsUnset: true,
 } as const;
-const sharedOption1124 = {
+const sharedOption1125 = {
   key: 'remote',
   value: 'string',
 } as const;
-const sharedOption1125 = {
+const sharedOption1126 = {
   key: 'extra-files',
   value: 'flag',
   repeat: true,
   clear: true,
 } as const;
-const sharedOption1126 = {
+const sharedOption1127 = {
   key: 'remote',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1127 = {
+const sharedOption1128 = {
   key: 'committer',
   value: 'flag',
 } as const;
-const sharedOption1128 = {
+const sharedOption1129 = {
   key: 'email',
   value: 'flag',
 } as const;
-const sharedOption1129 = {
+const sharedOption1130 = {
   key: 'remotes',
   value: 'flag',
 } as const;
-const sharedOption1130 = {
+const sharedOption1131 = {
   key: 'reflog',
   value: 'optional-string',
   parser: 'show-branch-reflog',
 } as const;
-const sharedOption1131 = {
+const sharedOption1132 = {
   key: 'no-name',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1132 = {
+const sharedOption1133 = {
   key: 'rebase',
   value: 'optional-string',
   parser: 'pull-rebase',
 } as const;
-const sharedOption1133 = {
+const sharedOption1134 = {
   key: 'strategy-option',
   value: 'string',
 } as const;
-const sharedOption1134 = {
+const sharedOption1135 = {
   key: 'shallow-exclude',
   value: 'string',
 } as const;
-const sharedOption1135 = {
+const sharedOption1136 = {
   key: 'server-option',
   value: 'string',
 } as const;
-const sharedOption1136 = {
+const sharedOption1137 = {
   key: 'negotiation-restrict',
   value: 'string',
 } as const;
-const sharedOption1137 = {
+const sharedOption1138 = {
   key: 'rebase',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1138 = {
+const sharedOption1139 = {
   key: 'negotiation-restrict',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1139 = {
+const sharedOption1140 = {
   key: 'recursive',
   value: 'flag',
 } as const;
-const sharedOption1140 = {
+const sharedOption1141 = {
   key: 'recursive',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1141 = {
+const sharedOption1142 = {
   key: 'files',
   value: 'flag',
 } as const;
-const sharedOption1142 = {
+const sharedOption1143 = {
   key: 'for-status',
   value: 'flag',
 } as const;
-const sharedOption1143 = {
+const sharedOption1144 = {
   parser: sharedScalarParser0,
   key: 'summary-limit',
   value: 'integer',
 } as const;
-const sharedOption1144 = {
+const sharedOption1145 = {
   key: 'name',
   value: 'string',
 } as const;
-const sharedOption1145 = {
+const sharedOption1146 = {
   parser: sharedScalarParser0,
   key: 'depth',
   value: 'integer',
 } as const;
-const sharedOption1146 = {
+const sharedOption1147 = {
   key: 'require-init',
   value: 'flag',
 } as const;
-const sharedOption1147 = {
+const sharedOption1148 = {
   key: 'name',
   value: 'flag',
   clear: true,
 } as const;
-const sharedOption1148 = {
+const sharedOption1149 = {
   parser: sharedScalarParser0,
   key: 'depth',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption1149 = {
+const sharedOption1150 = {
   key: 'require-init',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1150 = {
+const sharedOption1151 = {
   key: 'remote',
   value: 'flag',
 } as const;
-const sharedOption1151 = {
-  key: 'no-fetch',
-  value: 'flag',
-} as const;
 const sharedOption1152 = {
-  key: 'rebase',
+  key: 'no-fetch',
   value: 'flag',
 } as const;
 const sharedOption1153 = {
-  key: 'recommend-shallow',
+  key: 'rebase',
   value: 'flag',
 } as const;
 const sharedOption1154 = {
-  key: 'no-fetch',
+  key: 'recommend-shallow',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1155 = {
-  key: 'recommend-shallow',
+  key: 'no-fetch',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption1156 = {
+  key: 'recommend-shallow',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1157 = {
   key: 'default',
   value: 'flag',
 } as const;
-const sharedOption1157 = {
+const sharedOption1158 = {
   key: 'track',
   value: 'optional-string',
   allowed: ['direct', 'inherit'],
 } as const;
-const sharedOption1158 = {
+const sharedOption1159 = {
   key: 'reference',
   value: 'string',
 } as const;
-const sharedOption1159 = {
+const sharedOption1160 = {
   key: 'quiet',
   value: 'flag',
   before: 1,
 } as const;
-const sharedOption1160 = {
-  key: 'cone',
-  value: 'flag',
-} as const;
 const sharedOption1161 = {
-  key: 'sparse-index',
+  key: 'cone',
   value: 'flag',
 } as const;
 const sharedOption1162 = {
-  key: 'cone',
+  key: 'sparse-index',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1163 = {
-  key: 'sparse-index',
+  key: 'cone',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption1164 = {
+  key: 'sparse-index',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1165 = {
   key: 'skip-checks',
   value: 'flag',
 } as const;
-const sharedOption1165 = {
+const sharedOption1166 = {
   key: 'term-good',
   value: 'string',
 } as const;
-const sharedOption1166 = {
+const sharedOption1167 = {
   key: 'term-bad',
   value: 'string',
 } as const;
-const sharedOption1167 = {
+const sharedOption1168 = {
   key: 'again',
   value: 'flag',
   consumesRest: true,
 } as const;
-const sharedOption1168 = {
+const sharedOption1169 = {
   key: 'no-data',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1169 = {
+const sharedOption1170 = {
   key: 'include-tag',
   value: 'flag',
 } as const;
-const sharedOption1170 = {
+const sharedOption1171 = {
   key: 'check-self-contained-and-connected',
   value: 'flag',
 } as const;
-const sharedOption1171 = {
+const sharedOption1172 = {
   key: 'strict',
   value: 'optional-string',
 } as const;
-const sharedOption1172 = {
+const sharedOption1173 = {
   key: 'pack_header',
   value: 'string',
 } as const;
-const sharedOption1173 = {
+const sharedOption1174 = {
   key: 'max-input-size',
   value: 'string',
 } as const;
-const sharedOption1174 = {
+const sharedOption1175 = {
   key: 'recover',
   value: 'flag',
 } as const;
-const sharedOption1175 = {
-  key: 'stateless-rpc',
-  value: 'flag',
-} as const;
 const sharedOption1176 = {
-  key: 'http-backend-info-refs',
+  key: 'stateless-rpc',
   value: 'flag',
 } as const;
 const sharedOption1177 = {
-  key: 'stateless-rpc',
+  key: 'http-backend-info-refs',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1178 = {
-  key: 'http-backend-info-refs',
+  key: 'stateless-rpc',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption1179 = {
+  key: 'http-backend-info-refs',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1180 = {
   key: 'helper-status',
   value: 'flag',
 } as const;
-const sharedOption1180 = {
+const sharedOption1181 = {
   key: 'help',
   value: 'flag',
   firstOnly: true,
 } as const;
-const sharedOption1181 = {
+const sharedOption1182 = {
   key: 'help',
   value: 'flag',
   firstOnly: true,
@@ -8264,25 +8270,25 @@ const sharedOption1181 = {
     },
   ],
 } as const;
-const sharedOption1182 = {
+const sharedOption1183 = {
   key: 'no-renormalize',
   value: 'flag',
 } as const;
-const sharedOption1183 = {
+const sharedOption1184 = {
   key: 'subtree',
   value: 'optional-string',
 } as const;
-const sharedOption1184 = {
+const sharedOption1185 = {
   key: 'rename-threshold',
   value: 'string',
 } as const;
-const sharedOption1185 = {
+const sharedOption1186 = {
   key: 'diff-algorithm',
   value: 'string',
   allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
   caseInsensitive: true,
 } as const;
-const sharedOption1186 = {
+const sharedOption1187 = {
   key: 'help',
   value: 'flag',
   firstOnly: true,
@@ -8300,7 +8306,7 @@ const sharedOption1186 = {
     },
   ],
 } as const;
-const sharedOption1187 = {
+const sharedOption1188 = {
   key: 'help',
   value: 'flag',
   firstOnly: true,
@@ -8318,7 +8324,7 @@ const sharedOption1187 = {
     },
   ],
 } as const;
-const sharedOption1188 = {
+const sharedOption1189 = {
   key: 'help',
   value: 'flag',
   firstOnly: true,
@@ -8336,839 +8342,839 @@ const sharedOption1188 = {
     },
   ],
 } as const;
-const sharedOption1189 = {
+const sharedOption1190 = {
   key: 'no-patch',
   value: 'flag',
 } as const;
-const sharedOption1190 = {
-  key: 'gui',
-  value: 'flag',
-} as const;
 const sharedOption1191 = {
-  key: 'dir-diff',
+  key: 'gui',
   value: 'flag',
 } as const;
 const sharedOption1192 = {
-  key: 'no-prompt',
+  key: 'dir-diff',
   value: 'flag',
 } as const;
 const sharedOption1193 = {
-  key: 'prompt',
+  key: 'no-prompt',
   value: 'flag',
 } as const;
 const sharedOption1194 = {
+  key: 'prompt',
+  value: 'flag',
+} as const;
+const sharedOption1195 = {
   key: 'tool',
   value: 'string',
 } as const;
-const sharedOption1195 = {
+const sharedOption1196 = {
   key: 'extcmd',
   value: 'string',
 } as const;
-const sharedOption1196 = {
-  key: 'gui',
-  value: 'flag',
-  set: false,
-} as const;
 const sharedOption1197 = {
-  key: 'prompt',
+  key: 'gui',
   value: 'flag',
   set: false,
 } as const;
 const sharedOption1198 = {
+  key: 'prompt',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1199 = {
   key: 'all',
   value: 'flag',
   modeGroup: '&cmd_mode',
   modeValue: 'HELP_ACTION_ALL',
 } as const;
-const sharedOption1199 = {
+const sharedOption1200 = {
   key: 'format',
   value: 'flag',
   set: 'man',
 } as const;
-const sharedOption1200 = {
+const sharedOption1201 = {
   key: 'format',
   value: 'flag',
   set: 'web',
 } as const;
-const sharedOption1201 = {
+const sharedOption1202 = {
   key: 'format',
   value: 'flag',
   set: 'info',
 } as const;
-const sharedOption1202 = {
+const sharedOption1203 = {
   key: 'guides',
   value: 'flag',
   modeGroup: '&cmd_mode',
   modeValue: 'HELP_ACTION_GUIDES',
 } as const;
-const sharedOption1203 = {
+const sharedOption1204 = {
   key: 'config',
   value: 'flag',
   modeGroup: '&cmd_mode',
   modeValue: 'HELP_ACTION_CONFIG',
 } as const;
-const sharedOption1204 = {
+const sharedOption1205 = {
   key: 'export-all',
   value: 'flag',
 } as const;
-const sharedOption1205 = {
+const sharedOption1206 = {
   key: 'strict-paths',
   value: 'flag',
 } as const;
-const sharedOption1206 = {
+const sharedOption1207 = {
   key: 'port',
   value: 'string',
 } as const;
-const sharedOption1207 = {
+const sharedOption1208 = {
   key: 'base-path',
   value: 'string',
 } as const;
-const sharedOption1208 = {
+const sharedOption1209 = {
   key: 'ipc-threads',
   value: 'integer',
   parser: sharedScalarParser0,
 } as const;
-const sharedOption1209 = {
+const sharedOption1210 = {
   key: 'ipc-threads',
   value: 'flag',
   set: 0,
-} as const;
-const sharedOption1210 = {
-  key: 'start-timeout',
-  value: 'integer',
-  parser: sharedScalarParser0,
 } as const;
 const sharedOption1211 = {
   key: 'start-timeout',
+  value: 'integer',
+  parser: sharedScalarParser0,
+} as const;
+const sharedOption1212 = {
+  key: 'start-timeout',
   value: 'flag',
   set: 0,
 } as const;
-const sharedOption1212 = {
+const sharedOption1213 = {
   key: 'folder',
   value: 'string',
 } as const;
-const sharedOption1213 = {
+const sharedOption1214 = {
   key: 'action',
   value: 'flag',
   set: 'list',
   modeGroup: 'actions',
   modeValue: 'list',
 } as const;
-const sharedOption1214 = {
+const sharedOption1215 = {
   key: 'action',
   value: 'flag',
   set: 'edit',
   modeGroup: 'actions',
   modeValue: 'edit',
 } as const;
-const sharedOption1215 = {
+const sharedOption1216 = {
   key: 'maintenance',
   value: 'flag',
 } as const;
-const sharedOption1216 = {
+const sharedOption1217 = {
   key: 'maintenance',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1217 = {
+const sharedOption1218 = {
   key: 'C',
   value: 'string',
   separateValue: true,
   before: 1,
   repeat: true,
 } as const;
-const sharedOption1218 = {
+const sharedOption1219 = {
   key: 'c',
   value: 'string',
   separateValue: true,
   before: 1,
   repeat: true,
 } as const;
-const sharedOption1219 = {
+const sharedOption1220 = {
   key: 'fastcgi',
   value: 'flag',
 } as const;
-const sharedOption1220 = {
+const sharedOption1221 = {
   key: 'nproc',
   value: 'integer',
 } as const;
-const sharedOption1221 = {
+const sharedOption1222 = {
   key: 'action',
   set: 'start',
   value: 'flag',
 } as const;
-const sharedOption1222 = {
+const sharedOption1223 = {
   key: 'action',
   set: 'stop',
   value: 'flag',
 } as const;
-const sharedOption1223 = {
+const sharedOption1224 = {
   key: 'action',
   set: 'restart',
   value: 'flag',
 } as const;
-const sharedOption1224 = {
+const sharedOption1225 = {
   key: 'httpd',
   value: 'string',
 } as const;
-const sharedOption1225 = {
+const sharedOption1226 = {
   key: 'browser',
   value: 'string',
 } as const;
-const sharedOption1226 = {
+const sharedOption1227 = {
   key: 'module-path',
   value: 'string',
 } as const;
-const sharedOption1227 = {
+const sharedOption1228 = {
   key: 'd',
   value: 'string',
 } as const;
-const sharedOption1228 = {
+const sharedOption1229 = {
   key: 'o',
   value: 'string',
 } as const;
-const sharedOption1229 = {
+const sharedOption1230 = {
   key: 'r',
   value: 'string',
 } as const;
-const sharedOption1230 = {
+const sharedOption1231 = {
   key: 'z',
   value: 'string',
 } as const;
-const sharedOption1231 = {
+const sharedOption1232 = {
   key: 's',
   value: 'string',
 } as const;
-const sharedOption1232 = {
+const sharedOption1233 = {
   key: 'M',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1233 = {
+const sharedOption1234 = {
   key: 'P',
   value: 'string',
 } as const;
-const sharedOption1234 = {
+const sharedOption1235 = {
   key: 'A',
   value: 'string',
 } as const;
-const sharedOption1235 = {
+const sharedOption1236 = {
   key: 'S',
   value: 'string',
 } as const;
-const sharedOption1236 = {
+const sharedOption1237 = {
   key: 'version',
   value: 'flag',
 } as const;
-const sharedOption1237 = {
+const sharedOption1238 = {
   key: 'h',
   value: 'flag',
   before: 1,
 } as const;
-const sharedOption1238 = {
+const sharedOption1239 = {
   key: 'version',
   value: 'flag',
   before: 1,
 } as const;
-const sharedOption1239 = {
+const sharedOption1240 = {
   key: 'base-path',
   value: 'string',
   before: 1,
 } as const;
-const sharedOption1240 = {
+const sharedOption1241 = {
   key: 'strict-paths',
   value: 'flag',
   before: 1,
 } as const;
-const sharedOption1241 = {
+const sharedOption1242 = {
   key: 'export-all',
   value: 'flag',
   before: 1,
 } as const;
-const sharedOption1242 = {
+const sharedOption1243 = {
   key: 'sender',
   value: 'string',
   effects: sharedEffects42,
 } as const;
-const sharedOption1243 = {
+const sharedOption1244 = {
   key: 'chain-reply-to',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
-const sharedOption1244 = {
+const sharedOption1245 = {
   key: 'use-imap-only',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
-const sharedOption1245 = {
+const sharedOption1246 = {
   key: 'annotate',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
-const sharedOption1246 = {
+const sharedOption1247 = {
   key: 'suppress-from',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
-const sharedOption1247 = {
-  key: 'signed-off-cc',
-  value: 'flag',
-  effects: sharedEffects42,
-} as const;
 const sharedOption1248 = {
   key: 'signed-off-cc',
   value: 'flag',
   effects: sharedEffects42,
-  set: false,
 } as const;
 const sharedOption1249 = {
-  key: 'cc-cover',
+  key: 'signed-off-cc',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1250 = {
-  key: 'to-cover',
+  key: 'cc-cover',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1251 = {
-  key: 'thread',
+  key: 'to-cover',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1252 = {
-  key: 'validate',
+  key: 'thread',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1253 = {
-  key: 'mailmap',
+  key: 'validate',
   value: 'flag',
   effects: sharedEffects42,
+  set: false,
 } as const;
 const sharedOption1254 = {
   key: 'mailmap',
   value: 'flag',
   effects: sharedEffects42,
-  set: false,
 } as const;
 const sharedOption1255 = {
-  key: 'format-patch',
+  key: 'mailmap',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1256 = {
-  key: 'xmailer',
+  key: 'format-patch',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
 const sharedOption1257 = {
+  key: 'xmailer',
+  value: 'flag',
+  effects: sharedEffects42,
+  set: false,
+} as const;
+const sharedOption1258 = {
   key: 'v',
   value: 'string',
   effects: sharedEffects42,
 } as const;
-const sharedOption1258 = {
+const sharedOption1259 = {
   key: 'outlook-id-fix',
   value: 'flag',
   effects: sharedEffects42,
   set: false,
 } as const;
-const sharedOption1259 = {
+const sharedOption1260 = {
   key: 'trace',
   value: 'flag',
 } as const;
-const sharedOption1260 = {
+const sharedOption1261 = {
   key: 'nocommit',
   value: 'flag',
 } as const;
-const sharedOption1261 = {
+const sharedOption1262 = {
   key: 'commitmsg',
   value: 'flag',
 } as const;
-const sharedOption1262 = {
+const sharedOption1263 = {
   key: 'line',
   value: 'integer',
 } as const;
-const sharedOption1263 = {
+const sharedOption1264 = {
   key: 'detectRenames',
   value: 'flag',
 } as const;
-const sharedOption1264 = {
+const sharedOption1265 = {
   key: 'preserveUser',
   value: 'flag',
 } as const;
-const sharedOption1265 = {
+const sharedOption1266 = {
   key: 'exportLabels',
   value: 'flag',
 } as const;
-const sharedOption1266 = {
+const sharedOption1267 = {
   key: 'dry_run',
   value: 'flag',
 } as const;
-const sharedOption1267 = {
+const sharedOption1268 = {
   key: 'prepare_p4_only',
   value: 'flag',
 } as const;
-const sharedOption1268 = {
+const sharedOption1269 = {
   key: 'conflict_behavior',
   value: 'string',
   allowed: ['ask', 'skip', 'quit'],
 } as const;
-const sharedOption1269 = {
+const sharedOption1270 = {
   key: 'shelve',
   value: 'flag',
 } as const;
-const sharedOption1270 = {
+const sharedOption1271 = {
   key: 'update_shelve',
   value: 'integer',
   parser: 'python-int',
   repeat: true,
 } as const;
-const sharedOption1271 = {
+const sharedOption1272 = {
   key: 'commit',
   value: 'string',
 } as const;
-const sharedOption1272 = {
+const sharedOption1273 = {
   key: 'disable_rebase',
   value: 'flag',
 } as const;
-const sharedOption1273 = {
+const sharedOption1274 = {
   key: 'disable_p4sync',
   value: 'flag',
 } as const;
-const sharedOption1274 = {
+const sharedOption1275 = {
   key: 'no_verify',
   value: 'flag',
 } as const;
-const sharedOption1275 = {
+const sharedOption1276 = {
   key: 'gitdir',
   value: 'string',
 } as const;
-const sharedOption1276 = {
+const sharedOption1277 = {
   key: 'detectBranches',
   value: 'flag',
 } as const;
-const sharedOption1277 = {
+const sharedOption1278 = {
   key: 'changesFile',
   value: 'string',
 } as const;
-const sharedOption1278 = {
+const sharedOption1279 = {
   key: 'silent',
   value: 'flag',
 } as const;
-const sharedOption1279 = {
+const sharedOption1280 = {
   key: 'detectLabels',
   value: 'flag',
 } as const;
-const sharedOption1280 = {
+const sharedOption1281 = {
   key: 'importLabels',
   value: 'flag',
 } as const;
-const sharedOption1281 = {
+const sharedOption1282 = {
   key: 'importIntoRemotes',
   value: 'flag',
   set: false,
 } as const;
-const sharedOption1282 = {
+const sharedOption1283 = {
   key: 'maxChanges',
   value: 'string',
 } as const;
-const sharedOption1283 = {
+const sharedOption1284 = {
   key: 'changes_block_size',
   value: 'integer',
   parser: 'python-int',
 } as const;
-const sharedOption1284 = {
+const sharedOption1285 = {
   key: 'keepRepoPath',
   value: 'flag',
 } as const;
-const sharedOption1285 = {
+const sharedOption1286 = {
   key: 'useClientSpec',
   value: 'flag',
 } as const;
-const sharedOption1286 = {
+const sharedOption1287 = {
   key: 'cloneExclude',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1287 = {
+const sharedOption1288 = {
   key: 'fetch-all',
   value: 'flag',
 } as const;
-const sharedOption1288 = {
-  key: 'parent',
-  value: 'flag',
-} as const;
 const sharedOption1289 = {
-  key: 'follow-parent',
+  key: 'parent',
   value: 'flag',
 } as const;
 const sharedOption1290 = {
   key: 'follow-parent',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1291 = {
+  key: 'follow-parent',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1292 = {
   key: 'authors-file',
   value: 'string',
 } as const;
-const sharedOption1292 = {
+const sharedOption1293 = {
   key: 'authors-prog',
   value: 'string',
 } as const;
-const sharedOption1293 = {
+const sharedOption1294 = {
   key: 'repack',
   value: 'optional-integer',
   set: 0,
   parser: 'perl-int-gnu',
 } as const;
-const sharedOption1294 = {
+const sharedOption1295 = {
   key: 'log-window-size',
   value: 'integer',
   parser: 'perl-int-gnu',
 } as const;
-const sharedOption1295 = {
+const sharedOption1296 = {
   key: 'repack-flags',
   value: 'string',
 } as const;
-const sharedOption1296 = {
+const sharedOption1297 = {
   key: 'use-log-author',
   value: 'flag',
 } as const;
-const sharedOption1297 = {
+const sharedOption1298 = {
   key: 'add-author-from',
   value: 'flag',
 } as const;
-const sharedOption1298 = {
+const sharedOption1299 = {
   key: 'localtime',
   value: 'flag',
 } as const;
-const sharedOption1299 = {
+const sharedOption1300 = {
   key: 'username',
   value: 'string',
 } as const;
-const sharedOption1300 = {
+const sharedOption1301 = {
   key: 'config-dir',
   value: 'string',
 } as const;
-const sharedOption1301 = {
+const sharedOption1302 = {
   key: 'no-auth-cache',
   value: 'flag',
 } as const;
-const sharedOption1302 = {
+const sharedOption1303 = {
   key: 'ignore-paths',
   value: 'string',
 } as const;
-const sharedOption1303 = {
+const sharedOption1304 = {
   key: 'include-paths',
   value: 'string',
 } as const;
-const sharedOption1304 = {
+const sharedOption1305 = {
   key: 'ignore-refs',
   value: 'string',
 } as const;
-const sharedOption1305 = {
+const sharedOption1306 = {
   key: 'version',
   value: 'flag',
   effects: sharedEffects43,
 } as const;
-const sharedOption1306 = {
+const sharedOption1307 = {
   key: 'minimize-connections',
   value: 'flag',
 } as const;
-const sharedOption1307 = {
+const sharedOption1308 = {
   key: 'id',
   value: 'string',
 } as const;
-const sharedOption1308 = {
+const sharedOption1309 = {
   key: 'svn-remote',
   value: 'string',
 } as const;
-const sharedOption1309 = {
+const sharedOption1310 = {
   key: 'shared',
   value: 'optional-string',
   set: '',
 } as const;
-const sharedOption1310 = {
+const sharedOption1311 = {
   key: 'trunk',
   value: 'string',
 } as const;
-const sharedOption1311 = {
+const sharedOption1312 = {
   key: 'tags',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1312 = {
+const sharedOption1313 = {
   key: 'branches',
   value: 'string',
   repeat: true,
 } as const;
-const sharedOption1313 = {
-  key: 'stdlayout',
-  value: 'flag',
-} as const;
 const sharedOption1314 = {
-  key: 'minimize-url',
+  key: 'stdlayout',
   value: 'flag',
 } as const;
 const sharedOption1315 = {
   key: 'minimize-url',
   value: 'flag',
-  set: false,
 } as const;
 const sharedOption1316 = {
+  key: 'minimize-url',
+  value: 'flag',
+  set: false,
+} as const;
+const sharedOption1317 = {
   key: 'no-metadata',
   value: 'flag',
 } as const;
-const sharedOption1317 = {
+const sharedOption1318 = {
   key: 'use-svm-props',
   value: 'flag',
 } as const;
-const sharedOption1318 = {
+const sharedOption1319 = {
   key: 'use-svnsync-props',
   value: 'flag',
 } as const;
-const sharedOption1319 = {
+const sharedOption1320 = {
   key: 'rewrite-root',
   value: 'string',
 } as const;
-const sharedOption1320 = {
+const sharedOption1321 = {
   key: 'rewrite-uuid',
   value: 'string',
 } as const;
-const sharedOption1321 = {
+const sharedOption1322 = {
   key: 'commit-url',
   value: 'string',
-} as const;
-const sharedOption1322 = {
-  key: 'revision',
-  value: 'integer',
-  parser: 'perl-int-gnu',
 } as const;
 const sharedOption1323 = {
   key: 'revision',
   value: 'integer',
-  parser: 'perl-int',
+  parser: 'perl-int-gnu',
 } as const;
 const sharedOption1324 = {
-  key: 'rmdir',
-  value: 'flag',
+  key: 'revision',
+  value: 'integer',
+  parser: 'perl-int',
 } as const;
 const sharedOption1325 = {
-  key: 'l',
-  value: 'integer',
-  parser: 'perl-int-gnu',
+  key: 'rmdir',
+  value: 'flag',
 } as const;
 const sharedOption1326 = {
   key: 'l',
   value: 'integer',
-  parser: 'perl-int',
+  parser: 'perl-int-gnu',
 } as const;
 const sharedOption1327 = {
-  key: 'copy-similarity',
+  key: 'l',
   value: 'integer',
-  parser: 'perl-int-gnu',
+  parser: 'perl-int',
 } as const;
 const sharedOption1328 = {
   key: 'copy-similarity',
   value: 'integer',
-  parser: 'perl-int',
+  parser: 'perl-int-gnu',
 } as const;
 const sharedOption1329 = {
+  key: 'copy-similarity',
+  value: 'integer',
+  parser: 'perl-int',
+} as const;
+const sharedOption1330 = {
   key: 'destination',
   value: 'string',
 } as const;
-const sharedOption1330 = {
+const sharedOption1331 = {
   key: 'parents',
   value: 'flag',
 } as const;
-const sharedOption1331 = {
+const sharedOption1332 = {
   key: 'tag',
   value: 'flag',
 } as const;
-const sharedOption1332 = {
+const sharedOption1333 = {
   key: 'B',
   value: 'flag',
 } as const;
-const sharedOption1333 = {
+const sharedOption1334 = {
   key: 'rebase-merges',
   value: 'flag',
 } as const;
-const sharedOption1334 = {
+const sharedOption1335 = {
   key: 'help',
   value: 'boolean',
 } as const;
-const sharedOption1335 = {
+const sharedOption1336 = {
   key: 'version',
   value: 'boolean',
 } as const;
-const sharedOption1336 = {
+const sharedOption1337 = {
   key: 'jobs',
   value: 'integer',
 } as const;
-const sharedOption1337 = {
+const sharedOption1338 = {
   key: 'local',
   value: 'boolean',
 } as const;
-const sharedOption1338 = {
+const sharedOption1339 = {
   key: 'no-checkout',
   value: 'boolean',
 } as const;
-const sharedOption1339 = {
+const sharedOption1340 = {
   key: 'quiet',
   value: 'boolean',
 } as const;
-const sharedOption1340 = {
+const sharedOption1341 = {
   key: 'shared',
   value: 'boolean',
 } as const;
-const sharedOption1341 = {
+const sharedOption1342 = {
   key: 'skip-repo',
   value: 'boolean',
 } as const;
-const sharedOption1342 = {
+const sharedOption1343 = {
   key: 'verbose',
   value: 'boolean',
 } as const;
-const sharedOption1343 = {
+const sharedOption1344 = {
   key: 'test',
   value: 'boolean',
 } as const;
-const sharedOption1344 = {
+const sharedOption1345 = {
   key: 'all',
   value: 'boolean',
 } as const;
-const sharedOption1345 = {
+const sharedOption1346 = {
   key: 'dry-run',
   value: 'boolean',
 } as const;
-const sharedOption1346 = {
+const sharedOption1347 = {
   key: 'json',
   value: 'boolean',
 } as const;
-const sharedOption1347 = {
+const sharedOption1348 = {
   key: 'prune',
   value: 'boolean',
 } as const;
-const sharedOption1348 = {
+const sharedOption1349 = {
   key: 'recent',
   value: 'boolean',
 } as const;
-const sharedOption1349 = {
+const sharedOption1350 = {
   key: 'stdin',
   value: 'boolean',
 } as const;
-const sharedOption1350 = {
+const sharedOption1351 = {
   key: 'skip',
   value: 'boolean',
 } as const;
-const sharedOption1351 = {
+const sharedOption1352 = {
   key: 'force',
   value: 'boolean',
 } as const;
-const sharedOption1352 = {
+const sharedOption1353 = {
   key: 'manual',
   value: 'boolean',
 } as const;
-const sharedOption1353 = {
+const sharedOption1354 = {
   key: 'skip-smudge',
   value: 'boolean',
 } as const;
-const sharedOption1354 = {
+const sharedOption1355 = {
   key: 'system',
   value: 'boolean',
 } as const;
-const sharedOption1355 = {
+const sharedOption1356 = {
   key: 'worktree',
   value: 'boolean',
 } as const;
-const sharedOption1356 = {
+const sharedOption1357 = {
   key: 'limit',
   value: 'integer',
 } as const;
-const sharedOption1357 = {
+const sharedOption1358 = {
   key: 'debug',
   value: 'boolean',
 } as const;
-const sharedOption1358 = {
+const sharedOption1359 = {
   key: 'long',
   value: 'boolean',
 } as const;
-const sharedOption1359 = {
+const sharedOption1360 = {
   key: 'name-only',
   value: 'boolean',
 } as const;
-const sharedOption1360 = {
+const sharedOption1361 = {
   key: 'size',
   value: 'boolean',
 } as const;
-const sharedOption1361 = {
+const sharedOption1362 = {
   key: 'everything',
   value: 'boolean',
 } as const;
-const sharedOption1362 = {
+const sharedOption1363 = {
   key: 'exclude-ref',
   value: 'string',
   repeat: true,
   skipEmpty: true,
 } as const;
-const sharedOption1363 = {
+const sharedOption1364 = {
   key: 'include-ref',
   value: 'string',
   repeat: true,
   skipEmpty: true,
 } as const;
-const sharedOption1364 = {
+const sharedOption1365 = {
   key: 'skip-fetch',
   value: 'boolean',
 } as const;
-const sharedOption1365 = {
+const sharedOption1366 = {
   key: 'yes',
   value: 'boolean',
 } as const;
-const sharedOption1366 = {
+const sharedOption1367 = {
   key: 'object-map',
   value: 'string',
 } as const;
-const sharedOption1367 = {
+const sharedOption1368 = {
   key: 'above',
   value: 'string',
 } as const;
-const sharedOption1368 = {
+const sharedOption1369 = {
   key: 'fixup',
   value: 'boolean',
 } as const;
-const sharedOption1369 = {
+const sharedOption1370 = {
   key: 'pointer',
   value: 'string',
 } as const;
-const sharedOption1370 = {
+const sharedOption1371 = {
   key: 'verify-remote',
   value: 'boolean',
 } as const;
-const sharedOption1371 = {
+const sharedOption1372 = {
   key: 'object-id',
   value: 'boolean',
 } as const;
-const sharedOption1372 = {
+const sharedOption1373 = {
   key: 'porcelain',
   value: 'boolean',
 } as const;
-const sharedOption1373 = {
+const sharedOption1374 = {
   key: 'lockable',
   value: 'boolean',
 } as const;
-const sharedOption1374 = {
+const sharedOption1375 = {
   key: 'comics',
   value: 'boolean',
 } as const;
@@ -9427,8 +9433,8 @@ type RemainingOptions1Type = typeof remainingOptions1;
 const remainingOptions2 = {
   '--patch': sharedOption360,
   '-p': sharedOption360,
-  '--no-patch': sharedOption361,
-  '-s': sharedOption361,
+  '--no-patch': sharedOption581,
+  '-s': sharedOption581,
   '-u': sharedOption362,
   '--unified': sharedOption363,
   '-U': sharedOption364,
@@ -9524,9 +9530,9 @@ const remainingOptions2 = {
   '--diff-filter': sharedOption442,
   '--max-depth': sharedOption443,
   '--output': sharedOption444,
-  '--no-no-patch': sharedOption581,
+  '--no-no-patch': sharedOption582,
   '--no-function-context': sharedOption453,
-  '--no-compact-summary': sharedOption582,
+  '--no-compact-summary': sharedOption583,
   '--no-full-index': sharedOption455,
   '--no-color': sharedOption252,
   '--no-abbrev': sharedOption456,
@@ -9673,258 +9679,258 @@ const remainingOptions2 = {
 } as const;
 type RemainingOptions2Type = typeof remainingOptions2;
 const remainingOptions3 = {
-  '--patch': sharedOption634,
-  '-p': sharedOption634,
-  '--no-patch': sharedOption635,
-  '-s': sharedOption635,
-  '-u': sharedOption636,
-  '--unified': sharedOption637,
-  '-U': sharedOption638,
-  '--function-context': sharedOption639,
-  '-W': sharedOption639,
-  '--raw': sharedOption640,
-  '--patch-with-raw': sharedOption641,
-  '--patch-with-stat': sharedOption642,
-  '--numstat': sharedOption643,
-  '--shortstat': sharedOption644,
-  '--dirstat': sharedOption645,
-  '-X': sharedOption645,
-  '--cumulative': sharedOption646,
-  '--dirstat-by-file': sharedOption647,
-  '--check': sharedOption648,
-  '--summary': sharedOption649,
-  '--name-only': sharedOption650,
-  '--name-status': sharedOption651,
-  '--stat': sharedOption652,
-  '--stat-width': sharedOption653,
-  '--stat-name-width': sharedOption654,
-  '--stat-graph-width': sharedOption655,
-  '--stat-count': sharedOption656,
-  '--compact-summary': sharedOption657,
-  '--binary': sharedOption658,
-  '--full-index': sharedOption659,
-  '--color': sharedOption660,
-  '--ws-error-highlight': sharedOption661,
-  '-z': sharedOption662,
-  '--abbrev': sharedOption663,
-  '--src-prefix': sharedOption664,
-  '--dst-prefix': sharedOption665,
-  '--line-prefix': sharedOption666,
-  '--no-prefix': sharedOption667,
-  '--default-prefix': sharedOption668,
-  '--inter-hunk-context': sharedOption669,
-  '--output-indicator-new': sharedOption670,
-  '--output-indicator-old': sharedOption671,
-  '--output-indicator-context': sharedOption672,
-  '--break-rewrites': sharedOption673,
-  '-B': sharedOption674,
-  '--find-renames': sharedOption675,
-  '-M': sharedOption676,
-  '--irreversible-delete': sharedOption677,
-  '-D': sharedOption677,
-  '--find-copies': sharedOption678,
-  '-C': sharedOption679,
-  '--find-copies-harder': sharedOption680,
-  '--no-renames': sharedOption681,
-  '--rename-empty': sharedOption682,
-  '--follow': sharedOption683,
-  '-l': sharedOption684,
-  '--minimal': sharedOption685,
-  '--ignore-all-space': sharedOption686,
-  '-w': sharedOption686,
-  '--ignore-space-change': sharedOption687,
-  '-b': sharedOption687,
-  '--ignore-space-at-eol': sharedOption688,
-  '--ignore-cr-at-eol': sharedOption689,
-  '--ignore-blank-lines': sharedOption690,
-  '--ignore-matching-lines': sharedOption691,
-  '-I': sharedOption691,
-  '--indent-heuristic': sharedOption692,
-  '--patience': sharedOption693,
-  '--histogram': sharedOption694,
-  '--diff-algorithm': sharedOption695,
-  '--anchored': sharedOption696,
-  '--word-diff': sharedOption697,
-  '--word-diff-regex': sharedOption698,
-  '--color-words': sharedOption699,
-  '--color-moved': sharedOption700,
-  '--color-moved-ws': sharedOption701,
-  '--relative': sharedOption702,
-  '--text': sharedOption703,
-  '-a': sharedOption703,
-  '-R': sharedOption704,
-  '--exit-code': sharedOption705,
-  '--quiet': sharedOption706,
-  '--ext-diff': sharedOption707,
-  '--textconv': sharedOption708,
-  '--ignore-submodules': sharedOption709,
-  '--submodule': sharedOption710,
-  '--ita-invisible-in-index': sharedOption711,
-  '--ita-visible-in-index': sharedOption712,
-  '-S': sharedOption868,
-  '-G': sharedOption713,
-  '--pickaxe-all': sharedOption714,
-  '--pickaxe-regex': sharedOption715,
-  '-O': sharedOption716,
-  '--rotate-to': sharedOption717,
-  '--skip-to': sharedOption718,
-  '--find-object': sharedOption719,
-  '--diff-filter': sharedOption720,
-  '--max-depth': sharedOption721,
-  '--output': sharedOption722,
-  '--no-no-patch': sharedOption723,
-  '--no-function-context': sharedOption724,
-  '--no-compact-summary': sharedOption725,
-  '--no-full-index': sharedOption726,
-  '--no-color': sharedOption727,
-  '--no-abbrev': sharedOption728,
-  '--no-find-copies-harder': sharedOption729,
-  '--no-rename-empty': sharedOption730,
-  '--no-follow': sharedOption731,
-  '--no-indent-heuristic': sharedOption732,
-  '--no-color-moved': sharedOption733,
-  '--no-color-moved-ws': sharedOption734,
-  '--no-relative': sharedOption735,
-  '--no-text': sharedOption736,
-  '--no-exit-code': sharedOption737,
-  '--no-quiet': sharedOption738,
-  '--no-ext-diff': sharedOption739,
-  '--no-textconv': sharedOption740,
-  '--abbrev-commit': sharedOption741,
-  '--after': sharedOption742,
-  '--all': sharedOption743,
-  '--all-match': sharedOption744,
-  '--alternate-refs': sharedOption745,
-  '--always': sharedOption746,
-  '--ancestry-path': sharedOption747,
-  '--author': sharedOption748,
-  '--author-date-order': sharedOption749,
-  '--basic-regexp': sharedOption750,
-  '--before': sharedOption751,
-  '--bisect': sharedOption752,
-  '--boundary': sharedOption753,
-  '--branches': sharedOption754,
-  '--cc': sharedOption755,
-  '--cherry': sharedOption756,
-  '--cherry-mark': sharedOption757,
-  '--cherry-pick': sharedOption758,
-  '--children': sharedOption759,
-  '--combined-all-paths': sharedOption760,
-  '--committer': sharedOption761,
-  '--count': sharedOption762,
-  '--date': sharedOption763,
-  '--date-order': sharedOption764,
-  '--dd': sharedOption765,
-  '--default': sharedOption766,
-  '--dense': sharedOption767,
-  '--diff-merges': sharedOption768,
-  '--do-walk': sharedOption769,
-  '--encode-email-headers': sharedOption770,
-  '--encoding': sharedOption771,
-  '--exclude': sharedOption772,
-  '--exclude-first-parent-only': sharedOption773,
-  '--exclude-hidden': sharedOption774,
-  '--expand-tabs': sharedOption775,
-  '--extended-regexp': sharedOption776,
-  '--first-parent': sharedOption777,
-  '--fixed-strings': sharedOption778,
-  '--format': sharedOption779,
-  '--full-diff': sharedOption780,
-  '--full-history': sharedOption781,
-  '--glob': sharedOption782,
-  '--graph': sharedOption783,
-  '--graph-lane-limit': sharedOption784,
-  '--grep': sharedOption785,
-  '--grep-reflog': sharedOption786,
-  '--ignore-missing': sharedOption787,
-  '--in-commit-order': sharedOption788,
-  '--indexed-objects': sharedOption789,
-  '--invert-grep': sharedOption790,
-  '--left-only': sharedOption791,
-  '--left-right': sharedOption792,
-  '--log-size': sharedOption793,
-  '--max-age': sharedOption794,
-  '--max-count': sharedOption795,
-  '--max-count-oldest': sharedOption796,
-  '--max-parents': sharedOption797,
-  '--maximal-only': sharedOption798,
-  '--merge': sharedOption799,
-  '--merges': sharedOption800,
-  '--min-age': sharedOption801,
-  '--min-parents': sharedOption802,
-  '--no-abbrev-commit': sharedOption803,
-  '--no-commit-id': sharedOption804,
-  '--no-diff-merges': sharedOption805,
-  '--no-encode-email-headers': sharedOption806,
-  '--no-expand-tabs': sharedOption807,
-  '--no-graph': sharedOption808,
-  '--no-kept-objects': sharedOption809,
-  '--no-max-parents': sharedOption810,
-  '--no-merges': sharedOption811,
-  '--no-min-parents': sharedOption812,
-  '--no-notes': sharedOption813,
-  '--no-show-signature': sharedOption814,
-  '--no-standard-notes': sharedOption815,
-  '--no-walk': sharedOption816,
-  '--not': sharedOption817,
-  '--notes': sharedOption818,
-  '--objects': sharedOption819,
-  '--objects-edge': sharedOption820,
-  '--objects-edge-aggressive': sharedOption821,
-  '--oneline': sharedOption822,
-  '--parents': sharedOption823,
-  '--perl-regexp': sharedOption824,
-  '--pretty': sharedOption825,
-  '--reflog': sharedOption826,
-  '--regexp-ignore-case': sharedOption827,
-  '--relative-date': sharedOption828,
-  '--remerge-diff': sharedOption829,
-  '--remotes': sharedOption830,
-  '--remove-empty': sharedOption831,
-  '--reverse': sharedOption832,
-  '--right-only': sharedOption833,
-  '--root': sharedOption834,
-  '--show-linear-break': sharedOption835,
-  '--show-notes': sharedOption836,
-  '--show-notes-by-default': sharedOption837,
-  '--show-pulls': sharedOption838,
-  '--show-signature': sharedOption839,
-  '--simplify-by-decoration': sharedOption840,
-  '--simplify-merges': sharedOption841,
-  '--since': sharedOption742,
-  '--since-as-filter': sharedOption842,
-  '--single-worktree': sharedOption843,
-  '--skip': sharedOption869,
-  '--sparse': sharedOption845,
-  '--standard-notes': sharedOption846,
-  '--stdin': sharedOption847,
-  '--tags': sharedOption848,
-  '--topo-order': sharedOption849,
-  '--unpacked': sharedOption850,
-  '--until': sharedOption751,
-  '--verify-objects': sharedOption851,
-  '--walk-reflogs': sharedOption852,
-  '-E': sharedOption776,
-  '-F': sharedOption778,
-  '-P': sharedOption824,
-  '-c': sharedOption853,
-  '-g': sharedOption852,
-  '-i': sharedOption827,
-  '-m': sharedOption870,
-  '-n': sharedOption871,
-  '-r': sharedOption872,
-  '-t': sharedOption856,
-  '-v': sharedOption857,
-  '--filter': sharedOption858,
-  '--no-filter': sharedOption859,
+  '--patch': sharedOption635,
+  '-p': sharedOption635,
+  '--no-patch': sharedOption636,
+  '-s': sharedOption636,
+  '-u': sharedOption637,
+  '--unified': sharedOption638,
+  '-U': sharedOption639,
+  '--function-context': sharedOption640,
+  '-W': sharedOption640,
+  '--raw': sharedOption641,
+  '--patch-with-raw': sharedOption642,
+  '--patch-with-stat': sharedOption643,
+  '--numstat': sharedOption644,
+  '--shortstat': sharedOption645,
+  '--dirstat': sharedOption646,
+  '-X': sharedOption646,
+  '--cumulative': sharedOption647,
+  '--dirstat-by-file': sharedOption648,
+  '--check': sharedOption649,
+  '--summary': sharedOption650,
+  '--name-only': sharedOption651,
+  '--name-status': sharedOption652,
+  '--stat': sharedOption653,
+  '--stat-width': sharedOption654,
+  '--stat-name-width': sharedOption655,
+  '--stat-graph-width': sharedOption656,
+  '--stat-count': sharedOption657,
+  '--compact-summary': sharedOption658,
+  '--binary': sharedOption659,
+  '--full-index': sharedOption660,
+  '--color': sharedOption661,
+  '--ws-error-highlight': sharedOption662,
+  '-z': sharedOption663,
+  '--abbrev': sharedOption664,
+  '--src-prefix': sharedOption665,
+  '--dst-prefix': sharedOption666,
+  '--line-prefix': sharedOption667,
+  '--no-prefix': sharedOption668,
+  '--default-prefix': sharedOption669,
+  '--inter-hunk-context': sharedOption670,
+  '--output-indicator-new': sharedOption671,
+  '--output-indicator-old': sharedOption672,
+  '--output-indicator-context': sharedOption673,
+  '--break-rewrites': sharedOption674,
+  '-B': sharedOption675,
+  '--find-renames': sharedOption676,
+  '-M': sharedOption677,
+  '--irreversible-delete': sharedOption678,
+  '-D': sharedOption678,
+  '--find-copies': sharedOption679,
+  '-C': sharedOption680,
+  '--find-copies-harder': sharedOption681,
+  '--no-renames': sharedOption682,
+  '--rename-empty': sharedOption683,
+  '--follow': sharedOption684,
+  '-l': sharedOption685,
+  '--minimal': sharedOption686,
+  '--ignore-all-space': sharedOption687,
+  '-w': sharedOption687,
+  '--ignore-space-change': sharedOption688,
+  '-b': sharedOption688,
+  '--ignore-space-at-eol': sharedOption689,
+  '--ignore-cr-at-eol': sharedOption690,
+  '--ignore-blank-lines': sharedOption691,
+  '--ignore-matching-lines': sharedOption692,
+  '-I': sharedOption692,
+  '--indent-heuristic': sharedOption693,
+  '--patience': sharedOption694,
+  '--histogram': sharedOption695,
+  '--diff-algorithm': sharedOption696,
+  '--anchored': sharedOption697,
+  '--word-diff': sharedOption698,
+  '--word-diff-regex': sharedOption699,
+  '--color-words': sharedOption700,
+  '--color-moved': sharedOption701,
+  '--color-moved-ws': sharedOption702,
+  '--relative': sharedOption703,
+  '--text': sharedOption704,
+  '-a': sharedOption704,
+  '-R': sharedOption705,
+  '--exit-code': sharedOption706,
+  '--quiet': sharedOption707,
+  '--ext-diff': sharedOption708,
+  '--textconv': sharedOption709,
+  '--ignore-submodules': sharedOption710,
+  '--submodule': sharedOption711,
+  '--ita-invisible-in-index': sharedOption712,
+  '--ita-visible-in-index': sharedOption713,
+  '-S': sharedOption869,
+  '-G': sharedOption714,
+  '--pickaxe-all': sharedOption715,
+  '--pickaxe-regex': sharedOption716,
+  '-O': sharedOption717,
+  '--rotate-to': sharedOption718,
+  '--skip-to': sharedOption719,
+  '--find-object': sharedOption720,
+  '--diff-filter': sharedOption721,
+  '--max-depth': sharedOption722,
+  '--output': sharedOption723,
+  '--no-no-patch': sharedOption724,
+  '--no-function-context': sharedOption725,
+  '--no-compact-summary': sharedOption726,
+  '--no-full-index': sharedOption727,
+  '--no-color': sharedOption728,
+  '--no-abbrev': sharedOption729,
+  '--no-find-copies-harder': sharedOption730,
+  '--no-rename-empty': sharedOption731,
+  '--no-follow': sharedOption732,
+  '--no-indent-heuristic': sharedOption733,
+  '--no-color-moved': sharedOption734,
+  '--no-color-moved-ws': sharedOption735,
+  '--no-relative': sharedOption736,
+  '--no-text': sharedOption737,
+  '--no-exit-code': sharedOption738,
+  '--no-quiet': sharedOption739,
+  '--no-ext-diff': sharedOption740,
+  '--no-textconv': sharedOption741,
+  '--abbrev-commit': sharedOption742,
+  '--after': sharedOption743,
+  '--all': sharedOption744,
+  '--all-match': sharedOption745,
+  '--alternate-refs': sharedOption746,
+  '--always': sharedOption747,
+  '--ancestry-path': sharedOption748,
+  '--author': sharedOption749,
+  '--author-date-order': sharedOption750,
+  '--basic-regexp': sharedOption751,
+  '--before': sharedOption752,
+  '--bisect': sharedOption753,
+  '--boundary': sharedOption754,
+  '--branches': sharedOption755,
+  '--cc': sharedOption756,
+  '--cherry': sharedOption757,
+  '--cherry-mark': sharedOption758,
+  '--cherry-pick': sharedOption759,
+  '--children': sharedOption760,
+  '--combined-all-paths': sharedOption761,
+  '--committer': sharedOption762,
+  '--count': sharedOption763,
+  '--date': sharedOption764,
+  '--date-order': sharedOption765,
+  '--dd': sharedOption766,
+  '--default': sharedOption767,
+  '--dense': sharedOption768,
+  '--diff-merges': sharedOption769,
+  '--do-walk': sharedOption770,
+  '--encode-email-headers': sharedOption771,
+  '--encoding': sharedOption772,
+  '--exclude': sharedOption773,
+  '--exclude-first-parent-only': sharedOption774,
+  '--exclude-hidden': sharedOption775,
+  '--expand-tabs': sharedOption776,
+  '--extended-regexp': sharedOption777,
+  '--first-parent': sharedOption778,
+  '--fixed-strings': sharedOption779,
+  '--format': sharedOption780,
+  '--full-diff': sharedOption781,
+  '--full-history': sharedOption782,
+  '--glob': sharedOption783,
+  '--graph': sharedOption784,
+  '--graph-lane-limit': sharedOption785,
+  '--grep': sharedOption786,
+  '--grep-reflog': sharedOption787,
+  '--ignore-missing': sharedOption788,
+  '--in-commit-order': sharedOption789,
+  '--indexed-objects': sharedOption790,
+  '--invert-grep': sharedOption791,
+  '--left-only': sharedOption792,
+  '--left-right': sharedOption793,
+  '--log-size': sharedOption794,
+  '--max-age': sharedOption795,
+  '--max-count': sharedOption796,
+  '--max-count-oldest': sharedOption797,
+  '--max-parents': sharedOption798,
+  '--maximal-only': sharedOption799,
+  '--merge': sharedOption800,
+  '--merges': sharedOption801,
+  '--min-age': sharedOption802,
+  '--min-parents': sharedOption803,
+  '--no-abbrev-commit': sharedOption804,
+  '--no-commit-id': sharedOption805,
+  '--no-diff-merges': sharedOption806,
+  '--no-encode-email-headers': sharedOption807,
+  '--no-expand-tabs': sharedOption808,
+  '--no-graph': sharedOption809,
+  '--no-kept-objects': sharedOption810,
+  '--no-max-parents': sharedOption811,
+  '--no-merges': sharedOption812,
+  '--no-min-parents': sharedOption813,
+  '--no-notes': sharedOption814,
+  '--no-show-signature': sharedOption815,
+  '--no-standard-notes': sharedOption816,
+  '--no-walk': sharedOption817,
+  '--not': sharedOption818,
+  '--notes': sharedOption819,
+  '--objects': sharedOption820,
+  '--objects-edge': sharedOption821,
+  '--objects-edge-aggressive': sharedOption822,
+  '--oneline': sharedOption823,
+  '--parents': sharedOption824,
+  '--perl-regexp': sharedOption825,
+  '--pretty': sharedOption826,
+  '--reflog': sharedOption827,
+  '--regexp-ignore-case': sharedOption828,
+  '--relative-date': sharedOption829,
+  '--remerge-diff': sharedOption830,
+  '--remotes': sharedOption831,
+  '--remove-empty': sharedOption832,
+  '--reverse': sharedOption833,
+  '--right-only': sharedOption834,
+  '--root': sharedOption835,
+  '--show-linear-break': sharedOption836,
+  '--show-notes': sharedOption837,
+  '--show-notes-by-default': sharedOption838,
+  '--show-pulls': sharedOption839,
+  '--show-signature': sharedOption840,
+  '--simplify-by-decoration': sharedOption841,
+  '--simplify-merges': sharedOption842,
+  '--since': sharedOption743,
+  '--since-as-filter': sharedOption843,
+  '--single-worktree': sharedOption844,
+  '--skip': sharedOption870,
+  '--sparse': sharedOption846,
+  '--standard-notes': sharedOption847,
+  '--stdin': sharedOption848,
+  '--tags': sharedOption849,
+  '--topo-order': sharedOption850,
+  '--unpacked': sharedOption851,
+  '--until': sharedOption752,
+  '--verify-objects': sharedOption852,
+  '--walk-reflogs': sharedOption853,
+  '-E': sharedOption777,
+  '-F': sharedOption779,
+  '-P': sharedOption825,
+  '-c': sharedOption854,
+  '-g': sharedOption853,
+  '-i': sharedOption828,
+  '-m': sharedOption871,
+  '-n': sharedOption872,
+  '-r': sharedOption873,
+  '-t': sharedOption857,
+  '-v': sharedOption858,
+  '--filter': sharedOption859,
+  '--no-filter': sharedOption860,
   '--end-of-options': sharedOption47,
 } as const;
 type RemainingOptions3Type = typeof remainingOptions3;
 const remainingOptions4 = {
   '--patch': sharedOption360,
   '-p': sharedOption360,
-  '--no-patch': sharedOption361,
-  '-s': sharedOption361,
+  '--no-patch': sharedOption581,
+  '-s': sharedOption581,
   '-u': sharedOption362,
   '--unified': sharedOption363,
   '-U': sharedOption364,
@@ -10017,12 +10023,12 @@ const remainingOptions4 = {
   '--rotate-to': sharedOption439,
   '--skip-to': sharedOption440,
   '--find-object': sharedOption441,
-  '--diff-filter': sharedOption1059,
+  '--diff-filter': sharedOption1060,
   '--max-depth': sharedOption443,
   '--output': sharedOption444,
-  '--no-no-patch': sharedOption581,
+  '--no-no-patch': sharedOption582,
   '--no-function-context': sharedOption453,
-  '--no-compact-summary': sharedOption582,
+  '--no-compact-summary': sharedOption583,
   '--no-full-index': sharedOption455,
   '--no-color': sharedOption252,
   '--no-abbrev': sharedOption456,
@@ -10052,20 +10058,20 @@ const remainingOptions4 = {
   '--bisect': sharedOption478,
   '--boundary': sharedOption479,
   '--branches': sharedOption480,
-  '--cc': sharedOption1060,
+  '--cc': sharedOption1061,
   '--cherry': sharedOption482,
   '--cherry-mark': sharedOption483,
   '--cherry-pick': sharedOption484,
   '--children': sharedOption485,
-  '--combined-all-paths': sharedOption1061,
+  '--combined-all-paths': sharedOption1062,
   '--committer': sharedOption487,
   '--count': sharedOption488,
   '--date': sharedOption489,
   '--date-order': sharedOption490,
-  '--dd': sharedOption1062,
+  '--dd': sharedOption1063,
   '--default': sharedOption492,
   '--dense': sharedOption493,
-  '--diff-merges': sharedOption1063,
+  '--diff-merges': sharedOption1064,
   '--do-walk': sharedOption495,
   '--encode-email-headers': sharedOption496,
   '--encoding': sharedOption497,
@@ -10102,7 +10108,7 @@ const remainingOptions4 = {
   '--min-parents': sharedOption524,
   '--no-abbrev-commit': sharedOption525,
   '--no-commit-id': sharedOption526,
-  '--no-diff-merges': sharedOption1064,
+  '--no-diff-merges': sharedOption1065,
   '--no-encode-email-headers': sharedOption528,
   '--no-expand-tabs': sharedOption529,
   '--no-graph': sharedOption530,
@@ -10126,7 +10132,7 @@ const remainingOptions4 = {
   '--reflog': sharedOption548,
   '--regexp-ignore-case': sharedOption549,
   '--relative-date': sharedOption550,
-  '--remerge-diff': sharedOption1065,
+  '--remerge-diff': sharedOption1066,
   '--remotes': sharedOption552,
   '--remove-empty': sharedOption553,
   '--reverse': sharedOption554,
@@ -10155,10 +10161,10 @@ const remainingOptions4 = {
   '-E': sharedOption501,
   '-F': sharedOption503,
   '-P': sharedOption546,
-  '-c': sharedOption1066,
+  '-c': sharedOption1067,
   '-g': sharedOption573,
   '-i': sharedOption549,
-  '-m': sharedOption1067,
+  '-m': sharedOption1068,
   '-n': sharedOption576,
   '-r': sharedOption50,
   '-t': sharedOption577,
@@ -10171,8 +10177,8 @@ type RemainingOptions4Type = typeof remainingOptions4;
 const remainingOptions5 = {
   '--patch': sharedOption360,
   '-p': sharedOption360,
-  '--no-patch': sharedOption361,
-  '-s': sharedOption361,
+  '--no-patch': sharedOption581,
+  '-s': sharedOption581,
   '-u': sharedOption362,
   '--unified': sharedOption363,
   '-U': sharedOption364,
@@ -10268,9 +10274,9 @@ const remainingOptions5 = {
   '--diff-filter': sharedOption442,
   '--max-depth': sharedOption443,
   '--output': sharedOption444,
-  '--no-no-patch': sharedOption581,
+  '--no-no-patch': sharedOption582,
   '--no-function-context': sharedOption453,
-  '--no-compact-summary': sharedOption582,
+  '--no-compact-summary': sharedOption583,
   '--no-full-index': sharedOption455,
   '--no-color': sharedOption252,
   '--no-abbrev': sharedOption253,
@@ -31868,7 +31874,7 @@ const commandSpec68 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -32124,7 +32130,7 @@ const commandSpec68 = {
       source:
         'Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done',
       reason:
-        "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; --no-no-patch resets every format, while --no-compact-summary only clears the summary flag and keeps the stat format.",
+        "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
       guard: sharedPredicates68,
       when: {
         key: 'L',
@@ -32812,7 +32818,7 @@ const commandSpec69 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -33068,7 +33074,7 @@ const commandSpec69 = {
       source:
         'Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done',
       reason:
-        "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; --no-no-patch resets every format, while --no-compact-summary only clears the summary flag and keeps the stat format.",
+        "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
       guard: sharedPredicates68,
       when: {
         key: 'L',
@@ -33484,8 +33490,8 @@ const commandSpec70 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -33829,9 +33835,9 @@ const commandSpec70 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -34126,7 +34132,7 @@ const commandSpec70 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -34528,8 +34534,8 @@ const commandSpec71 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -34625,9 +34631,9 @@ const commandSpec71 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -34817,7 +34823,7 @@ const commandSpec71 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -35015,8 +35021,8 @@ const commandSpec72 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -35112,9 +35118,9 @@ const commandSpec72 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -35262,7 +35268,7 @@ const commandSpec72 = {
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--merge-base': sharedOption583,
+    '--merge-base': sharedOption584,
     '--cached': sharedOption49,
     '--help-all': {
       key: 'sole-full-help',
@@ -35474,8 +35480,8 @@ const commandSpec73 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -35571,9 +35577,9 @@ const commandSpec73 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -35718,7 +35724,7 @@ const commandSpec73 = {
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--merge-base': sharedOption583,
+    '--merge-base': sharedOption584,
     '--help-all': {
       key: 'sole-full-help',
       value: 'flag',
@@ -35742,7 +35748,7 @@ const commandSpec73 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -35913,11 +35919,11 @@ const commandSpec73 = {
 const commandSpec74 = {
   argv: ['diff', '--no-index'],
   options: {
-    '--no-index': sharedOption584,
+    '--no-index': sharedOption585,
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -36013,9 +36019,9 @@ const commandSpec74 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -36208,12 +36214,12 @@ const commandSpec78 = {
   options: {
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
-    '--rewrite': sharedOption585,
-    '--updateref': sharedOption586,
+    '--rewrite': sharedOption586,
+    '--updateref': sharedOption587,
     '--verbose': sharedOption151,
     '--no-dry-run': sharedOption28,
-    '--no-rewrite': sharedOption587,
-    '--no-updateref': sharedOption588,
+    '--no-rewrite': sharedOption588,
+    '--no-updateref': sharedOption589,
     '--no-verbose': sharedOption173,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -36238,7 +36244,7 @@ const commandSpec79 = {
     '--all': sharedOption18,
     '--single-worktree': sharedOption565,
     '--no-all': sharedOption19,
-    '--no-single-worktree': sharedOption589,
+    '--no-single-worktree': sharedOption590,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -36266,8 +36272,8 @@ const commandSpec80 = {
   options: {
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
-    '--rewrite': sharedOption585,
-    '--updateref': sharedOption586,
+    '--rewrite': sharedOption586,
+    '--updateref': sharedOption587,
     '--verbose': sharedOption151,
     '--expire': sharedOption146,
     '--expire-unreachable': {
@@ -36281,8 +36287,8 @@ const commandSpec80 = {
     '--all': sharedOption18,
     '--single-worktree': sharedOption565,
     '--no-dry-run': sharedOption28,
-    '--no-rewrite': sharedOption587,
-    '--no-updateref': sharedOption588,
+    '--no-rewrite': sharedOption588,
+    '--no-updateref': sharedOption589,
     '--no-verbose': sharedOption173,
     '--no-stale-fix': {
       key: 'stale-fix',
@@ -36290,7 +36296,7 @@ const commandSpec80 = {
       set: false,
     },
     '--no-all': sharedOption19,
-    '--no-single-worktree': sharedOption589,
+    '--no-single-worktree': sharedOption590,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -36313,11 +36319,11 @@ const commandSpec81 = {
     '--decorate-refs': sharedOption356,
     '--decorate-refs-exclude': sharedOption357,
     '--decorate': sharedOption358,
-    '-L': sharedOption590,
+    '-L': sharedOption591,
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -36419,9 +36425,9 @@ const commandSpec81 = {
     '--no-decorate-refs': sharedOption449,
     '--no-decorate-refs-exclude': sharedOption450,
     '--no-decorate': sharedOption451,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -36575,7 +36581,7 @@ const commandSpec81 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -37178,8 +37184,8 @@ const commandSpec82 = {
     'empty-stash-reference': '',
   },
   options: {
-    '--include-untracked': sharedOption591,
-    '-u': sharedOption591,
+    '--include-untracked': sharedOption592,
+    '-u': sharedOption592,
     '--only-untracked': {
       key: 'untracked-mode',
       value: 'flag',
@@ -37187,8 +37193,8 @@ const commandSpec82 = {
     },
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '--unified': sharedOption363,
     '-U': {
       key: 'unified',
@@ -37381,9 +37387,9 @@ const commandSpec82 = {
       value: 'flag',
       set: 'none',
     },
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -37526,7 +37532,7 @@ const commandSpec82 = {
       key: 'max-count',
       value: 'integer',
       parser: sharedScalarParser6,
-      effects: sharedEffects15,
+      effects: sharedEffects14,
       attachedValue: true,
     },
     '-r': sharedOption50,
@@ -37542,7 +37548,7 @@ const commandSpec82 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -38126,11 +38132,11 @@ const commandSpec83 = {
   argv: ['merge'],
   options: {
     '-n': sharedOption89,
-    '--stat': sharedOption592,
-    '--summary': sharedOption593,
-    '--compact-summary': sharedOption594,
-    '--log': sharedOption595,
-    '--squash': sharedOption596,
+    '--stat': sharedOption593,
+    '--summary': sharedOption594,
+    '--compact-summary': sharedOption595,
+    '--log': sharedOption596,
+    '--squash': sharedOption597,
     '--commit': sharedOption348,
     '--edit': sharedOption13,
     '-e': sharedOption13,
@@ -38145,17 +38151,17 @@ const commandSpec83 = {
       value: 'flag',
       set: 'only',
     },
-    '--rerere-autoupdate': sharedOption597,
-    '--verify-signatures': sharedOption598,
-    '--strategy': sharedOption599,
-    '-s': sharedOption599,
-    '--strategy-option': sharedOption600,
-    '-X': sharedOption600,
+    '--rerere-autoupdate': sharedOption598,
+    '--verify-signatures': sharedOption599,
+    '--strategy': sharedOption600,
+    '-s': sharedOption600,
+    '--strategy-option': sharedOption601,
+    '-X': sharedOption601,
     '--message': sharedOption94,
     '-m': sharedOption94,
-    '--file': sharedOption601,
-    '-F': sharedOption601,
-    '--into-name': sharedOption602,
+    '--file': sharedOption602,
+    '-F': sharedOption602,
+    '--into-name': sharedOption603,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
     '--quiet': sharedOption60,
@@ -38169,20 +38175,20 @@ const commandSpec83 = {
       key: 'continue',
       value: 'flag',
     },
-    '--allow-unrelated-histories': sharedOption603,
+    '--allow-unrelated-histories': sharedOption604,
     '--progress': sharedOption79,
     '--gpg-sign': sharedOption101,
     '-S': sharedOption102,
-    '--autostash': sharedOption604,
+    '--autostash': sharedOption605,
     '--overwrite-ignore': sharedOption269,
     '--signoff': sharedOption98,
     '--no-verify': sharedOption105,
-    '--no-stat': sharedOption605,
-    '--no-summary': sharedOption606,
-    '--no-compact-summary': sharedOption582,
-    '--no-log': sharedOption607,
-    '--no-squash': sharedOption608,
-    '--no-commit': sharedOption609,
+    '--no-stat': sharedOption606,
+    '--no-summary': sharedOption607,
+    '--no-compact-summary': sharedOption583,
+    '--no-log': sharedOption608,
+    '--no-squash': sharedOption609,
+    '--no-commit': sharedOption610,
     '--no-edit': sharedOption33,
     '--no-cleanup': sharedOption119,
     '--no-ff': {
@@ -38190,16 +38196,16 @@ const commandSpec83 = {
       value: 'flag',
       set: 'no',
     },
-    '--no-rerere-autoupdate': sharedOption610,
-    '--no-verify-signatures': sharedOption611,
+    '--no-rerere-autoupdate': sharedOption611,
+    '--no-verify-signatures': sharedOption612,
     '--no-strategy': {
       key: 'strategy',
       value: 'flag',
       ignore: true,
     },
-    '--no-strategy-option': sharedOption612,
+    '--no-strategy-option': sharedOption613,
     '--no-message': sharedOption116,
-    '--no-into-name': sharedOption613,
+    '--no-into-name': sharedOption614,
     '--no-verbose': sharedOption173,
     '--no-quiet': sharedOption67,
     '--no-abort': {
@@ -38217,10 +38223,10 @@ const commandSpec83 = {
       value: 'flag',
       set: false,
     },
-    '--no-allow-unrelated-histories': sharedOption614,
+    '--no-allow-unrelated-histories': sharedOption615,
     '--no-progress': sharedOption80,
     '--no-gpg-sign': sharedOption120,
-    '--no-autostash': sharedOption615,
+    '--no-autostash': sharedOption616,
     '--no-overwrite-ignore': sharedOption279,
     '--no-signoff': sharedOption118,
     '--verify': sharedOption121,
@@ -39281,7 +39287,7 @@ const commandSpec83 = {
 const commandSpec84 = {
   argv: ['rebase'],
   options: {
-    '--onto': sharedOption616,
+    '--onto': sharedOption617,
     '--keep-base': {
       key: 'keep-base',
       value: 'flag',
@@ -39291,21 +39297,21 @@ const commandSpec84 = {
     '-q': sharedOption60,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--no-stat': sharedOption617,
-    '-n': sharedOption617,
+    '--no-stat': sharedOption618,
+    '-n': sharedOption618,
     '--trailer': sharedOption97,
     '--signoff': sharedOption98,
-    '--committer-date-is-author-date': sharedOption618,
+    '--committer-date-is-author-date': sharedOption619,
     '--reset-author-date': {
       key: 'reset-author-date',
       value: 'flag',
     },
-    '--ignore-date': sharedOption619,
-    '-C': sharedOption620,
-    '--ignore-whitespace': sharedOption621,
-    '--whitespace': sharedOption620,
-    '--force-rebase': sharedOption622,
-    '-f': sharedOption622,
+    '--ignore-date': sharedOption620,
+    '-C': sharedOption621,
+    '--ignore-whitespace': sharedOption622,
+    '--whitespace': sharedOption621,
+    '--force-rebase': sharedOption623,
+    '-f': sharedOption623,
     '--no-ff': {
       key: 'no-ff',
       value: 'flag',
@@ -39367,21 +39373,21 @@ const commandSpec84 = {
         },
       ],
     },
-    '--merge': sharedOption623,
-    '-m': sharedOption623,
-    '--interactive': sharedOption623,
-    '-i': sharedOption623,
-    '--preserve-merges': sharedOption624,
-    '-p': sharedOption624,
-    '--rerere-autoupdate': sharedOption597,
+    '--merge': sharedOption624,
+    '-m': sharedOption624,
+    '--interactive': sharedOption624,
+    '-i': sharedOption624,
+    '--preserve-merges': sharedOption625,
+    '-p': sharedOption625,
+    '--rerere-autoupdate': sharedOption598,
     '--empty': {
       key: 'empty',
       value: 'string',
       allowed: ['drop', 'keep', 'stop', 'ask'],
       caseInsensitive: true,
     },
-    '--keep-empty': sharedOption625,
-    '-k': sharedOption625,
+    '--keep-empty': sharedOption626,
+    '-k': sharedOption626,
     '--autosquash': {
       key: 'autosquash',
       value: 'flag',
@@ -39392,20 +39398,20 @@ const commandSpec84 = {
     },
     '--gpg-sign': sharedOption101,
     '-S': sharedOption102,
-    '--autostash': sharedOption604,
-    '--exec': sharedOption626,
-    '-x': sharedOption626,
+    '--autostash': sharedOption605,
+    '--exec': sharedOption627,
+    '-x': sharedOption627,
     '--allow-empty-message': sharedOption114,
-    '--rebase-merges': sharedOption627,
-    '-r': sharedOption627,
+    '--rebase-merges': sharedOption628,
+    '-r': sharedOption628,
     '--fork-point': {
       key: 'fork-point',
       value: 'flag',
     },
     '--strategy': sharedOption347,
     '-s': sharedOption347,
-    '--strategy-option': sharedOption600,
-    '-X': sharedOption600,
+    '--strategy-option': sharedOption601,
+    '-X': sharedOption601,
     '--root': sharedOption556,
     '--reschedule-failed-exec': {
       key: 'reschedule-failed-exec',
@@ -39429,18 +39435,18 @@ const commandSpec84 = {
     '--no-no-verify': sharedOption121,
     '--no-quiet': sharedOption67,
     '--no-verbose': sharedOption173,
-    '--stat': sharedOption628,
-    '--no-no-stat': sharedOption628,
+    '--stat': sharedOption629,
+    '--no-no-stat': sharedOption629,
     '--no-trailer': sharedOption117,
     '--no-signoff': sharedOption118,
-    '--no-committer-date-is-author-date': sharedOption629,
+    '--no-committer-date-is-author-date': sharedOption630,
     '--no-reset-author-date': {
       key: 'reset-author-date',
       value: 'flag',
       set: false,
     },
-    '--no-ignore-date': sharedOption630,
-    '--no-ignore-whitespace': sharedOption631,
+    '--no-ignore-date': sharedOption631,
+    '--no-ignore-whitespace': sharedOption632,
     '--no-whitespace': {
       key: 'am-options',
       value: 'flag',
@@ -39452,14 +39458,14 @@ const commandSpec84 = {
       value: 'flag',
       set: false,
     },
-    '--ff': sharedOption632,
-    '--no-no-ff': sharedOption632,
+    '--ff': sharedOption633,
+    '--no-no-ff': sharedOption633,
     '--no-preserve-merges': {
       key: 'preserve-merges',
       value: 'flag',
       set: false,
     },
-    '--no-rerere-autoupdate': sharedOption610,
+    '--no-rerere-autoupdate': sharedOption611,
     '--no-keep-empty': {
       key: 'keep-empty',
       value: 'flag',
@@ -39487,7 +39493,7 @@ const commandSpec84 = {
       set: false,
     },
     '--no-gpg-sign': sharedOption120,
-    '--no-autostash': sharedOption615,
+    '--no-autostash': sharedOption616,
     '--no-exec': {
       key: 'exec',
       value: 'flag',
@@ -39506,8 +39512,8 @@ const commandSpec84 = {
       set: false,
     },
     '--no-strategy': sharedOption350,
-    '--no-strategy-option': sharedOption612,
-    '--no-root': sharedOption633,
+    '--no-strategy-option': sharedOption613,
+    '--no-root': sharedOption634,
     '--no-reschedule-failed-exec': {
       key: 'reschedule-failed-exec',
       value: 'flag',
@@ -41398,285 +41404,285 @@ const commandSpec85 = {
     S: false,
   },
   options: {
-    '--patch': sharedOption634,
-    '-p': sharedOption634,
-    '--no-patch': sharedOption635,
+    '--patch': sharedOption635,
+    '-p': sharedOption635,
+    '--no-patch': sharedOption636,
     '-s': sharedOption98,
-    '-u': sharedOption636,
-    '--unified': sharedOption637,
-    '-U': sharedOption638,
-    '--function-context': sharedOption639,
-    '-W': sharedOption639,
-    '--raw': sharedOption640,
-    '--patch-with-raw': sharedOption641,
-    '--patch-with-stat': sharedOption642,
-    '--numstat': sharedOption643,
-    '--shortstat': sharedOption644,
-    '--dirstat': sharedOption645,
-    '-X': sharedOption600,
-    '--cumulative': sharedOption646,
-    '--dirstat-by-file': sharedOption647,
-    '--check': sharedOption648,
-    '--summary': sharedOption649,
-    '--name-only': sharedOption650,
-    '--name-status': sharedOption651,
-    '--stat': sharedOption652,
-    '--stat-width': sharedOption653,
-    '--stat-name-width': sharedOption654,
-    '--stat-graph-width': sharedOption655,
-    '--stat-count': sharedOption656,
-    '--compact-summary': sharedOption657,
-    '--binary': sharedOption658,
-    '--full-index': sharedOption659,
-    '--color': sharedOption660,
-    '--ws-error-highlight': sharedOption661,
-    '-z': sharedOption662,
-    '--abbrev': sharedOption663,
-    '--src-prefix': sharedOption664,
-    '--dst-prefix': sharedOption665,
-    '--line-prefix': sharedOption666,
-    '--no-prefix': sharedOption667,
-    '--default-prefix': sharedOption668,
-    '--inter-hunk-context': sharedOption669,
-    '--output-indicator-new': sharedOption670,
-    '--output-indicator-old': sharedOption671,
-    '--output-indicator-context': sharedOption672,
-    '--break-rewrites': sharedOption673,
-    '-B': sharedOption674,
-    '--find-renames': sharedOption675,
-    '-M': sharedOption676,
-    '--irreversible-delete': sharedOption677,
-    '-D': sharedOption677,
-    '--find-copies': sharedOption678,
-    '-C': sharedOption679,
-    '--find-copies-harder': sharedOption680,
-    '--no-renames': sharedOption681,
-    '--rename-empty': sharedOption682,
-    '--follow': sharedOption683,
-    '-l': sharedOption684,
-    '--minimal': sharedOption685,
-    '--ignore-all-space': sharedOption686,
-    '-w': sharedOption686,
-    '--ignore-space-change': sharedOption687,
-    '-b': sharedOption687,
-    '--ignore-space-at-eol': sharedOption688,
-    '--ignore-cr-at-eol': sharedOption689,
-    '--ignore-blank-lines': sharedOption690,
-    '--ignore-matching-lines': sharedOption691,
-    '-I': sharedOption691,
-    '--indent-heuristic': sharedOption692,
-    '--patience': sharedOption693,
-    '--histogram': sharedOption694,
-    '--diff-algorithm': sharedOption695,
-    '--anchored': sharedOption696,
-    '--word-diff': sharedOption697,
-    '--word-diff-regex': sharedOption698,
-    '--color-words': sharedOption699,
-    '--color-moved': sharedOption700,
-    '--color-moved-ws': sharedOption701,
-    '--relative': sharedOption702,
-    '--text': sharedOption703,
-    '-a': sharedOption703,
-    '-R': sharedOption704,
-    '--exit-code': sharedOption705,
-    '--quiet': sharedOption706,
-    '--ext-diff': sharedOption707,
-    '--textconv': sharedOption708,
-    '--ignore-submodules': sharedOption709,
-    '--submodule': sharedOption710,
-    '--ita-invisible-in-index': sharedOption711,
-    '--ita-visible-in-index': sharedOption712,
+    '-u': sharedOption637,
+    '--unified': sharedOption638,
+    '-U': sharedOption639,
+    '--function-context': sharedOption640,
+    '-W': sharedOption640,
+    '--raw': sharedOption641,
+    '--patch-with-raw': sharedOption642,
+    '--patch-with-stat': sharedOption643,
+    '--numstat': sharedOption644,
+    '--shortstat': sharedOption645,
+    '--dirstat': sharedOption646,
+    '-X': sharedOption601,
+    '--cumulative': sharedOption647,
+    '--dirstat-by-file': sharedOption648,
+    '--check': sharedOption649,
+    '--summary': sharedOption650,
+    '--name-only': sharedOption651,
+    '--name-status': sharedOption652,
+    '--stat': sharedOption653,
+    '--stat-width': sharedOption654,
+    '--stat-name-width': sharedOption655,
+    '--stat-graph-width': sharedOption656,
+    '--stat-count': sharedOption657,
+    '--compact-summary': sharedOption658,
+    '--binary': sharedOption659,
+    '--full-index': sharedOption660,
+    '--color': sharedOption661,
+    '--ws-error-highlight': sharedOption662,
+    '-z': sharedOption663,
+    '--abbrev': sharedOption664,
+    '--src-prefix': sharedOption665,
+    '--dst-prefix': sharedOption666,
+    '--line-prefix': sharedOption667,
+    '--no-prefix': sharedOption668,
+    '--default-prefix': sharedOption669,
+    '--inter-hunk-context': sharedOption670,
+    '--output-indicator-new': sharedOption671,
+    '--output-indicator-old': sharedOption672,
+    '--output-indicator-context': sharedOption673,
+    '--break-rewrites': sharedOption674,
+    '-B': sharedOption675,
+    '--find-renames': sharedOption676,
+    '-M': sharedOption677,
+    '--irreversible-delete': sharedOption678,
+    '-D': sharedOption678,
+    '--find-copies': sharedOption679,
+    '-C': sharedOption680,
+    '--find-copies-harder': sharedOption681,
+    '--no-renames': sharedOption682,
+    '--rename-empty': sharedOption683,
+    '--follow': sharedOption684,
+    '-l': sharedOption685,
+    '--minimal': sharedOption686,
+    '--ignore-all-space': sharedOption687,
+    '-w': sharedOption687,
+    '--ignore-space-change': sharedOption688,
+    '-b': sharedOption688,
+    '--ignore-space-at-eol': sharedOption689,
+    '--ignore-cr-at-eol': sharedOption690,
+    '--ignore-blank-lines': sharedOption691,
+    '--ignore-matching-lines': sharedOption692,
+    '-I': sharedOption692,
+    '--indent-heuristic': sharedOption693,
+    '--patience': sharedOption694,
+    '--histogram': sharedOption695,
+    '--diff-algorithm': sharedOption696,
+    '--anchored': sharedOption697,
+    '--word-diff': sharedOption698,
+    '--word-diff-regex': sharedOption699,
+    '--color-words': sharedOption700,
+    '--color-moved': sharedOption701,
+    '--color-moved-ws': sharedOption702,
+    '--relative': sharedOption703,
+    '--text': sharedOption704,
+    '-a': sharedOption704,
+    '-R': sharedOption705,
+    '--exit-code': sharedOption706,
+    '--quiet': sharedOption707,
+    '--ext-diff': sharedOption708,
+    '--textconv': sharedOption709,
+    '--ignore-submodules': sharedOption710,
+    '--submodule': sharedOption711,
+    '--ita-invisible-in-index': sharedOption712,
+    '--ita-visible-in-index': sharedOption713,
     '-S': sharedOption102,
-    '-G': sharedOption713,
-    '--pickaxe-all': sharedOption714,
-    '--pickaxe-regex': sharedOption715,
-    '-O': sharedOption716,
-    '--rotate-to': sharedOption717,
-    '--skip-to': sharedOption718,
-    '--find-object': sharedOption719,
-    '--diff-filter': sharedOption720,
-    '--max-depth': sharedOption721,
-    '--output': sharedOption722,
-    '--no-no-patch': sharedOption723,
-    '--no-function-context': sharedOption724,
-    '--no-compact-summary': sharedOption725,
-    '--no-full-index': sharedOption726,
-    '--no-color': sharedOption727,
-    '--no-abbrev': sharedOption728,
-    '--no-find-copies-harder': sharedOption729,
-    '--no-rename-empty': sharedOption730,
-    '--no-follow': sharedOption731,
-    '--no-indent-heuristic': sharedOption732,
-    '--no-color-moved': sharedOption733,
-    '--no-color-moved-ws': sharedOption734,
-    '--no-relative': sharedOption735,
-    '--no-text': sharedOption736,
-    '--no-exit-code': sharedOption737,
-    '--no-quiet': sharedOption738,
-    '--no-ext-diff': sharedOption739,
-    '--no-textconv': sharedOption740,
+    '-G': sharedOption714,
+    '--pickaxe-all': sharedOption715,
+    '--pickaxe-regex': sharedOption716,
+    '-O': sharedOption717,
+    '--rotate-to': sharedOption718,
+    '--skip-to': sharedOption719,
+    '--find-object': sharedOption720,
+    '--diff-filter': sharedOption721,
+    '--max-depth': sharedOption722,
+    '--output': sharedOption723,
+    '--no-no-patch': sharedOption724,
+    '--no-function-context': sharedOption725,
+    '--no-compact-summary': sharedOption726,
+    '--no-full-index': sharedOption727,
+    '--no-color': sharedOption728,
+    '--no-abbrev': sharedOption729,
+    '--no-find-copies-harder': sharedOption730,
+    '--no-rename-empty': sharedOption731,
+    '--no-follow': sharedOption732,
+    '--no-indent-heuristic': sharedOption733,
+    '--no-color-moved': sharedOption734,
+    '--no-color-moved-ws': sharedOption735,
+    '--no-relative': sharedOption736,
+    '--no-text': sharedOption737,
+    '--no-exit-code': sharedOption738,
+    '--no-quiet': sharedOption739,
+    '--no-ext-diff': sharedOption740,
+    '--no-textconv': sharedOption741,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--abbrev-commit': sharedOption741,
-    '--after': sharedOption742,
-    '--all': sharedOption743,
-    '--all-match': sharedOption744,
-    '--alternate-refs': sharedOption745,
-    '--always': sharedOption746,
-    '--ancestry-path': sharedOption747,
-    '--author': sharedOption748,
-    '--author-date-order': sharedOption749,
-    '--basic-regexp': sharedOption750,
-    '--before': sharedOption751,
-    '--bisect': sharedOption752,
-    '--boundary': sharedOption753,
-    '--branches': sharedOption754,
-    '--cc': sharedOption755,
-    '--cherry': sharedOption756,
-    '--cherry-mark': sharedOption757,
-    '--cherry-pick': sharedOption758,
-    '--children': sharedOption759,
-    '--combined-all-paths': sharedOption760,
-    '--committer': sharedOption761,
-    '--count': sharedOption762,
-    '--date': sharedOption763,
-    '--date-order': sharedOption764,
-    '--dd': sharedOption765,
-    '--default': sharedOption766,
-    '--dense': sharedOption767,
-    '--diff-merges': sharedOption768,
-    '--do-walk': sharedOption769,
-    '--encode-email-headers': sharedOption770,
-    '--encoding': sharedOption771,
-    '--exclude': sharedOption772,
-    '--exclude-first-parent-only': sharedOption773,
-    '--exclude-hidden': sharedOption774,
-    '--expand-tabs': sharedOption775,
-    '--extended-regexp': sharedOption776,
-    '--first-parent': sharedOption777,
-    '--fixed-strings': sharedOption778,
-    '--format': sharedOption779,
-    '--full-diff': sharedOption780,
-    '--full-history': sharedOption781,
-    '--glob': sharedOption782,
-    '--graph': sharedOption783,
-    '--graph-lane-limit': sharedOption784,
-    '--grep': sharedOption785,
-    '--grep-reflog': sharedOption786,
-    '--ignore-missing': sharedOption787,
-    '--in-commit-order': sharedOption788,
-    '--indexed-objects': sharedOption789,
-    '--invert-grep': sharedOption790,
-    '--left-only': sharedOption791,
-    '--left-right': sharedOption792,
-    '--log-size': sharedOption793,
-    '--max-age': sharedOption794,
-    '--max-count': sharedOption795,
-    '--max-count-oldest': sharedOption796,
-    '--max-parents': sharedOption797,
-    '--maximal-only': sharedOption798,
-    '--merge': sharedOption799,
-    '--merges': sharedOption800,
-    '--min-age': sharedOption801,
-    '--min-parents': sharedOption802,
-    '--no-abbrev-commit': sharedOption803,
-    '--no-commit-id': sharedOption804,
-    '--no-diff-merges': sharedOption805,
-    '--no-encode-email-headers': sharedOption806,
-    '--no-expand-tabs': sharedOption807,
-    '--no-graph': sharedOption808,
-    '--no-kept-objects': sharedOption809,
-    '--no-max-parents': sharedOption810,
-    '--no-merges': sharedOption811,
-    '--no-min-parents': sharedOption812,
-    '--no-notes': sharedOption813,
-    '--no-show-signature': sharedOption814,
-    '--no-standard-notes': sharedOption815,
-    '--no-walk': sharedOption816,
-    '--not': sharedOption817,
-    '--notes': sharedOption818,
-    '--objects': sharedOption819,
-    '--objects-edge': sharedOption820,
-    '--objects-edge-aggressive': sharedOption821,
-    '--oneline': sharedOption822,
-    '--parents': sharedOption823,
-    '--perl-regexp': sharedOption824,
-    '--pretty': sharedOption825,
-    '--reflog': sharedOption826,
-    '--regexp-ignore-case': sharedOption827,
-    '--relative-date': sharedOption828,
-    '--remerge-diff': sharedOption829,
-    '--remotes': sharedOption830,
-    '--remove-empty': sharedOption831,
-    '--reverse': sharedOption832,
-    '--right-only': sharedOption833,
-    '--root': sharedOption834,
-    '--show-linear-break': sharedOption835,
-    '--show-notes': sharedOption836,
-    '--show-notes-by-default': sharedOption837,
-    '--show-pulls': sharedOption838,
-    '--show-signature': sharedOption839,
-    '--simplify-by-decoration': sharedOption840,
-    '--simplify-merges': sharedOption841,
-    '--since': sharedOption742,
-    '--since-as-filter': sharedOption842,
-    '--single-worktree': sharedOption843,
-    '--skip': sharedOption844,
-    '--sparse': sharedOption845,
-    '--standard-notes': sharedOption846,
-    '--stdin': sharedOption847,
-    '--tags': sharedOption848,
-    '--topo-order': sharedOption849,
-    '--unpacked': sharedOption850,
-    '--until': sharedOption751,
-    '--verify-objects': sharedOption851,
-    '--walk-reflogs': sharedOption852,
-    '-E': sharedOption776,
-    '-F': sharedOption778,
-    '-P': sharedOption824,
-    '-c': sharedOption853,
-    '-g': sharedOption852,
-    '-i': sharedOption827,
-    '-m': sharedOption854,
-    '-n': sharedOption855,
+    '--abbrev-commit': sharedOption742,
+    '--after': sharedOption743,
+    '--all': sharedOption744,
+    '--all-match': sharedOption745,
+    '--alternate-refs': sharedOption746,
+    '--always': sharedOption747,
+    '--ancestry-path': sharedOption748,
+    '--author': sharedOption749,
+    '--author-date-order': sharedOption750,
+    '--basic-regexp': sharedOption751,
+    '--before': sharedOption752,
+    '--bisect': sharedOption753,
+    '--boundary': sharedOption754,
+    '--branches': sharedOption755,
+    '--cc': sharedOption756,
+    '--cherry': sharedOption757,
+    '--cherry-mark': sharedOption758,
+    '--cherry-pick': sharedOption759,
+    '--children': sharedOption760,
+    '--combined-all-paths': sharedOption761,
+    '--committer': sharedOption762,
+    '--count': sharedOption763,
+    '--date': sharedOption764,
+    '--date-order': sharedOption765,
+    '--dd': sharedOption766,
+    '--default': sharedOption767,
+    '--dense': sharedOption768,
+    '--diff-merges': sharedOption769,
+    '--do-walk': sharedOption770,
+    '--encode-email-headers': sharedOption771,
+    '--encoding': sharedOption772,
+    '--exclude': sharedOption773,
+    '--exclude-first-parent-only': sharedOption774,
+    '--exclude-hidden': sharedOption775,
+    '--expand-tabs': sharedOption776,
+    '--extended-regexp': sharedOption777,
+    '--first-parent': sharedOption778,
+    '--fixed-strings': sharedOption779,
+    '--format': sharedOption780,
+    '--full-diff': sharedOption781,
+    '--full-history': sharedOption782,
+    '--glob': sharedOption783,
+    '--graph': sharedOption784,
+    '--graph-lane-limit': sharedOption785,
+    '--grep': sharedOption786,
+    '--grep-reflog': sharedOption787,
+    '--ignore-missing': sharedOption788,
+    '--in-commit-order': sharedOption789,
+    '--indexed-objects': sharedOption790,
+    '--invert-grep': sharedOption791,
+    '--left-only': sharedOption792,
+    '--left-right': sharedOption793,
+    '--log-size': sharedOption794,
+    '--max-age': sharedOption795,
+    '--max-count': sharedOption796,
+    '--max-count-oldest': sharedOption797,
+    '--max-parents': sharedOption798,
+    '--maximal-only': sharedOption799,
+    '--merge': sharedOption800,
+    '--merges': sharedOption801,
+    '--min-age': sharedOption802,
+    '--min-parents': sharedOption803,
+    '--no-abbrev-commit': sharedOption804,
+    '--no-commit-id': sharedOption805,
+    '--no-diff-merges': sharedOption806,
+    '--no-encode-email-headers': sharedOption807,
+    '--no-expand-tabs': sharedOption808,
+    '--no-graph': sharedOption809,
+    '--no-kept-objects': sharedOption810,
+    '--no-max-parents': sharedOption811,
+    '--no-merges': sharedOption812,
+    '--no-min-parents': sharedOption813,
+    '--no-notes': sharedOption814,
+    '--no-show-signature': sharedOption815,
+    '--no-standard-notes': sharedOption816,
+    '--no-walk': sharedOption817,
+    '--not': sharedOption818,
+    '--notes': sharedOption819,
+    '--objects': sharedOption820,
+    '--objects-edge': sharedOption821,
+    '--objects-edge-aggressive': sharedOption822,
+    '--oneline': sharedOption823,
+    '--parents': sharedOption824,
+    '--perl-regexp': sharedOption825,
+    '--pretty': sharedOption826,
+    '--reflog': sharedOption827,
+    '--regexp-ignore-case': sharedOption828,
+    '--relative-date': sharedOption829,
+    '--remerge-diff': sharedOption830,
+    '--remotes': sharedOption831,
+    '--remove-empty': sharedOption832,
+    '--reverse': sharedOption833,
+    '--right-only': sharedOption834,
+    '--root': sharedOption835,
+    '--show-linear-break': sharedOption836,
+    '--show-notes': sharedOption837,
+    '--show-notes-by-default': sharedOption838,
+    '--show-pulls': sharedOption839,
+    '--show-signature': sharedOption840,
+    '--simplify-by-decoration': sharedOption841,
+    '--simplify-merges': sharedOption842,
+    '--since': sharedOption743,
+    '--since-as-filter': sharedOption843,
+    '--single-worktree': sharedOption844,
+    '--skip': sharedOption845,
+    '--sparse': sharedOption846,
+    '--standard-notes': sharedOption847,
+    '--stdin': sharedOption848,
+    '--tags': sharedOption849,
+    '--topo-order': sharedOption850,
+    '--unpacked': sharedOption851,
+    '--until': sharedOption752,
+    '--verify-objects': sharedOption852,
+    '--walk-reflogs': sharedOption853,
+    '-E': sharedOption777,
+    '-F': sharedOption779,
+    '-P': sharedOption825,
+    '-c': sharedOption854,
+    '-g': sharedOption853,
+    '-i': sharedOption828,
+    '-m': sharedOption855,
+    '-n': sharedOption856,
     '-r': sharedOption50,
-    '-t': sharedOption856,
-    '-v': sharedOption857,
-    '--filter': sharedOption858,
-    '--no-filter': sharedOption859,
-    '--quit': sharedOption860,
-    '--continue': sharedOption861,
-    '--abort': sharedOption862,
+    '-t': sharedOption857,
+    '-v': sharedOption858,
+    '--filter': sharedOption859,
+    '--no-filter': sharedOption860,
+    '--quit': sharedOption861,
+    '--continue': sharedOption862,
+    '--abort': sharedOption863,
     '--cleanup': sharedOption100,
-    '--no-commit': sharedOption855,
+    '--no-commit': sharedOption856,
     '--edit': sharedOption13,
     '-e': sharedOption13,
     '--signoff': sharedOption98,
-    '--mainline': sharedOption854,
-    '--rerere-autoupdate': sharedOption597,
+    '--mainline': sharedOption855,
+    '--rerere-autoupdate': sharedOption598,
     '--strategy': sharedOption347,
-    '--strategy-option': sharedOption600,
+    '--strategy-option': sharedOption601,
     '--gpg-sign': sharedOption101,
     '-x': sharedOption56,
-    '--ff': sharedOption863,
+    '--ff': sharedOption864,
     '--allow-empty': sharedOption113,
     '--allow-empty-message': sharedOption114,
     '--keep-redundant-commits': {
       key: 'keep-redundant-commits',
       value: 'flag',
     },
-    '--empty': sharedOption864,
+    '--empty': sharedOption865,
     '--no-cleanup': sharedOption119,
-    '--commit': sharedOption865,
-    '--no-no-commit': sharedOption865,
+    '--commit': sharedOption866,
+    '--no-no-commit': sharedOption866,
     '--no-edit': sharedOption33,
     '--no-signoff': sharedOption118,
-    '--no-mainline': sharedOption866,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--no-mainline': sharedOption867,
+    '--no-rerere-autoupdate': sharedOption611,
     '--no-strategy': sharedOption350,
-    '--no-strategy-option': sharedOption612,
+    '--no-strategy-option': sharedOption613,
     '--no-gpg-sign': sharedOption120,
-    '--no-ff': sharedOption867,
+    '--no-ff': sharedOption868,
     '--no-allow-empty': sharedOption128,
     '--no-allow-empty-message': sharedOption129,
     '--no-keep-redundant-commits': {
@@ -41692,7 +41698,7 @@ const commandSpec85 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -42448,278 +42454,278 @@ const commandSpec86 = {
     S: false,
   },
   options: {
-    '--patch': sharedOption634,
-    '-p': sharedOption634,
-    '--no-patch': sharedOption635,
+    '--patch': sharedOption635,
+    '-p': sharedOption635,
+    '--no-patch': sharedOption636,
     '-s': sharedOption98,
-    '-u': sharedOption636,
-    '--unified': sharedOption637,
-    '-U': sharedOption638,
-    '--function-context': sharedOption639,
-    '-W': sharedOption639,
-    '--raw': sharedOption640,
-    '--patch-with-raw': sharedOption641,
-    '--patch-with-stat': sharedOption642,
-    '--numstat': sharedOption643,
-    '--shortstat': sharedOption644,
-    '--dirstat': sharedOption645,
-    '-X': sharedOption600,
-    '--cumulative': sharedOption646,
-    '--dirstat-by-file': sharedOption647,
-    '--check': sharedOption648,
-    '--summary': sharedOption649,
-    '--name-only': sharedOption650,
-    '--name-status': sharedOption651,
-    '--stat': sharedOption652,
-    '--stat-width': sharedOption653,
-    '--stat-name-width': sharedOption654,
-    '--stat-graph-width': sharedOption655,
-    '--stat-count': sharedOption656,
-    '--compact-summary': sharedOption657,
-    '--binary': sharedOption658,
-    '--full-index': sharedOption659,
-    '--color': sharedOption660,
-    '--ws-error-highlight': sharedOption661,
-    '-z': sharedOption662,
-    '--abbrev': sharedOption663,
-    '--src-prefix': sharedOption664,
-    '--dst-prefix': sharedOption665,
-    '--line-prefix': sharedOption666,
-    '--no-prefix': sharedOption667,
-    '--default-prefix': sharedOption668,
-    '--inter-hunk-context': sharedOption669,
-    '--output-indicator-new': sharedOption670,
-    '--output-indicator-old': sharedOption671,
-    '--output-indicator-context': sharedOption672,
-    '--break-rewrites': sharedOption673,
-    '-B': sharedOption674,
-    '--find-renames': sharedOption675,
-    '-M': sharedOption676,
-    '--irreversible-delete': sharedOption677,
-    '-D': sharedOption677,
-    '--find-copies': sharedOption678,
-    '-C': sharedOption679,
-    '--find-copies-harder': sharedOption680,
-    '--no-renames': sharedOption681,
-    '--rename-empty': sharedOption682,
-    '--follow': sharedOption683,
-    '-l': sharedOption684,
-    '--minimal': sharedOption685,
-    '--ignore-all-space': sharedOption686,
-    '-w': sharedOption686,
-    '--ignore-space-change': sharedOption687,
-    '-b': sharedOption687,
-    '--ignore-space-at-eol': sharedOption688,
-    '--ignore-cr-at-eol': sharedOption689,
-    '--ignore-blank-lines': sharedOption690,
-    '--ignore-matching-lines': sharedOption691,
-    '-I': sharedOption691,
-    '--indent-heuristic': sharedOption692,
-    '--patience': sharedOption693,
-    '--histogram': sharedOption694,
-    '--diff-algorithm': sharedOption695,
-    '--anchored': sharedOption696,
-    '--word-diff': sharedOption697,
-    '--word-diff-regex': sharedOption698,
-    '--color-words': sharedOption699,
-    '--color-moved': sharedOption700,
-    '--color-moved-ws': sharedOption701,
-    '--relative': sharedOption702,
-    '--text': sharedOption703,
-    '-a': sharedOption703,
-    '-R': sharedOption704,
-    '--exit-code': sharedOption705,
-    '--quiet': sharedOption706,
-    '--ext-diff': sharedOption707,
-    '--textconv': sharedOption708,
-    '--ignore-submodules': sharedOption709,
-    '--submodule': sharedOption710,
-    '--ita-invisible-in-index': sharedOption711,
-    '--ita-visible-in-index': sharedOption712,
+    '-u': sharedOption637,
+    '--unified': sharedOption638,
+    '-U': sharedOption639,
+    '--function-context': sharedOption640,
+    '-W': sharedOption640,
+    '--raw': sharedOption641,
+    '--patch-with-raw': sharedOption642,
+    '--patch-with-stat': sharedOption643,
+    '--numstat': sharedOption644,
+    '--shortstat': sharedOption645,
+    '--dirstat': sharedOption646,
+    '-X': sharedOption601,
+    '--cumulative': sharedOption647,
+    '--dirstat-by-file': sharedOption648,
+    '--check': sharedOption649,
+    '--summary': sharedOption650,
+    '--name-only': sharedOption651,
+    '--name-status': sharedOption652,
+    '--stat': sharedOption653,
+    '--stat-width': sharedOption654,
+    '--stat-name-width': sharedOption655,
+    '--stat-graph-width': sharedOption656,
+    '--stat-count': sharedOption657,
+    '--compact-summary': sharedOption658,
+    '--binary': sharedOption659,
+    '--full-index': sharedOption660,
+    '--color': sharedOption661,
+    '--ws-error-highlight': sharedOption662,
+    '-z': sharedOption663,
+    '--abbrev': sharedOption664,
+    '--src-prefix': sharedOption665,
+    '--dst-prefix': sharedOption666,
+    '--line-prefix': sharedOption667,
+    '--no-prefix': sharedOption668,
+    '--default-prefix': sharedOption669,
+    '--inter-hunk-context': sharedOption670,
+    '--output-indicator-new': sharedOption671,
+    '--output-indicator-old': sharedOption672,
+    '--output-indicator-context': sharedOption673,
+    '--break-rewrites': sharedOption674,
+    '-B': sharedOption675,
+    '--find-renames': sharedOption676,
+    '-M': sharedOption677,
+    '--irreversible-delete': sharedOption678,
+    '-D': sharedOption678,
+    '--find-copies': sharedOption679,
+    '-C': sharedOption680,
+    '--find-copies-harder': sharedOption681,
+    '--no-renames': sharedOption682,
+    '--rename-empty': sharedOption683,
+    '--follow': sharedOption684,
+    '-l': sharedOption685,
+    '--minimal': sharedOption686,
+    '--ignore-all-space': sharedOption687,
+    '-w': sharedOption687,
+    '--ignore-space-change': sharedOption688,
+    '-b': sharedOption688,
+    '--ignore-space-at-eol': sharedOption689,
+    '--ignore-cr-at-eol': sharedOption690,
+    '--ignore-blank-lines': sharedOption691,
+    '--ignore-matching-lines': sharedOption692,
+    '-I': sharedOption692,
+    '--indent-heuristic': sharedOption693,
+    '--patience': sharedOption694,
+    '--histogram': sharedOption695,
+    '--diff-algorithm': sharedOption696,
+    '--anchored': sharedOption697,
+    '--word-diff': sharedOption698,
+    '--word-diff-regex': sharedOption699,
+    '--color-words': sharedOption700,
+    '--color-moved': sharedOption701,
+    '--color-moved-ws': sharedOption702,
+    '--relative': sharedOption703,
+    '--text': sharedOption704,
+    '-a': sharedOption704,
+    '-R': sharedOption705,
+    '--exit-code': sharedOption706,
+    '--quiet': sharedOption707,
+    '--ext-diff': sharedOption708,
+    '--textconv': sharedOption709,
+    '--ignore-submodules': sharedOption710,
+    '--submodule': sharedOption711,
+    '--ita-invisible-in-index': sharedOption712,
+    '--ita-visible-in-index': sharedOption713,
     '-S': sharedOption102,
-    '-G': sharedOption713,
-    '--pickaxe-all': sharedOption714,
-    '--pickaxe-regex': sharedOption715,
-    '-O': sharedOption716,
-    '--rotate-to': sharedOption717,
-    '--skip-to': sharedOption718,
-    '--find-object': sharedOption719,
-    '--diff-filter': sharedOption720,
-    '--max-depth': sharedOption721,
-    '--output': sharedOption722,
-    '--no-no-patch': sharedOption723,
-    '--no-function-context': sharedOption724,
-    '--no-compact-summary': sharedOption725,
-    '--no-full-index': sharedOption726,
-    '--no-color': sharedOption727,
-    '--no-abbrev': sharedOption728,
-    '--no-find-copies-harder': sharedOption729,
-    '--no-rename-empty': sharedOption730,
-    '--no-follow': sharedOption731,
-    '--no-indent-heuristic': sharedOption732,
-    '--no-color-moved': sharedOption733,
-    '--no-color-moved-ws': sharedOption734,
-    '--no-relative': sharedOption735,
-    '--no-text': sharedOption736,
-    '--no-exit-code': sharedOption737,
-    '--no-quiet': sharedOption738,
-    '--no-ext-diff': sharedOption739,
-    '--no-textconv': sharedOption740,
+    '-G': sharedOption714,
+    '--pickaxe-all': sharedOption715,
+    '--pickaxe-regex': sharedOption716,
+    '-O': sharedOption717,
+    '--rotate-to': sharedOption718,
+    '--skip-to': sharedOption719,
+    '--find-object': sharedOption720,
+    '--diff-filter': sharedOption721,
+    '--max-depth': sharedOption722,
+    '--output': sharedOption723,
+    '--no-no-patch': sharedOption724,
+    '--no-function-context': sharedOption725,
+    '--no-compact-summary': sharedOption726,
+    '--no-full-index': sharedOption727,
+    '--no-color': sharedOption728,
+    '--no-abbrev': sharedOption729,
+    '--no-find-copies-harder': sharedOption730,
+    '--no-rename-empty': sharedOption731,
+    '--no-follow': sharedOption732,
+    '--no-indent-heuristic': sharedOption733,
+    '--no-color-moved': sharedOption734,
+    '--no-color-moved-ws': sharedOption735,
+    '--no-relative': sharedOption736,
+    '--no-text': sharedOption737,
+    '--no-exit-code': sharedOption738,
+    '--no-quiet': sharedOption739,
+    '--no-ext-diff': sharedOption740,
+    '--no-textconv': sharedOption741,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--abbrev-commit': sharedOption741,
-    '--after': sharedOption742,
-    '--all': sharedOption743,
-    '--all-match': sharedOption744,
-    '--alternate-refs': sharedOption745,
-    '--always': sharedOption746,
-    '--ancestry-path': sharedOption747,
-    '--author': sharedOption748,
-    '--author-date-order': sharedOption749,
-    '--basic-regexp': sharedOption750,
-    '--before': sharedOption751,
-    '--bisect': sharedOption752,
-    '--boundary': sharedOption753,
-    '--branches': sharedOption754,
-    '--cc': sharedOption755,
-    '--cherry': sharedOption756,
-    '--cherry-mark': sharedOption757,
-    '--cherry-pick': sharedOption758,
-    '--children': sharedOption759,
-    '--combined-all-paths': sharedOption760,
-    '--committer': sharedOption761,
-    '--count': sharedOption762,
-    '--date': sharedOption763,
-    '--date-order': sharedOption764,
-    '--dd': sharedOption765,
-    '--default': sharedOption766,
-    '--dense': sharedOption767,
-    '--diff-merges': sharedOption768,
-    '--do-walk': sharedOption769,
-    '--encode-email-headers': sharedOption770,
-    '--encoding': sharedOption771,
-    '--exclude': sharedOption772,
-    '--exclude-first-parent-only': sharedOption773,
-    '--exclude-hidden': sharedOption774,
-    '--expand-tabs': sharedOption775,
-    '--extended-regexp': sharedOption776,
-    '--first-parent': sharedOption777,
-    '--fixed-strings': sharedOption778,
-    '--format': sharedOption779,
-    '--full-diff': sharedOption780,
-    '--full-history': sharedOption781,
-    '--glob': sharedOption782,
-    '--graph': sharedOption783,
-    '--graph-lane-limit': sharedOption784,
-    '--grep': sharedOption785,
-    '--grep-reflog': sharedOption786,
-    '--ignore-missing': sharedOption787,
-    '--in-commit-order': sharedOption788,
-    '--indexed-objects': sharedOption789,
-    '--invert-grep': sharedOption790,
-    '--left-only': sharedOption791,
-    '--left-right': sharedOption792,
-    '--log-size': sharedOption793,
-    '--max-age': sharedOption794,
-    '--max-count': sharedOption795,
-    '--max-count-oldest': sharedOption796,
-    '--max-parents': sharedOption797,
-    '--maximal-only': sharedOption798,
-    '--merge': sharedOption799,
-    '--merges': sharedOption800,
-    '--min-age': sharedOption801,
-    '--min-parents': sharedOption802,
-    '--no-abbrev-commit': sharedOption803,
-    '--no-commit-id': sharedOption804,
-    '--no-diff-merges': sharedOption805,
-    '--no-encode-email-headers': sharedOption806,
-    '--no-expand-tabs': sharedOption807,
-    '--no-graph': sharedOption808,
-    '--no-kept-objects': sharedOption809,
-    '--no-max-parents': sharedOption810,
-    '--no-merges': sharedOption811,
-    '--no-min-parents': sharedOption812,
-    '--no-notes': sharedOption813,
-    '--no-show-signature': sharedOption814,
-    '--no-standard-notes': sharedOption815,
-    '--no-walk': sharedOption816,
-    '--not': sharedOption817,
-    '--notes': sharedOption818,
-    '--objects': sharedOption819,
-    '--objects-edge': sharedOption820,
-    '--objects-edge-aggressive': sharedOption821,
-    '--oneline': sharedOption822,
-    '--parents': sharedOption823,
-    '--perl-regexp': sharedOption824,
-    '--pretty': sharedOption825,
-    '--reflog': sharedOption826,
-    '--regexp-ignore-case': sharedOption827,
-    '--relative-date': sharedOption828,
-    '--remerge-diff': sharedOption829,
-    '--remotes': sharedOption830,
-    '--remove-empty': sharedOption831,
-    '--reverse': sharedOption832,
-    '--right-only': sharedOption833,
-    '--root': sharedOption834,
-    '--show-linear-break': sharedOption835,
-    '--show-notes': sharedOption836,
-    '--show-notes-by-default': sharedOption837,
-    '--show-pulls': sharedOption838,
-    '--show-signature': sharedOption839,
-    '--simplify-by-decoration': sharedOption840,
-    '--simplify-merges': sharedOption841,
-    '--since': sharedOption742,
-    '--since-as-filter': sharedOption842,
-    '--single-worktree': sharedOption843,
-    '--skip': sharedOption844,
-    '--sparse': sharedOption845,
-    '--standard-notes': sharedOption846,
-    '--stdin': sharedOption847,
-    '--tags': sharedOption848,
-    '--topo-order': sharedOption849,
-    '--unpacked': sharedOption850,
-    '--until': sharedOption751,
-    '--verify-objects': sharedOption851,
-    '--walk-reflogs': sharedOption852,
-    '-E': sharedOption776,
-    '-F': sharedOption778,
-    '-P': sharedOption824,
-    '-c': sharedOption853,
-    '-g': sharedOption852,
-    '-i': sharedOption827,
-    '-m': sharedOption854,
-    '-n': sharedOption855,
+    '--abbrev-commit': sharedOption742,
+    '--after': sharedOption743,
+    '--all': sharedOption744,
+    '--all-match': sharedOption745,
+    '--alternate-refs': sharedOption746,
+    '--always': sharedOption747,
+    '--ancestry-path': sharedOption748,
+    '--author': sharedOption749,
+    '--author-date-order': sharedOption750,
+    '--basic-regexp': sharedOption751,
+    '--before': sharedOption752,
+    '--bisect': sharedOption753,
+    '--boundary': sharedOption754,
+    '--branches': sharedOption755,
+    '--cc': sharedOption756,
+    '--cherry': sharedOption757,
+    '--cherry-mark': sharedOption758,
+    '--cherry-pick': sharedOption759,
+    '--children': sharedOption760,
+    '--combined-all-paths': sharedOption761,
+    '--committer': sharedOption762,
+    '--count': sharedOption763,
+    '--date': sharedOption764,
+    '--date-order': sharedOption765,
+    '--dd': sharedOption766,
+    '--default': sharedOption767,
+    '--dense': sharedOption768,
+    '--diff-merges': sharedOption769,
+    '--do-walk': sharedOption770,
+    '--encode-email-headers': sharedOption771,
+    '--encoding': sharedOption772,
+    '--exclude': sharedOption773,
+    '--exclude-first-parent-only': sharedOption774,
+    '--exclude-hidden': sharedOption775,
+    '--expand-tabs': sharedOption776,
+    '--extended-regexp': sharedOption777,
+    '--first-parent': sharedOption778,
+    '--fixed-strings': sharedOption779,
+    '--format': sharedOption780,
+    '--full-diff': sharedOption781,
+    '--full-history': sharedOption782,
+    '--glob': sharedOption783,
+    '--graph': sharedOption784,
+    '--graph-lane-limit': sharedOption785,
+    '--grep': sharedOption786,
+    '--grep-reflog': sharedOption787,
+    '--ignore-missing': sharedOption788,
+    '--in-commit-order': sharedOption789,
+    '--indexed-objects': sharedOption790,
+    '--invert-grep': sharedOption791,
+    '--left-only': sharedOption792,
+    '--left-right': sharedOption793,
+    '--log-size': sharedOption794,
+    '--max-age': sharedOption795,
+    '--max-count': sharedOption796,
+    '--max-count-oldest': sharedOption797,
+    '--max-parents': sharedOption798,
+    '--maximal-only': sharedOption799,
+    '--merge': sharedOption800,
+    '--merges': sharedOption801,
+    '--min-age': sharedOption802,
+    '--min-parents': sharedOption803,
+    '--no-abbrev-commit': sharedOption804,
+    '--no-commit-id': sharedOption805,
+    '--no-diff-merges': sharedOption806,
+    '--no-encode-email-headers': sharedOption807,
+    '--no-expand-tabs': sharedOption808,
+    '--no-graph': sharedOption809,
+    '--no-kept-objects': sharedOption810,
+    '--no-max-parents': sharedOption811,
+    '--no-merges': sharedOption812,
+    '--no-min-parents': sharedOption813,
+    '--no-notes': sharedOption814,
+    '--no-show-signature': sharedOption815,
+    '--no-standard-notes': sharedOption816,
+    '--no-walk': sharedOption817,
+    '--not': sharedOption818,
+    '--notes': sharedOption819,
+    '--objects': sharedOption820,
+    '--objects-edge': sharedOption821,
+    '--objects-edge-aggressive': sharedOption822,
+    '--oneline': sharedOption823,
+    '--parents': sharedOption824,
+    '--perl-regexp': sharedOption825,
+    '--pretty': sharedOption826,
+    '--reflog': sharedOption827,
+    '--regexp-ignore-case': sharedOption828,
+    '--relative-date': sharedOption829,
+    '--remerge-diff': sharedOption830,
+    '--remotes': sharedOption831,
+    '--remove-empty': sharedOption832,
+    '--reverse': sharedOption833,
+    '--right-only': sharedOption834,
+    '--root': sharedOption835,
+    '--show-linear-break': sharedOption836,
+    '--show-notes': sharedOption837,
+    '--show-notes-by-default': sharedOption838,
+    '--show-pulls': sharedOption839,
+    '--show-signature': sharedOption840,
+    '--simplify-by-decoration': sharedOption841,
+    '--simplify-merges': sharedOption842,
+    '--since': sharedOption743,
+    '--since-as-filter': sharedOption843,
+    '--single-worktree': sharedOption844,
+    '--skip': sharedOption845,
+    '--sparse': sharedOption846,
+    '--standard-notes': sharedOption847,
+    '--stdin': sharedOption848,
+    '--tags': sharedOption849,
+    '--topo-order': sharedOption850,
+    '--unpacked': sharedOption851,
+    '--until': sharedOption752,
+    '--verify-objects': sharedOption852,
+    '--walk-reflogs': sharedOption853,
+    '-E': sharedOption777,
+    '-F': sharedOption779,
+    '-P': sharedOption825,
+    '-c': sharedOption854,
+    '-g': sharedOption853,
+    '-i': sharedOption828,
+    '-m': sharedOption855,
+    '-n': sharedOption856,
     '-r': sharedOption50,
-    '-t': sharedOption856,
-    '-v': sharedOption857,
-    '--filter': sharedOption858,
-    '--no-filter': sharedOption859,
-    '--quit': sharedOption860,
-    '--continue': sharedOption861,
-    '--abort': sharedOption862,
+    '-t': sharedOption857,
+    '-v': sharedOption858,
+    '--filter': sharedOption859,
+    '--no-filter': sharedOption860,
+    '--quit': sharedOption861,
+    '--continue': sharedOption862,
+    '--abort': sharedOption863,
     '--cleanup': sharedOption100,
-    '--no-commit': sharedOption855,
+    '--no-commit': sharedOption856,
     '--edit': sharedOption13,
     '-e': sharedOption13,
     '--signoff': sharedOption98,
-    '--mainline': sharedOption854,
-    '--rerere-autoupdate': sharedOption597,
+    '--mainline': sharedOption855,
+    '--rerere-autoupdate': sharedOption598,
     '--strategy': sharedOption347,
-    '--strategy-option': sharedOption600,
+    '--strategy-option': sharedOption601,
     '--gpg-sign': sharedOption101,
     '--reference': {
       key: 'reference',
       value: 'flag',
     },
     '--no-cleanup': sharedOption119,
-    '--commit': sharedOption865,
-    '--no-no-commit': sharedOption865,
+    '--commit': sharedOption866,
+    '--no-no-commit': sharedOption866,
     '--no-edit': sharedOption33,
     '--no-signoff': sharedOption118,
-    '--no-mainline': sharedOption866,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--no-mainline': sharedOption867,
+    '--no-rerere-autoupdate': sharedOption611,
     '--no-strategy': sharedOption350,
-    '--no-strategy-option': sharedOption612,
+    '--no-strategy-option': sharedOption613,
     '--no-gpg-sign': sharedOption120,
     '--no-reference': {
       key: 'reference',
@@ -42734,7 +42740,7 @@ const commandSpec86 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -43445,8 +43451,8 @@ const commandSpec86 = {
 const commandSpec87 = {
   argv: ['commit-tree'],
   options: {
-    '-p': sharedOption873,
-    '-m': sharedOption874,
+    '-p': sharedOption874,
+    '-m': sharedOption875,
     '-F': {
       key: 'F',
       value: 'string',
@@ -43684,7 +43690,7 @@ const commandSpec89 = {
   argv: ['apply'],
   options: {
     '--exclude': sharedOption55,
-    '--include': sharedOption875,
+    '--include': sharedOption876,
     '-p': {
       key: 'p',
       value: 'integer',
@@ -43702,14 +43708,14 @@ const commandSpec89 = {
       key: 'no-add',
       value: 'flag',
     },
-    '--stat': sharedOption592,
+    '--stat': sharedOption593,
     '--allow-binary-replacement': {
       key: 'allow-binary-replacement',
       value: 'flag',
     },
-    '--binary': sharedOption876,
-    '--numstat': sharedOption877,
-    '--summary': sharedOption593,
+    '--binary': sharedOption877,
+    '--numstat': sharedOption878,
+    '--summary': sharedOption594,
     '--check': sharedOption374,
     '--index': sharedOption297,
     '--intent-to-add': sharedOption17,
@@ -43723,8 +43729,8 @@ const commandSpec89 = {
       key: 'apply',
       value: 'flag',
     },
-    '--3way': sharedOption878,
-    '-3': sharedOption878,
+    '--3way': sharedOption879,
+    '-3': sharedOption879,
     '--ours': {
       key: 'merge-variant',
       value: 'flag',
@@ -43757,14 +43763,14 @@ const commandSpec89 = {
       allowed: ['warn', 'nowarn', 'error', 'error-all', 'strip', 'fix'],
     },
     '--ignore-space-change': sharedOption409,
-    '--ignore-whitespace': sharedOption621,
-    '--reverse': sharedOption879,
-    '-R': sharedOption879,
+    '--ignore-whitespace': sharedOption622,
+    '--reverse': sharedOption880,
+    '-R': sharedOption880,
     '--unidiff-zero': {
       key: 'unidiff-zero',
       value: 'flag',
     },
-    '--reject': sharedOption880,
+    '--reject': sharedOption881,
     '--allow-overlap': {
       key: 'allow-overlap',
       value: 'flag',
@@ -43781,23 +43787,23 @@ const commandSpec89 = {
       key: 'recount',
       value: 'flag',
     },
-    '--directory': sharedOption881,
+    '--directory': sharedOption882,
     '--allow-empty': sharedOption113,
-    '--add': sharedOption882,
-    '--no-no-add': sharedOption882,
-    '--no-stat': sharedOption605,
+    '--add': sharedOption883,
+    '--no-no-add': sharedOption883,
+    '--no-stat': sharedOption606,
     '--no-allow-binary-replacement': {
       key: 'allow-binary-replacement',
       value: 'flag',
       set: false,
     },
-    '--no-binary': sharedOption883,
+    '--no-binary': sharedOption884,
     '--no-numstat': {
       key: 'numstat',
       value: 'flag',
       set: false,
     },
-    '--no-summary': sharedOption606,
+    '--no-summary': sharedOption607,
     '--no-check': {
       key: 'check',
       value: 'flag',
@@ -43816,15 +43822,15 @@ const commandSpec89 = {
       value: 'flag',
       set: false,
     },
-    '--no-3way': sharedOption884,
+    '--no-3way': sharedOption885,
     '--no-build-fake-ancestor': {
       key: 'build-fake-ancestor',
       value: 'flag',
       emptyIsUnset: true,
       ignore: true,
     },
-    '--no-ignore-space-change': sharedOption885,
-    '--no-ignore-whitespace': sharedOption631,
+    '--no-ignore-space-change': sharedOption886,
+    '--no-ignore-whitespace': sharedOption632,
     '--no-reverse': {
       key: 'reverse',
       value: 'flag',
@@ -43835,7 +43841,7 @@ const commandSpec89 = {
       value: 'flag',
       set: false,
     },
-    '--no-reject': sharedOption886,
+    '--no-reject': sharedOption887,
     '--no-allow-overlap': {
       key: 'allow-overlap',
       value: 'flag',
@@ -43948,42 +43954,42 @@ const commandSpec90 = {
     '-i': sharedOption8,
     '--no-verify': sharedOption105,
     '-n': sharedOption105,
-    '--binary': sharedOption876,
-    '-b': sharedOption876,
-    '--3way': sharedOption878,
-    '-3': sharedOption878,
+    '--binary': sharedOption877,
+    '-b': sharedOption877,
+    '--3way': sharedOption879,
+    '-3': sharedOption879,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--signoff': sharedOption98,
     '-s': sharedOption98,
-    '--utf8': sharedOption887,
-    '-u': sharedOption887,
+    '--utf8': sharedOption888,
+    '-u': sharedOption888,
     '--keep': sharedOption196,
     '-k': sharedOption196,
-    '--keep-non-patch': sharedOption888,
-    '--message-id': sharedOption889,
-    '-m': sharedOption889,
-    '--keep-cr': sharedOption890,
-    '--scissors': sharedOption891,
-    '-c': sharedOption891,
-    '--quoted-cr': sharedOption892,
+    '--keep-non-patch': sharedOption889,
+    '--message-id': sharedOption890,
+    '-m': sharedOption890,
+    '--keep-cr': sharedOption891,
+    '--scissors': sharedOption892,
+    '-c': sharedOption892,
+    '--quoted-cr': sharedOption893,
     '--whitespace': {
       key: 'whitespace',
       value: 'string',
     },
     '--ignore-space-change': sharedOption409,
-    '--ignore-whitespace': sharedOption621,
-    '--directory': sharedOption881,
+    '--ignore-whitespace': sharedOption622,
+    '--directory': sharedOption882,
     '--exclude': sharedOption55,
-    '--include': sharedOption875,
-    '-C': sharedOption893,
-    '-p': sharedOption873,
+    '--include': sharedOption876,
+    '-C': sharedOption894,
+    '-p': sharedOption874,
     '--patch-format': {
       key: 'patch-format',
       value: 'string',
       allowed: ['mbox', 'stgit', 'stgit-series', 'hg', 'mboxrd'],
     },
-    '--reject': sharedOption880,
+    '--reject': sharedOption881,
     '--resolvemsg': {
       key: 'resolvemsg',
       value: 'string',
@@ -43994,8 +44000,8 @@ const commandSpec90 = {
       modeGroup: '&resume_mode',
       modeValue: 'RESUME_RESOLVED',
     },
-    '--resolved': sharedOption894,
-    '-r': sharedOption894,
+    '--resolved': sharedOption895,
+    '-r': sharedOption895,
     '--skip': {
       key: 'skip',
       value: 'flag',
@@ -44037,12 +44043,12 @@ const commandSpec90 = {
       modeGroup: '&resume_mode',
       modeValue: 'RESUME_ALLOW_EMPTY',
     },
-    '--committer-date-is-author-date': sharedOption618,
-    '--ignore-date': sharedOption619,
-    '--rerere-autoupdate': sharedOption597,
+    '--committer-date-is-author-date': sharedOption619,
+    '--ignore-date': sharedOption620,
+    '--rerere-autoupdate': sharedOption598,
     '--gpg-sign': sharedOption101,
     '-S': sharedOption102,
-    '--empty': sharedOption864,
+    '--empty': sharedOption865,
     '--rebasing': {
       key: 'rebasing',
       value: 'flag',
@@ -44050,8 +44056,8 @@ const commandSpec90 = {
     '--no-interactive': sharedOption30,
     '--verify': sharedOption121,
     '--no-no-verify': sharedOption121,
-    '--no-binary': sharedOption883,
-    '--no-3way': sharedOption884,
+    '--no-binary': sharedOption884,
+    '--no-3way': sharedOption885,
     '--no-quiet': sharedOption51,
     '--no-signoff': sharedOption118,
     '--no-utf8': {
@@ -44065,21 +44071,21 @@ const commandSpec90 = {
       value: 'flag',
       set: false,
     },
-    '--no-message-id': sharedOption895,
+    '--no-message-id': sharedOption896,
     '--no-keep-cr': {
       key: 'keep-cr',
       value: 'flag',
       set: false,
     },
-    '--no-scissors': sharedOption896,
+    '--no-scissors': sharedOption897,
     '--no-whitespace': {
       key: 'whitespace',
       value: 'flag',
       clear: true,
       effects: sharedEffects31,
     },
-    '--no-ignore-space-change': sharedOption885,
-    '--no-ignore-whitespace': sharedOption631,
+    '--no-ignore-space-change': sharedOption886,
+    '--no-ignore-whitespace': sharedOption632,
     '--no-directory': {
       key: 'directory',
       value: 'flag',
@@ -44101,15 +44107,15 @@ const commandSpec90 = {
       value: 'flag',
       clear: true,
     },
-    '--no-reject': sharedOption886,
+    '--no-reject': sharedOption887,
     '--no-resolvemsg': {
       key: 'resolvemsg',
       value: 'flag',
       clear: true,
     },
-    '--no-committer-date-is-author-date': sharedOption629,
-    '--no-ignore-date': sharedOption630,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--no-committer-date-is-author-date': sharedOption630,
+    '--no-ignore-date': sharedOption631,
+    '--no-rerere-autoupdate': sharedOption611,
     '--no-gpg-sign': sharedOption120,
     '--no-rebasing': {
       key: 'rebasing',
@@ -44149,21 +44155,21 @@ const commandSpec91 = {
     '-z': sharedOption149,
     '-t': sharedOption577,
     '-v': sharedOption578,
-    '-f': sharedOption897,
+    '-f': sharedOption898,
     '--cached': sharedOption49,
     '-c': sharedOption49,
-    '--deleted': sharedOption898,
-    '-d': sharedOption898,
-    '--modified': sharedOption899,
-    '-m': sharedOption899,
-    '--others': sharedOption900,
-    '-o': sharedOption900,
-    '--ignored': sharedOption901,
-    '-i': sharedOption901,
-    '--stage': sharedOption902,
-    '-s': sharedOption902,
-    '--killed': sharedOption903,
-    '-k': sharedOption903,
+    '--deleted': sharedOption899,
+    '-d': sharedOption899,
+    '--modified': sharedOption900,
+    '-m': sharedOption900,
+    '--others': sharedOption901,
+    '-o': sharedOption901,
+    '--ignored': sharedOption902,
+    '-i': sharedOption902,
+    '--stage': sharedOption903,
+    '-s': sharedOption903,
+    '--killed': sharedOption904,
+    '-k': sharedOption904,
     '--directory': {
       key: 'directory',
       value: 'flag',
@@ -44176,22 +44182,22 @@ const commandSpec91 = {
       key: 'empty-directory',
       value: 'flag',
     },
-    '--unmerged': sharedOption904,
-    '-u': sharedOption904,
+    '--unmerged': sharedOption905,
+    '-u': sharedOption905,
     '--resolve-undo': {
       key: 'resolve-undo',
       value: 'flag',
     },
     '--exclude': sharedOption55,
     '-x': sharedOption55,
-    '--exclude-from': sharedOption905,
-    '-X': sharedOption905,
+    '--exclude-from': sharedOption906,
+    '-X': sharedOption906,
     '--exclude-per-directory': {
       key: 'exclude-per-directory',
       value: 'string',
     },
-    '--exclude-standard': sharedOption906,
-    '--full-name': sharedOption907,
+    '--exclude-standard': sharedOption907,
+    '--full-name': sharedOption908,
     '--recurse-submodules': sharedOption250,
     '--error-unmatch': {
       key: 'error-unmatch',
@@ -44202,7 +44208,7 @@ const commandSpec91 = {
       value: 'string',
     },
     '--abbrev': sharedOption238,
-    '--debug': sharedOption908,
+    '--debug': sharedOption909,
     '--deduplicate': {
       key: 'deduplicate',
       value: 'flag',
@@ -44255,7 +44261,7 @@ const commandSpec91 = {
       value: 'flag',
       set: false,
     },
-    '--no-unmerged': sharedOption909,
+    '--no-unmerged': sharedOption910,
     '--no-resolve-undo': {
       key: 'resolve-undo',
       value: 'flag',
@@ -44278,7 +44284,7 @@ const commandSpec91 = {
       clear: true,
     },
     '--no-abbrev': sharedOption253,
-    '--no-debug': sharedOption910,
+    '--no-debug': sharedOption911,
     '--no-deduplicate': {
       key: 'deduplicate',
       value: 'flag',
@@ -44506,10 +44512,10 @@ const commandSpec92 = {
     '--exec': sharedOption219,
     '--tags': sharedOption73,
     '-t': sharedOption73,
-    '--branches': sharedOption911,
-    '-b': sharedOption911,
-    '--heads': sharedOption912,
-    '-h': sharedOption912,
+    '--branches': sharedOption912,
+    '-b': sharedOption912,
+    '--heads': sharedOption913,
+    '-h': sharedOption913,
     '--refs': {
       key: 'refs',
       value: 'flag',
@@ -44530,8 +44536,8 @@ const commandSpec92 = {
     '--no-upload-pack': sharedOption183,
     '--no-exec': sharedOption227,
     '--no-tags': sharedOption76,
-    '--no-branches': sharedOption913,
-    '--no-heads': sharedOption914,
+    '--no-branches': sharedOption914,
+    '--no-heads': sharedOption915,
     '--no-refs': {
       key: 'refs',
       value: 'flag',
@@ -44611,8 +44617,8 @@ const commandSpec93 = {
     '-r': sharedOption50,
     '-t': sharedOption577,
     '-z': sharedOption149,
-    '--long': sharedOption915,
-    '-l': sharedOption915,
+    '--long': sharedOption916,
+    '-l': sharedOption916,
     '--name-only': {
       key: 'name-only',
       value: 'flag',
@@ -44634,16 +44640,16 @@ const commandSpec93 = {
       modeValue: 'MODE_OBJECT_ONLY',
       nativeLsTreeModern: true,
     },
-    '--full-name': sharedOption907,
-    '--full-tree': sharedOption916,
+    '--full-name': sharedOption908,
+    '--full-tree': sharedOption917,
     '--format': {
       key: 'format',
       value: 'string',
       nativeLsTreeModern: true,
     },
     '--abbrev': sharedOption238,
-    '--no-full-name': sharedOption917,
-    '--no-full-tree': sharedOption918,
+    '--no-full-name': sharedOption918,
+    '--no-full-tree': sharedOption919,
     '--no-abbrev': sharedOption253,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -44744,18 +44750,18 @@ const commandSpec94 = {
     'sort-base': true,
   },
   options: {
-    '--shell': sharedOption919,
-    '-s': sharedOption919,
-    '--perl': sharedOption920,
-    '-p': sharedOption920,
-    '--python': sharedOption921,
-    '--tcl': sharedOption922,
+    '--shell': sharedOption920,
+    '-s': sharedOption920,
+    '--perl': sharedOption921,
+    '-p': sharedOption921,
+    '--python': sharedOption922,
+    '--tcl': sharedOption923,
     '--omit-empty': sharedOption241,
-    '--count': sharedOption923,
+    '--count': sharedOption924,
     '--format': sharedOption251,
-    '--start-after': sharedOption924,
+    '--start-after': sharedOption925,
     '--color': sharedOption232,
-    '--exclude': sharedOption925,
+    '--exclude': sharedOption926,
     '--sort': sharedOption247,
     '--points-at': sharedOption248,
     '--merged': sharedOption245,
@@ -44764,22 +44770,22 @@ const commandSpec94 = {
     '--no-contains': sharedOption235,
     '--ignore-case': sharedOption249,
     '--stdin': sharedOption204,
-    '--include-root-refs': sharedOption926,
-    '--no-shell': sharedOption927,
-    '--no-perl': sharedOption928,
-    '--no-python': sharedOption929,
-    '--no-tcl': sharedOption930,
+    '--include-root-refs': sharedOption927,
+    '--no-shell': sharedOption928,
+    '--no-perl': sharedOption929,
+    '--no-python': sharedOption930,
+    '--no-tcl': sharedOption931,
     '--no-omit-empty': sharedOption254,
-    '--no-count': sharedOption931,
+    '--no-count': sharedOption932,
     '--no-format': sharedOption261,
-    '--no-start-after': sharedOption932,
+    '--no-start-after': sharedOption933,
     '--no-color': sharedOption252,
-    '--no-exclude': sharedOption933,
-    '--no-sort': sharedOption934,
+    '--no-exclude': sharedOption934,
+    '--no-sort': sharedOption935,
     '--no-points-at': sharedOption258,
     '--no-ignore-case': sharedOption259,
     '--no-stdin': sharedOption213,
-    '--no-include-root-refs': sharedOption935,
+    '--no-include-root-refs': sharedOption936,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -45396,20 +45402,20 @@ const commandSpec95 = {
   argv: ['show-ref'],
   options: {
     '--tags': sharedOption73,
-    '--branches': sharedOption911,
-    '--heads': sharedOption912,
+    '--branches': sharedOption912,
+    '--heads': sharedOption913,
     '--exists': {
       key: 'exists',
       value: 'flag',
     },
-    '--verify': sharedOption936,
-    '-h': sharedOption937,
+    '--verify': sharedOption937,
+    '-h': sharedOption938,
     '--head': {
       key: 'head',
       value: 'flag',
     },
-    '--dereference': sharedOption938,
-    '-d': sharedOption938,
+    '--dereference': sharedOption939,
+    '-d': sharedOption939,
     '--hash': {
       parser: sharedScalarParser1,
       key: 'hash',
@@ -45429,14 +45435,14 @@ const commandSpec95 = {
       value: 'optional-string',
     },
     '--no-tags': sharedOption76,
-    '--no-branches': sharedOption913,
-    '--no-heads': sharedOption914,
+    '--no-branches': sharedOption914,
+    '--no-heads': sharedOption915,
     '--no-exists': {
       key: 'exists',
       value: 'flag',
       set: false,
     },
-    '--no-verify': sharedOption939,
+    '--no-verify': sharedOption940,
     '--no-head': {
       key: 'head',
       value: 'flag',
@@ -45829,7 +45835,7 @@ const commandSpec96 = {
       key: 'recurse',
       value: 'flag',
     },
-    '-m': sharedOption874,
+    '-m': sharedOption875,
     '--no-quiet': sharedOption51,
     '--no-delete': sharedOption84,
     '--no-short': {
@@ -46045,10 +46051,10 @@ const commandSpec97 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--raw': sharedOption940,
+    '--raw': sharedOption941,
     '--format': sharedOption251,
     '--no-verbose': sharedOption29,
-    '--no-raw': sharedOption941,
+    '--no-raw': sharedOption942,
     '--no-format': sharedOption261,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -46180,9 +46186,9 @@ const commandSpec98 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--raw': sharedOption940,
+    '--raw': sharedOption941,
     '--no-verbose': sharedOption29,
-    '--no-raw': sharedOption941,
+    '--no-raw': sharedOption942,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -46287,8 +46293,8 @@ const commandSpec99 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--human-readable': sharedOption942,
-    '-H': sharedOption942,
+    '--human-readable': sharedOption943,
+    '-H': sharedOption943,
     '--no-verbose': sharedOption29,
     '--no-human-readable': {
       key: 'human-readable',
@@ -46369,9 +46375,9 @@ const commandSpec100 = {
     '-v': sharedOption151,
     '--stdin': sharedOption204,
     '-z': sharedOption149,
-    '--non-matching': sharedOption943,
-    '-n': sharedOption943,
-    '--no-index': sharedOption584,
+    '--non-matching': sharedOption944,
+    '-n': sharedOption944,
+    '--no-index': sharedOption585,
     '--no-quiet': sharedOption67,
     '--no-verbose': sharedOption173,
     '--no-stdin': sharedOption213,
@@ -46380,8 +46386,8 @@ const commandSpec100 = {
       value: 'flag',
       set: false,
     },
-    '--index': sharedOption944,
-    '--no-no-index': sharedOption944,
+    '--index': sharedOption945,
+    '--no-no-index': sharedOption945,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -46840,7 +46846,7 @@ const commandSpec103 = {
       key: 'missing-ok',
       value: 'flag',
     },
-    '--prefix': sharedOption945,
+    '--prefix': sharedOption946,
     '--ignore-cache-tree': {
       key: 'ignore-cache-tree',
       value: 'flag',
@@ -46850,7 +46856,7 @@ const commandSpec103 = {
       value: 'flag',
       set: false,
     },
-    '--no-prefix': sharedOption946,
+    '--no-prefix': sharedOption947,
     '--no-ignore-cache-tree': {
       key: 'ignore-cache-tree',
       value: 'flag',
@@ -46989,8 +46995,8 @@ const commandSpec104 = {
 const commandSpec105 = {
   argv: ['mktag'],
   options: {
-    '--strict': sharedOption947,
-    '--no-strict': sharedOption948,
+    '--strict': sharedOption948,
+    '--no-strict': sharedOption949,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -47072,8 +47078,8 @@ const commandSpec107 = {
   options: {
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--stat-only': sharedOption949,
-    '-s': sharedOption949,
+    '--stat-only': sharedOption950,
+    '-s': sharedOption950,
     '--object-format': sharedOption63,
     '--no-verbose': sharedOption173,
     '--no-stat-only': {
@@ -47149,10 +47155,10 @@ const commandSpec107 = {
 const commandSpec108 = {
   argv: ['stripspace'],
   options: {
-    '--strip-comments': sharedOption950,
-    '-s': sharedOption950,
-    '--comment-lines': sharedOption951,
-    '-c': sharedOption951,
+    '--strip-comments': sharedOption951,
+    '-s': sharedOption951,
+    '--comment-lines': sharedOption952,
+    '-c': sharedOption952,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -47300,7 +47306,7 @@ const commandSpec110 = {
       key: 'contains',
       value: 'flag',
     },
-    '--debug': sharedOption908,
+    '--debug': sharedOption909,
     '--all': sharedOption18,
     '--tags': sharedOption73,
     '--long': {
@@ -47327,7 +47333,7 @@ const commandSpec110 = {
       value: 'string',
       repeat: true,
     },
-    '--exclude': sharedOption925,
+    '--exclude': sharedOption926,
     '--always': sharedOption472,
     '--dirty': {
       key: 'dirty',
@@ -47344,7 +47350,7 @@ const commandSpec110 = {
       value: 'flag',
       set: false,
     },
-    '--no-debug': sharedOption910,
+    '--no-debug': sharedOption911,
     '--no-all': sharedOption19,
     '--no-tags': sharedOption76,
     '--no-long': {
@@ -47379,8 +47385,8 @@ const commandSpec110 = {
       repeat: true,
       clear: true,
     },
-    '--no-exclude': sharedOption933,
-    '--no-always': sharedOption952,
+    '--no-exclude': sharedOption934,
+    '--no-always': sharedOption953,
     '--no-dirty': {
       key: 'dirty',
       value: 'flag',
@@ -47516,7 +47522,7 @@ const commandSpec111 = {
       value: 'string',
       repeat: true,
     },
-    '--exclude': sharedOption925,
+    '--exclude': sharedOption926,
     '--all': sharedOption18,
     '--stdin': sharedOption204,
     '--annotate-stdin': {
@@ -47540,7 +47546,7 @@ const commandSpec111 = {
       repeat: true,
       clear: true,
     },
-    '--no-exclude': sharedOption933,
+    '--no-exclude': sharedOption934,
     '--no-all': sharedOption19,
     '--no-stdin': sharedOption213,
     '--no-annotate-stdin': {
@@ -47553,7 +47559,7 @@ const commandSpec111 = {
       value: 'flag',
       set: false,
     },
-    '--no-always': sharedOption952,
+    '--no-always': sharedOption953,
     '--no-peel-tag': {
       key: 'peel-tag',
       value: 'flag',
@@ -47802,8 +47808,8 @@ const commandSpec114 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--branch': sharedOption107,
-    '--normalize': sharedOption953,
-    '--print': sharedOption953,
+    '--normalize': sharedOption954,
+    '--print': sharedOption954,
     '--allow-onelevel': {
       key: 'allow-onelevel',
       value: 'flag',
@@ -47949,9 +47955,9 @@ const commandSpec116 = {
       key: 'prune',
       value: 'optional-string',
     },
-    '--cruft': sharedOption954,
-    '--max-cruft-size': sharedOption955,
-    '--aggressive': sharedOption956,
+    '--cruft': sharedOption955,
+    '--max-cruft-size': sharedOption956,
+    '--aggressive': sharedOption957,
     '--auto': sharedOption81,
     '--detach': sharedOption137,
     '--force': sharedOption214,
@@ -47959,7 +47965,7 @@ const commandSpec116 = {
       key: 'keep-largest-pack',
       value: 'flag',
     },
-    '--expire-to': sharedOption957,
+    '--expire-to': sharedOption958,
     '--skip-foreground-tasks': {
       key: 'skip-foreground-tasks',
       value: 'flag',
@@ -47970,8 +47976,8 @@ const commandSpec116 = {
       value: 'flag',
       clear: true,
     },
-    '--no-cruft': sharedOption958,
-    '--no-aggressive': sharedOption959,
+    '--no-cruft': sharedOption959,
+    '--no-aggressive': sharedOption960,
     '--no-auto': sharedOption83,
     '--no-detach': sharedOption141,
     '--no-force': sharedOption222,
@@ -47980,7 +47986,7 @@ const commandSpec116 = {
       value: 'flag',
       set: false,
     },
-    '--no-expire-to': sharedOption960,
+    '--no-expire-to': sharedOption961,
     '--no-skip-foreground-tasks': {
       key: 'skip-foreground-tasks',
       value: 'flag',
@@ -48139,8 +48145,8 @@ const commandSpec117 = {
 const commandSpec118 = {
   argv: ['maintenance', 'register'],
   options: {
-    '--config-file': sharedOption961,
-    '--no-config-file': sharedOption962,
+    '--config-file': sharedOption962,
+    '--no-config-file': sharedOption963,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -48162,10 +48168,10 @@ const commandSpec118 = {
 const commandSpec119 = {
   argv: ['maintenance', 'unregister'],
   options: {
-    '--config-file': sharedOption961,
+    '--config-file': sharedOption962,
     '--force': sharedOption14,
     '-f': sharedOption14,
-    '--no-config-file': sharedOption962,
+    '--no-config-file': sharedOption963,
     '--no-force': sharedOption34,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -48290,11 +48296,11 @@ const commandSpec122 = {
 const commandSpec123 = {
   argv: ['commit-graph', 'verify'],
   options: {
-    '--object-dir': sharedOption963,
-    '--shallow': sharedOption964,
+    '--object-dir': sharedOption964,
+    '--shallow': sharedOption965,
     '--progress': sharedOption79,
-    '--no-object-dir': sharedOption965,
-    '--no-shallow': sharedOption966,
+    '--no-object-dir': sharedOption966,
+    '--no-shallow': sharedOption967,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -48317,12 +48323,12 @@ const commandSpec123 = {
 const commandSpec124 = {
   argv: ['commit-graph', 'write'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--reachable': {
       key: 'reachable',
       value: 'flag',
     },
-    '--stdin-packs': sharedOption967,
+    '--stdin-packs': sharedOption968,
     '--stdin-commits': {
       key: 'stdin-commits',
       value: 'flag',
@@ -48364,13 +48370,13 @@ const commandSpec124 = {
       value: 'integer',
     },
     '--progress': sharedOption79,
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-reachable': {
       key: 'reachable',
       value: 'flag',
       set: false,
     },
-    '--no-stdin-packs': sharedOption968,
+    '--no-stdin-packs': sharedOption969,
     '--no-stdin-commits': {
       key: 'stdin-commits',
       value: 'flag',
@@ -48443,34 +48449,34 @@ const commandSpec124 = {
 const commandSpec125 = {
   argv: ['multi-pack-index', 'write'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
     '--preferred-pack': {
       key: 'preferred-pack',
       value: 'string',
     },
-    '--bitmap': sharedOption969,
-    '--base': sharedOption970,
-    '--incremental': sharedOption971,
-    '--write-chain-file': sharedOption972,
-    '--stdin-packs': sharedOption967,
+    '--bitmap': sharedOption970,
+    '--base': sharedOption971,
+    '--incremental': sharedOption972,
+    '--write-chain-file': sharedOption973,
+    '--stdin-packs': sharedOption968,
     '--refs-snapshot': {
       key: 'refs-snapshot',
       value: 'string',
       emptyIsUnset: true,
     },
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
     '--no-preferred-pack': {
       key: 'preferred-pack',
       value: 'flag',
       clear: true,
     },
-    '--no-bitmap': sharedOption973,
-    '--no-base': sharedOption974,
-    '--no-incremental': sharedOption975,
-    '--no-write-chain-file': sharedOption976,
-    '--no-stdin-packs': sharedOption968,
+    '--no-bitmap': sharedOption974,
+    '--no-base': sharedOption975,
+    '--no-incremental': sharedOption976,
+    '--no-write-chain-file': sharedOption977,
+    '--no-stdin-packs': sharedOption969,
     '--no-refs-snapshot': {
       key: 'refs-snapshot',
       value: 'flag',
@@ -48529,18 +48535,18 @@ const commandSpec125 = {
 const commandSpec126 = {
   argv: ['multi-pack-index', 'compact'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
-    '--base': sharedOption970,
-    '--bitmap': sharedOption969,
-    '--incremental': sharedOption971,
-    '--write-chain-file': sharedOption972,
-    '--no-object-dir': sharedOption965,
+    '--base': sharedOption971,
+    '--bitmap': sharedOption970,
+    '--incremental': sharedOption972,
+    '--write-chain-file': sharedOption973,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
-    '--no-base': sharedOption974,
-    '--no-bitmap': sharedOption973,
-    '--no-incremental': sharedOption975,
-    '--no-write-chain-file': sharedOption976,
+    '--no-base': sharedOption975,
+    '--no-bitmap': sharedOption974,
+    '--no-incremental': sharedOption976,
+    '--no-write-chain-file': sharedOption977,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -48575,9 +48581,9 @@ const commandSpec126 = {
 const commandSpec127 = {
   argv: ['multi-pack-index', 'verify'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -48600,9 +48606,9 @@ const commandSpec127 = {
 const commandSpec128 = {
   argv: ['multi-pack-index', 'expire'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -48625,14 +48631,14 @@ const commandSpec128 = {
 const commandSpec129 = {
   argv: ['multi-pack-index', 'repack'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
     '--batch-size': {
       parser: sharedScalarParser10,
       key: 'batch-size',
       value: 'integer',
     },
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -48657,10 +48663,10 @@ const commandSpec130 = {
   options: {
     '--ref-format': sharedOption64,
     '--dry-run': sharedOption6,
-    '--no-reflog': sharedOption977,
+    '--no-reflog': sharedOption978,
     '--no-dry-run': sharedOption28,
-    '--reflog': sharedOption978,
-    '--no-no-reflog': sharedOption978,
+    '--reflog': sharedOption979,
+    '--no-no-reflog': sharedOption979,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -48827,9 +48833,9 @@ const commandSpec131 = {
   argv: ['refs', 'verify'],
   options: {
     '--verbose': sharedOption151,
-    '--strict': sharedOption947,
+    '--strict': sharedOption948,
     '--no-verbose': sharedOption173,
-    '--no-strict': sharedOption948,
+    '--no-strict': sharedOption949,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -48993,18 +48999,18 @@ const commandSpec133 = {
     'sort-base': true,
   },
   options: {
-    '--shell': sharedOption919,
-    '-s': sharedOption919,
-    '--perl': sharedOption920,
-    '-p': sharedOption920,
-    '--python': sharedOption921,
-    '--tcl': sharedOption922,
+    '--shell': sharedOption920,
+    '-s': sharedOption920,
+    '--perl': sharedOption921,
+    '-p': sharedOption921,
+    '--python': sharedOption922,
+    '--tcl': sharedOption923,
     '--omit-empty': sharedOption241,
-    '--count': sharedOption923,
+    '--count': sharedOption924,
     '--format': sharedOption251,
-    '--start-after': sharedOption924,
+    '--start-after': sharedOption925,
     '--color': sharedOption232,
-    '--exclude': sharedOption925,
+    '--exclude': sharedOption926,
     '--sort': sharedOption247,
     '--points-at': sharedOption248,
     '--merged': sharedOption245,
@@ -49013,22 +49019,22 @@ const commandSpec133 = {
     '--no-contains': sharedOption235,
     '--ignore-case': sharedOption249,
     '--stdin': sharedOption204,
-    '--include-root-refs': sharedOption926,
-    '--no-shell': sharedOption927,
-    '--no-perl': sharedOption928,
-    '--no-python': sharedOption929,
-    '--no-tcl': sharedOption930,
+    '--include-root-refs': sharedOption927,
+    '--no-shell': sharedOption928,
+    '--no-perl': sharedOption929,
+    '--no-python': sharedOption930,
+    '--no-tcl': sharedOption931,
     '--no-omit-empty': sharedOption254,
-    '--no-count': sharedOption931,
+    '--no-count': sharedOption932,
     '--no-format': sharedOption261,
-    '--no-start-after': sharedOption932,
+    '--no-start-after': sharedOption933,
     '--no-color': sharedOption252,
-    '--no-exclude': sharedOption933,
-    '--no-sort': sharedOption934,
+    '--no-exclude': sharedOption934,
+    '--no-sort': sharedOption935,
     '--no-points-at': sharedOption258,
     '--no-ignore-case': sharedOption259,
     '--no-stdin': sharedOption213,
-    '--no-include-root-refs': sharedOption935,
+    '--no-include-root-refs': sharedOption936,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -49646,13 +49652,13 @@ const commandSpec134 = {
     '--all': sharedOption18,
     '--prune': sharedOption90,
     '--auto': sharedOption81,
-    '--include': sharedOption979,
-    '--exclude': sharedOption925,
+    '--include': sharedOption980,
+    '--exclude': sharedOption926,
     '--no-all': sharedOption19,
     '--no-prune': sharedOption91,
     '--no-auto': sharedOption83,
-    '--no-include': sharedOption980,
-    '--no-exclude': sharedOption933,
+    '--no-include': sharedOption981,
+    '--no-exclude': sharedOption934,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -49724,13 +49730,13 @@ const commandSpec135 = {
     '--all': sharedOption18,
     '--prune': sharedOption90,
     '--auto': sharedOption81,
-    '--include': sharedOption979,
-    '--exclude': sharedOption925,
+    '--include': sharedOption980,
+    '--exclude': sharedOption926,
     '--no-all': sharedOption19,
     '--no-prune': sharedOption91,
     '--no-auto': sharedOption83,
-    '--no-include': sharedOption980,
-    '--no-exclude': sharedOption933,
+    '--no-include': sharedOption981,
+    '--no-exclude': sharedOption934,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -49900,33 +49906,33 @@ const commandSpec136 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--unreachable': sharedOption981,
-    '--dangling': sharedOption982,
+    '--unreachable': sharedOption982,
+    '--dangling': sharedOption983,
     '--tags': sharedOption73,
     '--root': sharedOption556,
-    '--cache': sharedOption983,
-    '--reflogs': sharedOption984,
-    '--full': sharedOption985,
-    '--connectivity-only': sharedOption986,
-    '--strict': sharedOption947,
-    '--lost-found': sharedOption987,
+    '--cache': sharedOption984,
+    '--reflogs': sharedOption985,
+    '--full': sharedOption986,
+    '--connectivity-only': sharedOption987,
+    '--strict': sharedOption948,
+    '--lost-found': sharedOption988,
     '--progress': sharedOption79,
-    '--name-objects': sharedOption988,
-    '--references': sharedOption989,
+    '--name-objects': sharedOption989,
+    '--references': sharedOption990,
     '--no-verbose': sharedOption29,
-    '--no-unreachable': sharedOption990,
-    '--no-dangling': sharedOption991,
+    '--no-unreachable': sharedOption991,
+    '--no-dangling': sharedOption992,
     '--no-tags': sharedOption76,
-    '--no-root': sharedOption633,
-    '--no-cache': sharedOption992,
-    '--no-reflogs': sharedOption993,
-    '--no-full': sharedOption994,
-    '--no-connectivity-only': sharedOption995,
-    '--no-strict': sharedOption948,
-    '--no-lost-found': sharedOption996,
+    '--no-root': sharedOption634,
+    '--no-cache': sharedOption993,
+    '--no-reflogs': sharedOption994,
+    '--no-full': sharedOption995,
+    '--no-connectivity-only': sharedOption996,
+    '--no-strict': sharedOption949,
+    '--no-lost-found': sharedOption997,
     '--no-progress': sharedOption80,
-    '--no-name-objects': sharedOption997,
-    '--no-references': sharedOption998,
+    '--no-name-objects': sharedOption998,
+    '--no-references': sharedOption999,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -49986,33 +49992,33 @@ const commandSpec137 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--unreachable': sharedOption981,
-    '--dangling': sharedOption982,
+    '--unreachable': sharedOption982,
+    '--dangling': sharedOption983,
     '--tags': sharedOption73,
     '--root': sharedOption556,
-    '--cache': sharedOption983,
-    '--reflogs': sharedOption984,
-    '--full': sharedOption985,
-    '--connectivity-only': sharedOption986,
-    '--strict': sharedOption947,
-    '--lost-found': sharedOption987,
+    '--cache': sharedOption984,
+    '--reflogs': sharedOption985,
+    '--full': sharedOption986,
+    '--connectivity-only': sharedOption987,
+    '--strict': sharedOption948,
+    '--lost-found': sharedOption988,
     '--progress': sharedOption79,
-    '--name-objects': sharedOption988,
-    '--references': sharedOption989,
+    '--name-objects': sharedOption989,
+    '--references': sharedOption990,
     '--no-verbose': sharedOption29,
-    '--no-unreachable': sharedOption990,
-    '--no-dangling': sharedOption991,
+    '--no-unreachable': sharedOption991,
+    '--no-dangling': sharedOption992,
     '--no-tags': sharedOption76,
-    '--no-root': sharedOption633,
-    '--no-cache': sharedOption992,
-    '--no-reflogs': sharedOption993,
-    '--no-full': sharedOption994,
-    '--no-connectivity-only': sharedOption995,
-    '--no-strict': sharedOption948,
-    '--no-lost-found': sharedOption996,
+    '--no-root': sharedOption634,
+    '--no-cache': sharedOption993,
+    '--no-reflogs': sharedOption994,
+    '--no-full': sharedOption995,
+    '--no-connectivity-only': sharedOption996,
+    '--no-strict': sharedOption949,
+    '--no-lost-found': sharedOption997,
     '--no-progress': sharedOption80,
-    '--no-name-objects': sharedOption997,
-    '--no-references': sharedOption998,
+    '--no-name-objects': sharedOption998,
+    '--no-references': sharedOption999,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -50029,12 +50035,12 @@ const commandSpec138 = {
     '-v': sharedOption7,
     '--progress': sharedOption79,
     '--expire': sharedOption146,
-    '--exclude-promisor-objects': sharedOption999,
+    '--exclude-promisor-objects': sharedOption1000,
     '--no-dry-run': sharedOption28,
     '--no-verbose': sharedOption29,
     '--no-progress': sharedOption80,
     '--no-expire': sharedOption147,
-    '--no-exclude-promisor-objects': sharedOption1000,
+    '--no-exclude-promisor-objects': sharedOption1001,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -50450,7 +50456,7 @@ const commandSpec141 = {
 const commandSpec142 = {
   argv: ['update-ref'],
   options: {
-    '-m': sharedOption874,
+    '-m': sharedOption875,
     '-d': sharedOption54,
     '--no-deref': {
       key: 'no-deref',
@@ -50459,10 +50465,10 @@ const commandSpec142 = {
     '-z': sharedOption149,
     '--stdin': sharedOption204,
     '--create-reflog': sharedOption244,
-    '--batch-updates': sharedOption1001,
-    '-0': sharedOption1001,
-    '--deref': sharedOption1002,
-    '--no-no-deref': sharedOption1002,
+    '--batch-updates': sharedOption1002,
+    '-0': sharedOption1002,
+    '--deref': sharedOption1003,
+    '--no-no-deref': sharedOption1003,
     '--no-stdin': sharedOption213,
     '--no-create-reflog': sharedOption256,
     '--no-batch-updates': {
@@ -50638,8 +50644,8 @@ const commandSpec143 = {
     '-f': sharedOption14,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--no-create': sharedOption1003,
-    '-n': sharedOption1003,
+    '--no-create': sharedOption1004,
+    '-n': sharedOption1004,
     '--index': sharedOption297,
     '-u': sharedOption297,
     '-z': sharedOption149,
@@ -50648,7 +50654,7 @@ const commandSpec143 = {
       key: 'temp',
       value: 'flag',
     },
-    '--prefix': sharedOption945,
+    '--prefix': sharedOption946,
     '--stage': {
       key: 'stage',
       value: 'string',
@@ -50692,8 +50698,8 @@ const commandSpec143 = {
     '--no-ignore-skip-worktree-bits': sharedOption281,
     '--no-force': sharedOption34,
     '--no-quiet': sharedOption51,
-    '--create': sharedOption1004,
-    '--no-no-create': sharedOption1004,
+    '--create': sharedOption1005,
+    '--no-no-create': sharedOption1005,
     '--no-index': sharedOption298,
     '--no-stdin': sharedOption213,
     '--no-temp': {
@@ -50701,7 +50707,7 @@ const commandSpec143 = {
       value: 'flag',
       set: false,
     },
-    '--no-prefix': sharedOption946,
+    '--no-prefix': sharedOption947,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -50769,7 +50775,7 @@ const commandSpec143 = {
 const commandSpec144 = {
   argv: ['read-tree'],
   options: {
-    '--super-prefix': sharedOption1005,
+    '--super-prefix': sharedOption1006,
     '--index-output': {
       key: 'index-output',
       value: 'string',
@@ -50780,18 +50786,18 @@ const commandSpec144 = {
     },
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '-m': sharedOption1006,
+    '-m': sharedOption1007,
     '--trivial': {
       key: 'trivial',
       value: 'flag',
     },
-    '--aggressive': sharedOption956,
+    '--aggressive': sharedOption957,
     '--reset': {
       key: 'reset',
       value: 'flag',
     },
-    '--prefix': sharedOption945,
-    '-u': sharedOption1007,
+    '--prefix': sharedOption946,
+    '-u': sharedOption1008,
     '--exclude-per-directory': {
       key: 'exclude-per-directory',
       value: 'string',
@@ -50808,7 +50814,7 @@ const commandSpec144 = {
       ],
       nativeReadTreeExclude: true,
     },
-    '-i': sharedOption1008,
+    '-i': sharedOption1009,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
     '--no-sparse-checkout': {
@@ -50825,7 +50831,7 @@ const commandSpec144 = {
     },
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--no-super-prefix': sharedOption1009,
+    '--no-super-prefix': sharedOption1010,
     '--no-empty': {
       key: 'empty',
       value: 'flag',
@@ -50837,15 +50843,15 @@ const commandSpec144 = {
       value: 'flag',
       set: false,
     },
-    '--no-aggressive': sharedOption959,
+    '--no-aggressive': sharedOption960,
     '--no-reset': {
       key: 'reset',
       value: 'flag',
       set: false,
     },
     '--no-dry-run': sharedOption28,
-    '--sparse-checkout': sharedOption1010,
-    '--no-no-sparse-checkout': sharedOption1010,
+    '--sparse-checkout': sharedOption1011,
+    '--no-no-sparse-checkout': sharedOption1011,
     '--no-debug-unpack': {
       key: 'debug-unpack',
       value: 'flag',
@@ -51051,8 +51057,8 @@ const commandSpec144 = {
 const commandSpec145 = {
   argv: ['merge-file'],
   options: {
-    '--stdout': sharedOption1011,
-    '-p': sharedOption1011,
+    '--stdout': sharedOption1012,
+    '-p': sharedOption1012,
     '--object-id': {
       key: 'object-id',
       value: 'flag',
@@ -51065,8 +51071,8 @@ const commandSpec145 = {
       key: 'zdiff3',
       value: 'flag',
     },
-    '--ours': sharedOption1012,
-    '--theirs': sharedOption1013,
+    '--ours': sharedOption1013,
+    '--theirs': sharedOption1014,
     '--union': {
       key: 'union',
       value: 'flag',
@@ -51101,7 +51107,7 @@ const commandSpec145 = {
         },
       ],
     },
-    '--no-stdout': sharedOption1014,
+    '--no-stdout': sharedOption1015,
     '--no-object-id': {
       key: 'object-id',
       value: 'flag',
@@ -51226,14 +51232,14 @@ const commandSpec146 = {
     '--quiet': sharedOption60,
     '-z': sharedOption149,
     '--name-only': sharedOption308,
-    '--allow-unrelated-histories': sharedOption603,
+    '--allow-unrelated-histories': sharedOption604,
     '--stdin': sharedOption204,
     '--merge-base': {
       key: 'merge-base',
       value: 'string',
     },
-    '--strategy-option': sharedOption600,
-    '-X': sharedOption600,
+    '--strategy-option': sharedOption601,
+    '-X': sharedOption601,
     '--no-messages': {
       key: 'messages',
       value: 'flag',
@@ -51244,7 +51250,7 @@ const commandSpec146 = {
       value: 'flag',
       clear: true,
     },
-    '--no-strategy-option': sharedOption612,
+    '--no-strategy-option': sharedOption613,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -51517,7 +51523,7 @@ const commandSpec147 = {
       modeValue: "'w'",
     },
     '--path': sharedOption2,
-    '--filter': sharedOption1015,
+    '--filter': sharedOption1016,
     '--no-allow-unknown-type': {
       key: 'allow-unknown-type',
       value: 'flag',
@@ -51540,7 +51546,7 @@ const commandSpec147 = {
       set: false,
     },
     '--no-path': sharedOption4,
-    '--no-filter': sharedOption1016,
+    '--no-filter': sharedOption1017,
     '--mailmap': sharedOption353,
     '--no-mailmap': sharedOption447,
     '--help': sharedOption5,
@@ -51864,9 +51870,9 @@ const commandSpec147 = {
 const commandSpec148 = {
   argv: ['repack'],
   options: {
-    '-a': sharedOption1017,
-    '-A': sharedOption1018,
-    '--cruft': sharedOption954,
+    '-a': sharedOption1018,
+    '-A': sharedOption1019,
+    '--cruft': sharedOption955,
     '--cruft-expiration': {
       key: 'cruft-expiration',
       value: 'string',
@@ -51876,30 +51882,30 @@ const commandSpec148 = {
       key: 'combine-cruft-below-size',
       value: 'integer',
     },
-    '--max-cruft-size': sharedOption955,
+    '--max-cruft-size': sharedOption956,
     '-d': sharedOption54,
-    '-f': sharedOption897,
+    '-f': sharedOption898,
     '-F': {
       key: 'F',
       value: 'flag',
     },
-    '--name-hash-version': sharedOption1019,
-    '--path-walk': sharedOption1020,
+    '--name-hash-version': sharedOption1020,
+    '--path-walk': sharedOption1021,
     '-n': sharedOption89,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--local': sharedOption154,
     '-l': sharedOption154,
-    '--write-bitmap-index': sharedOption1021,
-    '-b': sharedOption1021,
-    '--delta-islands': sharedOption1022,
-    '-i': sharedOption1022,
+    '--write-bitmap-index': sharedOption1022,
+    '-b': sharedOption1022,
+    '--delta-islands': sharedOption1023,
+    '-i': sharedOption1023,
     '--unpack-unreachable': {
       key: 'unpack-unreachable',
       value: 'string',
     },
-    '--keep-unreachable': sharedOption1023,
-    '-k': sharedOption1023,
+    '--keep-unreachable': sharedOption1024,
+    '-k': sharedOption1024,
     '--window': {
       key: 'window',
       value: 'string',
@@ -51909,21 +51915,21 @@ const commandSpec148 = {
       value: 'string',
     },
     '--depth': sharedOption164,
-    '--threads': sharedOption1024,
+    '--threads': sharedOption1025,
     '--max-pack-size': {
       parser: sharedScalarParser10,
       key: 'max-pack-size',
       value: 'integer',
       nativeIntegerTiming: 'repack-max-pack-size',
     },
-    '--filter': sharedOption1015,
+    '--filter': sharedOption1016,
     '--pack-kept-objects': {
       key: 'pack-kept-objects',
       value: 'flag',
     },
-    '--keep-pack': sharedOption1025,
-    '--geometric': sharedOption1026,
-    '-g': sharedOption1026,
+    '--keep-pack': sharedOption1026,
+    '--geometric': sharedOption1027,
+    '-g': sharedOption1027,
     '--write-midx': {
       key: 'write-midx',
       value: 'optional-string',
@@ -51933,12 +51939,12 @@ const commandSpec148 = {
       key: 'write-midx',
       value: 'flag',
     },
-    '--expire-to': sharedOption957,
+    '--expire-to': sharedOption958,
     '--filter-to': {
       key: 'filter-to',
       value: 'string',
     },
-    '--no-cruft': sharedOption958,
+    '--no-cruft': sharedOption959,
     '--no-cruft-expiration': {
       key: 'cruft-expiration',
       value: 'flag',
@@ -51950,17 +51956,17 @@ const commandSpec148 = {
       value: 'flag',
       set: 0,
     },
-    '--no-path-walk': sharedOption1027,
+    '--no-path-walk': sharedOption1028,
     '--no-quiet': sharedOption51,
     '--no-local': sharedOption176,
-    '--no-write-bitmap-index': sharedOption1028,
-    '--no-delta-islands': sharedOption1029,
+    '--no-write-bitmap-index': sharedOption1029,
+    '--no-delta-islands': sharedOption1030,
     '--no-unpack-unreachable': {
       key: 'unpack-unreachable',
       value: 'flag',
       clear: true,
     },
-    '--no-keep-unreachable': sharedOption1030,
+    '--no-keep-unreachable': sharedOption1031,
     '--no-window': {
       key: 'window',
       value: 'flag',
@@ -51977,13 +51983,13 @@ const commandSpec148 = {
       value: 'flag',
       clear: true,
     },
-    '--no-filter': sharedOption1016,
+    '--no-filter': sharedOption1017,
     '--no-pack-kept-objects': {
       key: 'pack-kept-objects',
       value: 'flag',
       set: false,
     },
-    '--no-keep-pack': sharedOption1031,
+    '--no-keep-pack': sharedOption1032,
     '--no-geometric': {
       parser: sharedScalarParser0,
       key: 'geometric',
@@ -51995,7 +52001,7 @@ const commandSpec148 = {
       value: 'flag',
       set: false,
     },
-    '--no-expire-to': sharedOption960,
+    '--no-expire-to': sharedOption961,
     '--no-filter-to': {
       key: 'filter-to',
       value: 'flag',
@@ -52137,14 +52143,14 @@ const commandSpec148 = {
 const commandSpec149 = {
   argv: ['replace'],
   options: {
-    '--list': sharedOption1032,
-    '-l': sharedOption1032,
-    '--delete': sharedOption1033,
-    '-d': sharedOption1033,
-    '--edit': sharedOption1034,
-    '-e': sharedOption1034,
-    '--graft': sharedOption1035,
-    '-g': sharedOption1035,
+    '--list': sharedOption1033,
+    '-l': sharedOption1033,
+    '--delete': sharedOption1034,
+    '-d': sharedOption1034,
+    '--edit': sharedOption1035,
+    '-e': sharedOption1035,
+    '--graft': sharedOption1036,
+    '-g': sharedOption1036,
     '--convert-graft-file': {
       key: 'convert-graft-file',
       value: 'flag',
@@ -52153,10 +52159,10 @@ const commandSpec149 = {
     },
     '--force': sharedOption214,
     '-f': sharedOption214,
-    '--raw': sharedOption940,
+    '--raw': sharedOption941,
     '--format': sharedOption251,
     '--no-force': sharedOption222,
-    '--no-raw': sharedOption941,
+    '--no-raw': sharedOption942,
     '--no-format': sharedOption261,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -52426,8 +52432,8 @@ const commandSpec149 = {
 const commandSpec150 = {
   argv: ['rerere'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -52495,8 +52501,8 @@ const commandSpec150 = {
 const commandSpec151 = {
   argv: ['rerere', 'clear'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52507,8 +52513,8 @@ const commandSpec151 = {
 const commandSpec152 = {
   argv: ['rerere', 'forget'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52519,8 +52525,8 @@ const commandSpec152 = {
 const commandSpec153 = {
   argv: ['rerere', 'diff'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52531,8 +52537,8 @@ const commandSpec153 = {
 const commandSpec154 = {
   argv: ['rerere', 'status'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52543,8 +52549,8 @@ const commandSpec154 = {
 const commandSpec155 = {
   argv: ['rerere', 'remaining'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52555,8 +52561,8 @@ const commandSpec155 = {
 const commandSpec156 = {
   argv: ['rerere', 'gc'],
   options: {
-    '--rerere-autoupdate': sharedOption597,
-    '--no-rerere-autoupdate': sharedOption610,
+    '--rerere-autoupdate': sharedOption598,
+    '--no-rerere-autoupdate': sharedOption611,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -52567,7 +52573,7 @@ const commandSpec156 = {
 const commandSpec157 = {
   argv: ['for-each-repo'],
   options: {
-    '--config': sharedOption1036,
+    '--config': sharedOption1037,
     '--keep-going': {
       key: 'keep-going',
       value: 'flag',
@@ -52797,7 +52803,7 @@ const commandSpec158 = {
 const commandSpec159 = {
   argv: ['fmt-merge-msg'],
   options: {
-    '--log': sharedOption595,
+    '--log': sharedOption596,
     '--summary': {
       parser: sharedScalarParser0,
       key: 'summary',
@@ -52806,10 +52812,10 @@ const commandSpec159 = {
     },
     '--message': sharedOption94,
     '-m': sharedOption94,
-    '--into-name': sharedOption602,
+    '--into-name': sharedOption603,
     '--file': sharedOption92,
     '-F': sharedOption92,
-    '--no-log': sharedOption607,
+    '--no-log': sharedOption608,
     '--no-summary': {
       parser: sharedScalarParser0,
       key: 'summary',
@@ -52817,7 +52823,7 @@ const commandSpec159 = {
       set: 0,
     },
     '--no-message': sharedOption116,
-    '--no-into-name': sharedOption613,
+    '--no-into-name': sharedOption614,
     '--no-file': sharedOption115,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -52892,17 +52898,17 @@ const commandSpec160 = {
       value: 'optional-string',
       allowed: ['stats', 'all'],
     },
-    '--output-directory': sharedOption1037,
-    '-o': sharedOption1037,
-    '--suffix': sharedOption1038,
-    '-s': sharedOption1038,
+    '--output-directory': sharedOption1038,
+    '-o': sharedOption1038,
+    '--suffix': sharedOption1039,
+    '-s': sharedOption1039,
     '--no-diagnose': {
       key: 'diagnose',
       value: 'flag',
       clear: true,
     },
-    '--no-output-directory': sharedOption1039,
-    '--no-suffix': sharedOption1040,
+    '--no-output-directory': sharedOption1040,
+    '--no-suffix': sharedOption1041,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -52970,17 +52976,17 @@ const commandSpec160 = {
 const commandSpec161 = {
   argv: ['diagnose'],
   options: {
-    '--output-directory': sharedOption1037,
-    '-o': sharedOption1037,
-    '--suffix': sharedOption1038,
-    '-s': sharedOption1038,
+    '--output-directory': sharedOption1038,
+    '-o': sharedOption1038,
+    '--suffix': sharedOption1039,
+    '-s': sharedOption1039,
     '--mode': {
       key: 'mode',
       value: 'string',
       allowed: ['stats', 'all'],
     },
-    '--no-output-directory': sharedOption1039,
-    '--no-suffix': sharedOption1040,
+    '--no-output-directory': sharedOption1040,
+    '--no-suffix': sharedOption1041,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--help-all': sharedOption5,
@@ -53037,8 +53043,8 @@ const commandSpec161 = {
 const commandSpec162 = {
   argv: ['version'],
   options: {
-    '--build-options': sharedOption1041,
-    '--no-build-options': sharedOption1042,
+    '--build-options': sharedOption1042,
+    '--no-build-options': sharedOption1043,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -53067,7 +53073,7 @@ const commandSpec163 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -53178,20 +53184,20 @@ const commandSpec164 = {
   argv: ['mailinfo'],
   options: {
     '-k': sharedOption53,
-    '-b': sharedOption1044,
-    '--message-id': sharedOption889,
-    '-m': sharedOption889,
-    '-u': sharedOption1007,
+    '-b': sharedOption1045,
+    '--message-id': sharedOption890,
+    '-m': sharedOption890,
+    '-u': sharedOption1008,
     '-n': sharedOption89,
     '--encoding': sharedOption497,
-    '--scissors': sharedOption891,
-    '--quoted-cr': sharedOption892,
+    '--scissors': sharedOption892,
+    '--quoted-cr': sharedOption893,
     '--inbody-headers': {
       key: 'inbody-headers',
       value: 'flag',
     },
-    '--no-message-id': sharedOption895,
-    '--no-scissors': sharedOption896,
+    '--no-message-id': sharedOption896,
+    '--no-scissors': sharedOption897,
     '--no-inbody-headers': {
       key: 'inbody-headers',
       value: 'flag',
@@ -53303,7 +53309,7 @@ const commandSpec165 = {
       ],
     },
     '-b': sharedOption58,
-    '--keep-cr': sharedOption890,
+    '--keep-cr': sharedOption891,
     '--mboxrd': {
       key: 'mboxrd',
       value: 'flag',
@@ -53478,8 +53484,8 @@ const commandSpec166 = {
       value: 'flag',
       set: false,
     },
-    '--divider': sharedOption1045,
-    '--no-no-divider': sharedOption1045,
+    '--divider': sharedOption1046,
+    '--no-no-divider': sharedOption1046,
     '--no-trailer': sharedOption117,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -53569,8 +53575,8 @@ const commandSpec166 = {
 const commandSpec167 = {
   argv: ['url-parse'],
   options: {
-    '--component': sharedOption1046,
-    '-c': sharedOption1046,
+    '--component': sharedOption1047,
+    '-c': sharedOption1047,
     '--no-component': {
       key: 'component',
       value: 'flag',
@@ -53605,7 +53611,7 @@ const commandSpec167 = {
 const commandSpec168 = {
   argv: ['hook', 'run'],
   options: {
-    '--allow-unknown-hook-name': sharedOption1047,
+    '--allow-unknown-hook-name': sharedOption1048,
     '--ignore-missing': sharedOption22,
     '--to-stdin': {
       key: 'to-stdin',
@@ -53613,7 +53619,7 @@ const commandSpec168 = {
     },
     '--jobs': sharedOption157,
     '-j': sharedOption157,
-    '--no-allow-unknown-hook-name': sharedOption1048,
+    '--no-allow-unknown-hook-name': sharedOption1049,
     '--no-ignore-missing': sharedOption41,
     '--no-to-stdin': {
       key: 'to-stdin',
@@ -53710,9 +53716,9 @@ const commandSpec169 = {
   options: {
     '-z': sharedOption149,
     '--show-scope': sharedOption310,
-    '--allow-unknown-hook-name': sharedOption1047,
+    '--allow-unknown-hook-name': sharedOption1048,
     '--no-show-scope': sharedOption326,
-    '--no-allow-unknown-hook-name': sharedOption1048,
+    '--no-allow-unknown-hook-name': sharedOption1049,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -53791,7 +53797,7 @@ const commandSpec170 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -53980,7 +53986,7 @@ const commandSpec176 = {
       key: 'socket',
       value: 'string',
     },
-    '--no-timeout': sharedOption1049,
+    '--no-timeout': sharedOption1050,
     '--no-socket': {
       key: 'socket',
       value: 'flag',
@@ -54006,8 +54012,8 @@ const commandSpec176 = {
 const commandSpec177 = {
   argv: ['credential-cache--daemon'],
   options: {
-    '--debug': sharedOption908,
-    '--no-debug': sharedOption910,
+    '--debug': sharedOption909,
+    '--no-debug': sharedOption911,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -54028,8 +54034,8 @@ const commandSpec177 = {
 const commandSpec178 = {
   argv: ['checkout--worker'],
   options: {
-    '--prefix': sharedOption945,
-    '--no-prefix': sharedOption946,
+    '--prefix': sharedOption946,
+    '--no-prefix': sharedOption947,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -54078,7 +54084,7 @@ const commandSpec180 = {
       value: 'flag',
       firstOnly: true,
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
   },
   rules: [
     {
@@ -54125,7 +54131,7 @@ const commandSpec181 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -54200,7 +54206,7 @@ const commandSpec182 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -54279,7 +54285,7 @@ const commandSpec183 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -54343,8 +54349,8 @@ const commandSpec184 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -54443,9 +54449,9 @@ const commandSpec184 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -54614,8 +54620,8 @@ const commandSpec184 = {
     '-i': sharedOption549,
     '-m': sharedOption575,
     '-n': sharedOption576,
-    '-r': sharedOption1050,
-    '-t': sharedOption1050,
+    '-r': sharedOption1051,
+    '-t': sharedOption1051,
     '-v': {
       key: 'verbose-header',
       value: 'flag',
@@ -54638,7 +54644,7 @@ const commandSpec184 = {
       key: 'bisect-vars',
       value: 'flag',
     },
-    '--use-bitmap-index': sharedOption1051,
+    '--use-bitmap-index': sharedOption1052,
     '--test-bitmap': {
       key: 'test-bitmap',
       value: 'flag',
@@ -54651,7 +54657,7 @@ const commandSpec184 = {
       key: 'filter-print-omitted',
       value: 'flag',
     },
-    '--exclude-promisor-objects': sharedOption999,
+    '--exclude-promisor-objects': sharedOption1000,
     '--object-names': {
       key: 'object-names',
       value: 'flag',
@@ -54707,7 +54713,7 @@ const commandSpec184 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -55454,8 +55460,8 @@ const commandSpec185 = {
     '--quiet': sharedOption60,
     '-q': sharedOption60,
     '--progress': sharedOption79,
-    '--all-progress': sharedOption1052,
-    '--all-progress-implied': sharedOption1053,
+    '--all-progress': sharedOption1053,
+    '--all-progress-implied': sharedOption1054,
     '--version': {
       parser: sharedScalarParser0,
       key: 'version',
@@ -55463,8 +55469,8 @@ const commandSpec185 = {
     },
     '--no-quiet': sharedOption67,
     '--no-progress': sharedOption80,
-    '--no-all-progress': sharedOption1054,
-    '--no-all-progress-implied': sharedOption1055,
+    '--no-all-progress': sharedOption1055,
+    '--no-all-progress-implied': sharedOption1056,
     '--no-version': {
       key: 'version',
       value: 'flag',
@@ -55570,7 +55576,7 @@ const commandSpec188 = {
 const commandSpec189 = {
   argv: ['history', 'fixup'],
   options: {
-    '--update-refs': sharedOption1056,
+    '--update-refs': sharedOption1057,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
     '--reedit-message': {
@@ -55609,7 +55615,7 @@ const commandSpec189 = {
 const commandSpec190 = {
   argv: ['history', 'reword'],
   options: {
-    '--update-refs': sharedOption1056,
+    '--update-refs': sharedOption1057,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
     '--no-dry-run': sharedOption28,
@@ -55634,7 +55640,7 @@ const commandSpec190 = {
 const commandSpec191 = {
   argv: ['history', 'split'],
   options: {
-    '--update-refs': sharedOption1056,
+    '--update-refs': sharedOption1057,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
     '--no-dry-run': sharedOption28,
@@ -55658,8 +55664,8 @@ const commandSpec191 = {
 const commandSpec192 = {
   argv: ['repo', 'info'],
   options: {
-    '--format': sharedOption1057,
-    '-z': sharedOption1058,
+    '--format': sharedOption1058,
+    '-z': sharedOption1059,
     '--all': sharedOption18,
     '--keys': {
       key: 'keys',
@@ -55727,8 +55733,8 @@ const commandSpec192 = {
 const commandSpec193 = {
   argv: ['repo', 'structure'],
   options: {
-    '--format': sharedOption1057,
-    '-z': sharedOption1058,
+    '--format': sharedOption1058,
+    '-z': sharedOption1059,
     '--progress': sharedOption79,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
@@ -55754,8 +55760,8 @@ const commandSpec194 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -55848,12 +55854,12 @@ const commandSpec194 = {
     '--rotate-to': sharedOption439,
     '--skip-to': sharedOption440,
     '--find-object': sharedOption441,
-    '--diff-filter': sharedOption1059,
+    '--diff-filter': sharedOption1060,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -55885,20 +55891,20 @@ const commandSpec194 = {
     '--bisect': sharedOption478,
     '--boundary': sharedOption479,
     '--branches': sharedOption480,
-    '--cc': sharedOption1060,
+    '--cc': sharedOption1061,
     '--cherry': sharedOption482,
     '--cherry-mark': sharedOption483,
     '--cherry-pick': sharedOption484,
     '--children': sharedOption485,
-    '--combined-all-paths': sharedOption1061,
+    '--combined-all-paths': sharedOption1062,
     '--committer': sharedOption487,
     '--count': sharedOption488,
     '--date': sharedOption489,
     '--date-order': sharedOption490,
-    '--dd': sharedOption1062,
+    '--dd': sharedOption1063,
     '--default': sharedOption492,
     '--dense': sharedOption493,
-    '--diff-merges': sharedOption1063,
+    '--diff-merges': sharedOption1064,
     '--do-walk': sharedOption495,
     '--encode-email-headers': sharedOption496,
     '--encoding': sharedOption497,
@@ -55935,7 +55941,7 @@ const commandSpec194 = {
     '--min-parents': sharedOption524,
     '--no-abbrev-commit': sharedOption525,
     '--no-commit-id': sharedOption526,
-    '--no-diff-merges': sharedOption1064,
+    '--no-diff-merges': sharedOption1065,
     '--no-encode-email-headers': sharedOption528,
     '--no-expand-tabs': sharedOption529,
     '--no-graph': sharedOption530,
@@ -55959,7 +55965,7 @@ const commandSpec194 = {
     '--reflog': sharedOption548,
     '--regexp-ignore-case': sharedOption549,
     '--relative-date': sharedOption550,
-    '--remerge-diff': sharedOption1065,
+    '--remerge-diff': sharedOption1066,
     '--remotes': sharedOption552,
     '--remove-empty': sharedOption553,
     '--reverse': sharedOption554,
@@ -55988,10 +55994,10 @@ const commandSpec194 = {
     '-E': sharedOption501,
     '-F': sharedOption503,
     '-P': sharedOption546,
-    '-c': sharedOption1066,
+    '-c': sharedOption1067,
     '-g': sharedOption573,
     '-i': sharedOption549,
-    '-m': sharedOption1067,
+    '-m': sharedOption1068,
     '-n': sharedOption576,
     '-r': sharedOption50,
     '-t': sharedOption577,
@@ -56021,7 +56027,7 @@ const commandSpec194 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -56616,8 +56622,8 @@ const commandSpec195 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -56713,9 +56719,9 @@ const commandSpec195 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -56855,14 +56861,14 @@ const commandSpec195 = {
     '-i': sharedOption549,
     '-m': sharedOption575,
     '-n': sharedOption576,
-    '-r': sharedOption1068,
-    '-t': sharedOption1069,
+    '-r': sharedOption1069,
+    '-t': sharedOption1070,
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--recursive': sharedOption1068,
-    '--show-trees': sharedOption1069,
-    '--no-recursive': sharedOption1070,
+    '--recursive': sharedOption1069,
+    '--show-trees': sharedOption1070,
+    '--no-recursive': sharedOption1071,
     '--no-show-trees': {
       key: 'show-trees',
       value: 'flag',
@@ -56876,7 +56882,7 @@ const commandSpec195 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -57420,8 +57426,8 @@ const commandSpec196 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -57517,9 +57523,9 @@ const commandSpec196 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -57622,8 +57628,8 @@ const commandSpec197 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -57719,9 +57725,9 @@ const commandSpec197 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -57739,7 +57745,7 @@ const commandSpec197 = {
     '--no-textconv': sharedOption467,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--creation-factor': sharedOption1071,
+    '--creation-factor': sharedOption1072,
     '--no-dual-color': {
       key: 'no-dual-color',
       value: 'flag',
@@ -57766,9 +57772,9 @@ const commandSpec197 = {
       key: 'right-only',
       value: 'flag',
     },
-    '--no-creation-factor': sharedOption1072,
-    '--dual-color': sharedOption1073,
-    '--no-no-dual-color': sharedOption1073,
+    '--no-creation-factor': sharedOption1073,
+    '--dual-color': sharedOption1074,
+    '--no-no-dual-color': sharedOption1074,
     '--no-notes': {
       key: 'notes',
       value: 'flag',
@@ -57892,8 +57898,8 @@ const commandSpec198 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -57989,9 +57995,9 @@ const commandSpec198 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -58140,7 +58146,7 @@ const commandSpec198 = {
       key: 'contained',
       value: 'flag',
     },
-    '--onto': sharedOption616,
+    '--onto': sharedOption617,
     '--advance': {
       key: 'advance',
       value: 'string',
@@ -58167,7 +58173,7 @@ const commandSpec198 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -58859,8 +58865,8 @@ const commandSpec199 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption148,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption1074,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption1075,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -58887,7 +58893,7 @@ const commandSpec199 = {
     '--compact-summary': sharedOption382,
     '--binary': sharedOption383,
     '--full-index': sharedOption384,
-    '--color': sharedOption1075,
+    '--color': sharedOption1076,
     '--ws-error-highlight': sharedOption385,
     '-z': sharedOption149,
     '--abbrev': sharedOption238,
@@ -58903,11 +58909,11 @@ const commandSpec199 = {
     '--break-rewrites': sharedOption396,
     '-B': sharedOption397,
     '--find-renames': sharedOption398,
-    '-M': sharedOption1076,
+    '-M': sharedOption1077,
     '--irreversible-delete': sharedOption400,
     '-D': sharedOption400,
     '--find-copies': sharedOption401,
-    '-C': sharedOption1077,
+    '-C': sharedOption1078,
     '--find-copies-harder': sharedOption403,
     '--no-renames': sharedOption131,
     '--rename-empty': sharedOption404,
@@ -58917,7 +58923,7 @@ const commandSpec199 = {
     '--ignore-all-space': sharedOption408,
     '-w': sharedOption1,
     '--ignore-space-change': sharedOption409,
-    '-b': sharedOption1044,
+    '-b': sharedOption1045,
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--ignore-blank-lines': sharedOption412,
@@ -58945,7 +58951,7 @@ const commandSpec199 = {
     '--submodule': sharedOption431,
     '--ita-invisible-in-index': sharedOption432,
     '--ita-visible-in-index': sharedOption433,
-    '-S': sharedOption1078,
+    '-S': sharedOption1079,
     '-G': sharedOption435,
     '--pickaxe-all': sharedOption436,
     '--pickaxe-regex': sharedOption437,
@@ -58956,9 +58962,9 @@ const commandSpec199 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -59067,7 +59073,7 @@ const commandSpec199 = {
     '--remerge-diff': sharedOption551,
     '--remotes': sharedOption552,
     '--remove-empty': sharedOption553,
-    '--reverse': sharedOption1079,
+    '--reverse': sharedOption1080,
     '--right-only': sharedOption555,
     '--root': sharedOption556,
     '--show-linear-break': sharedOption557,
@@ -59093,56 +59099,56 @@ const commandSpec199 = {
     '-E': sharedOption501,
     '-F': sharedOption503,
     '-P': sharedOption546,
-    '-c': sharedOption1080,
+    '-c': sharedOption1081,
     '-g': sharedOption573,
     '-i': sharedOption549,
     '-m': sharedOption575,
-    '-n': sharedOption1081,
+    '-n': sharedOption1082,
     '-r': sharedOption50,
     '-t': sharedOption577,
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--incremental': sharedOption971,
-    '--show-stats': sharedOption1082,
+    '--incremental': sharedOption972,
+    '--show-stats': sharedOption1083,
     '--progress': sharedOption79,
-    '--score-debug': sharedOption1083,
-    '--show-name': sharedOption1084,
-    '-f': sharedOption1084,
-    '--show-number': sharedOption1081,
+    '--score-debug': sharedOption1084,
+    '--show-name': sharedOption1085,
+    '-f': sharedOption1085,
+    '--show-number': sharedOption1082,
     '--porcelain': sharedOption148,
-    '--line-porcelain': sharedOption1085,
-    '--show-email': sharedOption1086,
-    '-e': sharedOption1086,
-    '--ignore-rev': sharedOption1087,
-    '--ignore-revs-file': sharedOption1088,
-    '--color-lines': sharedOption1089,
-    '--color-by-age': sharedOption1090,
-    '--contents': sharedOption1091,
+    '--line-porcelain': sharedOption1086,
+    '--show-email': sharedOption1087,
+    '-e': sharedOption1087,
+    '--ignore-rev': sharedOption1088,
+    '--ignore-revs-file': sharedOption1089,
+    '--color-lines': sharedOption1090,
+    '--color-by-age': sharedOption1091,
+    '--contents': sharedOption1092,
     '-L': sharedOption359,
-    '--no-incremental': sharedOption975,
-    '--no-root': sharedOption633,
-    '--no-show-stats': sharedOption1092,
+    '--no-incremental': sharedOption976,
+    '--no-root': sharedOption634,
+    '--no-show-stats': sharedOption1093,
     '--no-progress': sharedOption80,
-    '--no-score-debug': sharedOption1093,
-    '--no-show-name': sharedOption1094,
-    '--no-show-number': sharedOption1095,
+    '--no-score-debug': sharedOption1094,
+    '--no-show-name': sharedOption1095,
+    '--no-show-number': sharedOption1096,
     '--no-porcelain': sharedOption150,
-    '--no-line-porcelain': sharedOption1096,
-    '--no-show-email': sharedOption1097,
-    '--no-ignore-rev': sharedOption1098,
-    '--no-ignore-revs-file': sharedOption1099,
-    '--no-color-lines': sharedOption1100,
-    '--no-color-by-age': sharedOption1101,
-    '--no-minimal': sharedOption1102,
-    '--no-contents': sharedOption1103,
+    '--no-line-porcelain': sharedOption1097,
+    '--no-show-email': sharedOption1098,
+    '--no-ignore-rev': sharedOption1099,
+    '--no-ignore-revs-file': sharedOption1100,
+    '--no-color-lines': sharedOption1101,
+    '--no-color-by-age': sharedOption1102,
+    '--no-minimal': sharedOption1103,
+    '--no-contents': sharedOption1104,
     '--help-all': sharedOption5,
   },
   numericOption: {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -59401,8 +59407,8 @@ const commandSpec200 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption148,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption1074,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption1075,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -59429,7 +59435,7 @@ const commandSpec200 = {
     '--compact-summary': sharedOption382,
     '--binary': sharedOption383,
     '--full-index': sharedOption384,
-    '--color': sharedOption1075,
+    '--color': sharedOption1076,
     '--ws-error-highlight': sharedOption385,
     '-z': sharedOption149,
     '--abbrev': sharedOption238,
@@ -59445,11 +59451,11 @@ const commandSpec200 = {
     '--break-rewrites': sharedOption396,
     '-B': sharedOption397,
     '--find-renames': sharedOption398,
-    '-M': sharedOption1076,
+    '-M': sharedOption1077,
     '--irreversible-delete': sharedOption400,
     '-D': sharedOption400,
     '--find-copies': sharedOption401,
-    '-C': sharedOption1077,
+    '-C': sharedOption1078,
     '--find-copies-harder': sharedOption403,
     '--no-renames': sharedOption131,
     '--rename-empty': sharedOption404,
@@ -59459,7 +59465,7 @@ const commandSpec200 = {
     '--ignore-all-space': sharedOption408,
     '-w': sharedOption1,
     '--ignore-space-change': sharedOption409,
-    '-b': sharedOption1044,
+    '-b': sharedOption1045,
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--ignore-blank-lines': sharedOption412,
@@ -59487,7 +59493,7 @@ const commandSpec200 = {
     '--submodule': sharedOption431,
     '--ita-invisible-in-index': sharedOption432,
     '--ita-visible-in-index': sharedOption433,
-    '-S': sharedOption1078,
+    '-S': sharedOption1079,
     '-G': sharedOption435,
     '--pickaxe-all': sharedOption436,
     '--pickaxe-regex': sharedOption437,
@@ -59498,9 +59504,9 @@ const commandSpec200 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -59609,7 +59615,7 @@ const commandSpec200 = {
     '--remerge-diff': sharedOption551,
     '--remotes': sharedOption552,
     '--remove-empty': sharedOption553,
-    '--reverse': sharedOption1079,
+    '--reverse': sharedOption1080,
     '--right-only': sharedOption555,
     '--root': sharedOption556,
     '--show-linear-break': sharedOption557,
@@ -59635,56 +59641,56 @@ const commandSpec200 = {
     '-E': sharedOption501,
     '-F': sharedOption503,
     '-P': sharedOption546,
-    '-c': sharedOption1080,
+    '-c': sharedOption1081,
     '-g': sharedOption573,
     '-i': sharedOption549,
     '-m': sharedOption575,
-    '-n': sharedOption1081,
+    '-n': sharedOption1082,
     '-r': sharedOption50,
     '-t': sharedOption577,
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--incremental': sharedOption971,
-    '--show-stats': sharedOption1082,
+    '--incremental': sharedOption972,
+    '--show-stats': sharedOption1083,
     '--progress': sharedOption79,
-    '--score-debug': sharedOption1083,
-    '--show-name': sharedOption1084,
-    '-f': sharedOption1084,
-    '--show-number': sharedOption1081,
+    '--score-debug': sharedOption1084,
+    '--show-name': sharedOption1085,
+    '-f': sharedOption1085,
+    '--show-number': sharedOption1082,
     '--porcelain': sharedOption148,
-    '--line-porcelain': sharedOption1085,
-    '--show-email': sharedOption1086,
-    '-e': sharedOption1086,
-    '--ignore-rev': sharedOption1087,
-    '--ignore-revs-file': sharedOption1088,
-    '--color-lines': sharedOption1089,
-    '--color-by-age': sharedOption1090,
-    '--contents': sharedOption1091,
+    '--line-porcelain': sharedOption1086,
+    '--show-email': sharedOption1087,
+    '-e': sharedOption1087,
+    '--ignore-rev': sharedOption1088,
+    '--ignore-revs-file': sharedOption1089,
+    '--color-lines': sharedOption1090,
+    '--color-by-age': sharedOption1091,
+    '--contents': sharedOption1092,
     '-L': sharedOption359,
-    '--no-incremental': sharedOption975,
-    '--no-root': sharedOption633,
-    '--no-show-stats': sharedOption1092,
+    '--no-incremental': sharedOption976,
+    '--no-root': sharedOption634,
+    '--no-show-stats': sharedOption1093,
     '--no-progress': sharedOption80,
-    '--no-score-debug': sharedOption1093,
-    '--no-show-name': sharedOption1094,
-    '--no-show-number': sharedOption1095,
+    '--no-score-debug': sharedOption1094,
+    '--no-show-name': sharedOption1095,
+    '--no-show-number': sharedOption1096,
     '--no-porcelain': sharedOption150,
-    '--no-line-porcelain': sharedOption1096,
-    '--no-show-email': sharedOption1097,
-    '--no-ignore-rev': sharedOption1098,
-    '--no-ignore-revs-file': sharedOption1099,
-    '--no-color-lines': sharedOption1100,
-    '--no-color-by-age': sharedOption1101,
-    '--no-minimal': sharedOption1102,
-    '--no-contents': sharedOption1103,
+    '--no-line-porcelain': sharedOption1097,
+    '--no-show-email': sharedOption1098,
+    '--no-ignore-rev': sharedOption1099,
+    '--no-ignore-revs-file': sharedOption1100,
+    '--no-color-lines': sharedOption1101,
+    '--no-color-by-age': sharedOption1102,
+    '--no-minimal': sharedOption1103,
+    '--no-contents': sharedOption1104,
     '--help-all': sharedOption5,
   },
   numericOption: {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -59941,19 +59947,19 @@ const commandSpec201 = {
   },
   options: {
     '--cached': sharedOption49,
-    '--no-index': sharedOption584,
+    '--no-index': sharedOption585,
     '--untracked': {
       key: 'untracked',
       value: 'flag',
     },
-    '--exclude-standard': sharedOption906,
+    '--exclude-standard': sharedOption907,
     '--recurse-submodules': sharedOption250,
-    '--invert-match': sharedOption1104,
-    '-v': sharedOption1104,
+    '--invert-match': sharedOption1105,
+    '-v': sharedOption1105,
     '--ignore-case': sharedOption249,
     '-i': sharedOption249,
-    '--word-regexp': sharedOption1105,
-    '-w': sharedOption1105,
+    '--word-regexp': sharedOption1106,
+    '-w': sharedOption1106,
     '--text': sharedOption425,
     '-a': sharedOption425,
     '-I': {
@@ -59961,8 +59967,8 @@ const commandSpec201 = {
       value: 'flag',
     },
     '--textconv': sharedOption429,
-    '--recursive': sharedOption1068,
-    '-r': sharedOption1068,
+    '--recursive': sharedOption1069,
+    '-r': sharedOption1069,
     '--max-depth': sharedOption443,
     '--extended-regexp': sharedOption501,
     '-E': sharedOption501,
@@ -59972,27 +59978,27 @@ const commandSpec201 = {
     '-F': sharedOption503,
     '--perl-regexp': sharedOption546,
     '-P': sharedOption546,
-    '--line-number': sharedOption1106,
-    '-n': sharedOption1106,
+    '--line-number': sharedOption1107,
+    '-n': sharedOption1107,
     '--column': {
       key: 'column',
       value: 'flag',
     },
-    '-h': sharedOption937,
+    '-h': sharedOption938,
     '-H': {
       key: 'H',
       value: 'flag',
     },
-    '--full-name': sharedOption907,
-    '--files-with-matches': sharedOption1107,
-    '-l': sharedOption1107,
+    '--full-name': sharedOption908,
+    '--files-with-matches': sharedOption1108,
+    '-l': sharedOption1108,
     '--name-only': sharedOption308,
-    '--files-without-match': sharedOption1108,
-    '-L': sharedOption1108,
+    '--files-without-match': sharedOption1109,
+    '-L': sharedOption1109,
     '--null': sharedOption110,
     '-z': sharedOption110,
-    '--only-matching': sharedOption1109,
-    '-o': sharedOption1109,
+    '--only-matching': sharedOption1110,
+    '-o': sharedOption1110,
     '--count': sharedOption488,
     '-c': sharedOption488,
     '--color': sharedOption232,
@@ -60004,15 +60010,15 @@ const commandSpec201 = {
       key: 'heading',
       value: 'flag',
     },
-    '--context': sharedOption1110,
-    '-C': sharedOption1110,
-    '--before-context': sharedOption1111,
-    '-B': sharedOption1111,
-    '--after-context': sharedOption1112,
-    '-A': sharedOption1112,
-    '--threads': sharedOption1113,
-    '--show-function': sharedOption1114,
-    '-p': sharedOption1114,
+    '--context': sharedOption1111,
+    '-C': sharedOption1111,
+    '--before-context': sharedOption1112,
+    '-B': sharedOption1112,
+    '--after-context': sharedOption1113,
+    '-A': sharedOption1113,
+    '--threads': sharedOption1114,
+    '--show-function': sharedOption1115,
+    '-p': sharedOption1115,
     '--function-context': sharedOption365,
     '-W': sharedOption365,
     '-f': {
@@ -60058,11 +60064,11 @@ const commandSpec201 = {
       key: 'ext-grep',
       value: 'flag',
     },
-    '--max-count': sharedOption1115,
-    '-m': sharedOption1115,
+    '--max-count': sharedOption1116,
+    '-m': sharedOption1116,
     '--no-cached': sharedOption52,
-    '--index': sharedOption944,
-    '--no-no-index': sharedOption944,
+    '--index': sharedOption945,
+    '--no-no-index': sharedOption945,
     '--no-untracked': {
       key: 'untracked',
       value: 'flag',
@@ -60087,7 +60093,7 @@ const commandSpec201 = {
     },
     '--no-text': sharedOption464,
     '--no-textconv': sharedOption467,
-    '--no-recursive': sharedOption1070,
+    '--no-recursive': sharedOption1071,
     '--no-extended-regexp': {
       key: 'extended-regexp',
       value: 'flag',
@@ -60118,7 +60124,7 @@ const commandSpec201 = {
       value: 'flag',
       set: false,
     },
-    '--no-full-name': sharedOption917,
+    '--no-full-name': sharedOption918,
     '--no-files-with-matches': {
       key: 'files-with-matches',
       value: 'flag',
@@ -60369,8 +60375,8 @@ const commandSpec202 = {
   argv: ['format-patch'],
   options: {
     '--patch': sharedOption360,
-    '-p': sharedOption617,
-    '--no-patch': sharedOption361,
+    '-p': sharedOption618,
+    '--no-patch': sharedOption581,
     '-s': sharedOption98,
     '-u': sharedOption362,
     '--unified': sharedOption363,
@@ -60396,7 +60402,7 @@ const commandSpec202 = {
     '--stat-graph-width': sharedOption380,
     '--stat-count': sharedOption381,
     '--compact-summary': sharedOption382,
-    '--binary': sharedOption1116,
+    '--binary': sharedOption1117,
     '--full-index': sharedOption384,
     '--color': sharedOption232,
     '--ws-error-highlight': sharedOption385,
@@ -60467,9 +60473,9 @@ const commandSpec202 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -60612,17 +60618,17 @@ const commandSpec202 = {
     '-g': sharedOption573,
     '-i': sharedOption549,
     '-m': sharedOption575,
-    '-n': sharedOption1117,
+    '-n': sharedOption1118,
     '-r': sharedOption50,
     '-t': sharedOption577,
-    '-v': sharedOption1118,
+    '-v': sharedOption1119,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--numbered': sharedOption1117,
-    '--no-numbered': sharedOption1119,
-    '-N': sharedOption1119,
+    '--numbered': sharedOption1118,
+    '--no-numbered': sharedOption1120,
+    '-N': sharedOption1120,
     '--signoff': sharedOption98,
-    '--stdout': sharedOption1011,
+    '--stdout': sharedOption1012,
     '--cover-letter': {
       key: 'cover-letter',
       value: 'flag',
@@ -60635,13 +60641,13 @@ const commandSpec202 = {
       key: 'numbered-files',
       value: 'flag',
     },
-    '--suffix': sharedOption1038,
+    '--suffix': sharedOption1039,
     '--start-number': {
       parser: sharedScalarParser0,
       key: 'start-number',
       value: 'integer',
     },
-    '--reroll-count': sharedOption1118,
+    '--reroll-count': sharedOption1119,
     '--filename-max-length': {
       parser: sharedScalarParser0,
       key: 'filename-max-length',
@@ -60665,10 +60671,10 @@ const commandSpec202 = {
       key: 'subject-prefix',
       value: 'string',
     },
-    '--output-directory': sharedOption1120,
-    '-o': sharedOption1120,
-    '--keep-subject': sharedOption1121,
-    '-k': sharedOption1121,
+    '--output-directory': sharedOption1121,
+    '-o': sharedOption1121,
+    '--keep-subject': sharedOption1122,
+    '-k': sharedOption1122,
     '--no-binary': {
       key: 'no-binary',
       value: 'flag',
@@ -60681,7 +60687,7 @@ const commandSpec202 = {
       key: 'ignore-if-in-upstream',
       value: 'flag',
     },
-    '--no-stat': sharedOption617,
+    '--no-stat': sharedOption618,
     '--add-header': {
       key: 'add-header',
       value: 'string',
@@ -60716,7 +60722,7 @@ const commandSpec202 = {
       key: 'signature',
       value: 'string',
     },
-    '--base': sharedOption970,
+    '--base': sharedOption971,
     '--signature-file': {
       key: 'signature-file',
       value: 'string',
@@ -60744,13 +60750,13 @@ const commandSpec202 = {
       key: 'range-diff',
       value: 'string',
     },
-    '--creation-factor': sharedOption1071,
+    '--creation-factor': sharedOption1072,
     '--force-in-body-from': {
       key: 'force-in-body-from',
       value: 'flag',
     },
     '--no-signoff': sharedOption118,
-    '--no-stdout': sharedOption1014,
+    '--no-stdout': sharedOption1015,
     '--no-cover-letter': {
       key: 'cover-letter',
       value: 'flag',
@@ -60766,7 +60772,7 @@ const commandSpec202 = {
       value: 'flag',
       set: false,
     },
-    '--no-suffix': sharedOption1040,
+    '--no-suffix': sharedOption1041,
     '--no-start-number': {
       parser: sharedScalarParser0,
       key: 'start-number',
@@ -60800,7 +60806,7 @@ const commandSpec202 = {
       emptyIsUnset: true,
       ignore: true,
     },
-    '--no-no-binary': sharedOption1116,
+    '--no-no-binary': sharedOption1117,
     '--no-zero-commit': {
       key: 'zero-commit',
       value: 'flag',
@@ -60853,7 +60859,7 @@ const commandSpec202 = {
       value: 'flag',
       clear: true,
     },
-    '--no-base': sharedOption974,
+    '--no-base': sharedOption975,
     '--no-signature-file': {
       key: 'signature-file',
       value: 'flag',
@@ -60871,7 +60877,7 @@ const commandSpec202 = {
       value: 'flag',
       clear: true,
     },
-    '--no-creation-factor': sharedOption1072,
+    '--no-creation-factor': sharedOption1073,
     '--no-force-in-body-from': {
       key: 'force-in-body-from',
       value: 'flag',
@@ -60885,7 +60891,7 @@ const commandSpec202 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -61659,11 +61665,11 @@ const commandSpec203 = {
   argv: ['archive'],
   options: {
     '--format': sharedOption251,
-    '--prefix': sharedOption945,
-    '--add-file': sharedOption1122,
-    '--add-virtual-file': sharedOption1122,
-    '--output': sharedOption1123,
-    '-o': sharedOption1123,
+    '--prefix': sharedOption946,
+    '--add-file': sharedOption1123,
+    '--add-virtual-file': sharedOption1123,
+    '--output': sharedOption1124,
+    '-o': sharedOption1124,
     '--worktree-attributes': {
       key: 'worktree-attributes',
       value: 'flag',
@@ -61676,12 +61682,12 @@ const commandSpec203 = {
     },
     '--list': sharedOption243,
     '-l': sharedOption243,
-    '--remote': sharedOption1124,
+    '--remote': sharedOption1125,
     '--exec': sharedOption219,
     '--no-format': sharedOption261,
-    '--no-prefix': sharedOption946,
-    '--no-add-file': sharedOption1125,
-    '--no-add-virtual-file': sharedOption1125,
+    '--no-prefix': sharedOption947,
+    '--no-add-file': sharedOption1126,
+    '--no-add-virtual-file': sharedOption1126,
     '--no-output': {
       key: 'output',
       value: 'flag',
@@ -61695,7 +61701,7 @@ const commandSpec203 = {
     },
     '--no-verbose': sharedOption29,
     '--no-list': sharedOption255,
-    '--no-remote': sharedOption1126,
+    '--no-remote': sharedOption1127,
     '--no-exec': sharedOption227,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -61762,8 +61768,8 @@ const commandSpec204 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption148,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption1074,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption1075,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -61790,7 +61796,7 @@ const commandSpec204 = {
     '--compact-summary': sharedOption382,
     '--binary': sharedOption383,
     '--full-index': sharedOption384,
-    '--color': sharedOption1075,
+    '--color': sharedOption1076,
     '--ws-error-highlight': sharedOption385,
     '-z': sharedOption149,
     '--abbrev': sharedOption238,
@@ -61806,11 +61812,11 @@ const commandSpec204 = {
     '--break-rewrites': sharedOption396,
     '-B': sharedOption397,
     '--find-renames': sharedOption398,
-    '-M': sharedOption1076,
+    '-M': sharedOption1077,
     '--irreversible-delete': sharedOption400,
     '-D': sharedOption400,
     '--find-copies': sharedOption401,
-    '-C': sharedOption1077,
+    '-C': sharedOption1078,
     '--find-copies-harder': sharedOption403,
     '--no-renames': sharedOption131,
     '--rename-empty': sharedOption404,
@@ -61820,7 +61826,7 @@ const commandSpec204 = {
     '--ignore-all-space': sharedOption408,
     '-w': sharedOption1,
     '--ignore-space-change': sharedOption409,
-    '-b': sharedOption1044,
+    '-b': sharedOption1045,
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--ignore-blank-lines': sharedOption412,
@@ -61848,7 +61854,7 @@ const commandSpec204 = {
     '--submodule': sharedOption431,
     '--ita-invisible-in-index': sharedOption432,
     '--ita-visible-in-index': sharedOption433,
-    '-S': sharedOption1078,
+    '-S': sharedOption1079,
     '-G': sharedOption435,
     '--pickaxe-all': sharedOption436,
     '--pickaxe-regex': sharedOption437,
@@ -61859,9 +61865,9 @@ const commandSpec204 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -61970,7 +61976,7 @@ const commandSpec204 = {
     '--remerge-diff': sharedOption551,
     '--remotes': sharedOption552,
     '--remove-empty': sharedOption553,
-    '--reverse': sharedOption1079,
+    '--reverse': sharedOption1080,
     '--right-only': sharedOption555,
     '--root': sharedOption556,
     '--show-linear-break': sharedOption557,
@@ -61996,56 +62002,56 @@ const commandSpec204 = {
     '-E': sharedOption501,
     '-F': sharedOption503,
     '-P': sharedOption546,
-    '-c': sharedOption1080,
+    '-c': sharedOption1081,
     '-g': sharedOption573,
     '-i': sharedOption549,
     '-m': sharedOption575,
-    '-n': sharedOption1081,
+    '-n': sharedOption1082,
     '-r': sharedOption50,
     '-t': sharedOption577,
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--incremental': sharedOption971,
-    '--show-stats': sharedOption1082,
+    '--incremental': sharedOption972,
+    '--show-stats': sharedOption1083,
     '--progress': sharedOption79,
-    '--score-debug': sharedOption1083,
-    '--show-name': sharedOption1084,
-    '-f': sharedOption1084,
-    '--show-number': sharedOption1081,
+    '--score-debug': sharedOption1084,
+    '--show-name': sharedOption1085,
+    '-f': sharedOption1085,
+    '--show-number': sharedOption1082,
     '--porcelain': sharedOption148,
-    '--line-porcelain': sharedOption1085,
-    '--show-email': sharedOption1086,
-    '-e': sharedOption1086,
-    '--ignore-rev': sharedOption1087,
-    '--ignore-revs-file': sharedOption1088,
-    '--color-lines': sharedOption1089,
-    '--color-by-age': sharedOption1090,
-    '--contents': sharedOption1091,
+    '--line-porcelain': sharedOption1086,
+    '--show-email': sharedOption1087,
+    '-e': sharedOption1087,
+    '--ignore-rev': sharedOption1088,
+    '--ignore-revs-file': sharedOption1089,
+    '--color-lines': sharedOption1090,
+    '--color-by-age': sharedOption1091,
+    '--contents': sharedOption1092,
     '-L': sharedOption359,
-    '--no-incremental': sharedOption975,
-    '--no-root': sharedOption633,
-    '--no-show-stats': sharedOption1092,
+    '--no-incremental': sharedOption976,
+    '--no-root': sharedOption634,
+    '--no-show-stats': sharedOption1093,
     '--no-progress': sharedOption80,
-    '--no-score-debug': sharedOption1093,
-    '--no-show-name': sharedOption1094,
-    '--no-show-number': sharedOption1095,
+    '--no-score-debug': sharedOption1094,
+    '--no-show-name': sharedOption1095,
+    '--no-show-number': sharedOption1096,
     '--no-porcelain': sharedOption150,
-    '--no-line-porcelain': sharedOption1096,
-    '--no-show-email': sharedOption1097,
-    '--no-ignore-rev': sharedOption1098,
-    '--no-ignore-revs-file': sharedOption1099,
-    '--no-color-lines': sharedOption1100,
-    '--no-color-by-age': sharedOption1101,
-    '--no-minimal': sharedOption1102,
-    '--no-contents': sharedOption1103,
+    '--no-line-porcelain': sharedOption1097,
+    '--no-show-email': sharedOption1098,
+    '--no-ignore-rev': sharedOption1099,
+    '--no-ignore-revs-file': sharedOption1100,
+    '--no-color-lines': sharedOption1101,
+    '--no-color-by-age': sharedOption1102,
+    '--no-minimal': sharedOption1103,
+    '--no-contents': sharedOption1104,
     '--help-all': sharedOption5,
   },
   numericOption: {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -62307,11 +62313,11 @@ const commandSpec205 = {
     '--decorate-refs': sharedOption356,
     '--decorate-refs-exclude': sharedOption357,
     '--decorate': sharedOption358,
-    '-L': sharedOption590,
+    '-L': sharedOption591,
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -62413,9 +62419,9 @@ const commandSpec205 = {
     '--no-decorate-refs': sharedOption449,
     '--no-decorate-refs-exclude': sharedOption450,
     '--no-decorate': sharedOption451,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -62569,7 +62575,7 @@ const commandSpec205 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -63169,8 +63175,8 @@ const commandSpec206 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption593,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption594,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -63186,7 +63192,7 @@ const commandSpec206 = {
     '--cumulative': sharedOption372,
     '--dirstat-by-file': sharedOption373,
     '--check': sharedOption374,
-    '--summary': sharedOption593,
+    '--summary': sharedOption594,
     '--name-only': sharedOption308,
     '--name-status': sharedOption376,
     '--stat': sharedOption377,
@@ -63270,9 +63276,9 @@ const commandSpec206 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -63310,7 +63316,7 @@ const commandSpec206 = {
     '--cherry-pick': sharedOption484,
     '--children': sharedOption485,
     '--combined-all-paths': sharedOption486,
-    '--committer': sharedOption1127,
+    '--committer': sharedOption1128,
     '--count': sharedOption488,
     '--date': sharedOption489,
     '--date-order': sharedOption490,
@@ -63407,19 +63413,19 @@ const commandSpec206 = {
     '-E': sharedOption501,
     '-F': sharedOption503,
     '-P': sharedOption546,
-    '-c': sharedOption1127,
+    '-c': sharedOption1128,
     '-g': sharedOption573,
     '-i': sharedOption549,
     '-m': sharedOption575,
-    '-n': sharedOption1117,
+    '-n': sharedOption1118,
     '-r': sharedOption50,
     '-t': sharedOption577,
     '-v': sharedOption578,
     '--filter': sharedOption579,
     '--no-filter': sharedOption580,
-    '--numbered': sharedOption1117,
-    '--email': sharedOption1128,
-    '-e': sharedOption1128,
+    '--numbered': sharedOption1118,
+    '--email': sharedOption1129,
+    '-e': sharedOption1129,
     '--group': {
       key: 'group',
       value: 'string',
@@ -63431,8 +63437,8 @@ const commandSpec206 = {
       value: 'flag',
       set: false,
     },
-    '--no-numbered': sharedOption1119,
-    '--no-summary': sharedOption606,
+    '--no-numbered': sharedOption1120,
+    '--no-summary': sharedOption607,
     '--no-email': {
       key: 'email',
       value: 'flag',
@@ -63450,7 +63456,7 @@ const commandSpec206 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -63639,8 +63645,8 @@ const commandSpec207 = {
   options: {
     '--all': sharedOption18,
     '-a': sharedOption18,
-    '--remotes': sharedOption1129,
-    '-r': sharedOption1129,
+    '--remotes': sharedOption1130,
+    '-r': sharedOption1130,
     '--color': sharedOption232,
     '--more': {
       key: 'more',
@@ -63665,7 +63671,7 @@ const commandSpec207 = {
       key: 'sha1-name',
       value: 'flag',
     },
-    '--merge-base': sharedOption583,
+    '--merge-base': sharedOption584,
     '--independent': {
       key: 'independent',
       value: 'flag',
@@ -63677,8 +63683,8 @@ const commandSpec207 = {
     },
     '--sparse': sharedOption23,
     '--date-order': sharedOption490,
-    '--reflog': sharedOption1130,
-    '-g': sharedOption1130,
+    '--reflog': sharedOption1131,
+    '-g': sharedOption1131,
     '--no-all': sharedOption19,
     '--no-remotes': {
       key: 'remotes',
@@ -63697,8 +63703,8 @@ const commandSpec207 = {
       value: 'flag',
       set: 0,
     },
-    '--name': sharedOption1131,
-    '--no-no-name': sharedOption1131,
+    '--name': sharedOption1132,
+    '--no-no-name': sharedOption1132,
     '--no-current': {
       key: 'current',
       value: 'flag',
@@ -64238,12 +64244,12 @@ const commandSpec208 = {
     '-q': sharedOption60,
     '--progress': sharedOption79,
     '--recurse-submodules': sharedOption195,
-    '--rebase': sharedOption1132,
-    '-r': sharedOption1132,
+    '--rebase': sharedOption1133,
+    '-r': sharedOption1133,
     '-n': sharedOption89,
-    '--stat': sharedOption592,
-    '--summary': sharedOption593,
-    '--compact-summary': sharedOption594,
+    '--stat': sharedOption593,
+    '--summary': sharedOption594,
+    '--compact-summary': sharedOption595,
     '--log': {
       key: 'log',
       value: 'optional-string',
@@ -64252,22 +64258,22 @@ const commandSpec208 = {
       key: 'signoff',
       value: 'optional-string',
     },
-    '--squash': sharedOption596,
+    '--squash': sharedOption597,
     '--commit': sharedOption348,
     '--edit': sharedOption13,
     '--cleanup': sharedOption100,
-    '--ff': sharedOption863,
+    '--ff': sharedOption864,
     '--ff-only': {
       key: 'ff-only',
       value: 'flag',
     },
-    '--verify': sharedOption936,
-    '--verify-signatures': sharedOption598,
-    '--autostash': sharedOption604,
+    '--verify': sharedOption937,
+    '--verify-signatures': sharedOption599,
+    '--autostash': sharedOption605,
     '--strategy': sharedOption347,
     '-s': sharedOption347,
-    '--strategy-option': sharedOption1133,
-    '-X': sharedOption1133,
+    '--strategy-option': sharedOption1134,
+    '-X': sharedOption1134,
     '--gpg-sign': {
       key: 'gpg-sign',
       value: 'optional-string',
@@ -64277,7 +64283,7 @@ const commandSpec208 = {
       value: 'optional-string',
       emptyValueFlag: '--gpg-sign',
     },
-    '--allow-unrelated-histories': sharedOption603,
+    '--allow-unrelated-histories': sharedOption604,
     '--all': sharedOption18,
     '--append': sharedOption191,
     '-a': sharedOption191,
@@ -64302,7 +64308,7 @@ const commandSpec208 = {
     '-k': sharedOption196,
     '--depth': sharedOption164,
     '--shallow-since': sharedOption165,
-    '--shallow-exclude': sharedOption1134,
+    '--shallow-exclude': sharedOption1135,
     '--deepen': {
       key: 'deepen',
       value: 'integer',
@@ -64311,13 +64317,13 @@ const commandSpec208 = {
     '--unshallow': sharedOption198,
     '--update-shallow': sharedOption200,
     '--refmap': sharedOption201,
-    '--server-option': sharedOption1135,
-    '-o': sharedOption1135,
+    '--server-option': sharedOption1136,
+    '-o': sharedOption1136,
     '--ipv4': sharedOption170,
     '-4': sharedOption170,
     '--ipv6': sharedOption171,
     '-6': sharedOption171,
-    '--negotiation-restrict': sharedOption1136,
+    '--negotiation-restrict': sharedOption1137,
     '--negotiation-include': {
       key: 'negotiation-include',
       value: 'string',
@@ -64328,10 +64334,10 @@ const commandSpec208 = {
     '--no-quiet': sharedOption67,
     '--no-progress': sharedOption80,
     '--no-recurse-submodules': sharedOption208,
-    '--no-rebase': sharedOption1137,
-    '--no-stat': sharedOption605,
-    '--no-summary': sharedOption606,
-    '--no-compact-summary': sharedOption582,
+    '--no-rebase': sharedOption1138,
+    '--no-stat': sharedOption606,
+    '--no-summary': sharedOption607,
+    '--no-compact-summary': sharedOption583,
     '--no-log': {
       key: 'log',
       value: 'flag',
@@ -64342,14 +64348,14 @@ const commandSpec208 = {
       value: 'flag',
       clear: true,
     },
-    '--no-squash': sharedOption608,
-    '--no-commit': sharedOption609,
+    '--no-squash': sharedOption609,
+    '--no-commit': sharedOption610,
     '--no-edit': sharedOption33,
     '--no-cleanup': sharedOption119,
-    '--no-ff': sharedOption867,
-    '--no-verify': sharedOption939,
-    '--no-verify-signatures': sharedOption611,
-    '--no-autostash': sharedOption615,
+    '--no-ff': sharedOption868,
+    '--no-verify': sharedOption940,
+    '--no-verify-signatures': sharedOption612,
+    '--no-autostash': sharedOption616,
     '--no-strategy': sharedOption350,
     '--no-strategy-option': {
       key: 'strategy-option',
@@ -64361,7 +64367,7 @@ const commandSpec208 = {
       value: 'flag',
       clear: true,
     },
-    '--no-allow-unrelated-histories': sharedOption614,
+    '--no-allow-unrelated-histories': sharedOption615,
     '--no-all': sharedOption19,
     '--no-append': sharedOption206,
     '--no-upload-pack': sharedOption183,
@@ -64403,7 +64409,7 @@ const commandSpec208 = {
       value: 'flag',
       set: false,
     },
-    '--no-negotiation-restrict': sharedOption1138,
+    '--no-negotiation-restrict': sharedOption1139,
     '--no-negotiation-include': {
       key: 'negotiation-include',
       value: 'flag',
@@ -64411,8 +64417,8 @@ const commandSpec208 = {
     },
     '--no-show-forced-updates': sharedOption212,
     '--no-set-upstream': sharedOption205,
-    '--negotiation-tip': sharedOption1136,
-    '--no-negotiation-tip': sharedOption1138,
+    '--negotiation-tip': sharedOption1137,
+    '--no-negotiation-tip': sharedOption1139,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -64589,7 +64595,7 @@ const commandSpec209 = {
       key: 'no-flags',
       value: 'flag',
     },
-    '--verify': sharedOption936,
+    '--verify': sharedOption937,
     '--quiet': sharedOption60,
     '--sq': {
       key: 'sq',
@@ -64810,13 +64816,13 @@ const commandSpec212 = {
 const commandSpec213 = {
   argv: ['submodule--helper', 'foreach'],
   options: {
-    '--super-prefix': sharedOption1005,
+    '--super-prefix': sharedOption1006,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--recursive': sharedOption1139,
-    '--no-super-prefix': sharedOption1009,
+    '--recursive': sharedOption1140,
+    '--no-super-prefix': sharedOption1010,
     '--no-quiet': sharedOption51,
-    '--no-recursive': sharedOption1140,
+    '--no-recursive': sharedOption1141,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -64840,15 +64846,15 @@ const commandSpec214 = {
 const commandSpec215 = {
   argv: ['submodule--helper', 'status'],
   options: {
-    '--super-prefix': sharedOption1005,
+    '--super-prefix': sharedOption1006,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--cached': sharedOption49,
-    '--recursive': sharedOption1139,
-    '--no-super-prefix': sharedOption1009,
+    '--recursive': sharedOption1140,
+    '--no-super-prefix': sharedOption1010,
     '--no-quiet': sharedOption51,
     '--no-cached': sharedOption52,
-    '--no-recursive': sharedOption1140,
+    '--no-recursive': sharedOption1141,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -64860,10 +64866,10 @@ const commandSpec216 = {
   argv: ['submodule--helper', 'summary'],
   options: {
     '--cached': sharedOption49,
-    '--files': sharedOption1141,
-    '--for-status': sharedOption1142,
-    '--summary-limit': sharedOption1143,
-    '-n': sharedOption1143,
+    '--files': sharedOption1142,
+    '--for-status': sharedOption1143,
+    '--summary-limit': sharedOption1144,
+    '-n': sharedOption1144,
     '--no-cached': sharedOption52,
     '--no-files': {
       key: 'files',
@@ -64901,13 +64907,13 @@ const commandSpec216 = {
 const commandSpec217 = {
   argv: ['submodule--helper', 'sync'],
   options: {
-    '--super-prefix': sharedOption1005,
+    '--super-prefix': sharedOption1006,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--recursive': sharedOption1139,
-    '--no-super-prefix': sharedOption1009,
+    '--recursive': sharedOption1140,
+    '--no-super-prefix': sharedOption1010,
     '--no-quiet': sharedOption51,
-    '--no-recursive': sharedOption1140,
+    '--no-recursive': sharedOption1141,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -64964,33 +64970,33 @@ const commandSpec218 = {
 const commandSpec219 = {
   argv: ['submodule--helper', 'clone'],
   options: {
-    '--prefix': sharedOption945,
+    '--prefix': sharedOption946,
     '--path': sharedOption2,
-    '--name': sharedOption1144,
+    '--name': sharedOption1145,
     '--url': sharedOption332,
     '--reference': sharedOption158,
     '--ref-format': sharedOption64,
     '--dissociate': sharedOption159,
-    '--depth': sharedOption1145,
+    '--depth': sharedOption1146,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--progress': sharedOption79,
-    '--require-init': sharedOption1146,
+    '--require-init': sharedOption1147,
     '--single-branch': sharedOption167,
-    '--filter': sharedOption1015,
-    '--no-prefix': sharedOption946,
+    '--filter': sharedOption1016,
+    '--no-prefix': sharedOption947,
     '--no-path': sharedOption4,
-    '--no-name': sharedOption1147,
+    '--no-name': sharedOption1148,
     '--no-url': sharedOption336,
     '--no-reference': sharedOption180,
     '--no-ref-format': sharedOption71,
     '--no-dissociate': sharedOption181,
-    '--no-depth': sharedOption1148,
+    '--no-depth': sharedOption1149,
     '--no-quiet': sharedOption51,
     '--no-progress': sharedOption80,
-    '--no-require-init': sharedOption1149,
+    '--no-require-init': sharedOption1150,
     '--no-single-branch': sharedOption187,
-    '--no-filter': sharedOption1016,
+    '--no-filter': sharedOption1017,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65038,36 +65044,36 @@ const commandSpec219 = {
 const commandSpec220 = {
   argv: ['submodule--helper', 'update'],
   options: {
-    '--super-prefix': sharedOption1005,
+    '--super-prefix': sharedOption1006,
     '--force': sharedOption14,
     '-f': sharedOption14,
     '--init': {
       key: 'init',
       value: 'flag',
     },
-    '--remote': sharedOption1150,
-    '--recursive': sharedOption1139,
-    '--no-fetch': sharedOption1151,
-    '-N': sharedOption1151,
+    '--remote': sharedOption1151,
+    '--recursive': sharedOption1140,
+    '--no-fetch': sharedOption1152,
+    '-N': sharedOption1152,
     '--checkout': sharedOption138,
     '--merge': sharedOption266,
     '-m': sharedOption266,
-    '--rebase': sharedOption1152,
-    '-r': sharedOption1152,
+    '--rebase': sharedOption1153,
+    '-r': sharedOption1153,
     '--reference': sharedOption158,
     '--ref-format': sharedOption64,
     '--dissociate': sharedOption159,
-    '--depth': sharedOption1145,
+    '--depth': sharedOption1146,
     '--jobs': sharedOption157,
     '-j': sharedOption157,
-    '--recommend-shallow': sharedOption1153,
+    '--recommend-shallow': sharedOption1154,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--progress': sharedOption79,
-    '--require-init': sharedOption1146,
+    '--require-init': sharedOption1147,
     '--single-branch': sharedOption167,
-    '--filter': sharedOption1015,
-    '--no-super-prefix': sharedOption1009,
+    '--filter': sharedOption1016,
+    '--no-super-prefix': sharedOption1010,
     '--no-force': sharedOption34,
     '--no-init': {
       key: 'init',
@@ -65079,23 +65085,23 @@ const commandSpec220 = {
       value: 'flag',
       set: false,
     },
-    '--no-recursive': sharedOption1140,
-    '--fetch': sharedOption1154,
-    '--no-no-fetch': sharedOption1154,
+    '--no-recursive': sharedOption1141,
+    '--fetch': sharedOption1155,
+    '--no-no-fetch': sharedOption1155,
     '--no-checkout': sharedOption142,
     '--no-merge': sharedOption276,
-    '--no-rebase': sharedOption1137,
+    '--no-rebase': sharedOption1138,
     '--no-reference': sharedOption180,
     '--no-ref-format': sharedOption71,
     '--no-dissociate': sharedOption181,
-    '--no-depth': sharedOption1148,
+    '--no-depth': sharedOption1149,
     '--no-jobs': sharedOption179,
-    '--no-recommend-shallow': sharedOption1155,
+    '--no-recommend-shallow': sharedOption1156,
     '--no-quiet': sharedOption51,
     '--no-progress': sharedOption80,
-    '--no-require-init': sharedOption1149,
+    '--no-require-init': sharedOption1150,
     '--no-single-branch': sharedOption187,
-    '--no-filter': sharedOption1016,
+    '--no-filter': sharedOption1017,
     '--help': sharedOption5,
     '-h': sharedOption5,
     '-i': {
@@ -65134,8 +65140,8 @@ const commandSpec220 = {
 const commandSpec221 = {
   argv: ['submodule--helper', 'absorbgitdirs'],
   options: {
-    '--super-prefix': sharedOption1005,
-    '--no-super-prefix': sharedOption1009,
+    '--super-prefix': sharedOption1006,
+    '--no-super-prefix': sharedOption1010,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65172,8 +65178,8 @@ const commandSpec223 = {
   options: {
     '--quiet': sharedOption60,
     '-q': sharedOption60,
-    '--default': sharedOption1156,
-    '-d': sharedOption1156,
+    '--default': sharedOption1157,
+    '-d': sharedOption1157,
     '--branch': sharedOption161,
     '-b': sharedOption161,
     '--no-quiet': sharedOption67,
@@ -65233,8 +65239,8 @@ const commandSpec224 = {
     '--force': sharedOption14,
     '-f': sharedOption14,
     '--create-reflog': sharedOption244,
-    '--track': sharedOption1157,
-    '-t': sharedOption1157,
+    '--track': sharedOption1158,
+    '-t': sharedOption1158,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
     '--no-quiet': sharedOption51,
@@ -65274,11 +65280,11 @@ const commandSpec225 = {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--progress': sharedOption79,
-    '--reference': sharedOption1158,
+    '--reference': sharedOption1159,
     '--ref-format': sharedOption64,
     '--dissociate': sharedOption159,
-    '--name': sharedOption1144,
-    '--depth': sharedOption1145,
+    '--name': sharedOption1145,
+    '--depth': sharedOption1146,
     '--no-branch': sharedOption182,
     '--no-force': sharedOption34,
     '--no-quiet': sharedOption51,
@@ -65290,8 +65296,8 @@ const commandSpec225 = {
     },
     '--no-ref-format': sharedOption71,
     '--no-dissociate': sharedOption181,
-    '--no-name': sharedOption1147,
-    '--no-depth': sharedOption1148,
+    '--no-name': sharedOption1148,
+    '--no-depth': sharedOption1149,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65387,11 +65393,11 @@ const commandSpec229 = {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--progress': sharedOption79,
-    '--reference': sharedOption1158,
+    '--reference': sharedOption1159,
     '--ref-format': sharedOption64,
     '--dissociate': sharedOption159,
-    '--name': sharedOption1144,
-    '--depth': sharedOption1145,
+    '--name': sharedOption1145,
+    '--depth': sharedOption1146,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65425,7 +65431,7 @@ const commandSpec230 = {
   options: {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--recursive': sharedOption1139,
+    '--recursive': sharedOption1140,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65506,29 +65512,29 @@ const commandSpec233 = {
         },
       ],
     },
-    '--remote': sharedOption1150,
-    '--recursive': sharedOption1139,
-    '--no-fetch': sharedOption1151,
-    '-N': sharedOption1151,
+    '--remote': sharedOption1151,
+    '--recursive': sharedOption1140,
+    '--no-fetch': sharedOption1152,
+    '-N': sharedOption1152,
     '--checkout': sharedOption138,
     '--merge': sharedOption266,
     '-m': sharedOption266,
-    '--rebase': sharedOption1152,
-    '-r': sharedOption1152,
-    '--reference': sharedOption1158,
+    '--rebase': sharedOption1153,
+    '-r': sharedOption1153,
+    '--reference': sharedOption1159,
     '--ref-format': sharedOption64,
     '--dissociate': sharedOption159,
-    '--depth': sharedOption1145,
+    '--depth': sharedOption1146,
     '--jobs': sharedOption157,
     '-j': sharedOption157,
-    '--recommend-shallow': sharedOption1153,
+    '--recommend-shallow': sharedOption1154,
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--progress': sharedOption79,
-    '--require-init': sharedOption1146,
+    '--require-init': sharedOption1147,
     '--single-branch': sharedOption167,
-    '--filter': sharedOption1015,
-    '--no-recommend-shallow': sharedOption1155,
+    '--filter': sharedOption1016,
+    '--no-recommend-shallow': sharedOption1156,
     '--no-single-branch': sharedOption187,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -65592,8 +65598,8 @@ const commandSpec234 = {
   options: {
     '--quiet': sharedOption60,
     '-q': sharedOption60,
-    '--default': sharedOption1156,
-    '-d': sharedOption1156,
+    '--default': sharedOption1157,
+    '-d': sharedOption1157,
     '--branch': sharedOption161,
     '-b': {
       key: 'branch',
@@ -65680,14 +65686,14 @@ const commandSpec236 = {
   argv: ['submodule', 'summary'],
   options: {
     '--cached': sharedOption49,
-    '--files': sharedOption1141,
-    '--for-status': sharedOption1142,
-    '--summary-limit': sharedOption1143,
-    '-n': sharedOption1143,
+    '--files': sharedOption1142,
+    '--for-status': sharedOption1143,
+    '--summary-limit': sharedOption1144,
+    '-n': sharedOption1144,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-q': sharedOption1159,
-    '--quiet': sharedOption1159,
+    '-q': sharedOption1160,
+    '--quiet': sharedOption1160,
   },
   rules: [
     {
@@ -65710,7 +65716,7 @@ const commandSpec237 = {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
     '--cached': sharedOption49,
-    '--recursive': sharedOption1139,
+    '--recursive': sharedOption1140,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65724,7 +65730,7 @@ const commandSpec238 = {
   options: {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
-    '--recursive': sharedOption1139,
+    '--recursive': sharedOption1140,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65736,12 +65742,12 @@ const commandSpec238 = {
 const commandSpec239 = {
   argv: ['submodule', 'absorbgitdirs'],
   options: {
-    '--super-prefix': sharedOption1005,
-    '--no-super-prefix': sharedOption1009,
+    '--super-prefix': sharedOption1006,
+    '--no-super-prefix': sharedOption1010,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-q': sharedOption1159,
-    '--quiet': sharedOption1159,
+    '-q': sharedOption1160,
+    '--quiet': sharedOption1160,
   },
   rules: [],
   source: 'git-submodule.sh',
@@ -65838,10 +65844,10 @@ const commandSpec242 = {
 const commandSpec243 = {
   argv: ['sparse-checkout', 'init'],
   options: {
-    '--cone': sharedOption1160,
-    '--sparse-index': sharedOption1161,
-    '--no-cone': sharedOption1162,
-    '--no-sparse-index': sharedOption1163,
+    '--cone': sharedOption1161,
+    '--sparse-index': sharedOption1162,
+    '--no-cone': sharedOption1163,
+    '--no-sparse-index': sharedOption1164,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65852,12 +65858,12 @@ const commandSpec243 = {
 const commandSpec244 = {
   argv: ['sparse-checkout', 'set'],
   options: {
-    '--cone': sharedOption1160,
-    '--sparse-index': sharedOption1161,
-    '--skip-checks': sharedOption1164,
+    '--cone': sharedOption1161,
+    '--sparse-index': sharedOption1162,
+    '--skip-checks': sharedOption1165,
     '--stdin': sharedOption204,
-    '--no-cone': sharedOption1162,
-    '--no-sparse-index': sharedOption1163,
+    '--no-cone': sharedOption1163,
+    '--no-sparse-index': sharedOption1164,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65868,7 +65874,7 @@ const commandSpec244 = {
 const commandSpec245 = {
   argv: ['sparse-checkout', 'add'],
   options: {
-    '--skip-checks': sharedOption1164,
+    '--skip-checks': sharedOption1165,
     '--stdin': sharedOption204,
     '--no-stdin': sharedOption213,
     '--help': sharedOption5,
@@ -65881,10 +65887,10 @@ const commandSpec245 = {
 const commandSpec246 = {
   argv: ['sparse-checkout', 'reapply'],
   options: {
-    '--cone': sharedOption1160,
-    '--sparse-index': sharedOption1161,
-    '--no-cone': sharedOption1162,
-    '--no-sparse-index': sharedOption1163,
+    '--cone': sharedOption1161,
+    '--sparse-index': sharedOption1162,
+    '--no-cone': sharedOption1163,
+    '--no-sparse-index': sharedOption1164,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -65925,13 +65931,13 @@ const commandSpec249 = {
   argv: ['sparse-checkout', 'check-rules'],
   options: {
     '-z': sharedOption149,
-    '--cone': sharedOption1160,
+    '--cone': sharedOption1161,
     '--rules-file': {
       key: 'rules-file',
       value: 'string',
       emptyIsUnset: true,
     },
-    '--no-cone': sharedOption1162,
+    '--no-cone': sharedOption1163,
     '--no-rules-file': {
       key: 'rules-file',
       value: 'flag',
@@ -66021,10 +66027,10 @@ const commandSpec252 = {
   options: {
     '--no-checkout': sharedOption152,
     '--first-parent': sharedOption502,
-    '--term-good': sharedOption1165,
-    '--term-old': sharedOption1165,
-    '--term-bad': sharedOption1166,
-    '--term-new': sharedOption1166,
+    '--term-good': sharedOption1166,
+    '--term-old': sharedOption1166,
+    '--term-bad': sharedOption1167,
+    '--term-new': sharedOption1167,
   },
   rules: [
     {
@@ -66691,8 +66697,8 @@ const commandSpec266 = {
 const commandSpec267 = {
   argv: ['commit-graph'],
   options: {
-    '--object-dir': sharedOption963,
-    '--no-object-dir': sharedOption965,
+    '--object-dir': sharedOption964,
+    '--no-object-dir': sharedOption966,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -66813,9 +66819,9 @@ const commandSpec270 = {
 const commandSpec271 = {
   argv: ['multi-pack-index'],
   options: {
-    '--object-dir': sharedOption963,
+    '--object-dir': sharedOption964,
     '--progress': sharedOption79,
-    '--no-object-dir': sharedOption965,
+    '--no-object-dir': sharedOption966,
     '--no-progress': sharedOption80,
     '--help': sharedOption5,
     '-h': sharedOption5,
@@ -66892,26 +66898,26 @@ const commandSpec272 = {
       '--git-completion-helper-all': sharedOption5,
       '--ref-format': sharedOption64,
       '--dry-run': sharedOption6,
-      '--no-reflog': sharedOption977,
+      '--no-reflog': sharedOption978,
       '--no-dry-run': sharedOption28,
-      '--reflog': sharedOption978,
-      '--no-no-reflog': sharedOption978,
+      '--reflog': sharedOption979,
+      '--no-no-reflog': sharedOption979,
       '--verbose': sharedOption151,
-      '--strict': sharedOption947,
+      '--strict': sharedOption948,
       '--no-verbose': sharedOption173,
-      '--no-strict': sharedOption948,
-      '--shell': sharedOption919,
-      '-s': sharedOption919,
-      '--perl': sharedOption920,
-      '-p': sharedOption920,
-      '--python': sharedOption921,
-      '--tcl': sharedOption922,
+      '--no-strict': sharedOption949,
+      '--shell': sharedOption920,
+      '-s': sharedOption920,
+      '--perl': sharedOption921,
+      '-p': sharedOption921,
+      '--python': sharedOption922,
+      '--tcl': sharedOption923,
       '--omit-empty': sharedOption241,
-      '--count': sharedOption923,
+      '--count': sharedOption924,
       '--format': sharedOption251,
-      '--start-after': sharedOption924,
+      '--start-after': sharedOption925,
       '--color': sharedOption232,
-      '--exclude': sharedOption925,
+      '--exclude': sharedOption926,
       '--sort': sharedOption247,
       '--points-at': sharedOption248,
       '--merged': sharedOption245,
@@ -66920,30 +66926,30 @@ const commandSpec272 = {
       '--no-contains': sharedOption235,
       '--ignore-case': sharedOption249,
       '--stdin': sharedOption204,
-      '--include-root-refs': sharedOption926,
-      '--no-shell': sharedOption927,
-      '--no-perl': sharedOption928,
-      '--no-python': sharedOption929,
-      '--no-tcl': sharedOption930,
+      '--include-root-refs': sharedOption927,
+      '--no-shell': sharedOption928,
+      '--no-perl': sharedOption929,
+      '--no-python': sharedOption930,
+      '--no-tcl': sharedOption931,
       '--no-omit-empty': sharedOption254,
-      '--no-count': sharedOption931,
+      '--no-count': sharedOption932,
       '--no-format': sharedOption261,
-      '--no-start-after': sharedOption932,
+      '--no-start-after': sharedOption933,
       '--no-color': sharedOption252,
-      '--no-exclude': sharedOption933,
-      '--no-sort': sharedOption934,
+      '--no-exclude': sharedOption934,
+      '--no-sort': sharedOption935,
       '--no-points-at': sharedOption258,
       '--no-ignore-case': sharedOption259,
       '--no-stdin': sharedOption213,
-      '--no-include-root-refs': sharedOption935,
+      '--no-include-root-refs': sharedOption936,
       '--all': sharedOption18,
       '--prune': sharedOption90,
       '--auto': sharedOption81,
-      '--include': sharedOption979,
+      '--include': sharedOption980,
       '--no-all': sharedOption19,
       '--no-prune': sharedOption91,
       '--no-auto': sharedOption83,
-      '--no-include': sharedOption980,
+      '--no-include': sharedOption981,
     },
   },
 } as const satisfies CommandSpec;
@@ -66997,7 +67003,7 @@ const commandSpec274 = {
       key: 'remove',
       value: 'flag',
     },
-    '--unmerged': sharedOption904,
+    '--unmerged': sharedOption905,
     '--refresh': sharedOption20,
     '--really-refresh': {
       key: 'really-refresh',
@@ -67079,8 +67085,8 @@ const commandSpec274 = {
       value: 'flag',
       consumesRest: true,
     },
-    '--again': sharedOption1167,
-    '-g': sharedOption1167,
+    '--again': sharedOption1168,
+    '-g': sharedOption1168,
     '--ignore-missing': sharedOption22,
     '--verbose': sharedOption151,
     '--clear-resolve-undo': {
@@ -67145,7 +67151,7 @@ const commandSpec274 = {
       value: 'flag',
       set: false,
     },
-    '--no-unmerged': sharedOption909,
+    '--no-unmerged': sharedOption910,
     '--no-ignore-skip-worktree-entries': {
       key: 'ignore-skip-worktree-entries',
       value: 'flag',
@@ -67236,8 +67242,8 @@ const commandSpec275 = {
   options: {
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -67333,9 +67339,9 @@ const commandSpec275 = {
     '--diff-filter': sharedOption442,
     '--max-depth': sharedOption443,
     '--output': sharedOption444,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -67521,7 +67527,7 @@ const commandSpec275 = {
       key: 'fake-missing-tagger',
       value: 'flag',
     },
-    '--full-tree': sharedOption916,
+    '--full-tree': sharedOption917,
     '--use-done-feature': {
       key: 'use-done-feature',
       value: 'flag',
@@ -67603,14 +67609,14 @@ const commandSpec275 = {
       value: 'flag',
       set: false,
     },
-    '--no-full-tree': sharedOption918,
+    '--no-full-tree': sharedOption919,
     '--no-use-done-feature': {
       key: 'use-done-feature',
       value: 'flag',
       set: false,
     },
-    '--data': sharedOption1168,
-    '--no-no-data': sharedOption1168,
+    '--data': sharedOption1169,
+    '--no-no-data': sharedOption1169,
     '--no-refspec': {
       key: 'refspec',
       value: 'flag',
@@ -67645,7 +67651,7 @@ const commandSpec275 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -68280,8 +68286,8 @@ const commandSpec276 = {
     '--quiet': sharedOption60,
     '-q': sharedOption60,
     '--progress': sharedOption79,
-    '--all-progress': sharedOption1052,
-    '--all-progress-implied': sharedOption1053,
+    '--all-progress': sharedOption1053,
+    '--all-progress-implied': sharedOption1054,
     '--index-version': {
       key: 'index-version',
       value: 'string',
@@ -68293,7 +68299,7 @@ const commandSpec276 = {
       value: 'integer',
     },
     '--local': sharedOption154,
-    '--incremental': sharedOption971,
+    '--incremental': sharedOption972,
     '--window': {
       key: 'window',
       value: 'integer',
@@ -68321,7 +68327,7 @@ const commandSpec276 = {
       key: 'delta-base-offset',
       value: 'flag',
     },
-    '--threads': sharedOption1113,
+    '--threads': sharedOption1114,
     '--non-empty': {
       key: 'non-empty',
       value: 'flag',
@@ -68339,9 +68345,9 @@ const commandSpec276 = {
       value: 'optional-string',
       allowed: ['', 'follow'],
     },
-    '--stdout': sharedOption1011,
-    '--include-tag': sharedOption1169,
-    '--keep-unreachable': sharedOption1023,
+    '--stdout': sharedOption1012,
+    '--include-tag': sharedOption1170,
+    '--keep-unreachable': sharedOption1024,
     '--pack-loose-unreachable': {
       key: 'pack-loose-unreachable',
       value: 'flag',
@@ -68350,7 +68356,7 @@ const commandSpec276 = {
       key: 'unpack-unreachable',
       value: 'optional-string',
     },
-    '--cruft': sharedOption954,
+    '--cruft': sharedOption955,
     '--cruft-expiration': {
       key: 'cruft-expiration',
       value: 'optional-string',
@@ -68363,13 +68369,13 @@ const commandSpec276 = {
     },
     '--sparse': sharedOption23,
     '--thin': sharedOption217,
-    '--path-walk': sharedOption1020,
-    '--shallow': sharedOption964,
+    '--path-walk': sharedOption1021,
+    '--shallow': sharedOption965,
     '--honor-pack-keep': {
       key: 'honor-pack-keep',
       value: 'flag',
     },
-    '--keep-pack': sharedOption1025,
+    '--keep-pack': sharedOption1026,
     '--compression': {
       key: 'compression',
       value: 'integer',
@@ -68379,43 +68385,43 @@ const commandSpec276 = {
       key: 'keep-true-parents',
       value: 'flag',
     },
-    '--use-bitmap-index': sharedOption1051,
-    '--write-bitmap-index': sharedOption1021,
+    '--use-bitmap-index': sharedOption1052,
+    '--write-bitmap-index': sharedOption1022,
     '--write-bitmap-index-quiet': {
       key: 'write-bitmap-index-quiet',
       value: 'flag',
     },
-    '--filter': sharedOption1015,
+    '--filter': sharedOption1016,
     '--missing': {
       key: 'missing',
       value: 'string',
       allowed: ['error', 'allow-any', 'allow-promisor'],
     },
-    '--exclude-promisor-objects': sharedOption999,
+    '--exclude-promisor-objects': sharedOption1000,
     '--exclude-promisor-objects-best-effort': {
       key: 'exclude-promisor-objects-best-effort',
       value: 'flag',
     },
-    '--delta-islands': sharedOption1022,
+    '--delta-islands': sharedOption1023,
     '--uri-protocol': {
       key: 'uri-protocol',
       value: 'string',
       repeat: true,
     },
-    '--name-hash-version': sharedOption1019,
+    '--name-hash-version': sharedOption1020,
     '--no-quiet': sharedOption67,
     '--no-progress': sharedOption80,
-    '--no-all-progress': sharedOption1054,
-    '--no-all-progress-implied': sharedOption1055,
+    '--no-all-progress': sharedOption1055,
+    '--no-all-progress-implied': sharedOption1056,
     '--no-local': sharedOption176,
-    '--no-incremental': sharedOption975,
+    '--no-incremental': sharedOption976,
     '--no-window': {
       parser: sharedScalarParser0,
       key: 'window',
       value: 'flag',
       set: 0,
     },
-    '--no-depth': sharedOption1148,
+    '--no-depth': sharedOption1149,
     '--no-reuse-delta': {
       key: 'reuse-delta',
       value: 'flag',
@@ -68447,14 +68453,14 @@ const commandSpec276 = {
       value: 'flag',
       set: false,
     },
-    '--no-stdin-packs': sharedOption968,
-    '--no-stdout': sharedOption1014,
+    '--no-stdin-packs': sharedOption969,
+    '--no-stdout': sharedOption1015,
     '--no-include-tag': {
       key: 'include-tag',
       value: 'flag',
       set: false,
     },
-    '--no-keep-unreachable': sharedOption1030,
+    '--no-keep-unreachable': sharedOption1031,
     '--no-pack-loose-unreachable': {
       key: 'pack-loose-unreachable',
       value: 'flag',
@@ -68465,18 +68471,18 @@ const commandSpec276 = {
       value: 'flag',
       set: false,
     },
-    '--no-cruft': sharedOption958,
-    '--no-cruft-expiration': sharedOption958,
+    '--no-cruft': sharedOption959,
+    '--no-cruft-expiration': sharedOption959,
     '--no-sparse': sharedOption42,
     '--no-thin': sharedOption225,
-    '--no-path-walk': sharedOption1027,
-    '--no-shallow': sharedOption966,
+    '--no-path-walk': sharedOption1028,
+    '--no-shallow': sharedOption967,
     '--no-honor-pack-keep': {
       key: 'honor-pack-keep',
       value: 'flag',
       set: false,
     },
-    '--no-keep-pack': sharedOption1031,
+    '--no-keep-pack': sharedOption1032,
     '--no-compression': {
       key: 'compression',
       value: 'flag',
@@ -68493,20 +68499,20 @@ const commandSpec276 = {
       value: 'flag',
       set: false,
     },
-    '--no-write-bitmap-index': sharedOption1028,
+    '--no-write-bitmap-index': sharedOption1029,
     '--no-write-bitmap-index-quiet': {
       key: 'write-bitmap-index-quiet',
       value: 'flag',
       set: false,
     },
-    '--no-filter': sharedOption1016,
-    '--no-exclude-promisor-objects': sharedOption1000,
+    '--no-filter': sharedOption1017,
+    '--no-exclude-promisor-objects': sharedOption1001,
     '--no-exclude-promisor-objects-best-effort': {
       key: 'exclude-promisor-objects-best-effort',
       value: 'flag',
       set: false,
     },
-    '--no-delta-islands': sharedOption1029,
+    '--no-delta-islands': sharedOption1030,
     '--no-uri-protocol': {
       key: 'uri-protocol',
       value: 'flag',
@@ -69115,8 +69121,8 @@ const commandSpec277 = {
       key: 'fix-thin',
       value: 'flag',
     },
-    '--check-self-contained-and-connected': sharedOption1170,
-    '--verify': sharedOption936,
+    '--check-self-contained-and-connected': sharedOption1171,
+    '--verify': sharedOption937,
     '--show-resolving-progress': {
       key: 'show-resolving-progress',
       value: 'flag',
@@ -69135,7 +69141,7 @@ const commandSpec277 = {
       set: false,
     },
     '-v': sharedOption151,
-    '--strict': sharedOption1171,
+    '--strict': sharedOption1172,
     '--fsck-objects': {
       key: 'fsck-objects',
       value: 'optional-string',
@@ -69148,21 +69154,21 @@ const commandSpec277 = {
       key: 'promisor',
       value: 'optional-string',
     },
-    '--threads': sharedOption1024,
-    '--pack_header': sharedOption1172,
+    '--threads': sharedOption1025,
+    '--pack_header': sharedOption1173,
     '--index-version': {
       key: 'index-version',
       value: 'string',
       parser: 'index-pack-index-version',
     },
-    '--max-input-size': sharedOption1173,
+    '--max-input-size': sharedOption1174,
     '--object-format': {
       key: 'object-format',
       value: 'string',
       allowed: ['sha1', 'sha256'],
     },
-    '--verify-stat': sharedOption936,
-    '--verify-stat-only': sharedOption936,
+    '--verify-stat': sharedOption937,
+    '--verify-stat-only': sharedOption937,
     '--progress-title': {
       key: 'progress-title',
       value: 'string',
@@ -69354,10 +69360,10 @@ const commandSpec278 = {
     '-h': sharedOption5,
     '-n': sharedOption6,
     '-q': sharedOption60,
-    '-r': sharedOption1174,
-    '--strict': sharedOption1171,
-    '--pack_header': sharedOption1172,
-    '--max-input-size': sharedOption1173,
+    '-r': sharedOption1175,
+    '--strict': sharedOption1172,
+    '--pack_header': sharedOption1173,
+    '--max-input-size': sharedOption1174,
     '--help-all': {
       key: 'sole-help',
       value: 'flag',
@@ -69474,20 +69480,20 @@ const commandSpec279 = {
 const commandSpec280 = {
   argv: ['upload-pack'],
   options: {
-    '--stateless-rpc': sharedOption1175,
-    '--http-backend-info-refs': sharedOption1176,
-    '--strict': sharedOption947,
+    '--stateless-rpc': sharedOption1176,
+    '--http-backend-info-refs': sharedOption1177,
+    '--strict': sharedOption948,
     '--timeout': {
       key: 'timeout',
       value: 'integer',
       parser: sharedScalarParser0,
     },
-    '--no-stateless-rpc': sharedOption1177,
-    '--no-http-backend-info-refs': sharedOption1178,
-    '--no-strict': sharedOption948,
-    '--no-timeout': sharedOption1049,
-    '--advertise-refs': sharedOption1176,
-    '--no-advertise-refs': sharedOption1178,
+    '--no-stateless-rpc': sharedOption1178,
+    '--no-http-backend-info-refs': sharedOption1179,
+    '--no-strict': sharedOption949,
+    '--no-timeout': sharedOption1050,
+    '--advertise-refs': sharedOption1177,
+    '--no-advertise-refs': sharedOption1179,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -69515,8 +69521,8 @@ const commandSpec281 = {
       key: 'skip-connectivity-check',
       value: 'flag',
     },
-    '--stateless-rpc': sharedOption1175,
-    '--http-backend-info-refs': sharedOption1176,
+    '--stateless-rpc': sharedOption1176,
+    '--http-backend-info-refs': sharedOption1177,
     '--reject-thin-pack-for-testing': {
       key: 'reject-thin-pack-for-testing',
       value: 'flag',
@@ -69527,15 +69533,15 @@ const commandSpec281 = {
       value: 'flag',
       set: false,
     },
-    '--no-stateless-rpc': sharedOption1177,
-    '--no-http-backend-info-refs': sharedOption1178,
+    '--no-stateless-rpc': sharedOption1178,
+    '--no-http-backend-info-refs': sharedOption1179,
     '--no-reject-thin-pack-for-testing': {
       key: 'reject-thin-pack-for-testing',
       value: 'flag',
       set: false,
     },
-    '--advertise-refs': sharedOption1176,
-    '--no-advertise-refs': sharedOption1178,
+    '--advertise-refs': sharedOption1177,
+    '--no-advertise-refs': sharedOption1179,
     '--help': sharedOption5,
     '-h': sharedOption5,
   },
@@ -69563,7 +69569,7 @@ const commandSpec282 = {
     '-q': sharedOption60,
     '--receive-pack': sharedOption218,
     '--exec': sharedOption219,
-    '--remote': sharedOption1124,
+    '--remote': sharedOption1125,
     '--all': sharedOption18,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
@@ -69575,16 +69581,16 @@ const commandSpec282 = {
     '--progress': sharedOption79,
     '--thin': sharedOption217,
     '--atomic': sharedOption192,
-    '--stateless-rpc': sharedOption1175,
+    '--stateless-rpc': sharedOption1176,
     '--stdin': sharedOption204,
-    '--helper-status': sharedOption1179,
+    '--helper-status': sharedOption1180,
     '--force-with-lease': sharedOption215,
     '--force-if-includes': sharedOption216,
     '--no-verbose': sharedOption173,
     '--no-quiet': sharedOption67,
     '--no-receive-pack': sharedOption226,
     '--no-exec': sharedOption227,
-    '--no-remote': sharedOption1126,
+    '--no-remote': sharedOption1127,
     '--no-all': sharedOption19,
     '--no-dry-run': sharedOption28,
     '--no-mirror': sharedOption175,
@@ -69594,7 +69600,7 @@ const commandSpec282 = {
     '--no-progress': sharedOption80,
     '--no-thin': sharedOption225,
     '--no-atomic': sharedOption207,
-    '--no-stateless-rpc': sharedOption1177,
+    '--no-stateless-rpc': sharedOption1178,
     '--no-stdin': sharedOption213,
     '--no-helper-status': {
       key: 'helper-status',
@@ -69664,7 +69670,7 @@ const commandSpec283 = {
     '--quiet': sharedOption60,
     '--keep': sharedOption196,
     '--thin': sharedOption217,
-    '--include-tag': sharedOption1169,
+    '--include-tag': sharedOption1170,
     '--all': sharedOption18,
     '--stdin': sharedOption204,
     '--diag-url': {
@@ -69679,12 +69685,12 @@ const commandSpec283 = {
       key: 'no-progress',
       value: 'flag',
     },
-    '--stateless-rpc': sharedOption1175,
+    '--stateless-rpc': sharedOption1176,
     '--lock-pack': {
       key: 'lock-pack',
       value: 'flag',
     },
-    '--check-self-contained-and-connected': sharedOption1170,
+    '--check-self-contained-and-connected': sharedOption1171,
     '--cloning': {
       key: 'cloning',
       value: 'flag',
@@ -69785,7 +69791,7 @@ const commandSpec284 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
   },
   rules: [
     {
@@ -69875,7 +69881,7 @@ const commandSpec285 = {
         },
       ],
     },
-    '--help': sharedOption1043,
+    '--help': sharedOption1044,
   },
   rules: [
     {
@@ -69931,10 +69937,10 @@ const commandSpec285 = {
 const commandSpec286 = {
   argv: ['merge-recursive'],
   options: {
-    '--help': sharedOption1180,
-    '-h': sharedOption1181,
-    '--ours': sharedOption1012,
-    '--theirs': sharedOption1013,
+    '--help': sharedOption1181,
+    '-h': sharedOption1182,
+    '--ours': sharedOption1013,
+    '--theirs': sharedOption1014,
     '--patience': sharedOption415,
     '--histogram': sharedOption416,
     '--ignore-space-change': sharedOption409,
@@ -69942,13 +69948,13 @@ const commandSpec286 = {
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--renormalize': sharedOption16,
-    '--no-renormalize': sharedOption1182,
+    '--no-renormalize': sharedOption1183,
     '--no-renames': sharedOption131,
-    '--subtree': sharedOption1183,
+    '--subtree': sharedOption1184,
     '--find-renames': sharedOption132,
-    '--rename-threshold': sharedOption1184,
-    '--diff-algorithm': sharedOption1185,
-    '--help-all': sharedOption1181,
+    '--rename-threshold': sharedOption1185,
+    '--diff-algorithm': sharedOption1186,
+    '--help-all': sharedOption1182,
   },
   rules: [
     {
@@ -69977,10 +69983,10 @@ const commandSpec286 = {
 const commandSpec287 = {
   argv: ['merge-recursive-ours'],
   options: {
-    '--help': sharedOption1180,
-    '-h': sharedOption1186,
-    '--ours': sharedOption1012,
-    '--theirs': sharedOption1013,
+    '--help': sharedOption1181,
+    '-h': sharedOption1187,
+    '--ours': sharedOption1013,
+    '--theirs': sharedOption1014,
     '--patience': sharedOption415,
     '--histogram': sharedOption416,
     '--ignore-space-change': sharedOption409,
@@ -69988,13 +69994,13 @@ const commandSpec287 = {
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--renormalize': sharedOption16,
-    '--no-renormalize': sharedOption1182,
+    '--no-renormalize': sharedOption1183,
     '--no-renames': sharedOption131,
-    '--subtree': sharedOption1183,
+    '--subtree': sharedOption1184,
     '--find-renames': sharedOption132,
-    '--rename-threshold': sharedOption1184,
-    '--diff-algorithm': sharedOption1185,
-    '--help-all': sharedOption1186,
+    '--rename-threshold': sharedOption1185,
+    '--diff-algorithm': sharedOption1186,
+    '--help-all': sharedOption1187,
   },
   rules: [
     {
@@ -70023,10 +70029,10 @@ const commandSpec287 = {
 const commandSpec288 = {
   argv: ['merge-recursive-theirs'],
   options: {
-    '--help': sharedOption1180,
-    '-h': sharedOption1187,
-    '--ours': sharedOption1012,
-    '--theirs': sharedOption1013,
+    '--help': sharedOption1181,
+    '-h': sharedOption1188,
+    '--ours': sharedOption1013,
+    '--theirs': sharedOption1014,
     '--patience': sharedOption415,
     '--histogram': sharedOption416,
     '--ignore-space-change': sharedOption409,
@@ -70034,13 +70040,13 @@ const commandSpec288 = {
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--renormalize': sharedOption16,
-    '--no-renormalize': sharedOption1182,
+    '--no-renormalize': sharedOption1183,
     '--no-renames': sharedOption131,
-    '--subtree': sharedOption1183,
+    '--subtree': sharedOption1184,
     '--find-renames': sharedOption132,
-    '--rename-threshold': sharedOption1184,
-    '--diff-algorithm': sharedOption1185,
-    '--help-all': sharedOption1187,
+    '--rename-threshold': sharedOption1185,
+    '--diff-algorithm': sharedOption1186,
+    '--help-all': sharedOption1188,
   },
   rules: [
     {
@@ -70069,10 +70075,10 @@ const commandSpec288 = {
 const commandSpec289 = {
   argv: ['merge-subtree'],
   options: {
-    '--help': sharedOption1180,
-    '-h': sharedOption1188,
-    '--ours': sharedOption1012,
-    '--theirs': sharedOption1013,
+    '--help': sharedOption1181,
+    '-h': sharedOption1189,
+    '--ours': sharedOption1013,
+    '--theirs': sharedOption1014,
     '--patience': sharedOption415,
     '--histogram': sharedOption416,
     '--ignore-space-change': sharedOption409,
@@ -70080,13 +70086,13 @@ const commandSpec289 = {
     '--ignore-space-at-eol': sharedOption410,
     '--ignore-cr-at-eol': sharedOption411,
     '--renormalize': sharedOption16,
-    '--no-renormalize': sharedOption1182,
+    '--no-renormalize': sharedOption1183,
     '--no-renames': sharedOption131,
-    '--subtree': sharedOption1183,
+    '--subtree': sharedOption1184,
     '--find-renames': sharedOption132,
-    '--rename-threshold': sharedOption1184,
-    '--diff-algorithm': sharedOption1185,
-    '--help-all': sharedOption1188,
+    '--rename-threshold': sharedOption1185,
+    '--diff-algorithm': sharedOption1186,
+    '--help-all': sharedOption1189,
   },
   rules: [
     {
@@ -70215,9 +70221,9 @@ const commandSpec291 = {
   options: {
     '--patch': sharedOption9,
     '-p': sharedOption9,
-    '--no-patch': sharedOption1189,
-    '-s': sharedOption1189,
-    '-u': sharedOption1007,
+    '--no-patch': sharedOption1190,
+    '-s': sharedOption1190,
+    '-u': sharedOption1008,
     '--unified': {
       parser: sharedScalarParser2,
       key: 'unified',
@@ -70231,7 +70237,7 @@ const commandSpec291 = {
     },
     '--function-context': sharedOption365,
     '-W': sharedOption365,
-    '--raw': sharedOption940,
+    '--raw': sharedOption941,
     '--patch-with-raw': {
       key: 'patch-with-raw',
       value: 'flag',
@@ -70240,7 +70246,7 @@ const commandSpec291 = {
       key: 'patch-with-stat',
       value: 'flag',
     },
-    '--numstat': sharedOption877,
+    '--numstat': sharedOption878,
     '--shortstat': {
       key: 'shortstat',
       value: 'flag',
@@ -70267,7 +70273,7 @@ const commandSpec291 = {
       value: 'optional-string',
     },
     '--check': sharedOption374,
-    '--summary': sharedOption593,
+    '--summary': sharedOption594,
     '--name-only': sharedOption308,
     '--name-status': sharedOption376,
     '--stat': {
@@ -70290,8 +70296,8 @@ const commandSpec291 = {
       key: 'stat-count',
       value: 'string',
     },
-    '--compact-summary': sharedOption594,
-    '--binary': sharedOption876,
+    '--compact-summary': sharedOption595,
+    '--binary': sharedOption877,
     '--full-index': sharedOption384,
     '--color': sharedOption232,
     '--ws-error-highlight': sharedOption385,
@@ -70397,7 +70403,7 @@ const commandSpec291 = {
       set: false,
     },
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption253,
@@ -70415,19 +70421,19 @@ const commandSpec291 = {
     '--no-textconv': sharedOption467,
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--gui': sharedOption1190,
-    '-g': sharedOption1190,
-    '--dir-diff': sharedOption1191,
-    '-d': sharedOption1191,
-    '--no-prompt': sharedOption1192,
-    '-y': sharedOption1192,
-    '--prompt': sharedOption1193,
+    '--gui': sharedOption1191,
+    '-g': sharedOption1191,
+    '--dir-diff': sharedOption1192,
+    '-d': sharedOption1192,
+    '--no-prompt': sharedOption1193,
+    '-y': sharedOption1193,
+    '--prompt': sharedOption1194,
     '--symlinks': {
       key: 'symlinks',
       value: 'flag',
     },
-    '--tool': sharedOption1194,
-    '-t': sharedOption1194,
+    '--tool': sharedOption1195,
+    '-t': sharedOption1195,
     '--tool-help': {
       key: 'tool-help',
       value: 'flag',
@@ -70436,10 +70442,10 @@ const commandSpec291 = {
       key: 'trust-exit-code',
       value: 'flag',
     },
-    '--extcmd': sharedOption1195,
-    '-x': sharedOption1195,
-    '--no-index': sharedOption584,
-    '--no-gui': sharedOption1196,
+    '--extcmd': sharedOption1196,
+    '-x': sharedOption1196,
+    '--no-index': sharedOption585,
+    '--no-gui': sharedOption1197,
     '--no-dir-diff': {
       key: 'dir-diff',
       value: 'flag',
@@ -70470,8 +70476,8 @@ const commandSpec291 = {
       value: 'flag',
       clear: true,
     },
-    '--index': sharedOption944,
-    '--no-no-index': sharedOption944,
+    '--index': sharedOption945,
+    '--no-no-index': sharedOption945,
     '--cached': sharedOption49,
     '--staged': sharedOption49,
     '--help-all': sharedOption5,
@@ -71022,14 +71028,14 @@ const commandSpec292 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-g': sharedOption1190,
-    '--gui': sharedOption1190,
-    '--prompt': sharedOption1193,
-    '--no-gui': sharedOption1196,
-    '-y': sharedOption1197,
-    '--no-prompt': sharedOption1197,
-    '-t': sharedOption1194,
-    '--tool': sharedOption1194,
+    '-g': sharedOption1191,
+    '--gui': sharedOption1191,
+    '--prompt': sharedOption1194,
+    '--no-gui': sharedOption1197,
+    '-y': sharedOption1198,
+    '--no-prompt': sharedOption1198,
+    '-t': sharedOption1195,
+    '--tool': sharedOption1195,
     '--tool-help': {
       key: 'tool-help',
       value: 'optional-string',
@@ -71091,8 +71097,8 @@ const commandSpec293 = {
 const commandSpec294 = {
   argv: ['help'],
   options: {
-    '--all': sharedOption1198,
-    '-a': sharedOption1198,
+    '--all': sharedOption1199,
+    '-a': sharedOption1199,
     '--external-commands': {
       key: 'external-commands',
       value: 'flag',
@@ -71105,16 +71111,16 @@ const commandSpec294 = {
       key: 'exclude-guides',
       value: 'flag',
     },
-    '--man': sharedOption1199,
-    '-m': sharedOption1199,
-    '--web': sharedOption1200,
-    '-w': sharedOption1200,
-    '--info': sharedOption1201,
-    '-i': sharedOption1201,
+    '--man': sharedOption1200,
+    '-m': sharedOption1200,
+    '--web': sharedOption1201,
+    '-w': sharedOption1201,
+    '--info': sharedOption1202,
+    '-i': sharedOption1202,
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--guides': sharedOption1202,
-    '-g': sharedOption1202,
+    '--guides': sharedOption1203,
+    '-g': sharedOption1203,
     '--user-interfaces': {
       key: 'user-interfaces',
       value: 'flag',
@@ -71127,8 +71133,8 @@ const commandSpec294 = {
       modeGroup: '&cmd_mode',
       modeValue: 'HELP_ACTION_DEVELOPER_INTERFACES',
     },
-    '--config': sharedOption1203,
-    '-c': sharedOption1203,
+    '--config': sharedOption1204,
+    '-c': sharedOption1204,
     '--config-for-completion': {
       key: 'config-for-completion',
       value: 'flag',
@@ -71464,8 +71470,8 @@ const commandSpec295 = {
       key: 'syslog',
       value: 'flag',
     },
-    '--export-all': sharedOption1204,
-    '--strict-paths': sharedOption1205,
+    '--export-all': sharedOption1205,
+    '--strict-paths': sharedOption1206,
     '--base-path-relaxed': {
       key: 'base-path-relaxed',
       value: 'flag',
@@ -71489,12 +71495,12 @@ const commandSpec295 = {
       value: 'string',
       repeat: true,
     },
-    '--port': sharedOption1206,
+    '--port': sharedOption1207,
     '--access-hook': {
       key: 'access-hook',
       value: 'string',
     },
-    '--base-path': sharedOption1207,
+    '--base-path': sharedOption1208,
     '--interpolated-path': {
       key: 'interpolated-path',
       value: 'string',
@@ -71717,10 +71723,10 @@ const commandSpec296 = {
     '-h': sharedOption5,
     '--detach': sharedOption137,
     '--no-detach': sharedOption141,
-    '--ipc-threads': sharedOption1208,
-    '--no-ipc-threads': sharedOption1209,
-    '--start-timeout': sharedOption1210,
-    '--no-start-timeout': sharedOption1211,
+    '--ipc-threads': sharedOption1209,
+    '--no-ipc-threads': sharedOption1210,
+    '--start-timeout': sharedOption1211,
+    '--no-start-timeout': sharedOption1212,
   },
   rules: [
     {
@@ -71762,10 +71768,10 @@ const commandSpec297 = {
     '-h': sharedOption5,
     '--detach': sharedOption137,
     '--no-detach': sharedOption141,
-    '--ipc-threads': sharedOption1208,
-    '--no-ipc-threads': sharedOption1209,
-    '--start-timeout': sharedOption1210,
-    '--no-start-timeout': sharedOption1211,
+    '--ipc-threads': sharedOption1209,
+    '--no-ipc-threads': sharedOption1210,
+    '--start-timeout': sharedOption1211,
+    '--no-start-timeout': sharedOption1212,
   },
   rules: [
     {
@@ -71798,10 +71804,10 @@ const commandSpec298 = {
     '-h': sharedOption5,
     '--detach': sharedOption137,
     '--no-detach': sharedOption141,
-    '--ipc-threads': sharedOption1208,
-    '--no-ipc-threads': sharedOption1209,
-    '--start-timeout': sharedOption1210,
-    '--no-start-timeout': sharedOption1211,
+    '--ipc-threads': sharedOption1209,
+    '--no-ipc-threads': sharedOption1210,
+    '--start-timeout': sharedOption1211,
+    '--no-start-timeout': sharedOption1212,
   },
   rules: [
     {
@@ -71834,10 +71840,10 @@ const commandSpec299 = {
     '-h': sharedOption5,
     '--detach': sharedOption137,
     '--no-detach': sharedOption141,
-    '--ipc-threads': sharedOption1208,
-    '--no-ipc-threads': sharedOption1209,
-    '--start-timeout': sharedOption1210,
-    '--no-start-timeout': sharedOption1211,
+    '--ipc-threads': sharedOption1209,
+    '--no-ipc-threads': sharedOption1210,
+    '--start-timeout': sharedOption1211,
+    '--no-start-timeout': sharedOption1212,
   },
   rules: [
     {
@@ -71870,10 +71876,10 @@ const commandSpec300 = {
     '-h': sharedOption5,
     '--detach': sharedOption137,
     '--no-detach': sharedOption141,
-    '--ipc-threads': sharedOption1208,
-    '--no-ipc-threads': sharedOption1209,
-    '--start-timeout': sharedOption1210,
-    '--no-start-timeout': sharedOption1211,
+    '--ipc-threads': sharedOption1209,
+    '--no-ipc-threads': sharedOption1210,
+    '--start-timeout': sharedOption1211,
+    '--no-start-timeout': sharedOption1212,
   },
   rules: [
     {
@@ -72050,10 +72056,10 @@ const commandSpec302 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '-t': sharedOption577,
-    '-c': sharedOption1080,
-    '-a': sharedOption1017,
+    '-c': sharedOption1081,
+    '-a': sharedOption1018,
     '-v': sharedOption578,
-    '--recover': sharedOption1174,
+    '--recover': sharedOption1175,
     '--stdin': sharedOption204,
     '-w': {
       key: 'write-ref',
@@ -72166,7 +72172,7 @@ const commandSpec303 = {
     '--all': sharedOption18,
     '--force': sharedOption214,
     '--dry-run': sharedOption6,
-    '--helper-status': sharedOption1179,
+    '--helper-status': sharedOption1180,
     '--verbose': sharedOption151,
     '-d': sharedOption82,
     '-D': sharedOption82,
@@ -72218,8 +72224,8 @@ const commandSpec305 = {
       key: 'curl',
       value: 'flag',
     },
-    '--folder': sharedOption1212,
-    '-f': sharedOption1212,
+    '--folder': sharedOption1213,
+    '-f': sharedOption1213,
     '--list': sharedOption243,
     '--no-verbose': sharedOption173,
     '--no-quiet': sharedOption67,
@@ -72277,11 +72283,11 @@ const commandSpec306 = {
     '--decorate-refs': sharedOption356,
     '--decorate-refs-exclude': sharedOption357,
     '--decorate': sharedOption358,
-    '-L': sharedOption590,
+    '-L': sharedOption591,
     '--patch': sharedOption360,
     '-p': sharedOption360,
-    '--no-patch': sharedOption361,
-    '-s': sharedOption361,
+    '--no-patch': sharedOption581,
+    '-s': sharedOption581,
     '-u': sharedOption362,
     '--unified': sharedOption363,
     '-U': sharedOption364,
@@ -72383,9 +72389,9 @@ const commandSpec306 = {
     '--no-decorate-refs': sharedOption449,
     '--no-decorate-refs-exclude': sharedOption450,
     '--no-decorate': sharedOption451,
-    '--no-no-patch': sharedOption581,
+    '--no-no-patch': sharedOption582,
     '--no-function-context': sharedOption453,
-    '--no-compact-summary': sharedOption582,
+    '--no-compact-summary': sharedOption583,
     '--no-full-index': sharedOption455,
     '--no-color': sharedOption252,
     '--no-abbrev': sharedOption456,
@@ -72539,7 +72545,7 @@ const commandSpec306 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
   rules: [
     {
@@ -73919,10 +73925,10 @@ const commandSpec308 = {
       modeGroup: 'actions',
       modeValue: 'remove-section',
     },
-    '--list': sharedOption1213,
-    '-l': sharedOption1213,
-    '--edit': sharedOption1214,
-    '-e': sharedOption1214,
+    '--list': sharedOption1214,
+    '-l': sharedOption1214,
+    '--edit': sharedOption1215,
+    '-e': sharedOption1215,
     '--get-color': {
       key: 'action',
       value: 'flag',
@@ -75323,7 +75329,7 @@ const commandSpec309 = {
     key: 'max-count',
     value: 'integer',
     parser: sharedScalarParser8,
-    effects: sharedEffects15,
+    effects: sharedEffects14,
   },
 } as const satisfies CommandSpec;
 const commandSpec310 = {
@@ -75342,7 +75348,7 @@ const commandSpec310 = {
       value: 'flag',
     },
     '--tags': sharedOption73,
-    '--maintenance': sharedOption1215,
+    '--maintenance': sharedOption1216,
     '--no-branch': sharedOption182,
     '--no-full-clone': {
       key: 'full-clone',
@@ -75356,10 +75362,10 @@ const commandSpec310 = {
       set: false,
     },
     '--no-tags': sharedOption76,
-    '--no-maintenance': sharedOption1216,
+    '--no-maintenance': sharedOption1217,
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75380,8 +75386,8 @@ const commandSpec311 = {
   argv: ['scalar', 'list'],
   executable: 'scalar',
   options: {
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75403,11 +75409,11 @@ const commandSpec312 = {
   argv: ['scalar', 'register'],
   executable: 'scalar',
   options: {
-    '--maintenance': sharedOption1215,
-    '--no-maintenance': sharedOption1216,
+    '--maintenance': sharedOption1216,
+    '--no-maintenance': sharedOption1217,
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75429,8 +75435,8 @@ const commandSpec313 = {
   executable: 'scalar',
   options: {
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75452,8 +75458,8 @@ const commandSpec314 = {
   executable: 'scalar',
   options: {
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75496,8 +75502,8 @@ const commandSpec315 = {
       clear: true,
     },
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75544,8 +75550,8 @@ const commandSpec316 = {
   executable: 'scalar',
   options: {
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75567,8 +75573,8 @@ const commandSpec317 = {
   executable: 'scalar',
   options: {
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75591,12 +75597,12 @@ const commandSpec318 = {
   options: {
     '--verbose': sharedOption7,
     '-v': sharedOption7,
-    '--build-options': sharedOption1041,
+    '--build-options': sharedOption1042,
     '--no-verbose': sharedOption29,
-    '--no-build-options': sharedOption1042,
+    '--no-build-options': sharedOption1043,
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75618,8 +75624,8 @@ const commandSpec319 = {
   executable: 'scalar',
   options: {
     '-h': sharedOption5,
-    '-C': sharedOption1217,
-    '-c': sharedOption1218,
+    '-C': sharedOption1218,
+    '-c': sharedOption1219,
   },
   rules: [
     {
@@ -75723,11 +75729,11 @@ const commandSpec322 = {
   argv: ['gitweb'],
   executable: 'gitweb',
   options: {
-    '--fastcgi': sharedOption1219,
-    '--fcgi': sharedOption1219,
-    '-f': sharedOption1219,
-    '--nproc': sharedOption1220,
-    '-n': sharedOption1220,
+    '--fastcgi': sharedOption1220,
+    '--fcgi': sharedOption1220,
+    '-f': sharedOption1220,
+    '--nproc': sharedOption1221,
+    '-n': sharedOption1221,
   },
   rules: [],
   source: 'gitweb/gitweb.perl:evaluate_argv',
@@ -75737,8 +75743,8 @@ const commandSpec322 = {
 const commandSpec323 = {
   argv: ['filter-branch'],
   options: {
-    '--help': sharedOption1180,
-    '-h': sharedOption1180,
+    '--help': sharedOption1181,
+    '-h': sharedOption1181,
     '--force': sharedOption214,
     '-f': sharedOption214,
     '--remap-to-ancestor': {
@@ -75841,7 +75847,7 @@ const commandSpec324 = {
     '-h': sharedOption5,
     '--dry-run': sharedOption6,
     '-n': sharedOption6,
-    '--keep-non-patch': sharedOption888,
+    '--keep-non-patch': sharedOption889,
     '--author': sharedOption93,
     '--patches': {
       key: 'patches',
@@ -75861,19 +75867,19 @@ const commandSpec325 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--start': sharedOption1221,
-    '--stop': sharedOption1222,
-    '--restart': sharedOption1223,
+    '--start': sharedOption1222,
+    '--stop': sharedOption1223,
+    '--restart': sharedOption1224,
     '--local': sharedOption154,
     '-l': sharedOption154,
-    '-p': sharedOption1206,
-    '--port': sharedOption1206,
-    '-d': sharedOption1224,
-    '--httpd': sharedOption1224,
-    '-b': sharedOption1225,
-    '--browser': sharedOption1225,
-    '-m': sharedOption1226,
-    '--module-path': sharedOption1226,
+    '-p': sharedOption1207,
+    '--port': sharedOption1207,
+    '-d': sharedOption1225,
+    '--httpd': sharedOption1225,
+    '-b': sharedOption1226,
+    '--browser': sharedOption1226,
+    '-m': sharedOption1227,
+    '--module-path': sharedOption1227,
   },
   rules: [
     {
@@ -75895,19 +75901,19 @@ const commandSpec326 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--start': sharedOption1221,
-    '--stop': sharedOption1222,
-    '--restart': sharedOption1223,
+    '--start': sharedOption1222,
+    '--stop': sharedOption1223,
+    '--restart': sharedOption1224,
     '--local': sharedOption154,
     '-l': sharedOption154,
-    '-p': sharedOption1206,
-    '--port': sharedOption1206,
-    '-d': sharedOption1224,
-    '--httpd': sharedOption1224,
-    '-b': sharedOption1225,
-    '--browser': sharedOption1225,
-    '-m': sharedOption1226,
-    '--module-path': sharedOption1226,
+    '-p': sharedOption1207,
+    '--port': sharedOption1207,
+    '-d': sharedOption1225,
+    '--httpd': sharedOption1225,
+    '-b': sharedOption1226,
+    '--browser': sharedOption1226,
+    '-m': sharedOption1227,
+    '--module-path': sharedOption1227,
   },
   rules: [
     {
@@ -75929,19 +75935,19 @@ const commandSpec327 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--start': sharedOption1221,
-    '--stop': sharedOption1222,
-    '--restart': sharedOption1223,
+    '--start': sharedOption1222,
+    '--stop': sharedOption1223,
+    '--restart': sharedOption1224,
     '--local': sharedOption154,
     '-l': sharedOption154,
-    '-p': sharedOption1206,
-    '--port': sharedOption1206,
-    '-d': sharedOption1224,
-    '--httpd': sharedOption1224,
-    '-b': sharedOption1225,
-    '--browser': sharedOption1225,
-    '-m': sharedOption1226,
-    '--module-path': sharedOption1226,
+    '-p': sharedOption1207,
+    '--port': sharedOption1207,
+    '-d': sharedOption1225,
+    '--httpd': sharedOption1225,
+    '-b': sharedOption1226,
+    '--browser': sharedOption1226,
+    '-m': sharedOption1227,
+    '--module-path': sharedOption1227,
   },
   rules: [
     {
@@ -75963,19 +75969,19 @@ const commandSpec328 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--start': sharedOption1221,
-    '--stop': sharedOption1222,
-    '--restart': sharedOption1223,
+    '--start': sharedOption1222,
+    '--stop': sharedOption1223,
+    '--restart': sharedOption1224,
     '--local': sharedOption154,
     '-l': sharedOption154,
-    '-p': sharedOption1206,
-    '--port': sharedOption1206,
-    '-d': sharedOption1224,
-    '--httpd': sharedOption1224,
-    '-b': sharedOption1225,
-    '--browser': sharedOption1225,
-    '-m': sharedOption1226,
-    '--module-path': sharedOption1226,
+    '-p': sharedOption1207,
+    '--port': sharedOption1207,
+    '-d': sharedOption1225,
+    '--httpd': sharedOption1225,
+    '-b': sharedOption1226,
+    '--browser': sharedOption1226,
+    '-m': sharedOption1227,
+    '--module-path': sharedOption1227,
   },
   rules: [
     {
@@ -75995,7 +76001,7 @@ const commandSpec328 = {
 const commandSpec329 = {
   argv: ['shell'],
   options: {
-    '--help': sharedOption1180,
+    '--help': sharedOption1181,
     '-c': {
       key: 'command',
       value: 'string',
@@ -76070,13 +76076,13 @@ const commandSpec330 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-f': sharedOption897,
+    '-f': sharedOption898,
     '-T': {
       key: 'T',
       value: 'flag',
     },
     '-v': sharedOption578,
-    '-a': sharedOption1017,
+    '-a': sharedOption1018,
     '-t': sharedOption0,
     '-D': {
       key: 'D',
@@ -76104,7 +76110,7 @@ const commandSpec331 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-u': sharedOption1007,
+    '-u': sharedOption1008,
     '-P': {
       key: 'P',
       value: 'flag',
@@ -76114,16 +76120,16 @@ const commandSpec331 = {
       value: 'flag',
     },
     '-v': sharedOption578,
-    '-c': sharedOption1080,
-    '-f': sharedOption897,
+    '-c': sharedOption1081,
+    '-f': sharedOption898,
     '-k': sharedOption53,
-    '-a': sharedOption1017,
+    '-a': sharedOption1018,
     '-W': {
       key: 'W',
       value: 'flag',
     },
-    '-m': sharedOption874,
-    '-d': sharedOption1227,
+    '-m': sharedOption875,
+    '-d': sharedOption1228,
     '-w': {
       key: 'w',
       value: 'string',
@@ -76150,45 +76156,45 @@ const commandSpec332 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '-a': sharedOption1017,
-    '-i': sharedOption1008,
+    '-a': sharedOption1018,
+    '-i': sharedOption1009,
     '-v': sharedOption578,
-    '-m': sharedOption1006,
+    '-m': sharedOption1007,
     '-k': sharedOption53,
-    '-u': sharedOption1007,
+    '-u': sharedOption1008,
     '-R': sharedOption426,
-    '-o': sharedOption1228,
-    '-d': sharedOption1227,
-    '-p': sharedOption873,
-    '-r': sharedOption1229,
-    '-C': sharedOption893,
-    '-z': sharedOption1230,
-    '-s': sharedOption1231,
-    '-M': sharedOption1232,
-    '-P': sharedOption1233,
-    '-A': sharedOption1234,
-    '-S': sharedOption1235,
-    '-L': sharedOption590,
+    '-o': sharedOption1229,
+    '-d': sharedOption1228,
+    '-p': sharedOption874,
+    '-r': sharedOption1230,
+    '-C': sharedOption894,
+    '-z': sharedOption1231,
+    '-s': sharedOption1232,
+    '-M': sharedOption1233,
+    '-P': sharedOption1234,
+    '-A': sharedOption1235,
+    '-S': sharedOption1236,
+    '-L': sharedOption591,
     '--h': sharedOption5,
-    '--a': sharedOption1017,
-    '--i': sharedOption1008,
+    '--a': sharedOption1018,
+    '--i': sharedOption1009,
     '--v': sharedOption578,
-    '--m': sharedOption1006,
+    '--m': sharedOption1007,
     '--k': sharedOption53,
-    '--u': sharedOption1007,
+    '--u': sharedOption1008,
     '--R': sharedOption426,
-    '--o': sharedOption1228,
-    '--d': sharedOption1227,
-    '--p': sharedOption873,
-    '--r': sharedOption1229,
-    '--C': sharedOption893,
-    '--z': sharedOption1230,
-    '--s': sharedOption1231,
-    '--M': sharedOption1232,
-    '--P': sharedOption1233,
-    '--A': sharedOption1234,
-    '--S': sharedOption1235,
-    '--L': sharedOption590,
+    '--o': sharedOption1229,
+    '--d': sharedOption1228,
+    '--p': sharedOption874,
+    '--r': sharedOption1230,
+    '--C': sharedOption894,
+    '--z': sharedOption1231,
+    '--s': sharedOption1232,
+    '--M': sharedOption1233,
+    '--P': sharedOption1234,
+    '--A': sharedOption1235,
+    '--S': sharedOption1236,
+    '--L': sharedOption591,
   },
   rules: [
     {
@@ -76209,16 +76215,16 @@ const commandSpec332 = {
 const commandSpec333 = {
   argv: ['cvsserver'],
   options: {
-    '-h': sharedOption937,
-    '-H': sharedOption937,
-    '--h': sharedOption937,
-    '--H': sharedOption937,
-    '--version': sharedOption1236,
-    '-V': sharedOption1236,
-    '--V': sharedOption1236,
-    '--base-path': sharedOption1207,
-    '--strict-paths': sharedOption1205,
-    '--export-all': sharedOption1204,
+    '-h': sharedOption938,
+    '-H': sharedOption938,
+    '--h': sharedOption938,
+    '--H': sharedOption938,
+    '--version': sharedOption1237,
+    '-V': sharedOption1237,
+    '--V': sharedOption1237,
+    '--base-path': sharedOption1208,
+    '--strict-paths': sharedOption1206,
+    '--export-all': sharedOption1205,
   },
   rules: [
     {
@@ -76292,16 +76298,16 @@ const commandSpec333 = {
 const commandSpec334 = {
   argv: ['cvsserver', 'server'],
   options: {
-    '-h': sharedOption1237,
-    '-H': sharedOption1237,
-    '--h': sharedOption1237,
-    '--H': sharedOption1237,
-    '--version': sharedOption1238,
-    '-V': sharedOption1238,
-    '--V': sharedOption1238,
-    '--base-path': sharedOption1239,
-    '--strict-paths': sharedOption1240,
-    '--export-all': sharedOption1241,
+    '-h': sharedOption1238,
+    '-H': sharedOption1238,
+    '--h': sharedOption1238,
+    '--H': sharedOption1238,
+    '--version': sharedOption1239,
+    '-V': sharedOption1239,
+    '--V': sharedOption1239,
+    '--base-path': sharedOption1240,
+    '--strict-paths': sharedOption1241,
+    '--export-all': sharedOption1242,
   },
   rules: [
     {
@@ -76327,16 +76333,16 @@ const commandSpec334 = {
 const commandSpec335 = {
   argv: ['cvsserver', 'pserver'],
   options: {
-    '-h': sharedOption1237,
-    '-H': sharedOption1237,
-    '--h': sharedOption1237,
-    '--H': sharedOption1237,
-    '--version': sharedOption1238,
-    '-V': sharedOption1238,
-    '--V': sharedOption1238,
-    '--base-path': sharedOption1239,
-    '--strict-paths': sharedOption1240,
-    '--export-all': sharedOption1241,
+    '-h': sharedOption1238,
+    '-H': sharedOption1238,
+    '--h': sharedOption1238,
+    '--H': sharedOption1238,
+    '--version': sharedOption1239,
+    '-V': sharedOption1239,
+    '--V': sharedOption1239,
+    '--base-path': sharedOption1240,
+    '--strict-paths': sharedOption1241,
+    '--export-all': sharedOption1242,
   },
   rules: [
     {
@@ -76383,8 +76389,8 @@ const commandSpec336 = {
       key: 'translate-aliases',
       value: 'flag',
     },
-    '--sender': sharedOption1242,
-    '--from': sharedOption1242,
+    '--sender': sharedOption1243,
+    '--from': sharedOption1243,
     '--in-reply-to': {
       key: 'in-reply-to',
       value: 'string',
@@ -76443,8 +76449,8 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-chain-reply-to': sharedOption1243,
-    '--nochain-reply-to': sharedOption1243,
+    '--no-chain-reply-to': sharedOption1244,
+    '--nochain-reply-to': sharedOption1244,
     '--sendmail-cmd': {
       key: 'sendmail-cmd',
       value: 'string',
@@ -76538,15 +76544,15 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-use-imap-only': sharedOption1244,
-    '--nouse-imap-only': sharedOption1244,
+    '--no-use-imap-only': sharedOption1245,
+    '--nouse-imap-only': sharedOption1245,
     '--annotate': {
       key: 'annotate',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-annotate': sharedOption1245,
-    '--noannotate': sharedOption1245,
+    '--no-annotate': sharedOption1246,
+    '--noannotate': sharedOption1246,
     '--compose': {
       key: 'compose',
       value: 'flag',
@@ -76577,34 +76583,34 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-suppress-from': sharedOption1246,
-    '--nosuppress-from': sharedOption1246,
+    '--no-suppress-from': sharedOption1247,
+    '--nosuppress-from': sharedOption1247,
     '--suppress-cc': {
       key: 'suppress-cc',
       value: 'string',
       repeat: true,
       effects: sharedEffects42,
     },
-    '--signed-off-cc': sharedOption1247,
-    '--no-signed-off-cc': sharedOption1248,
-    '--nosigned-off-cc': sharedOption1248,
-    '--signed-off-by-cc': sharedOption1247,
-    '--no-signed-off-by-cc': sharedOption1248,
-    '--nosigned-off-by-cc': sharedOption1248,
+    '--signed-off-cc': sharedOption1248,
+    '--no-signed-off-cc': sharedOption1249,
+    '--nosigned-off-cc': sharedOption1249,
+    '--signed-off-by-cc': sharedOption1248,
+    '--no-signed-off-by-cc': sharedOption1249,
+    '--nosigned-off-by-cc': sharedOption1249,
     '--cc-cover': {
       key: 'cc-cover',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-cc-cover': sharedOption1249,
-    '--nocc-cover': sharedOption1249,
+    '--no-cc-cover': sharedOption1250,
+    '--nocc-cover': sharedOption1250,
     '--to-cover': {
       key: 'to-cover',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-to-cover': sharedOption1250,
-    '--noto-cover': sharedOption1250,
+    '--no-to-cover': sharedOption1251,
+    '--noto-cover': sharedOption1251,
     '--confirm': {
       key: 'confirm',
       value: 'string',
@@ -76625,33 +76631,33 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-thread': sharedOption1251,
-    '--nothread': sharedOption1251,
+    '--no-thread': sharedOption1252,
+    '--nothread': sharedOption1252,
     '--validate': {
       key: 'validate',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-validate': sharedOption1252,
-    '--novalidate': sharedOption1252,
+    '--no-validate': sharedOption1253,
+    '--novalidate': sharedOption1253,
     '--transfer-encoding': {
       key: 'transfer-encoding',
       value: 'string',
       effects: sharedEffects42,
     },
-    '--mailmap': sharedOption1253,
-    '--no-mailmap': sharedOption1254,
-    '--nomailmap': sharedOption1254,
-    '--use-mailmap': sharedOption1253,
-    '--no-use-mailmap': sharedOption1254,
-    '--nouse-mailmap': sharedOption1254,
+    '--mailmap': sharedOption1254,
+    '--no-mailmap': sharedOption1255,
+    '--nomailmap': sharedOption1255,
+    '--use-mailmap': sharedOption1254,
+    '--no-use-mailmap': sharedOption1255,
+    '--nouse-mailmap': sharedOption1255,
     '--format-patch': {
       key: 'format-patch',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-format-patch': sharedOption1255,
-    '--noformat-patch': sharedOption1255,
+    '--no-format-patch': sharedOption1256,
+    '--noformat-patch': sharedOption1256,
     '--8bit-encoding': {
       key: '8bit-encoding',
       value: 'string',
@@ -76672,8 +76678,8 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-xmailer': sharedOption1256,
-    '--noxmailer': sharedOption1256,
+    '--no-xmailer': sharedOption1257,
+    '--noxmailer': sharedOption1257,
     '--batch-size': {
       key: 'batch-size',
       value: 'integer',
@@ -76693,15 +76699,15 @@ const commandSpec336 = {
       value: 'flag',
       effects: sharedEffects42,
     },
-    '-v': sharedOption1257,
-    '--v': sharedOption1257,
+    '-v': sharedOption1258,
+    '--v': sharedOption1258,
     '--outlook-id-fix': {
       key: 'outlook-id-fix',
       value: 'flag',
       effects: sharedEffects42,
     },
-    '--no-outlook-id-fix': sharedOption1258,
-    '--nooutlook-id-fix': sharedOption1258,
+    '--no-outlook-id-fix': sharedOption1259,
+    '--nooutlook-id-fix': sharedOption1259,
   },
   rules: [
     {
@@ -76871,11 +76877,11 @@ const commandSpec337 = {
     version: 'citool version',
   },
   options: {
-    '--trace': sharedOption1259,
+    '--trace': sharedOption1260,
     '--help': sharedOption5,
     '--amend': sharedOption111,
-    '--nocommit': sharedOption1260,
-    '--commitmsg': sharedOption1261,
+    '--nocommit': sharedOption1261,
+    '--commitmsg': sharedOption1262,
     '--version': sharedOption5,
   },
   rules: [],
@@ -76887,10 +76893,10 @@ const commandSpec338 = {
   argv: ['gui', 'citool'],
   guiScript: true,
   options: {
-    '--trace': sharedOption1259,
+    '--trace': sharedOption1260,
     '--amend': sharedOption111,
-    '--nocommit': sharedOption1260,
-    '--commitmsg': sharedOption1261,
+    '--nocommit': sharedOption1261,
+    '--commitmsg': sharedOption1262,
   },
   rules: [],
   source: 'git-gui/git-gui.sh',
@@ -76901,7 +76907,7 @@ const commandSpec339 = {
   argv: ['gui', 'gui'],
   guiScript: true,
   options: {
-    '--trace': sharedOption1259,
+    '--trace': sharedOption1260,
   },
   rules: [],
   source: 'git-gui/git-gui.sh',
@@ -76912,7 +76918,7 @@ const commandSpec340 = {
   argv: ['gui', 'pick'],
   guiScript: true,
   options: {
-    '--trace': sharedOption1259,
+    '--trace': sharedOption1260,
   },
   rules: [],
   source: 'git-gui/git-gui.sh',
@@ -76923,8 +76929,8 @@ const commandSpec341 = {
   argv: ['gui', 'browser'],
   guiScript: true,
   options: {
-    '--trace': sharedOption1259,
-    '--line': sharedOption1262,
+    '--trace': sharedOption1260,
+    '--line': sharedOption1263,
   },
   rules: [],
   source: 'git-gui/git-gui.sh',
@@ -76935,8 +76941,8 @@ const commandSpec342 = {
   argv: ['gui', 'blame'],
   guiScript: true,
   options: {
-    '--trace': sharedOption1259,
-    '--line': sharedOption1262,
+    '--trace': sharedOption1260,
+    '--line': sharedOption1263,
   },
   rules: [],
   source: 'git-gui/git-gui.sh',
@@ -76955,7 +76961,7 @@ const commandSpec343 = {
     version: 'gui version',
   },
   options: {
-    '--trace': sharedOption1259,
+    '--trace': sharedOption1260,
     '--help': sharedOption5,
     '--version': sharedOption5,
   },
@@ -76988,23 +76994,23 @@ const commandSpec346 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--origin': sharedOption160,
-    '-M': sharedOption1263,
-    '--preserve-user': sharedOption1264,
-    '--export-labels': sharedOption1265,
-    '--dry-run': sharedOption1266,
-    '-n': sharedOption1266,
-    '--prepare-p4-only': sharedOption1267,
-    '--conflict': sharedOption1268,
+    '-M': sharedOption1264,
+    '--preserve-user': sharedOption1265,
+    '--export-labels': sharedOption1266,
+    '--dry-run': sharedOption1267,
+    '-n': sharedOption1267,
+    '--prepare-p4-only': sharedOption1268,
+    '--conflict': sharedOption1269,
     '--branch': sharedOption161,
-    '--shelve': sharedOption1269,
-    '--update-shelve': sharedOption1270,
-    '--commit': sharedOption1271,
-    '--disable-rebase': sharedOption1272,
-    '--disable-p4sync': sharedOption1273,
-    '--no-verify': sharedOption1274,
+    '--shelve': sharedOption1270,
+    '--update-shelve': sharedOption1271,
+    '--commit': sharedOption1272,
+    '--disable-rebase': sharedOption1273,
+    '--disable-p4sync': sharedOption1274,
+    '--no-verify': sharedOption1275,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [
     {
@@ -77036,23 +77042,23 @@ const commandSpec347 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--origin': sharedOption160,
-    '-M': sharedOption1263,
-    '--preserve-user': sharedOption1264,
-    '--export-labels': sharedOption1265,
-    '--dry-run': sharedOption1266,
-    '-n': sharedOption1266,
-    '--prepare-p4-only': sharedOption1267,
-    '--conflict': sharedOption1268,
+    '-M': sharedOption1264,
+    '--preserve-user': sharedOption1265,
+    '--export-labels': sharedOption1266,
+    '--dry-run': sharedOption1267,
+    '-n': sharedOption1267,
+    '--prepare-p4-only': sharedOption1268,
+    '--conflict': sharedOption1269,
     '--branch': sharedOption161,
-    '--shelve': sharedOption1269,
-    '--update-shelve': sharedOption1270,
-    '--commit': sharedOption1271,
-    '--disable-rebase': sharedOption1272,
-    '--disable-p4sync': sharedOption1273,
-    '--no-verify': sharedOption1274,
+    '--shelve': sharedOption1270,
+    '--update-shelve': sharedOption1271,
+    '--commit': sharedOption1272,
+    '--disable-rebase': sharedOption1273,
+    '--disable-p4sync': sharedOption1274,
+    '--no-verify': sharedOption1275,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [
     {
@@ -77084,20 +77090,20 @@ const commandSpec348 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--branch': sharedOption161,
-    '--detect-branches': sharedOption1276,
-    '--changesfile': sharedOption1277,
-    '--silent': sharedOption1278,
-    '--detect-labels': sharedOption1279,
-    '--import-labels': sharedOption1280,
-    '--import-local': sharedOption1281,
-    '--max-changes': sharedOption1282,
-    '--changes-block-size': sharedOption1283,
-    '--keep-path': sharedOption1284,
-    '--use-client-spec': sharedOption1285,
-    '-/': sharedOption1286,
+    '--detect-branches': sharedOption1277,
+    '--changesfile': sharedOption1278,
+    '--silent': sharedOption1279,
+    '--detect-labels': sharedOption1280,
+    '--import-labels': sharedOption1281,
+    '--import-local': sharedOption1282,
+    '--max-changes': sharedOption1283,
+    '--changes-block-size': sharedOption1284,
+    '--keep-path': sharedOption1285,
+    '--use-client-spec': sharedOption1286,
+    '-/': sharedOption1287,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [],
   source: 'git-p4.py:P4Sync',
@@ -77108,10 +77114,10 @@ const commandSpec349 = {
   options: {
     '--help': sharedOption5,
     '-h': sharedOption5,
-    '--import-labels': sharedOption1280,
+    '--import-labels': sharedOption1281,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [],
   source: 'git-p4.py:P4Rebase',
@@ -77123,17 +77129,17 @@ const commandSpec350 = {
     '--help': sharedOption5,
     '-h': sharedOption5,
     '--branch': sharedOption161,
-    '--detect-branches': sharedOption1276,
-    '--changesfile': sharedOption1277,
-    '--silent': sharedOption1278,
-    '--detect-labels': sharedOption1279,
-    '--import-labels': sharedOption1280,
-    '--import-local': sharedOption1281,
-    '--max-changes': sharedOption1282,
-    '--changes-block-size': sharedOption1283,
-    '--keep-path': sharedOption1284,
-    '--use-client-spec': sharedOption1285,
-    '-/': sharedOption1286,
+    '--detect-branches': sharedOption1277,
+    '--changesfile': sharedOption1278,
+    '--silent': sharedOption1279,
+    '--detect-labels': sharedOption1280,
+    '--import-labels': sharedOption1281,
+    '--import-local': sharedOption1282,
+    '--max-changes': sharedOption1283,
+    '--changes-block-size': sharedOption1284,
+    '--keep-path': sharedOption1285,
+    '--use-client-spec': sharedOption1286,
+    '-/': sharedOption1287,
     '--destination': {
       key: 'cloneDestination',
       value: 'string',
@@ -77184,7 +77190,7 @@ const commandSpec351 = {
     '-h': sharedOption5,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [],
   source: 'git-p4.py:P4Branches',
@@ -77198,7 +77204,7 @@ const commandSpec352 = {
     '--origin': sharedOption160,
     '--verbose': sharedOption151,
     '-v': sharedOption151,
-    '--git-dir': sharedOption1275,
+    '--git-dir': sharedOption1276,
   },
   rules: [
     {
@@ -77260,53 +77266,53 @@ const commandSpec354 = {
     '--revision': sharedOption162,
     '--r': sharedOption162,
     '-r': sharedOption162,
-    '--fetch-all': sharedOption1287,
-    '--all': sharedOption1287,
-    '--parent': sharedOption1288,
-    '--p': sharedOption1288,
-    '-p': sharedOption1288,
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--fetch-all': sharedOption1288,
+    '--all': sharedOption1288,
+    '--parent': sharedOption1289,
+    '--p': sharedOption1289,
+    '-p': sharedOption1289,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77338,75 +77344,75 @@ const commandSpec355 = {
       key: 'placeholder-filename',
       value: 'string',
     },
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--template': sharedOption57,
-    '--shared': sharedOption1309,
-    '--trunk': sharedOption1310,
-    '--T': sharedOption1310,
-    '-T': sharedOption1310,
-    '--tags': sharedOption1311,
-    '--t': sharedOption1311,
-    '-t': sharedOption1311,
-    '--branches': sharedOption1312,
-    '--b': sharedOption1312,
-    '-b': sharedOption1312,
-    '--prefix': sharedOption945,
-    '--stdlayout': sharedOption1313,
-    '--s': sharedOption1313,
-    '-s': sharedOption1313,
-    '--minimize-url': sharedOption1314,
-    '--no-minimize-url': sharedOption1315,
-    '--nominimize-url': sharedOption1315,
-    '--m': sharedOption1314,
-    '-m': sharedOption1314,
-    '--no-m': sharedOption1315,
-    '--nom': sharedOption1315,
-    '--no-metadata': sharedOption1316,
-    '--use-svm-props': sharedOption1317,
-    '--use-svnsync-props': sharedOption1318,
-    '--rewrite-root': sharedOption1319,
-    '--rewrite-uuid': sharedOption1320,
+    '--shared': sharedOption1310,
+    '--trunk': sharedOption1311,
+    '--T': sharedOption1311,
+    '-T': sharedOption1311,
+    '--tags': sharedOption1312,
+    '--t': sharedOption1312,
+    '-t': sharedOption1312,
+    '--branches': sharedOption1313,
+    '--b': sharedOption1313,
+    '-b': sharedOption1313,
+    '--prefix': sharedOption946,
+    '--stdlayout': sharedOption1314,
+    '--s': sharedOption1314,
+    '-s': sharedOption1314,
+    '--minimize-url': sharedOption1315,
+    '--no-minimize-url': sharedOption1316,
+    '--nominimize-url': sharedOption1316,
+    '--m': sharedOption1315,
+    '-m': sharedOption1315,
+    '--no-m': sharedOption1316,
+    '--nom': sharedOption1316,
+    '--no-metadata': sharedOption1317,
+    '--use-svm-props': sharedOption1318,
+    '--use-svnsync-props': sharedOption1319,
+    '--rewrite-root': sharedOption1320,
+    '--rewrite-uuid': sharedOption1321,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77474,52 +77480,52 @@ const commandSpec356 = {
   options: {
     '-h': sharedOption5,
     '--template': sharedOption57,
-    '--shared': sharedOption1309,
-    '--trunk': sharedOption1310,
-    '--T': sharedOption1310,
-    '-T': sharedOption1310,
-    '--tags': sharedOption1311,
-    '--t': sharedOption1311,
-    '-t': sharedOption1311,
-    '--branches': sharedOption1312,
-    '--b': sharedOption1312,
-    '-b': sharedOption1312,
-    '--prefix': sharedOption945,
-    '--stdlayout': sharedOption1313,
-    '--s': sharedOption1313,
-    '-s': sharedOption1313,
-    '--minimize-url': sharedOption1314,
-    '--no-minimize-url': sharedOption1315,
-    '--nominimize-url': sharedOption1315,
-    '--m': sharedOption1314,
-    '-m': sharedOption1314,
-    '--no-m': sharedOption1315,
-    '--nom': sharedOption1315,
-    '--no-metadata': sharedOption1316,
-    '--use-svm-props': sharedOption1317,
-    '--use-svnsync-props': sharedOption1318,
-    '--rewrite-root': sharedOption1319,
-    '--rewrite-uuid': sharedOption1320,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--shared': sharedOption1310,
+    '--trunk': sharedOption1311,
+    '--T': sharedOption1311,
+    '-T': sharedOption1311,
+    '--tags': sharedOption1312,
+    '--t': sharedOption1312,
+    '-t': sharedOption1312,
+    '--branches': sharedOption1313,
+    '--b': sharedOption1313,
+    '-b': sharedOption1313,
+    '--prefix': sharedOption946,
+    '--stdlayout': sharedOption1314,
+    '--s': sharedOption1314,
+    '-s': sharedOption1314,
+    '--minimize-url': sharedOption1315,
+    '--no-minimize-url': sharedOption1316,
+    '--nominimize-url': sharedOption1316,
+    '--m': sharedOption1315,
+    '-m': sharedOption1315,
+    '--no-m': sharedOption1316,
+    '--nom': sharedOption1316,
+    '--no-metadata': sharedOption1317,
+    '--use-svm-props': sharedOption1318,
+    '--use-svnsync-props': sharedOption1319,
+    '--rewrite-root': sharedOption1320,
+    '--rewrite-uuid': sharedOption1321,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77571,52 +77577,52 @@ const commandSpec357 = {
   options: {
     '-h': sharedOption5,
     '--template': sharedOption57,
-    '--shared': sharedOption1309,
-    '--trunk': sharedOption1310,
-    '--T': sharedOption1310,
-    '-T': sharedOption1310,
-    '--tags': sharedOption1311,
-    '--t': sharedOption1311,
-    '-t': sharedOption1311,
-    '--branches': sharedOption1312,
-    '--b': sharedOption1312,
-    '-b': sharedOption1312,
-    '--prefix': sharedOption945,
-    '--stdlayout': sharedOption1313,
-    '--s': sharedOption1313,
-    '-s': sharedOption1313,
-    '--minimize-url': sharedOption1314,
-    '--no-minimize-url': sharedOption1315,
-    '--nominimize-url': sharedOption1315,
-    '--m': sharedOption1314,
-    '-m': sharedOption1314,
-    '--no-m': sharedOption1315,
-    '--nom': sharedOption1315,
-    '--no-metadata': sharedOption1316,
-    '--use-svm-props': sharedOption1317,
-    '--use-svnsync-props': sharedOption1318,
-    '--rewrite-root': sharedOption1319,
-    '--rewrite-uuid': sharedOption1320,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--shared': sharedOption1310,
+    '--trunk': sharedOption1311,
+    '--T': sharedOption1311,
+    '-T': sharedOption1311,
+    '--tags': sharedOption1312,
+    '--t': sharedOption1312,
+    '-t': sharedOption1312,
+    '--branches': sharedOption1313,
+    '--b': sharedOption1313,
+    '-b': sharedOption1313,
+    '--prefix': sharedOption946,
+    '--stdlayout': sharedOption1314,
+    '--s': sharedOption1314,
+    '-s': sharedOption1314,
+    '--minimize-url': sharedOption1315,
+    '--no-minimize-url': sharedOption1316,
+    '--nominimize-url': sharedOption1316,
+    '--m': sharedOption1315,
+    '-m': sharedOption1315,
+    '--no-m': sharedOption1316,
+    '--nom': sharedOption1316,
+    '--no-metadata': sharedOption1317,
+    '--use-svm-props': sharedOption1318,
+    '--use-svnsync-props': sharedOption1319,
+    '--rewrite-root': sharedOption1320,
+    '--rewrite-uuid': sharedOption1321,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77681,16 +77687,16 @@ const commandSpec358 = {
     '--dry-run': sharedOption6,
     '--n': sharedOption6,
     '-n': sharedOption6,
-    '--fetch-all': sharedOption1287,
-    '--all': sharedOption1287,
-    '--commit-url': sharedOption1321,
+    '--fetch-all': sharedOption1288,
+    '--all': sharedOption1288,
+    '--commit-url': sharedOption1322,
     '--set-svn-props': {
       key: 'set-svn-props',
       value: 'string',
     },
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--no-rebase': {
       key: 'no-rebase',
       value: 'flag',
@@ -77700,58 +77706,58 @@ const commandSpec358 = {
       value: 'string',
     },
     '--interactive': sharedOption8,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
     '--edit': sharedOption13,
     '--e': sharedOption13,
     '-e': sharedOption13,
-    '--rmdir': sharedOption1324,
+    '--rmdir': sharedOption1325,
     '--find-copies-harder': sharedOption403,
-    '--l': sharedOption1325,
-    '-l': sharedOption1326,
-    '--copy-similarity': sharedOption1327,
-    '--C': sharedOption1327,
-    '-C': sharedOption1328,
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--l': sharedOption1326,
+    '-l': sharedOption1327,
+    '--copy-similarity': sharedOption1328,
+    '--C': sharedOption1328,
+    '-C': sharedOption1329,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -77764,32 +77770,32 @@ const commandSpec359 = {
     '--message': sharedOption94,
     '--m': sharedOption94,
     '-m': sharedOption94,
-    '--destination': sharedOption1329,
-    '--d': sharedOption1329,
-    '-d': sharedOption1329,
+    '--destination': sharedOption1330,
+    '--d': sharedOption1330,
+    '-d': sharedOption1330,
     '--dry-run': sharedOption6,
     '--n': sharedOption6,
     '-n': sharedOption6,
-    '--parents': sharedOption1330,
-    '--tag': sharedOption1331,
-    '--t': sharedOption1331,
-    '-t': sharedOption1331,
-    '--username': sharedOption1299,
-    '--commit-url': sharedOption1321,
+    '--parents': sharedOption1331,
+    '--tag': sharedOption1332,
+    '--t': sharedOption1332,
+    '-t': sharedOption1332,
+    '--username': sharedOption1300,
+    '--commit-url': sharedOption1322,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77811,29 +77817,29 @@ const commandSpec360 = {
     '--message': sharedOption94,
     '--m': sharedOption94,
     '-m': sharedOption94,
-    '--destination': sharedOption1329,
-    '--d': sharedOption1329,
-    '-d': sharedOption1329,
+    '--destination': sharedOption1330,
+    '--d': sharedOption1330,
+    '-d': sharedOption1330,
     '--dry-run': sharedOption6,
     '--n': sharedOption6,
     '-n': sharedOption6,
-    '--parents': sharedOption1330,
-    '--username': sharedOption1299,
-    '--commit-url': sharedOption1321,
+    '--parents': sharedOption1331,
+    '--username': sharedOption1300,
+    '--commit-url': sharedOption1322,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -77856,55 +77862,55 @@ const commandSpec361 = {
     '--edit': sharedOption13,
     '--e': sharedOption13,
     '-e': sharedOption13,
-    '--rmdir': sharedOption1324,
+    '--rmdir': sharedOption1325,
     '--find-copies-harder': sharedOption403,
-    '--l': sharedOption1325,
-    '-l': sharedOption1326,
-    '--copy-similarity': sharedOption1327,
-    '--C': sharedOption1327,
-    '-C': sharedOption1328,
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--l': sharedOption1326,
+    '-l': sharedOption1327,
+    '--copy-similarity': sharedOption1328,
+    '--C': sharedOption1328,
+    '-C': sharedOption1329,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -77914,23 +77920,23 @@ const commandSpec362 = {
   argv: ['svn', 'create-ignore'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -77940,23 +77946,23 @@ const commandSpec363 = {
   argv: ['svn', 'mkdirs'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -77966,23 +77972,23 @@ const commandSpec364 = {
   argv: ['svn', 'propget'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -78005,17 +78011,17 @@ const commandSpec365 = {
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -78035,23 +78041,23 @@ const commandSpec366 = {
   argv: ['svn', 'proplist'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78061,23 +78067,23 @@ const commandSpec367 = {
   argv: ['svn', 'show-ignore'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78087,23 +78093,23 @@ const commandSpec368 = {
   argv: ['svn', 'show-externals'],
   options: {
     '-h': sharedOption5,
-    '--revision': sharedOption1322,
-    '--r': sharedOption1322,
-    '-r': sharedOption1323,
+    '--revision': sharedOption1323,
+    '--r': sharedOption1323,
+    '-r': sharedOption1324,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78116,48 +78122,48 @@ const commandSpec369 = {
     '--revision': sharedOption162,
     '--r': sharedOption162,
     '-r': sharedOption162,
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78171,26 +78177,26 @@ const commandSpec370 = {
       key: 'minimize',
       value: 'flag',
     },
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78210,7 +78216,7 @@ const commandSpec371 = {
     '--verbose': sharedOption151,
     '--v': sharedOption151,
     '-v': sharedOption151,
-    '--incremental': sharedOption971,
+    '--incremental': sharedOption972,
     '--oneline': sharedOption544,
     '--show-commit': {
       key: 'show-commit',
@@ -78220,9 +78226,9 @@ const commandSpec371 = {
       key: 'non-recursive',
       value: 'flag',
     },
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
     '--color': {
       key: 'color',
       value: 'flag',
@@ -78235,17 +78241,17 @@ const commandSpec371 = {
     '-h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78256,26 +78262,26 @@ const commandSpec372 = {
   argv: ['svn', 'find-rev'],
   options: {
     '-h': sharedOption5,
-    '--B': sharedOption1332,
-    '-B': sharedOption1332,
-    '--before': sharedOption1332,
-    '--A': sharedOption1018,
-    '-A': sharedOption1018,
-    '--after': sharedOption1018,
+    '--B': sharedOption1333,
+    '-B': sharedOption1333,
+    '--before': sharedOption1333,
+    '--A': sharedOption1019,
+    '-A': sharedOption1019,
+    '--after': sharedOption1019,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -78316,56 +78322,56 @@ const commandSpec373 = {
     '--local': sharedOption154,
     '--l': sharedOption154,
     '-l': sharedOption154,
-    '--fetch-all': sharedOption1287,
-    '--all': sharedOption1287,
+    '--fetch-all': sharedOption1288,
+    '--all': sharedOption1288,
     '--dry-run': sharedOption6,
     '--n': sharedOption6,
     '-n': sharedOption6,
-    '--rebase-merges': sharedOption1333,
-    '--p': sharedOption1333,
-    '-p': sharedOption1333,
-    '--follow-parent': sharedOption1289,
-    '--no-follow-parent': sharedOption1290,
-    '--nofollow-parent': sharedOption1290,
-    '--follow': sharedOption1289,
-    '--no-follow': sharedOption1290,
-    '--nofollow': sharedOption1290,
-    '--authors-file': sharedOption1291,
-    '--A': sharedOption1291,
-    '-A': sharedOption1291,
-    '--authors-prog': sharedOption1292,
-    '--repack': sharedOption1293,
-    '--log-window-size': sharedOption1294,
+    '--rebase-merges': sharedOption1334,
+    '--p': sharedOption1334,
+    '-p': sharedOption1334,
+    '--follow-parent': sharedOption1290,
+    '--no-follow-parent': sharedOption1291,
+    '--nofollow-parent': sharedOption1291,
+    '--follow': sharedOption1290,
+    '--no-follow': sharedOption1291,
+    '--nofollow': sharedOption1291,
+    '--authors-file': sharedOption1292,
+    '--A': sharedOption1292,
+    '-A': sharedOption1292,
+    '--authors-prog': sharedOption1293,
+    '--repack': sharedOption1294,
+    '--log-window-size': sharedOption1295,
     '--no-checkout': sharedOption152,
     '--quiet': sharedOption60,
     '--q': sharedOption60,
     '-q': sharedOption60,
-    '--repack-flags': sharedOption1295,
-    '--repack-args': sharedOption1295,
-    '--repack-opts': sharedOption1295,
-    '--use-log-author': sharedOption1296,
-    '--add-author-from': sharedOption1297,
-    '--localtime': sharedOption1298,
-    '--username': sharedOption1299,
-    '--config-dir': sharedOption1300,
-    '--no-auth-cache': sharedOption1301,
-    '--ignore-paths': sharedOption1302,
-    '--include-paths': sharedOption1303,
-    '--ignore-refs': sharedOption1304,
+    '--repack-flags': sharedOption1296,
+    '--repack-args': sharedOption1296,
+    '--repack-opts': sharedOption1296,
+    '--use-log-author': sharedOption1297,
+    '--add-author-from': sharedOption1298,
+    '--localtime': sharedOption1299,
+    '--username': sharedOption1300,
+    '--config-dir': sharedOption1301,
+    '--no-auth-cache': sharedOption1302,
+    '--ignore-paths': sharedOption1303,
+    '--include-paths': sharedOption1304,
+    '--ignore-refs': sharedOption1305,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78387,27 +78393,27 @@ const commandSpec374 = {
     '--edit': sharedOption13,
     '--e': sharedOption13,
     '-e': sharedOption13,
-    '--rmdir': sharedOption1324,
+    '--rmdir': sharedOption1325,
     '--find-copies-harder': sharedOption403,
-    '--l': sharedOption1325,
-    '-l': sharedOption1326,
-    '--copy-similarity': sharedOption1327,
-    '--C': sharedOption1327,
-    '-C': sharedOption1328,
+    '--l': sharedOption1326,
+    '-l': sharedOption1327,
+    '--copy-similarity': sharedOption1328,
+    '--C': sharedOption1328,
+    '-C': sharedOption1329,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -78442,17 +78448,17 @@ const commandSpec375 = {
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [
     {
@@ -78480,17 +78486,17 @@ const commandSpec376 = {
     '-h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78504,23 +78510,23 @@ const commandSpec377 = {
     '--revision': sharedOption162,
     '--r': sharedOption162,
     '-r': sharedOption162,
-    '--parent': sharedOption1288,
-    '--p': sharedOption1288,
-    '-p': sharedOption1288,
+    '--parent': sharedOption1289,
+    '--p': sharedOption1289,
+    '-p': sharedOption1289,
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78533,17 +78539,17 @@ const commandSpec378 = {
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78583,17 +78589,17 @@ const commandSpec379 = {
     '--h': sharedOption5,
     '--H': sharedOption5,
     '-H': sharedOption5,
-    '--version': sharedOption1305,
-    '--V': sharedOption1305,
-    '-V': sharedOption1305,
-    '--minimize-connections': sharedOption1306,
-    '--id': sharedOption1307,
-    '--i': sharedOption1307,
-    '-i': sharedOption1307,
-    '--svn-remote': sharedOption1308,
-    '--remote': sharedOption1308,
-    '--R': sharedOption1308,
-    '-R': sharedOption1308,
+    '--version': sharedOption1306,
+    '--V': sharedOption1306,
+    '-V': sharedOption1306,
+    '--minimize-connections': sharedOption1307,
+    '--id': sharedOption1308,
+    '--i': sharedOption1308,
+    '-i': sharedOption1308,
+    '--svn-remote': sharedOption1309,
+    '--remote': sharedOption1309,
+    '--R': sharedOption1309,
+    '-R': sharedOption1309,
   },
   rules: [],
   source: 'git-svn.perl:%cmd/GetOptions',
@@ -78602,10 +78608,10 @@ const commandSpec379 = {
 const commandSpec380 = {
   argv: ['lfs'],
   options: {
-    '--help': sharedOption1334,
-    '--version': sharedOption1335,
-    '-h': sharedOption1334,
-    '-v': sharedOption1335,
+    '--help': sharedOption1335,
+    '--version': sharedOption1336,
+    '-h': sharedOption1335,
+    '-v': sharedOption1336,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go',
   separator: true,
@@ -78656,7 +78662,7 @@ const commandSpec383 = {
       key: 'base',
       value: 'boolean',
     },
-    '--help': sharedOption1334,
+    '--help': sharedOption1335,
     '--ours': {
       key: 'ours',
       value: 'boolean',
@@ -78669,7 +78675,7 @@ const commandSpec383 = {
       key: 'to',
       value: 'string',
     },
-    '-h': sharedOption1334,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
   separator: true,
@@ -78762,8 +78768,8 @@ const commandSpec383 = {
 const commandSpec384 = {
   argv: ['lfs', 'clean'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_clean.go',
   separator: true,
@@ -78777,15 +78783,15 @@ const commandSpec385 = {
       value: 'boolean',
     },
     '--branch': sharedOption161,
-    '--config': sharedOption1036,
+    '--config': sharedOption1037,
     '--depth': sharedOption164,
     '--dissociate': {
       key: 'dissociate',
       value: 'boolean',
     },
     '--exclude': sharedOption55,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
     '--ipv4': {
       key: 'ipv4',
       value: 'boolean',
@@ -78794,13 +78800,13 @@ const commandSpec385 = {
       key: 'ipv6',
       value: 'boolean',
     },
-    '--jobs': sharedOption1336,
-    '--local': sharedOption1337,
+    '--jobs': sharedOption1337,
+    '--local': sharedOption1338,
     '--mirror': {
       key: 'mirror',
       value: 'boolean',
     },
-    '--no-checkout': sharedOption1338,
+    '--no-checkout': sharedOption1339,
     '--no-hardlinks': {
       key: 'no-hardlinks',
       value: 'boolean',
@@ -78818,7 +78824,7 @@ const commandSpec385 = {
       key: 'progress',
       value: 'boolean',
     },
-    '--quiet': sharedOption1339,
+    '--quiet': sharedOption1340,
     '--recurse-submodules': {
       key: 'recurse-submodules',
       value: 'boolean',
@@ -78827,40 +78833,40 @@ const commandSpec385 = {
       key: 'recursive',
       value: 'boolean',
     },
-    '--reference': sharedOption1158,
+    '--reference': sharedOption1159,
     '--reference-if-able': {
       key: 'reference-if-able',
       value: 'string',
     },
     '--separate-git-dir': sharedOption61,
-    '--shallow-exclude': sharedOption1134,
+    '--shallow-exclude': sharedOption1135,
     '--shallow-since': sharedOption165,
     '--shallow-submodules': {
       key: 'shallow-submodules',
       value: 'boolean',
     },
-    '--shared': sharedOption1340,
+    '--shared': sharedOption1341,
     '--single-branch': {
       key: 'single-branch',
       value: 'boolean',
     },
-    '--skip-repo': sharedOption1341,
+    '--skip-repo': sharedOption1342,
     '--template': sharedOption57,
     '--upload-pack': sharedOption163,
-    '--verbose': sharedOption1342,
-    '-I': sharedOption875,
+    '--verbose': sharedOption1343,
+    '-I': sharedOption876,
     '-X': sharedOption55,
     '-b': sharedOption161,
-    '-c': sharedOption1036,
-    '-h': sharedOption1334,
-    '-j': sharedOption1336,
-    '-l': sharedOption1337,
-    '-n': sharedOption1338,
+    '-c': sharedOption1037,
+    '-h': sharedOption1335,
+    '-j': sharedOption1337,
+    '-l': sharedOption1338,
+    '-n': sharedOption1339,
     '-o': sharedOption160,
-    '-q': sharedOption1339,
-    '-s': sharedOption1340,
+    '-q': sharedOption1340,
+    '-s': sharedOption1341,
     '-u': sharedOption163,
-    '-v': sharedOption1342,
+    '-v': sharedOption1343,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_clone.go',
   separator: true,
@@ -78880,8 +78886,8 @@ const commandSpec385 = {
 const commandSpec386 = {
   argv: ['lfs', 'completion'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go',
   separator: true,
@@ -78910,10 +78916,10 @@ const commandSpec386 = {
 const commandSpec387 = {
   argv: ['lfs', 'dedup'],
   options: {
-    '--help': sharedOption1334,
-    '--test': sharedOption1343,
-    '-h': sharedOption1334,
-    '-t': sharedOption1343,
+    '--help': sharedOption1335,
+    '--test': sharedOption1344,
+    '-h': sharedOption1335,
+    '-t': sharedOption1344,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_dedup.go',
   separator: true,
@@ -78922,8 +78928,8 @@ const commandSpec387 = {
 const commandSpec388 = {
   argv: ['lfs', 'env'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_env.go',
   separator: true,
@@ -78932,8 +78938,8 @@ const commandSpec388 = {
 const commandSpec389 = {
   argv: ['lfs', 'ext'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ext.go',
   separator: true,
@@ -78942,8 +78948,8 @@ const commandSpec389 = {
 const commandSpec390 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ext.go',
   separator: true,
@@ -78952,27 +78958,27 @@ const commandSpec390 = {
 const commandSpec391 = {
   argv: ['lfs', 'fetch'],
   options: {
-    '--all': sharedOption1344,
-    '--dry-run': sharedOption1345,
+    '--all': sharedOption1345,
+    '--dry-run': sharedOption1346,
     '--exclude': sharedOption55,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--json': sharedOption1346,
-    '--prune': sharedOption1347,
-    '--recent': sharedOption1348,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--json': sharedOption1347,
+    '--prune': sharedOption1348,
+    '--recent': sharedOption1349,
     '--refetch': {
       key: 'refetch',
       value: 'boolean',
     },
-    '--stdin': sharedOption1349,
-    '-I': sharedOption875,
+    '--stdin': sharedOption1350,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-a': sharedOption1344,
-    '-d': sharedOption1345,
-    '-h': sharedOption1334,
-    '-j': sharedOption1346,
-    '-p': sharedOption1347,
-    '-r': sharedOption1348,
+    '-a': sharedOption1345,
+    '-d': sharedOption1346,
+    '-h': sharedOption1335,
+    '-j': sharedOption1347,
+    '-p': sharedOption1348,
+    '-r': sharedOption1349,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fetch.go',
   separator: true,
@@ -79029,10 +79035,10 @@ const commandSpec391 = {
 const commandSpec392 = {
   argv: ['lfs', 'filter-process'],
   options: {
-    '--help': sharedOption1334,
-    '--skip': sharedOption1350,
-    '-h': sharedOption1334,
-    '-s': sharedOption1350,
+    '--help': sharedOption1335,
+    '--skip': sharedOption1351,
+    '-h': sharedOption1335,
+    '-s': sharedOption1351,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_filter_process.go',
   separator: true,
@@ -79041,8 +79047,8 @@ const commandSpec392 = {
 const commandSpec393 = {
   argv: ['lfs', 'fsck'],
   options: {
-    '--dry-run': sharedOption1345,
-    '--help': sharedOption1334,
+    '--dry-run': sharedOption1346,
+    '--help': sharedOption1335,
     '--objects': {
       key: 'objects',
       value: 'boolean',
@@ -79051,8 +79057,8 @@ const commandSpec393 = {
       key: 'pointers',
       value: 'boolean',
     },
-    '-d': sharedOption1345,
-    '-h': sharedOption1334,
+    '-d': sharedOption1346,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fsck.go',
   separator: true,
@@ -79061,8 +79067,8 @@ const commandSpec393 = {
 const commandSpec394 = {
   argv: ['lfs', 'help'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go',
   separator: true,
@@ -79072,20 +79078,20 @@ const commandSpec395 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': sharedOption306,
-    '--force': sharedOption1351,
-    '--help': sharedOption1334,
-    '--local': sharedOption1337,
-    '--manual': sharedOption1352,
-    '--skip-repo': sharedOption1341,
-    '--skip-smudge': sharedOption1353,
-    '--system': sharedOption1354,
-    '--worktree': sharedOption1355,
-    '-f': sharedOption1351,
-    '-h': sharedOption1334,
-    '-l': sharedOption1337,
-    '-m': sharedOption1352,
-    '-s': sharedOption1353,
-    '-w': sharedOption1355,
+    '--force': sharedOption1352,
+    '--help': sharedOption1335,
+    '--local': sharedOption1338,
+    '--manual': sharedOption1353,
+    '--skip-repo': sharedOption1342,
+    '--skip-smudge': sharedOption1354,
+    '--system': sharedOption1355,
+    '--worktree': sharedOption1356,
+    '-f': sharedOption1352,
+    '-h': sharedOption1335,
+    '-l': sharedOption1338,
+    '-m': sharedOption1353,
+    '-s': sharedOption1354,
+    '-w': sharedOption1356,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go',
   separator: true,
@@ -79205,8 +79211,8 @@ const commandSpec395 = {
 const commandSpec396 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go',
   separator: true,
@@ -79215,12 +79221,12 @@ const commandSpec396 = {
 const commandSpec397 = {
   argv: ['lfs', 'lock'],
   options: {
-    '--help': sharedOption1334,
-    '--json': sharedOption1346,
-    '--remote': sharedOption1124,
-    '-h': sharedOption1334,
-    '-j': sharedOption1346,
-    '-r': sharedOption1124,
+    '--help': sharedOption1335,
+    '--json': sharedOption1347,
+    '--remote': sharedOption1125,
+    '-h': sharedOption1335,
+    '-j': sharedOption1347,
+    '-r': sharedOption1125,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_lock.go',
   separator: true,
@@ -79233,23 +79239,23 @@ const commandSpec398 = {
       key: 'cached',
       value: 'boolean',
     },
-    '--help': sharedOption1334,
-    '--id': sharedOption1307,
-    '--json': sharedOption1346,
-    '--limit': sharedOption1356,
-    '--local': sharedOption1337,
+    '--help': sharedOption1335,
+    '--id': sharedOption1308,
+    '--json': sharedOption1347,
+    '--limit': sharedOption1357,
+    '--local': sharedOption1338,
     '--path': sharedOption2,
-    '--remote': sharedOption1124,
+    '--remote': sharedOption1125,
     '--verify': {
       key: 'verify',
       value: 'boolean',
     },
-    '-h': sharedOption1334,
-    '-i': sharedOption1307,
-    '-j': sharedOption1346,
-    '-l': sharedOption1356,
+    '-h': sharedOption1335,
+    '-i': sharedOption1308,
+    '-j': sharedOption1347,
+    '-l': sharedOption1357,
     '-p': sharedOption2,
-    '-r': sharedOption1124,
+    '-r': sharedOption1125,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_locks.go',
   separator: true,
@@ -79327,8 +79333,8 @@ const commandSpec398 = {
 const commandSpec399 = {
   argv: ['lfs', 'logs'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go',
   separator: true,
@@ -79337,8 +79343,8 @@ const commandSpec399 = {
 const commandSpec400 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go',
   separator: true,
@@ -79347,8 +79353,8 @@ const commandSpec400 = {
 const commandSpec401 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go',
   separator: true,
@@ -79357,8 +79363,8 @@ const commandSpec401 = {
 const commandSpec402 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go',
   separator: true,
@@ -79367,8 +79373,8 @@ const commandSpec402 = {
 const commandSpec403 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go',
   separator: true,
@@ -79377,28 +79383,28 @@ const commandSpec403 = {
 const commandSpec404 = {
   argv: ['lfs', 'ls-files'],
   options: {
-    '--all': sharedOption1344,
-    '--debug': sharedOption1357,
+    '--all': sharedOption1345,
+    '--debug': sharedOption1358,
     '--deleted': {
       key: 'deleted',
       value: 'boolean',
     },
     '--exclude': sharedOption55,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--json': sharedOption1346,
-    '--long': sharedOption1358,
-    '--name-only': sharedOption1359,
-    '--size': sharedOption1360,
-    '-I': sharedOption875,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--json': sharedOption1347,
+    '--long': sharedOption1359,
+    '--name-only': sharedOption1360,
+    '--size': sharedOption1361,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-a': sharedOption1344,
-    '-d': sharedOption1357,
-    '-h': sharedOption1334,
-    '-j': sharedOption1346,
-    '-l': sharedOption1358,
-    '-n': sharedOption1359,
-    '-s': sharedOption1360,
+    '-a': sharedOption1345,
+    '-d': sharedOption1358,
+    '-h': sharedOption1335,
+    '-j': sharedOption1347,
+    '-l': sharedOption1359,
+    '-n': sharedOption1360,
+    '-s': sharedOption1361,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ls_files.go',
   separator: true,
@@ -79444,7 +79450,7 @@ const commandSpec405 = {
       key: 'current',
       value: 'string',
     },
-    '--help': sharedOption1334,
+    '--help': sharedOption1335,
     '--marker-size': {
       key: 'marker-size',
       value: 'integer',
@@ -79458,7 +79464,7 @@ const commandSpec405 = {
       key: 'program',
       value: 'string',
     },
-    '-h': sharedOption1334,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_merge_driver.go',
   separator: true,
@@ -79493,18 +79499,18 @@ const commandSpec405 = {
 const commandSpec406 = {
   argv: ['lfs', 'migrate'],
   options: {
-    '--everything': sharedOption1361,
+    '--everything': sharedOption1362,
     '--exclude': sharedOption55,
-    '--exclude-ref': sharedOption1362,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--include-ref': sharedOption1363,
-    '--skip-fetch': sharedOption1364,
-    '--yes': sharedOption1365,
-    '-I': sharedOption875,
+    '--exclude-ref': sharedOption1363,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--include-ref': sharedOption1364,
+    '--skip-fetch': sharedOption1365,
+    '--yes': sharedOption1366,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-h': sharedOption1334,
-    '-y': sharedOption1365,
+    '-h': sharedOption1335,
+    '-y': sharedOption1366,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
   separator: true,
@@ -79513,21 +79519,21 @@ const commandSpec406 = {
 const commandSpec407 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
-    '--everything': sharedOption1361,
+    '--everything': sharedOption1362,
     '--exclude': sharedOption55,
-    '--exclude-ref': sharedOption1362,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--include-ref': sharedOption1363,
-    '--object-map': sharedOption1366,
-    '--remote': sharedOption1124,
-    '--skip-fetch': sharedOption1364,
-    '--verbose': sharedOption1342,
-    '--yes': sharedOption1365,
-    '-I': sharedOption875,
+    '--exclude-ref': sharedOption1363,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--include-ref': sharedOption1364,
+    '--object-map': sharedOption1367,
+    '--remote': sharedOption1125,
+    '--skip-fetch': sharedOption1365,
+    '--verbose': sharedOption1343,
+    '--yes': sharedOption1366,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-h': sharedOption1334,
-    '-y': sharedOption1365,
+    '-h': sharedOption1335,
+    '-y': sharedOption1366,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
   separator: true,
@@ -79574,28 +79580,28 @@ const commandSpec407 = {
 const commandSpec408 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
-    '--above': sharedOption1367,
-    '--everything': sharedOption1361,
+    '--above': sharedOption1368,
+    '--everything': sharedOption1362,
     '--exclude': sharedOption55,
-    '--exclude-ref': sharedOption1362,
-    '--fixup': sharedOption1368,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--include-ref': sharedOption1363,
+    '--exclude-ref': sharedOption1363,
+    '--fixup': sharedOption1369,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--include-ref': sharedOption1364,
     '--message': sharedOption94,
     '--no-rewrite': {
       key: 'no-rewrite',
       value: 'boolean',
     },
-    '--object-map': sharedOption1366,
-    '--skip-fetch': sharedOption1364,
-    '--verbose': sharedOption1342,
-    '--yes': sharedOption1365,
-    '-I': sharedOption875,
+    '--object-map': sharedOption1367,
+    '--skip-fetch': sharedOption1365,
+    '--verbose': sharedOption1343,
+    '--yes': sharedOption1366,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-h': sharedOption1334,
+    '-h': sharedOption1335,
     '-m': sharedOption94,
-    '-y': sharedOption1365,
+    '-y': sharedOption1366,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
   separator: true,
@@ -79771,19 +79777,19 @@ const commandSpec408 = {
 const commandSpec409 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
-    '--above': sharedOption1367,
-    '--everything': sharedOption1361,
+    '--above': sharedOption1368,
+    '--everything': sharedOption1362,
     '--exclude': sharedOption55,
-    '--exclude-ref': sharedOption1362,
-    '--fixup': sharedOption1368,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '--include-ref': sharedOption1363,
+    '--exclude-ref': sharedOption1363,
+    '--fixup': sharedOption1369,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '--include-ref': sharedOption1364,
     '--pointers': {
       key: 'pointers',
       value: 'string',
     },
-    '--skip-fetch': sharedOption1364,
+    '--skip-fetch': sharedOption1365,
     '--top': {
       key: 'top',
       value: 'integer',
@@ -79792,11 +79798,11 @@ const commandSpec409 = {
       key: 'unit',
       value: 'string',
     },
-    '--yes': sharedOption1365,
-    '-I': sharedOption875,
+    '--yes': sharedOption1366,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-h': sharedOption1334,
-    '-y': sharedOption1365,
+    '-h': sharedOption1335,
+    '-y': sharedOption1366,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
   separator: true,
@@ -79879,7 +79885,7 @@ const commandSpec410 = {
       value: 'boolean',
     },
     '--file': sharedOption306,
-    '--help': sharedOption1334,
+    '--help': sharedOption1335,
     '--no-extensions': {
       key: 'no-extensions',
       value: 'boolean',
@@ -79888,15 +79894,15 @@ const commandSpec410 = {
       key: 'no-strict',
       value: 'boolean',
     },
-    '--pointer': sharedOption1369,
-    '--stdin': sharedOption1349,
+    '--pointer': sharedOption1370,
+    '--stdin': sharedOption1350,
     '--strict': {
       key: 'strict',
       value: 'boolean',
     },
     '-f': sharedOption306,
-    '-h': sharedOption1334,
-    '-p': sharedOption1369,
+    '-h': sharedOption1335,
+    '-p': sharedOption1370,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go',
   separator: true,
@@ -80007,8 +80013,8 @@ const commandSpec410 = {
 const commandSpec411 = {
   argv: ['lfs', 'post-checkout'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_checkout.go',
   separator: true,
@@ -80028,8 +80034,8 @@ const commandSpec411 = {
 const commandSpec412 = {
   argv: ['lfs', 'post-commit'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_commit.go',
   separator: true,
@@ -80038,8 +80044,8 @@ const commandSpec412 = {
 const commandSpec413 = {
   argv: ['lfs', 'post-merge'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_merge.go',
   separator: true,
@@ -80059,10 +80065,10 @@ const commandSpec413 = {
 const commandSpec414 = {
   argv: ['lfs', 'pre-push'],
   options: {
-    '--dry-run': sharedOption1345,
-    '--help': sharedOption1334,
-    '-d': sharedOption1345,
-    '-h': sharedOption1334,
+    '--dry-run': sharedOption1346,
+    '--help': sharedOption1335,
+    '-d': sharedOption1346,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pre_push.go',
   separator: true,
@@ -80081,9 +80087,9 @@ const commandSpec414 = {
 const commandSpec415 = {
   argv: ['lfs', 'prune'],
   options: {
-    '--dry-run': sharedOption1345,
-    '--force': sharedOption1351,
-    '--help': sharedOption1334,
+    '--dry-run': sharedOption1346,
+    '--force': sharedOption1352,
+    '--help': sharedOption1335,
     '--no-verify-remote': {
       key: 'no-verify-remote',
       value: 'boolean',
@@ -80092,9 +80098,9 @@ const commandSpec415 = {
       key: 'no-verify-unreachable',
       value: 'boolean',
     },
-    '--recent': sharedOption1348,
-    '--verbose': sharedOption1342,
-    '--verify-remote': sharedOption1370,
+    '--recent': sharedOption1349,
+    '--verbose': sharedOption1343,
+    '--verify-remote': sharedOption1371,
     '--verify-unreachable': {
       key: 'verify-unreachable',
       value: 'boolean',
@@ -80103,11 +80109,11 @@ const commandSpec415 = {
       key: 'when-unverified',
       value: 'string',
     },
-    '-c': sharedOption1370,
-    '-d': sharedOption1345,
-    '-f': sharedOption1351,
-    '-h': sharedOption1334,
-    '-v': sharedOption1342,
+    '-c': sharedOption1371,
+    '-d': sharedOption1346,
+    '-f': sharedOption1352,
+    '-h': sharedOption1335,
+    '-v': sharedOption1343,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_prune.go',
   separator: true,
@@ -80135,11 +80141,11 @@ const commandSpec416 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': sharedOption55,
-    '--help': sharedOption1334,
-    '--include': sharedOption875,
-    '-I': sharedOption875,
+    '--help': sharedOption1335,
+    '--include': sharedOption876,
+    '-I': sharedOption876,
     '-X': sharedOption55,
-    '-h': sharedOption1334,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pull.go',
   separator: true,
@@ -80148,15 +80154,15 @@ const commandSpec416 = {
 const commandSpec417 = {
   argv: ['lfs', 'push'],
   options: {
-    '--all': sharedOption1344,
-    '--dry-run': sharedOption1345,
-    '--help': sharedOption1334,
-    '--object-id': sharedOption1371,
-    '--stdin': sharedOption1349,
-    '-a': sharedOption1344,
-    '-d': sharedOption1345,
-    '-h': sharedOption1334,
-    '-o': sharedOption1371,
+    '--all': sharedOption1345,
+    '--dry-run': sharedOption1346,
+    '--help': sharedOption1335,
+    '--object-id': sharedOption1372,
+    '--stdin': sharedOption1350,
+    '-a': sharedOption1345,
+    '-d': sharedOption1346,
+    '-h': sharedOption1335,
+    '-o': sharedOption1372,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go',
   separator: true,
@@ -80227,10 +80233,10 @@ const commandSpec417 = {
 const commandSpec418 = {
   argv: ['lfs', 'smudge'],
   options: {
-    '--help': sharedOption1334,
-    '--skip': sharedOption1350,
-    '-h': sharedOption1334,
-    '-s': sharedOption1350,
+    '--help': sharedOption1335,
+    '--skip': sharedOption1351,
+    '-h': sharedOption1335,
+    '-s': sharedOption1351,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_smudge.go',
   separator: true,
@@ -80239,8 +80245,8 @@ const commandSpec418 = {
 const commandSpec419 = {
   argv: ['lfs', 'standalone-file'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_standalone_file.go',
   separator: true,
@@ -80249,12 +80255,12 @@ const commandSpec419 = {
 const commandSpec420 = {
   argv: ['lfs', 'status'],
   options: {
-    '--help': sharedOption1334,
-    '--json': sharedOption1346,
-    '--porcelain': sharedOption1372,
-    '-h': sharedOption1334,
-    '-j': sharedOption1346,
-    '-p': sharedOption1372,
+    '--help': sharedOption1335,
+    '--json': sharedOption1347,
+    '--porcelain': sharedOption1373,
+    '-h': sharedOption1335,
+    '-j': sharedOption1347,
+    '-p': sharedOption1373,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_status.go',
   separator: true,
@@ -80263,14 +80269,14 @@ const commandSpec420 = {
 const commandSpec421 = {
   argv: ['lfs', 'track'],
   options: {
-    '--dry-run': sharedOption1345,
+    '--dry-run': sharedOption1346,
     '--filename': {
       key: 'filename',
       value: 'boolean',
     },
-    '--help': sharedOption1334,
-    '--json': sharedOption1346,
-    '--lockable': sharedOption1373,
+    '--help': sharedOption1335,
+    '--json': sharedOption1347,
+    '--lockable': sharedOption1374,
     '--no-excluded': {
       key: 'no-excluded',
       value: 'boolean',
@@ -80283,12 +80289,12 @@ const commandSpec421 = {
       key: 'not-lockable',
       value: 'boolean',
     },
-    '--verbose': sharedOption1342,
-    '-d': sharedOption1345,
-    '-h': sharedOption1334,
-    '-j': sharedOption1346,
-    '-l': sharedOption1373,
-    '-v': sharedOption1342,
+    '--verbose': sharedOption1343,
+    '-d': sharedOption1346,
+    '-h': sharedOption1335,
+    '-j': sharedOption1347,
+    '-l': sharedOption1374,
+    '-v': sharedOption1343,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_track.go',
   separator: true,
@@ -80313,14 +80319,14 @@ const commandSpec422 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': sharedOption306,
-    '--help': sharedOption1334,
-    '--local': sharedOption1337,
-    '--skip-repo': sharedOption1341,
-    '--system': sharedOption1354,
-    '--worktree': sharedOption1355,
-    '-h': sharedOption1334,
-    '-l': sharedOption1337,
-    '-w': sharedOption1355,
+    '--help': sharedOption1335,
+    '--local': sharedOption1338,
+    '--skip-repo': sharedOption1342,
+    '--system': sharedOption1355,
+    '--worktree': sharedOption1356,
+    '-h': sharedOption1335,
+    '-l': sharedOption1338,
+    '-w': sharedOption1356,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go',
   separator: true,
@@ -80362,8 +80368,8 @@ const commandSpec422 = {
 const commandSpec423 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go',
   separator: true,
@@ -80372,16 +80378,16 @@ const commandSpec423 = {
 const commandSpec424 = {
   argv: ['lfs', 'unlock'],
   options: {
-    '--force': sharedOption1351,
-    '--help': sharedOption1334,
-    '--id': sharedOption1307,
-    '--json': sharedOption1346,
-    '--remote': sharedOption1124,
-    '-f': sharedOption1351,
-    '-h': sharedOption1334,
-    '-i': sharedOption1307,
-    '-j': sharedOption1346,
-    '-r': sharedOption1124,
+    '--force': sharedOption1352,
+    '--help': sharedOption1335,
+    '--id': sharedOption1308,
+    '--json': sharedOption1347,
+    '--remote': sharedOption1125,
+    '-f': sharedOption1352,
+    '-h': sharedOption1335,
+    '-i': sharedOption1308,
+    '-j': sharedOption1347,
+    '-r': sharedOption1125,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go',
   separator: true,
@@ -80411,8 +80417,8 @@ const commandSpec424 = {
 const commandSpec425 = {
   argv: ['lfs', 'untrack'],
   options: {
-    '--help': sharedOption1334,
-    '-h': sharedOption1334,
+    '--help': sharedOption1335,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_untrack.go',
   separator: true,
@@ -80421,12 +80427,12 @@ const commandSpec425 = {
 const commandSpec426 = {
   argv: ['lfs', 'update'],
   options: {
-    '--force': sharedOption1351,
-    '--help': sharedOption1334,
-    '--manual': sharedOption1352,
-    '-f': sharedOption1351,
-    '-h': sharedOption1334,
-    '-m': sharedOption1352,
+    '--force': sharedOption1352,
+    '--help': sharedOption1335,
+    '--manual': sharedOption1353,
+    '-f': sharedOption1352,
+    '-h': sharedOption1335,
+    '-m': sharedOption1353,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_update.go',
   separator: true,
@@ -80444,10 +80450,10 @@ const commandSpec426 = {
 const commandSpec427 = {
   argv: ['lfs', 'version'],
   options: {
-    '--comics': sharedOption1374,
-    '--help': sharedOption1334,
-    '-c': sharedOption1374,
-    '-h': sharedOption1334,
+    '--comics': sharedOption1375,
+    '--help': sharedOption1335,
+    '-c': sharedOption1375,
+    '-h': sharedOption1335,
   },
   source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_version.go',
   separator: true,
