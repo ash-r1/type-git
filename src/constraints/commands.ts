@@ -725,6 +725,34 @@ export const COMMAND_CONSTRAINTS = {
       source: contract,
     },
   ],
+  show: [
+    {
+      id: 'show.nameOnly-nameStatus',
+      kind: 'exclusive',
+      keys: ['nameOnly', 'nameStatus'],
+      origin: 'git',
+      reason: 'Git rejects simultaneous name-only and name-status output.',
+      source: 'https://github.com/git/git/blob/v2.55.0/diff.c',
+    },
+    {
+      id: 'show.quiet-nameOnly',
+      kind: 'forbid',
+      when: [active('quiet'), active('nameOnly')],
+      origin: 'git',
+      reason:
+        'The first-pass --quiet suppresses output before --name-only is parsed, so diff_setup_done (diff.c) rejects both. Git 2.55.0 accepts the pair when --stat clears the suppression, but Git 2.25 still rejects it, so --stat does not lift this rule.',
+      source: 'https://github.com/git/git/blob/v2.25.0/builtin/log.c',
+    },
+    {
+      id: 'show.quiet-nameStatus',
+      kind: 'forbid',
+      when: [active('quiet'), active('nameStatus')],
+      origin: 'git',
+      reason:
+        'The first-pass --quiet suppresses output before --name-status is parsed, so diff_setup_done (diff.c) rejects both. Git 2.55.0 accepts the pair when --stat clears the suppression, but Git 2.25 still rejects it, so --stat does not lift this rule.',
+      source: 'https://github.com/git/git/blob/v2.25.0/builtin/log.c',
+    },
+  ],
   fetch: [
     {
       id: 'fetch.depth-unshallow',
