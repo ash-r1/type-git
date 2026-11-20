@@ -1,5 +1,51 @@
 # type-git
 
+## 0.7.0
+
+### Minor Changes
+
+- [#332](https://github.com/ash-r1/type-git/pull/332) [`0c4be45`](https://github.com/ash-r1/type-git/commit/0c4be45c582cebe8452e2169dbce48bef78b853f) Thanks [@ash-r1](https://github.com/ash-r1)! - Add the `type-git/strict` entry point. `strict()` wraps a `Git` client, `TypeGit`, worktree repository or bare repository and returns a view with every original member plus the grammar-checked `command()`. The grammar-checked implementation now lives in this entry point; the `command()` methods on `Git`, `WorktreeRepo`, `BareRepo` and `TypeGit` and `CliRunner.runCommand()` are removed (see below). `type-git/strict` also exports `GitCommandArgument`, `GitCommandClient`, `GitCommandExecOpts`, `GitCommandName`, `CheckedCommandArguments`, `Strict<T>`, `StrictGit`, `StrictWorktreeRepo` and `StrictBareRepo`, and the main entry point now exports `CompanionExecutable`.
+
+- [#339](https://github.com/ash-r1/type-git/pull/339) [`5f4718d`](https://github.com/ash-r1/type-git/commit/5f4718d99d458d17024f1b895cc26711b87dcde3) Thanks [@ash-r1](https://github.com/ash-r1)! - **Breaking:** `git.clone(url, path, { config })` now accepts only data-only config keys.
+
+  `git clone -c` applies the key to the initial fetch and writes it into the new repository, so keys such as `protocol.ext.allow` (with an `ext::` URL), `include.path`, `core.sshCommand` or `core.fsmonitor` let the caller's input run a program. The `config` option is now typed as `CloneConfig`, which declares only keys that hold data, and a runtime check refuses any other key. The data-only keys are `user.name` and `user.email`, checkout and transfer settings such as `core.autocrlf` and `protocol.version`, `http.*` and `http.<url>.*` transport settings such as `extraHeader`, `proxy` and `sslVerify`, and the others listed in `CloneConfigSchema`. Keys that switch off Git's protections against a malicious repository (`core.protectNTFS`, `core.protectHFS`, `*.fsckObjects`) are not accepted either. At runtime, section and variable names match case-insensitively (ASCII only), as in Git; the `CloneConfig` type declares only the canonical spellings, so in an object literal `core.autocrlf` type-checks and `CORE.AUTOCRLF` is rejected. An object passed through a variable is not checked for extra keys, so there the runtime check is what refuses a key outside the list. Values must not contain NUL, CR or LF.
+
+  Any other key is refused with `GitArgumentError` before Git starts. Set it with `repo.config` after cloning, or pass a trusted value through `raw()` or strict `command()`. To clone without running the Git LFS smudge filter, use `git.raw(['clone', url, path], { env: { GIT_LFS_SKIP_SMUDGE: '1' } })`.
+
+- [#340](https://github.com/ash-r1/type-git/pull/340) [`c368398`](https://github.com/ash-r1/type-git/commit/c368398adec18c9e608252f5cd8136c377c1d65a) Thanks [@ash-r1](https://github.com/ash-r1)! - **Breaking:** `GIT_SSH` and `GIT_SSH_COMMAND` are no longer inherited from the parent environment by default.
+
+  Both name a program that Git runs for every SSH fetch, push or ls-remote, so whoever controls the parent environment chose that command. They now follow the same rule as `GIT_ASKPASS`, `SSH_ASKPASS` and `GIT_PROXY_COMMAND`: no variable that names a program is in `DEFAULT_ENV_ALLOWLIST`. Opt back in with `inheritEnv: ['GIT_SSH_COMMAND']` (or `{ add: ['GIT_SSH_COMMAND'] }`), or pass the value through the `env` option. `GIT_SSH_VARIANT`, the SSH agent variables and the TLS settings are still inherited.
+
+- [#331](https://github.com/ash-r1/type-git/pull/331) [`06a29e3`](https://github.com/ash-r1/type-git/commit/06a29e30928051f606b951b604600781045ad974) Thanks [@ash-r1](https://github.com/ash-r1)! - **Breaking:** the grammar-checked `command()` is now available only through `type-git/strict`.
+
+  `Git`, `WorktreeRepo`, `BareRepo` and `TypeGit` no longer have `command()`, and `CliRunner.runCommand()` is removed; wrap a client or repository with `strict()` from `type-git/strict` instead (the wrapper keeps every other member). `GitCommandArgument`, `GitCommandClient`, `GitCommandExecOpts` and `GitCommandName` are no longer exported from the main entry point; import them from `type-git/strict`.
+
+  The main entry point keeps `raw()`, the high-level API and the runtime checks against argument injection, but no longer loads the option-grammar catalogue or its types. An application that only calls high-level methods such as `repo.status()` now bundles to about 180 KB minified (1.6 MB in 0.6.0), and its type check no longer reads the 5 MB catalogue declarations. See `docs/migrations/0.7.0.md`.
+
+### Patch Changes
+
+- [#336](https://github.com/ash-r1/type-git/pull/336) [`d534106`](https://github.com/ash-r1/type-git/commit/d5341065cd43159a23fac5972ff470421f806689) Thanks [@ash-r1](https://github.com/ash-r1)! - Align typed `git diff` arguments with Git 2.55.0 option grammar and rule combinations, checked against an independent corpus of 3,090 native outcomes covering every typed diff option spelling, sampled value grammars, rule-family pairs and operand forms:
+
+  - `--max-depth` with a non-negative value is refused without revisions (Git dies for worktree and `--cached` index diffs).
+  - `--find-object` with `--pickaxe-regex` or `-i` is refused for `git diff` (Git aborts with `BUG()` when computing the diff).
+  - `--no-walk` still in effect together with `--graph` is refused for revision-walking commands, as `setup_revisions` does; a later `-n`/`--max-count` re-enables walking.
+  - `--exclude-hidden` accepts only `fetch`, `receive` and `uploadpack`.
+
+- [#342](https://github.com/ash-r1/type-git/pull/342) [`a8ca314`](https://github.com/ash-r1/type-git/commit/a8ca314948d2155ea1337c6e08b11aad8811494e) Thanks [@ash-r1](https://github.com/ash-r1)! - `strict(...).command('diff-files' | 'diff-index', ...)` now refuses a non-negative final `--max-depth`, which Git rejects for worktree and index diffs, and `--find-object` combined with `--pickaxe-regex`, `-i` or `--regexp-ignore-case`, which aborts Git with an internal BUG(). A residual `-h` still exits with usage first. `diff-tree` is unchanged.
+
+- [#337](https://github.com/ash-r1/type-git/pull/337) [`effb2cc`](https://github.com/ash-r1/type-git/commit/effb2cc09040dc999339b7627a5f3fe39bbf6893) Thanks [@ash-r1](https://github.com/ash-r1)! - Align typed `git log` and `git show` arguments with Git 2.55.0 option grammar and rule combinations, checked against an independent corpus of 6,918 native outcomes covering every typed log/show option spelling (except help, completion and `--end-of-options` exits), sampled value grammars, rule-family pairs and operand forms:
+
+  - `git show --graph` is refused unless a later `--do-walk`, `-n`, `--max-count` or `--max-count-oldest` re-enables walking (`git show` starts with `--no-walk` in effect).
+  - `--follow` without a pathspec, with more than one path after `--`, or with `--full-diff` is refused for log and show.
+  - `--find-object` with `--pickaxe-regex` or `-i` is refused for log and show (Git aborts with `BUG()`).
+  - `-L` is refused together with `--check` and the stat, numstat, shortstat and dirstat formats, unless `--name-only`, `--name-status`, `-s`, `--no-patch` or `--no-no-patch` drops them (a later `-p` does not bring the stat back). The `-L <range>:<file>` value syntax is left to Git.
+  - The first-pass `--quiet`/`-q` of log and show now suppresses output before diff options are parsed, so it conflicts with `--name-only`, `--name-status` and `--check` unless a later format option clears it.
+
+- [#338](https://github.com/ash-r1/type-git/pull/338) [`6e92d84`](https://github.com/ash-r1/type-git/commit/6e92d84f610884b6e3229aa9cb3461bde642e1aa) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.show()` now checks combinations of `stat`, `nameOnly`, `nameStatus` and `quiet` at compile time and at runtime. The `format`, decoration and mailmap strings are still passed to Git unchecked.
+
+  - `nameOnly` with `nameStatus` is rejected. Previously `nameStatus` was silently dropped.
+  - `quiet` with `nameOnly` or `nameStatus` is rejected. Git parses `--quiet` before the other diff options, so `diff_setup_done` fails. Git 2.55.0 accepts the pair when `--stat` is also given, but older releases such as Git 2.25 reject it, so `stat` does not lift the rule.
+
 ## 0.6.0
 
 ### Minor Changes
