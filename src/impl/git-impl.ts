@@ -1,3 +1,4 @@
+import { cloneConfigArgs } from '../core/clone-config.js';
 import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
 import { registerCommandHost } from '../internal/command-host.js';
@@ -121,11 +122,9 @@ function buildCloneArgs(opts?: CloneOpts): string[] {
     }
   }
 
-  // Special: config is key-value pairs
+  // Special: config is key-value pairs, limited to data-only keys
   if (opts.config) {
-    for (const [key, value] of Object.entries(opts.config)) {
-      args.push('-c', `${key}=${value}`);
-    }
+    args.push(...cloneConfigArgs(opts.config));
   }
 
   return args;
@@ -393,10 +392,11 @@ export class GitImpl implements Git {
     // Check operands before option probes can spawn Git.
     const checkedUrl = checkedOperand('clone', 'url', url);
     const checkedPath = checkedOperand('clone', 'path', path);
+    // Config keys are checked here too, before any probe.
+    const args = buildCloneArgs(opts);
     await this.runner.validateFilterOptions({ type: 'global' }, 'clone', opts, {
       signal: opts?.signal,
     });
-    const args = buildCloneArgs(opts);
 
     // Add progress flag for progress tracking (from ExecOpts).
     // LFS progress is delivered via stderr too, so enable it for onLfsProgress as well.

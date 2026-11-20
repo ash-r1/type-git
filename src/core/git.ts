@@ -1,3 +1,4 @@
+import type { CloneConfig } from './clone-config.js';
 import type { CheckedOptions } from './option-rules.js';
 /**
  * Core Git interface - repository-agnostic operations
@@ -68,8 +69,15 @@ export type CloneOpts = CheckedOptions<
     noTags?: boolean;
     /** Also clone submodules shallowly */
     shallowSubmodules?: boolean;
-    /** Set config options for the new repository */
-    config?: Record<string, string>;
+    /**
+     * Config for the new repository, written with `git clone -c`.
+     *
+     * Only data-only keys are accepted (see `CloneConfigSchema`); a key that can make Git run
+     * a program, such as `protocol.ext.allow`, `include.path` or `core.sshCommand`, is refused with
+     * `GitArgumentError`. Set such keys with `repo.config` after cloning, or pass trusted values
+     * through `raw()` or strict `command()`.
+     */
+    config?: CloneConfig;
     /** Use IPv4 addresses only */
     ipv4?: boolean;
     /** Use IPv6 addresses only */
