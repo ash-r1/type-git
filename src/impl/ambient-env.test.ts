@@ -48,7 +48,7 @@ describe('ambient environment variables that name programs', () => {
 
   async function sshScript(): Promise<string> {
     const script = join(tempDir, 'fake-ssh.sh');
-    await writeFile(script, `#!/bin/sh\ntouch '${marker}'\nexit 1\n`, { mode: 0o755 });
+    await writeFile(script, `#!/bin/sh\ntouch ${shellQuote(marker)}\nexit 1\n`, { mode: 0o755 });
     return script;
   }
 
@@ -96,7 +96,7 @@ describe('ambient environment variables that name programs', () => {
   );
 
   async function diffWithExternal(inherit: boolean): Promise<void> {
-    process.env.GIT_EXTERNAL_DIFF = `node -e "require('fs').writeFileSync(process.argv[1], '')" ${JSON.stringify(marker)}`;
+    process.env.GIT_EXTERNAL_DIFF = `node -e "require('fs').writeFileSync(process.argv[1], '')" ${shellQuote(marker)}`;
     const git = await createGit({
       adapters: createNodeAdapters(),
       useLegacyVersion: USE_LEGACY_VERSION,
