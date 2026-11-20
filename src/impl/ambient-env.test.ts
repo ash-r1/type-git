@@ -41,6 +41,11 @@ describe('ambient environment variables that name programs', () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
+  /** Quote a path for the POSIX shell that Git runs GIT_SSH_COMMAND through. */
+  function shellQuote(path: string): string {
+    return `'${path.replaceAll("'", "'\\''")}'`;
+  }
+
   async function sshScript(): Promise<string> {
     const script = join(tempDir, 'fake-ssh.sh');
     await writeFile(script, `#!/bin/sh\ntouch '${marker}'\nexit 1\n`, { mode: 0o755 });
@@ -51,7 +56,7 @@ describe('ambient environment variables that name programs', () => {
     'does not run GIT_SSH_COMMAND or GIT_SSH from the parent environment',
     async () => {
       const script = await sshScript();
-      process.env.GIT_SSH_COMMAND = script;
+      process.env.GIT_SSH_COMMAND = shellQuote(script);
       process.env.GIT_SSH = script;
       const git = await createGit({
         adapters: createNodeAdapters(),
@@ -65,7 +70,7 @@ describe('ambient environment variables that name programs', () => {
   it.skipIf(process.platform === 'win32')(
     'runs GIT_SSH_COMMAND when the caller opts in through inheritEnv',
     async () => {
-      process.env.GIT_SSH_COMMAND = await sshScript();
+      process.env.GIT_SSH_COMMAND = shellQuote(await sshScript());
       const git = await createGit({
         adapters: createNodeAdapters(),
         useLegacyVersion: USE_LEGACY_VERSION,
