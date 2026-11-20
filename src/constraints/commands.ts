@@ -725,6 +725,34 @@ export const COMMAND_CONSTRAINTS = {
       source: contract,
     },
   ],
+  show: [
+    {
+      id: 'show.nameOnly-nameStatus',
+      kind: 'exclusive',
+      keys: ['nameOnly', 'nameStatus'],
+      origin: 'git',
+      reason: 'Git rejects simultaneous name-only and name-status output.',
+      source: 'https://github.com/git/git/blob/v2.55.0/diff.c',
+    },
+    {
+      id: 'show.quiet-nameOnly',
+      kind: 'forbid',
+      when: [active('quiet'), active('nameOnly'), { key: 'stat', test: 'inactive' }],
+      origin: 'git',
+      reason:
+        'The first-pass --quiet suppresses output before --name-only is parsed, and diff_setup_done (diff.c) rejects both unless --stat clears the suppression.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
+    },
+    {
+      id: 'show.quiet-nameStatus',
+      kind: 'forbid',
+      when: [active('quiet'), active('nameStatus'), { key: 'stat', test: 'inactive' }],
+      origin: 'git',
+      reason:
+        'The first-pass --quiet suppresses output before --name-status is parsed, and diff_setup_done (diff.c) rejects both unless --stat clears the suppression.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
+    },
+  ],
   fetch: [
     {
       id: 'fetch.depth-unshallow',

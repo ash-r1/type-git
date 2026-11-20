@@ -1485,31 +1485,34 @@ export type RevertOpts = CheckedOptions<
 /**
  * Options for git show
  */
-export type ShowOpts = {
-  // Existing options
-  /** Show stat only */
-  stat?: boolean;
-  /** Show name only */
-  nameOnly?: boolean;
-  /** Show name and status */
-  nameStatus?: boolean;
-  /** Format string */
-  format?: string;
+export type ShowOpts = CheckedOptions<
+  {
+    // Existing options
+    /** Show stat only */
+    stat?: boolean;
+    /** Show name only */
+    nameOnly?: boolean;
+    /** Show name and status */
+    nameStatus?: boolean;
+    /** Format string */
+    format?: string;
 
-  // New options
-  /** Suppress output */
-  quiet?: boolean;
-  /** Show source ref for each commit */
-  source?: boolean;
-  /** Use mailmap for author/committer names */
-  useMailmap?: boolean;
-  /** Only decorate refs matching pattern */
-  decorateRefs?: string;
-  /** Exclude refs matching pattern from decoration */
-  decorateRefsExclude?: string;
-  /** Decorate style */
-  decorate?: 'short' | 'full' | 'auto' | 'no';
-};
+    // New options
+    /** Suppress output */
+    quiet?: boolean;
+    /** Show source ref for each commit */
+    source?: boolean;
+    /** Use mailmap for author/committer names */
+    useMailmap?: boolean;
+    /** Only decorate refs matching pattern */
+    decorateRefs?: string;
+    /** Exclude refs matching pattern from decoration */
+    decorateRefsExclude?: string;
+    /** Decorate style */
+    decorate?: 'short' | 'full' | 'auto' | 'no';
+  },
+  'show'
+>;
 
 // ==========================================================================
 // rev-parse Types

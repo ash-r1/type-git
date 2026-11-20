@@ -228,6 +228,44 @@ describe('option constraints against independent Git executions', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 
+  it('checks show output-format and first-pass quiet combinations against Git', async () => {
+    for (const options of assignments({
+      stat: [undefined, false, true],
+      nameOnly: [undefined, false, true],
+      nameStatus: [undefined, false, true],
+      quiet: [undefined, false, true],
+    })) {
+      // Same emission order as WorktreeRepo.show; Git parses --quiet in its first pass.
+      const args = ['-C', repo.workdir, 'show'];
+      if (options.stat) {
+        args.push('--stat');
+      }
+      if (options.nameOnly) {
+        args.push('--name-only');
+      }
+      if (options.nameStatus) {
+        args.push('--name-status');
+      }
+      if (options.quiet) {
+        args.push('--quiet');
+      }
+      args.push('HEAD');
+      const result = raw(args);
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.show, options).length === 0,
+      );
+    }
+    await expect(
+      repo.show('HEAD', { nameOnly: true, nameStatus: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(
+      repo.show('HEAD', { quiet: true, nameOnly: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(repo.show('HEAD', { quiet: true, stat: true, nameOnly: true })).resolves.toContain(
+      'file',
+    );
+  });
+
   it('checks add mode, dry-run and executable-bit combinations against Git', async () => {
     for (const options of assignments({
       all: [undefined, true],

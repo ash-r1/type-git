@@ -4017,6 +4017,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async show(object: string, opts?: ShowOpts & ExecOpts): Promise<string> {
+    validateOptions('show', opts);
     const args = ['show'];
 
     if (opts?.stat) {
@@ -4025,7 +4026,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.nameOnly) {
       args.push('--name-only');
-    } else if (opts?.nameStatus) {
+    }
+
+    if (opts?.nameStatus) {
       args.push('--name-status');
     }
 
