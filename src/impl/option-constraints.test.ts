@@ -251,9 +251,13 @@ describe('option constraints against independent Git executions', () => {
       }
       args.push('HEAD');
       const result = raw(args);
-      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
-        violations(COMMAND_CONSTRAINTS.show, options).length === 0,
-      );
+      const accepted = violations(COMMAND_CONSTRAINTS.show, options).length === 0;
+      // Newer Git lets --stat clear the first-pass --quiet; the model keeps the Git 2.25 refusal.
+      const portableRefusal = Boolean(options.quiet && options.stat) && !accepted;
+      expect(
+        result.status === 0 ? accepted || portableRefusal : !accepted,
+        `${JSON.stringify(options)}: ${result.stderr}`,
+      ).toBe(true);
     }
     await expect(
       repo.show('HEAD', { nameOnly: true, nameStatus: true } as never),
@@ -261,9 +265,10 @@ describe('option constraints against independent Git executions', () => {
     await expect(
       repo.show('HEAD', { quiet: true, nameOnly: true } as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
-    await expect(repo.show('HEAD', { quiet: true, stat: true, nameOnly: true })).resolves.toContain(
-      'file',
-    );
+    await expect(
+      repo.show('HEAD', { quiet: true, stat: true, nameOnly: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(repo.show('HEAD', { quiet: true, stat: true })).resolves.toContain('file');
   });
 
   it('checks add mode, dry-run and executable-bit combinations against Git', async () => {

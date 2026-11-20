@@ -2883,8 +2883,8 @@
       ]
     },
     "total": "98415",
-    "accepted": "77760",
-    "nodes": 28,
+    "accepted": "72900",
+    "nodes": 23,
     "isolatedRuleWitnesses": {
       "show.nameOnly-nameStatus": "{\"nameOnly\":true,\"nameStatus\":true}",
       "show.quiet-nameOnly": "{\"nameOnly\":true,\"quiet\":true}",
