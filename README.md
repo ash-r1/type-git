@@ -165,6 +165,9 @@ const lfsStatus = await repo.lfs.status();
 
 // Raw escape hatch when needed
 const result = await repo.raw(['rev-parse', 'HEAD']);
+
+// Send data on stdin instead of putting it in argv
+const { stdout: blobId } = await repo.raw(['hash-object', '-w', '--stdin'], { stdin: 'hello' });
 ```
 
 ### Audit Mode

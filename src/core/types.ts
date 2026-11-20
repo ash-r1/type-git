@@ -144,9 +144,19 @@ export type ExecOpts = {
 /**
  * Options for `raw()` and `strict(...).command()` calls.
  *
- * Extends {@link ExecOpts} with a per-call environment overlay.
+ * Extends {@link ExecOpts} with standard input and a per-call environment overlay.
  */
 export type CommandExecOpts = ExecOpts & {
+  /**
+   * Data written to the command's standard input, which is then closed. A string is written as
+   * UTF-8; a `Uint8Array` is written unchanged. Without it, standard input is empty.
+   *
+   * @example
+   * ```ts
+   * const { stdout } = await repo.raw(['hash-object', '-w', '--stdin'], { stdin: 'hello\n' });
+   * ```
+   */
+  stdin?: string | Uint8Array;
   /**
    * Extra environment variables for this call only, applied on top of the environment
    * resolved from `createGit` / `open` options (`env`, `inheritEnv`, `home`, `pathPrefix`).

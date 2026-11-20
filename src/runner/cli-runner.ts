@@ -188,7 +188,7 @@ export type CliRunnerOptions = {
  * runner's own `run` / `runOrThrow` entry points.
  */
 export type RunOptions = ExecOpts & {
-  /** UTF-8 text to write to standard input, then close it. */
+  /** Data written to standard input (UTF-8 for a string, bytes unchanged), then closed. */
   stdin?: string | Uint8Array;
   /**
    * Extra environment variables merged on top of the resolved environment for
