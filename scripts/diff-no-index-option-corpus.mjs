@@ -46,7 +46,8 @@ async function seedState(state) {
   await rm(work, { recursive: true, force: true });
   for (const [path, content] of [
     ['left', 'one\ntwo\n'], ['right', state === 'same' ? 'one\ntwo\n' : 'one\ntwo x\n'], ['order', 'right\nleft\n'],
-    ['--stat', 'one\n'], ['-h', 'one\n'], ['d1/f', 'one\n'], ['d2/f', state === 'same' ? 'one\n' : 'one x\n'], ['d1/g', 'g\n'], ['d2/g', 'g\n'],
+    // Option-like paths compared after "--": "--stat" against right and left against "-h".
+    ['--stat', 'one\ntwo\n'], ['-h', state === 'same' ? 'one\ntwo\n' : 'one\n'], ['d1/f', 'one\n'], ['d2/f', state === 'same' ? 'one\n' : 'one x\n'], ['d1/g', 'g\n'], ['d2/g', 'g\n'],
   ]) {
     await mkdir(join(work, path, '..'), { recursive: true });
     await writeFile(join(work, path), content);
