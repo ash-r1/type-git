@@ -221,6 +221,65 @@ Runs `git lfs push --object-id origin --stdin`, sending one OID per line and
 closing standard input. This avoids command-line length limits for large OID lists.
 Omit `stdin` to pass object IDs as command-line arguments.
 
+## Security model
+
+type-git checks where an untrusted value, such as a branch name, remote URL or path typed by a
+user, could otherwise turn into a Git option. It does not make every input safe. This section
+lists what each API level checks and what stays the caller's responsibility.
+
+**High-level API** (`repo.status()`, `git.clone()`, `repo.fetch()`, …)
+
+- Remotes, URLs, refs, paths and other positional operands that start with `-` are refused
+  with `GitArgumentError` before Git starts, because Git would parse them as options such as
+  `--upload-pack=<command>`. Many path lists are also passed after `--`.
+- Option names come from the typed option fields. A caller's string becomes an option value or
+  an operand, not a new option.
+- `git.clone(url, path, { config })` accepts only data-only configuration keys (see
+  `CloneConfigSchema`). Keys such as `protocol.ext.allow`, `include.path`, `core.sshCommand`
+  or `core.fsmonitor` are refused, because `git clone -c` would apply them to the first fetch.
+  Transport keys such as `http.sslVerify`, `http.proxy` and `http.extraHeader` are accepted:
+  they cannot run a program, but they decide which server is trusted and what is sent to it.
+- Some options exist to run a program, and they run what you give them. Treat these values
+  as code: `config.set()`, `config.add()` and `config.setRaw()` (for example `core.sshCommand`,
+  `core.pager`, `gpg.program`), `submodule.foreach()`, `rebase({ exec })`, the merge
+  `strategy` (Git runs `git-merge-<strategy>`) and the `credentialHelper` open option.
+
+**Strict API** (`strict(repo).command(...)`)
+
+- Options are checked against Git's option grammar. Only canonical option names are accepted:
+  abbreviations such as `--upload-p` and bundled short options that hide another option, such as
+  `-vu`, are refused.
+- An `{ operand }` that starts with `-` is refused wherever Git would read it as an option, for
+  example before an explicit `['--']`.
+
+**Raw API** (`git.raw(argv)`, `repo.raw(argv)`)
+
+- `raw()` passes `argv` to Git unchanged and checks nothing. Build its argv only from trusted
+  values. Send untrusted data on standard input with the `stdin` option instead of in argv.
+
+**Environment**
+
+- Spawned Git processes inherit only an allowlist of the parent environment
+  (`DEFAULT_ENV_ALLOWLIST`), so other application secrets are not passed on. No variable that
+  names a program Git runs, such as `GIT_SSH_COMMAND`, `GIT_ASKPASS`, `GIT_EXTERNAL_DIFF` or
+  `GIT_PAGER`, is inherited by default. Opt one in with `inheritEnv: ['GIT_SSH_COMMAND']`, or
+  pass it with the `env` option, when you trust the value.
+- The allowlist does pass `PATH` (which picks the `ssh`, `git-lfs` and `git-remote-*` programs),
+  `HOME` (and so `~/.gitconfig`), the proxy variables (whose URLs may hold credentials) and the
+  SSH agent variables. An HTTPS-only application can drop the agent with
+  `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
+
+**Not covered**
+
+- The repository itself. Git runs whatever a repository's own configuration and hooks name,
+  such as `core.fsmonitor`, `core.hooksPath`, hooks, and clean, smudge or diff filters. Opening
+  a repository directory that someone else controls is as dangerous with type-git as running
+  `git status` in it yourself.
+- A cloned repository does not carry the remote's configuration or hooks. Its `.gitattributes`
+  can still select filters that your own configuration defines, and its `.gitmodules` and
+  `.lfsconfig` still steer submodule and LFS transfers. The clone `template` option and your
+  `init.templateDir` copy hooks into the new repository.
+
 ## Architecture
 
 ```
