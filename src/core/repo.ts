@@ -19,7 +19,9 @@ export interface RepoBase {
    * `argv` is passed to Git unchanged and is not checked, so build it only from trusted values.
    * A word from untrusted input can become an option such as `--upload-pack=<command>`.
    * Send untrusted data through `opts.stdin`, or use the high-level API or strict `command()`,
-   * which refuse operands that Git would parse as options.
+   * which refuse operands that Git would parse as options. `stdin` is only safe for commands that
+   * read it as data (such as `hash-object --stdin`); commands that read it as instructions (such
+   * as `fast-import` or `update-ref --stdin`) must not receive untrusted input.
    */
   raw(argv: string[], opts?: CommandExecOpts): Promise<RawResult>;
 

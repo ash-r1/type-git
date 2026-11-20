@@ -255,7 +255,10 @@ lists what each API level checks and what stays the caller's responsibility.
 **Raw API** (`git.raw(argv)`, `repo.raw(argv)`)
 
 - `raw()` passes `argv` to Git unchanged and checks nothing. Build its argv only from trusted
-  values. Send untrusted data on standard input with the `stdin` option instead of in argv.
+  values. Send untrusted data on standard input with the `stdin` option instead of in argv, but
+  only to a command that reads standard input as data, such as `hash-object --stdin` or
+  `commit -F -`. Commands that read standard input as instructions, such as `fast-import` or
+  `update-ref --stdin`, let that input create or move refs, so do not feed them untrusted input.
 
 **Environment**
 
@@ -264,6 +267,10 @@ lists what each API level checks and what stays the caller's responsibility.
   names a program Git runs, such as `GIT_SSH_COMMAND`, `GIT_ASKPASS`, `GIT_EXTERNAL_DIFF` or
   `GIT_PAGER`, is inherited by default. Opt one in with `inheritEnv: ['GIT_SSH_COMMAND']`, or
   pass it with the `env` option, when you trust the value.
+- `inheritEnv: true` passes the whole parent environment, including application secrets and the
+  program-naming variables above. A predicate passed as `inheritEnv` bypasses
+  `DEFAULT_ENV_ALLOWLIST` and passes exactly the variables it selects. Use these forms only when
+  every variable they can select is trusted.
 - The allowlist does pass `PATH` (which picks the `ssh`, `git-lfs` and `git-remote-*` programs),
   `HOME` (and so `~/.gitconfig`), the proxy variables (whose URLs may hold credentials) and the
   SSH agent variables. An HTTPS-only application can drop the agent with
