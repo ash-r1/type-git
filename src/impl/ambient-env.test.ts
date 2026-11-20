@@ -76,17 +76,41 @@ describe('ambient environment variables that name programs', () => {
     },
   );
 
-  it('does not run GIT_EXTERNAL_DIFF from the parent environment', async () => {
+  it.skipIf(process.platform === 'win32')(
+    'runs GIT_SSH alone when the caller opts in through inheritEnv',
+    async () => {
+      process.env.GIT_SSH = await sshScript();
+      const git = await createGit({
+        adapters: createNodeAdapters(),
+        useLegacyVersion: USE_LEGACY_VERSION,
+        inheritEnv: ['GIT_SSH'],
+      });
+      await expect(git.lsRemote('ssh://git@127.0.0.1:1/none.git')).rejects.toThrow();
+      expect(existsSync(marker)).toBe(true);
+    },
+  );
+
+  async function diffWithExternal(inherit: boolean): Promise<void> {
     process.env.GIT_EXTERNAL_DIFF = `node -e "require('fs').writeFileSync(process.argv[1], '')" ${JSON.stringify(marker)}`;
     const git = await createGit({
       adapters: createNodeAdapters(),
       useLegacyVersion: USE_LEGACY_VERSION,
+      ...(inherit ? { inheritEnv: ['GIT_EXTERNAL_DIFF'] } : {}),
     });
     const workdir = join(tempDir, 'work');
     const repo = (await git.init(workdir)) as WorktreeRepo;
     await writeFile(join(workdir, 'file.txt'), 'a\n');
     await repo.raw(['add', '-N', 'file.txt']);
     await repo.raw(['diff']);
+  }
+
+  it('runs GIT_EXTERNAL_DIFF when the caller opts in through inheritEnv', async () => {
+    await diffWithExternal(true);
+    expect(existsSync(marker)).toBe(true);
+  });
+
+  it('does not run GIT_EXTERNAL_DIFF from the parent environment', async () => {
+    await diffWithExternal(false);
     expect(existsSync(marker)).toBe(false);
   });
 });
