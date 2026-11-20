@@ -18,3 +18,8 @@ export const ssh: CloneConfig = { 'core.sshCommand': 'x' };
 export const cookie: CloneConfig = { 'http.https://example.com/.cookieFile': 'x' };
 // @ts-expect-error core.autocrlf takes true, false or input
 export const autocrlf: CloneConfig = { 'core.autocrlf': 'yes' };
+export const optional: CloneConfig = { 'user.name': undefined };
+// @ts-expect-error protectNTFS switches off a protection against malicious repositories
+export const ntfs: CloneConfig = { 'core.protectNTFS': 'false' };
+// @ts-expect-error only http takes a subsection
+export const nested: CloneConfig = { 'user.x.name': 'x' };

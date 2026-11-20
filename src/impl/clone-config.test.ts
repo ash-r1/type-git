@@ -34,7 +34,10 @@ describe('isCloneConfigKey', () => {
     'HTTP.ExtraHeader',
     'Http.https://Example.com/.SSLVERIFY',
     'USER.NAME',
-  ])('accepts %s', (key) => {
+    // An empty or tab-holding subsection matches nothing in Git, but cannot reach another key.
+    'http..proxy',
+    'http.https://ex\tample/.proxy',
+  ])('accepts %j', (key) => {
     expect(isCloneConfigKey(key)).toBe(true);
   });
 
@@ -61,6 +64,15 @@ describe('isCloneConfigKey', () => {
     'submodule.x.update',
     'url.https://evil/.insteadOf',
     'http.cookieFile',
+    // Keys that switch off Git's protections against a malicious repository.
+    'core.protectNTFS',
+    'core.protectHFS',
+    'fetch.fsckObjects',
+    'transfer.fsckObjects',
+    // Git folds only ASCII case; U+212A KELVIN SIGN is not `k`.
+    'core.sparseChec\u212Aout',
+    ' user.name',
+    'user.name ',
     'http.https://example.com/.cookieFile',
     // `user` takes no subsection; only `http` does.
     'user.x.name',
@@ -82,6 +94,10 @@ describe('cloneConfigArgs', () => {
     expect(
       cloneConfigArgs({ 'user.name': 'A B', 'core.autocrlf': undefined, 'http.version': 'HTTP/2' }),
     ).toEqual(['-c', 'user.name=A B', '-c', 'http.version=HTTP/2']);
+  });
+
+  it('skips an undefined value without checking its key', () => {
+    expect(cloneConfigArgs({ 'include.path': undefined })).toEqual([]);
   });
 
   it('keeps "=" and tabs inside values', () => {
@@ -169,6 +185,43 @@ describe('git.clone config', () => {
     ]) {
       await expectRefused(upstream, { [key]: `touch ${marker}` });
     }
+  });
+
+  it('refuses a key before any Git process starts, including option probes', async () => {
+    const adapters = createNodeAdapters();
+    let spawned = 0;
+    const counting = await createGit({
+      adapters: {
+        ...adapters,
+        exec: new Proxy(adapters.exec, {
+          get(target, property, receiver): unknown {
+            const value = Reflect.get(target, property, receiver);
+            if (
+              (property === 'spawn' || property === 'spawnBytes') &&
+              typeof value === 'function'
+            ) {
+              return (...args: unknown[]): unknown => {
+                spawned += 1;
+                return value.apply(target, args);
+              };
+            }
+            return value;
+          },
+        }),
+      },
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+    // createGit probes the Git version; count only what clone starts.
+    spawned = 0;
+    await expect(
+      counting.clone(upstream, join(tempDir, 'clone'), {
+        // A depth past INT_MAX makes clone probe Git's integer conversion.
+        depth: 2 ** 31,
+        config: { 'core.sshCommand': `touch ${marker}` } as CloneConfig,
+      }),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    expect(spawned).toBe(0);
+    expect(existsSync(marker)).toBe(false);
   });
 
   it('writes accepted keys into the new repository', async () => {

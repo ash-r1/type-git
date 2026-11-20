@@ -8,6 +8,11 @@
  * adding such keys, so instead of refusing known-dangerous keys this module accepts only keys that
  * hold data. Any other key belongs in `raw()` or strict `command()`, or in `repo.config` after the
  * clone.
+ *
+ * Keys that switch off Git's own protections against a malicious repository, such as
+ * `core.protectNTFS`, `core.protectHFS` and `*.fsckObjects`, are left out as well. Transport keys such
+ * as `http.sslVerify`, `http.proxy` and `http.extraHeader` are accepted: they cannot run a program,
+ * but they do decide which server is trusted and what is sent to it.
  */
 import { GitArgumentError } from './types.js';
 
@@ -22,8 +27,6 @@ export type CloneConfigSchema = {
   'core.ignorecase': 'true' | 'false';
   'core.symlinks': 'true' | 'false';
   'core.longpaths': 'true' | 'false';
-  'core.protectNTFS': 'true' | 'false';
-  'core.protectHFS': 'true' | 'false';
   'core.precomposeUnicode': 'true' | 'false';
   'core.quotepath': 'true' | 'false';
   'core.sparseCheckout': 'true' | 'false';
@@ -33,8 +36,6 @@ export type CloneConfigSchema = {
 
   'protocol.version': '0' | '1' | '2';
 
-  'fetch.fsckObjects': 'true' | 'false';
-  'transfer.fsckObjects': 'true' | 'false';
   'fetch.prune': 'true' | 'false';
   'fetch.pruneTags': 'true' | 'false';
   'fetch.parallel': string;
@@ -105,8 +106,6 @@ const PLAIN_KEYS: readonly string[] = [
   'core.ignorecase',
   'core.symlinks',
   'core.longpaths',
-  'core.protectNTFS',
-  'core.protectHFS',
   'core.precomposeUnicode',
   'core.quotepath',
   'core.sparseCheckout',
@@ -114,8 +113,6 @@ const PLAIN_KEYS: readonly string[] = [
   'core.compression',
   'core.bigFileThreshold',
   'protocol.version',
-  'fetch.fsckObjects',
-  'transfer.fsckObjects',
   'fetch.prune',
   'fetch.pruneTags',
   'fetch.parallel',
@@ -135,11 +132,17 @@ const PLAIN_KEYS: readonly string[] = [
   ...HTTP_VARIABLES.map((name) => `http.${name}`),
 ];
 
+/**
+ * Lower-case ASCII letters only, as Git does for section and variable names. `toLowerCase()` would
+ * also fold non-ASCII letters such as the Kelvin sign into `k`.
+ */
+function asciiLower(text: string): string {
+  return text.replace(/[A-Z]/g, (letter) => String.fromCharCode(letter.charCodeAt(0) + 32));
+}
+
 /** Keys without a subsection, lower-cased: Git ignores case in section and variable names. */
-const PLAIN_KEY_SET: ReadonlySet<string> = new Set(PLAIN_KEYS.map((key) => key.toLowerCase()));
-const HTTP_VARIABLE_SET: ReadonlySet<string> = new Set(
-  HTTP_VARIABLES.map((name) => name.toLowerCase()),
-);
+const PLAIN_KEY_SET: ReadonlySet<string> = new Set(PLAIN_KEYS.map(asciiLower));
+const HTTP_VARIABLE_SET: ReadonlySet<string> = new Set(HTTP_VARIABLES.map(asciiLower));
 
 /** Whether `text` holds a control character other than tab, which a config key cannot carry. */
 function hasControl(text: string): boolean {
@@ -168,12 +171,12 @@ export function isCloneConfigKey(key: string): boolean {
     return false;
   }
   if (first === last) {
-    return PLAIN_KEY_SET.has(key.toLowerCase());
+    return PLAIN_KEY_SET.has(asciiLower(key));
   }
   // Git splits `section.subsection.variable` at the first and last dots; the subsection is a
   // case-sensitive URL here and may itself contain dots.
-  const section = key.slice(0, first).toLowerCase();
-  const variable = key.slice(last + 1).toLowerCase();
+  const section = asciiLower(key.slice(0, first));
+  const variable = asciiLower(key.slice(last + 1));
   return section === 'http' && HTTP_VARIABLE_SET.has(variable);
 }
 
