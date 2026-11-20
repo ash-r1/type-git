@@ -390,6 +390,25 @@
    "command": "diff-files",
    "tokens": [
     [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-S",
+    "x",
+    "--regexp-ignore-case"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
      "-G",
      "x"
     ],
@@ -954,6 +973,29 @@
    "command": "diff-index",
    "tokens": [
     [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
      "-G",
      "x"
     ],
@@ -1621,6 +1663,33 @@
      "--cached"
     ],
     [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
      "-G",
      "x"
     ],
@@ -2305,6 +2374,33 @@
      "-m"
     ],
     [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
      "-G",
      "x"
     ],
@@ -2989,6 +3085,33 @@
      "--merge-base"
     ],
     [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
      "-G",
      "x"
     ],
@@ -3429,8 +3552,7 @@
     "HEAD~1",
     "HEAD"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff-tree",
@@ -3463,8 +3585,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
   },
   {
    "command": "diff-tree",
@@ -3731,6 +3852,37 @@
     "-S",
     "x",
     "-i",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
     "HEAD~1",
     "HEAD"
    ],
@@ -4161,8 +4313,7 @@
     "--find-object=HEAD",
     "HEAD~1"
    ],
-   "valid": true,
-   "delegated": "repository"
+   "valid": true
   },
   {
    "command": "diff-tree",
@@ -4191,8 +4342,7 @@
    "valid": false,
    "status": 128,
    "state": "clean",
-   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'",
-   "delegated": "repository"
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
   },
   {
    "command": "diff-tree",
@@ -4410,6 +4560,33 @@
     "-S",
     "x",
     "-i",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
     "HEAD~1"
    ],
    "valid": true

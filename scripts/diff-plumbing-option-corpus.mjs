@@ -98,7 +98,7 @@ try {
     [['--find-object', 'HEAD'], ['-i']], [['-i'], ['--find-object', 'HEAD']],
     [['--find-object', 'HEAD'], ['--regexp-ignore-case']],
     [['--find-object', 'HEAD'], ['--pickaxe-regex'], ['-i']],
-    [['-S', 'x'], ['--pickaxe-regex']], [['-S', 'x'], ['-i']], [['-G', 'x'], ['-i']],
+    [['-S', 'x'], ['--pickaxe-regex']], [['-S', 'x'], ['-i']], [['-S', 'x'], ['--regexp-ignore-case']], [['-G', 'x'], ['-i']],
   ];
   /** Rows with a trailing -h exit with usage before any diff or option-dependent die. */
   const withHelp = [[['--max-depth', 1]], [['--max-depth', 0]], [['--find-object', 'HEAD'], ['--pickaxe-regex']], [['--find-object', 'HEAD'], ['-i']]];
@@ -116,8 +116,11 @@ try {
     }
     const failure = outcomes.find(outcome => !outcome.valid);
     const acceptedIn = outcomes.filter(outcome => outcome.valid).map(outcome => outcome.state);
-    // diff-tree's pickaxe abort depends on whether the trees produce a diff queue.
-    const delegated = form.command === 'diff-tree' && tokens.some(token => Array.isArray(token) && token[0] === '--find-object') ? { delegated: 'repository' } : {};
+    // diff-tree's regex-pickaxe abort with --find-object depends on whether the trees produce a
+    // diff queue; other refusals (such as --pickaxe-all in diff_setup_done) stay grammar-decided.
+    const has = name => tokens.some(token => Array.isArray(token) && token[0] === name);
+    const regexBit = ['--pickaxe-regex', '-i', '--regexp-ignore-case'].some(has);
+    const delegated = form.command === 'diff-tree' && has('--find-object') && regexBit ? { delegated: 'repository' } : {};
     cases.push({ command: form.command, tokens, argv, valid: !failure, ...(failure ? { status: failure.status, state: failure.state, diagnostic: failure.diagnostic } : {}), ...(failure && acceptedIn.length ? { acceptedIn } : {}), ...delegated });
   };
   for (const form of forms) {
