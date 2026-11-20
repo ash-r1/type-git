@@ -173,7 +173,7 @@
       ],
       "config": [
         "undefined",
-        "{\"key\":\"\"}"
+        "{\"user.name\":\"value\"}"
       ],
       "ipv4": [
         "undefined",

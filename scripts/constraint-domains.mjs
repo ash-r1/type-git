@@ -34,6 +34,9 @@ export function representatives(type, aliases, seen = new Set()) {
   if (ts.isTypeReferenceNode(type)) {
     const name = type.typeName.getText();
     if (name === 'Date') return [new Date('2000-01-01T00:00:00Z')];
+    // Clone config keys form a closed allowlist (src/core/clone-config.ts); any one accepted key
+    // represents the option, because no command rule inspects its keys or values.
+    if (name === 'CloneConfig') return [{ 'user.name': 'value' }];
     if (name === 'Record') return [{ key: representatives(type.typeArguments[1], aliases, seen)[0] }];
     if (seen.has(name)) throw new Error(`Recursive option type needs an explicit domain: ${name}`);
     if (aliases.has(name)) return representatives(aliases.get(name), aliases, new Set([...seen, name]));
