@@ -144,7 +144,6 @@ export type GitCommandArgument<C extends GitCommandName> =
   | LegacyDocumentationArgument<C>
   | LegacyDocumentationArgument<DispatchTarget<C>>;
 export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = CommandExecOpts & {
-  stdin?: string | Uint8Array;
   stdout?: Mode;
 };
 
