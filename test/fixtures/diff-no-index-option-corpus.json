@@ -1157,6 +1157,9 @@
    "status": 128,
    "state": "different",
    "diagnostic": "fatal: invalid regular expression: [",
+   "acceptedIn": [
+    "same"
+   ],
    "delegated": "regex"
   },
   {
@@ -3913,31 +3916,6 @@
    "group": "options",
    "tokens": [
     [
-     "--output-indicator-context",
-     ""
-    ],
-    {
-     "operand": "left"
-    },
-    {
-     "operand": "right"
-    }
-   ],
-   "argv": [
-    "diff",
-    "--no-index",
-    "--output-indicator-context=",
-    "left",
-    "right"
-   ],
-   "valid": true,
-   "delegated": "undefined"
-  },
-  {
-   "command": "diff --no-index",
-   "group": "options",
-   "tokens": [
-    [
      "--output-indicator-new",
      "+"
     ],
@@ -3989,34 +3967,6 @@
    "group": "options",
    "tokens": [
     [
-     "--output-indicator-new",
-     ""
-    ],
-    {
-     "operand": "left"
-    },
-    {
-     "operand": "right"
-    }
-   ],
-   "argv": [
-    "diff",
-    "--no-index",
-    "--output-indicator-new=",
-    "left",
-    "right"
-   ],
-   "valid": false,
-   "status": 129,
-   "state": "same",
-   "diagnostic": "error: output-indicator-new expects a character, got ''",
-   "delegated": "undefined"
-  },
-  {
-   "command": "diff --no-index",
-   "group": "options",
-   "tokens": [
-    [
      "--output-indicator-old",
      "-"
     ],
@@ -4062,34 +4012,6 @@
    "status": 129,
    "state": "same",
    "diagnostic": "error: output-indicator-old expects a character, got 'ab'"
-  },
-  {
-   "command": "diff --no-index",
-   "group": "options",
-   "tokens": [
-    [
-     "--output-indicator-old",
-     ""
-    ],
-    {
-     "operand": "left"
-    },
-    {
-     "operand": "right"
-    }
-   ],
-   "argv": [
-    "diff",
-    "--no-index",
-    "--output-indicator-old=",
-    "left",
-    "right"
-   ],
-   "valid": false,
-   "status": 129,
-   "state": "same",
-   "diagnostic": "error: output-indicator-old expects a character, got ''",
-   "delegated": "undefined"
   },
   {
    "command": "diff --no-index",
@@ -5587,6 +5509,9 @@
    "status": 128,
    "state": "different",
    "diagnostic": "fatal: invalid regular expression: [",
+   "acceptedIn": [
+    "same"
+   ],
    "delegated": "regex"
   },
   {
@@ -6267,6 +6192,9 @@
    "status": 128,
    "state": "different",
    "diagnostic": "fatal: failed to read orderfile 'missing': No such file or directory",
+   "acceptedIn": [
+    "same"
+   ],
    "delegated": "filesystem"
   },
   {

@@ -11,6 +11,7 @@ type Row = {
   valid: boolean;
   diagnostic?: string;
   delegated?: string;
+  acceptedIn?: string[];
 };
 
 /** Evaluate one row through the production builder; return the rejection message or null. */
@@ -42,11 +43,11 @@ describe('native diff --no-index option grammar, rule combinations and operand f
   });
 
   it('never rejects a native-owned row that Git accepted', () => {
-    // Repository, regex, diff-content, filesystem and undefined-behavior outcomes stay with Git:
-    // a native refusal in the oracle is not a static rule, but a native acceptance must not be
+    // Repository, regex, diff-content and filesystem outcomes stay with Git: a native refusal
+    // in the oracle is not a static rule, but a native acceptance in either state must not be
     // refused.
     const unsound = rows
-      .filter((row) => row.delegated !== undefined && row.valid)
+      .filter((row) => row.delegated !== undefined && (row.valid || row.acceptedIn !== undefined))
       .map((row) => [row, rejection(row)] as const)
       .filter(([, message]) => message !== null)
       .map(([row, message]) => describeRow(row, message));

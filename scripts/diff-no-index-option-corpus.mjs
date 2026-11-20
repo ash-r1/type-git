@@ -60,7 +60,11 @@ async function seedState(state) {
  * signal (native BUG() abort) is never acceptance.
  */
 function classify(argv, state, result) {
-  if (result.signal) return false;
+  // Only Git's own BUG() abort is a recorded refusal; any other signal leaves the run incomplete.
+  if (result.signal) {
+    if (result.signal === 'SIGABRT' && /^BUG: /m.test(result.stderr)) return false;
+    throw new Error(`Git terminated: ${result.signal} ${JSON.stringify(argv)} (${state})`);
+  }
   const ok = (result.status === 0 || result.status === 1) && result.stderr === '';
   const failed = (result.status === 129 && /^(error|warning|usage):/.test(result.stderr || result.stdout)) || (result.status === 128 && /^(fatal|error):/m.test(result.stderr)) || (result.status === 1 && /^(error|fatal|warning):/m.test(result.stderr));
   if (!ok && !failed) throw new Error(`Unclassified ${JSON.stringify(argv)} (${state}): ${result.status}: ${result.stdout.slice(0, 200)}${result.stderr.slice(0, 200)}`);
@@ -86,7 +90,9 @@ try {
     }
     const valid = outcomes.every(outcome => outcome.valid);
     const failure = outcomes.find(outcome => !outcome.valid);
-    groups[group].push({ command: 'diff --no-index', group, tokens, argv, valid, ...(failure ? { status: failure.status, state: failure.state, diagnostic: failure.diagnostic } : {}), ...extra });
+    // A row accepted in only one state still binds the soundness check of a delegated row.
+    const acceptedIn = outcomes.filter(outcome => outcome.valid).map(outcome => outcome.state);
+    groups[group].push({ command: 'diff --no-index', group, tokens, argv, valid, ...(failure ? { status: failure.status, state: failure.state, diagnostic: failure.diagnostic } : {}), ...(failure && acceptedIn.length ? { acceptedIn } : {}), ...extra });
   };
 
   // Option spellings and value forms from the upstream extraction of diff.c add_diff_options.
@@ -120,7 +126,9 @@ try {
     '--ws-error-highlight': ['none', 'default', 'all', 'old,new', 'context', 'bad', ''],
     '--abbrev': ['7', '4', '0', '40', '-1', 'bad', ''],
     '--src-prefix': ['a/', ''], '--dst-prefix': ['b/', ''], '--line-prefix': ['>', ''],
-    '--output-indicator-new': ['+', 'ab', ''], '--output-indicator-old': ['-', 'ab', ''], '--output-indicator-context': [' ', 'ab', ''],
+    // An empty output indicator makes diff_opt_char read past its terminator (undefined
+    // behavior), so its observed outcome is not recorded.
+    '--output-indicator-new': ['+', 'ab'], '--output-indicator-old': ['-', 'ab'], '--output-indicator-context': [' ', 'ab'],
     '--break-rewrites': ['50%', '50%/60%', '50', 'bad', ''], '-B': ['50%', '50%/60%', 'bad'],
     '--find-renames': ['50%', '50', '0', 'bad', ''], '-M': ['50%', 'bad'],
     '--find-copies': ['50%', '50', 'bad', ''], '-C': ['50%', 'bad'],
@@ -144,8 +152,7 @@ try {
   // - repository: --find-object names an object, which needs a repository;
   // - regex: POSIX regcomp acceptance of a pattern ('[' fails to compile);
   // - content: --rotate-to/--skip-to paths that must occur in the produced diff;
-  // - filesystem: the -O order file, the --output path and whether a path is a directory;
-  // - undefined: an empty output-indicator argument makes diff_opt_char read past its terminator.
+  // - filesystem: the -O order file, the --output path and whether a path is a directory.
   const regexOptions = new Set(['-G', '-I', '--ignore-matching-lines', '--word-diff-regex', '--color-words']);
   /** Classify one token as native-owned, or undefined when the grammar decides it. */
   const delegation = token => {
@@ -156,7 +163,6 @@ try {
     if (regexOptions.has(name) && value === '[') return 'regex';
     if (name === '--rotate-to' || name === '--skip-to') return 'content';
     if (name === '-O' || name === '--output') return 'filesystem';
-    if (/^--output-indicator-/.test(name) && value === '') return 'undefined';
     return undefined;
   };
   /** Row metadata naming the first native-owned reason, if any. */
