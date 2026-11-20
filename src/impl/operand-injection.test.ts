@@ -215,4 +215,19 @@ describe('convenience APIs reject option-like operands', () => {
       await repo.fetch({ remote: 'origin', refspec: 'HEAD' });
     });
   });
+
+  describe('option names built from caller strings', () => {
+    it('reset refuses a mode outside soft, mixed, hard, merge and keep', async () => {
+      // The mode becomes `--<mode>`, so an unchecked string would name any reset option.
+      for (const mode of [`pathspec-from-file=${marker}`, 'hard --quiet', 'HARD', '']) {
+        await expectRejected(() => repo.reset(undefined, { mode: mode as 'hard' }));
+      }
+    });
+
+    it('reset accepts each documented mode', async () => {
+      for (const mode of ['soft', 'mixed', 'hard', 'merge', 'keep'] as const) {
+        await repo.reset('HEAD', { mode });
+      }
+    });
+  });
 });
