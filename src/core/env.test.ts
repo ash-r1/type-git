@@ -183,11 +183,9 @@ describe('resolveInheritedEnv', () => {
       expect(DEFAULT_ENV_ALLOWLIST).toContain('HOME');
     });
 
-    it('includes the SSH transport and TLS configuration variables', () => {
+    it('includes the data-only SSH transport and TLS configuration variables', () => {
       // Git config commonly needed for fetch/push to keep working by default
       const gitTransportVars = [
-        'GIT_SSH',
-        'GIT_SSH_COMMAND',
         'GIT_SSH_VARIANT',
         'GIT_SSL_CAINFO',
         'GIT_SSL_CAPATH',
@@ -199,20 +197,44 @@ describe('resolveInheritedEnv', () => {
       }
     });
 
-    it('excludes credential-carrying / askpass variables (opt-in only)', () => {
-      // These can carry inline credentials or run a helper that reads secrets from the
-      // environment, so they are not inherited by default to preserve the
-      // traversal-prevention model.
-      for (const name of ['GIT_ASKPASS', 'SSH_ASKPASS', 'GIT_PROXY_COMMAND']) {
+    it('excludes every variable that names a program Git runs (opt-in only)', () => {
+      // Whoever controls the parent environment would otherwise choose a command for every
+      // fetch or push, and askpass helpers can read secrets from the environment.
+      for (const name of [
+        'GIT_SSH',
+        'GIT_SSH_COMMAND',
+        'GIT_ASKPASS',
+        'SSH_ASKPASS',
+        'GIT_PROXY_COMMAND',
+        'GIT_EDITOR',
+        'GIT_SEQUENCE_EDITOR',
+        'EDITOR',
+        'VISUAL',
+        'GIT_PAGER',
+        'PAGER',
+        'GIT_EXTERNAL_DIFF',
+        'GIT_EXEC_PATH',
+        'GIT_TEMPLATE_DIR',
+        'GIT_CONFIG',
+        'GIT_CONFIG_GLOBAL',
+        'GIT_CONFIG_SYSTEM',
+        'GIT_CONFIG_COUNT',
+        'GIT_CONFIG_PARAMETERS',
+      ]) {
         expect(DEFAULT_ENV_ALLOWLIST).not.toContain(name);
       }
     });
   });
 
-  it('inherits a custom GIT_SSH_COMMAND by default', () => {
-    const result = resolveInheritedEnv({ GIT_SSH_COMMAND: 'ssh -i /path/to/key' });
+  it('does not inherit GIT_SSH or GIT_SSH_COMMAND by default but can opt in', () => {
+    const parent = { GIT_SSH: '/usr/bin/my-ssh', GIT_SSH_COMMAND: 'ssh -i /path/to/key' };
+    const result = resolveInheritedEnv(parent);
+    expect(result.GIT_SSH).toBeUndefined();
+    expect(result.GIT_SSH_COMMAND).toBeUndefined();
 
-    expect(result.GIT_SSH_COMMAND).toBe('ssh -i /path/to/key');
+    const optedIn = resolveInheritedEnv(parent, ['GIT_SSH_COMMAND']);
+    expect(optedIn.GIT_SSH_COMMAND).toBe('ssh -i /path/to/key');
+    expect(optedIn.GIT_SSH).toBeUndefined();
   });
 
   it('does not inherit GIT_ASKPASS by default but can opt in', () => {
