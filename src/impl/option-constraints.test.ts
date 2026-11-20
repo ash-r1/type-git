@@ -268,7 +268,8 @@ describe('option constraints against independent Git executions', () => {
     await expect(
       repo.show('HEAD', { quiet: true, stat: true, nameOnly: true } as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
-    await expect(repo.show('HEAD', { quiet: true, stat: true })).resolves.toContain('file');
+    // Git releases differ on whether --stat output survives --quiet; only acceptance is portable.
+    await expect(repo.show('HEAD', { quiet: true, stat: true })).resolves.toMatch(/^commit /);
   });
 
   it('checks add mode, dry-run and executable-bit combinations against Git', async () => {
