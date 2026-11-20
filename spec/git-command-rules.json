@@ -8591,6 +8591,83 @@
       "origin": "git",
       "reason": "diff-files requires final numeric age filters to remain the timestamp default sentinel. Date aliases overwrite numeric state; arbitrary approxidate text remains native-owned.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-files.c#L72-L76"
+    },
+    {
+      "id": "diff-files.max-depth",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "positive"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files",
+      "reason": "diff-files dies for worktree diffs (\"max-depth is not supported for worktree diffs\") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-files.max-depth-zero",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "equals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files",
+      "reason": "diff-files dies for worktree diffs (\"max-depth is not supported for worktree diffs\") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-files.object-pickaxe-regex",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "pickaxe-regex",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with --pickaxe-regex sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when diffcore runs, even when nothing differs; a native crash is never acceptance. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-files.object-pickaxe-ignore-case",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "regexp-ignore-case",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when diffcore runs, even when nothing differs; a native crash is never acceptance. A residual -h exits with usage first."
     }
   ],
   "diff-index": [
@@ -8630,6 +8707,83 @@
       "origin": "git",
       "reason": "diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71"
+    },
+    {
+      "id": "diff-index.max-depth",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "positive"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_index",
+      "reason": "diff-index dies for index diffs, with or without --cached (\"max-depth is not supported for index diffs\") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-index.max-depth-zero",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "max-depth",
+          "test": "equals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_index",
+      "reason": "diff-index dies for index diffs, with or without --cached (\"max-depth is not supported for index diffs\") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-index.object-pickaxe-regex",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "pickaxe-regex",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with --pickaxe-regex sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when diffcore runs, even when nothing differs; a native crash is never acceptance. A residual -h exits with usage first."
+    },
+    {
+      "id": "diff-index.object-pickaxe-ignore-case",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "help",
+          "test": "inactive"
+        },
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "regexp-ignore-case",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when diffcore runs, even when nothing differs; a native crash is never acceptance. A residual -h exits with usage first."
     }
   ],
   "diff-tree": [

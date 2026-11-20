@@ -28813,7 +28813,7 @@
           }
         }
       ],
-      "rules": 17,
+      "rules": 21,
       "domains": {
         "no-output": [
           "undefined",
@@ -29951,8 +29951,8 @@
         ]
       },
       "total": "13841091904589731853890746090640262277307816732979003125909998796800000000000000000000000000000000000",
-      "accepted": "7024625950948990398283988813609086812391564292297745995718847113461760000000000000000000000000000",
-      "nodes": 35302,
+      "accepted": "4975776715255534865451158742973103158777358040377570080300850038702080000000000000000000000000000",
+      "nodes": 69911,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -29970,7 +29970,11 @@
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
         "cli.diff-files.revision-count": "{\"max-count\":-2147483649,\"operands\":[]}",
         "cli.diff-files.min-age": "{\"min-age\":-2,\"operands\":[]}",
-        "cli.diff-files.max-age": "{\"max-age\":-2,\"operands\":[]}"
+        "cli.diff-files.max-age": "{\"max-age\":-2,\"operands\":[]}",
+        "diff-files.max-depth": "{\"max-depth\":1,\"operands\":[]}",
+        "diff-files.max-depth-zero": "{\"max-depth\":0,\"operands\":[]}",
+        "diff-files.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "diff-files.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}"
       }
     },
     {
@@ -30232,7 +30236,7 @@
           }
         }
       ],
-      "rules": 17,
+      "rules": 21,
       "domains": {
         "no-output": [
           "undefined",
@@ -31369,8 +31373,8 @@
         ]
       },
       "total": "15099372986825162022426268462516649757063072799613457955538180505600000000000000000000000000000000000",
-      "accepted": "2809850380379596159313595525443634724956625716919098398287538845384704000000000000000000000000000",
-      "nodes": 23822,
+      "accepted": "1990310686102213946180463497189241263510943216151028032120340015480832000000000000000000000000000",
+      "nodes": 46468,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -31388,7 +31392,11 @@
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
         "cli.diff-index.revision-count": "{\"max-count\":-2,\"operands\":[]}",
         "cli.diff-index.min-age": "{\"min-age\":-2,\"operands\":[]}",
-        "cli.diff-index.max-age": "{\"max-age\":-2,\"operands\":[]}"
+        "cli.diff-index.max-age": "{\"max-age\":-2,\"operands\":[]}",
+        "diff-index.max-depth": "{\"max-depth\":1,\"operands\":[]}",
+        "diff-index.max-depth-zero": "{\"max-depth\":0,\"operands\":[]}",
+        "diff-index.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "diff-index.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}"
       }
     },
     {

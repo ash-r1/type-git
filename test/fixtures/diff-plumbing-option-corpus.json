@@ -1,0 +1,4736 @@
+{
+ "profile": "Git 2.55.0, LC_ALL=C; two-commit repository with a clean and with a modified worktree and index (valid only when both succeed); empty stdin; a residual -h is valid when it prints usage",
+ "cases": [
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     -2
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=-2"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=-1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=0"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=1"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     2147483647
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=2147483647"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=1",
+    "--max-depth=-1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=-1",
+    "--max-depth=1"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=0",
+    "--max-depth=-1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=-1",
+    "--max-depth=0"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=1",
+    "--name-only"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for worktree diffs"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "--pickaxe-all"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "--pickaxe-regex"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--pickaxe-regex",
+    "--find-object=HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "-i"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-i",
+    "--find-object=HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "--regexp-ignore-case"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-S",
+    "x",
+    "--pickaxe-regex"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-S",
+    "x",
+    "-i"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-S",
+    "x",
+    "--regexp-ignore-case"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "-G",
+    "x",
+    "-i"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=1",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--max-depth=0",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-files",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-files",
+    "--find-object=HEAD",
+    "-i",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=-2",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=2147483647",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-S",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-G",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--max-depth=0",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=-2",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=2147483647",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-S",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "-G",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--max-depth=0",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--cached"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--cached",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=-2",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=2147483647",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-S",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "-G",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--max-depth=0",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "-m"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "-m",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=-2",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=2147483647",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: max-depth is not supported for index diffs"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S"
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-S",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "-G",
+    "x",
+    "-i",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--max-depth=0",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-index",
+   "tokens": [
+    [
+     "--merge-base"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-index",
+    "--merge-base",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-2",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=2147483647",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": false,
+   "status": "SIGABRT",
+   "state": "clean",
+   "diagnostic": "BUG: diffcore-pickaxe.c:241: should have needle under -G or -S",
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "-i",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-G",
+    "x",
+    "-i",
+    "HEAD~1",
+    "HEAD"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "HEAD~1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "HEAD~1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD~1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    {
+     "operand": "HEAD"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD~1",
+    "HEAD",
+    "-h"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -2
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-2",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     2147483647
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=2147483647",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "--max-depth=-1",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "--max-depth=1",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "--max-depth=-1",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     -1
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=-1",
+    "--max-depth=0",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    [
+     "--name-only"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "--name-only",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-all"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-all",
+    "HEAD~1"
+   ],
+   "valid": false,
+   "status": 128,
+   "state": "clean",
+   "diagnostic": "fatal: options '--pickaxe-all' and '--find-object' cannot be used together, use '--pickaxe-all' with '-G' and '-S'"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--pickaxe-regex",
+    "--find-object=HEAD",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-i"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-i",
+    "--find-object=HEAD",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--regexp-ignore-case",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "-i",
+    "HEAD~1"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--pickaxe-regex",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "-i",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-S",
+     "x"
+    ],
+    [
+     "--regexp-ignore-case"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-S",
+    "x",
+    "--regexp-ignore-case",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "-G",
+     "x"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    }
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "-G",
+    "x",
+    "-i",
+    "HEAD~1"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     1
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=1",
+    "HEAD~1",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--max-depth",
+     0
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--max-depth=0",
+    "HEAD~1",
+    "-h"
+   ],
+   "valid": true
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "--pickaxe-regex"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "--pickaxe-regex",
+    "HEAD~1",
+    "-h"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  },
+  {
+   "command": "diff-tree",
+   "tokens": [
+    [
+     "-r"
+    ],
+    [
+     "--find-object",
+     "HEAD"
+    ],
+    [
+     "-i"
+    ],
+    {
+     "operand": "HEAD~1"
+    },
+    [
+     "-h"
+    ]
+   ],
+   "argv": [
+    "diff-tree",
+    "-r",
+    "--find-object=HEAD",
+    "-i",
+    "HEAD~1",
+    "-h"
+   ],
+   "valid": true,
+   "delegated": "repository"
+  }
+ ]
+}
