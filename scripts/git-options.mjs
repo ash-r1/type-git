@@ -86,7 +86,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
         if (options[word]) throw new Error(`${command}: single-word exit collides with an option ${word}`);
         options[word] = { key: 'help', value: 'flag' };
       }
-      const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
+      const { firstPassTables, remainingTables, remainingGroups, remainingOverrides, wrappers, longOptionResolution, ...exit } = parserExit;
       if (exit.remainingSeparator && (exit.remainingOperands !== 'all' || !exit.remainingSeparator.source || !exit.remainingSeparator.reason || exit.remainingSeparator.origin !== 'git' || (exit.remainingSeparator.maxIndex !== undefined && (!Number.isSafeInteger(exit.remainingSeparator.maxIndex) || exit.remainingSeparator.maxIndex < 0)))) throw new Error(`${command}: invalid native operand separator policy`);
       if (exit.remainingSingleWordExits && (!remainingGroups?.includes('diff') || JSON.stringify(exit.remainingSingleWordExits) !== JSON.stringify(['--git-completion-helper', '--git-completion-helper-all']))) throw new Error(`${command}: remaining completion exits require the audited ONE_SHOT diff parser`);
       const longForms = longOptionResolution ? withoutAbortingForms(parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated')) : undefined;
@@ -115,6 +115,11 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       const remainingShortOptions = Object.keys(remainingOptions).filter(flag => /^-[^-]$/.test(flag));
       const remainingLongNames = [...new Set(definitionsFor(remainingTables ?? [], command).flatMap(option => option.long ? [option.long] : []))].sort();
       for (const name of remainingGroups ?? []) Object.assign(remainingOptions, Object.fromEntries(Object.entries(groups[name].options).map(([flag, option]) => [flag, resolve(option)])));
+      // Opt-in: only the listed scope overrides replace retained-pass definitions.
+      for (const flag of remainingOverrides ?? []) {
+        if (!scope.options?.[flag] || !remainingOptions[flag] || firstPassOptions.includes(flag)) throw new Error(`${command}: remaining override ${flag} must name a retained-pass option with a scope override`);
+        remainingOptions[flag] = resolve(scope.options[flag]);
+      }
       const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
       if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
       const remainingLongForms = remainingGroups?.includes('diff') ? withoutAbortingForms(parseOptionLongForms(definitionsFor(remainingTables ?? [], command), false)) : undefined;

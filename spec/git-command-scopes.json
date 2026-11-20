@@ -2272,6 +2272,12 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ],
+      "remainingOverrides": [
+        "--no-compact-summary",
+        "--no-no-patch",
+        "--no-patch",
+        "-s"
       ]
     },
     "options": {
@@ -2289,6 +2295,251 @@
       "--help-all": {
         "key": "help",
         "value": "flag"
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": true
+          }
+        ]
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": true
+          }
+        ]
+      },
+      "--no-quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "set": false,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ]
+      },
+      "-L": {
+        "key": "L",
+        "value": "string",
+        "repeat": true
+      },
+      "--no-no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-compact-summary": {
+        "key": "stat-with-summary",
+        "value": "flag",
+        "set": false
+      },
+      "-s": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
       }
     },
     "numericOption": {
@@ -2352,6 +2603,12 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ],
+      "remainingOverrides": [
+        "--no-compact-summary",
+        "--no-no-patch",
+        "--no-patch",
+        "-s"
       ]
     },
     "options": {
@@ -2369,6 +2626,251 @@
       "--help-all": {
         "key": "help",
         "value": "flag"
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": true
+          }
+        ]
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": true
+          }
+        ]
+      },
+      "--no-quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "repeat": true,
+        "set": false,
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ]
+      },
+      "-L": {
+        "key": "L",
+        "value": "string",
+        "repeat": true
+      },
+      "--no-no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-compact-summary": {
+        "key": "stat-with-summary",
+        "value": "flag",
+        "set": false
+      },
+      "-s": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
+      },
+      "--no-patch": {
+        "key": "no-output",
+        "value": "flag",
+        "set": true,
+        "effects": [
+          {
+            "key": "name-only",
+            "set": false
+          },
+          {
+            "key": "name-status",
+            "set": false
+          },
+          {
+            "key": "check",
+            "set": false
+          },
+          {
+            "key": "stat",
+            "set": false
+          },
+          {
+            "key": "numstat",
+            "set": false
+          },
+          {
+            "key": "shortstat",
+            "set": false
+          },
+          {
+            "key": "dirstat",
+            "set": false
+          },
+          {
+            "key": "dirstat-by-file",
+            "set": false
+          },
+          {
+            "key": "cumulative",
+            "set": false
+          },
+          {
+            "key": "compact-summary",
+            "set": false
+          },
+          {
+            "key": "patch-with-stat",
+            "set": false
+          },
+          {
+            "key": "stat-width",
+            "set": false
+          },
+          {
+            "key": "stat-name-width",
+            "set": false
+          },
+          {
+            "key": "stat-graph-width",
+            "set": false
+          },
+          {
+            "key": "stat-count",
+            "set": false
+          }
+        ]
       }
     },
     "numericOption": {
@@ -2387,6 +2889,9 @@
           "set": false
         }
       ]
+    },
+    "initial": {
+      "no-walk": true
     }
   },
   "diff": {

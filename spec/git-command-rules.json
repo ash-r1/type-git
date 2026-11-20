@@ -7509,6 +7509,195 @@
           "test": "active"
         }
       ]
+    },
+    {
+      "id": "log.follow-without-path",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--follow requires exactly one pathspec; without operands there is none unless --stdin (delegated) supplies paths. setup_revisions runs diff_setup_done before the walk starts."
+    },
+    {
+      "id": "log.follow-separated-paths",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated, as are paths read by --stdin."
+    },
+    {
+      "id": "log.follow-full-diff",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--full-diff keeps paths out of the diff pathspec, so --follow never sees exactly one pathspec."
+    },
+    {
+      "id": "log.object-pickaxe-regex",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "pickaxe-regex",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with --pickaxe-regex sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance."
+    },
+    {
+      "id": "log.object-pickaxe-ignore-case",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "regexp-ignore-case",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance."
+    },
+    {
+      "id": "log.line-check",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
+      "reason": "-L supports only patch, raw, name, name-status and summary output; --check stays set after diff_setup_done.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "check",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "log.line-stat",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
+      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
+      "guard": [
+        {
+          "key": "no-output",
+          "test": "inactive"
+        },
+        {
+          "key": "name-only",
+          "test": "inactive"
+        },
+        {
+          "key": "name-status",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "stat",
+          "test": "active"
+        },
+        {
+          "key": "numstat",
+          "test": "active"
+        },
+        {
+          "key": "shortstat",
+          "test": "active"
+        },
+        {
+          "key": "dirstat",
+          "test": "active"
+        },
+        {
+          "key": "dirstat-by-file",
+          "test": "active"
+        },
+        {
+          "key": "cumulative",
+          "test": "active"
+        },
+        {
+          "key": "compact-summary",
+          "test": "active"
+        },
+        {
+          "key": "patch-with-stat",
+          "test": "active"
+        },
+        {
+          "key": "stat-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-name-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-graph-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-count",
+          "test": "active"
+        }
+      ]
     }
   ],
   "show": [
@@ -7539,6 +7728,195 @@
       "others": [
         {
           "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "show.follow-without-path",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--follow requires exactly one pathspec; without operands there is none unless --stdin (delegated) supplies paths. setup_revisions runs diff_setup_done before the walk starts."
+    },
+    {
+      "id": "show.follow-separated-paths",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "After an explicit separator every word is a path, so --follow needs exactly one of them. Operands before the separator are revisions; without a separator the revision/path split is repository-dependent and delegated, as are paths read by --stdin."
+    },
+    {
+      "id": "show.follow-full-diff",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        },
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (prune_data copied to diffopt.pathspec unless --full-diff); diff.c:diff_setup_done/diff_check_follow_pathspec",
+      "reason": "--full-diff keeps paths out of the diff pathspec, so --follow never sees exactly one pathspec."
+    },
+    {
+      "id": "show.object-pickaxe-regex",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "pickaxe-regex",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with --pickaxe-regex sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance."
+    },
+    {
+      "id": "show.object-pickaxe-ignore-case",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "find-object",
+          "test": "present"
+        },
+        {
+          "key": "regexp-ignore-case",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
+      "reason": "--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance."
+    },
+    {
+      "id": "show.line-check",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
+      "reason": "-L supports only patch, raw, name, name-status and summary output; --check stays set after diff_setup_done.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "check",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "show.line-stat",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (-L output-format check after diff_setup_done); diff.c:diff_setup_done",
+      "reason": "-L does not support stat, numstat, shortstat or dirstat output. diff_setup_done drops those formats when --name-only, --name-status or suppressed output (-s, or log's first-pass --quiet before a later stat option clears it) is still selected; -s, --no-patch and --no-no-patch reset every format (a later -p does not revive a stat), while --no-compact-summary only clears the summary flag and keeps the stat format.",
+      "guard": [
+        {
+          "key": "no-output",
+          "test": "inactive"
+        },
+        {
+          "key": "name-only",
+          "test": "inactive"
+        },
+        {
+          "key": "name-status",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "stat",
+          "test": "active"
+        },
+        {
+          "key": "numstat",
+          "test": "active"
+        },
+        {
+          "key": "shortstat",
+          "test": "active"
+        },
+        {
+          "key": "dirstat",
+          "test": "active"
+        },
+        {
+          "key": "dirstat-by-file",
+          "test": "active"
+        },
+        {
+          "key": "cumulative",
+          "test": "active"
+        },
+        {
+          "key": "compact-summary",
+          "test": "active"
+        },
+        {
+          "key": "patch-with-stat",
+          "test": "active"
+        },
+        {
+          "key": "stat-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-name-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-graph-width",
+          "test": "active"
+        },
+        {
+          "key": "stat-count",
           "test": "active"
         }
       ]
