@@ -2826,6 +2826,72 @@
     }
   },
   {
+    "command": "show",
+    "type": "ShowOpts",
+    "domains": {
+      "stat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameStatus": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "format": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "source": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "useMailmap": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "decorateRefs": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "decorateRefsExclude": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "decorate": [
+        "undefined",
+        "\"short\"",
+        "\"full\"",
+        "\"auto\"",
+        "\"no\""
+      ]
+    },
+    "total": "98415",
+    "accepted": "72900",
+    "nodes": 23,
+    "isolatedRuleWitnesses": {
+      "show.nameOnly-nameStatus": "{\"nameOnly\":true,\"nameStatus\":true}",
+      "show.quiet-nameOnly": "{\"nameOnly\":true,\"quiet\":true}",
+      "show.quiet-nameStatus": "{\"nameStatus\":true,\"quiet\":true}"
+    }
+  },
+  {
     "command": "submoduleUpdate",
     "type": "SubmoduleOpts",
     "domains": {

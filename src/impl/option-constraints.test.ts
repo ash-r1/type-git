@@ -228,6 +228,50 @@ describe('option constraints against independent Git executions', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
   });
 
+  it('checks show output-format and first-pass quiet combinations against Git', async () => {
+    for (const options of assignments({
+      stat: [undefined, false, true],
+      nameOnly: [undefined, false, true],
+      nameStatus: [undefined, false, true],
+      quiet: [undefined, false, true],
+    })) {
+      // Same emission order as WorktreeRepo.show; Git parses --quiet in its first pass.
+      const args = ['-C', repo.workdir, 'show'];
+      if (options.stat) {
+        args.push('--stat');
+      }
+      if (options.nameOnly) {
+        args.push('--name-only');
+      }
+      if (options.nameStatus) {
+        args.push('--name-status');
+      }
+      if (options.quiet) {
+        args.push('--quiet');
+      }
+      args.push('HEAD');
+      const result = raw(args);
+      const accepted = violations(COMMAND_CONSTRAINTS.show, options).length === 0;
+      // Newer Git lets --stat clear the first-pass --quiet; the model keeps the Git 2.25 refusal.
+      const portableRefusal = Boolean(options.quiet && options.stat) && !accepted;
+      expect(
+        result.status === 0 ? accepted || portableRefusal : !accepted,
+        `${JSON.stringify(options)}: ${result.stderr}`,
+      ).toBe(true);
+    }
+    await expect(
+      repo.show('HEAD', { nameOnly: true, nameStatus: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(
+      repo.show('HEAD', { quiet: true, nameOnly: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(
+      repo.show('HEAD', { quiet: true, stat: true, nameOnly: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    // Git releases differ on whether --stat output survives --quiet; only acceptance is portable.
+    await expect(repo.show('HEAD', { quiet: true, stat: true })).resolves.toMatch(/^commit /);
+  });
+
   it('checks add mode, dry-run and executable-bit combinations against Git', async () => {
     for (const options of assignments({
       all: [undefined, true],
