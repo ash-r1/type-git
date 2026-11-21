@@ -1,5 +1,20 @@
 # type-git
 
+## 0.8.0
+
+### Minor Changes
+
+- [#343](https://github.com/ash-r1/type-git/pull/343) [`5c12262`](https://github.com/ash-r1/type-git/commit/5c122621dc407c76c73b90141ea1c82ea077c792) Thanks [@ash-r1](https://github.com/ash-r1)! - `raw()` on `Git`, `WorktreeRepo` and `BareRepo` accepts a `stdin` option (string or bytes), so data
+  such as commit messages, object contents or path lists can be sent to Git on standard input instead
+  of through argv, where a value starting with `-` could be read as an option. Git's stdin is still
+  closed (empty) when `stdin` is omitted.
+
+### Patch Changes
+
+- [#348](https://github.com/ash-r1/type-git/pull/348) [`4c0ca8d`](https://github.com/ash-r1/type-git/commit/4c0ca8d35aec442af51301222407e65fbfa33552) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.reset(target, { mode })` now refuses a `mode` other than `soft`, `mixed`, `hard`, `merge` or `keep` with `GitArgumentError` before Git starts. The mode becomes `--<mode>`, so an unchecked string from JavaScript or untrusted input could name any other reset option, such as `--pathspec-from-file=<file>`.
+
+- [#346](https://github.com/ash-r1/type-git/pull/346) [`5e773d5`](https://github.com/ash-r1/type-git/commit/5e773d5f94d03abee10b63c7bf764ec1da433769) Thanks [@ash-r1](https://github.com/ash-r1)! - Document the security model in the README: what the high-level, strict and raw APIs check, which environment variables are inherited, and that a repository's own configuration and hooks are outside it. The `raw()` JSDoc now says that `argv` is not checked and points untrusted data to `stdin`.
+
 ## 0.7.0
 
 ### Minor Changes
