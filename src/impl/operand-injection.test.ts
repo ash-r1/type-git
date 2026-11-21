@@ -222,6 +222,12 @@ describe('convenience APIs reject option-like operands', () => {
       for (const mode of [`pathspec-from-file=${marker}`, 'hard --quiet', 'HARD', '']) {
         await expectRejected(() => repo.reset(undefined, { mode: mode as 'hard' }));
       }
+      // A value that cannot be serialized still gets the same argument error.
+      const circular: Record<string, unknown> = {};
+      circular.self = circular;
+      for (const mode of [circular, 1n, Symbol('hard')]) {
+        await expectRejected(() => repo.reset(undefined, { mode: mode as unknown as 'hard' }));
+      }
     });
 
     it('reset accepts each documented mode', async () => {

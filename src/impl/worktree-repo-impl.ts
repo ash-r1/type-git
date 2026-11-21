@@ -2999,7 +2999,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.mode !== undefined) {
       if (!RESET_MODES.includes(opts.mode)) {
         throw new GitArgumentError(
-          `reset: mode must be one of ${RESET_MODES.join(', ')} (got ${JSON.stringify(opts.mode)})`,
+          `reset: mode must be one of ${RESET_MODES.join(', ')} (got ${typeof opts.mode === 'string' ? JSON.stringify(opts.mode) : typeof opts.mode})`,
         );
       }
       args.push(`--${opts.mode}`);
