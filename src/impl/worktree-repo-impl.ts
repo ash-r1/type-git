@@ -7,7 +7,7 @@ import {
   validateRevParseQuery,
   validateRevParseRefOpts,
 } from '../core/option-rules.js';
-import { GitError } from '../core/types.js';
+import { GitArgumentError, GitError } from '../core/types.js';
 import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 import { parseLfsFilesJson, parseLfsStatusJson } from '../internal/lfs-output.js';
@@ -152,6 +152,15 @@ import {
   parseWorktreeList,
 } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
+
+/** Modes `reset` turns into `--<mode>`; checked at runtime because the value names an option. */
+const RESET_MODES: readonly NonNullable<ResetOpts['mode']>[] = [
+  'soft',
+  'mixed',
+  'hard',
+  'merge',
+  'keep',
+];
 
 /**
  * Default number of OIDs per `git lfs push --object-id` invocation.
@@ -2987,7 +2996,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['reset'];
 
     // Existing options
-    if (opts?.mode) {
+    if (opts?.mode !== undefined) {
+      if (!RESET_MODES.includes(opts.mode)) {
+        throw new GitArgumentError(
+          `reset: mode must be one of ${RESET_MODES.join(', ')} (got ${typeof opts.mode === 'string' ? JSON.stringify(opts.mode) : typeof opts.mode})`,
+        );
+      }
       args.push(`--${opts.mode}`);
     }
 
