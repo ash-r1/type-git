@@ -1,7 +1,7 @@
 /** `git.open(path, { untrusted: true })` keeps the repository's own hooks and config from running programs. */
 
 import { execFileSync } from 'node:child_process';
-import { chmod, mkdtemp, rm, stat, writeFile } from 'node:fs/promises';
+import { chmod, mkdir, mkdtemp, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -234,6 +234,19 @@ describe('unsafeRepoConfigKeys', () => {
     ]);
   });
 
+  it('accepts a key that names a remote only for a remote with its own URL', () => {
+    const entries = parseScopedConfigList(
+      'local\0remote.origin.url\nhttps://example.com/r.git\0' +
+        'local\0branch.main.remote\norigin\0' +
+        'local\0extensions.partialclone\norigin\0' +
+        'local\0branch.main.pushremote\nevil\0' +
+        'global\0remote.trusted.url\nhttps://example.com/t.git\0' +
+        'local\0branch.dev.remote\ntrusted\0',
+    );
+    // `evil` has no URL, so Git would read it as a path; `trusted` is not the repository's own.
+    expect(unsafeRepoConfigKeys(entries)).toEqual(['branch.main.pushremote', 'branch.dev.remote']);
+  });
+
   it('keeps a newline inside a value', () => {
     expect(parseScopedConfigList('local\0user.name\na\nb\0')).toEqual([
       { scope: 'local', key: 'user.name', value: 'a\nb' },
@@ -441,6 +454,21 @@ describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
     execFileSync('git', ['init', '-q', elsewhere]);
     gitIn(sub, ['config', 'core.worktree', elsewhere.replace(/\\/g, '/')]);
     await expectRefused(git.open(work, { untrusted: true }), ['submodule lib', 'core.worktree']);
+  });
+
+  it('refuses legacy remotes/ and branches/ files, which define remotes outside the config', async () => {
+    for (const dir of ['remotes', 'branches']) {
+      const legacy = join(work, '.git', dir);
+      await mkdir(legacy, { recursive: true });
+      await writeFile(
+        join(legacy, 'origin'),
+        dir === 'remotes' ? 'URL: ../evil.git\n' : '../evil.git\n',
+      );
+      await expectRefused(git.open(work, { untrusted: true }), [dir]);
+      await rm(join(legacy, 'origin'));
+    }
+    // An empty directory, which `git init` creates for branches/ on some versions, is fine.
+    await expect(git.open(work, { untrusted: true })).resolves.toBeDefined();
   });
 
   it('opens a repository without untrusted mode as before', async () => {

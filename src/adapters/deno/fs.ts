@@ -26,6 +26,11 @@ declare const Deno: {
     close(): void;
   }>;
   readTextFile(path: string): Promise<string>;
+  readDir(path: string): AsyncIterable<{ name: string }>;
+  errors: {
+    NotFound: new (...args: never[]) => Error;
+    NotADirectory?: new (...args: never[]) => Error;
+  };
   writeTextFile(path: string, data: string): Promise<void>;
   SeekMode: {
     Start: number;
@@ -121,6 +126,25 @@ export class DenoFsAdapter implements FsAdapter {
         throw error;
       }
     }
+  }
+
+  public async readDirectory(dirPath: string): Promise<string[]> {
+    const names: string[] = [];
+    try {
+      for await (const entry of Deno.readDir(dirPath)) {
+        names.push(entry.name);
+      }
+    } catch (error) {
+      const notADirectory = Deno.errors.NotADirectory;
+      if (
+        error instanceof Deno.errors.NotFound ||
+        (notADirectory !== undefined && error instanceof notADirectory)
+      ) {
+        return [];
+      }
+      throw error;
+    }
+    return names;
   }
 
   public async exists(filePath: string): Promise<boolean> {

@@ -175,8 +175,22 @@ function asciiLower(text: string): string {
 /**
  * Whether a repository-level entry holds only data. `value` is `undefined` for a key written
  * without `=`, which Git reads as `true`.
+ *
+ * A key that names a remote (`branch.<name>.remote`, `extensions.partialClone`, ...) is accepted
+ * only for a name in `configuredRemotes`, the remotes whose `remote.<name>.url` the repository
+ * sets (and which is checked as a URL). Git reads any other name as a URL or path, or from the
+ * legacy `remotes/` and `branches/` files. Without `configuredRemotes`, only the form of the name
+ * is checked.
  */
-export function isDataOnlyRepoConfigEntry(key: string, value: string | undefined): boolean {
+export function isDataOnlyRepoConfigEntry(
+  key: string,
+  value: string | undefined,
+  configuredRemotes?: ReadonlySet<string>,
+): boolean {
+  const namesRemote = (name: string | undefined): boolean =>
+    name !== undefined &&
+    isPlainRemoteName(name) &&
+    (configuredRemotes === undefined || configuredRemotes.has(name));
   const first = key.indexOf('.');
   const last = key.lastIndexOf('.');
   if (first <= 0 || last === key.length - 1) {
@@ -188,7 +202,7 @@ export function isDataOnlyRepoConfigEntry(key: string, value: string | undefined
     const name = `${section}.${variable}`;
     if (name === 'extensions.partialclone') {
       // Names the promisor remote; Git reads a value that is not a remote name as a URL or path.
-      return value !== undefined && isPlainRemoteName(value);
+      return namesRemote(value);
     }
     return PLAIN_KEYS.has(name) && !(REBASE_MODE_KEYS.has(name) && isInteractive(value));
   }
@@ -205,7 +219,7 @@ export function isDataOnlyRepoConfigEntry(key: string, value: string | undefined
     return value !== undefined && isNetworkRemoteUrl(value);
   }
   if (REMOTE_NAME_VARIABLES.get(section)?.has(variable) === true) {
-    return value !== undefined && isPlainRemoteName(value);
+    return namesRemote(value);
   }
   if (REBASE_MODE_KEYS.has(`${section}.*.${variable}`) && isInteractive(value)) {
     return false;
@@ -245,12 +259,23 @@ export function parseScopedConfigList(stdout: string): ScopedConfigEntry[] {
  * data-only, in the order Git lists them and without duplicates.
  */
 export function unsafeRepoConfigKeys(entries: readonly ScopedConfigEntry[]): string[] {
-  const unsafe = new Set<string>();
-  for (const entry of entries) {
-    if (entry.scope !== 'local' && entry.scope !== 'worktree') {
-      continue;
+  const own = entries.filter((entry) => entry.scope === 'local' || entry.scope === 'worktree');
+  const configuredRemotes = new Set<string>();
+  for (const { key } of own) {
+    const first = key.indexOf('.');
+    const last = key.lastIndexOf('.');
+    if (
+      first > 0 &&
+      last > first &&
+      asciiLower(key.slice(0, first)) === 'remote' &&
+      asciiLower(key.slice(last + 1)) === 'url'
+    ) {
+      configuredRemotes.add(key.slice(first + 1, last));
     }
-    if (!isDataOnlyRepoConfigEntry(entry.key, entry.value)) {
+  }
+  const unsafe = new Set<string>();
+  for (const entry of own) {
+    if (!isDataOnlyRepoConfigEntry(entry.key, entry.value, configuredRemotes)) {
       unsafe.add(entry.key);
     }
   }

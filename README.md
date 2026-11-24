@@ -291,6 +291,11 @@ lists what each API level checks and what stays the caller's responsibility.
   such as `diff.<driver>.textconv` cannot be overridden by name, so they are refused instead.
   The configuration of every populated submodule is checked the same way, because Git runs
   commands such as `status` inside submodules.
+- A key that names a remote, such as `branch.<name>.remote`, must name a remote whose URL the
+  repository's configuration sets, and a repository with legacy `.git/remotes/` or
+  `.git/branches/` files is refused: Git reads those for remotes the configuration does not
+  define, and a name without a URL is read as a path. A custom file system adapter needs
+  `readDirectory` for untrusted mode.
 - Remote and submodule URLs in that configuration must be `https`, `http`, `ssh`, `git` or
   scp-style URLs. A local path or `file://` URL would make Git run `upload-pack` or
   `receive-pack` in another repository without the overrides, so its hooks and configuration

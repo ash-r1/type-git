@@ -255,6 +255,17 @@ export interface FsAdapter {
   exists(filePath: string): Promise<boolean>;
 
   /**
+   * List the names of a directory's entries
+   *
+   * Used by `git.open(path, { untrusted: true })`, which fails with `CapabilityMissing` when the
+   * adapter does not provide it.
+   *
+   * @param dirPath - Path to the directory
+   * @returns Entry names, or an empty array when the directory does not exist
+   */
+  readDirectory?(dirPath: string): Promise<string[]>;
+
+  /**
    * Read a file's contents
    *
    * @param filePath - Path to the file

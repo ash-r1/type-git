@@ -250,13 +250,29 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
   };
 }
 
+/** Directory entry names, failing as `CapabilityMissing` when the adapter cannot list them. */
+async function listDirectory(fs: RuntimeAdapters['fs'], dirPath: string): Promise<string[]> {
+  if (fs.readDirectory === undefined) {
+    throw new GitError(
+      'CapabilityMissing',
+      'untrusted: true needs a file system adapter that implements readDirectory',
+    );
+  }
+  return await fs.readDirectory(dirPath);
+}
+
 /**
  * Refuse a repository whose own configuration can make Git run a program (untrusted mode).
  * `label` names the repository in messages. A submodule's Git directory sets `core.worktree`,
  * which `allowWorktree` accepts; the caller then checks where it points.
+ *
+ * Git also reads a remote that the configuration does not define from the legacy
+ * `$GIT_COMMON_DIR/remotes/<name>` and `branches/<name>` files, whose URLs this check cannot see,
+ * so a repository with any entry there is refused too.
  */
 async function assertDataOnlyRepoConfig(
   runner: CliRunner,
+  fs: RuntimeAdapters['fs'],
   context: Exclude<ExecutionContext, { type: 'global' }>,
   label: string,
   allowWorktree = false,
@@ -281,6 +297,31 @@ async function assertDataOnlyRepoConfig(
       where,
     );
   }
+
+  const legacy = await runner.run(context, [
+    'rev-parse',
+    '--path-format=absolute',
+    '--git-path',
+    'remotes',
+    '--git-path',
+    'branches',
+  ]);
+  if (legacy.exitCode !== 0) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Could not locate the Git directory of untrusted repository ${label}`,
+      { ...where, exitCode: legacy.exitCode, stderr: legacy.stderr },
+    );
+  }
+  for (const dir of legacy.stdout.split(/\r?\n/).filter((line) => line.length > 0)) {
+    if ((await listDirectory(fs, dir)).length > 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Refusing untrusted repository ${label}: ${dir} defines remotes outside its configuration`,
+        where,
+      );
+    }
+  }
 }
 
 /**
@@ -300,17 +341,21 @@ async function assertDataOnlySubmoduleConfigs(
   expectedTop?: string,
 ): Promise<void> {
   const context: ExecutionContext = { type: 'worktree', workdir };
-  const toplevel = await runner.run(context, ['rev-parse', '--show-toplevel']);
+  const location = await runner.run(context, [
+    'rev-parse',
+    '--show-toplevel',
+    '--absolute-git-dir',
+  ]);
   const index = await runner.run(context, ['ls-files', '--stage', '-z', '--full-name', '--', ':/']);
-  if (toplevel.exitCode !== 0 || index.exitCode !== 0) {
-    const failed = toplevel.exitCode !== 0 ? toplevel : index;
+  if (location.exitCode !== 0 || index.exitCode !== 0) {
+    const failed = location.exitCode !== 0 ? location : index;
     throw new GitError(
       'UnsafeRepoConfig',
       `Could not list the submodules of untrusted repository ${label}`,
       { workdir, exitCode: failed.exitCode, stderr: failed.stderr },
     );
   }
-  const top = toplevel.stdout.replace(/\r?\n$/, '');
+  const [top = '', gitDir = ''] = location.stdout.split(/\r?\n/);
   if (expectedTop !== undefined && top !== expectedTop) {
     throw new GitError(
       'UnsafeRepoConfig',
@@ -326,11 +371,25 @@ async function assertDataOnlySubmoduleConfigs(
     }
     const subpath = entry.slice(tab + 1);
     const subdir = `${top}/${subpath}`;
-    if (!(await fs.exists(`${subdir}/.git`))) {
+    // A submodule that is not checked out is a missing or empty directory.
+    if ((await listDirectory(fs, subdir)).length === 0) {
       continue;
     }
     const sublabel = `${label} (submodule ${subpath})`;
-    await assertDataOnlyRepoConfig(runner, { type: 'worktree', workdir: subdir }, sublabel, true);
+    const subContext: ExecutionContext = { type: 'worktree', workdir: subdir };
+    const subGitDir = await runner.run(subContext, ['rev-parse', '--absolute-git-dir']);
+    if (subGitDir.exitCode !== 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Could not open submodule of untrusted repository ${sublabel}`,
+        { workdir: subdir, exitCode: subGitDir.exitCode, stderr: subGitDir.stderr },
+      );
+    }
+    // Without a repository of its own, Git finds the superproject: not populated.
+    if (subGitDir.stdout.replace(/\r?\n$/, '') === gitDir) {
+      continue;
+    }
+    await assertDataOnlyRepoConfig(runner, fs, subContext, sublabel, true);
     await assertDataOnlySubmoduleConfigs(runner, fs, subdir, sublabel, subdir);
   }
 }
@@ -468,7 +527,12 @@ export class GitImpl implements Git {
 
       if (bareResult.stdout.trim() === 'true') {
         if (opts?.untrusted === true) {
-          await assertDataOnlyRepoConfig(repoRunner, { type: 'bare', gitDir: path }, path);
+          await assertDataOnlyRepoConfig(
+            repoRunner,
+            this.adapters.fs,
+            { type: 'bare', gitDir: path },
+            path,
+          );
         }
         return new BareRepoImpl(repoRunner, path, opts);
       }
@@ -488,6 +552,7 @@ export class GitImpl implements Git {
     if (untrusted) {
       await assertDataOnlyRepoConfig(
         repoRunner,
+        this.adapters.fs,
         isBare ? { type: 'bare', gitDir: path } : { type: 'worktree', workdir: path },
         path,
       );
