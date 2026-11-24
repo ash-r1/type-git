@@ -176,6 +176,11 @@ export type CliRunnerOptions = {
   credential?: CredentialHelperConfig;
   /** Audit configuration for command tracking and tracing */
   audit?: AuditConfig;
+  /**
+   * `key=value` configuration passed with `-c` to every command (and to companion programs
+   * through `GIT_CONFIG_PARAMETERS`). Merged runners append to the parent's list.
+   */
+  configOverrides?: readonly string[];
 };
 
 /**
@@ -339,6 +344,7 @@ export class CliRunner {
   private readonly home: string | undefined;
   private readonly credential: CredentialHelperConfig | undefined;
   private readonly audit: AuditConfig | undefined;
+  private readonly configOverrides: readonly string[];
 
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
@@ -355,6 +361,7 @@ export class CliRunner {
     this.home = options?.home;
     this.credential = options?.credential;
     this.audit = options?.audit;
+    this.configOverrides = options?.configOverrides ?? [];
   }
 
   /**
@@ -388,8 +395,17 @@ export class CliRunner {
         home,
         credential,
         audit,
+        configOverrides: [...this.configOverrides, ...(options.configOverrides ?? [])],
       },
     );
+  }
+
+  /** `key=value` pairs passed with `-c`: the credential helper, then the configured overrides. */
+  private configParameters(): string[] {
+    const parameters = this.credential?.helper
+      ? [`credential.helper=${this.credential.helper}`]
+      : [];
+    return [...parameters, ...this.configOverrides];
   }
 
   /**
@@ -399,8 +415,8 @@ export class CliRunner {
     const argv = [this.gitBinary];
 
     // Add credential helper configuration before context flags
-    if (this.credential?.helper) {
-      argv.push('-c', `credential.helper=${this.credential.helper}`);
+    for (const parameter of this.configParameters()) {
+      argv.push('-c', parameter);
     }
 
     switch (context.type) {
@@ -863,13 +879,14 @@ export class CliRunner {
     }
     const audit = internal ? undefined : this.audit;
 
-    if (executable && this.credential?.helper) {
-      // Companion programs spawn Git themselves; pass the same config override through its environment protocol.
+    const parameters = executable ? this.configParameters() : [];
+    if (parameters.length > 0) {
+      // Companion programs spawn Git themselves; pass the same config overrides through its environment protocol.
       const quote = (value: string): string => `'${value.replace(/['!]/g, "'\\$&'")}'`;
-      const parameter = quote(`credential.helper=${this.credential.helper}`);
+      const quoted = parameters.map(quote).join(' ');
       env.GIT_CONFIG_PARAMETERS = env.GIT_CONFIG_PARAMETERS
-        ? `${env.GIT_CONFIG_PARAMETERS} ${parameter}`
-        : parameter;
+        ? `${env.GIT_CONFIG_PARAMETERS} ${quoted}`
+        : quoted;
     }
 
     // Enable LFS progress output to stderr when LFS progress callback is provided

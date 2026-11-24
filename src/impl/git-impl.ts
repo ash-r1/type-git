@@ -1,6 +1,12 @@
 import { cloneConfigArgs } from '../core/clone-config.js';
 import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
+import {
+  parseScopedConfigList,
+  UNTRUSTED_REPO_MIN_GIT_VERSION,
+  unsafeRepoConfigKeys,
+  untrustedRepoConfigOverrides,
+} from '../core/untrusted-repo.js';
 import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -29,7 +35,13 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from '../core/repo.js';
-import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
+import type {
+  CommandExecOpts,
+  ExecOpts,
+  ExecutionContext,
+  GitOpenOptions,
+  RawResult,
+} from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
@@ -234,7 +246,39 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
           helperPath: opts.credential.helperPath,
         }
       : undefined,
+    configOverrides: opts.untrusted === true ? untrustedRepoConfigOverrides() : undefined,
   };
+}
+
+/**
+ * Refuse a repository whose own configuration can make Git run a program (untrusted mode).
+ */
+async function assertDataOnlyRepoConfig(
+  runner: CliRunner,
+  context: ExecutionContext,
+  path: string,
+): Promise<void> {
+  const result = await runner.run(context, ['config', '--list', '--show-scope', '-z']);
+  if (result.exitCode !== 0) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Could not read the configuration of untrusted repository ${path}`,
+      {
+        ...(context.type === 'bare' ? { gitDir: path } : { workdir: path }),
+        exitCode: result.exitCode,
+        stderr: result.stderr,
+      },
+    );
+  }
+  const unsafe = unsafeRepoConfigKeys(parseScopedConfigList(result.stdout));
+  if (unsafe.length > 0) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Refusing untrusted repository ${path}: its configuration sets keys that are not ` +
+        `data-only: ${unsafe.join(', ')}`,
+      context.type === 'bare' ? { gitDir: path } : { workdir: path },
+    );
+  }
 }
 
 /**
@@ -322,6 +366,16 @@ export class GitImpl implements Git {
    * Returns either WorktreeRepo or BareRepo depending on the repository type.
    */
   public async openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
+    if (opts?.untrusted === true) {
+      const version = await this.version();
+      if (compareVersions(version, UNTRUSTED_REPO_MIN_GIT_VERSION) < 0) {
+        throw new GitError(
+          'UnsupportedGitVersion',
+          `untrusted: true needs Git ${UNTRUSTED_REPO_MIN_GIT_VERSION} or later (found ${version})`,
+        );
+      }
+    }
+
     // Create a runner with custom options if provided
     const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
 
@@ -346,11 +400,32 @@ export class GitImpl implements Git {
       }
 
       if (bareResult.stdout.trim() === 'true') {
+        if (opts?.untrusted === true) {
+          await assertDataOnlyRepoConfig(repoRunner, { type: 'bare', gitDir: path }, path);
+        }
         return new BareRepoImpl(repoRunner, path, opts);
+      }
+
+      if (opts?.untrusted === true) {
+        // `safe.bareRepository=explicit` also stops `-C <worktree>/.git`; only the worktree opens.
+        throw new GitError(
+          'NonZeroExit',
+          `Not a worktree or bare repository: ${path}. In untrusted mode, open a worktree by its ` +
+            'top-level directory, not its .git directory',
+          { exitCode: result.exitCode, stderr: result.stderr },
+        );
       }
     }
 
     const isBare = result.stdout.trim() === 'true';
+
+    if (opts?.untrusted === true) {
+      await assertDataOnlyRepoConfig(
+        repoRunner,
+        isBare ? { type: 'bare', gitDir: path } : { type: 'worktree', workdir: path },
+        path,
+      );
+    }
 
     if (isBare) {
       // For bare repositories, use the path directly as gitDir

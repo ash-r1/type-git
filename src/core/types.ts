@@ -214,7 +214,9 @@ export type GitErrorKind =
   /** Expected a bare repository but found worktree repository */
   | 'NotBareRepo'
   /** Git version is below minimum supported version */
-  | 'UnsupportedGitVersion';
+  | 'UnsupportedGitVersion'
+  /** A repository opened with `untrusted: true` has configuration that can run a program */
+  | 'UnsafeRepoConfig';
 
 /**
  * Git error category for error handling (§13.2)
@@ -448,6 +450,32 @@ export type GitOpenOptions = {
   credential?: CredentialConfig;
   /** LFS mode configuration */
   lfs?: LfsMode;
+  /**
+   * Treat the repository directory as written by someone else.
+   *
+   * Git takes hooks and configuration from the repository itself, and many configuration keys
+   * name a program (`core.fsmonitor`, `diff.<driver>.textconv`, `filter.<driver>.smudge`,
+   * `remote.<name>.uploadpack`, ...). With `untrusted: true`:
+   *
+   * - every command runs with `-c` overrides that point `core.hooksPath` at a path that cannot
+   *   hold hooks, turn off `core.fsmonitor`, refuse the `ext::` transport and set
+   *   `safe.bareRepository=explicit`;
+   * - opening fails with `GitError` kind `'UnsafeRepoConfig'` when the repository's own
+   *   configuration (`local` and `worktree` scopes, with the files they include) holds any key
+   *   outside a closed list of data-only keys, such as core format settings,
+   *   `branch.<name>.merge` and the `filter.lfs.*` values that `git lfs install` writes. Remote
+   *   and submodule URLs must be `https`, `http`, `ssh`, `git` or scp-style URLs: a local path
+   *   would point Git at another repository whose hooks and configuration are not checked.
+   *
+   * The configuration is checked once, when the repository is opened, so the directory must not
+   * be changed by anyone else while it is in use. Your own global and system configuration and
+   * any `credential` or `env` options are trusted as usual, and so is a local path that you pass
+   * yourself as a remote. Open a worktree by its top-level directory, not its `.git` directory.
+   * Requires Git 2.38 or later (`UnsupportedGitVersion` otherwise).
+   *
+   * @default false
+   */
+  untrusted?: boolean;
 };
 
 // =============================================================================
