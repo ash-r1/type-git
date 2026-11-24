@@ -13,13 +13,21 @@ import {
   isDataOnlyRepoConfigEntry,
   isNetworkRemoteUrl,
   parseScopedConfigList,
+  UNTRUSTED_REPO_MIN_GIT_VERSION,
   unsafeRepoConfigKeys,
   untrustedRepoConfigOverrides,
 } from '../core/untrusted-repo.js';
 import { CliRunner } from '../runner/cli-runner.js';
-import { createGit } from './git-impl.js';
+import { compareVersions, createGit, parseVersion } from './git-impl.js';
 
 const USE_LEGACY_VERSION: boolean = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+
+/** Whether the Git under test supports untrusted mode (the legacy CI job runs Git 2.25). */
+const GIT_VERSION: string = parseVersion(
+  execFileSync('git', ['--version']).toString().replace('git version ', ''),
+).join('.');
+const SUPPORTS_UNTRUSTED: boolean =
+  compareVersions(GIT_VERSION, UNTRUSTED_REPO_MIN_GIT_VERSION) >= 0;
 
 function gitIn(cwd: string, args: string[]): string {
   return execFileSync('git', args, { cwd }).toString();
@@ -270,7 +278,28 @@ describe('CliRunner config overrides', () => {
   });
 });
 
-describe('git.open with untrusted: true', () => {
+describe.runIf(!SUPPORTS_UNTRUSTED)('git.open with untrusted: true on old Git', () => {
+  it('refuses to open with UnsupportedGitVersion', async () => {
+    const git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+    const tempDir = await mkdtemp(join(tmpdir(), 'type-git-untrusted-old-'));
+    try {
+      execFileSync('git', ['init', '-q', tempDir]);
+      const error = await git.open(tempDir, { untrusted: true }).then(
+        () => undefined,
+        (reason: unknown) => reason,
+      );
+      expect(error).toBeInstanceOf(GitError);
+      expect((error as GitError).kind).toBe('UnsupportedGitVersion');
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
   let git: Git;
   let tempDir: string;
   let work: string;
