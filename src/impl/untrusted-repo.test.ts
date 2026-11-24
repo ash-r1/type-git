@@ -481,11 +481,14 @@ describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
     await expect(git.open(work, { untrusted: true })).resolves.toBeDefined();
   });
 
-  // Windows does not allow a newline in a file name.
-  it.skipIf(process.platform === 'win32')(
-    'keeps a newline inside the repository path when it checks legacy files and submodules',
-    async () => {
-      const odd = join(tempDir, 'name\nsuffix', 'work');
+  // Windows does not allow a newline or carriage return in a file name.
+  it.skipIf(process.platform === 'win32').each([
+    ['a newline inside', join('name\nsuffix', 'work')],
+    ['a carriage return at the end of', 'work\r'],
+  ])(
+    'keeps %s the repository path when it checks legacy files and submodules',
+    async (_what, name) => {
+      const odd = join(tempDir, name);
       await mkdir(odd, { recursive: true });
       execFileSync('git', ['init', '-q', odd]);
       const upstream = join(tempDir, 'upstream');

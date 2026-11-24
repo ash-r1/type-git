@@ -323,6 +323,15 @@ async function assertDataOnlyRepoConfig(
 }
 
 /**
+ * Remove the line break Git prints after a path. A POSIX path may end in a carriage return, so it
+ * is removed only on Windows, where a path cannot contain one.
+ */
+function stripLineBreak(output: string): string {
+  const line = output.endsWith('\n') ? output.slice(0, -1) : output;
+  return process.platform === 'win32' && line.endsWith('\r') ? line.slice(0, -1) : line;
+}
+
+/**
  * Run `git rev-parse <args>` for a single path and return it whole. Git prints the path as is,
  * so a newline inside it is kept; only the line break Git adds at the end is removed.
  */
@@ -335,7 +344,7 @@ async function revParsePath(
   return {
     exitCode: result.exitCode,
     stderr: result.stderr,
-    path: result.stdout.replace(/\r?\n$/, ''),
+    path: stripLineBreak(result.stdout),
   };
 }
 
