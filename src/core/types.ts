@@ -466,6 +466,7 @@ export type GitOpenOptions = {
    *   `branch.<name>.merge` and the `filter.lfs.*` values that `git lfs install` writes. Remote
    *   and submodule URLs must be `https`, `http`, `ssh`, `git` or scp-style URLs: a local path
    *   would point Git at another repository whose hooks and configuration are not checked.
+   *   Every populated submodule's configuration is checked the same way.
    *
    * The configuration is checked once, when the repository is opened, so the directory must not
    * be changed by anyone else while it is in use. Your own global and system configuration and

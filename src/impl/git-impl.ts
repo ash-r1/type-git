@@ -252,32 +252,86 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
 
 /**
  * Refuse a repository whose own configuration can make Git run a program (untrusted mode).
+ * `label` names the repository in messages. A submodule's Git directory sets `core.worktree`,
+ * which `allowWorktree` accepts; the caller then checks where it points.
  */
 async function assertDataOnlyRepoConfig(
   runner: CliRunner,
-  context: ExecutionContext,
-  path: string,
+  context: Exclude<ExecutionContext, { type: 'global' }>,
+  label: string,
+  allowWorktree = false,
 ): Promise<void> {
+  const where = context.type === 'bare' ? { gitDir: context.gitDir } : { workdir: context.workdir };
   const result = await runner.run(context, ['config', '--list', '--show-scope', '-z']);
   if (result.exitCode !== 0) {
     throw new GitError(
       'UnsafeRepoConfig',
-      `Could not read the configuration of untrusted repository ${path}`,
-      {
-        ...(context.type === 'bare' ? { gitDir: path } : { workdir: path }),
-        exitCode: result.exitCode,
-        stderr: result.stderr,
-      },
+      `Could not read the configuration of untrusted repository ${label}`,
+      { ...where, exitCode: result.exitCode, stderr: result.stderr },
     );
   }
-  const unsafe = unsafeRepoConfigKeys(parseScopedConfigList(result.stdout));
+  const unsafe = unsafeRepoConfigKeys(parseScopedConfigList(result.stdout)).filter(
+    (key) => !(allowWorktree && key.toLowerCase() === 'core.worktree'),
+  );
   if (unsafe.length > 0) {
     throw new GitError(
       'UnsafeRepoConfig',
-      `Refusing untrusted repository ${path}: its configuration sets keys that are not ` +
+      `Refusing untrusted repository ${label}: its configuration sets keys that are not ` +
         `data-only: ${unsafe.join(', ')}`,
-      context.type === 'bare' ? { gitDir: path } : { workdir: path },
+      where,
     );
+  }
+}
+
+/**
+ * Apply {@link assertDataOnlyRepoConfig} to every populated submodule below `workdir`, at any
+ * depth. Git runs commands such as `status` inside submodules, where the submodule's own
+ * configuration (for example a clean filter) applies; the `-c` overrides reach those commands,
+ * but driver keys cannot be overridden by name.
+ *
+ * `expectedTop`, when given, is the top-level directory Git must report for `workdir`: a
+ * submodule's `core.worktree` must point back at the submodule's own directory.
+ */
+async function assertDataOnlySubmoduleConfigs(
+  runner: CliRunner,
+  fs: RuntimeAdapters['fs'],
+  workdir: string,
+  label: string,
+  expectedTop?: string,
+): Promise<void> {
+  const context: ExecutionContext = { type: 'worktree', workdir };
+  const toplevel = await runner.run(context, ['rev-parse', '--show-toplevel']);
+  const index = await runner.run(context, ['ls-files', '--stage', '-z', '--full-name', '--', ':/']);
+  if (toplevel.exitCode !== 0 || index.exitCode !== 0) {
+    const failed = toplevel.exitCode !== 0 ? toplevel : index;
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Could not list the submodules of untrusted repository ${label}`,
+      { workdir, exitCode: failed.exitCode, stderr: failed.stderr },
+    );
+  }
+  const top = toplevel.stdout.replace(/\r?\n$/, '');
+  if (expectedTop !== undefined && top !== expectedTop) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Refusing untrusted repository ${label}: its core.worktree points at ${top}`,
+      { workdir },
+    );
+  }
+  for (const entry of index.stdout.split('\0')) {
+    // `<mode> <object> <stage>\t<path>`; mode 160000 is a gitlink (submodule).
+    const tab = entry.indexOf('\t');
+    if (tab === -1 || !entry.startsWith('160000 ')) {
+      continue;
+    }
+    const subpath = entry.slice(tab + 1);
+    const subdir = `${top}/${subpath}`;
+    if (!(await fs.exists(`${subdir}/.git`))) {
+      continue;
+    }
+    const sublabel = `${label} (submodule ${subpath})`;
+    await assertDataOnlyRepoConfig(runner, { type: 'worktree', workdir: subdir }, sublabel, true);
+    await assertDataOnlySubmoduleConfigs(runner, fs, subdir, sublabel, subdir);
   }
 }
 
@@ -437,6 +491,9 @@ export class GitImpl implements Git {
         isBare ? { type: 'bare', gitDir: path } : { type: 'worktree', workdir: path },
         path,
       );
+      if (!isBare) {
+        await assertDataOnlySubmoduleConfigs(repoRunner, this.adapters.fs, path, path);
+      }
     }
 
     if (isBare) {

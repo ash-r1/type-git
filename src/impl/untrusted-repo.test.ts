@@ -114,6 +114,13 @@ describe('isDataOnlyRepoConfigEntry', () => {
     expect(isDataOnlyRepoConfigEntry('remote.origin.url', undefined)).toBe(false);
   });
 
+  it('accepts extensions.partialClone only when it names a remote', () => {
+    expect(isDataOnlyRepoConfigEntry('extensions.partialClone', 'origin')).toBe(true);
+    for (const value of ['../evil.git', '/srv/evil.git', 'https://x/y', '.', '']) {
+      expect(isDataOnlyRepoConfigEntry('extensions.partialClone', value)).toBe(false);
+    }
+  });
+
   it('refuses a branch remote that spells a path or URL instead of a remote name', () => {
     for (const value of ['.', '.git/evil.git', '/srv/evil.git', 'https://x/y', 'a/b', 'C:x']) {
       expect(isDataOnlyRepoConfigEntry('branch.main.remote', value)).toBe(false);
@@ -399,6 +406,41 @@ describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
       expect((error as GitError).message).toMatch(/top-level directory|Not a git repository/);
     }
     await expect(git.open(join(work, '.git'))).resolves.toBeDefined();
+  });
+
+  it('checks the configuration of populated submodules', async () => {
+    const upstream = join(tempDir, 'upstream');
+    execFileSync('git', ['init', '-q', upstream]);
+    gitIn(upstream, [
+      '-c',
+      'user.name=F',
+      '-c',
+      'user.email=f@example.com',
+      'commit',
+      '-q',
+      '--allow-empty',
+      '-m',
+      'x',
+    ]);
+    gitIn(work, ['-c', 'protocol.file.allow=always', 'submodule', 'add', '-q', upstream, 'lib']);
+    const sub = join(work, 'lib');
+    // Clear the local-path URLs that `submodule add` records, which untrusted mode refuses.
+    gitIn(work, ['config', 'submodule.lib.url', 'https://example.com/lib.git']);
+    gitIn(sub, ['remote', 'set-url', 'origin', 'https://example.com/lib.git']);
+    await expect(git.open(work, { untrusted: true })).resolves.toBeDefined();
+
+    gitIn(sub, ['config', 'filter.evil.clean', script.replace(/\\/g, '/')]);
+    await expectRefused(git.open(work, { untrusted: true }), [
+      'submodule lib',
+      'filter.evil.clean',
+    ]);
+    gitIn(sub, ['config', '--unset', 'filter.evil.clean']);
+
+    // A submodule must keep its own directory as worktree.
+    const elsewhere = join(tempDir, 'elsewhere');
+    execFileSync('git', ['init', '-q', elsewhere]);
+    gitIn(sub, ['config', 'core.worktree', elsewhere.replace(/\\/g, '/')]);
+    await expectRefused(git.open(work, { untrusted: true }), ['submodule lib', 'core.worktree']);
   });
 
   it('opens a repository without untrusted mode as before', async () => {

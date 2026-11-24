@@ -289,6 +289,8 @@ lists what each API level checks and what stays the caller's responsibility.
   closed list of data-only keys. The list covers the usual keys that `git init`, `git clone`,
   `git sparse-checkout` and `git lfs install` write, `branch.<name>.*` and similar; driver keys
   such as `diff.<driver>.textconv` cannot be overridden by name, so they are refused instead.
+  The configuration of every populated submodule is checked the same way, because Git runs
+  commands such as `status` inside submodules.
 - Remote and submodule URLs in that configuration must be `https`, `http`, `ssh`, `git` or
   scp-style URLs. A local path or `file://` URL would make Git run `upload-pack` or
   `receive-pack` in another repository without the overrides, so its hooks and configuration

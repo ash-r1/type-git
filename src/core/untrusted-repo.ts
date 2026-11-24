@@ -186,6 +186,10 @@ export function isDataOnlyRepoConfigEntry(key: string, value: string | undefined
   const variable = asciiLower(key.slice(last + 1));
   if (first === last) {
     const name = `${section}.${variable}`;
+    if (name === 'extensions.partialclone') {
+      // Names the promisor remote; Git reads a value that is not a remote name as a URL or path.
+      return value !== undefined && isPlainRemoteName(value);
+    }
     return PLAIN_KEYS.has(name) && !(REBASE_MODE_KEYS.has(name) && isInteractive(value));
   }
   // Git splits `section.subsection.variable` at the first and last dots; the subsection is
