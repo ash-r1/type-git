@@ -55,6 +55,16 @@ describe('NodeFsAdapter', () => {
     });
   });
 
+  describe('readDirectory', () => {
+    it('lists entry names, and returns none for a missing directory or a file', async () => {
+      await writeFile(join(testDir, 'a.txt'), 'a');
+      await mkdir(join(testDir, 'sub'));
+      expect((await adapter.readDirectory(testDir)).sort()).toEqual(['a.txt', 'sub']);
+      expect(await adapter.readDirectory(join(testDir, 'missing'))).toEqual([]);
+      expect(await adapter.readDirectory(join(testDir, 'a.txt'))).toEqual([]);
+    });
+  });
+
   describe('exists', () => {
     it('should return true for existing file', async () => {
       const filePath = join(testDir, 'exists.txt');

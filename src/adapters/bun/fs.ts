@@ -4,7 +4,7 @@
  * Uses Bun's native file APIs for optimal performance.
  */
 
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
@@ -68,6 +68,18 @@ export class BunFsAdapter implements FsAdapter {
 
   public async deleteDirectory(dirPath: string): Promise<void> {
     await rm(dirPath, { force: true, recursive: true });
+  }
+
+  public async readDirectory(dirPath: string): Promise<string[]> {
+    try {
+      return await readdir(dirPath);
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code === 'ENOENT' || code === 'ENOTDIR') {
+        return [];
+      }
+      throw error;
+    }
   }
 
   public async exists(filePath: string): Promise<boolean> {

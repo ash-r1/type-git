@@ -276,12 +276,36 @@ lists what each API level checks and what stays the caller's responsibility.
   SSH agent variables. An HTTPS-only application can drop the agent with
   `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
 
-**Not covered**
+**Untrusted repositories** (`git.open(path, { untrusted: true })`)
 
-- The repository itself. Git runs whatever a repository's own configuration and hooks name,
-  such as `core.fsmonitor`, `core.hooksPath`, hooks, and clean, smudge or diff filters. Opening
-  a repository directory that someone else controls is as dangerous with type-git as running
-  `git status` in it yourself.
+- Git runs whatever a repository's own configuration and hooks name, such as `core.fsmonitor`,
+  hooks, and clean, smudge or diff filters. By default, opening a repository directory that
+  someone else controls is as dangerous with type-git as running `git status` in it yourself.
+- With `untrusted: true` (also on `openBare()` and `openRaw()`), every command runs with `-c`
+  overrides that point `core.hooksPath` at a path that cannot hold hooks, turn off
+  `core.fsmonitor`, refuse the `ext::` transport and set `safe.bareRepository=explicit`.
+  Opening fails with `GitError` kind `'UnsafeRepoConfig'` when the repository's own
+  configuration (`local` and `worktree` scopes, including included files) sets any key outside a
+  closed list of data-only keys. The list covers the usual keys that `git init`, `git clone`,
+  `git sparse-checkout` and `git lfs install` write, `branch.<name>.*` and similar; driver keys
+  such as `diff.<driver>.textconv` cannot be overridden by name, so they are refused instead.
+  The configuration of every populated submodule is checked the same way, because Git runs
+  commands such as `status` inside submodules.
+- A key that names a remote, such as `branch.<name>.remote`, must name a remote whose URL the
+  repository's configuration sets, and a repository with legacy `.git/remotes/` or
+  `.git/branches/` files is refused: Git reads those for remotes the configuration does not
+  define, and a name without a URL is read as a path. A custom file system adapter needs
+  `readDirectory` for untrusted mode.
+- Remote and submodule URLs in that configuration must be `https`, `http`, `ssh`, `git` or
+  scp-style URLs. A local path or `file://` URL would make Git run `upload-pack` or
+  `receive-pack` in another repository without the overrides, so its hooks and configuration
+  would run unchecked. The same holds for a local path you pass yourself as a remote, so pass
+  one only when you trust that repository.
+- The check runs once, when the repository is opened, so nobody else may change the directory
+  while you use it. Your own global and system configuration is still trusted. Open a worktree
+  by its top-level directory, not its `.git` directory. Untrusted mode needs Git 2.38 or later.
+
+**Not covered**
 - A cloned repository does not carry the remote's configuration or hooks. Its `.gitattributes`
   can still select filters that your own configuration defines, and its `.gitmodules` and
   `.lfsconfig` still steer submodule and LFS transfers. The clone `template` option and your

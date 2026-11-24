@@ -1,6 +1,12 @@
 import { cloneConfigArgs } from '../core/clone-config.js';
 import { checkedOperand } from '../core/operands.js';
 import { validateOptions } from '../core/option-rules.js';
+import {
+  parseScopedConfigList,
+  UNTRUSTED_REPO_MIN_GIT_VERSION,
+  unsafeRepoConfigKeys,
+  untrustedRepoConfigOverrides,
+} from '../core/untrusted-repo.js';
 import { registerCommandHost } from '../internal/command-host.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -29,7 +35,13 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from '../core/repo.js';
-import type { CommandExecOpts, ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
+import type {
+  CommandExecOpts,
+  ExecOpts,
+  ExecutionContext,
+  GitOpenOptions,
+  RawResult,
+} from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
@@ -234,7 +246,185 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
           helperPath: opts.credential.helperPath,
         }
       : undefined,
+    configOverrides: opts.untrusted === true ? untrustedRepoConfigOverrides() : undefined,
   };
+}
+
+/** Directory entry names, failing as `CapabilityMissing` when the adapter cannot list them. */
+async function listDirectory(fs: RuntimeAdapters['fs'], dirPath: string): Promise<string[]> {
+  if (fs.readDirectory === undefined) {
+    throw new GitError(
+      'CapabilityMissing',
+      'untrusted: true needs a file system adapter that implements readDirectory',
+    );
+  }
+  return await fs.readDirectory(dirPath);
+}
+
+/**
+ * Refuse a repository whose own configuration can make Git run a program (untrusted mode).
+ * `label` names the repository in messages. A submodule's Git directory sets `core.worktree`,
+ * which `allowWorktree` accepts; the caller then checks where it points.
+ *
+ * Git also reads a remote that the configuration does not define from the legacy
+ * `$GIT_COMMON_DIR/remotes/<name>` and `branches/<name>` files, whose URLs this check cannot see,
+ * so a repository with any entry there is refused too.
+ */
+async function assertDataOnlyRepoConfig(
+  runner: CliRunner,
+  fs: RuntimeAdapters['fs'],
+  context: Exclude<ExecutionContext, { type: 'global' }>,
+  label: string,
+  allowWorktree = false,
+): Promise<void> {
+  const where = context.type === 'bare' ? { gitDir: context.gitDir } : { workdir: context.workdir };
+  const result = await runner.run(context, ['config', '--list', '--show-scope', '-z']);
+  if (result.exitCode !== 0) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Could not read the configuration of untrusted repository ${label}`,
+      { ...where, exitCode: result.exitCode, stderr: result.stderr },
+    );
+  }
+  const unsafe = unsafeRepoConfigKeys(parseScopedConfigList(result.stdout)).filter(
+    (key) => !(allowWorktree && key.toLowerCase() === 'core.worktree'),
+  );
+  if (unsafe.length > 0) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Refusing untrusted repository ${label}: its configuration sets keys that are not ` +
+        `data-only: ${unsafe.join(', ')}`,
+      where,
+    );
+  }
+
+  for (const name of ['remotes', 'branches']) {
+    const located = await revParsePath(runner, context, [
+      '--path-format=absolute',
+      '--git-path',
+      name,
+    ]);
+    if (located.exitCode !== 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Could not locate the Git directory of untrusted repository ${label}`,
+        { ...where, exitCode: located.exitCode, stderr: located.stderr },
+      );
+    }
+    if ((await listDirectory(fs, located.path)).length > 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Refusing untrusted repository ${label}: ${located.path} defines remotes outside its ` +
+          'configuration',
+        where,
+      );
+    }
+  }
+}
+
+/**
+ * Remove the line break Git prints after a path. A POSIX path may end in a carriage return, so it
+ * is removed only on Windows, where a path cannot contain one.
+ */
+function stripLineBreak(output: string): string {
+  const line = output.endsWith('\n') ? output.slice(0, -1) : output;
+  return process.platform === 'win32' && line.endsWith('\r') ? line.slice(0, -1) : line;
+}
+
+/**
+ * Run `git rev-parse <args>` for a single path and return it whole. Git prints the path as is,
+ * so a newline inside it is kept; only the line break Git adds at the end is removed.
+ */
+async function revParsePath(
+  runner: CliRunner,
+  context: ExecutionContext,
+  args: string[],
+): Promise<{ exitCode: number; stderr: string; path: string }> {
+  const result = await runner.run(context, ['rev-parse', ...args]);
+  return {
+    exitCode: result.exitCode,
+    stderr: result.stderr,
+    path: stripLineBreak(result.stdout),
+  };
+}
+
+/**
+ * Apply {@link assertDataOnlyRepoConfig} to every populated submodule below `workdir`, at any
+ * depth. Git runs commands such as `status` inside submodules, where the submodule's own
+ * configuration (for example a clean filter) applies; the `-c` overrides reach those commands,
+ * but driver keys cannot be overridden by name.
+ *
+ * `expectedTop`, when given, is the top-level directory Git must report for `workdir`: a
+ * submodule's `core.worktree` must point back at the submodule's own directory.
+ */
+async function assertDataOnlySubmoduleConfigs(
+  runner: CliRunner,
+  fs: RuntimeAdapters['fs'],
+  workdir: string,
+  label: string,
+  expectedTop?: string,
+): Promise<void> {
+  const context: ExecutionContext = { type: 'worktree', workdir };
+  // Each path is queried on its own, because a path may itself contain a newline.
+  const topResult = await revParsePath(runner, context, ['--show-toplevel']);
+  const gitDirResult = await revParsePath(runner, context, ['--absolute-git-dir']);
+  const index = await runner.run(context, ['ls-files', '--stage', '-z', '--full-name', '--', ':/']);
+  const failed = [topResult, gitDirResult, index].find((result) => result.exitCode !== 0);
+  if (failed !== undefined) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Could not list the submodules of untrusted repository ${label}`,
+      { workdir, exitCode: failed.exitCode, stderr: failed.stderr },
+    );
+  }
+  const top = topResult.path;
+  const gitDir = gitDirResult.path;
+  if (expectedTop !== undefined && top !== expectedTop) {
+    throw new GitError(
+      'UnsafeRepoConfig',
+      `Refusing untrusted repository ${label}: its core.worktree points at ${top}`,
+      { workdir },
+    );
+  }
+  for (const entry of index.stdout.split('\0')) {
+    // `<mode> <object> <stage>\t<path>`; mode 160000 is a gitlink (submodule).
+    const tab = entry.indexOf('\t');
+    if (tab === -1 || !entry.startsWith('160000 ')) {
+      continue;
+    }
+    const subpath = entry.slice(tab + 1);
+    const subdir = `${top}/${subpath}`;
+    // A submodule that is not checked out is a missing or empty directory.
+    if ((await listDirectory(fs, subdir)).length === 0) {
+      continue;
+    }
+    const sublabel = `${label} (submodule ${subpath})`;
+    const subContext: ExecutionContext = { type: 'worktree', workdir: subdir };
+    const subGitDir = await revParsePath(runner, subContext, ['--absolute-git-dir']);
+    if (subGitDir.exitCode !== 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Could not open submodule of untrusted repository ${sublabel}`,
+        { workdir: subdir, exitCode: subGitDir.exitCode, stderr: subGitDir.stderr },
+      );
+    }
+    // Without a repository of its own, Git finds the superproject: not populated.
+    if (subGitDir.path === gitDir) {
+      continue;
+    }
+    await assertDataOnlyRepoConfig(runner, fs, subContext, sublabel, true);
+    await assertDataOnlySubmoduleConfigs(runner, fs, subdir, sublabel, subdir);
+  }
+}
+
+/** Error for a `.git` directory (or a path inside one) opened in untrusted mode. */
+function gitDirRefusal(path: string, exitCode: number, stderr: string): GitError {
+  return new GitError(
+    'NonZeroExit',
+    `Not a worktree or bare repository: ${path}. In untrusted mode, open a worktree by its ` +
+      'top-level directory, not its .git directory',
+    { exitCode, stderr },
+  );
 }
 
 /**
@@ -322,13 +512,26 @@ export class GitImpl implements Git {
    * Returns either WorktreeRepo or BareRepo depending on the repository type.
    */
   public async openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
+    if (opts?.untrusted === true) {
+      const version = await this.version();
+      if (compareVersions(version, UNTRUSTED_REPO_MIN_GIT_VERSION) < 0) {
+        throw new GitError(
+          'UnsupportedGitVersion',
+          `untrusted: true needs Git ${UNTRUSTED_REPO_MIN_GIT_VERSION} or later (found ${version})`,
+        );
+      }
+    }
+
     // Create a runner with custom options if provided
     const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
 
     // Check if it's a bare repository
+    const untrusted = opts?.untrusted === true;
+    // Untrusted mode also asks whether `path` is inside a .git directory, which it refuses.
     const result = await repoRunner.run({ type: 'worktree', workdir: path }, [
       'rev-parse',
       '--is-bare-repository',
+      ...(untrusted ? ['--is-inside-git-dir'] : []),
     ]);
 
     if (result.exitCode !== 0) {
@@ -346,11 +549,40 @@ export class GitImpl implements Git {
       }
 
       if (bareResult.stdout.trim() === 'true') {
+        if (opts?.untrusted === true) {
+          await assertDataOnlyRepoConfig(
+            repoRunner,
+            this.adapters.fs,
+            { type: 'bare', gitDir: path },
+            path,
+          );
+        }
         return new BareRepoImpl(repoRunner, path, opts);
+      }
+
+      if (untrusted) {
+        // `safe.bareRepository=explicit` stops `-C <worktree>/.git` on some Git versions.
+        throw gitDirRefusal(path, result.exitCode, result.stderr);
       }
     }
 
-    const isBare = result.stdout.trim() === 'true';
+    const [bareLine, insideGitDirLine] = result.stdout.trim().split(/\r?\n/);
+    const isBare = bareLine === 'true';
+    if (untrusted && !isBare && insideGitDirLine === 'true') {
+      throw gitDirRefusal(path, result.exitCode, result.stderr);
+    }
+
+    if (untrusted) {
+      await assertDataOnlyRepoConfig(
+        repoRunner,
+        this.adapters.fs,
+        isBare ? { type: 'bare', gitDir: path } : { type: 'worktree', workdir: path },
+        path,
+      );
+      if (!isBare) {
+        await assertDataOnlySubmoduleConfigs(repoRunner, this.adapters.fs, path, path);
+      }
+    }
 
     if (isBare) {
       // For bare repositories, use the path directly as gitDir
