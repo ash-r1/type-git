@@ -456,6 +456,16 @@ describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
     await expectRefused(git.open(work, { untrusted: true }), ['submodule lib', 'core.worktree']);
   });
 
+  it('refuses a partial-clone remote that is not configured, which Git reads as a path', async () => {
+    execFileSync('git', ['init', '-q', '--bare', join(work, 'evil.git')]);
+    gitIn(work, ['config', 'core.repositoryformatversion', '1']);
+    gitIn(work, ['config', 'extensions.partialClone', 'evil.git']);
+    await expectRefused(git.open(work, { untrusted: true }), ['extensions.partialclone']);
+
+    gitIn(work, ['remote', 'add', 'evil.git', 'https://example.com/repo.git']);
+    await expect(git.open(work, { untrusted: true })).resolves.toBeDefined();
+  });
+
   it('refuses legacy remotes/ and branches/ files, which define remotes outside the config', async () => {
     for (const dir of ['remotes', 'branches']) {
       const legacy = join(work, '.git', dir);
