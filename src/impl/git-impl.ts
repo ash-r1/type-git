@@ -281,6 +281,16 @@ async function assertDataOnlyRepoConfig(
   }
 }
 
+/** Error for a `.git` directory (or a path inside one) opened in untrusted mode. */
+function gitDirRefusal(path: string, exitCode: number, stderr: string): GitError {
+  return new GitError(
+    'NonZeroExit',
+    `Not a worktree or bare repository: ${path}. In untrusted mode, open a worktree by its ` +
+      'top-level directory, not its .git directory',
+    { exitCode, stderr },
+  );
+}
+
 /**
  * Git implementation
  */
@@ -380,9 +390,12 @@ export class GitImpl implements Git {
     const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
 
     // Check if it's a bare repository
+    const untrusted = opts?.untrusted === true;
+    // Untrusted mode also asks whether `path` is inside a .git directory, which it refuses.
     const result = await repoRunner.run({ type: 'worktree', workdir: path }, [
       'rev-parse',
       '--is-bare-repository',
+      ...(untrusted ? ['--is-inside-git-dir'] : []),
     ]);
 
     if (result.exitCode !== 0) {
@@ -406,20 +419,19 @@ export class GitImpl implements Git {
         return new BareRepoImpl(repoRunner, path, opts);
       }
 
-      if (opts?.untrusted === true) {
-        // `safe.bareRepository=explicit` also stops `-C <worktree>/.git`; only the worktree opens.
-        throw new GitError(
-          'NonZeroExit',
-          `Not a worktree or bare repository: ${path}. In untrusted mode, open a worktree by its ` +
-            'top-level directory, not its .git directory',
-          { exitCode: result.exitCode, stderr: result.stderr },
-        );
+      if (untrusted) {
+        // `safe.bareRepository=explicit` stops `-C <worktree>/.git` on some Git versions.
+        throw gitDirRefusal(path, result.exitCode, result.stderr);
       }
     }
 
-    const isBare = result.stdout.trim() === 'true';
+    const [bareLine, insideGitDirLine] = result.stdout.trim().split(/\r?\n/);
+    const isBare = bareLine === 'true';
+    if (untrusted && !isBare && insideGitDirLine === 'true') {
+      throw gitDirRefusal(path, result.exitCode, result.stderr);
+    }
 
-    if (opts?.untrusted === true) {
+    if (untrusted) {
       await assertDataOnlyRepoConfig(
         repoRunner,
         isBare ? { type: 'bare', gitDir: path } : { type: 'worktree', workdir: path },

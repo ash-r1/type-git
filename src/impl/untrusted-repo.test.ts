@@ -357,13 +357,19 @@ describe('git.open with untrusted: true', () => {
     expect(await exists(marker)).toBe(true);
   });
 
-  it('refuses a .git directory with a clear message', async () => {
-    const error = await git.open(join(work, '.git'), { untrusted: true }).then(
-      () => undefined,
-      (reason: unknown) => reason,
-    );
-    expect(error).toBeInstanceOf(GitError);
-    expect((error as GitError).message).toContain('top-level directory');
+  it('refuses a .git directory, or a path inside one, with a clear message', async () => {
+    // Git versions differ on whether safe.bareRepository=explicit stops `-C <worktree>/.git`;
+    // either way the open is refused.
+    for (const path of [join(work, '.git'), join(work, '.git', 'refs')]) {
+      const error = await git.open(path, { untrusted: true }).then(
+        () => undefined,
+        (reason: unknown) => reason,
+      );
+      expect(error).toBeInstanceOf(GitError);
+      // Older Git cannot resolve a path inside .git under `explicit` at all.
+      expect((error as GitError).message).toMatch(/top-level directory|Not a git repository/);
+    }
+    await expect(git.open(join(work, '.git'))).resolves.toBeDefined();
   });
 
   it('opens a repository without untrusted mode as before', async () => {
