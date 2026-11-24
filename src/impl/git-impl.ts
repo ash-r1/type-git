@@ -298,30 +298,45 @@ async function assertDataOnlyRepoConfig(
     );
   }
 
-  const legacy = await runner.run(context, [
-    'rev-parse',
-    '--path-format=absolute',
-    '--git-path',
-    'remotes',
-    '--git-path',
-    'branches',
-  ]);
-  if (legacy.exitCode !== 0) {
-    throw new GitError(
-      'UnsafeRepoConfig',
-      `Could not locate the Git directory of untrusted repository ${label}`,
-      { ...where, exitCode: legacy.exitCode, stderr: legacy.stderr },
-    );
-  }
-  for (const dir of legacy.stdout.split(/\r?\n/).filter((line) => line.length > 0)) {
-    if ((await listDirectory(fs, dir)).length > 0) {
+  for (const name of ['remotes', 'branches']) {
+    const located = await revParsePath(runner, context, [
+      '--path-format=absolute',
+      '--git-path',
+      name,
+    ]);
+    if (located.exitCode !== 0) {
       throw new GitError(
         'UnsafeRepoConfig',
-        `Refusing untrusted repository ${label}: ${dir} defines remotes outside its configuration`,
+        `Could not locate the Git directory of untrusted repository ${label}`,
+        { ...where, exitCode: located.exitCode, stderr: located.stderr },
+      );
+    }
+    if ((await listDirectory(fs, located.path)).length > 0) {
+      throw new GitError(
+        'UnsafeRepoConfig',
+        `Refusing untrusted repository ${label}: ${located.path} defines remotes outside its ` +
+          'configuration',
         where,
       );
     }
   }
+}
+
+/**
+ * Run `git rev-parse <args>` for a single path and return it whole. Git prints the path as is,
+ * so a newline inside it is kept; only the line break Git adds at the end is removed.
+ */
+async function revParsePath(
+  runner: CliRunner,
+  context: ExecutionContext,
+  args: string[],
+): Promise<{ exitCode: number; stderr: string; path: string }> {
+  const result = await runner.run(context, ['rev-parse', ...args]);
+  return {
+    exitCode: result.exitCode,
+    stderr: result.stderr,
+    path: result.stdout.replace(/\r?\n$/, ''),
+  };
 }
 
 /**
@@ -341,21 +356,20 @@ async function assertDataOnlySubmoduleConfigs(
   expectedTop?: string,
 ): Promise<void> {
   const context: ExecutionContext = { type: 'worktree', workdir };
-  const location = await runner.run(context, [
-    'rev-parse',
-    '--show-toplevel',
-    '--absolute-git-dir',
-  ]);
+  // Each path is queried on its own, because a path may itself contain a newline.
+  const topResult = await revParsePath(runner, context, ['--show-toplevel']);
+  const gitDirResult = await revParsePath(runner, context, ['--absolute-git-dir']);
   const index = await runner.run(context, ['ls-files', '--stage', '-z', '--full-name', '--', ':/']);
-  if (location.exitCode !== 0 || index.exitCode !== 0) {
-    const failed = location.exitCode !== 0 ? location : index;
+  const failed = [topResult, gitDirResult, index].find((result) => result.exitCode !== 0);
+  if (failed !== undefined) {
     throw new GitError(
       'UnsafeRepoConfig',
       `Could not list the submodules of untrusted repository ${label}`,
       { workdir, exitCode: failed.exitCode, stderr: failed.stderr },
     );
   }
-  const [top = '', gitDir = ''] = location.stdout.split(/\r?\n/);
+  const top = topResult.path;
+  const gitDir = gitDirResult.path;
   if (expectedTop !== undefined && top !== expectedTop) {
     throw new GitError(
       'UnsafeRepoConfig',
@@ -377,7 +391,7 @@ async function assertDataOnlySubmoduleConfigs(
     }
     const sublabel = `${label} (submodule ${subpath})`;
     const subContext: ExecutionContext = { type: 'worktree', workdir: subdir };
-    const subGitDir = await runner.run(subContext, ['rev-parse', '--absolute-git-dir']);
+    const subGitDir = await revParsePath(runner, subContext, ['--absolute-git-dir']);
     if (subGitDir.exitCode !== 0) {
       throw new GitError(
         'UnsafeRepoConfig',
@@ -386,7 +400,7 @@ async function assertDataOnlySubmoduleConfigs(
       );
     }
     // Without a repository of its own, Git finds the superproject: not populated.
-    if (subGitDir.stdout.replace(/\r?\n$/, '') === gitDir) {
+    if (subGitDir.path === gitDir) {
       continue;
     }
     await assertDataOnlyRepoConfig(runner, fs, subContext, sublabel, true);

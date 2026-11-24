@@ -481,6 +481,46 @@ describe.runIf(SUPPORTS_UNTRUSTED)('git.open with untrusted: true', () => {
     await expect(git.open(work, { untrusted: true })).resolves.toBeDefined();
   });
 
+  // Windows does not allow a newline in a file name.
+  it.skipIf(process.platform === 'win32')(
+    'keeps a newline inside the repository path when it checks legacy files and submodules',
+    async () => {
+      const odd = join(tempDir, 'name\nsuffix', 'work');
+      await mkdir(odd, { recursive: true });
+      execFileSync('git', ['init', '-q', odd]);
+      const upstream = join(tempDir, 'upstream');
+      execFileSync('git', ['init', '-q', upstream]);
+      gitIn(upstream, [
+        '-c',
+        'user.name=F',
+        '-c',
+        'user.email=f@example.com',
+        'commit',
+        '-q',
+        '--allow-empty',
+        '-m',
+        'x',
+      ]);
+      gitIn(odd, ['-c', 'protocol.file.allow=always', 'submodule', 'add', '-q', upstream, 'lib']);
+      const sub = join(odd, 'lib');
+      gitIn(odd, ['config', 'submodule.lib.url', 'https://example.com/lib.git']);
+      gitIn(sub, ['remote', 'set-url', 'origin', 'https://example.com/lib.git']);
+      await expect(git.open(odd, { untrusted: true })).resolves.toBeDefined();
+
+      gitIn(sub, ['config', 'filter.evil.clean', script]);
+      await expectRefused(git.open(odd, { untrusted: true }), [
+        'submodule lib',
+        'filter.evil.clean',
+      ]);
+      gitIn(sub, ['config', '--unset', 'filter.evil.clean']);
+
+      const legacy = join(odd, '.git', 'remotes');
+      await mkdir(legacy, { recursive: true });
+      await writeFile(join(legacy, 'origin'), 'URL: ../evil.git\n');
+      await expectRefused(git.open(odd, { untrusted: true }), ['remotes']);
+    },
+  );
+
   it('opens a repository without untrusted mode as before', async () => {
     gitIn(work, ['config', 'alias.st', 'status']);
     await expect(git.open(work)).resolves.toBeDefined();
