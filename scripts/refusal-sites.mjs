@@ -127,6 +127,8 @@ const decode = (body) =>
  * normalized expression in angle brackets.
  */
 function messages(argument) {
+  const inner = unwrap(argument.trim());
+  if (inner !== argument.trim()) return messages(inner);
   const parts = splitTopLevel(argument, '?');
   if (parts.length === 2) {
     const [, branches] = parts;
@@ -136,6 +138,13 @@ function messages(argument) {
   const literals = [...argument.matchAll(/"((?:[^"\\\n]|\\.)*)"/g)].map((m) => decode(m[1]));
   if (literals.length) return [literals.join('')];
   return [`<${argument.replace(/\s+/g, ' ').trim()}>`];
+}
+
+/** The expression inside parentheses that enclose all of `text`, or `text` itself. */
+function unwrap(text) {
+  if (!text.startsWith('(')) return text;
+  const { scan } = views(text);
+  return matching(scan, 0) === text.length - 1 ? text.slice(1, -1).trim() : text;
 }
 
 /** Split at the first top-level occurrence of `separator`, ignoring literals and brackets. */

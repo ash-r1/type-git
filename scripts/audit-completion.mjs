@@ -110,8 +110,9 @@ export function closureSourceProblems(closure, snapshot, pinned) {
   const problems = [];
   const named = new Set(closure.obligations.flatMap((o) => o.sites ?? []));
   const found = new Set();
-  const listed = new Set(Object.values(closure.sources).flat());
   for (const [file, names] of Object.entries(closure.sources)) {
+    // References are same-file calls, so only functions listed for this file close them.
+    const listed = new Set(names);
     const record = snapshot.files[file];
     if (!record) {
       problems.push(`${file} is not in the refusal-site snapshot`);

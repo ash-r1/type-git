@@ -118,6 +118,15 @@ describe('audit completion criterion', () => {
       'site not covered: cmd_x: bad mode',
       'site not in the source: cmd_x: invented',
     ]);
+    // A same-named function listed for another file does not close a same-file reference.
+    const other = closure();
+    other.sources['builtin/y.c'] = ['helper'];
+    const twoFiles = {
+      files: { ...snapshot.files, 'builtin/y.c': { sha256: 'def', functions: { helper: { sites: [], references: [] } } } },
+    };
+    expect(closureSourceProblems(other, twoFiles, new Map([...pinned, ['builtin/y.c', 'def']]))).toEqual([
+      'cmd_x references helper, which is neither listed nor waived',
+    ]);
     c.sources = { 'builtin/nonexistent.c': ['cmd_x'] };
     expect(closureSourceProblems(c, snapshot, pinned)).toContain('builtin/nonexistent.c is not in the refusal-site snapshot');
   });
@@ -137,6 +146,7 @@ static int
 knr(int copy)
 {
 \tdie(copy ? _("cannot copy \\"%s\\"") : _("cannot rename"));
+\tdie((copy ? _("a") : _("b")));
 }
 
 int cmd_x(int argc, const char **argv)
@@ -176,7 +186,12 @@ static int callback_fn(void) { return 0; }
   });
 
   it('splits conditional messages and finds definitions whose name starts a line', () => {
-    expect(refusalSites(source, 'knr').map(siteLabel)).toEqual(['knr: cannot copy "%s"', 'knr: cannot rename']);
+    expect(refusalSites(source, 'knr').map(siteLabel)).toEqual([
+      'knr: cannot copy "%s"',
+      'knr: cannot rename',
+      'knr: a',
+      'knr: b',
+    ]);
   });
 
   it('reports the original line of each site', () => {
