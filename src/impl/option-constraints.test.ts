@@ -641,6 +641,55 @@ describe('option constraints against independent Git executions', () => {
     );
   });
 
+  it('refuses status ignored/untracked combinations exactly when Git does', async () => {
+    const untracked = [undefined, 'no', 'normal', 'all'] as const;
+    const ignored = [undefined, 'traditional', 'no', 'matching'] as const;
+    for (const u of untracked) {
+      for (const i of ignored) {
+        const args = ['-C', repo.workdir, 'status', '--porcelain=v2', '-z'];
+        if (u) {
+          args.push(`--untracked-files=${u}`);
+        }
+        if (i) {
+          args.push(`--ignored=${i}`);
+        }
+        const result = raw(args);
+        const outcome = await repo.status({ untracked: u, ignored: i }).then(
+          () => 'accepted',
+          (error: unknown) => (error instanceof GitArgumentError ? 'refused' : 'failed'),
+        );
+        expect(outcome, `${u}/${i}: ${result.stderr}`).toBe(
+          result.status === 0 ? 'accepted' : 'refused',
+        );
+      }
+    }
+  });
+
+  it('reads a numeric status rename threshold as a percentage', async () => {
+    // 3 of 10 lines survive the move, so the pair is a rename at 5% or 20% but not at 50%.
+    // Git reads a bare 5 as 0.5 (50%), so only the percentage spelling separates these.
+    const lines = Array.from({ length: 10 }, (_, n) => `line ${n}\n`);
+    await writeFile(join(repo.workdir, 'moved'), lines.join(''));
+    await repo.add('moved');
+    await repo.commit({ message: 'moved' });
+    await repo.raw(['mv', 'moved', 'target']);
+    const replaced = Array.from({ length: 7 }, (_, n) => `other ${n}\n`);
+    await writeFile(join(repo.workdir, 'target'), [...lines.slice(0, 3), ...replaced].join(''));
+    await repo.add('target');
+    const renamed = async (findRenames: number) =>
+      (await repo.status({ findRenames })).entries.some(
+        (e) => e.path === 'target' && e.index === 'R',
+      );
+    expect(await renamed(5)).toBe(true);
+    expect(await renamed(20)).toBe(true);
+    expect(await renamed(50)).toBe(false);
+    expect(await renamed(100)).toBe(false);
+    // Git turns a zero score into its 50% default, so 0 is refused rather than misread.
+    for (const bad of [0, -1, 101, 50.5, Number.NaN]) {
+      await expect(repo.status({ findRenames: bad })).rejects.toBeInstanceOf(GitArgumentError);
+    }
+  });
+
   it('passes accepted force/lease and tag combinations through to Git', async () => {
     const remote = await git.init(join(root, 'remote'), { bare: true });
     await repo.remote.add('origin', remote.gitDir);

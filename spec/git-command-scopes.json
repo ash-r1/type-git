@@ -562,7 +562,8 @@
       "-u": {
         "key": "untracked-files",
         "value": "optional-string",
-        "set": "all"
+        "set": "all",
+        "emptyValueFlag": "--untracked-files"
       }
     },
     "parserExit": {
@@ -648,7 +649,8 @@
       "-u": {
         "key": "untracked-files",
         "value": "optional-string",
-        "set": "all"
+        "set": "all",
+        "emptyValueFlag": "--untracked-files"
       },
       "--ignored": {
         "key": "ignored",

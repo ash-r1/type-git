@@ -555,7 +555,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       if (opts.findRenames === true) {
         args.push('--find-renames');
       } else if (typeof opts.findRenames === 'number') {
-        args.push(`--find-renames=${opts.findRenames}`);
+        // Without '%' Git reads digits as a fraction (100 would mean 10%), so spell a percentage.
+        args.push(`--find-renames=${opts.findRenames}%`);
       }
     }
 

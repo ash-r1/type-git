@@ -249,7 +249,10 @@ export type StatusOpts = CheckedOptions<
     ignoreSubmodules?: 'none' | 'untracked' | 'dirty' | 'all';
     /** Do not detect renames */
     noRenames?: boolean;
-    /** Detect renames (optionally with similarity threshold) */
+    /**
+     * Detect renames. A number is the similarity threshold as a whole percentage from 1 to
+     * 100 (`50` means 50%), emitted as `--find-renames=<n>%`.
+     */
     findRenames?: boolean | number;
   },
   'status'
