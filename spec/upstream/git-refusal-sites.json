@@ -2,6 +2,371 @@
   "baseline": "2.55.0",
   "extractor": "scripts/refusal-sites.mjs",
   "files": {
+    "builtin/branch.c": {
+      "sha256": "37492ef65cfcba63871fa95c027def56ec5b9b2438b6d912a5277493441617bf",
+      "functions": {
+        "branch_get_color": {
+          "sites": [],
+          "references": []
+        },
+        "branch_merged": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 164
+            },
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 176
+            }
+          ],
+          "references": []
+        },
+        "build_format": {
+          "sites": [],
+          "references": [
+            "branch_get_color",
+            "quote_literal_for_format"
+          ]
+        },
+        "calc_maxwidth": {
+          "sites": [],
+          "references": []
+        },
+        "check_branch_commit": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "couldn't look up commit object for '%s'",
+              "line": 198
+            },
+            {
+              "call": "error",
+              "text": "the branch '%s' is not fully merged",
+              "line": 202
+            }
+          ],
+          "references": [
+            "branch_merged"
+          ]
+        },
+        "cmd_branch": {
+          "sites": [
+            {
+              "call": "show_usage_with_options_if_asked",
+              "text": null,
+              "line": 788
+            },
+            {
+              "call": "die",
+              "text": "failed to resolve HEAD as a valid ref",
+              "line": 804
+            },
+            {
+              "call": "die",
+              "text": "HEAD not found below refs/heads!",
+              "line": 808
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 825
+            },
+            {
+              "call": "die",
+              "text": "branch with --recurse-submodules can only be used if submodule.propagateBranches is enabled",
+              "line": 829
+            },
+            {
+              "call": "die",
+              "text": "--recurse-submodules can only be used to create branches",
+              "line": 831
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--column, --verbose]",
+              "line": 845
+            },
+            {
+              "call": "die",
+              "text": "branch name required",
+              "line": 860
+            },
+            {
+              "call": "die",
+              "text": "cannot give description to detached HEAD",
+              "line": 898
+            },
+            {
+              "call": "die",
+              "text": "cannot edit description of more than one branch",
+              "line": 904
+            },
+            {
+              "call": "error",
+              "text": "no commit on branch '%s' yet",
+              "line": 909
+            },
+            {
+              "call": "error",
+              "text": "no branch named '%s'",
+              "line": 909
+            },
+            {
+              "call": "die",
+              "text": "branch name required",
+              "line": 926
+            },
+            {
+              "call": "die",
+              "text": "cannot copy the current branch while not on any",
+              "line": 928
+            },
+            {
+              "call": "die",
+              "text": "cannot rename the current branch while not on any",
+              "line": 928
+            },
+            {
+              "call": "die",
+              "text": "too many branches for a copy operation",
+              "line": 935
+            },
+            {
+              "call": "die",
+              "text": "too many arguments for a rename operation",
+              "line": 935
+            },
+            {
+              "call": "die",
+              "text": "too many arguments to set new upstream",
+              "line": 947
+            },
+            {
+              "call": "die",
+              "text": "could not set upstream of HEAD to %s when it does not point to any branch",
+              "line": 951
+            },
+            {
+              "call": "die",
+              "text": "no such branch '%s'",
+              "line": 954
+            },
+            {
+              "call": "die",
+              "text": "no commit on branch '%s' yet",
+              "line": 959
+            },
+            {
+              "call": "die",
+              "text": "branch '%s' does not exist",
+              "line": 960
+            },
+            {
+              "call": "die",
+              "text": "too many arguments to unset upstream",
+              "line": 977
+            },
+            {
+              "call": "die",
+              "text": "could not unset upstream of HEAD when it does not point to any branch",
+              "line": 981
+            },
+            {
+              "call": "die",
+              "text": "no such branch '%s'",
+              "line": 983
+            },
+            {
+              "call": "die",
+              "text": "branch '%s' has no upstream information",
+              "line": 987
+            },
+            {
+              "call": "die",
+              "text": "the -a, and -r, options to 'git branch' do not take a branch name.\nDid you mean to use: -a|-r --list <pattern>?",
+              "line": 1001
+            },
+            {
+              "call": "die",
+              "text": "the '--set-upstream' option is no longer supported. Please use '--track' or '--set-upstream-to' instead",
+              "line": 1005
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1017
+            }
+          ],
+          "references": [
+            "copy_or_rename_branch",
+            "delete_branches",
+            "edit_branch_description",
+            "git_branch_config",
+            "print_current_branch_name",
+            "print_ref_list"
+          ]
+        },
+        "copy_or_rename_branch": {
+          "sites": [
+            {
+              "call": "die_message",
+              "text": "invalid branch name: '%s'",
+              "line": 592
+            },
+            {
+              "call": "exit",
+              "text": "exit code",
+              "line": 595
+            },
+            {
+              "call": "die",
+              "text": "no commit on branch '%s' yet",
+              "line": 612
+            },
+            {
+              "call": "die",
+              "text": "no branch named '%s'",
+              "line": 614
+            },
+            {
+              "call": "die",
+              "text": "branch rename failed",
+              "line": 642
+            },
+            {
+              "call": "die",
+              "text": "branch copy failed",
+              "line": 644
+            },
+            {
+              "call": "die",
+              "text": "branch renamed to %s, but HEAD is not updated",
+              "line": 658
+            },
+            {
+              "call": "die",
+              "text": "branch is renamed, but update of config-file failed",
+              "line": 665
+            },
+            {
+              "call": "die",
+              "text": "branch is copied, but update of config-file failed",
+              "line": 668
+            }
+          ],
+          "references": [
+            "reject_rebase_or_bisect_branch",
+            "replace_each_worktree_head_symref"
+          ]
+        },
+        "delete_branch_config": {
+          "sites": [],
+          "references": []
+        },
+        "delete_branches": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot use -a with -d",
+              "line": 251
+            },
+            {
+              "call": "error",
+              "text": "cannot delete branch '%s' used by worktree at '%s'",
+              "line": 269
+            },
+            {
+              "call": "error",
+              "text": "remote-tracking branch '%s' not found",
+              "line": 285
+            },
+            {
+              "call": "error",
+              "text": "branch '%s' not found.\nDid you forget --remote?",
+              "line": 298
+            },
+            {
+              "call": "error",
+              "text": "branch '%s' not found",
+              "line": 302
+            }
+          ],
+          "references": [
+            "check_branch_commit",
+            "delete_branch_config"
+          ]
+        },
+        "edit_branch_description": {
+          "sites": [],
+          "references": []
+        },
+        "print_current_branch_name": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "could not resolve HEAD",
+              "line": 511
+            },
+            {
+              "call": "die",
+              "text": "HEAD (%s) points outside of refs/heads/",
+              "line": 517
+            }
+          ],
+          "references": []
+        },
+        "print_ref_list": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to parse format string",
+              "line": 474
+            },
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 488
+            }
+          ],
+          "references": [
+            "build_format",
+            "calc_maxwidth"
+          ]
+        },
+        "quote_literal_for_format": {
+          "sites": [],
+          "references": []
+        },
+        "reject_rebase_or_bisect_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "branch %s is being rebased at %s",
+              "line": 532
+            },
+            {
+              "call": "die",
+              "text": "branch %s is being bisected at %s",
+              "line": 536
+            }
+          ],
+          "references": []
+        },
+        "replace_each_worktree_head_symref": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "HEAD of working tree %s is not updated",
+              "line": 565
+            }
+          ],
+          "references": []
+        }
+      }
+    },
     "builtin/commit.c": {
       "sha256": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
       "functions": {

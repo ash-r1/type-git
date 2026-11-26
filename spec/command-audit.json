@@ -2926,10 +2926,416 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts",
         "src/commands/reference-full-help.test.ts",
-        "test/types/reference-full-help.ts"
+        "test/types/reference-full-help.ts",
+        "scripts/branch-closure-corpus.mjs",
+        "src/commands/branch-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open."
+      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open. The closure leaves two obligations open: the --format/--sort ref-filter grammar and the branch name syntax. repo.branch.create with setUpstreamTo creates the branch first and sets its upstream with a second command, because --set-upstream-to is a separate action that Git refuses or applies to an existing branch when combined with a name.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/reference-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/reference-parser.test.ts",
+          "test/types/reference-parser-branch-corpus-1.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/branch-closure-corpus.json",
+          "src/commands/branch-closure-corpus.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/branch-closure-corpus.json",
+          "src/commands/branch-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/branch-closure-corpus.test.ts",
+          "src/commands/reference-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/branch-closure-corpus.mjs",
+          "scripts/reference-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/reference-parser-branch-corpus-1.ts",
+          "test/types/command-api.ts",
+          "test/types/generated-command-constraints.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_branch",
+        "sources": {
+          "builtin/branch.c": [
+            "branch_get_color",
+            "branch_merged",
+            "build_format",
+            "calc_maxwidth",
+            "check_branch_commit",
+            "cmd_branch",
+            "copy_or_rename_branch",
+            "delete_branch_config",
+            "delete_branches",
+            "edit_branch_description",
+            "print_current_branch_name",
+            "print_ref_list",
+            "quote_literal_for_format",
+            "reject_rebase_or_bisect_branch",
+            "replace_each_worktree_head_symref"
+          ]
+        },
+        "waived": {
+          "git_branch_config": "Configuration callback (branch.sort, color.branch.*, column.branch, submodule.propagateBranches and core branch settings); it refuses only invalid configuration values and is covered by the configuration obligation."
+        },
+        "obligations": [
+          {
+            "id": "help",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: show_usage_with_options_if_asked"
+            ],
+            "disposition": "modeled",
+            "summary": "A sole -h prints usage and exits 129 before configuration or parsing.",
+            "evidence": [
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "action-exclusivity",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: usage_with_options"
+            ],
+            "disposition": "modeled",
+            "summary": "Delete, rename, copy, set-upstream-to, unset-upstream, show-current, edit-description and list (explicit, or implied by --contains, --no-contains, --merged, --no-merged and --points-at) are counted after parsing; more than one prints usage, and so does creation with more than two operands. -d/-D, -m/-M and -c/-C are bits of one action each, and a --no-* negation clears only its own bit, so -D survives --no-delete (branch-actions, branch-create-arity).",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "recurse-actions",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: --recurse-submodules can only be used to create branches"
+            ],
+            "disposition": "modeled",
+            "summary": "Explicit --recurse-submodules is refused with any non-create action (branch-recurse-*). The corpus runs these cases with submodule.propagateBranches=true, which Git checks first.",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "recurse-configuration",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: branch with --recurse-submodules can only be used if submodule.propagateBranches is enabled"
+            ],
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Explicit --recurse-submodules requires submodule.propagateBranches.",
+            "reason": "The setting is read from configuration at runtime."
+          },
+          {
+            "id": "column-verbose",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: options '%s' and '%s' cannot be used together [--column, --verbose]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --column that explicitly enables columns (always, or a layout or density word such as row, column, plain, dense or nodense, or an empty value) is refused with any --verbose left after --no-verbose (cli.branch.column-verbose). --column=auto enables columns only on a terminal or with GIT_PAGER_IN_USE, so it is left to native Git; column.ui never triggers the conflict, because Git checks for columns enabled on the command line.",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "action-arity",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: branch name required",
+              "cmd_branch: cannot edit description of more than one branch",
+              "cmd_branch: too many branches for a copy operation",
+              "cmd_branch: too many arguments for a rename operation",
+              "cmd_branch: too many arguments to set new upstream",
+              "cmd_branch: too many arguments to unset upstream"
+            ],
+            "disposition": "modeled",
+            "summary": "Deletion needs at least one name, rename and copy one or two, edit-description and the upstream actions at most one (branch-*-arity).",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "create-scope-and-track",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: the -a, and -r, options to 'git branch' do not take a branch name.\nDid you mean to use: -a|-r --list <pattern>?",
+              "cmd_branch: the '--set-upstream' option is no longer supported. Please use '--track' or '--set-upstream-to' instead"
+            ],
+            "disposition": "modeled",
+            "summary": "Creation refuses a final -a or -r scope and the removed --set-upstream mode (branch-create-scope, branch-create-track).",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "delete-all-scope",
+            "kind": "refusal",
+            "sites": [
+              "delete_branches: cannot use -a with -d"
+            ],
+            "disposition": "modeled",
+            "summary": "Deletion refuses the combined -a scope; -r alone selects remote-tracking branches (branch-delete-all-*).",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "head-state",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: failed to resolve HEAD as a valid ref",
+              "cmd_branch: HEAD not found below refs/heads!",
+              "cmd_branch: cannot give description to detached HEAD",
+              "cmd_branch: cannot copy the current branch while not on any",
+              "cmd_branch: cannot rename the current branch while not on any",
+              "cmd_branch: could not set upstream of HEAD to %s when it does not point to any branch",
+              "cmd_branch: could not unset upstream of HEAD when it does not point to any branch",
+              "print_current_branch_name: could not resolve HEAD",
+              "print_current_branch_name: HEAD (%s) points outside of refs/heads/"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Actions that default to the current branch refuse a detached or unresolvable HEAD.",
+            "reason": "HEAD is read from the repository at runtime."
+          },
+          {
+            "id": "branch-existence",
+            "kind": "refusal",
+            "sites": [
+              "cmd_branch: no commit on branch '%s' yet",
+              "cmd_branch: no branch named '%s'",
+              "cmd_branch: no such branch '%s'",
+              "cmd_branch: branch '%s' does not exist",
+              "cmd_branch: branch '%s' has no upstream information",
+              "copy_or_rename_branch: no commit on branch '%s' yet",
+              "copy_or_rename_branch: no branch named '%s'",
+              "delete_branches: remote-tracking branch '%s' not found",
+              "delete_branches: branch '%s' not found.\nDid you forget --remote?",
+              "delete_branches: branch '%s' not found"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Named branches, their upstreams and @{-N} shorthands must exist.",
+            "reason": "Which branches and upstreams exist is known only at runtime."
+          },
+          {
+            "id": "old-name-recovery",
+            "kind": "refusal",
+            "sites": [
+              "copy_or_rename_branch: invalid branch name: '%s'",
+              "copy_or_rename_branch: exit code"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "An invalid old name is refused unless a ref with that name already exists, which Git allows renaming for recovery.",
+            "reason": "Whether the badly named ref exists is known only at runtime."
+          },
+          {
+            "id": "checked-out-and-in-progress",
+            "kind": "refusal",
+            "sites": [
+              "delete_branches: cannot delete branch '%s' used by worktree at '%s'",
+              "reject_rebase_or_bisect_branch: branch %s is being rebased at %s",
+              "reject_rebase_or_bisect_branch: branch %s is being bisected at %s"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Branches checked out in a worktree or under rebase or bisect.",
+            "reason": "Worktree and in-progress state is read at runtime."
+          },
+          {
+            "id": "merge-checks",
+            "kind": "refusal",
+            "sites": [
+              "check_branch_commit: couldn't look up commit object for '%s'",
+              "check_branch_commit: the branch '%s' is not fully merged",
+              "branch_merged: exit 128"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "-d refuses branches that are not merged into their upstream or HEAD.",
+            "reason": "Reachability is computed from the object database at runtime."
+          },
+          {
+            "id": "ref-and-config-updates",
+            "kind": "refusal",
+            "sites": [
+              "copy_or_rename_branch: branch rename failed",
+              "copy_or_rename_branch: branch copy failed",
+              "copy_or_rename_branch: branch renamed to %s, but HEAD is not updated",
+              "copy_or_rename_branch: branch is renamed, but update of config-file failed",
+              "copy_or_rename_branch: branch is copied, but update of config-file failed",
+              "replace_each_worktree_head_symref: HEAD of working tree %s is not updated"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Ref, symref and configuration write failures.",
+            "reason": "Locks and permissions are known only at runtime."
+          },
+          {
+            "id": "format-grammar",
+            "kind": "refusal",
+            "sites": [
+              "print_ref_list: unable to parse format string"
+            ],
+            "disposition": "open",
+            "summary": "--format must parse as a ref-filter format (verify_ref_format in ref-filter.c: known atoms, balanced %(if)/%(then)/%(else)/%(end), valid atom arguments), and --sort keys must be known (ref_sorting_options in ref-filter.c, which dies during setup).",
+            "reason": "The ref-filter format and sort grammars in ref-filter.c are not yet modeled; the strict API accepts any --format and --sort text."
+          },
+          {
+            "id": "format-output",
+            "kind": "refusal",
+            "sites": [
+              "print_ref_list: %s"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Formatting a ref can fail for atoms that read objects.",
+            "reason": "The referenced objects are read at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the branch table: long prefixes and negations, short clusters, optional-argument attachment, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for action pairs and action-modifier pairs over five operand shapes, modifier pairs, action-negation-action triples and bare --merged/--contains placements (8,879 real runs), whichever refusal Git reaches first. Only acceptance is compared; the typed error lists every violated rule instead of Git's first diagnostic.",
+            "evidence": [
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "column-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--column tokens follow parseopt_column_callback in column.c, including enable projection.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts",
+              "test/fixtures/branch-closure-corpus.json",
+              "src/commands/branch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "track-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--track accepts direct and inherit (parse_opt_tracking_mode) and refuses other values even when overwritten.",
+            "evidence": [
+              "test/types/command-api.ts",
+              "test/fixtures/reference-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "branch-name-syntax",
+            "kind": "values",
+            "disposition": "open",
+            "summary": "New branch names (and rename or copy targets) must pass check_refname_format after @{-N} and @ interpretation (branch.c validate_new_branchname).",
+            "reason": "Ref name syntax is not yet modeled; the strict API accepts names such as 'a..b' that Git refuses."
+          },
+          {
+            "id": "object-names",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "--contains, --no-contains, --merged, --no-merged and --points-at must name commits; a bare --merged or --contains that is not the last word takes the next word, even an option, as that name.",
+            "reason": "Names resolve against the object database at runtime."
+          },
+          {
+            "id": "create-checks",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Creation in branch.c (validate_new_branchname, create_branch, create_branches_recursively): the name must not already exist unless forced, a forced update must not touch a branch checked out in a worktree, the start point must resolve to a commit and be unambiguous, and tracking needs a start point that is a branch with an existing upstream (inherit refuses multiple upstreams).",
+            "reason": "Existing branches, worktrees, upstream configuration and objects are read at runtime; these refusals come from branch.c, outside the builtin/branch.c sources this closure lists."
+          },
+          {
+            "id": "rename-copy-checks",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Rename and copy targets in branch.c must not already exist unless forced and must not be checked out in another worktree.",
+            "reason": "Existing branches and worktrees are read at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "branch.sort, branch.autoSetupMerge, column.branch, color.branch and submodule.propagateBranches set defaults that argv can override.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "auto-columns",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "--column=auto enables columns, and so conflicts with --verbose, only on a terminal or when GIT_PAGER_IN_USE is set by a pager.",
+            "reason": "Whether standard output is a terminal, or a pager is in use, is known only at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of branch names and patterns.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash clear": {
       "state": "partial",
