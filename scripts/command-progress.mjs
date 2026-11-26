@@ -14,13 +14,16 @@
 //   achieved          ledger sentences describing modeled behavior
 //   delegation        ledger sentences describing work deferred to runtime or Git
 //   remaining         ledger sentences describing open obligations
+//   completion        the gaps that keep the scope from the completion criterion
+//                     (scripts/audit-completion.mjs, docs/design/audit-completion.md)
 //
-// The achieved/delegation/remaining split classifies the ledger's free text by keyword;
-// the ledger record itself stays authoritative. Run without arguments for the
+// A scope with a closure reports its obligations by their recorded disposition; free
+// text in "remaining" is still split by keyword. The ledger record stays authoritative. Run without arguments for the
 // priority groups, or pass command names (a name also selects its "name *"
 // operation scopes). --json prints the same data as JSON.
 import { readdir, readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { completionGaps } from './audit-completion.mjs';
 
 const root = new URL('../', import.meta.url);
 const json = async (path) => JSON.parse(await readFile(new URL(path, root), 'utf8'));
@@ -115,6 +118,9 @@ export async function commandProgress(requested) {
           .filter((c) => c.counts.has(scope))
           .map((c) => ({ fixture: c.fixture, versions: c.versions, ...c.counts.get(scope) }));
         const text = sentences(record.remaining);
+        const obligations = record.closure?.obligations ?? [];
+        const by = (disposition) =>
+          obligations.filter((o) => o.disposition === disposition).map((o) => `${o.id}: ${o.summary}`);
         return {
           scope,
           state: record.state,
@@ -138,9 +144,14 @@ export async function commandProgress(requested) {
           nativeComparison: { cases: native.reduce((n, c) => n + c.cases, 0), corpora: native },
           compilerTests: record.tests.filter((t) => t.startsWith('test/types/')),
           runtimeTests: record.tests.filter((t) => !t.startsWith('test/types/')),
-          achieved: text.filter((s) => classify(s) === 'achieved'),
-          delegation: text.filter((s) => classify(s) === 'delegation'),
-          remaining: text.filter((s) => classify(s) === 'remaining'),
+          completion: {
+            closure: Boolean(record.closure),
+            gaps: completionGaps(record, { facets: audit.facets, baseline: inventory.baselines.git }),
+          },
+          achieved: [...by('modeled'), ...text.filter((s) => classify(s) === 'achieved')],
+          delegation: [...by('delegated'), ...text.filter((s) => classify(s) === 'delegation')],
+          excluded: by('excluded'),
+          remaining: [...by('open'), ...text.filter((s) => classify(s) === 'remaining')],
         };
       }),
     };
@@ -150,12 +161,12 @@ export async function commandProgress(requested) {
 /** Render a progress report as a summary table followed by one section per scope. */
 function markdown(report, facets) {
   const lines = ['# Command progress', '',
-    'Derived from spec/command-audit.json, the generated command schemas and the native corpora in test/fixtures. Delegation and remaining items are keyword-classified ledger sentences; the ledger text is authoritative.', '',
-    '| Scope | Audit | Evidence facets | Pinned / native Git | Legacy test files | Rules | Transitions | Parser-exit model | Finite models | Native cases | Runtime / compiler test files |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |'];
+    'Derived from spec/command-audit.json, the generated command schemas and the native corpora in test/fixtures. Completion gaps follow docs/design/audit-completion.md. Closure obligations are listed by their recorded disposition; other delegation and remaining items are keyword-classified ledger sentences, and the ledger text is authoritative.', '',
+    '| Scope | Audit | Completion gaps | Evidence facets | Pinned / native Git | Legacy test files | Rules | Transitions | Parser-exit model | Finite models | Native cases | Runtime / compiler test files |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |'];
   for (const { scopes } of report) {
     for (const s of scopes) {
-      lines.push(`| \`${s.scope}\` | ${s.state} | ${s.evidence.length}/${facets.length} | ${s.versions.pinned} / ${s.versions.native.join(', ') || '—'} | ${s.versions.legacyTests.length} | ${s.argumentRules.rules} | ${s.argumentRules.transitions} | ${s.argumentRules.parserExitModel ? 'yes' : 'no'} | ${s.argumentRules.finiteModels.length} | ${s.nativeComparison.cases} | ${s.runtimeTests.length} / ${s.compilerTests.length} |`);
+      lines.push(`| \`${s.scope}\` | ${s.state} | ${s.completion.gaps.length} | ${s.evidence.length}/${facets.length} | ${s.versions.pinned} / ${s.versions.native.join(', ') || '—'} | ${s.versions.legacyTests.length} | ${s.argumentRules.rules} | ${s.argumentRules.transitions} | ${s.argumentRules.parserExitModel ? 'yes' : 'no'} | ${s.argumentRules.finiteModels.length} | ${s.nativeComparison.cases} | ${s.runtimeTests.length} / ${s.compilerTests.length} |`);
     }
   }
   for (const { scopes } of report) {
@@ -163,11 +174,13 @@ function markdown(report, facets) {
       lines.push('', `## \`${s.scope}\``, '');
       lines.push(`- Target versions: pinned Git ${s.versions.pinned}; native corpora ${s.versions.native.join(', ') || 'none'}${s.versions.source ? `; parser source ${s.versions.source}` : ''}.`);
       lines.push(`- Legacy-profile runtime tests: ${s.versions.legacyTests.join(', ') || 'none'}.`);
+      lines.push(`- Completion gaps: ${s.completion.gaps.join(', ') || 'none'}.`);
       lines.push(`- Missing evidence facets: ${facets.filter((f) => !s.evidence.includes(f)).join(', ') || 'none'}.`);
       lines.push(`- Native comparison: ${s.nativeComparison.corpora.map((c) => `${c.fixture} ${c.cases} (${c.accepted} accepted)`).join('; ') || 'no corpus cases'}.`);
       lines.push(`- Finite models: ${s.argumentRules.finiteModels.map((m) => `${m.type} ${m.scope} ${m.accepted}/${m.total}`).join('; ') || 'none'}.`);
       lines.push('- Achieved:', ...(s.achieved.length ? s.achieved.map((d) => `  - ${d}`) : ['  - none recorded']));
       lines.push('- Delegation:', ...(s.delegation.length ? s.delegation.map((d) => `  - ${d}`) : ['  - none recorded']));
+      if (s.excluded.length) lines.push('- Excluded:', ...s.excluded.map((d) => `  - ${d}`));
       lines.push('- Remaining:', ...(s.remaining.length ? s.remaining.map((d) => `  - ${d}`) : ['  - none recorded']));
     }
   }

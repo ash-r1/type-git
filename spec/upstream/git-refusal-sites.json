@@ -1,0 +1,5 @@
+{
+  "baseline": "2.55.0",
+  "extractor": "scripts/refusal-sites.mjs",
+  "files": {}
+}
