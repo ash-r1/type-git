@@ -982,10 +982,562 @@
         "src/commands/status-commit-paths.test.ts",
         "test/types/constraint-model.ts",
         "scripts/status-commit-path-corpus.mjs",
-        "src/commands/status-commit-path-corpus.test.ts"
+        "src/commands/status-commit-path-corpus.test.ts",
+        "scripts/commit-closure-corpus.mjs",
+        "src/commands/commit-closure-corpus.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in prepare_index, including dry-run and status-format modes, while help exits first. Only mode without path operands or a pathspec option is rejected unless --allow-empty, --amend or an amend: fixup is active, which matches prepare_index; --amend with a plain fixup is delegated to native Git, because Git 2.32 and later refuse it but older Git accepts it; it counts pathspec.nr after parse_pathspec_file reads the file, so only the presence of the pathspec option is modeled. repo.commit emits no paths, so its include mode is rejected without a nonempty pathspecFromFile and its only mode uses the same exemptions, and its reword: fixups are rejected with include, only or all, as runtime checks. These cases are checked against 411 independent Git 2.55.0 dry-run outcomes in test/fixtures/status-commit-path-corpus.json, covering -o/--only/--no-only, last-wins --allow-empty, --amend and --fixup negations, empty and amend: fixups, a pathspec file and empty operands, and every refusal from these rules is reached with its native diagnostic. The executing Git is compared in src/commands/status-commit-paths.test.ts, with the pathspec-file and fixup-prefix cases gated for the legacy Git 2.25.1 job. --reset-author without -C, -c or --amend is valid during an in-progress cherry-pick or rebase pick, so it is delegated to native Git. Pathspec files that name no paths, or cannot be opened, fail natively and are delegated to native Git. Author nickname lookup, amend and merge state, -C/-c/--fixup/--squash object resolution, pathspec file contents, pathspec magic and other configuration/repository state are delegated to native Git at runtime. Unknown --fixup suboptions, an ASCII-letter prefix before ':' other than amend or reword, are still accepted by the typed API and remain open. repo.commit still accepts an amend: or reword: fixup with a message, which Git refuses; modeling it in CommitOpts exceeds the compiler's union limit, so it remains open. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in prepare_index, including dry-run and status-format modes, while help exits first. Only mode without path operands or a pathspec option is rejected unless --allow-empty, --amend or an amend: fixup is active, which matches prepare_index; --amend with a plain fixup is delegated to native Git, because Git 2.32 and later refuse it but older Git accepts it; it counts pathspec.nr after parse_pathspec_file reads the file, so only the presence of the pathspec option is modeled. repo.commit emits no paths, so its include mode is rejected without a nonempty pathspecFromFile and its only mode uses the same exemptions, and its reword: fixups are rejected with include, only or all, as runtime checks. These cases are checked against 411 independent Git 2.55.0 dry-run outcomes in test/fixtures/status-commit-path-corpus.json, covering -o/--only/--no-only, last-wins --allow-empty, --amend and --fixup negations, empty and amend: fixups, a pathspec file and empty operands, and every refusal from these rules is reached with its native diagnostic. The executing Git is compared in src/commands/status-commit-paths.test.ts, with the pathspec-file and fixup-prefix cases gated for the legacy Git 2.25.1 job. --reset-author without -C, -c or --amend is valid during an in-progress cherry-pick or rebase pick, so it is delegated to native Git. Pathspec files that name no paths, or cannot be opened, fail natively and are delegated to native Git. Author nickname lookup, amend and merge state, -C/-c/--fixup/--squash object resolution, pathspec file contents, pathspec magic and other configuration/repository state are delegated to native Git at runtime. --fixup suboptions (an ASCII-letter prefix before ':') must be amend or reword in the typed API and in repo.commit, and repo.commit refuses an amend: or reword: fixup with a message at runtime. The closure leaves three obligations open: the --author ident grammar, the --date grammar, and the only-mode refusal for --amend with a plain fixup (kept accepted for Git before 2.32) together with pathspec files that name no paths. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/reference-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/reference-parser.test.ts",
+          "test/types/reference-parser-commit-corpus-1.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/status-commit-path-corpus.json",
+          "src/commands/status-commit-path-corpus.test.ts",
+          "src/commands/status-commit-paths.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/commit-closure-corpus.json",
+          "src/commands/commit-closure-corpus.test.ts",
+          "src/commands/status-commit-paths.test.ts"
+        ],
+        "serialization": [
+          "src/commands/commit-closure-corpus.test.ts",
+          "src/commands/reference-parser.test.ts",
+          "src/commands/status-commit-path-corpus.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/commit-closure-corpus.mjs",
+          "scripts/status-commit-path-corpus.mjs",
+          "scripts/reference-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/reference-parser-commit-corpus-1.ts",
+          "test/types/generated-command-constraints.ts",
+          "test/types/command-api.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_commit",
+        "sources": {
+          "builtin/commit.c": [
+            "add_remove_files",
+            "adjust_comment_line_char",
+            "assert_split_ident",
+            "author_date_is_interesting",
+            "change_data_free",
+            "check_fixup_reword_options",
+            "cmd_commit",
+            "commit_index_files",
+            "create_base_index",
+            "determine_author_info",
+            "dry_run_commit",
+            "export_one",
+            "finalize_deferred_config",
+            "find_author_by_nickname",
+            "handle_untracked_files_arg",
+            "is_a_merge",
+            "list_paths",
+            "opt_parse_m",
+            "parse_and_validate_options",
+            "parse_force_date",
+            "parse_untracked_setting_name",
+            "prepare_amend_commit",
+            "prepare_index",
+            "prepare_to_commit",
+            "read_commit_message",
+            "refresh_cache_or_die",
+            "rollback_index_files",
+            "run_status",
+            "set_ident_var"
+          ]
+        },
+        "waived": {
+          "git_commit_config": "Configuration callback (commit.* and, through git_status_config, status.* keys); it refuses only invalid configuration values and is covered by the configuration obligation.",
+          "status_init_config": "Runs the configuration callback and records whence state (merge, cherry-pick, rebase) before option parsing; covered by the configuration and repository-state obligations."
+        },
+        "obligations": [
+          {
+            "id": "help",
+            "kind": "refusal",
+            "sites": [
+              "cmd_commit: show_usage_with_options_if_asked"
+            ],
+            "disposition": "modeled",
+            "summary": "A sole -h prints usage and exits 129 before configuration or parsing.",
+            "evidence": [
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "author-reset-author",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: options '%s' and '%s' cannot be used together [--reset-author, --author]"
+            ],
+            "disposition": "modeled",
+            "summary": "--author with an active --reset-author is refused (cli.commit.author).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "fixup-squash",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: options '%s' and '%s' cannot be used together [--squash, --fixup]"
+            ],
+            "disposition": "modeled",
+            "summary": "--fixup and --squash are refused together (cli.commit.fixup-squash).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "message-sources",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: -C / -c / -F / --fixup",
+              "parse_and_validate_options: -m / -c / -C / -F"
+            ],
+            "disposition": "modeled",
+            "summary": "At most one of -C, -c, -F and --fixup, and -m only without -C, -c and -F (cli.commit.message-source, cli.commit.literal-message-source).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "content-modes",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: -i/--include / -o/--only / -a/--all / --interactive/-p/--patch"
+            ],
+            "disposition": "modeled",
+            "summary": "At most one of include, only, all and interactive or patch mode (cli.commit.content-mode, cli.commit.patch-mode).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "fixup-suboption",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: unknown option: --fixup=%s:%s"
+            ],
+            "disposition": "modeled",
+            "summary": "A nonempty run of ASCII letters directly before ':' in --fixup names a suboption, which must be amend or reword, case-sensitively; any other value is a commit name (cli.commit.fixup-suboption, string callback profile commit-fixup; repo.commit commit.fixup-suboption at runtime).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "all-with-paths",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: paths '%s ...' with -a does not make sense"
+            ],
+            "disposition": "modeled",
+            "summary": "-a with path operands is refused (cli.commit.all-paths).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "context-values",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: '%s' cannot be negative [--unified]",
+              "prepare_index: '%s' cannot be negative [--inter-hunk-context]",
+              "prepare_index: the option '%s' requires '%s' [--unified, --interactive/--patch]",
+              "prepare_index: the option '%s' requires '%s' [--inter-hunk-context, --interactive/--patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "-U and --inter-hunk-context accept integers from -1 (the unset sentinel); a final value other than -1 requires --interactive or --patch (cli.commit.unified-minimum, cli.commit.inter-hunk-context-minimum, cli.commit.unified-interactive, cli.commit.inter-hunk-context-interactive).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: options '%s' and '%s' cannot be used together [--pathspec-from-file, --interactive/--patch]",
+              "prepare_index: options '%s' and '%s' cannot be used together [--pathspec-from-file, -a]",
+              "prepare_index: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "prepare_index: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "--pathspec-from-file excludes interactive, patch and all modes and path operands, and --pathspec-file-nul requires it (cli.commit.pathspec-file-modes, cli.commit.pathspec-file-paths, cli.commit.pathspec-nul).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts",
+              "test/fixtures/status-commit-path-corpus.json",
+              "src/commands/status-commit-path-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts"
+            ]
+          },
+          {
+            "id": "no-paths",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: No paths with --include/--only does not make sense."
+            ],
+            "disposition": "open",
+            "summary": "Include mode, and only mode without --allow-empty, --amend or an amend: fixup, need path operands or a pathspec file (cli.commit.include-paths, cli.commit.only-paths; checked against test/fixtures/commit-closure-corpus.json and test/fixtures/status-commit-path-corpus.json).",
+            "reason": "Two parts are not modeled: Git 2.55.0 also refuses only mode with --amend and a plain fixup, which the wrapper keeps accepting because Git before 2.32 accepts it (a policy choice the closure cannot record as delegated), and a pathspec file that names no paths is refused only after Git reads the file."
+          },
+          {
+            "id": "fixup-message",
+            "kind": "refusal",
+            "sites": [
+              "prepare_to_commit: options '%s' and '%s:%s' cannot be used together [-m, --fixup, *]"
+            ],
+            "disposition": "modeled",
+            "summary": "-m, even empty, is refused with an amend: or reword: fixup (cli.commit.fixup-amend-message, cli.commit.fixup-reword-message; repo.commit, which emits -m only for a nonempty message, checks commit.fixup-amend-message and commit.fixup-reword-message at runtime).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "reword-content",
+            "kind": "refusal",
+            "sites": [
+              "check_fixup_reword_options: reword option of '%s' and path '%s' cannot be used together [--fixup, *]",
+              "check_fixup_reword_options: reword option of '%s' and '%s' cannot be used together [--fixup, --patch/--interactive/--all/--include/--only]"
+            ],
+            "disposition": "modeled",
+            "summary": "A reword: fixup refuses path operands and include, only, all, interactive and patch modes (cli.commit.reword-paths, cli.commit.reword-content; repo.commit commit.reword-content).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts",
+              "test/fixtures/status-commit-path-corpus.json",
+              "src/commands/status-commit-path-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts"
+            ]
+          },
+          {
+            "id": "long-with-nul",
+            "kind": "refusal",
+            "sites": [
+              "finalize_deferred_config: options '%s' and '%s' cannot be used together [--long, -z]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --long format with -z active is refused (cli.commit.long-nul).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "untracked-mode",
+            "kind": "refusal",
+            "sites": [
+              "handle_untracked_files_arg: Invalid untracked files mode '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--untracked-files accepts no, normal, all and Git boolean spellings (cli.commit.untracked); an empty short -u value is emitted as --untracked-files=.",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts",
+              "test/fixtures/reference-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "reset-author-source",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: --reset-author can be used only with -C, -c or --amend."
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--reset-author needs a message from -C, -c or --amend. With --amend and a fixup it is refused in every state and modeled (cli.commit.reset-author-amend-fixup; repo.commit commit.reset-author-amend-fixup); the other refusals are delegated.",
+            "reason": "Git also accepts --reset-author alone while a cherry-pick or rebase pick is in progress, which only the repository shows at runtime; the corpus records the refusal outside that state."
+          },
+          {
+            "id": "amend-state",
+            "kind": "refusal",
+            "sites": [
+              "parse_and_validate_options: You have nothing to amend.",
+              "parse_and_validate_options: You are in the middle of a merge -- cannot amend.",
+              "parse_and_validate_options: You are in the middle of a cherry-pick -- cannot amend.",
+              "parse_and_validate_options: You are in the middle of a rebase -- cannot amend.",
+              "check_fixup_reword_options: You are in the middle of a merge -- cannot reword.",
+              "check_fixup_reword_options: You are in the middle of a cherry-pick -- cannot reword.",
+              "prepare_index: cannot do a partial commit during a merge.",
+              "prepare_index: cannot do a partial commit during a cherry-pick.",
+              "prepare_index: cannot do a partial commit during a rebase."
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Amend, reword and partial commits during an unborn HEAD or an in-progress merge, cherry-pick or rebase.",
+            "reason": "HEAD and the in-progress operation are read from the repository at runtime."
+          },
+          {
+            "id": "object-resolution",
+            "kind": "refusal",
+            "sites": [
+              "cmd_commit: could not parse HEAD commit",
+              "read_commit_message: could not lookup commit '%s'",
+              "prepare_to_commit: could not lookup commit '%s'",
+              "determine_author_info: commit '%s' lacks author header",
+              "determine_author_info: commit '%s' has malformed author line",
+              "create_base_index: failed to unpack HEAD tree object",
+              "create_base_index: exit 128"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "-C, -c, --fixup and --squash commit names, HEAD and the author headers of reused commits.",
+            "reason": "Names resolve and commits parse only against the object database at runtime."
+          },
+          {
+            "id": "author-lookup",
+            "kind": "refusal",
+            "sites": [
+              "find_author_by_nickname: revision walk setup failed",
+              "find_author_by_nickname: --author '%s' is not 'Name <email>' and matches no existing author"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "An --author value without '>' is looked up among existing authors.",
+            "reason": "The lookup walks the repository history at runtime."
+          },
+          {
+            "id": "message-input",
+            "kind": "refusal",
+            "sites": [
+              "prepare_to_commit: could not read log from standard input",
+              "prepare_to_commit: could not read log file '%s'",
+              "prepare_to_commit: could not read SQUASH_MSG",
+              "prepare_to_commit: could not read MERGE_MSG",
+              "prepare_to_commit: could not read '%s'",
+              "prepare_to_commit: could not open '%s'",
+              "cmd_commit: could not read commit message: %s",
+              "cmd_commit: Corrupt MERGE_HEAD file (%s)",
+              "cmd_commit: could not read MERGE_MODE"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Message files, templates, standard input and merge state files.",
+            "reason": "Whether these files exist and can be read is known only at runtime."
+          },
+          {
+            "id": "pathspec-matching",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: exit 128",
+              "prepare_index: exit 1",
+              "add_remove_files: updating files failed"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Path operands that match no file, and updating the matched files.",
+            "reason": "Matching runs against the index and work tree at runtime; the corpus delegates pathspec files whose contents match nothing."
+          },
+          {
+            "id": "index-and-write-failures",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: index file corrupt",
+              "prepare_index: unable to create temporary index",
+              "prepare_index: unable to write index file",
+              "prepare_index: unable to update temporary index",
+              "prepare_index: unable to write new index file",
+              "prepare_index: cannot read the index",
+              "prepare_index: unable to write temporary index file",
+              "prepare_to_commit: could not write commit template",
+              "prepare_to_commit: Cannot read index",
+              "prepare_to_commit: Error building trees",
+              "cmd_commit: failed to write commit object",
+              "cmd_commit: %s",
+              "cmd_commit: repository has been updated, but unable to write\nnew index file. Check that disk is not full and quota is\nnot exceeded, and then \"git restore --staged :/\" to recover."
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Index, lock, object and ref write failures.",
+            "reason": "Locks, disk space and permissions are known only at runtime."
+          },
+          {
+            "id": "editor-hooks-and-empty-messages",
+            "kind": "refusal",
+            "sites": [
+              "prepare_index: interactive add failed",
+              "prepare_to_commit: exit 1",
+              "cmd_commit: exit 1",
+              "prepare_to_commit: unable to pass trailers to --trailers"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "The editor, interactive add, hooks and interpret-trailers can fail, and the final message can be empty or untouched (exit 1), which hooks and templates can change.",
+            "reason": "The editor, hooks and helper commands run at runtime; -m '' is accepted by the wrapper because a prepare-commit-msg hook can supply text."
+          },
+          {
+            "id": "comment-character",
+            "kind": "refusal",
+            "sites": [
+              "adjust_comment_line_char: unable to select a comment character that is not used\nin the current commit message"
+            ],
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "core.commentChar=auto fails when every candidate character starts a message line.",
+            "reason": "It applies only under that configuration and depends on the message text."
+          },
+          {
+            "id": "author-ident",
+            "kind": "refusal",
+            "sites": [
+              "determine_author_info: malformed --author parameter"
+            ],
+            "disposition": "open",
+            "summary": "An --author value containing '>' must split as a 'Name <email>' ident; ident.c can further refuse an empty name.",
+            "reason": "The ident grammar (split_ident_line and fmt_ident in ident.c) is not yet modeled; the strict API and repo.commit still accept malformed idents such as 'x>'."
+          },
+          {
+            "id": "author-date",
+            "kind": "refusal",
+            "sites": [
+              "determine_author_info: invalid date format: %s"
+            ],
+            "disposition": "open",
+            "summary": "--date must parse as a Git date (parse_force_date: approxidate_careful, with relative dates resolved against now).",
+            "reason": "The approxidate grammar in date.c is not yet modeled; the strict API and repo.commit still accept unparseable dates."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the commit table: long prefixes and negations, short clusters, optional-argument attachment, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts",
+              "test/types/reference-parser-commit-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for every single word and pair over the closure vocabulary (1,250 real commits), whichever refusal Git reaches first; the typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "cleanup-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--cleanup accepts default, verbatim, whitespace, strip and scissors (sequencer.c get_cleanup_mode; cli.commit.cleanup).",
+            "evidence": [
+              "test/fixtures/commit-closure-corpus.json",
+              "src/commands/commit-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "message-option",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Each -m adds a paragraph (opt_parse_m); --no-message clears them; empty -m still counts as a message option.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts"
+            ]
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Every operand is a pathspec; parse_pathspec refuses an empty one in prepare_index, including dry runs (cli.commit.empty-pathspec).",
+            "evidence": [
+              "test/fixtures/status-commit-path-corpus.json",
+              "src/commands/status-commit-path-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS inherited at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Pathspecs outside the repository.",
+            "reason": "parse_pathspec refuses paths outside the repository relative to the runtime prefix."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "commit.* and status.* configuration (cleanup, template, gpgSign, verbose, status defaults) sets defaults that argv can override and refuses invalid configuration values.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Unborn HEAD, in-progress operations and the index decide whether there is anything to commit.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Pathspec case folding and Windows command-line encoding of operands and messages.",
+            "reason": "Both are decided by the filesystem and platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "diff": {
       "state": "partial",

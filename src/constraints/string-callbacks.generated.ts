@@ -123,4 +123,11 @@ export const STRING_CALLBACKS = {
     source:
       'Git 2.25.1/2.55.0 diff.c:parse_dirstat_params/parse_dirstat_opt/diff_opt_dirstat; whole empty text/bare defaults accepted, nonempty comma fields must be exact words or ASCII digit-first decimal with at most one dot (trailing dot accepted). No trimming or range clamp. Invalid fields accumulate errors and cannot be repaired by later words; native fatal128. Keep raw argv and native cutoff arithmetic/rendering.',
   },
+  'commit-fixup': {
+    kind: 'alpha-prefix',
+    separator: ':',
+    allowed: ['amend', 'reword'],
+    source:
+      "builtin/commit.c:parse_and_validate_options; a nonempty run of ASCII letters (git-compat-util/sane-ctype isalpha, which ignores the locale) directly followed by ':' names a suboption, which must be amend or reword; any other value is a commit name",
+  },
 } as const satisfies Record<string, StringCallbackProfile>;

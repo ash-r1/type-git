@@ -114,6 +114,18 @@ git.command('status', [['--porcelain', 'invalid'], ['--porcelain', '2']]);
 git.command('status', [['--ignored', 'matching'], ['--untracked-files', 'no']]);
 // @ts-expect-error Empty -m still counts as a literal message.
 git.command('commit', [['--fixup', 'amend:HEAD'], ['-m', '']]);
+// @ts-expect-error With a fixup, --amend reuses no message for --reset-author.
+git.command('commit', [['--reset-author'], ['--amend'], ['--fixup', 'HEAD']]);
+git.command('commit', [['--reset-author'], ['--amend']]);
+git.command('commit', [['--reset-author'], ['--amend'], ['--fixup', 'HEAD'], ['--no-fixup']]);
+// @ts-expect-error A letters-only --fixup prefix before ':' must be amend or reword.
+git.command('commit', [['--fixup', 'x:HEAD']]);
+// @ts-expect-error Suboption names are case-sensitive.
+git.command('commit', [['--fixup', 'Amend:HEAD']]);
+// Any other text before ':' (digits, a path) is part of the commit name.
+git.command('commit', [['--fixup', 'HEAD~1:file']]);
+git.command('commit', [['--fixup', ':/subject']]);
+git.command('commit', [['--fixup', 'v1:HEAD']]);
 // @ts-expect-error Reword fixup forbids content selection.
 git.command('commit', [['--fixup', 'reword:HEAD'], ['--only']]);
 // @ts-expect-error parse_pathspec rejects an empty status pathspec.

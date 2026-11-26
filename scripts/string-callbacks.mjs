@@ -20,6 +20,8 @@ for (const [name, profile] of Object.entries(registry.profiles)) {
     if (![1, 2].includes(profile.parts)) throw new Error(`${name}: invalid score field count`);
   } else if (profile.kind === 'first-separator') {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || typeof profile.allowUnseparated !== 'boolean') throw new Error(`${name}: invalid first-separator grammar`);
+  } else if (profile.kind === 'alpha-prefix') {
+    if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || /[A-Za-z]/.test(profile.separator) || !Array.isArray(profile.allowed) || !profile.allowed.length || profile.allowed.some(value => typeof value !== 'string' || !/^[A-Za-z]+$/.test(value))) throw new Error(`${name}: invalid alpha-prefix grammar`);
   } else if (profile.kind === 'choice') {
     for (const field of ['exact', 'prefixes']) if (!Array.isArray(profile[field]) || profile[field].some(value => typeof value !== 'string' || !value)) throw new Error(`${name}: invalid ${field}`);
   } else if (profile.kind === 'token-list') {

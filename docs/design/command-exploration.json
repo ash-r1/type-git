@@ -4072,7 +4072,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 24,
+      "rules": 26,
       "domains": {
         "empty-pathspec": [
           "undefined",
@@ -4356,13 +4356,15 @@
         ]
       },
       "total": "84022787103097500000000000",
-      "accepted": "1949870061123747840000",
-      "nodes": 18089,
+      "accepted": "1934674640206479360000",
+      "nodes": 18949,
       "isolatedRuleWitnesses": {
         "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
         "cli.commit.author": "{\"author\":\"\",\"operands\":[],\"reset-author\":true}",
+        "cli.commit.reset-author-amend-fixup": "{\"amend\":true,\"fixup\":\"\",\"operands\":[],\"reset-author\":true}",
         "cli.commit.fixup-squash": "{\"fixup\":\"\",\"operands\":[],\"squash\":\"\"}",
+        "cli.commit.fixup-suboption": null,
         "cli.commit.message-source": "{\"fixup\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
         "cli.commit.literal-message-source": "{\"message\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
         "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[\"value\"]}",
