@@ -314,7 +314,10 @@ describe('status and commit path operands', () => {
     }
     const native = direct('commit', ['--fixup=x:HEAD']);
     expect(native.status).toBe(128);
-    expect(native.stderr).toContain('unknown option: --fixup=x:HEAD');
+    // Before Git 2.32 the whole value is a commit name, which also fails here.
+    expect(native.stderr).toContain(
+      fixupPrefixes ? 'unknown option: --fixup=x:HEAD' : 'could not lookup commit',
+    );
     await expect(repo.commit({ fixup: 'x:HEAD' })).rejects.toThrow(GitArgumentError);
   });
 });
