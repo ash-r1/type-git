@@ -8425,7 +8425,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8512,6 +8512,454 @@
       "environment": false,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never one year"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never one year"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never last friday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never last friday"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never yesterday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never yesterday"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten days"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten days"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years ten years"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years ten years"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten months"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten months"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten hours"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten hours"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten weeks"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten weeks"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never one second"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never one second"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never friday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never friday"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never last year"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never last year"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never noon yesterday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never noon yesterday"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never pm"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never pm"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years ten years ten years ten years ten years ten years ten years ten years"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years ten years ten years ten years ten years ten years ten years ten years"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "commit",
@@ -26493,6 +26941,518 @@
         "-m",
         "msg",
         "--date=é never",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never one year"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never one year",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never last friday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never last friday",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never yesterday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never yesterday",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten days"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten days",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years ten years"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years ten years",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten months"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten months",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten hours"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten hours",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten weeks"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten weeks",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never one second"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never one second",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never friday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never friday",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never last year"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never last year",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never noon yesterday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never noon yesterday",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never pm"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never pm",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never ten years ten years ten years ten years ten years ten years ten years ten years"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never ten years ten years ten years ten years ten years ten years ten years ten years",
         "--dry-run"
       ],
       "valid": true,

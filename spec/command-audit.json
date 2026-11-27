@@ -1204,7 +1204,7 @@
             ],
             "disposition": "delegated",
             "basis": "file-content",
-            "summary": "Include mode, and only mode without --allow-empty, --amend or an amend: fixup, need path operands or a pathspec file, and only mode with --amend and a fixup that is not amend: still needs paths, a pathspec file or --allow-empty (modeled: cli.commit.include-paths, cli.commit.only-paths, cli.commit.only-amend-fixup; repo.commit commit.include-paths, commit.only-paths, commit.only-amend-fixup; checked against test/fixtures/commit-closure-corpus.json and test/fixtures/status-commit-path-corpus.json). Only a pathspec file that names no paths is left to native Git.",
+            "summary": "Include mode, and only mode without --allow-empty, --amend or an amend: fixup, need path operands or a pathspec file, and only mode with --amend and a fixup that is not amend: still needs paths, a pathspec file or --allow-empty (modeled: cli.commit.include-paths, cli.commit.only-paths, cli.commit.only-amend-fixup; repo.commit commit.include-paths, commit.only-paths; the plain-fixup case is left to Git under repo.commit because Git 2.31 and older accept it; checked against test/fixtures/commit-closure-corpus.json and test/fixtures/status-commit-path-corpus.json). Only a pathspec file that names no paths is left to native Git.",
             "reason": "prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so whether a --pathspec-from-file names any path is known only from the file's content at runtime."
           },
           {
@@ -1429,7 +1429,7 @@
               "determine_author_info: invalid date format: %s"
             ],
             "disposition": "modeled",
-            "summary": "On a real commit, --date must pass parse_force_date: parse_date, or approxidate_careful with something touched. Text with an ASCII digit always passes; digit-free text passes only with a word (a run of ASCII letters) that is a month prefix of three or more letters, a special word (yesterday, noon, midnight, tea, pm, am, now, today), one to ten or last, ASCII case-insensitively, and digit-free text with the word never is refused because date_never pins every field to the epoch and ident.c refuses the '@<seconds>' it yields in every clock and time zone (cli.commit.date, parser commit-date at runtime; repo.commit commit.date, which also accepts a valid Date). Text with a digit that resolves before 1973-03-03 is the date-range delegation.",
+            "summary": "On a real commit, --date must pass parse_force_date: parse_date, or approxidate_careful with something touched. Text with an ASCII digit always passes; digit-free text passes only with a word (a run of ASCII letters) that is a month prefix of three or more letters, a special word (yesterday, noon, midnight, tea, pm, am, now, today), one to ten or last, ASCII case-insensitively, and digit-free text with the word never and no number word (one to ten or last) is refused because date_never pins every field to the epoch and ident.c refuses the '@<seconds>' it yields in every clock and time zone; with a number word, repeated units can wrap the year past 1973, so it joins the date-range delegation (cli.commit.date, parser commit-date at runtime; repo.commit commit.date, which also accepts a valid Date). Text with a digit, or never with a number word, that resolves before 1973-03-03 is the date-range delegation.",
             "evidence": [
               "src/constraints/commit-ident.ts",
               "src/constraints/commit-ident-types.ts",
@@ -1560,7 +1560,7 @@
             "kind": "state",
             "disposition": "delegated",
             "basis": "environment",
-            "summary": "Text with a digit goes through parse_date or approxidate's numeric arithmetic (years, relative units, times of day) against the current time and the local time zone, and ident.c:fmt_ident refuses the '@<seconds>' it yields when parse_date cannot read it back (seconds below 100000000, for example 1973 or 50 years ago). Some such values, like 1971, fall below the bound in every environment; the wrapper does not evaluate the arithmetic and leaves the whole numeric range to Git.",
+            "summary": "Text with a digit, and digit-free text with never and a number word (one to ten or last, whose repeated units can wrap the year: never followed by eight 'ten years' yields 2026), goes through parse_date or approxidate's numeric arithmetic (years, relative units, times of day) against the current time and the local time zone, and ident.c:fmt_ident refuses the '@<seconds>' it yields when parse_date cannot read it back (seconds below 100000000, for example 1973 or 50 years ago). Some such values, like 1971, fall below the bound in every environment; the wrapper does not evaluate the arithmetic and leaves the whole numeric range to Git.",
             "reason": "Whether a numeric date lands before 1973-03-03 generally depends on the clock and TZ at runtime, which argv does not fix."
           }
         ]

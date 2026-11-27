@@ -58,9 +58,13 @@ const AUTHORS = [
 ];
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const WORDS = ['yesterday', 'noon', 'midnight', 'tea', 'pm', 'am', 'never', 'now', 'today', 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'last', 'seconds', 'second', 'minutes', 'hours', 'days', 'weeks', 'months', 'years', 'year', 'sunday', 'fridays', 'fri', 'ago'];
+const NUMBER_WORDS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'last'];
 const DATES = [
   '', ' ', 'x', '-', '@', 'é', '日本', 'jan.', '.jan', 'x jan', 'jan,x', 'janx', 'Jan', 'JAN', 'friday last', 'last friday', 'ten years', 'noon x', 'x-now',
   'jan never', 'never today', 'today never', 'never noon', 'last never', 'never-yesterday', 'nevers', 'é never',
+  'never ten years', 'never one year', 'never last friday', 'never yesterday', 'never ten days', 'never ten years ten years', 'never ten months',
+  'never ten hours', 'never ten weeks', 'never one second', 'never friday', 'never last year', 'never noon yesterday', 'never ten', 'never pm',
+  Array(8).fill('ten years').join(' ').replace(/^/, 'never '),
   '1', 'x1', '1x', '@1', '2005-04-07T22:13:13', 'Thu, 07 Apr 2005 22:13:13 +0200', '@1112911993 +0200', '1112911993', '1.year.ago', '1971', '200 years ago',
   ...ascii,
   ...MONTHS.flatMap((month) => [month.slice(0, 2), month.slice(0, 3), month, `${month}x`, month.toUpperCase()]),
@@ -70,7 +74,7 @@ try {
   await mkdir(directory);
   await writeFile(join(base, 'oracle-stdin'), '');
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
-  if (git(['init', '-qb', 'main']).status !== 0 || git(['commit', '-q', '--allow-empty', '-m', 'seed']).status !== 0) throw new Error('Cannot seed oracle');
+  if (git(['init', '-q', '--template=', '-b', 'main']).status !== 0 || git(['commit', '-q', '--allow-empty', '-m', 'seed']).status !== 0) throw new Error('Cannot seed oracle');
   const seed = git(['rev-parse', 'HEAD']).stdout.trim();
   const cases = [];
   const record = (option, value, dryRun) => {
@@ -83,9 +87,12 @@ try {
     const valid = (result.status === 0 || (dryRun && result.status === 1)) && !diagnostic;
     const state = !valid && NICKNAME.test(diagnostic);
     // ident.c re-parses the '@<seconds>' that approxidate computed from the clock and time zone.
-    // Only text with a digit reaches that arithmetic; digit-free refusals are modeled.
+    // Only text with a digit, or "never" with a number word, reaches that arithmetic; other
+    // digit-free refusals are modeled.
+    const words = (value.match(/[A-Za-z]+/g) ?? []).map((word) => word.toLowerCase());
+    const arithmetic = /[0-9]/.test(value) || (words.includes('never') && words.some((word) => NUMBER_WORDS.includes(word)));
     const environment =
-      !valid && option === '--date' && /[0-9]/.test(value) && DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}`;
+      !valid && option === '--date' && arithmetic && DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}`;
     // die() prints control characters as '?', so the value itself is not matched.
     const modeled = option === '--author' ? AUTHOR : [/^fatal: invalid date format: /];
     if (!valid && !state && !environment && !modeled.some((pattern) => pattern.test(diagnostic))) {

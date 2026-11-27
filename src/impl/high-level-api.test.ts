@@ -286,6 +286,28 @@ describe('High-level API', () => {
   });
 
   describe('commit', () => {
+    it('refuses authors and dates that Git refuses before running Git', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      const head = (await repo.raw(['rev-parse', 'HEAD'])).stdout;
+
+      for (const opts of [
+        { author: 'x>' },
+        { author: ' <a@example.test>' },
+        { date: 'friday' },
+        { date: 'never' },
+        { date: new Date(Number.NaN) },
+      ]) {
+        await expect(
+          repo.commit({ message: 'refused', allowEmpty: true, ...opts }),
+        ).rejects.toThrow(GitArgumentError);
+      }
+      expect((await repo.raw(['rev-parse', 'HEAD'])).stdout).toBe(head);
+      await repo.commit({ message: 'dated', allowEmpty: true, date: new Date(1_700_000_000_000) });
+      const date = await repo.raw(['log', '-1', '--format=%at']);
+      expect(date.stdout.trim()).toBe('1700000000');
+    });
+
     it('should create a commit', async () => {
       const repoPath = join(tempDir, 'repo');
       const repo = await git.init(repoPath);

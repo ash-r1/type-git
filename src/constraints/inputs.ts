@@ -33,24 +33,6 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
     {
-      id: 'commit.only-amend-fixup',
-      kind: 'requiresAny',
-      when: { key: 'only', test: 'active' },
-      guard: [
-        { key: 'amend', test: 'active' },
-        { key: 'fixup', test: 'nonempty' },
-      ],
-      choices: [
-        { key: 'pathspecFromFile', test: 'nonempty' },
-        { key: 'allowEmpty', test: 'active' },
-        { key: 'fixup', test: 'startsWith', value: 'amend:' },
-      ],
-      origin: 'git',
-      reason:
-        'In only mode, amend with a fixup that is not amend: still needs a pathspec file or allowEmpty.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
-    },
-    {
       id: 'commit.reword-content',
       kind: 'conflicts',
       when: { key: 'fixup', test: 'startsWith', value: 'reword:' },

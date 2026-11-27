@@ -10,8 +10,8 @@
     "command": "commitPaths",
     "scope": "operands",
     "total": "2066715",
-    "accepted": "676854",
-    "nodes": 543
+    "accepted": "683550",
+    "nodes": 421
   },
   {
     "command": "pathspec",

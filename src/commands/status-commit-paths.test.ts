@@ -253,8 +253,6 @@ describe('status and commit path operands', () => {
       // Reword fixups exclude content selection.
       { only: true, fixup: 'reword:HEAD' },
       { all: true, fixup: 'reword:HEAD' },
-      // Git 2.32+ refuses amend with a plain fixup in only mode.
-      { only: true, amend: true, fixup: 'HEAD' },
     ];
     for (const opts of refused) {
       expect(() => {
@@ -269,6 +267,9 @@ describe('status and commit path operands', () => {
       { only: true, fixup: 'amend:HEAD' },
       // An empty fixup is not emitted, so --amend still exempts only mode.
       { only: true, amend: true, fixup: '' },
+      // Git 2.32+ refuses amend with a plain fixup in only mode, but 2.31 and older accept it,
+      // so repo.commit leaves it to the executing Git (the strict API pins 2.55).
+      { only: true, amend: true, fixup: 'HEAD' },
     ]) {
       expect(() => {
         validateOptions('commit', opts);

@@ -40,7 +40,7 @@ describe('commit author and date corpus', () => {
     expect(mismatches).toEqual([]);
   });
 
-  it('matches the same outcomes in repo.commit', () => {
+  it('matches the same outcomes in the repo.commit input rules', () => {
     const mismatches: string[] = [];
     for (const row of corpus.cases) {
       const [option, text] = value(row);
@@ -79,8 +79,8 @@ describe('commit author and date corpus', () => {
     ).toThrow('[commit.date]');
   });
 
-  it('refuses digit-free dates with the word never, which yield seconds before 1973', () => {
-    for (const date of ['never', 'NEVER', 'jan never', 'never today', 'today never']) {
+  it('refuses digit-free dates with never and no number word, which yield seconds before 1973', () => {
+    for (const date of ['never', 'NEVER', 'jan never', 'never today', 'never noon yesterday']) {
       expect(() => commandArguments('commit', [['--date', date]], true), date).toThrow(
         '[cli.commit.date]',
       );
@@ -88,6 +88,12 @@ describe('commit author and date corpus', () => {
     expect(commandArguments('commit', [['--date', 'nevers jan']], true)).toEqual([
       'commit',
       '--date=nevers jan',
+    ]);
+    // Repeated units after a number word can wrap the year past 1973, so Git decides.
+    const wrapped = `never ${Array(8).fill('ten years').join(' ')}`;
+    expect(commandArguments('commit', [['--date', wrapped]], true)).toEqual([
+      'commit',
+      `--date=${wrapped}`,
     ]);
   });
 });

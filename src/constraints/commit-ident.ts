@@ -64,15 +64,7 @@ const MONTHS: readonly string[] = [
  * date.c special[], number_name[1..10] and "last": whole words, ASCII case-insensitive. "never"
  * touches too, but is refused separately below.
  */
-const WORDS: ReadonlySet<string> = new Set([
-  'yesterday',
-  'noon',
-  'midnight',
-  'tea',
-  'pm',
-  'am',
-  'now',
-  'today',
+const NUMBERS: ReadonlySet<string> = new Set([
   'one',
   'two',
   'three',
@@ -85,6 +77,17 @@ const WORDS: ReadonlySet<string> = new Set([
   'ten',
   'last',
 ]);
+const WORDS: ReadonlySet<string> = new Set([
+  ...NUMBERS,
+  'yesterday',
+  'noon',
+  'midnight',
+  'tea',
+  'pm',
+  'am',
+  'now',
+  'today',
+]);
 
 /**
  * builtin/commit.c:parse_force_date refuses --date ("invalid date format") when
@@ -93,9 +96,11 @@ const WORDS: ReadonlySet<string> = new Set([
  * fail. Its words are runs of ASCII letters (sane_ctype; bytes >= 0x80 separate words); a word
  * touches when it is a month prefix of at least three letters, a special word, one to ten or
  * "last". Units, weekdays, "months" and "years" touch only after a number, which has already
- * touched. date_never sets every field to the epoch, and digit-free words only keep fields
- * that are already set or move back in time, so a digit-free value with the word "never"
- * yields seconds below 100000000, which ident.c refuses in every clock and time zone.
+ * touched. date_never sets every field to the epoch; without a number word, the remaining
+ * digit-free words only keep fields that are already set or move back in time, so such a value
+ * yields seconds below 100000000, which ident.c refuses in every clock and time zone. With a
+ * number word, repeated units can wrap tm_year past 1973 (eight "ten years" after "never"
+ * reach 2026), which is clock arithmetic left to Git like the digit case.
  */
 export function validCommitDate(value: unknown): boolean {
   if (typeof value !== 'string') {
@@ -106,7 +111,7 @@ export function validCommitDate(value: unknown): boolean {
   }
   const words = (value.match(ASCII_WORDS) ?? []).map((word) => word.toLowerCase());
   if (words.includes('never')) {
-    return false;
+    return words.some((lower) => NUMBERS.has(lower));
   }
   return words.some((lower) => {
     return (
