@@ -114,18 +114,14 @@ try {
   const families = [FORMAT, NUL, UNTRACKED, IGNORED, SUBMODULES, RENAMES, OPERANDS];
   const sequences = [];
   for (const family of families) for (const a of family) sequences.push([a]);
-  // Every cross-family pair in both orders.
-  for (const [i, left] of families.entries()) {
-    for (const [j, right] of families.entries()) {
-      if (i === j) continue;
-      for (const a of left) for (const b of right) sequences.push([a, b]);
-    }
-  }
-  // Format and NUL are last-wins state: ordered triples over both decide --long with -z.
+  // Every ordered pair, within a family and across families.
+  for (const left of families) for (const right of families) for (const a of left) for (const b of right) sequences.push([a, b]);
+  // Format and NUL are last-wins state: triples over both, with the NUL word in every position, decide --long with -z.
   const formatNul = [...FORMAT, ...NUL];
-  for (const a of formatNul) for (const b of formatNul) for (const c of NUL) sequences.push([a, b, c], [c, a, b]);
-  // Matching ignored files with last-wins untracked modes.
-  for (const a of UNTRACKED) for (const b of UNTRACKED) sequences.push([['--ignored', 'matching'], a, b]);
+  for (const a of formatNul) for (const b of formatNul) for (const c of NUL) sequences.push([a, b, c], [a, c, b], [c, a, b]);
+  // Matching ignored files with two last-wins untracked modes, the ignored word in every position.
+  const matching = ['--ignored', 'matching'];
+  for (const a of UNTRACKED) for (const b of UNTRACKED) sequences.push([matching, a, b], [a, matching, b], [a, b, matching]);
   // Refusal order: option callbacks, then final checks, then the pathspec, then submodules.
   for (const a of [['--porcelain', 'v3'], ['--long'], ['--untracked-files', 'bad'], ['--ignored', 'bad']]) {
     for (const b of [['-z'], ['--ignored', 'bad'], ['--ignore-submodules', 'bad'], operand('')]) sequences.push([a, b], [b, a]);
@@ -136,7 +132,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; isolated seeded repository with a modified tracked file, an untracked file and an ignored file; status closure vocabulary pairs and ordered format/NUL/untracked triples; empty file-backed stdin',
+        'Git 2.55.0; isolated seeded repository with a modified tracked file, an untracked file and an ignored file; every ordered pair of the status closure vocabulary, format/NUL and matching/untracked triples in each position; empty file-backed stdin',
       cases,
     },
     null,
