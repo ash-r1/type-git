@@ -513,12 +513,15 @@
       ]
     },
     "total": "524880",
-    "accepted": "77760",
-    "nodes": 15,
+    "accepted": "40500",
+    "nodes": 62,
     "isolatedRuleWitnesses": {
       "status.unsupported": "{\"verbose\":false}",
       "status.porcelain": "{\"porcelain\":1}",
-      "status.nul": "{\"nullTerminated\":false}"
+      "status.nul": "{\"nullTerminated\":false}",
+      "status.ignored-untracked": "{\"ignored\":\"matching\",\"untracked\":\"no\"}",
+      "status.findRenames": "{\"findRenames\":1.5}",
+      "status.findRenames-range": null
     }
   },
   {

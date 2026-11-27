@@ -685,6 +685,38 @@ export const COMMAND_CONSTRAINTS = {
       reason: 'Structured paths use NUL delimiters to preserve all filenames.',
       source: contract,
     },
+    {
+      id: 'status.ignored-untracked',
+      kind: 'forbid',
+      when: [
+        { key: 'ignored', test: 'equals', value: 'matching' },
+        { key: 'untracked', test: 'equals', value: 'no' },
+      ],
+      origin: 'git',
+      reason: 'Matching ignored files requires showing untracked files.',
+      source: git('builtin/commit.c'),
+    },
+    {
+      id: 'status.findRenames',
+      kind: 'integer',
+      key: 'findRenames',
+      min: 1,
+      allowBoolean: true,
+      origin: 'type-git',
+      reason: 'A rename threshold is a whole percentage.',
+      source: contract,
+    },
+    {
+      id: 'status.findRenames-range',
+      kind: 'range',
+      key: 'findRenames',
+      min: 1,
+      max: 100,
+      origin: 'type-git',
+      // Git turns a zero score into its 50% default, so 0 would not mean 0%.
+      reason: 'A rename threshold is a percentage from 1 to 100.',
+      source: contract,
+    },
   ],
   log: [
     {

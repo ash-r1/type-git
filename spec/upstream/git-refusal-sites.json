@@ -1,5 +1,84 @@
 {
   "baseline": "2.55.0",
   "extractor": "scripts/refusal-sites.mjs",
-  "files": {}
+  "files": {
+    "builtin/commit.c": {
+      "sha256": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
+      "functions": {
+        "cmd_status": {
+          "sites": [
+            {
+              "call": "show_usage_with_options_if_asked",
+              "text": null,
+              "line": 1602
+            },
+            {
+              "call": "die",
+              "text": "Unsupported combination of ignored and untracked-files arguments",
+              "line": 1620
+            }
+          ],
+          "references": [
+            "finalize_deferred_config",
+            "git_status_config",
+            "handle_ignored_arg",
+            "handle_untracked_files_arg",
+            "opt_parse_porcelain",
+            "opt_parse_rename_score",
+            "status_init_config"
+          ]
+        },
+        "finalize_deferred_config": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--long, -z]",
+              "line": 1267
+            }
+          ],
+          "references": []
+        },
+        "handle_ignored_arg": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Invalid ignored mode '%s'",
+              "line": 1186
+            }
+          ],
+          "references": []
+        },
+        "handle_untracked_files_arg": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Invalid untracked files mode '%s'",
+              "line": 1225
+            }
+          ],
+          "references": [
+            "parse_untracked_setting_name"
+          ]
+        },
+        "opt_parse_porcelain": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unsupported porcelain version '%s'",
+              "line": 164
+            }
+          ],
+          "references": []
+        },
+        "opt_parse_rename_score": {
+          "sites": [],
+          "references": []
+        },
+        "parse_untracked_setting_name": {
+          "sites": [],
+          "references": []
+        }
+      }
+    }
+  }
 }

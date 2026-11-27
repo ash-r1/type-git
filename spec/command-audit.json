@@ -370,7 +370,7 @@
       "typedCommandAPI": true
     },
     "status": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "status"
       ],
@@ -395,10 +395,287 @@
         "test/types/global-help-dispatch.ts",
         "src/commands/status-commit-paths.test.ts",
         "scripts/status-commit-path-corpus.mjs",
-        "src/commands/status-commit-path-corpus.test.ts"
+        "src/commands/status-commit-path-corpus.test.ts",
+        "scripts/status-closure-corpus.mjs",
+        "src/commands/status-closure-corpus.test.ts",
+        "src/impl/option-constraints.test.ts",
+        "test/types/generated-command-constraints.ts",
+        "src/commands/parse-options-completion.test.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in cmd_status, while help exits first. This case is checked against 26 independent Git 2.55.0 outcomes in test/fixtures/status-commit-path-corpus.json (scripts/status-commit-path-corpus.mjs), covering porcelain, short and NUL formats, the end marker and help before or after the operand, and against the executing Git in src/commands/status-commit-paths.test.ts. Auto column mode depends on whether standard output is a terminal and is delegated to native Git. Configuration and repository state, pathspec magic and filesystem resolution are delegated to native Git at runtime. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Empty pathspec operands are rejected after option parsing, as parse_pathspec does in cmd_status, while help exits first. This case is checked against 26 independent Git 2.55.0 outcomes in test/fixtures/status-commit-path-corpus.json (scripts/status-commit-path-corpus.mjs), covering porcelain, short and NUL formats, the end marker and help before or after the operand, and against the executing Git in src/commands/status-commit-paths.test.ts. Auto column mode depends on whether standard output is a terminal and is delegated to native Git. Configuration and repository state, pathspec magic and filesystem resolution are delegated to native Git at runtime. Other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/reference-parser-corpus.json",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/reference-parser.test.ts",
+          "test/types/reference-parser-status-corpus-1.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/status-commit-path-corpus.json",
+          "src/commands/status-commit-path-corpus.test.ts",
+          "src/commands/status-commit-paths.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/status-closure-corpus.json",
+          "src/commands/status-closure-corpus.test.ts",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "serialization": [
+          "src/commands/status-closure-corpus.test.ts",
+          "src/commands/reference-parser.test.ts",
+          "src/commands/status-commit-path-corpus.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/status-closure-corpus.mjs",
+          "scripts/status-commit-path-corpus.mjs",
+          "scripts/reference-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/reference-parser-status-corpus-1.ts",
+          "test/types/generated-command-constraints.ts",
+          "test/types/command-api.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_status",
+        "sources": {
+          "builtin/commit.c": [
+            "cmd_status",
+            "finalize_deferred_config",
+            "handle_ignored_arg",
+            "handle_untracked_files_arg",
+            "opt_parse_porcelain",
+            "opt_parse_rename_score",
+            "parse_untracked_setting_name"
+          ]
+        },
+        "waived": {
+          "git_status_config": "Configuration callback: it reads status.* and color.status.* keys and refuses only invalid configuration values (an invalid status.showUntrackedFiles, a non-boolean where a value is required); covered by the configuration obligation.",
+          "status_init_config": "Runs the configuration callback and records whence state before option parsing; covered by the configuration and repository-state obligations."
+        },
+        "obligations": [
+          {
+            "id": "help",
+            "kind": "refusal",
+            "sites": [
+              "cmd_status: show_usage_with_options_if_asked"
+            ],
+            "disposition": "modeled",
+            "summary": "A sole -h prints usage and exits 129 before configuration or parsing.",
+            "evidence": [
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "ignored-matching-without-untracked",
+            "kind": "refusal",
+            "sites": [
+              "cmd_status: Unsupported combination of ignored and untracked-files arguments"
+            ],
+            "disposition": "modeled",
+            "summary": "--ignored=matching with a final untracked mode of no (including Git boolean false spellings and an empty --untracked-files=) is refused (cli.status.ignored-untracked; repo.status status.ignored-untracked). A status.showUntrackedFiles=no configuration can make the same refusal fire without -u; that case belongs to the configuration obligation.",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "long-with-nul",
+            "kind": "refusal",
+            "sites": [
+              "finalize_deferred_config: options '%s' and '%s' cannot be used together [--long, -z]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --long format with -z active is refused; both are last-wins, and -z alone selects porcelain (cli.status.long-nul).",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "ignored-mode",
+            "kind": "refusal",
+            "sites": [
+              "handle_ignored_arg: Invalid ignored mode '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--ignored accepts exactly traditional, no and matching, case-sensitively (cli.status.ignored).",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "untracked-mode",
+            "kind": "refusal",
+            "sites": [
+              "handle_untracked_files_arg: Invalid untracked files mode '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--untracked-files accepts no, normal, all and Git boolean spellings through parse_untracked_setting_name (cli.status.untracked). An empty value means no, so a typed short -u with an empty value is emitted as --untracked-files= rather than a bare -u, which would mean all.",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts",
+              "test/fixtures/reference-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "porcelain-version",
+            "kind": "refusal",
+            "sites": [
+              "opt_parse_porcelain: unsupported porcelain version '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--porcelain accepts v1, 1, v2 and 2 only; the callback refuses during option parsing, before final checks.",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts",
+              "test/fixtures/reference-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the status table: long prefixes and negations, short clusters, optional-argument attachment, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts",
+              "test/types/reference-parser-status-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for every single word and ordered pair of the closure vocabulary, for format/NUL triples with the NUL word in each position, for --ignored=matching with two untracked modes in each position, and for the listed refusal-order pairs. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "column-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--column tokens follow parseopt_column_callback in column.c, including enable projection.",
+            "evidence": [
+              "test/fixtures/reference-parser-corpus.json",
+              "src/commands/reference-parser.test.ts"
+            ]
+          },
+          {
+            "id": "submodule-mode",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--ignore-submodules accepts none, untracked, dirty and all; submodule.c refuses others after the pathspec is parsed (cli.status.ignore-submodules).",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "rename-score",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-M/--find-renames never refuses: opt_parse_rename_score stores the text and parse_rename_score stops at the first unexpected character; a zero score selects Git's default of 50%. repo.status emits a whole percentage from 1 to 100 (findRenames: 50 is --find-renames=50%) and refuses other numbers.",
+            "evidence": [
+              "test/fixtures/status-closure-corpus.json",
+              "src/commands/status-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Every operand is a pathspec; parse_pathspec refuses an empty one after option parsing (cli.status.empty-pathspec).",
+            "evidence": [
+              "test/fixtures/status-commit-path-corpus.json",
+              "src/commands/status-commit-path-corpus.test.ts",
+              "src/commands/status-commit-paths.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS inherited at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Pathspecs outside the repository and matching against the work tree.",
+            "reason": "parse_pathspec refuses paths outside the repository relative to the runtime prefix, and matching depends on the work tree."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "status.* configuration (short, branch, showUntrackedFiles, renames, aheadBehind, column) sets defaults that argv can override, refuses invalid configuration values, and through status.showUntrackedFiles=no can make --ignored=matching refuse when no -u is given.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Index locking, unborn HEAD and in-progress operations change output, not argv acceptance.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "auto-columns",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "--column=auto enables columns only on a terminal.",
+            "reason": "Whether standard output is a terminal is known only at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Pathspec case folding and Windows command-line encoding of operands.",
+            "reason": "Both are decided by the filesystem and platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "log": {
       "state": "partial",
