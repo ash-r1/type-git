@@ -57,11 +57,17 @@ describe('per-command progress report', () => {
   });
 
   it('splits semicolon clauses and keeps open work out of delegation', async () => {
-    const [{ scopes: [show] }] = await commandProgress(['show']);
-    const open = [...show.remaining, ...show.delegation].find((s) => /^dynamic or compiler-budget-exceeding literals/.test(s));
+    // Any partial scope whose ledger still carries the shared numeric-bounds sentence will do;
+    // completed scopes move that text to notes.
+    const report = await commandProgress(['whatchanged', 'rev-list', 'format-patch', 'blame']);
+    const scope = report
+      .flatMap(({ scopes }) => scopes)
+      .find((s) => s.remaining.some((t) => /^dynamic or compiler-budget-exceeding literals/.test(t)));
+    expect(scope).toBeDefined();
+    const open = [...scope.remaining, ...scope.delegation].find((s) => /^dynamic or compiler-budget-exceeding literals/.test(s));
     expect(open).toBeDefined();
-    expect(show.remaining).toContain(open);
-    expect(show.achieved.some((s) => /^Numeric bounds .* are checked/.test(s))).toBe(true);
+    expect(scope.remaining).toContain(open);
+    expect(scope.achieved.some((s) => /^Numeric bounds .* are checked/.test(s))).toBe(true);
   });
 
   it('reports completion gaps that agree with the recorded state', async () => {

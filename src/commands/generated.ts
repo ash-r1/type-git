@@ -803,19 +803,30 @@ const sharedPredicates69 = [
 ] as const;
 const sharedPredicates70 = [
   {
+    key: 'max-count',
+    test: 'positive',
+  },
+  {
+    key: 'max-count',
+    test: 'equals',
+    value: 0,
+  },
+] as const;
+const sharedPredicates71 = [
+  {
     key: 'diff-prescan-word',
     test: 'equals',
     value: true,
   },
 ] as const;
-const sharedPredicates71 = [
+const sharedPredicates72 = [
   {
     key: '$value',
     test: 'equals',
     value: '--',
   },
 ] as const;
-const sharedPredicates72 = [
+const sharedPredicates73 = [
   {
     key: '$value',
     test: 'equals',
@@ -831,25 +842,25 @@ const sharedPredicates72 = [
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates73 = [
+const sharedPredicates74 = [
   {
     key: 'diff-usage',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates74 = [
+const sharedPredicates75 = [
   {
     key: 'min-age',
     test: 'timestampNotDefault',
   },
 ] as const;
-const sharedPredicates75 = [
+const sharedPredicates76 = [
   {
     key: 'max-age',
     test: 'timestampNotDefault',
   },
 ] as const;
-const sharedPredicates76 = [
+const sharedPredicates77 = [
   {
     key: 'help',
     test: 'inactive',
@@ -859,7 +870,7 @@ const sharedPredicates76 = [
     test: 'positive',
   },
 ] as const;
-const sharedPredicates77 = [
+const sharedPredicates78 = [
   {
     key: 'help',
     test: 'inactive',
@@ -870,7 +881,7 @@ const sharedPredicates77 = [
     value: 0,
   },
 ] as const;
-const sharedPredicates78 = [
+const sharedPredicates79 = [
   {
     key: 'help',
     test: 'inactive',
@@ -884,7 +895,7 @@ const sharedPredicates78 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates79 = [
+const sharedPredicates80 = [
   {
     key: 'help',
     test: 'inactive',
@@ -898,20 +909,20 @@ const sharedPredicates79 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates80 = [
+const sharedPredicates81 = [
   {
     key: 'follow',
     test: 'active',
   },
 ] as const;
-const sharedPredicates81 = [
+const sharedPredicates82 = [
   {
     key: 'backend',
     test: 'equals',
     value: 'apply',
   },
 ] as const;
-const sharedPredicates82 = [
+const sharedPredicates83 = [
   {
     key: 'quit',
     test: 'inactive',
@@ -929,7 +940,7 @@ const sharedPredicates82 = [
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates83 = [
+const sharedPredicates84 = [
   {
     key: 'operands',
     test: 'nonempty',
@@ -939,7 +950,7 @@ const sharedPredicates83 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates84 = [
+const sharedPredicates85 = [
   {
     key: 'no-commit',
     test: 'active',
@@ -981,7 +992,7 @@ const sharedPredicates84 = [
     test: 'present',
   },
 ] as const;
-const sharedPredicates85 = [
+const sharedPredicates86 = [
   {
     key: 'no-commit',
     test: 'active',
@@ -1007,7 +1018,7 @@ const sharedPredicates85 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates86 = [
+const sharedPredicates87 = [
   {
     key: 'start-after',
     test: 'present',
@@ -1018,7 +1029,7 @@ const sharedPredicates86 = [
     value: true,
   },
 ] as const;
-const sharedPredicates87 = [
+const sharedPredicates88 = [
   {
     key: 'start-after',
     test: 'present',
@@ -1029,33 +1040,33 @@ const sharedPredicates87 = [
     value: false,
   },
 ] as const;
-const sharedPredicates88 = [
+const sharedPredicates89 = [
   {
     key: 'm',
     test: 'equals',
     value: '',
   },
 ] as const;
-const sharedPredicates89 = [
+const sharedPredicates90 = [
   {
     key: 'task',
     test: 'includes',
     valueKey: '$value',
   },
 ] as const;
-const sharedPredicates90 = [
+const sharedPredicates91 = [
   {
     key: 'incremental',
     test: 'active',
   },
 ] as const;
-const sharedPredicates91 = [
+const sharedPredicates92 = [
   {
     key: 'u',
     test: 'active',
   },
 ] as const;
-const sharedPredicates92 = [
+const sharedPredicates93 = [
   {
     key: 'm',
     test: 'active',
@@ -1069,7 +1080,7 @@ const sharedPredicates92 = [
     test: 'present',
   },
 ] as const;
-const sharedPredicates93 = [
+const sharedPredicates94 = [
   {
     key: 'stdin',
     test: 'inactive',
@@ -1079,13 +1090,13 @@ const sharedPredicates93 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates94 = [
+const sharedPredicates95 = [
   {
     key: 'batch-enabled',
     test: 'active',
   },
 ] as const;
-const sharedPredicates95 = [
+const sharedPredicates96 = [
   {
     key: 'a',
     test: 'active',
@@ -1099,19 +1110,19 @@ const sharedPredicates95 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates96 = [
+const sharedPredicates97 = [
   {
     key: 'format',
     test: 'present',
   },
 ] as const;
-const sharedPredicates97 = [
+const sharedPredicates98 = [
   {
     key: 'allow-unknown-hook-name',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates98 = [
+const sharedPredicates99 = [
   {
     key: 'sole-help',
     test: 'inactive',
@@ -1121,13 +1132,13 @@ const sharedPredicates98 = [
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates99 = [
+const sharedPredicates100 = [
   {
     key: 'test-bitmap',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates100 = [
+const sharedPredicates101 = [
   {
     key: 'test-bitmap',
     test: 'inactive',
@@ -1137,7 +1148,7 @@ const sharedPredicates100 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates101 = [
+const sharedPredicates102 = [
   {
     key: 'left-right',
     test: 'active',
@@ -1147,7 +1158,7 @@ const sharedPredicates101 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates102 = [
+const sharedPredicates103 = [
   {
     key: 'test-bitmap',
     test: 'inactive',
@@ -1157,31 +1168,31 @@ const sharedPredicates102 = [
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates103 = [
+const sharedPredicates104 = [
   {
     key: 'name-only',
     test: 'active',
   },
 ] as const;
-const sharedPredicates104 = [
+const sharedPredicates105 = [
   {
     key: 'name-status',
     test: 'active',
   },
 ] as const;
-const sharedPredicates105 = [
+const sharedPredicates106 = [
   {
     key: 'S',
     test: 'active',
   },
 ] as const;
-const sharedPredicates106 = [
+const sharedPredicates107 = [
   {
     key: 'G',
     test: 'active',
   },
 ] as const;
-const sharedPredicates107 = [
+const sharedPredicates108 = [
   {
     key: 'incremental',
     test: 'active',
@@ -1191,38 +1202,38 @@ const sharedPredicates107 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates108 = [
+const sharedPredicates109 = [
   {
     key: 'contents',
     test: 'present',
   },
 ] as const;
-const sharedPredicates109 = [
+const sharedPredicates110 = [
   {
     key: 'max-count',
     test: 'notEquals',
     value: 0,
   },
 ] as const;
-const sharedPredicates110 = [
+const sharedPredicates111 = [
   {
     key: 'cached',
     test: 'active',
   },
 ] as const;
-const sharedPredicates111 = [
+const sharedPredicates112 = [
   {
     key: 'output-directory',
     test: 'present',
   },
 ] as const;
-const sharedPredicates112 = [
+const sharedPredicates113 = [
   {
     key: 'i-still-use-this',
     test: 'active',
   },
 ] as const;
-const sharedPredicates113 = [
+const sharedPredicates114 = [
   {
     key: 'merge-base',
     test: 'active',
@@ -1232,20 +1243,20 @@ const sharedPredicates113 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates114 = [
+const sharedPredicates115 = [
   {
     key: 'hasSeparator',
     test: 'active',
   },
 ] as const;
-const sharedPredicates115 = [
+const sharedPredicates116 = [
   {
     key: 'summary-limit',
     test: 'notEquals',
     value: 0,
   },
 ] as const;
-const sharedPredicates116 = [
+const sharedPredicates117 = [
   {
     key: 'init',
     test: 'active',
@@ -1255,7 +1266,7 @@ const sharedPredicates116 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates117 = [
+const sharedPredicates118 = [
   {
     key: 'branch',
     test: 'present',
@@ -1265,174 +1276,163 @@ const sharedPredicates117 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates118 = [
+const sharedPredicates119 = [
   {
     key: 'default',
     test: 'active',
   },
 ] as const;
-const sharedPredicates119 = [
+const sharedPredicates120 = [
   {
     key: 'argumentTokens',
     test: 'lengthEquals',
     value: 1,
   },
 ] as const;
-const sharedPredicates120 = [
+const sharedPredicates121 = [
   {
     key: 'tool-help',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates121 = [
+const sharedPredicates122 = [
   {
     key: 'operand0',
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates122 = [
+const sharedPredicates123 = [
   {
     key: 'all',
     test: 'active',
   },
 ] as const;
-const sharedPredicates123 = [
+const sharedPredicates124 = [
   {
     key: 'action',
     test: 'equals',
     value: 'get',
   },
 ] as const;
-const sharedPredicates124 = [
+const sharedPredicates125 = [
   {
     key: 'comment',
     test: 'present',
   },
 ] as const;
-const sharedPredicates125 = [
+const sharedPredicates126 = [
   {
     key: 'action',
     test: 'equals',
     value: 'get-all',
   },
 ] as const;
-const sharedPredicates126 = [
+const sharedPredicates127 = [
   {
     key: 'default',
     test: 'present',
-  },
-] as const;
-const sharedPredicates127 = [
-  {
-    key: 'action',
-    test: 'equals',
-    value: 'get-regexp',
   },
 ] as const;
 const sharedPredicates128 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'get-urlmatch',
+    value: 'get-regexp',
   },
 ] as const;
 const sharedPredicates129 = [
+  {
+    key: 'action',
+    test: 'equals',
+    value: 'get-urlmatch',
+  },
+] as const;
+const sharedPredicates130 = [
   {
     key: 'show-origin',
     test: 'active',
   },
 ] as const;
-const sharedPredicates130 = [
+const sharedPredicates131 = [
   {
     key: 'fixed-value',
     test: 'active',
-  },
-] as const;
-const sharedPredicates131 = [
-  {
-    key: 'action',
-    test: 'equals',
-    value: 'replace-all',
   },
 ] as const;
 const sharedPredicates132 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'add',
+    value: 'replace-all',
   },
 ] as const;
 const sharedPredicates133 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'unset',
+    value: 'add',
   },
 ] as const;
 const sharedPredicates134 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'unset-all',
+    value: 'unset',
   },
 ] as const;
 const sharedPredicates135 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'rename-section',
+    value: 'unset-all',
   },
 ] as const;
 const sharedPredicates136 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'remove-section',
+    value: 'rename-section',
   },
 ] as const;
 const sharedPredicates137 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'list',
+    value: 'remove-section',
   },
 ] as const;
 const sharedPredicates138 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'edit',
+    value: 'list',
   },
 ] as const;
 const sharedPredicates139 = [
   {
     key: 'action',
     test: 'equals',
-    value: 'get-color',
+    value: 'edit',
   },
 ] as const;
 const sharedPredicates140 = [
+  {
+    key: 'action',
+    test: 'equals',
+    value: 'get-color',
+  },
+] as const;
+const sharedPredicates141 = [
   {
     key: 'type',
     test: 'present',
   },
 ] as const;
-const sharedPredicates141 = [
+const sharedPredicates142 = [
   {
     key: 'action',
     test: 'equals',
     value: 'get-colorbool',
-  },
-] as const;
-const sharedPredicates142 = [
-  {
-    key: 'action',
-    test: 'inactive',
-  },
-  {
-    key: 'operands',
-    test: 'lengthEquals',
-    value: 1,
   },
 ] as const;
 const sharedPredicates143 = [
@@ -1443,7 +1443,7 @@ const sharedPredicates143 = [
   {
     key: 'operands',
     test: 'lengthEquals',
-    value: 2,
+    value: 1,
   },
 ] as const;
 const sharedPredicates144 = [
@@ -1454,35 +1454,46 @@ const sharedPredicates144 = [
   {
     key: 'operands',
     test: 'lengthEquals',
-    value: 3,
+    value: 2,
   },
 ] as const;
 const sharedPredicates145 = [
+  {
+    key: 'action',
+    test: 'inactive',
+  },
+  {
+    key: 'operands',
+    test: 'lengthEquals',
+    value: 3,
+  },
+] as const;
+const sharedPredicates146 = [
   {
     key: 'version',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates146 = [
+const sharedPredicates147 = [
   {
     key: 'git-completion-helper',
     test: 'inactive',
   },
 ] as const;
-const sharedPredicates147 = [
+const sharedPredicates148 = [
   {
     key: 'operand0',
     test: 'equals',
     value: '0',
   },
 ] as const;
-const sharedPredicates148 = [
+const sharedPredicates149 = [
   {
     key: 'to',
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates149 = [
+const sharedPredicates150 = [
   {
     key: 'file',
     test: 'nonempty',
@@ -1492,7 +1503,7 @@ const sharedPredicates149 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates150 = [
+const sharedPredicates151 = [
   {
     key: 'file',
     test: 'nonempty',
@@ -1502,7 +1513,7 @@ const sharedPredicates150 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates151 = [
+const sharedPredicates152 = [
   {
     key: 'file',
     test: 'nonempty',
@@ -1512,7 +1523,7 @@ const sharedPredicates151 = [
     test: 'active',
   },
 ] as const;
-const sharedPredicates152 = [
+const sharedPredicates153 = [
   {
     key: 'everything',
     test: 'active',
@@ -1522,7 +1533,7 @@ const sharedPredicates152 = [
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates153 = [
+const sharedPredicates154 = [
   {
     key: 'everything',
     test: 'active',
@@ -1532,7 +1543,7 @@ const sharedPredicates153 = [
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates154 = [
+const sharedPredicates155 = [
   {
     key: 'everything',
     test: 'active',
@@ -1542,7 +1553,7 @@ const sharedPredicates154 = [
     test: 'nonempty',
   },
 ] as const;
-const sharedPredicates155 = [
+const sharedPredicates156 = [
   {
     key: 'include',
     test: 'present',
@@ -1552,7 +1563,7 @@ const sharedPredicates155 = [
     test: 'present',
   },
 ] as const;
-const sharedPredicates156 = [
+const sharedPredicates157 = [
   {
     key: 'id',
     test: 'nonempty',
@@ -1896,7 +1907,7 @@ const sharedEffects16 = [
     key: 'diff-index-residual-misuse',
     set: true,
     when: {
-      all: sharedPredicates73,
+      all: sharedPredicates74,
     },
   },
 ] as const;
@@ -5355,7 +5366,7 @@ const sharedOption625 = {
       origin: 'git',
       source: 'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
       reason: 'Explicit backend callbacks cannot change an already selected backend.',
-      when: sharedPredicates81,
+      when: sharedPredicates82,
     },
   ],
 } as const;
@@ -5374,7 +5385,7 @@ const sharedOption627 = {
       origin: 'git',
       source: 'Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty',
       reason: 'Both keep-empty and its negation immediately imply the merge backend.',
-      when: sharedPredicates81,
+      when: sharedPredicates82,
     },
   ],
   effects: sharedEffects18,
@@ -8031,7 +8042,7 @@ const sharedOption1122 = {
     {
       id: 'cli.format-patch.single-directory',
       kind: 'forbid',
-      when: sharedPredicates111,
+      when: sharedPredicates112,
       origin: 'git',
       source: 'Git 2.55.0 builtin/log.c:output_directory_callback',
       reason:
@@ -32407,6 +32418,32 @@ const commandSpec68 = {
       },
       others: sharedPredicates69,
     },
+    {
+      id: 'log.line-range-syntax',
+      kind: 'eachScalar',
+      key: 'L',
+      parser: 'log-line-range',
+      origin: 'git',
+      reason:
+        "Every -L value must scan as <start>,<end> or :<funcname> followed by ':' and a nonempty file name, and a numeric boundary must be a positive line number or a nonzero relative length. Regular expressions, function names, line counts and the file itself are checked against the repository by Git.",
+      source:
+        'Git 2.55.0 line-log.c:parse_lines; line-range.c:skip_range_arg/parse_range_arg/parse_loc',
+    },
+    {
+      id: 'log.oldest-negative-count',
+      kind: 'requiresAny',
+      origin: 'git',
+      source:
+        'Git 2.55.0 revision.c:handle_revision_opt (--max-count-oldest, -n, --max-count and -<n> set the count; only --max-count and --max-count-oldest change its mode) and the oldest-first limit in get_revision_internal',
+      reason:
+        'In oldest-first mode a negative final count makes the walk crash (SIGSEGV) as soon as it yields a commit. Git parses the arguments, so this is not a parser refusal, but a native crash is never acceptance; a later -n or -<n> keeps oldest mode.',
+      when: {
+        key: 'max-count-mode',
+        test: 'equals',
+        value: 'oldest',
+      },
+      choices: sharedPredicates70,
+    },
   ],
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
   separator: true,
@@ -33351,6 +33388,32 @@ const commandSpec69 = {
       },
       others: sharedPredicates69,
     },
+    {
+      id: 'show.line-range-syntax',
+      kind: 'eachScalar',
+      key: 'L',
+      parser: 'log-line-range',
+      origin: 'git',
+      reason:
+        "Every -L value must scan as <start>,<end> or :<funcname> followed by ':' and a nonempty file name, and a numeric boundary must be a positive line number or a nonzero relative length. Regular expressions, function names, line counts and the file itself are checked against the repository by Git.",
+      source:
+        'Git 2.55.0 line-log.c:parse_lines; line-range.c:skip_range_arg/parse_range_arg/parse_loc',
+    },
+    {
+      id: 'show.oldest-negative-count',
+      kind: 'requiresAny',
+      origin: 'git',
+      source:
+        'Git 2.55.0 revision.c:handle_revision_opt (--max-count-oldest, -n, --max-count and -<n> set the count; only --max-count and --max-count-oldest change its mode) and the oldest-first limit in get_revision_internal',
+      reason:
+        'In oldest-first mode a negative final count makes the walk crash (SIGSEGV) as soon as it yields a commit. Git parses the arguments, so this is not a parser refusal, but a native crash is never acceptance; a later -n or -<n> keeps oldest mode.',
+      when: {
+        key: 'max-count-mode',
+        test: 'equals',
+        value: 'oldest',
+      },
+      choices: sharedPredicates70,
+    },
   ],
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
   separator: true,
@@ -33756,6 +33819,9 @@ const commandSpec69 = {
 } as const satisfies CommandSpec;
 const commandSpec70 = {
   argv: ['diff'],
+  initial: {
+    'dash-word': '-',
+  },
   options: {
     '--patch': sharedOption361,
     '-p': sharedOption361,
@@ -33878,7 +33944,7 @@ const commandSpec70 = {
           key: 'diff-prescan-stopped',
           set: true,
           when: {
-            all: sharedPredicates70,
+            all: sharedPredicates71,
           },
         },
       ],
@@ -33886,7 +33952,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-dashdash',
           kind: 'forbid',
-          when: sharedPredicates71,
+          when: sharedPredicates72,
           origin: 'git',
           source: 'Git 2.55.0 revision.c:setup_revisions',
           reason:
@@ -33895,7 +33961,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-no-index',
           kind: 'forbid',
-          when: sharedPredicates72,
+          when: sharedPredicates73,
           origin: 'git',
           source: 'Git 2.55.0 builtin/diff.c:cmd_diff',
           reason:
@@ -33941,7 +34007,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-dashdash',
           kind: 'forbid',
-          when: sharedPredicates71,
+          when: sharedPredicates72,
           origin: 'git',
           source: 'Git 2.55.0 revision.c:setup_revisions',
           reason:
@@ -33950,7 +34016,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-no-index',
           kind: 'forbid',
-          when: sharedPredicates72,
+          when: sharedPredicates73,
           origin: 'git',
           source: 'Git 2.55.0 builtin/diff.c:cmd_diff',
           reason:
@@ -33980,7 +34046,7 @@ const commandSpec70 = {
           key: 'diff-prescan-stopped',
           set: true,
           when: {
-            all: sharedPredicates70,
+            all: sharedPredicates71,
           },
         },
       ],
@@ -34001,7 +34067,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-dashdash',
           kind: 'forbid',
-          when: sharedPredicates71,
+          when: sharedPredicates72,
           origin: 'git',
           source: 'Git 2.55.0 revision.c:setup_revisions',
           reason:
@@ -34010,7 +34076,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-no-index',
           kind: 'forbid',
-          when: sharedPredicates72,
+          when: sharedPredicates73,
           origin: 'git',
           source: 'Git 2.55.0 builtin/diff.c:cmd_diff',
           reason:
@@ -34040,7 +34106,7 @@ const commandSpec70 = {
           key: 'diff-prescan-stopped',
           set: true,
           when: {
-            all: sharedPredicates70,
+            all: sharedPredicates71,
           },
         },
       ],
@@ -34073,7 +34139,7 @@ const commandSpec70 = {
           key: 'diff-prescan-stopped',
           set: true,
           when: {
-            all: sharedPredicates70,
+            all: sharedPredicates71,
           },
         },
       ],
@@ -34081,7 +34147,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-dashdash',
           kind: 'forbid',
-          when: sharedPredicates71,
+          when: sharedPredicates72,
           origin: 'git',
           source: 'Git 2.55.0 revision.c:setup_revisions',
           reason:
@@ -34090,7 +34156,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-no-index',
           kind: 'forbid',
-          when: sharedPredicates72,
+          when: sharedPredicates73,
           origin: 'git',
           source: 'Git 2.55.0 builtin/diff.c:cmd_diff',
           reason:
@@ -34130,14 +34196,14 @@ const commandSpec70 = {
           key: 'diff-files-residual-error',
           set: true,
           when: {
-            all: sharedPredicates73,
+            all: sharedPredicates74,
           },
         },
         {
           key: 'diff-index-residual-misuse',
           set: true,
           when: {
-            all: sharedPredicates73,
+            all: sharedPredicates74,
           },
         },
       ],
@@ -34197,7 +34263,7 @@ const commandSpec70 = {
           key: 'diff-prescan-stopped',
           set: true,
           when: {
-            all: sharedPredicates70,
+            all: sharedPredicates71,
           },
         },
       ],
@@ -34205,7 +34271,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-dashdash',
           kind: 'forbid',
-          when: sharedPredicates71,
+          when: sharedPredicates72,
           origin: 'git',
           source: 'Git 2.55.0 revision.c:setup_revisions',
           reason:
@@ -34214,7 +34280,7 @@ const commandSpec70 = {
         {
           id: 'diff.detached-no-index',
           kind: 'forbid',
-          when: sharedPredicates72,
+          when: sharedPredicates73,
           origin: 'git',
           source: 'Git 2.55.0 builtin/diff.c:cmd_diff',
           reason:
@@ -34366,7 +34432,7 @@ const commandSpec70 = {
           key: 'diff-files-residual-error',
           set: true,
           when: {
-            all: sharedPredicates73,
+            all: sharedPredicates74,
           },
         },
       ],
@@ -34395,6 +34461,42 @@ const commandSpec70 = {
       key: 'silent-removed',
       value: 'flag',
       effects: sharedEffects16,
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diff.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The typed API accepts this completion word only as the sole argument. Git also exits on it as the last word before the first "--" after other words; elsewhere it is a residual unknown word.',
+          source:
+            'Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diff.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The typed API accepts this completion word only as the sole argument. Git also exits on it as the last word before the first "--" after other words; elsewhere it is a residual unknown word.',
+          source:
+            'Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
     },
   },
   numericOption: {
@@ -34675,6 +34777,56 @@ const commandSpec70 = {
         'The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
     },
     {
+      id: 'diff.cached-until',
+      kind: 'forbid',
+      guard: sharedPredicates52,
+      when: [
+        {
+          key: 'cached',
+          test: 'active',
+        },
+        {
+          key: 'diff-usage',
+          test: 'inactive',
+        },
+        {
+          key: 'min-age',
+          test: 'startsWith',
+          value: '',
+        },
+      ],
+      origin: 'git',
+      source:
+        'Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful',
+      reason:
+        'The HEAD-by-hand diff-index branch rejects a final --until or --before date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
+    },
+    {
+      id: 'diff.cached-since',
+      kind: 'forbid',
+      guard: sharedPredicates52,
+      when: [
+        {
+          key: 'cached',
+          test: 'active',
+        },
+        {
+          key: 'diff-usage',
+          test: 'inactive',
+        },
+        {
+          key: 'max-age',
+          test: 'startsWith',
+          value: '',
+        },
+      ],
+      origin: 'git',
+      source:
+        'Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful',
+      reason:
+        'The HEAD-by-hand diff-index branch rejects a final --since or --after date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
+    },
+    {
       id: 'diff.follow-without-path',
       kind: 'forbid',
       when: sharedPredicates62,
@@ -34794,9 +34946,34 @@ const commandSpec70 = {
       reason:
         '--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance. -h exits the residual loop first.',
     },
+    {
+      id: 'diff.dash-word',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'operandsBeforeSeparator',
+          test: 'includes',
+          valueKey: 'dash-word',
+        },
+      ],
+      origin: 'git',
+      source:
+        "Git 2.55.0 revision.c:setup_revisions (a word starting with '-' goes to handle_revision_opt and is retained when unknown); builtin/diff.c:builtin_diff_files/builtin_diff_index/builtin_diff_tree/builtin_diff_b_f/builtin_diff_blobs/builtin_diff_combined",
+      reason:
+        'Before "--" a bare - is an unknown option word that setup_revisions retains, and every diff mode refuses a retained word it does not know (diff-files reports an invalid option, the other modes print usage). After "--" it is a path. A -h that precedes it prints usage too; the typed API refuses the word in either order.',
+    },
   ],
   source: 'builtin/diff.c; revision.c; diff.c; diff-merges.c',
   separator: true,
+  parserExit: {
+    flags: [],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'setup_revisions hands each unrecognized word to diff_opt_parse, whose ONE_SHOT parse_options run sees the words that remain before the first "--"; a completion word exits there when it is the last of them. The typed API accepts it as the sole word and refuses it after other words (a restriction: Git also exits when earlier words precede it). -h is a residual word of the selected diff mode, not a parser exit.',
+    source:
+      'Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+  },
 } as const satisfies CommandSpec;
 const commandSpec71 = {
   argv: ['diff-files'],
@@ -35266,7 +35443,7 @@ const commandSpec71 = {
     {
       id: 'cli.diff-files.min-age',
       kind: 'forbid',
-      when: sharedPredicates74,
+      when: sharedPredicates75,
       origin: 'git',
       reason:
         'diff-files requires final numeric age filters to remain the timestamp default sentinel. Date aliases overwrite numeric state; arbitrary approxidate text remains native-owned.',
@@ -35275,7 +35452,7 @@ const commandSpec71 = {
     {
       id: 'cli.diff-files.max-age',
       kind: 'forbid',
-      when: sharedPredicates75,
+      when: sharedPredicates76,
       origin: 'git',
       reason:
         'diff-files requires final numeric age filters to remain the timestamp default sentinel. Date aliases overwrite numeric state; arbitrary approxidate text remains native-owned.',
@@ -35283,16 +35460,6 @@ const commandSpec71 = {
     },
     {
       id: 'diff-files.max-depth',
-      kind: 'forbid',
-      when: sharedPredicates76,
-      origin: 'git',
-      source:
-        'Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files',
-      reason:
-        'diff-files dies for worktree diffs ("max-depth is not supported for worktree diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
-    },
-    {
-      id: 'diff-files.max-depth-zero',
       kind: 'forbid',
       when: sharedPredicates77,
       origin: 'git',
@@ -35302,9 +35469,19 @@ const commandSpec71 = {
         'diff-files dies for worktree diffs ("max-depth is not supported for worktree diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
     },
     {
-      id: 'diff-files.object-pickaxe-regex',
+      id: 'diff-files.max-depth-zero',
       kind: 'forbid',
       when: sharedPredicates78,
+      origin: 'git',
+      source:
+        'Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_files',
+      reason:
+        'diff-files dies for worktree diffs ("max-depth is not supported for worktree diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
+    },
+    {
+      id: 'diff-files.object-pickaxe-regex',
+      kind: 'forbid',
+      when: sharedPredicates79,
       origin: 'git',
       source:
         'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
@@ -35314,7 +35491,7 @@ const commandSpec71 = {
     {
       id: 'diff-files.object-pickaxe-ignore-case',
       kind: 'forbid',
-      when: sharedPredicates79,
+      when: sharedPredicates80,
       origin: 'git',
       source:
         'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
@@ -35765,7 +35942,7 @@ const commandSpec72 = {
     {
       id: 'cli.diff-index.min-age',
       kind: 'forbid',
-      when: sharedPredicates74,
+      when: sharedPredicates75,
       origin: 'git',
       reason:
         'diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.',
@@ -35774,7 +35951,7 @@ const commandSpec72 = {
     {
       id: 'cli.diff-index.max-age',
       kind: 'forbid',
-      when: sharedPredicates75,
+      when: sharedPredicates76,
       origin: 'git',
       reason:
         'diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.',
@@ -35782,16 +35959,6 @@ const commandSpec72 = {
     },
     {
       id: 'diff-index.max-depth',
-      kind: 'forbid',
-      when: sharedPredicates76,
-      origin: 'git',
-      source:
-        'Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_index',
-      reason:
-        'diff-index dies for index diffs, with or without --cached ("max-depth is not supported for index diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
-    },
-    {
-      id: 'diff-index.max-depth-zero',
       kind: 'forbid',
       when: sharedPredicates77,
       origin: 'git',
@@ -35801,9 +35968,19 @@ const commandSpec72 = {
         'diff-index dies for index diffs, with or without --cached ("max-depth is not supported for index diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
     },
     {
-      id: 'diff-index.object-pickaxe-regex',
+      id: 'diff-index.max-depth-zero',
       kind: 'forbid',
       when: sharedPredicates78,
+      origin: 'git',
+      source:
+        'Git 2.55.0 diff.c:diff_opt_max_depth (max_depth_valid = max_depth >= 0); diff-lib.c:run_diff_index',
+      reason:
+        'diff-index dies for index diffs, with or without --cached ("max-depth is not supported for index diffs") when the final --max-depth is non-negative, after option parsing; a negative final value disables the limit. A residual -h exits with usage first.',
+    },
+    {
+      id: 'diff-index.object-pickaxe-regex',
+      kind: 'forbid',
+      when: sharedPredicates79,
       origin: 'git',
       source:
         'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
@@ -35813,7 +35990,7 @@ const commandSpec72 = {
     {
       id: 'diff-index.object-pickaxe-ignore-case',
       kind: 'forbid',
-      when: sharedPredicates79,
+      when: sharedPredicates80,
       origin: 'git',
       source:
         'Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG "should have needle under -G or -S"); diff.c:diff_opt_find_object, diff_setup_done',
@@ -36477,7 +36654,7 @@ const commandSpec74 = {
     {
       id: 'diff.no-index-follow',
       kind: 'forbid',
-      when: sharedPredicates80,
+      when: sharedPredicates81,
       origin: 'git',
       source:
         'Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:diff_setup_done/diff_check_follow_pathspec',
@@ -39826,7 +40003,7 @@ const commandSpec84 = {
           origin: 'git',
           source: 'Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty',
           reason: 'Both keep-empty and its negation immediately imply the merge backend.',
-          when: sharedPredicates81,
+          when: sharedPredicates82,
         },
       ],
       effects: sharedEffects18,
@@ -42218,12 +42395,12 @@ const commandSpec85 = {
       origin: 'git',
       source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
       reason: 'Normal replay requires a remaining revision argument or revision parser option.',
-      guard: sharedPredicates82,
+      guard: sharedPredicates83,
       when: {
         key: 'argumentTokens',
         test: 'present',
       },
-      choices: sharedPredicates83,
+      choices: sharedPredicates84,
     },
     {
       id: 'cherry-pick.quit-options',
@@ -42236,7 +42413,7 @@ const commandSpec85 = {
         key: 'quit',
         test: 'active',
       },
-      others: sharedPredicates84,
+      others: sharedPredicates85,
     },
     {
       id: 'cherry-pick.quit-operands',
@@ -42263,7 +42440,7 @@ const commandSpec85 = {
         key: 'continue',
         test: 'active',
       },
-      others: sharedPredicates84,
+      others: sharedPredicates85,
     },
     {
       id: 'cherry-pick.continue-operands',
@@ -42290,7 +42467,7 @@ const commandSpec85 = {
         key: 'abort',
         test: 'active',
       },
-      others: sharedPredicates84,
+      others: sharedPredicates85,
     },
     {
       id: 'cherry-pick.abort-operands',
@@ -42317,7 +42494,7 @@ const commandSpec85 = {
         key: 'skip',
         test: 'active',
       },
-      others: sharedPredicates84,
+      others: sharedPredicates85,
     },
     {
       id: 'cherry-pick.skip-operands',
@@ -43260,12 +43437,12 @@ const commandSpec86 = {
       origin: 'git',
       source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
       reason: 'Normal replay requires a remaining revision argument or revision parser option.',
-      guard: sharedPredicates82,
+      guard: sharedPredicates83,
       when: {
         key: 'argumentTokens',
         test: 'present',
       },
-      choices: sharedPredicates83,
+      choices: sharedPredicates84,
     },
     {
       id: 'revert.quit-options',
@@ -43278,7 +43455,7 @@ const commandSpec86 = {
         key: 'quit',
         test: 'active',
       },
-      others: sharedPredicates85,
+      others: sharedPredicates86,
     },
     {
       id: 'revert.quit-operands',
@@ -43305,7 +43482,7 @@ const commandSpec86 = {
         key: 'continue',
         test: 'active',
       },
-      others: sharedPredicates85,
+      others: sharedPredicates86,
     },
     {
       id: 'revert.continue-operands',
@@ -43332,7 +43509,7 @@ const commandSpec86 = {
         key: 'abort',
         test: 'active',
       },
-      others: sharedPredicates85,
+      others: sharedPredicates86,
     },
     {
       id: 'revert.abort-operands',
@@ -43359,7 +43536,7 @@ const commandSpec86 = {
         key: 'skip',
         test: 'active',
       },
-      others: sharedPredicates85,
+      others: sharedPredicates86,
     },
     {
       id: 'revert.skip-operands',
@@ -45193,7 +45370,7 @@ const commandSpec94 = {
       key: 'sort',
       min: 0,
       max: 0,
-      when: sharedPredicates86,
+      when: sharedPredicates87,
       origin: 'git',
       reason: 'Operand count follows the native command parser.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
@@ -45204,7 +45381,7 @@ const commandSpec94 = {
       key: 'sort',
       min: 0,
       max: 1,
-      when: sharedPredicates87,
+      when: sharedPredicates88,
       origin: 'git',
       reason: 'Operand count follows the native command parser.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
@@ -46231,7 +46408,7 @@ const commandSpec96 = {
     {
       id: 'cli.symbolic-ref.message',
       kind: 'forbid',
-      when: sharedPredicates88,
+      when: sharedPredicates89,
       origin: 'git',
       reason: 'An explicitly empty reflog message is rejected even for queries.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c',
@@ -48440,7 +48617,7 @@ const commandSpec117 = {
         {
           id: 'cli.maintenance-run.task-duplicate',
           kind: 'forbid',
-          when: sharedPredicates89,
+          when: sharedPredicates90,
           origin: 'git',
           reason:
             'Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.',
@@ -48614,7 +48791,7 @@ const commandSpec122 = {
         {
           id: 'cli.maintenance-is-needed.task-duplicate',
           kind: 'forbid',
-          when: sharedPredicates89,
+          when: sharedPredicates90,
           origin: 'git',
           reason:
             'Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.',
@@ -48854,7 +49031,7 @@ const commandSpec125 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates90,
+      required: sharedPredicates91,
       origin: 'git',
       reason: 'Disabling the chain file requires an incremental MIDX.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
@@ -48918,7 +49095,7 @@ const commandSpec126 = {
         test: 'equals',
         value: false,
       },
-      required: sharedPredicates90,
+      required: sharedPredicates91,
       origin: 'git',
       reason: 'Disabling the chain file requires an incremental MIDX.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
@@ -49442,7 +49619,7 @@ const commandSpec133 = {
       key: 'sort',
       min: 0,
       max: 0,
-      when: sharedPredicates86,
+      when: sharedPredicates87,
       origin: 'git',
       reason: 'Operand count follows the native command parser.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
@@ -49453,7 +49630,7 @@ const commandSpec133 = {
       key: 'sort',
       min: 0,
       max: 1,
-      when: sharedPredicates87,
+      when: sharedPredicates88,
       origin: 'git',
       reason: 'Operand count follows the native command parser.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
@@ -50869,7 +51046,7 @@ const commandSpec142 = {
     {
       id: 'cli.update-ref.message',
       kind: 'forbid',
-      when: sharedPredicates88,
+      when: sharedPredicates89,
       origin: 'git',
       reason: 'The final reflog message cannot be empty.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
@@ -51155,7 +51332,7 @@ const commandSpec144 = {
         {
           id: 'cli.read-tree.exclude-order',
           kind: 'required',
-          required: sharedPredicates91,
+          required: sharedPredicates92,
           origin: 'git',
           reason: 'The exclude callback requires -u to have already been parsed.',
           source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
@@ -51333,7 +51510,7 @@ const commandSpec144 = {
         key: 'u',
         test: 'active',
       },
-      choices: sharedPredicates92,
+      choices: sharedPredicates93,
       origin: 'git',
       reason: 'Updating worktree or index-only requires a merge, reset or prefix.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
@@ -51345,7 +51522,7 @@ const commandSpec144 = {
         key: 'i',
         test: 'active',
       },
-      choices: sharedPredicates92,
+      choices: sharedPredicates93,
       origin: 'git',
       reason: 'Updating worktree or index-only requires a merge, reset or prefix.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
@@ -51704,7 +51881,7 @@ const commandSpec146 = {
       key: 'operands',
       min: 3,
       max: 3,
-      when: sharedPredicates93,
+      when: sharedPredicates94,
       origin: 'git',
       reason: 'Native mode requires this number of operands.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
@@ -51715,7 +51892,7 @@ const commandSpec146 = {
       key: 'argumentTokens',
       min: 4,
       max: 4,
-      when: sharedPredicates93,
+      when: sharedPredicates94,
       origin: 'git',
       reason:
         'Explicit trivial mode allows only one mode flag and three operands, including no canceled options.',
@@ -51795,7 +51972,7 @@ const commandSpec147 = {
         {
           id: 'cli.cat-file.batch-once',
           kind: 'forbid',
-          when: sharedPredicates94,
+          when: sharedPredicates95,
           origin: 'git',
           reason:
             'Only one batch option may be specified, including repetitions of the same option.',
@@ -51811,7 +51988,7 @@ const commandSpec147 = {
         {
           id: 'cli.cat-file.batch-check-once',
           kind: 'forbid',
-          when: sharedPredicates94,
+          when: sharedPredicates95,
           origin: 'git',
           reason:
             'Only one batch option may be specified, including repetitions of the same option.',
@@ -51832,7 +52009,7 @@ const commandSpec147 = {
         {
           id: 'cli.cat-file.batch-command-once',
           kind: 'forbid',
-          when: sharedPredicates94,
+          when: sharedPredicates95,
           origin: 'git',
           reason:
             'Only one batch option may be specified, including repetitions of the same option.',
@@ -51909,7 +52086,7 @@ const commandSpec147 = {
         key: 'buffer',
         test: 'present',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -51921,7 +52098,7 @@ const commandSpec147 = {
         key: 'follow-symlinks',
         test: 'active',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -51933,7 +52110,7 @@ const commandSpec147 = {
         key: 'batch-all-objects',
         test: 'active',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -51945,7 +52122,7 @@ const commandSpec147 = {
         key: 'z',
         test: 'active',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -51957,7 +52134,7 @@ const commandSpec147 = {
         key: 'Z',
         test: 'active',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -51969,7 +52146,7 @@ const commandSpec147 = {
         key: 'filter',
         test: 'present',
       },
-      required: sharedPredicates94,
+      required: sharedPredicates95,
       origin: 'git',
       reason: 'This setting requires an explicit batch option.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
@@ -52435,7 +52612,7 @@ const commandSpec148 = {
         key: 'geometric',
         test: 'nonzero',
       },
-      others: sharedPredicates95,
+      others: sharedPredicates96,
       origin: 'git',
       reason: 'A nonzero geometric factor cannot be combined with packing everything.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
@@ -52453,7 +52630,7 @@ const commandSpec148 = {
         key: 'write-bitmap-index',
         test: 'active',
       },
-      choices: sharedPredicates95,
+      choices: sharedPredicates96,
       origin: 'git',
       reason: 'Explicit bitmap writing without a MIDX writer requires packing everything.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
@@ -52624,7 +52801,7 @@ const commandSpec149 = {
     {
       id: 'cli.replace.format-mode',
       kind: 'forbid',
-      when: sharedPredicates96,
+      when: sharedPredicates97,
       guard: [
         {
           key: 'list',
@@ -52646,7 +52823,7 @@ const commandSpec149 = {
         key: 'delete',
         test: 'active',
       },
-      others: sharedPredicates96,
+      others: sharedPredicates97,
       origin: 'git',
       reason: 'A listing format cannot be used in a non-listing mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
@@ -52658,7 +52835,7 @@ const commandSpec149 = {
         key: 'edit',
         test: 'active',
       },
-      others: sharedPredicates96,
+      others: sharedPredicates97,
       origin: 'git',
       reason: 'A listing format cannot be used in a non-listing mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
@@ -52670,7 +52847,7 @@ const commandSpec149 = {
         key: 'graft',
         test: 'active',
       },
-      others: sharedPredicates96,
+      others: sharedPredicates97,
       origin: 'git',
       reason: 'A listing format cannot be used in a non-listing mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
@@ -52682,7 +52859,7 @@ const commandSpec149 = {
         key: 'convert-graft-file',
         test: 'active',
       },
-      others: sharedPredicates96,
+      others: sharedPredicates97,
       origin: 'git',
       reason: 'A listing format cannot be used in a non-listing mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
@@ -53983,7 +54160,7 @@ const commandSpec168 = {
     {
       id: 'cli.hook-run.hook-name',
       kind: 'value',
-      guard: sharedPredicates97,
+      guard: sharedPredicates98,
       key: 'operand0',
       allowed: [
         'applypatch-msg',
@@ -54075,7 +54252,7 @@ const commandSpec169 = {
     {
       id: 'cli.hook-list.hook-name',
       kind: 'value',
-      guard: sharedPredicates97,
+      guard: sharedPredicates98,
       key: 'operand0',
       allowed: [
         'applypatch-msg',
@@ -54186,7 +54363,7 @@ const commandSpec170 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
-      when: sharedPredicates98,
+      when: sharedPredicates99,
     },
     {
       id: 'cli.credential.operation',
@@ -54597,7 +54774,7 @@ const commandSpec182 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
-      when: sharedPredicates98,
+      when: sharedPredicates99,
     },
   ],
   source: 'builtin/upload-archive.c',
@@ -54674,7 +54851,7 @@ const commandSpec183 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
-      when: sharedPredicates98,
+      when: sharedPredicates99,
     },
   ],
   source: 'builtin/upload-archive.c',
@@ -55240,7 +55417,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.nul-output',
       kind: 'conflicts',
-      guard: sharedPredicates99,
+      guard: sharedPredicates100,
       when: {
         key: 'rev-list-nul',
         test: 'active',
@@ -55306,7 +55483,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.notes',
       kind: 'forbid',
-      guard: sharedPredicates99,
+      guard: sharedPredicates100,
       when: [
         {
           key: 'notes-enabled',
@@ -55320,7 +55497,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.default-notes',
       kind: 'forbid',
-      guard: sharedPredicates99,
+      guard: sharedPredicates100,
       when: [
         {
           key: 'show-notes-by-default',
@@ -55338,7 +55515,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.marked-count-objects',
       kind: 'conflicts',
-      guard: sharedPredicates100,
+      guard: sharedPredicates101,
       when: {
         key: 'objects',
         test: 'active',
@@ -55346,12 +55523,12 @@ const commandSpec184 = {
       origin: 'git',
       reason: 'Marked object counting is unsupported.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
-      others: sharedPredicates101,
+      others: sharedPredicates102,
     },
     {
       id: 'cli.rev-list.marked-count-objects-edge',
       kind: 'conflicts',
-      guard: sharedPredicates100,
+      guard: sharedPredicates101,
       when: {
         key: 'objects-edge',
         test: 'active',
@@ -55359,12 +55536,12 @@ const commandSpec184 = {
       origin: 'git',
       reason: 'Marked object counting is unsupported.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
-      others: sharedPredicates101,
+      others: sharedPredicates102,
     },
     {
       id: 'cli.rev-list.marked-count-objects-edge-aggressive',
       kind: 'conflicts',
-      guard: sharedPredicates100,
+      guard: sharedPredicates101,
       when: {
         key: 'objects-edge-aggressive',
         test: 'active',
@@ -55372,12 +55549,12 @@ const commandSpec184 = {
       origin: 'git',
       reason: 'Marked object counting is unsupported.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
-      others: sharedPredicates101,
+      others: sharedPredicates102,
     },
     {
       id: 'cli.rev-list.marked-count-verify-objects',
       kind: 'conflicts',
-      guard: sharedPredicates100,
+      guard: sharedPredicates101,
       when: {
         key: 'verify-objects',
         test: 'active',
@@ -55385,7 +55562,7 @@ const commandSpec184 = {
       origin: 'git',
       reason: 'Marked object counting is unsupported.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
-      others: sharedPredicates101,
+      others: sharedPredicates102,
     },
     {
       id: 'cli.rev-list.input',
@@ -55478,7 +55655,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.revision-diff',
       kind: 'forbid',
-      guard: sharedPredicates99,
+      guard: sharedPredicates100,
       when: [
         {
           key: 'revision-diff',
@@ -55492,7 +55669,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-patch',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: sharedPredicates32,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
@@ -55501,8 +55678,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-u',
       kind: 'forbid',
-      guard: sharedPredicates102,
-      when: sharedPredicates91,
+      guard: sharedPredicates103,
+      when: sharedPredicates92,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -55510,7 +55687,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-unified',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'unified',
@@ -55524,7 +55701,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-raw',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'raw',
@@ -55538,7 +55715,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-patch-with-raw',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'patch-with-raw',
@@ -55552,7 +55729,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-patch-with-stat',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'patch-with-stat',
@@ -55566,7 +55743,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-numstat',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'numstat',
@@ -55580,7 +55757,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-shortstat',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'shortstat',
@@ -55594,7 +55771,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-summary',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'summary',
@@ -55608,7 +55785,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-stat',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'stat',
@@ -55622,7 +55799,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-stat-width',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'stat-width',
@@ -55636,7 +55813,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-stat-name-width',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'stat-name-width',
@@ -55650,7 +55827,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-stat-graph-width',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'stat-graph-width',
@@ -55664,7 +55841,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-stat-count',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'stat-count',
@@ -55678,7 +55855,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-compact-summary',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'compact-summary',
@@ -55692,7 +55869,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-binary',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'binary',
@@ -55706,7 +55883,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-dirstat',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'dirstat',
@@ -55720,7 +55897,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-cumulative',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'cumulative',
@@ -55734,7 +55911,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-dirstat-by-file',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: [
         {
           key: 'dirstat-by-file',
@@ -55748,8 +55925,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-name-only',
       kind: 'forbid',
-      guard: sharedPredicates102,
-      when: sharedPredicates103,
+      guard: sharedPredicates103,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -55757,8 +55934,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-name-status',
       kind: 'forbid',
-      guard: sharedPredicates102,
-      when: sharedPredicates104,
+      guard: sharedPredicates103,
+      when: sharedPredicates105,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -55766,7 +55943,7 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.diff-check',
       kind: 'forbid',
-      guard: sharedPredicates102,
+      guard: sharedPredicates103,
       when: sharedPredicates67,
       origin: 'git',
       reason: 'A requested diff output format makes rev-list invalid unless output was suppressed.',
@@ -55775,8 +55952,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.search-S',
       kind: 'forbid',
-      guard: sharedPredicates99,
-      when: sharedPredicates105,
+      guard: sharedPredicates100,
+      when: sharedPredicates106,
       origin: 'git',
       reason: 'Diff-dependent searching is unsupported by rev-list.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -55784,8 +55961,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.search-G',
       kind: 'forbid',
-      guard: sharedPredicates99,
-      when: sharedPredicates106,
+      guard: sharedPredicates100,
+      when: sharedPredicates107,
       origin: 'git',
       reason: 'Diff-dependent searching is unsupported by rev-list.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -55793,8 +55970,8 @@ const commandSpec184 = {
     {
       id: 'cli.rev-list.search-follow',
       kind: 'forbid',
-      guard: sharedPredicates99,
-      when: sharedPredicates80,
+      guard: sharedPredicates100,
+      when: sharedPredicates81,
       origin: 'git',
       reason: 'Diff-dependent searching is unsupported by rev-list.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
@@ -56535,7 +56712,7 @@ const commandSpec194 = {
     {
       id: 'cli.backfill.unsupported-S',
       kind: 'forbid',
-      when: sharedPredicates105,
+      when: sharedPredicates106,
       origin: 'git',
       reason: 'Backfill rejects diff-dependent revision walking.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/backfill.c',
@@ -56543,7 +56720,7 @@ const commandSpec194 = {
     {
       id: 'cli.backfill.unsupported-G',
       kind: 'forbid',
-      when: sharedPredicates106,
+      when: sharedPredicates107,
       origin: 'git',
       reason: 'Backfill rejects diff-dependent revision walking.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/backfill.c',
@@ -56551,7 +56728,7 @@ const commandSpec194 = {
     {
       id: 'cli.backfill.unsupported-follow',
       kind: 'forbid',
-      when: sharedPredicates80,
+      when: sharedPredicates81,
       origin: 'git',
       reason: 'Backfill rejects diff-dependent revision walking.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/backfill.c',
@@ -59660,7 +59837,7 @@ const commandSpec199 = {
         key: 'progress',
         test: 'active',
       },
-      others: sharedPredicates107,
+      others: sharedPredicates108,
       origin: 'git',
       reason: 'Explicit progress excludes incremental and porcelain output.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -59672,7 +59849,7 @@ const commandSpec199 = {
         key: 'blame-reverse',
         test: 'active',
       },
-      others: sharedPredicates108,
+      others: sharedPredicates109,
       origin: 'git',
       reason: 'Reverse blaming cannot use replacement contents.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -60202,7 +60379,7 @@ const commandSpec200 = {
         key: 'progress',
         test: 'active',
       },
-      others: sharedPredicates107,
+      others: sharedPredicates108,
       origin: 'git',
       reason: 'Explicit progress excludes incremental and porcelain output.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -60214,7 +60391,7 @@ const commandSpec200 = {
         key: 'blame-reverse',
         test: 'active',
       },
-      others: sharedPredicates108,
+      others: sharedPredicates109,
       origin: 'git',
       reason: 'Reverse blaming cannot use replacement contents.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -60620,7 +60797,7 @@ const commandSpec201 = {
     {
       id: 'cli.grep.sources',
       kind: 'exclusive',
-      guard: sharedPredicates109,
+      guard: sharedPredicates110,
       keys: ['cached', 'untracked', 'no-index'],
       origin: 'git',
       reason: 'Index, worktree-plus-untracked and no-index input modes are exclusive.',
@@ -60629,7 +60806,7 @@ const commandSpec201 = {
     {
       id: 'cli.grep.exclude',
       kind: 'requiresAny',
-      guard: sharedPredicates109,
+      guard: sharedPredicates110,
       when: {
         key: 'exclude-standard',
         test: 'present',
@@ -60695,12 +60872,12 @@ const commandSpec201 = {
     {
       id: 'cli.grep.pager-cached',
       kind: 'conflicts',
-      guard: sharedPredicates109,
+      guard: sharedPredicates110,
       when: {
         key: 'open-files-in-pager',
         test: 'present',
       },
-      others: sharedPredicates110,
+      others: sharedPredicates111,
       origin: 'git',
       reason: 'Opening matching files in a pager requires worktree contents.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/grep.c',
@@ -61437,7 +61614,7 @@ const commandSpec202 = {
     {
       id: 'cli.format-patch.output-name-only',
       kind: 'forbid',
-      when: sharedPredicates103,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'Format-patch cannot produce this diff output.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
@@ -61445,7 +61622,7 @@ const commandSpec202 = {
     {
       id: 'cli.format-patch.output-name-status',
       kind: 'forbid',
-      when: sharedPredicates104,
+      when: sharedPredicates105,
       origin: 'git',
       reason: 'Format-patch cannot produce this diff output.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
@@ -61514,7 +61691,7 @@ const commandSpec202 = {
         key: 'output',
         test: 'present',
       },
-      others: sharedPredicates111,
+      others: sharedPredicates112,
       origin: 'git',
       reason: 'Patch output destinations are exclusive.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
@@ -62563,7 +62740,7 @@ const commandSpec204 = {
         key: 'progress',
         test: 'active',
       },
-      others: sharedPredicates107,
+      others: sharedPredicates108,
       origin: 'git',
       reason: 'Explicit progress excludes incremental and porcelain output.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -62575,7 +62752,7 @@ const commandSpec204 = {
         key: 'blame-reverse',
         test: 'active',
       },
-      others: sharedPredicates108,
+      others: sharedPredicates109,
       origin: 'git',
       reason: 'Reverse blaming cannot use replacement contents.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
@@ -63109,7 +63286,7 @@ const commandSpec205 = {
     {
       id: 'cli.whatchanged.deprecated-opt-in',
       kind: 'required',
-      required: sharedPredicates112,
+      required: sharedPredicates113,
       origin: 'git',
       reason:
         'Git 2.55 requires explicit opt-in; earlier selected Git executables permit this command without it.',
@@ -64094,7 +64271,7 @@ const commandSpec207 = {
         key: 'more',
         test: 'nonzero',
       },
-      others: sharedPredicates113,
+      others: sharedPredicates114,
       origin: 'git',
       reason: 'Listing modes exclude merge-base and independent queries.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c',
@@ -64106,7 +64283,7 @@ const commandSpec207 = {
         key: 'reflog',
         test: 'active',
       },
-      others: sharedPredicates113,
+      others: sharedPredicates114,
       origin: 'git',
       reason: 'Listing modes exclude merge-base and independent queries.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c',
@@ -65114,7 +65291,7 @@ const commandSpec210 = {
     {
       id: 'cli.rev-parse---parseopt.separator',
       kind: 'required',
-      required: sharedPredicates114,
+      required: sharedPredicates115,
       origin: 'git',
       reason: 'Parseopt requires an explicit separator before its input argument list.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-parse.c',
@@ -65243,7 +65420,7 @@ const commandSpec216 = {
     {
       id: 'cli.submodule--helper-summary.sources',
       kind: 'exclusive',
-      guard: sharedPredicates115,
+      guard: sharedPredicates116,
       keys: ['cached', 'files'],
       origin: 'git',
       reason: 'Cached and files conflict unless a zero summary limit returns early.',
@@ -65467,7 +65644,7 @@ const commandSpec220 = {
         key: 'filter',
         test: 'present',
       },
-      choices: sharedPredicates116,
+      choices: sharedPredicates117,
       origin: 'git',
       reason:
         'Filtering requires initialization; require-init implies init after all options are parsed.',
@@ -65559,7 +65736,7 @@ const commandSpec223 = {
         key: 'argumentTokens',
         test: 'present',
       },
-      choices: sharedPredicates117,
+      choices: sharedPredicates118,
       origin: 'git',
       reason: 'One tracking selection is required.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
@@ -65571,7 +65748,7 @@ const commandSpec223 = {
         key: 'branch',
         test: 'present',
       },
-      others: sharedPredicates118,
+      others: sharedPredicates119,
       origin: 'git',
       reason: 'An explicit branch and default selection conflict.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
@@ -65908,7 +66085,7 @@ const commandSpec233 = {
         key: 'filter',
         test: 'present',
       },
-      choices: sharedPredicates116,
+      choices: sharedPredicates117,
       origin: 'git',
       reason:
         'Filtering requires initialization; require-init implies init after all options are parsed.',
@@ -65985,7 +66162,7 @@ const commandSpec234 = {
         key: 'argumentTokens',
         test: 'present',
       },
-      choices: sharedPredicates117,
+      choices: sharedPredicates118,
       origin: 'git',
       reason: 'One tracking selection is required.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
@@ -65997,7 +66174,7 @@ const commandSpec234 = {
         key: 'branch',
         test: 'present',
       },
-      others: sharedPredicates118,
+      others: sharedPredicates119,
       origin: 'git',
       reason: 'An explicit branch and default selection conflict.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
@@ -66048,7 +66225,7 @@ const commandSpec236 = {
     {
       id: 'cli.submodule-summary.sources',
       kind: 'exclusive',
-      guard: sharedPredicates115,
+      guard: sharedPredicates116,
       keys: ['cached', 'files'],
       origin: 'git',
       reason: 'Cached and files conflict unless a zero summary limit returns early.',
@@ -66334,7 +66511,7 @@ const commandSpec250 = {
     {
       id: 'cli.submodule.cached-operation',
       kind: 'value',
-      guard: sharedPredicates110,
+      guard: sharedPredicates111,
       key: 'operand0',
       allowed: ['status', 'summary'],
       origin: 'git',
@@ -69791,7 +69968,7 @@ const commandSpec279 = {
     {
       id: 'cli.pack-redundant.acknowledgement',
       kind: 'required',
-      required: sharedPredicates112,
+      required: sharedPredicates113,
       origin: 'git',
       reason:
         'Pinned Git 2.55 requires acknowledgement; the public API delegates this version-dependent deprecation prerequisite to the selected native executable.',
@@ -70174,7 +70351,7 @@ const commandSpec284 = {
       kind: 'elements',
       key: 'operands',
       allowed: ['-h', '--help-all'],
-      guard: sharedPredicates119,
+      guard: sharedPredicates120,
       origin: 'git',
       reason:
         'A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.',
@@ -70264,7 +70441,7 @@ const commandSpec285 = {
       kind: 'elements',
       key: 'operands',
       allowed: ['-h', '--help-all'],
-      guard: sharedPredicates119,
+      guard: sharedPredicates120,
       origin: 'git',
       reason:
         'A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.',
@@ -70309,7 +70486,7 @@ const commandSpec286 = {
     {
       id: 'cli.merge-recursive.separator',
       kind: 'required',
-      required: sharedPredicates114,
+      required: sharedPredicates115,
       origin: 'git',
       reason: 'The two heads follow a required separator.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
@@ -70355,7 +70532,7 @@ const commandSpec287 = {
     {
       id: 'cli.merge-recursive-ours.separator',
       kind: 'required',
-      required: sharedPredicates114,
+      required: sharedPredicates115,
       origin: 'git',
       reason: 'The two heads follow a required separator.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
@@ -70401,7 +70578,7 @@ const commandSpec288 = {
     {
       id: 'cli.merge-recursive-theirs.separator',
       kind: 'required',
-      required: sharedPredicates114,
+      required: sharedPredicates115,
       origin: 'git',
       reason: 'The two heads follow a required separator.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
@@ -70447,7 +70624,7 @@ const commandSpec289 = {
     {
       id: 'cli.merge-subtree.separator',
       kind: 'required',
-      required: sharedPredicates114,
+      required: sharedPredicates115,
       origin: 'git',
       reason: 'The two heads follow a required separator.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
@@ -70545,7 +70722,7 @@ const commandSpec290 = {
       kind: 'elements',
       key: 'operands',
       allowed: ['-h', '--help-all'],
-      guard: sharedPredicates119,
+      guard: sharedPredicates120,
       origin: 'git',
       reason:
         'A single tagged word must be a recognized usage spelling; ordinary entrypoint calls still require at least two words.',
@@ -70855,7 +71032,7 @@ const commandSpec291 = {
           },
         ],
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason: 'Explicit GUI, tool and external command selections conflict.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
@@ -70873,7 +71050,7 @@ const commandSpec291 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason: 'Directory comparison cannot be combined with no-index.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
@@ -70892,7 +71069,7 @@ const commandSpec291 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason: 'Outside a repository difftool requires no-index.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
@@ -70906,7 +71083,7 @@ const commandSpec291 = {
         key: 'no-index',
         test: 'active',
       },
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason:
         'No-index comparison requires two paths; directory pathspec support depends on the selected Git and filesystem and is delegated to native Git.',
@@ -70925,7 +71102,7 @@ const commandSpec291 = {
           test: 'nonempty',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason: 'A final explicit tool/command string must be nonempty.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
@@ -70943,7 +71120,7 @@ const commandSpec291 = {
           test: 'nonempty',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason: 'A final explicit tool/command string must be nonempty.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
@@ -70958,7 +71135,7 @@ const commandSpec291 = {
           value: '-S',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason:
         'Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.',
@@ -70975,7 +71152,7 @@ const commandSpec291 = {
           value: '-G',
         },
       ],
-      guard: sharedPredicates120,
+      guard: sharedPredicates121,
       origin: 'git',
       reason:
         'Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.',
@@ -71421,7 +71598,7 @@ const commandSpec293 = {
     {
       id: 'cli.request-pull.start',
       kind: 'required',
-      required: sharedPredicates121,
+      required: sharedPredicates122,
       origin: 'git',
       reason: 'The starting revision string must not be empty.',
       source: 'https://github.com/git/git/blob/v2.55.0/git-request-pull.sh',
@@ -71532,7 +71709,7 @@ const commandSpec294 = {
         key: 'external-commands',
         test: 'present',
       },
-      required: sharedPredicates122,
+      required: sharedPredicates123,
       origin: 'git',
       reason: 'Explicit enable or disable of this selector requires all mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
@@ -71544,7 +71721,7 @@ const commandSpec294 = {
         key: 'aliases',
         test: 'present',
       },
-      required: sharedPredicates122,
+      required: sharedPredicates123,
       origin: 'git',
       reason: 'Explicit enable or disable of this selector requires all mode.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
@@ -74358,7 +74535,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates123,
+      guard: sharedPredicates124,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74366,8 +74543,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-name-only',
       kind: 'forbid',
-      guard: sharedPredicates123,
-      when: sharedPredicates103,
+      guard: sharedPredicates124,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74375,8 +74552,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-comment',
       kind: 'forbid',
-      guard: sharedPredicates123,
-      when: sharedPredicates124,
+      guard: sharedPredicates124,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74384,7 +74561,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-fixed',
       kind: 'arity',
-      guard: sharedPredicates123,
+      guard: sharedPredicates124,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74401,7 +74578,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates125,
+      guard: sharedPredicates126,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74409,8 +74586,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-all-name-only',
       kind: 'forbid',
-      guard: sharedPredicates125,
-      when: sharedPredicates103,
+      guard: sharedPredicates126,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74418,8 +74595,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-all-default',
       kind: 'forbid',
-      guard: sharedPredicates125,
-      when: sharedPredicates126,
+      guard: sharedPredicates126,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74427,8 +74604,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-all-comment',
       kind: 'forbid',
-      guard: sharedPredicates125,
-      when: sharedPredicates124,
+      guard: sharedPredicates126,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74436,7 +74613,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-all-fixed',
       kind: 'arity',
-      guard: sharedPredicates125,
+      guard: sharedPredicates126,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74453,7 +74630,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates127,
+      guard: sharedPredicates128,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74461,8 +74638,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-regexp-default',
       kind: 'forbid',
-      guard: sharedPredicates127,
-      when: sharedPredicates126,
+      guard: sharedPredicates128,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74470,8 +74647,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-regexp-comment',
       kind: 'forbid',
-      guard: sharedPredicates127,
-      when: sharedPredicates124,
+      guard: sharedPredicates128,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74479,7 +74656,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-regexp-fixed',
       kind: 'arity',
-      guard: sharedPredicates127,
+      guard: sharedPredicates128,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74496,7 +74673,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 2,
       max: 2,
-      guard: sharedPredicates128,
+      guard: sharedPredicates129,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74504,8 +74681,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-urlmatch-name-only',
       kind: 'forbid',
-      guard: sharedPredicates128,
-      when: sharedPredicates103,
+      guard: sharedPredicates129,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74513,8 +74690,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-urlmatch-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates128,
-      when: sharedPredicates129,
+      guard: sharedPredicates129,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74522,8 +74699,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-urlmatch-default',
       kind: 'forbid',
-      guard: sharedPredicates128,
-      when: sharedPredicates126,
+      guard: sharedPredicates129,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74531,8 +74708,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-urlmatch-comment',
       kind: 'forbid',
-      guard: sharedPredicates128,
-      when: sharedPredicates124,
+      guard: sharedPredicates129,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74540,8 +74717,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-urlmatch-fixed',
       kind: 'forbid',
-      guard: sharedPredicates128,
-      when: sharedPredicates130,
+      guard: sharedPredicates129,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74552,7 +74729,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 2,
       max: 3,
-      guard: sharedPredicates131,
+      guard: sharedPredicates132,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74560,8 +74737,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-name-only',
       kind: 'forbid',
-      guard: sharedPredicates131,
-      when: sharedPredicates103,
+      guard: sharedPredicates132,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74569,8 +74746,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates131,
-      when: sharedPredicates129,
+      guard: sharedPredicates132,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74578,8 +74755,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-default',
       kind: 'forbid',
-      guard: sharedPredicates131,
-      when: sharedPredicates126,
+      guard: sharedPredicates132,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74587,7 +74764,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates131,
+      guard: sharedPredicates132,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74596,7 +74773,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-write-file',
       kind: 'forbid',
-      guard: sharedPredicates131,
+      guard: sharedPredicates132,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74605,7 +74782,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.replace-all-fixed',
       kind: 'arity',
-      guard: sharedPredicates131,
+      guard: sharedPredicates132,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74622,7 +74799,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 2,
       max: 2,
-      guard: sharedPredicates132,
+      guard: sharedPredicates133,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74630,8 +74807,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-name-only',
       kind: 'forbid',
-      guard: sharedPredicates132,
-      when: sharedPredicates103,
+      guard: sharedPredicates133,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74639,8 +74816,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates132,
-      when: sharedPredicates129,
+      guard: sharedPredicates133,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74648,8 +74825,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-default',
       kind: 'forbid',
-      guard: sharedPredicates132,
-      when: sharedPredicates126,
+      guard: sharedPredicates133,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74657,7 +74834,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates132,
+      guard: sharedPredicates133,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74666,7 +74843,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-write-file',
       kind: 'forbid',
-      guard: sharedPredicates132,
+      guard: sharedPredicates133,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74675,8 +74852,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.add-fixed',
       kind: 'forbid',
-      guard: sharedPredicates132,
-      when: sharedPredicates130,
+      guard: sharedPredicates133,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74687,7 +74864,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates133,
+      guard: sharedPredicates134,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74695,8 +74872,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-name-only',
       kind: 'forbid',
-      guard: sharedPredicates133,
-      when: sharedPredicates103,
+      guard: sharedPredicates134,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74704,8 +74881,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates133,
-      when: sharedPredicates129,
+      guard: sharedPredicates134,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74713,8 +74890,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-default',
       kind: 'forbid',
-      guard: sharedPredicates133,
-      when: sharedPredicates126,
+      guard: sharedPredicates134,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74722,8 +74899,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-comment',
       kind: 'forbid',
-      guard: sharedPredicates133,
-      when: sharedPredicates124,
+      guard: sharedPredicates134,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74731,7 +74908,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates133,
+      guard: sharedPredicates134,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74740,7 +74917,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-write-file',
       kind: 'forbid',
-      guard: sharedPredicates133,
+      guard: sharedPredicates134,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74749,7 +74926,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-fixed',
       kind: 'arity',
-      guard: sharedPredicates133,
+      guard: sharedPredicates134,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74766,7 +74943,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates134,
+      guard: sharedPredicates135,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74774,8 +74951,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-name-only',
       kind: 'forbid',
-      guard: sharedPredicates134,
-      when: sharedPredicates103,
+      guard: sharedPredicates135,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74783,8 +74960,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates134,
-      when: sharedPredicates129,
+      guard: sharedPredicates135,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74792,8 +74969,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-default',
       kind: 'forbid',
-      guard: sharedPredicates134,
-      when: sharedPredicates126,
+      guard: sharedPredicates135,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74801,8 +74978,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-comment',
       kind: 'forbid',
-      guard: sharedPredicates134,
-      when: sharedPredicates124,
+      guard: sharedPredicates135,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74810,7 +74987,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates134,
+      guard: sharedPredicates135,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74819,7 +74996,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-write-file',
       kind: 'forbid',
-      guard: sharedPredicates134,
+      guard: sharedPredicates135,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74828,7 +75005,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.unset-all-fixed',
       kind: 'arity',
-      guard: sharedPredicates134,
+      guard: sharedPredicates135,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -74845,7 +75022,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 2,
       max: 2,
-      guard: sharedPredicates135,
+      guard: sharedPredicates136,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74853,8 +75030,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-name-only',
       kind: 'forbid',
-      guard: sharedPredicates135,
-      when: sharedPredicates103,
+      guard: sharedPredicates136,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74862,8 +75039,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates135,
-      when: sharedPredicates129,
+      guard: sharedPredicates136,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74871,8 +75048,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-default',
       kind: 'forbid',
-      guard: sharedPredicates135,
-      when: sharedPredicates126,
+      guard: sharedPredicates136,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74880,8 +75057,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-comment',
       kind: 'forbid',
-      guard: sharedPredicates135,
-      when: sharedPredicates124,
+      guard: sharedPredicates136,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74889,7 +75066,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates135,
+      guard: sharedPredicates136,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74898,7 +75075,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-write-file',
       kind: 'forbid',
-      guard: sharedPredicates135,
+      guard: sharedPredicates136,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74907,8 +75084,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.rename-section-fixed',
       kind: 'forbid',
-      guard: sharedPredicates135,
-      when: sharedPredicates130,
+      guard: sharedPredicates136,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74919,7 +75096,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 1,
-      guard: sharedPredicates136,
+      guard: sharedPredicates137,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74927,8 +75104,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-name-only',
       kind: 'forbid',
-      guard: sharedPredicates136,
-      when: sharedPredicates103,
+      guard: sharedPredicates137,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74936,8 +75113,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates136,
-      when: sharedPredicates129,
+      guard: sharedPredicates137,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74945,8 +75122,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-default',
       kind: 'forbid',
-      guard: sharedPredicates136,
-      when: sharedPredicates126,
+      guard: sharedPredicates137,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74954,8 +75131,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-comment',
       kind: 'forbid',
-      guard: sharedPredicates136,
-      when: sharedPredicates124,
+      guard: sharedPredicates137,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74963,7 +75140,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates136,
+      guard: sharedPredicates137,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74972,7 +75149,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-write-file',
       kind: 'forbid',
-      guard: sharedPredicates136,
+      guard: sharedPredicates137,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -74981,8 +75158,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.remove-section-fixed',
       kind: 'forbid',
-      guard: sharedPredicates136,
-      when: sharedPredicates130,
+      guard: sharedPredicates137,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -74993,7 +75170,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 0,
       max: 0,
-      guard: sharedPredicates137,
+      guard: sharedPredicates138,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75001,8 +75178,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.list-default',
       kind: 'forbid',
-      guard: sharedPredicates137,
-      when: sharedPredicates126,
+      guard: sharedPredicates138,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75010,8 +75187,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.list-comment',
       kind: 'forbid',
-      guard: sharedPredicates137,
-      when: sharedPredicates124,
+      guard: sharedPredicates138,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75019,8 +75196,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.list-fixed',
       kind: 'forbid',
-      guard: sharedPredicates137,
-      when: sharedPredicates130,
+      guard: sharedPredicates138,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75028,8 +75205,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-name-only',
       kind: 'forbid',
-      guard: sharedPredicates138,
-      when: sharedPredicates103,
+      guard: sharedPredicates139,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75037,8 +75214,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates138,
-      when: sharedPredicates129,
+      guard: sharedPredicates139,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75046,8 +75223,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-default',
       kind: 'forbid',
-      guard: sharedPredicates138,
-      when: sharedPredicates126,
+      guard: sharedPredicates139,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75055,8 +75232,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-comment',
       kind: 'forbid',
-      guard: sharedPredicates138,
-      when: sharedPredicates124,
+      guard: sharedPredicates139,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75064,7 +75241,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates138,
+      guard: sharedPredicates139,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75073,7 +75250,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-write-file',
       kind: 'forbid',
-      guard: sharedPredicates138,
+      guard: sharedPredicates139,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75082,8 +75259,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.edit-fixed',
       kind: 'forbid',
-      guard: sharedPredicates138,
-      when: sharedPredicates130,
+      guard: sharedPredicates139,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75094,7 +75271,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates139,
+      guard: sharedPredicates140,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75102,8 +75279,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-name-only',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates103,
+      guard: sharedPredicates140,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75111,8 +75288,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates129,
+      guard: sharedPredicates140,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75120,8 +75297,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-default',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates126,
+      guard: sharedPredicates140,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75129,8 +75306,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-comment',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates124,
+      guard: sharedPredicates140,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75138,8 +75315,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-fixed',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates130,
+      guard: sharedPredicates140,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75147,8 +75324,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-color-type',
       kind: 'forbid',
-      guard: sharedPredicates139,
-      when: sharedPredicates140,
+      guard: sharedPredicates140,
+      when: sharedPredicates141,
       origin: 'git',
       reason: 'Legacy color actions cannot select a variable type.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75159,7 +75336,7 @@ const commandSpec308 = {
       key: 'operands',
       min: 1,
       max: 2,
-      guard: sharedPredicates141,
+      guard: sharedPredicates142,
       origin: 'git',
       reason: 'The selected legacy action restricts positional argument count.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75167,8 +75344,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-name-only',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates103,
+      guard: sharedPredicates142,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75176,8 +75353,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates129,
+      guard: sharedPredicates142,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75185,8 +75362,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-default',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates126,
+      guard: sharedPredicates142,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75194,8 +75371,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-comment',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates124,
+      guard: sharedPredicates142,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75203,8 +75380,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-fixed',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates130,
+      guard: sharedPredicates142,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75212,8 +75389,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.get-colorbool-type',
       kind: 'forbid',
-      guard: sharedPredicates141,
-      when: sharedPredicates140,
+      guard: sharedPredicates142,
+      when: sharedPredicates141,
       origin: 'git',
       reason: 'Legacy color actions cannot select a variable type.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75221,8 +75398,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.implicit-get-name-only',
       kind: 'forbid',
-      guard: sharedPredicates142,
-      when: sharedPredicates103,
+      guard: sharedPredicates143,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75230,8 +75407,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.implicit-get-comment',
       kind: 'forbid',
-      guard: sharedPredicates142,
-      when: sharedPredicates124,
+      guard: sharedPredicates143,
+      when: sharedPredicates125,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75239,7 +75416,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.implicit-get-fixed',
       kind: 'arity',
-      guard: sharedPredicates142,
+      guard: sharedPredicates143,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -75253,8 +75430,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-name-only',
       kind: 'forbid',
-      guard: sharedPredicates143,
-      when: sharedPredicates103,
+      guard: sharedPredicates144,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75262,8 +75439,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates143,
-      when: sharedPredicates129,
+      guard: sharedPredicates144,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75271,8 +75448,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-default',
       kind: 'forbid',
-      guard: sharedPredicates143,
-      when: sharedPredicates126,
+      guard: sharedPredicates144,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75280,7 +75457,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates143,
+      guard: sharedPredicates144,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75289,7 +75466,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-write-file',
       kind: 'forbid',
-      guard: sharedPredicates143,
+      guard: sharedPredicates144,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75298,8 +75475,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-fixed',
       kind: 'forbid',
-      guard: sharedPredicates143,
-      when: sharedPredicates130,
+      guard: sharedPredicates144,
+      when: sharedPredicates131,
       origin: 'git',
       reason: 'This action does not accept fixed-value matching.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75307,8 +75484,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-name-only',
       kind: 'forbid',
-      guard: sharedPredicates144,
-      when: sharedPredicates103,
+      guard: sharedPredicates145,
+      when: sharedPredicates104,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75316,8 +75493,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-show-origin',
       kind: 'forbid',
-      guard: sharedPredicates144,
-      when: sharedPredicates129,
+      guard: sharedPredicates145,
+      when: sharedPredicates130,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75325,8 +75502,8 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-default',
       kind: 'forbid',
-      guard: sharedPredicates144,
-      when: sharedPredicates126,
+      guard: sharedPredicates145,
+      when: sharedPredicates127,
       origin: 'git',
       reason: 'This display or write modifier is unavailable for the selected legacy action.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
@@ -75334,7 +75511,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-write-blob',
       kind: 'forbid',
-      guard: sharedPredicates144,
+      guard: sharedPredicates145,
       when: sharedPredicates40,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75343,7 +75520,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-write-file',
       kind: 'forbid',
-      guard: sharedPredicates144,
+      guard: sharedPredicates145,
       when: sharedPredicates41,
       origin: 'git',
       reason: 'Config writes and editing cannot target a blob or standard input.',
@@ -75352,7 +75529,7 @@ const commandSpec308 = {
     {
       id: 'cli.config.set-all-fixed',
       kind: 'arity',
-      guard: sharedPredicates144,
+      guard: sharedPredicates145,
       when: {
         key: 'fixed-value',
         test: 'active',
@@ -75884,7 +76061,7 @@ const commandSpec315 = {
       kind: 'value',
       key: 'maintenance',
       allowed: ['enable', 'disable', 'keep'],
-      guard: sharedPredicates122,
+      guard: sharedPredicates123,
       origin: 'git',
       reason:
         'Maintenance mode is checked only in the all-enlistments branch, after final option replacement.',
@@ -76581,7 +76758,7 @@ const commandSpec333 = {
       kind: 'arity',
       key: 'operands',
       min: 1,
-      guard: sharedPredicates145,
+      guard: sharedPredicates146,
       when: {
         key: 'export-all',
         test: 'active',
@@ -76664,7 +76841,7 @@ const commandSpec334 = {
       kind: 'arity',
       key: 'operands',
       min: 1,
-      guard: sharedPredicates145,
+      guard: sharedPredicates146,
       when: {
         key: 'export-all',
         test: 'active',
@@ -76699,7 +76876,7 @@ const commandSpec335 = {
       kind: 'arity',
       key: 'operands',
       min: 1,
-      guard: sharedPredicates145,
+      guard: sharedPredicates146,
       when: {
         key: 'export-all',
         test: 'active',
@@ -77153,7 +77330,7 @@ const commandSpec336 = {
         'bodycc\n',
         'misc-by\n',
       ],
-      guard: sharedPredicates146,
+      guard: sharedPredicates147,
       origin: 'git',
       reason:
         'Every suppression field is checked after the final option pass; the native Perl $ anchor also accepts one final newline.',
@@ -77193,7 +77370,7 @@ const commandSpec336 = {
           value: 'never',
         },
       ],
-      guard: sharedPredicates146,
+      guard: sharedPredicates147,
       origin: 'git',
       reason:
         'The native confirmation regexp accepts these prefixes, including trailing characters.',
@@ -77208,7 +77385,7 @@ const commandSpec336 = {
           test: 'active',
         },
       ],
-      guard: sharedPredicates146,
+      guard: sharedPredicates147,
       origin: 'git',
       reason:
         'The main GetOptions return code is checked after help and completion; any invalid integer keeps it false even if a later value is valid.',
@@ -77767,7 +77944,7 @@ const commandSpec355 = {
     {
       id: 'cli.svn.clone.required-name',
       kind: 'required',
-      required: sharedPredicates121,
+      required: sharedPredicates122,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The operation requires a nonempty first operand.',
@@ -77775,7 +77952,7 @@ const commandSpec355 = {
     {
       id: 'cli.svn.clone.perl-zero',
       kind: 'forbid',
-      when: sharedPredicates147,
+      when: sharedPredicates148,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The first operand uses Perl truthiness and therefore cannot be the string zero.',
@@ -78150,7 +78327,7 @@ const commandSpec359 = {
     {
       id: 'cli.svn.branch.required-name',
       kind: 'required',
-      required: sharedPredicates121,
+      required: sharedPredicates122,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The operation requires a nonempty first operand.',
@@ -78194,7 +78371,7 @@ const commandSpec360 = {
     {
       id: 'cli.svn.tag.required-name',
       kind: 'required',
-      required: sharedPredicates121,
+      required: sharedPredicates122,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The operation requires a nonempty first operand.',
@@ -78636,7 +78813,7 @@ const commandSpec372 = {
     {
       id: 'cli.svn.find-rev.required-name',
       kind: 'required',
-      required: sharedPredicates121,
+      required: sharedPredicates122,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The operation requires a nonempty first operand.',
@@ -78644,7 +78821,7 @@ const commandSpec372 = {
     {
       id: 'cli.svn.find-rev.perl-zero',
       kind: 'forbid',
-      when: sharedPredicates147,
+      when: sharedPredicates148,
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
       reason: 'The first operand uses Perl truthiness and therefore cannot be the string zero.',
@@ -79069,7 +79246,7 @@ const commandSpec383 = {
         key: 'base',
         test: 'active',
       },
-      required: sharedPredicates148,
+      required: sharedPredicates149,
       origin: 'git',
       reason: 'A conflict stage requires a nonempty destination.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
@@ -79081,7 +79258,7 @@ const commandSpec383 = {
         key: 'ours',
         test: 'active',
       },
-      required: sharedPredicates148,
+      required: sharedPredicates149,
       origin: 'git',
       reason: 'A conflict stage requires a nonempty destination.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
@@ -79093,7 +79270,7 @@ const commandSpec383 = {
         key: 'theirs',
         test: 'active',
       },
-      required: sharedPredicates148,
+      required: sharedPredicates149,
       origin: 'git',
       reason: 'A conflict stage requires a nonempty destination.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
@@ -79456,7 +79633,7 @@ const commandSpec395 = {
     {
       id: 'cli.lfs.install.file-local',
       kind: 'forbid',
-      when: sharedPredicates149,
+      when: sharedPredicates150,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go',
@@ -79464,7 +79641,7 @@ const commandSpec395 = {
     {
       id: 'cli.lfs.install.file-worktree',
       kind: 'forbid',
-      when: sharedPredicates150,
+      when: sharedPredicates151,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go',
@@ -79472,7 +79649,7 @@ const commandSpec395 = {
     {
       id: 'cli.lfs.install.file-system',
       kind: 'forbid',
-      when: sharedPredicates151,
+      when: sharedPredicates152,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go',
@@ -79890,7 +80067,7 @@ const commandSpec407 = {
     {
       id: 'lfsMigrateExport.everything-includeRef',
       kind: 'forbid',
-      when: sharedPredicates152,
+      when: sharedPredicates153,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -79898,7 +80075,7 @@ const commandSpec407 = {
     {
       id: 'lfsMigrateExport.everything-excludeRef',
       kind: 'forbid',
-      when: sharedPredicates153,
+      when: sharedPredicates154,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -79906,7 +80083,7 @@ const commandSpec407 = {
     {
       id: 'lfsMigrateExport.everything-refs',
       kind: 'forbid',
-      when: sharedPredicates154,
+      when: sharedPredicates155,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -80116,7 +80293,7 @@ const commandSpec408 = {
         key: 'fixup',
         test: 'active',
       },
-      others: sharedPredicates155,
+      others: sharedPredicates156,
       origin: 'git',
       reason: 'Fixup infers patterns from attributes and rejects explicit include/exclude.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
@@ -80159,7 +80336,7 @@ const commandSpec409 = {
     {
       id: 'lfsMigrateInfo.everything-includeRef',
       kind: 'forbid',
-      when: sharedPredicates152,
+      when: sharedPredicates153,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -80167,7 +80344,7 @@ const commandSpec409 = {
     {
       id: 'lfsMigrateInfo.everything-excludeRef',
       kind: 'forbid',
-      when: sharedPredicates153,
+      when: sharedPredicates154,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -80175,7 +80352,7 @@ const commandSpec409 = {
     {
       id: 'lfsMigrateInfo.everything-refs',
       kind: 'forbid',
-      when: sharedPredicates154,
+      when: sharedPredicates155,
       origin: 'git',
       reason: 'Everything cannot be combined with explicit reference selection.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
@@ -80187,7 +80364,7 @@ const commandSpec409 = {
         key: 'fixup',
         test: 'active',
       },
-      others: sharedPredicates155,
+      others: sharedPredicates156,
       origin: 'git',
       reason: 'Fixup infers patterns from attributes and rejects explicit include/exclude.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_info.go',
@@ -80691,7 +80868,7 @@ const commandSpec422 = {
     {
       id: 'cli.lfs.uninstall.file-local',
       kind: 'forbid',
-      when: sharedPredicates149,
+      when: sharedPredicates150,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go',
@@ -80699,7 +80876,7 @@ const commandSpec422 = {
     {
       id: 'cli.lfs.uninstall.file-worktree',
       kind: 'forbid',
-      when: sharedPredicates150,
+      when: sharedPredicates151,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go',
@@ -80707,7 +80884,7 @@ const commandSpec422 = {
     {
       id: 'cli.lfs.uninstall.file-system',
       kind: 'forbid',
-      when: sharedPredicates151,
+      when: sharedPredicates152,
       origin: 'git',
       reason: 'Only one configuration destination can be selected.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go',
@@ -80744,7 +80921,7 @@ const commandSpec424 = {
     {
       id: 'cli.lfs.unlock.one-input',
       kind: 'forbid',
-      when: sharedPredicates156,
+      when: sharedPredicates157,
       origin: 'git',
       reason: 'Specify either an ID or paths, not both.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go',
@@ -80756,7 +80933,7 @@ const commandSpec424 = {
         key: 'help',
         test: 'inactive',
       },
-      choices: sharedPredicates156,
+      choices: sharedPredicates157,
       origin: 'git',
       reason: 'Unlock requires either an ID or a path.',
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go',

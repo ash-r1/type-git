@@ -7969,6 +7969,38 @@
           "test": "active"
         }
       ]
+    },
+    {
+      "id": "log.line-range-syntax",
+      "kind": "eachScalar",
+      "key": "L",
+      "parser": "log-line-range",
+      "origin": "git",
+      "reason": "Every -L value must scan as <start>,<end> or :<funcname> followed by ':' and a nonempty file name, and a numeric boundary must be a positive line number or a nonzero relative length. Regular expressions, function names, line counts and the file itself are checked against the repository by Git.",
+      "source": "Git 2.55.0 line-log.c:parse_lines; line-range.c:skip_range_arg/parse_range_arg/parse_loc"
+    },
+    {
+      "id": "log.oldest-negative-count",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt (--max-count-oldest, -n, --max-count and -<n> set the count; only --max-count and --max-count-oldest change its mode) and the oldest-first limit in get_revision_internal",
+      "reason": "In oldest-first mode a negative final count makes the walk crash (SIGSEGV) as soon as it yields a commit. Git parses the arguments, so this is not a parser refusal, but a native crash is never acceptance; a later -n or -<n> keeps oldest mode.",
+      "when": {
+        "key": "max-count-mode",
+        "test": "equals",
+        "value": "oldest"
+      },
+      "choices": [
+        {
+          "key": "max-count",
+          "test": "positive"
+        },
+        {
+          "key": "max-count",
+          "test": "equals",
+          "value": 0
+        }
+      ]
     }
   ],
   "show": [
@@ -8189,6 +8221,38 @@
         {
           "key": "stat-count",
           "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "show.line-range-syntax",
+      "kind": "eachScalar",
+      "key": "L",
+      "parser": "log-line-range",
+      "origin": "git",
+      "reason": "Every -L value must scan as <start>,<end> or :<funcname> followed by ':' and a nonempty file name, and a numeric boundary must be a positive line number or a nonzero relative length. Regular expressions, function names, line counts and the file itself are checked against the repository by Git.",
+      "source": "Git 2.55.0 line-log.c:parse_lines; line-range.c:skip_range_arg/parse_range_arg/parse_loc"
+    },
+    {
+      "id": "show.oldest-negative-count",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt (--max-count-oldest, -n, --max-count and -<n> set the count; only --max-count and --max-count-oldest change its mode) and the oldest-first limit in get_revision_internal",
+      "reason": "In oldest-first mode a negative final count makes the walk crash (SIGSEGV) as soon as it yields a commit. Git parses the arguments, so this is not a parser refusal, but a native crash is never acceptance; a later -n or -<n> keeps oldest mode.",
+      "when": {
+        "key": "max-count-mode",
+        "test": "equals",
+        "value": "oldest"
+      },
+      "choices": [
+        {
+          "key": "max-count",
+          "test": "positive"
+        },
+        {
+          "key": "max-count",
+          "test": "equals",
+          "value": 0
         }
       ]
     }
@@ -8572,6 +8636,160 @@
       "reason": "The HEAD-by-hand diff-index branch rejects a final numeric age filter other than the timestamp default; approxidate text remains native-owned and -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
     },
     {
+      "id": "diff.cached-until",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "min-age",
+          "test": "startsWith",
+          "value": ""
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final --until or --before date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
+      "id": "diff.cached-since",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "lengthEquals",
+          "value": 0
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "branches",
+          "test": "inactive"
+        },
+        {
+          "key": "bisect",
+          "test": "inactive"
+        },
+        {
+          "key": "tags",
+          "test": "inactive"
+        },
+        {
+          "key": "remotes",
+          "test": "inactive"
+        },
+        {
+          "key": "glob",
+          "test": "inactive"
+        },
+        {
+          "key": "reflog",
+          "test": "inactive"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "inactive"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "default",
+          "test": "inactive"
+        },
+        {
+          "key": "merge",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "diff-usage",
+          "test": "inactive"
+        },
+        {
+          "key": "max-age",
+          "test": "startsWith",
+          "value": ""
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful",
+      "reason": "The HEAD-by-hand diff-index branch rejects a final --since or --after date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated."
+    },
+    {
       "id": "diff.follow-without-path",
       "kind": "forbid",
       "when": [
@@ -8820,6 +9038,20 @@
       "origin": "git",
       "source": "Git 2.55.0 diffcore-pickaxe.c:diffcore_pickaxe (BUG \"should have needle under -G or -S\"); diff.c:diff_opt_find_object, diff_setup_done",
       "reason": "--find-object with -i/--regexp-ignore-case sets a needle-requiring pickaxe bit without -S/-G, so Git aborts with BUG() when the diff is computed; a native crash is never acceptance. -h exits the residual loop first."
+    },
+    {
+      "id": "diff.dash-word",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "includes",
+          "valueKey": "dash-word"
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:setup_revisions (a word starting with '-' goes to handle_revision_opt and is retained when unknown); builtin/diff.c:builtin_diff_files/builtin_diff_index/builtin_diff_tree/builtin_diff_b_f/builtin_diff_blobs/builtin_diff_combined",
+      "reason": "Before \"--\" a bare - is an unknown option word that setup_revisions retains, and every diff mode refuses a retained word it does not know (diff-files reports an invalid option, the other modes print usage). After \"--\" it is a path. A -h that precedes it prints usage too; the typed API refuses the word in either order."
     }
   ],
   "diff-files": [
