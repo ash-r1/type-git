@@ -554,7 +554,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for every pair and ordered triple of the closure vocabulary, whichever refusal Git reaches first. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for every single word and ordered pair of the closure vocabulary, for format/NUL triples with the NUL word in each position, for --ignored=matching with two untracked modes in each position, and for the listed refusal-order pairs. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
             "evidence": [
               "test/fixtures/status-closure-corpus.json",
               "src/commands/status-closure-corpus.test.ts"
@@ -1209,7 +1209,7 @@
               "prepare_to_commit: options '%s' and '%s:%s' cannot be used together [-m, --fixup, *]"
             ],
             "disposition": "modeled",
-            "summary": "-m, even empty, is refused with an amend: or reword: fixup (cli.commit.fixup-amend-message, cli.commit.fixup-reword-message; repo.commit, which emits -m only for a nonempty message, checks commit.fixup-amend-message and commit.fixup-reword-message at runtime).",
+            "summary": "On a real commit, -m, even empty, is refused with an amend: or reword: fixup; --dry-run and the status formats (--short, --porcelain, --long, -z) return before prepare_to_commit, so the rules are guarded by them (cli.commit.fixup-amend-message, cli.commit.fixup-reword-message; repo.commit, which emits -m only for a nonempty message, checks commit.fixup-amend-message and commit.fixup-reword-message at runtime).",
             "evidence": [
               "test/fixtures/commit-closure-corpus.json",
               "src/commands/commit-closure-corpus.test.ts",
@@ -1435,7 +1435,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for every single word and pair over the closure vocabulary (1,250 real commits), whichever refusal Git reaches first; the typed error lists every violated rule.",
+            "summary": "Every generated single word and pair over the closure vocabulary (1,250 real commits) is compared with Git, whichever refusal Git reaches first; the only differences allowed are the listed DELEGATED diagnostics (--reset-author without a message source, --fixup commit lookup, pathspecs read from a file) and the OPEN no-paths rows. The typed error lists every violated rule.",
             "evidence": [
               "test/fixtures/commit-closure-corpus.json",
               "src/commands/commit-closure-corpus.test.ts"
@@ -1525,7 +1525,7 @@
             "kind": "state",
             "disposition": "delegated",
             "basis": "repository-state",
-            "summary": "Unborn HEAD, in-progress operations and the index decide whether there is anything to commit.",
+            "summary": "Unborn HEAD, in-progress operations and the index decide whether there is anything to commit; an index with unresolved conflicts refuses the commit (refresh_cache_or_die, then die_resolve_conflict).",
             "reason": "Repository state is read by native Git at runtime."
           },
           {
