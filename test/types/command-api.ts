@@ -627,3 +627,26 @@ git.command('stripspace', [['--comment-lines']]);
 git.command('ls-remote', [['--refs'], { operand: '.' }, { operand: '--literal-pattern' }]);
 // @ts-expect-error Options must precede the remote operand.
 git.command('ls-remote', [{ operand: '.' }, ['--refs']]);
+// @ts-expect-error The push tag shorthand needs the tag name that follows it.
+git.command('push', [{ operand: 'origin' }, { operand: 'main' }, { operand: 'tag' }]);
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'tag' }]);
+// @ts-expect-error --delete accepts only plain ref names.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'a:b' }]);
+// @ts-expect-error --delete refuses an empty name.
+git.command('push', [['-d'], { operand: 'origin' }, { operand: '' }]);
+// The repository word may contain ':' and the word after 'tag' is a tag name.
+git.command('push', [['--delete'], { operand: 'host:repo' }, { operand: 'tag' }, { operand: 'v1' }]);
+git.command('push', [['--delete'], ['--no-delete'], { operand: 'origin' }, { operand: 'a:b' }]);
+// @ts-expect-error Push options cannot contain newlines.
+git.command('push', [['-o', 'a\nb'], { operand: 'origin' }]);
+git.command('push', [['-o', 'a\nb'], ['--no-push-option'], { operand: 'origin' }]);
+// @ts-expect-error The fetch tag shorthand needs the tag name that follows it.
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }]);
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
+// With --multiple every word is a remote, and --negotiate-only does not read refspecs.
+git.command('fetch', [['--multiple'], { operand: 'origin' }, { operand: 'tag' }]);
+git.command('fetch', [['--negotiate-only'], { operand: 'origin' }, { operand: 'tag' }]);
+// @ts-expect-error pull forwards a refspec word 'tag' to fetch, which needs the tag name after it.
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }]);
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
+git.command('pull', [{ operand: 'tag' }]);

@@ -1768,6 +1768,39 @@
       "origin": "git",
       "reason": "Bulk pushes cannot specify explicit refspecs.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/push.c"
+    },
+    {
+      "id": "cli.push.tag-shorthand",
+      "kind": "scalar",
+      "key": "operands",
+      "parser": "refspec-operands",
+      "origin": "git",
+      "reason": "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/push.c"
+    },
+    {
+      "id": "cli.push.delete-names",
+      "kind": "scalar",
+      "key": "operands",
+      "parser": "push-delete-operands",
+      "guard": [
+        {
+          "key": "delete",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "--delete accepts only nonempty plain ref names without ':'.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/push.c"
+    },
+    {
+      "id": "cli.push.option-newline",
+      "kind": "scalar",
+      "key": "push-option",
+      "parser": "push-option-text",
+      "origin": "git",
+      "reason": "Push options must not contain newline characters.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/push.c"
     }
   ],
   "fetch": [
@@ -1995,6 +2028,25 @@
       "origin": "git",
       "reason": "The final depth must be positive after Git converts it with atoi; transport validation is a later phase.",
       "source": "Git 2.55.0 builtin/fetch.c; pinned 64-bit libc and 32-bit int profile"
+    },
+    {
+      "id": "cli.fetch.tag-shorthand",
+      "kind": "scalar",
+      "key": "operands",
+      "parser": "refspec-operands",
+      "guard": [
+        {
+          "key": "multiple",
+          "test": "inactive"
+        },
+        {
+          "key": "negotiate-only",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fetch.c"
     }
   ],
   "branch": [
@@ -16020,6 +16072,15 @@
     }
   ],
   "pull": [
+    {
+      "id": "cli.pull.tag-shorthand",
+      "kind": "scalar",
+      "key": "operands",
+      "parser": "refspec-operands",
+      "origin": "git",
+      "reason": "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fetch.c"
+    },
     {
       "id": "cli.pull.cleanup",
       "kind": "value",

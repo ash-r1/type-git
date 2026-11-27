@@ -759,7 +759,7 @@
       }
     },
     "fetch": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "fetch"
       ],
@@ -805,13 +805,475 @@
         "test/types/alias-parser-fetch-corpus-8.ts",
         "test/types/alias-parser-fetch-corpus-9.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/fetch-closure-corpus.mjs",
+        "src/commands/fetch-closure-corpus.test.ts",
+        "src/constraints/push-refspecs.test.ts",
+        "test/types/constraint-model.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/alias-parser-corpus.json",
+          "src/commands/alias-parser.test.ts",
+          "test/types/alias-parser-fetch-corpus-1.ts",
+          "test/fixtures/parse-options-completion-corpus.json"
+        ],
+        "operand-grammar": [
+          "test/fixtures/fetch-closure-corpus.json",
+          "src/commands/fetch-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/fetch-closure-corpus.json",
+          "src/commands/fetch-closure-corpus.test.ts",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "serialization": [
+          "src/commands/fetch-closure-corpus.test.ts",
+          "src/commands/alias-parser.test.ts",
+          "src/runner/depth-profiles.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/fetch-closure-corpus.mjs",
+          "scripts/alias-parser-corpus.mjs",
+          "scripts/object-filter-corpus.mjs",
+          "scripts/boolean-callback-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/constraint-model.ts",
+          "test/types/depth-scalar.ts",
+          "test/types/object-filter.ts",
+          "test/types/alias-parser-fetch-corpus-1.ts"
+        ]
+      },
+      "notes": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
+      "remaining": "",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_fetch",
+        "sources": {
+          "builtin/fetch.c": [
+            "cmd_fetch",
+            "add_options_to_argv",
+            "fetch_multiple",
+            "fetch_one",
+            "fetch_one_setup_partial",
+            "get_one_remote_for_fetch",
+            "parse_refmap_arg",
+            "prepare_transport",
+            "fetch_failed_to_start",
+            "fetch_finished",
+            "fetch_next_remote",
+            "truncate_fetch_head",
+            "do_fetch",
+            "add_negotiation_tips",
+            "set_option",
+            "backfill_tags",
+            "check_not_current_branch",
+            "close_fetch_head",
+            "commit_fetch_head",
+            "commit_ref_transaction",
+            "fetch_and_consume_refs",
+            "get_ref_map",
+            "open_fetch_head",
+            "ref_transaction_rejection_handler",
+            "store_updated_refs",
+            "update_local_ref",
+            "s_update_ref"
+          ]
+        },
+        "waived": {
+          "git_fetch_config": "Configuration callback (fetch.* and submodule.fetchJobs keys); it refuses only invalid configuration values (a negative fetch.parallel, an unknown fetch.output) and is covered by the configuration obligation.",
+          "unlock_pack_atexit": "Refuses nothing; releases the pack lock at exit.",
+          "unlock_pack_on_signal": "Refuses nothing; releases the pack lock on a signal.",
+          "display_state_init": "Refuses nothing; sets up ref update display from configuration and terminal width.",
+          "display_state_release": "Refuses nothing; frees display state.",
+          "find_non_local_tags": "Refuses nothing; collects tags to follow from the advertised refs.",
+          "prune_refs": "Refuses nothing; deletes stale remote-tracking refs; write failures surface through do_fetch.",
+          "ref_update_display_info_display": "Refuses nothing; prints ref updates.",
+          "ref_update_display_info_free": "Refuses nothing; frees display records.",
+          "ref_update_display_info_set_failed": "Refuses nothing; marks a display record as failed.",
+          "ref_update_display_info_append": "Refuses nothing; records a ref update for display.",
+          "set_head": "Refuses nothing; updates refs/remotes/<remote>/HEAD as configured and only warns.",
+          "add_oid": "Refuses nothing; collects object names for negotiation tips.",
+          "check_exist_and_connected": "Refuses nothing; checks connectivity and reports a result that store_updated_refs acts on.",
+          "append_fetch_head": "Refuses nothing; buffers FETCH_HEAD lines.",
+          "iterate_ref_map": "Refuses nothing; iterates fetched refs for the connectivity check.",
+          "add_merge_config": "Refuses nothing; adds branch.<name>.merge refs to the ref map.",
+          "filter_prefetch_refspec": "Refuses nothing; rewrites refspecs for --prefetch.",
+          "add_one_refname": "Refuses nothing; adds a ref name to a hash map.",
+          "refname_hash_init": "Refuses nothing; initializes a ref name hash map."
+        },
+        "obligations": [
+          {
+            "id": "recursion-modes",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: options '%s' and '%s' cannot be used together [--negotiate-only, --recurse-submodules]",
+              "cmd_fetch: options '%s' and '%s' cannot be used together [--porcelain, --recurse-submodules]"
+            ],
+            "disposition": "modeled",
+            "summary": "--negotiate-only and --porcelain refuse a final --recurse-submodules that is not no or unset; only the command-line value counts, not configuration (cli.fetch.negotiate-only-recursion, cli.fetch.porcelain-recursion).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "deepen-values",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: negative depth in --deepen is not supported",
+              "cmd_fetch: options '%s' and '%s' cannot be used together [--deepen, --depth]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final nonzero --deepen must be positive and refuses any --depth, even an empty one (cli.fetch.deepen-minimum, cli.fetch.deepen-depth; repo.fetch fetch.deepen-range, fetch.deepen-depth).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "depth-unshallow",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: options '%s' and '%s' cannot be used together [--depth, --unshallow]"
+            ],
+            "disposition": "modeled",
+            "summary": "--unshallow refuses an explicit --depth and a nonzero --deepen, which becomes a depth (cli.fetch.depth-unshallow, cli.fetch.deepen-unshallow; repo.fetch fetch.depth-unshallow, fetch.deepen-unshallow).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "depth-positive",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: depth %s is not a positive number"
+            ],
+            "disposition": "modeled",
+            "summary": "The final --depth must be positive after atoi conversion with the selected saturation profile (cli.fetch.depth-initial; repo.fetch fetch.depth).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts",
+              "src/commands/depth-scalar.test.ts",
+              "src/runner/depth-profiles.test.ts",
+              "test/types/depth-scalar.ts"
+            ]
+          },
+          {
+            "id": "all-operands",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: fetch --all does not take a repository argument",
+              "cmd_fetch: fetch --all does not make sense with refspecs"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --all takes no operand (cli.fetch.all-operands; repo.fetch fetch.all-remote, fetch.all-refspec). fetch.all configuration applies only without operands.",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "single-remote-options",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: must supply remote when using --negotiate-only",
+              "cmd_fetch: --filter can only be used with the remote configured in extensions.partialclone",
+              "cmd_fetch: --atomic can only be used when fetching from one remote",
+              "cmd_fetch: --stdin can only be used when fetching from one remote"
+            ],
+            "disposition": "modeled",
+            "summary": "With --multiple and at least one operand, --negotiate-only, --filter, --atomic and --stdin are refused (cli.fetch.multiple-*). --all, or a repository word that names a remote group, selects several remotes from configuration; the corpus records those refusals as configuration state, covered by the configuration obligation.",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "tag-shorthand",
+            "kind": "refusal",
+            "sites": [
+              "fetch_one: you need to specify a tag name"
+            ],
+            "disposition": "modeled",
+            "summary": "For a single remote, a refspec word 'tag' consumes the next word as a tag name and is refused as the last word; --multiple treats every word as a remote and --negotiate-only does not read refspecs (cli.fetch.tag-shorthand; repo.fetch fetch.tag-shorthand).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "unshallow-complete",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: --unshallow on a complete repository does not make sense"
+            ],
+            "disposition": "delegated",
+            "summary": "--unshallow needs a shallow repository.",
+            "basis": "repository-state",
+            "reason": "Whether the repository is shallow is read at runtime."
+          },
+          {
+            "id": "remote-selection",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: no such remote or remote group: %s",
+              "cmd_fetch: fetching a group and specifying refspecs does not make sense",
+              "fetch_one: no remote repository specified; please specify either a URL or a\nremote name from which new revisions should be fetched"
+            ],
+            "disposition": "delegated",
+            "summary": "With --multiple every word must name a remote or group; a group takes no refspecs; without operands a default remote must exist.",
+            "basis": "configuration",
+            "reason": "Remotes, remote groups and the default remote are configuration read at runtime."
+          },
+          {
+            "id": "negotiation-tips",
+            "kind": "refusal",
+            "sites": [
+              "cmd_fetch: %s needs one or more %s [--negotiate-only, --negotiation-restrict=*]",
+              "add_negotiation_tips: the object %s does not exist"
+            ],
+            "disposition": "delegated",
+            "summary": "--negotiate-only needs negotiation tips from --negotiation-restrict or remote.<name>.negotiationRestrict, and each tip must resolve.",
+            "basis": "configuration",
+            "reason": "remote.<name>.negotiationRestrict can supply the tips, and tips resolve against the repository at runtime."
+          },
+          {
+            "id": "refmap-without-refspecs",
+            "kind": "refusal",
+            "sites": [
+              "get_ref_map: --refmap option is only meaningful with command-line refspec(s)"
+            ],
+            "disposition": "delegated",
+            "summary": "--refmap needs refspecs from argv or --stdin; --prune-tags adds a tag refspec for a URL or with fetch.pruneTags or remote.<name>.pruneTags.",
+            "basis": "configuration",
+            "reason": "Whether a tag refspec is added depends on prune-tags configuration and on whether the repository word names a configured remote."
+          },
+          {
+            "id": "default-ref-map",
+            "kind": "refusal",
+            "sites": [
+              "get_ref_map: couldn't find remote ref HEAD"
+            ],
+            "disposition": "delegated",
+            "summary": "Without refspecs and fetch configuration the remote HEAD is fetched.",
+            "basis": "repository-state",
+            "reason": "The advertised refs of the remote are known only at runtime."
+          },
+          {
+            "id": "transport-options",
+            "kind": "refusal",
+            "sites": [
+              "set_option: option \"%s\" value \"%s\" is not valid for %s"
+            ],
+            "disposition": "delegated",
+            "summary": "The transport validates --upload-pack, --depth, --shallow-since, --shallow-exclude, --filter and the other transport options again; transport.c refuses a depth that is not an integer for Git transports.",
+            "basis": "configuration",
+            "reason": "The transport is selected by the remote URL, which comes from configuration or the repository word at runtime."
+          },
+          {
+            "id": "current-branch",
+            "kind": "refusal",
+            "sites": [
+              "check_not_current_branch: refusing to fetch into branch '%s' checked out at '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "A refspec may not update a branch checked out in a worktree without --update-head-ok.",
+            "basis": "repository-state",
+            "reason": "Checked-out branches are read at runtime."
+          },
+          {
+            "id": "multiple-results",
+            "kind": "refusal",
+            "sites": [
+              "fetch_multiple: could not fetch %s",
+              "fetch_failed_to_start: could not fetch %s"
+            ],
+            "disposition": "delegated",
+            "summary": "Fetching several remotes reports each child fetch that fails or cannot start.",
+            "basis": "repository-state",
+            "reason": "Child fetches run against remotes at runtime."
+          },
+          {
+            "id": "fetch-head-files",
+            "kind": "refusal",
+            "sites": [
+              "truncate_fetch_head: cannot open '%s'",
+              "open_fetch_head: cannot open '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "FETCH_HEAD must be writable.",
+            "basis": "filesystem",
+            "reason": "File access is decided at runtime."
+          },
+          {
+            "id": "ref-updates",
+            "kind": "refusal",
+            "sites": [
+              "do_fetch: %s",
+              "ref_transaction_rejection_handler: You're on a case-insensitive filesystem, and the remote you are\ntrying to fetch from has references that only differ in casing. It\nis impossible to store such references with the 'files' backend. You\ncan either accept this as-is, in which case you won't be able to\nstore all remote references on disk. Or you can alternatively\nmigrate your repository to use the 'reftable' backend with the\nfollowing command:\n\n    git refs migrate --ref-format=reftable\n\nPlease keep in mind that not all implementations of Git support this\nnew format yet. So if you use tools other than Git to access this\nrepository it may not be an option to migrate to reftables.\n",
+              "ref_transaction_rejection_handler: some local refs could not be updated; try running\n 'git remote prune %s' to remove any old, conflicting branches",
+              "ref_transaction_rejection_handler: %s",
+              "ref_transaction_rejection_handler: fetching ref %s failed: %s",
+              "store_updated_refs: %s did not send all necessary objects",
+              "update_local_ref: object %s not found",
+              "update_local_ref: <NULL>",
+              "s_update_ref: %s"
+            ],
+            "disposition": "delegated",
+            "summary": "Ref transactions, missing objects, non-fast-forward updates without force and case-insensitive ref clashes.",
+            "basis": "repository-state",
+            "reason": "Local and remote refs and objects are known only when the fetch runs."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the fetch table: long prefixes and the negotiation-tip alias, negations (and PARSE_OPT_NONEG for --unshallow, --refetch and --refmap), short clusters, optional-argument attachment for --recurse-submodules, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/alias-parser-corpus.json",
+              "src/commands/alias-parser.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over eleven operand shapes and modifier pairs, all as dry runs, wherever Git does not first refuse for repository or configuration state; where it does, the wrapper may refuse the same argv for a rule Git checks later (for example the tag shorthand after remote resolution).",
+            "evidence": [
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules accepts Git boolean spellings and on-demand, a bare form meaning yes (option_fetch_parse_recurse_submodules; parser fetch-recurse).",
+            "evidence": [
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts",
+              "test/fixtures/fetch-closure-corpus.json",
+              "src/commands/fetch-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "integer-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--jobs and --deepen are OPTION_INTEGER values checked with the selected integer profile.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "filter-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--filter follows the object filter grammar, including auto (opt_parse_list_objects_filter with allow_auto_filter).",
+            "evidence": [
+              "test/fixtures/object-filter-corpus.json",
+              "src/commands/object-filter.test.ts",
+              "test/types/object-filter.ts"
+            ]
+          },
+          {
+            "id": "server-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--shallow-since, --shallow-exclude, --server-option, --negotiation-include and --upload-pack values are passed to the transport or the server.",
+            "reason": "The server or the upload-pack program interprets them at runtime."
+          },
+          {
+            "id": "refspec-syntax",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Repository words and refspecs other than the tag shorthand, and --refmap values, are parsed and matched by the transport.",
+            "reason": "Refspec matching and URL resolution use the refs and remotes that exist at runtime; dash-prefixed words after -- stay operands and are refused by that lookup."
+          },
+          {
+            "id": "refspec-remote",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "The first operand is always the repository, so repo.fetch needs a remote whenever it passes refspecs (fetch.refspec-remote).",
+            "evidence": [
+              "test/types/constraint-model.ts",
+              "src/constraints/push-refspecs.test.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "fetch.all, fetch.prune, fetch.pruneTags, fetch.parallel, fetch.output, fetch.recurseSubmodules, fetch.bundleURI, remote groups and remote.<name>.* set defaults that argv can override, select several remotes and refuse invalid configuration values.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Shallow state, promisor remotes, submodules and the refs to update.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "integer-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Integer and atoi conversions follow the C library and integer widths of the running Git; the wrapper selects the recorded profiles.",
+            "reason": "The executing platform decides the profile at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of URLs and refspecs.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "push": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "push"
       ],
@@ -841,10 +1303,369 @@
         "test/types/alias-parser-push-corpus-5.ts",
         "test/types/alias-parser-push-corpus-6.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/push-closure-corpus.mjs",
+        "src/commands/push-closure-corpus.test.ts",
+        "src/constraints/push-refspecs.test.ts"
       ],
-      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/alias-parser-corpus.json",
+          "src/commands/alias-parser.test.ts",
+          "test/types/alias-parser-push-corpus-1.ts",
+          "test/fixtures/parse-options-completion-corpus.json"
+        ],
+        "operand-grammar": [
+          "test/fixtures/push-closure-corpus.json",
+          "src/commands/push-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/push-closure-corpus.json",
+          "src/commands/push-closure-corpus.test.ts",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "serialization": [
+          "src/commands/push-closure-corpus.test.ts",
+          "src/commands/alias-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/push-closure-corpus.mjs",
+          "scripts/alias-parser-corpus.mjs",
+          "scripts/boolean-callback-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/constraint-model.ts",
+          "test/types/alias-parser-push-corpus-1.ts",
+          "test/types/generated-command-constraints.ts"
+        ]
+      },
+      "notes": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
+      "remaining": "",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_push",
+        "sources": {
+          "builtin/push.c": [
+            "cmd_push",
+            "set_refspecs",
+            "refspec_append_mapped",
+            "do_push",
+            "push_with_options",
+            "setup_default_push_refspecs",
+            "die_push_simple",
+            "get_upstream_ref",
+            "push_multiple",
+            "option_parse_recurse_submodules",
+            "set_push_cert_flags"
+          ]
+        },
+        "waived": {
+          "git_push_config": "Configuration callback (push.*, remote.pushDefault and color.push keys); it refuses only invalid configuration values and is covered by the configuration obligation.",
+          "advise_checkout_pull_push": "Prints advice after a rejected push; it refuses nothing.",
+          "advise_pull_before_push": "Prints advice after a rejected push; it refuses nothing.",
+          "advise_ref_already_exists": "Prints advice after a rejected push; it refuses nothing.",
+          "advise_ref_fetch_first": "Prints advice after a rejected push; it refuses nothing.",
+          "advise_ref_needs_force": "Prints advice after a rejected push; it refuses nothing.",
+          "advise_ref_needs_update": "Prints advice after a rejected push; it refuses nothing.",
+          "push_get_color": "Selects an output color for the error report; it refuses nothing."
+        },
+        "obligations": [
+          {
+            "id": "mode-exclusivity",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: --delete / --tags / --all/--branches / --mirror"
+            ],
+            "disposition": "modeled",
+            "summary": "At most one of --delete, --tags, --all (or --branches) and --mirror, each by its final state (cli.push.mode; repo.push push.delete-*, push.*-tags, push.all-mirror-refspec).",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "delete-without-refs",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: --delete doesn't make sense without any refs"
+            ],
+            "disposition": "modeled",
+            "summary": "--delete needs the repository and at least one ref (cli.push.delete-refs; repo.push push.delete-refs and push.refspec-remote).",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts",
+              "test/types/constraint-model.ts"
+            ]
+          },
+          {
+            "id": "push-option-newline",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: push options must not have new line characters"
+            ],
+            "disposition": "modeled",
+            "summary": "A command-line push option that contains a newline is refused; --no-push-option clears the list, and push.pushOption configuration is used only when argv gives none (cli.push.option-newline; repo.push push.option-newline).",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/constraint-model.ts"
+            ]
+          },
+          {
+            "id": "bulk-with-refspecs",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: --all can't be combined with refspecs",
+              "cmd_push: --mirror can't be combined with refspecs"
+            ],
+            "disposition": "modeled",
+            "summary": "--all, --branches and --mirror take no refspec after the repository (cli.push.all-refs, cli.push.mirror-refs; repo.push push.all-mirror-refspec). A remote configured with remote.<name>.mirror makes the mirror refusal fire without --mirror; that case belongs to the configuration obligation.",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "tag-shorthand",
+            "kind": "refusal",
+            "sites": [
+              "set_refspecs: tag shorthand without <tag>"
+            ],
+            "disposition": "modeled",
+            "summary": "A refspec word 'tag' consumes the next word as a tag name and is refused as the last word (cli.push.tag-shorthand; repo.push push.tag-shorthand).",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "delete-plain-names",
+            "kind": "refusal",
+            "sites": [
+              "set_refspecs: --delete only accepts plain target ref names"
+            ],
+            "disposition": "modeled",
+            "summary": "Under --delete every refspec word that a 'tag' word does not consume must be nonempty and contain no ':' (cli.push.delete-names; repo.push push.delete-names).",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "remote-resolution",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: bad repository '%s'",
+              "cmd_push: No configured push destination.\nEither specify the URL from the command-line or configure a remote repository using\n\n    git remote add <name> <url>\n\nand then push using the remote name\n\n    git push <name>\n\nTo push to multiple remotes at once, configure a remote group using\n\n    git config remotes.<groupname> \"<remote1> <remote2>\"\n\nand then push using the group name\n\n    git push <groupname>\n",
+              "cmd_push: no such remote or remote group: %s"
+            ],
+            "disposition": "delegated",
+            "summary": "The repository word (or --repo) must name a remote, a remote group, a URL or a path, and without one a push destination must be configured.",
+            "basis": "configuration",
+            "reason": "Remotes, remote groups and remote.pushDefault are configuration read at runtime."
+          },
+          {
+            "id": "atomic-group",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: --atomic can only be used when pushing to one remote"
+            ],
+            "disposition": "delegated",
+            "summary": "--atomic is refused when the repository word names a remote group.",
+            "basis": "configuration",
+            "reason": "Whether a word names a group (remotes.<group>) is configuration read at runtime; the corpus records the refusal for a configured group."
+          },
+          {
+            "id": "multiple-remote-failure",
+            "kind": "refusal",
+            "sites": [
+              "push_multiple: could not push to %s"
+            ],
+            "disposition": "delegated",
+            "summary": "A group push reports each child push that fails.",
+            "basis": "repository-state",
+            "reason": "Child pushes succeed or fail on the remote and local refs at runtime."
+          },
+          {
+            "id": "default-refspecs",
+            "kind": "refusal",
+            "sites": [
+              "setup_default_push_refspecs: You didn't specify any refspecs to push, and push.default is \"nothing\".",
+              "setup_default_push_refspecs: <_(message_detached_head_die)>",
+              "setup_default_push_refspecs: You are pushing to remote '%s', which is not the upstream of\nyour current branch '%s', without telling me what to push\nto update which remote branch.",
+              "die_push_simple: The upstream branch of your current branch does not match\nthe name of your current branch.  To push to the upstream branch\non the remote, use\n\n    git push %s HEAD:%s\n\nTo push to the branch of the same name on the remote, use\n\n    git push %s HEAD\n%s%s",
+              "get_upstream_ref: The current branch %s has no upstream branch.\nTo push the current branch and set the remote as upstream, use\n\n    git push --set-upstream %s %s\n%s",
+              "get_upstream_ref: The current branch %s has multiple upstream branches, refusing to push."
+            ],
+            "disposition": "delegated",
+            "summary": "Without refspecs, --all or --mirror, push.default and the current branch and its upstream decide what is pushed and can refuse.",
+            "basis": "configuration",
+            "reason": "push.default, remote.<name>.push, branch.<name>.merge and the checked-out branch are read at runtime."
+          },
+          {
+            "id": "transport-results",
+            "kind": "refusal",
+            "sites": [
+              "push_with_options: underlying transport does not support --%s option [force-with-lease]",
+              "push_with_options: failed to push some refs to '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "The transport selected by the URL may not support --force-with-lease, and refs can be rejected by the remote.",
+            "basis": "repository-state",
+            "reason": "The transport and the remote and local refs are known only when the push runs."
+          },
+          {
+            "id": "usage-on-error",
+            "kind": "refusal",
+            "sites": [
+              "cmd_push: usage_with_options"
+            ],
+            "disposition": "delegated",
+            "summary": "Usage is printed when a push returns -1.",
+            "basis": "repository-state",
+            "reason": "In Git 2.55.0 do_push and push_multiple return only 0 or 1, so this is reached only if a transport reports -1 at runtime; argv alone never selects it."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the push table: long prefixes and OPTION_ALIAS abbreviations (--branches), negations, short clusters, optional-argument attachment for --force-with-lease and --signed, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/alias-parser-corpus.json",
+              "src/commands/alias-parser.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over fifteen operand shapes and modifier pairs, all as dry runs; the only differences allowed are the listed state diagnostics (remote groups, ref matching, unknown repositories). The typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules accepts check, on-demand, only, only-is-on-demand and Git false spellings, and refuses true spellings and other words (option_parse_recurse_submodules, submodule-config.c parse_push_recurse; parser push-recurse).",
+            "evidence": [
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts",
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "signed-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--signed accepts Git boolean spellings and if-asked case-insensitively; a bare --signed is yes (send-pack.c option_parse_push_signed; parser push-signed).",
+            "evidence": [
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts",
+              "test/fixtures/push-closure-corpus.json",
+              "src/commands/push-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "force-with-lease-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "--force-with-lease=<ref>:<expect> must name an object after the first colon (remote.c parse_push_cas_option); the reference part and an empty expect are accepted as text.",
+            "reason": "The expected value is resolved with repo_get_oid against the object database at runtime."
+          },
+          {
+            "id": "string-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--repo, --receive-pack, --exec and -o take any string (newlines aside, see push-option-newline); --ipv4 and --ipv6 are last-wins.",
+            "evidence": [
+              "test/fixtures/alias-parser-corpus.json",
+              "src/commands/alias-parser.test.ts"
+            ]
+          },
+          {
+            "id": "refspec-syntax",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "The repository word and the refspec words other than the tag shorthand and --delete names are parsed and matched against local and remote refs by the transport.",
+            "reason": "Refspec matching and remote URL resolution use the refs and remotes that exist at runtime; dash-prefixed words after -- stay operands and are refused by that lookup."
+          },
+          {
+            "id": "refspec-remote",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "The first operand is always the repository, so repo.push needs a remote whenever it passes refspecs (push.refspec-remote).",
+            "evidence": [
+              "test/types/constraint-model.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "push.default, push.followTags, push.gpgSign, push.pushOption, push.recurseSubmodules, push.autoSetupRemote, remote.<name>.mirror and remote.<name>.push set defaults that argv can override or extend.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "remote-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether refs are up to date, leases match, hooks accept and the remote allows the update.",
+            "reason": "Remote and local refs and hooks are known only when the push runs."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of remote URLs, refspecs and push options.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "add": {
       "state": "partial",
@@ -1654,7 +2475,7 @@
       "typedCommandAPI": true
     },
     "pull": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "pull"
       ],
@@ -1678,31 +2499,404 @@
         "src/commands/pull-forwarding-corpus.test.ts",
         "test/types/pull-forwarding-corpus.ts",
         "test/types/pull-forwarded-operands.ts",
-        "src/runner/depth-profiles.test.ts"
+        "src/runner/depth-profiles.test.ts",
+        "scripts/pull-closure-corpus.mjs",
+        "src/commands/pull-closure-corpus.test.ts",
+        "src/constraints/push-refspecs.test.ts",
+        "test/types/constraint-model.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Pull forwards its fetch options and its repository and refspec words to fetch: 383 independent Git 2.55.0 cases cover the forwarded final --depth and --jobs values, every forwarded --deepen word, OPT_INTEGER suffix, hexadecimal and int-range boundaries, the deepen/depth/unshallow combinations, --all with a repository, and fetch's reinterpretation of dash-prefixed forwarded operands. Because pull drops its own -- before forwarding, dash-prefixed pull operands are rejected even after -- (a type-git restriction: Git runs them as fetch options, for example --upload-pack). A valueless --jobs or -j is rejected as well, since fetch consumes the next forwarded word as its value, and the native successes where that word is a numeric repository operand are recorded in the corpus. Pull's own pass is modeled with the native option tables, the pull-rebase and fetch-recurse callbacks and the final cleanup check. In Git 2.25.1 pull has no --deepen, --shallow-since, --shallow-exclude, --server-option or negotiation options, so native Git rejects them as unknown options there. The forwarded --jobs value is checked with the selected integer profile, so the 2.25.1 strtol conversion and the 2.55.0 suffix grammar are both modeled. A Git 2.25.1 native run of this corpus is not yet recorded. An invalid --deepen value followed by a pull help exit is refused at the value although Git prints usage; that ordering is not yet modeled. Remote names, URLs, refspec and refmap syntax, transport depth syntax such as 1x and remote resolution of words such as - are delegated to native fetch at runtime. The merge or rebase phase (strategy, squash, commit, ff, log, signoff and gpg-sign values and combinations) is reached only after a successful non-dry-run fetch with merge candidates and is selected by configuration and fast-forward state, so it is delegated to native git merge and git rebase. Repository/configuration state, abbreviations and completion remain separate obligations. Boolean callback literal and normalized-state grammars share source-backed profiles and a finite independent Git corpus. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true,
       "evidence": {
+        "option-grammar": [
+          "test/fixtures/pull-closure-corpus.json",
+          "src/commands/pull-closure-corpus.test.ts",
+          "test/fixtures/parser-exit-corpus.json",
+          "src/commands/parser-exits.test.ts"
+        ],
         "operand-grammar": [
+          "test/fixtures/pull-closure-corpus.json",
+          "src/commands/pull-closure-corpus.test.ts",
           "test/fixtures/pull-forwarding-corpus.json",
           "src/commands/pull-forwarding-corpus.test.ts",
-          "test/types/pull-forwarding-corpus.ts",
-          "test/types/pull-forwarded-operands.ts"
+          "test/types/pull-forwarded-operands.ts",
+          "test/types/command-api.ts"
         ],
         "combination-rules": [
+          "test/fixtures/pull-closure-corpus.json",
+          "src/commands/pull-closure-corpus.test.ts",
           "test/fixtures/pull-forwarding-corpus.json",
-          "src/commands/pull-forwarding-corpus.test.ts"
+          "src/commands/pull-forwarding-corpus.test.ts",
+          "src/constraints/push-refspecs.test.ts"
         ],
         "serialization": [
+          "src/commands/pull-closure-corpus.test.ts",
           "src/commands/pull-forwarding-corpus.test.ts",
           "src/runner/depth-profiles.test.ts"
         ],
         "independent-git-tests": [
-          "scripts/pull-forwarding-corpus.mjs"
+          "scripts/pull-closure-corpus.mjs",
+          "scripts/pull-forwarding-corpus.mjs",
+          "scripts/boolean-callback-corpus.mjs"
         ],
         "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/constraint-model.ts",
           "test/types/pull-forwarding-corpus.ts",
           "test/types/pull-forwarded-operands.ts"
+        ]
+      },
+      "notes": "Pull forwards its fetch options and its repository and refspec words to fetch: 383 independent Git 2.55.0 cases cover the forwarded final --depth and --jobs values, every forwarded --deepen word, OPT_INTEGER suffix, hexadecimal and int-range boundaries, the deepen/depth/unshallow combinations, --all with a repository, and fetch's reinterpretation of dash-prefixed forwarded operands. Because pull drops its own -- before forwarding, dash-prefixed pull operands are rejected even after -- (a type-git restriction: Git runs them as fetch options, for example --upload-pack). A valueless --jobs or -j is rejected as well, since fetch consumes the next forwarded word as its value, and the native successes where that word is a numeric repository operand are recorded in the corpus. Pull's own pass is modeled with the native option tables, the pull-rebase and fetch-recurse callbacks and the final cleanup check. In Git 2.25.1 pull has no --deepen, --shallow-since, --shallow-exclude, --server-option or negotiation options, so native Git rejects them as unknown options there. The forwarded --jobs value is checked with the selected integer profile, so the 2.25.1 strtol conversion and the 2.55.0 suffix grammar are both modeled. A Git 2.25.1 native run of this corpus is not yet recorded. An invalid --deepen value followed by a pull help exit is refused at the value although Git prints usage (the deepen-before-help obligation). Remote names, URLs, refspec and refmap syntax, transport depth syntax such as 1x and remote resolution of words such as - are delegated to native fetch at runtime. The merge or rebase phase (strategy, squash, commit, ff, log, signoff and gpg-sign values and combinations) is reached only after a successful non-dry-run fetch with merge candidates and is selected by configuration and fast-forward state, so it is delegated to native git merge and git rebase. Repository/configuration state, abbreviations and completion remain separate obligations. Boolean callback literal and normalized-state grammars share source-backed profiles and a finite independent Git corpus. Finite native outcomes do not establish completeness.",
+      "remaining": "",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_pull",
+        "sources": {
+          "builtin/pull.c": [
+            "cmd_pull",
+            "already_up_to_date",
+            "argv_push_force",
+            "argv_push_verbosity",
+            "config_get_ff",
+            "config_get_rebase",
+            "die_no_merge_candidates",
+            "get_can_ff",
+            "get_merge_heads",
+            "get_octopus_merge_base",
+            "get_only_remote",
+            "get_rebase_fork_point",
+            "get_rebase_newbase_and_upstream",
+            "get_tracking_branch",
+            "get_upstream_branch",
+            "git_pull_config",
+            "parse_config_rebase",
+            "parse_opt_rebase",
+            "parse_repo_refspecs",
+            "pull_into_void",
+            "rebase_submodules",
+            "run_fetch",
+            "run_merge",
+            "run_rebase",
+            "set_reflog_message",
+            "show_advice_pull_non_ff",
+            "update_submodules"
+          ]
+        },
+        "waived": {},
+        "obligations": [
+          {
+            "id": "rebase-values",
+            "kind": "refusal",
+            "sites": [
+              "parse_config_rebase: invalid value for '%s': '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--rebase and -r accept Git boolean spellings (an empty value is false), merges or m and interactive or i; preserve and p are refused, and a bare form means true (rebase_parse_value; parser pull-rebase). The same check refuses pull.rebase and branch.<name>.rebase configuration values, which belong to the configuration obligation.",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts"
+            ]
+          },
+          {
+            "id": "ff-configuration",
+            "kind": "refusal",
+            "sites": [
+              "config_get_ff: invalid value for '%s': '%s' [pull.ff, *]"
+            ],
+            "disposition": "delegated",
+            "summary": "pull.ff must be a boolean or only; argv --ff, --no-ff and --ff-only override it.",
+            "basis": "configuration",
+            "reason": "pull.ff is configuration read at runtime."
+          },
+          {
+            "id": "unborn-index",
+            "kind": "refusal",
+            "sites": [
+              "cmd_pull: Updating an unborn branch with changes added to the index."
+            ],
+            "disposition": "delegated",
+            "summary": "Pulling into an unborn branch refuses a non-empty index.",
+            "basis": "repository-state",
+            "reason": "Whether HEAD is unborn and the index is empty is read at runtime."
+          },
+          {
+            "id": "worktree-fast-forward",
+            "kind": "refusal",
+            "sites": [
+              "cmd_pull: Cannot fast-forward your working tree.\nAfter making sure that you saved anything precious from\n$ git diff %s\noutput, run\n$ git reset --hard\nto recover."
+            ],
+            "disposition": "delegated",
+            "summary": "When the fetch moved the current branch, pull fast-forwards the work tree first and refuses if that fails.",
+            "basis": "repository-state",
+            "reason": "The fetched refs and the work tree are known only at runtime."
+          },
+          {
+            "id": "multiple-merge-heads",
+            "kind": "refusal",
+            "sites": [
+              "cmd_pull: Cannot merge multiple branches into empty head.",
+              "cmd_pull: Cannot rebase onto multiple branches.",
+              "cmd_pull: Cannot fast-forward to multiple branches."
+            ],
+            "disposition": "delegated",
+            "summary": "An unborn branch, --rebase and --ff-only each need exactly one merge head.",
+            "basis": "repository-state",
+            "reason": "The merge heads are the FETCH_HEAD entries not marked not-for-merge, which depend on refspec matching against the remote refs and on branch.<name>.merge configuration at runtime."
+          },
+          {
+            "id": "divergent-branches",
+            "kind": "refusal",
+            "sites": [
+              "cmd_pull: Need to specify how to reconcile divergent branches."
+            ],
+            "disposition": "delegated",
+            "summary": "Divergent histories need --rebase, --no-rebase, --ff-only or pull.rebase/pull.ff configuration.",
+            "basis": "repository-state",
+            "reason": "Whether the histories diverge is decided by the fetched commits at runtime, and configuration can supply the choice."
+          },
+          {
+            "id": "submodule-rebase",
+            "kind": "refusal",
+            "sites": [
+              "cmd_pull: cannot rebase with locally recorded submodule modifications"
+            ],
+            "disposition": "delegated",
+            "summary": "--rebase with --recurse-submodules refuses locally recorded submodule commits.",
+            "basis": "repository-state",
+            "reason": "Submodule state is read at runtime."
+          },
+          {
+            "id": "void-merge-head",
+            "kind": "refusal",
+            "sites": [
+              "pull_into_void: unable to access commit %s"
+            ],
+            "disposition": "delegated",
+            "summary": "Pulling into an unborn branch needs the merge head commit.",
+            "basis": "object-resolution",
+            "reason": "The merge head object is resolved at runtime."
+          },
+          {
+            "id": "tracking-refspec",
+            "kind": "refusal",
+            "sites": [
+              "get_tracking_branch: invalid refspec '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "The fork point for --rebase is looked up through remote.<name>.fetch.",
+            "basis": "configuration",
+            "reason": "Remote fetch refspecs are configuration read at runtime."
+          },
+          {
+            "id": "merge-base-lookups",
+            "kind": "refusal",
+            "sites": [
+              "get_octopus_merge_base: exit 128",
+              "get_can_ff: exit 128",
+              "already_up_to_date: exit 128"
+            ],
+            "disposition": "delegated",
+            "summary": "Merge-base and ancestry lookups exit when a commit cannot be read.",
+            "basis": "object-resolution",
+            "reason": "Commits are resolved at runtime."
+          },
+          {
+            "id": "no-merge-candidates",
+            "kind": "refusal",
+            "sites": [
+              "die_no_merge_candidates: exit 1"
+            ],
+            "disposition": "delegated",
+            "summary": "Without merge candidates pull explains the missing upstream or refspec and exits.",
+            "basis": "configuration",
+            "reason": "Merge candidates come from the fetched refs and from branch.<name>.merge and remote configuration at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the pull table: long prefixes, negations, short clusters, optional-argument attachment for --rebase and --recurse-submodules, takes-no-value and unknown-option errors, a consumed -- and help timing. Abbreviated and clustered words, and detached values, are spelled as literal words in the corpus and refused as operands by the typed API.",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for single options over ten operand shapes and option pairs over four, all as dry runs, wherever Git does not first refuse for repository or remote state.",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "deepen-before-help",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "type-git restriction: pull passes --deepen through to fetch unparsed, so Git prints usage for an invalid --deepen value followed by -h; the wrapper checks the forwarded value when it is parsed and refuses the argv instead. The corpus records these rows and the test names the restriction.",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "cleanup-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "The final --cleanup value must be default, verbatim, whitespace, strip or scissors, checked before the fetch (cli.pull.cleanup; repo.pull pull.cleanup).",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules accepts Git boolean spellings and on-demand, a bare form meaning yes (parser fetch-recurse).",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts"
+            ]
+          },
+          {
+            "id": "forwarded-fetch-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Forwarded --depth, --deepen and --jobs values and the deepen/depth/unshallow combinations are checked as fetch checks them, with the selected integer profile.",
+            "evidence": [
+              "test/fixtures/pull-forwarding-corpus.json",
+              "src/commands/pull-forwarding-corpus.test.ts",
+              "test/types/pull-forwarding-corpus.ts",
+              "src/runner/depth-profiles.test.ts"
+            ]
+          },
+          {
+            "id": "merge-phase-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--strategy, --strategy-option, --gpg-sign, --log and the other merge and rebase options are passed to git merge or git rebase.",
+            "reason": "They are read only after a fetch with merge candidates, by the merge or rebase that the fast-forward state and configuration select at runtime."
+          },
+          {
+            "id": "all-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "A final --all takes no repository or refspec (cli.pull.all-repositories; repo.pull pull.all-remote).",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/constraint-model.ts"
+            ]
+          },
+          {
+            "id": "tag-shorthand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Fetch reads a forwarded refspec word 'tag' as a tag shorthand and refuses it as the last word (cli.pull.tag-shorthand; repo.pull pull.tag-shorthand).",
+            "evidence": [
+              "test/fixtures/pull-closure-corpus.json",
+              "src/commands/pull-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "branch-remote",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "The first operand is always the repository, so repo.pull needs a remote whenever it passes a branch (pull.branch-remote).",
+            "evidence": [
+              "test/types/constraint-model.ts",
+              "src/constraints/push-refspecs.test.ts"
+            ]
+          },
+          {
+            "id": "forwarded-dash-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "type-git restriction: pull consumes its own -- and forwards the words to fetch without one, so dash-prefixed operands are refused even after -- (forwardedOperands).",
+            "evidence": [
+              "test/fixtures/pull-forwarding-corpus.json",
+              "src/commands/pull-forwarding-corpus.test.ts",
+              "test/types/pull-forwarded-operands.ts"
+            ]
+          },
+          {
+            "id": "refspec-syntax",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Repository words and refspecs other than the tag shorthand are parsed and matched by fetch.",
+            "reason": "Refspec matching and URL resolution use the refs and remotes that exist at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "pull.rebase, pull.ff, pull.twohead, pull.octopus, branch.<name>.rebase, branch.<name>.merge, submodule.recurse and the fetch configuration set defaults that argv can override and refuse invalid values.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "The current branch, its upstream, the work tree, the index and the fetched refs select the merge, rebase or fast-forward.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "integer-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Integer conversions of forwarded values follow the C library and integer widths of the running Git; the wrapper selects the recorded profiles.",
+            "reason": "The executing platform decides the profile at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of URLs and refspecs.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
         ]
       }
     },

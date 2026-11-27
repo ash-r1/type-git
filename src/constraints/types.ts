@@ -17,6 +17,8 @@ import type {
   SafeIntegerAtLeast,
 } from './number-types.js';
 import type { ObjectFilterLiteral } from './object-filter-types.js';
+import type { PushRefspecLiteral } from './push-refspec-types.js';
+import type { PushRefspecParser } from './push-refspecs.js';
 import type { StringCallbackParser } from './string-callback.js';
 import type { StringCallbackLiteral } from './string-callback-types.js';
 
@@ -359,7 +361,11 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
               ? StringCallbackLiteral<V, P> extends true
                 ? V
                 : never
-              : V;
+              : P extends PushRefspecParser
+                ? PushRefspecLiteral<V, P> extends true
+                  ? V
+                  : never
+                : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

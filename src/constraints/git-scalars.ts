@@ -40,6 +40,7 @@ import {
 } from './git-integer.js';
 import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
+import { isPushRefspecParser, type PushRefspecParser, parsePushRefspecs } from './push-refspecs.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
 export const PYTHON_INTEGER_DEFERRED = Symbol('python-integer-deferred');
@@ -118,7 +119,8 @@ export type GitScalarParser =
   | 'fetch-recurse'
   | 'push-recurse'
   | 'push-signed'
-  | 'config-type';
+  | 'config-type'
+  | PushRefspecParser;
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
@@ -224,6 +226,9 @@ export function parseGitScalar(
   if (parser === 'python-int') {
     const parsed = pythonInteger(value);
     return { valid: parsed !== undefined, value: parsed };
+  }
+  if (isPushRefspecParser(parser)) {
+    return { valid: parsePushRefspecs(parser, value), value };
   }
   if (parser === 'depth-initial') {
     return { valid: validInitialDepth(value, depthAtoiBits), value };

@@ -873,14 +873,16 @@
       ]
     },
     "total": "3228372951244096320",
-    "accepted": "65207331382733280",
-    "nodes": 242,
+    "accepted": "47583728306318880",
+    "nodes": 254,
     "isolatedRuleWitnesses": {
       "fetch.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
       "fetch.deepen-depth": "{\"deepen\":1,\"depth\":1}",
       "fetch.deepen-unshallow": "{\"deepen\":1,\"unshallow\":true}",
       "fetch.all-remote": "{\"all\":true,\"remote\":\"\"}",
-      "fetch.all-refspec": "{\"all\":true,\"refspec\":\"\"}",
+      "fetch.all-refspec": null,
+      "fetch.refspec-remote": "{\"refspec\":\"\"}",
+      "fetch.tag-shorthand": null,
       "fetch.unsupported": "{\"multiple\":false}",
       "fetch.depth": "{\"depth\":1.5}",
       "fetch.depth-range": "{\"depth\":-1}",
@@ -1030,19 +1032,23 @@
       ]
     },
     "total": "10041939074880",
-    "accepted": "2920289552640",
-    "nodes": 138,
+    "accepted": "2038692706560",
+    "nodes": 190,
     "isolatedRuleWitnesses": {
-      "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"\"}",
+      "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"\",\"remote\":\"\"}",
       "push.all-tags": "{\"all\":true,\"tags\":true}",
-      "push.branches-mirror-refspec": "{\"branches\":true,\"refspec\":\"\"}",
+      "push.branches-mirror-refspec": "{\"branches\":true,\"refspec\":\"\",\"remote\":\"\"}",
       "push.branches-tags": "{\"branches\":true,\"tags\":true}",
       "push.mirror-tags": "{\"mirror\":true,\"tags\":true}",
       "push.delete-all": null,
       "push.delete-branches": null,
       "push.delete-mirror": null,
-      "push.delete-tags": "{\"deleteRefs\":true,\"refspec\":\"\",\"tags\":true}",
-      "push.delete-refs": "{\"deleteRefs\":true}"
+      "push.delete-tags": "{\"deleteRefs\":true,\"refspec\":\"value\",\"remote\":\"\",\"tags\":true}",
+      "push.delete-refs": "{\"deleteRefs\":true}",
+      "push.refspec-remote": "{\"refspec\":\"\"}",
+      "push.tag-shorthand": null,
+      "push.delete-names": "{\"deleteRefs\":true,\"refspec\":\"\",\"remote\":\"\"}",
+      "push.option-newline": null
     }
   },
   {
@@ -2005,9 +2011,13 @@
       ]
     },
     "total": "15254062194628355112000",
-    "accepted": "1334174535973325520000",
-    "nodes": 69,
+    "accepted": "247069358513578800000",
+    "nodes": 335,
     "isolatedRuleWitnesses": {
+      "pull.branch-remote": "{\"branch\":\"\"}",
+      "pull.all-remote": "{\"all\":true,\"remote\":\"\"}",
+      "pull.tag-shorthand": null,
+      "pull.cleanup": "{\"cleanup\":\"\"}",
       "pull.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
       "pull.deepen-depth": "{\"deepen\":1,\"depth\":1}",
       "pull.deepen-unshallow": "{\"deepen\":1,\"unshallow\":true}",
