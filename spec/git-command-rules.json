@@ -1134,6 +1134,60 @@
       "origin": "git",
       "reason": "The final depth must be positive after Git converts it with atoi; transport validation is a later phase.",
       "source": "Git 2.55.0 builtin/clone.c; pinned 64-bit libc and 32-bit int profile"
+    },
+    {
+      "id": "cli.clone.origin-name",
+      "kind": "scalar",
+      "key": "origin",
+      "parser": "remote-name",
+      "origin": "git",
+      "reason": "The remote name must form a valid fetch refspec refs/heads/test:refs/remotes/<name>/test.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/clone.c"
+    },
+    {
+      "id": "cli.clone.config-parameters",
+      "kind": "scalar",
+      "key": "config",
+      "parser": "clone-config-parameters",
+      "origin": "git",
+      "reason": "Each --config key must be a valid configuration key; clone.defaultRemoteName needs a value and clone.rejectShallow and clone.filterSubmodules need booleans.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/clone.c"
+    },
+    {
+      "id": "cli.clone.config-remote-name",
+      "kind": "scalar",
+      "key": "config",
+      "parser": "clone-config-remote-name",
+      "guard": [
+        {
+          "key": "origin",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Without --origin the last clone.defaultRemoteName must be a valid remote name.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/clone.c"
+    },
+    {
+      "id": "cli.clone.recursive-references",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "recurse-submodules",
+          "test": "nonempty"
+        },
+        {
+          "key": "reference",
+          "test": "nonempty"
+        },
+        {
+          "key": "reference-if-able",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Recursive clones cannot use both --reference and --reference-if-able.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/clone.c"
     }
   ],
   "status": [

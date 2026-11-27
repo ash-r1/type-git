@@ -27,7 +27,7 @@ export const CLONE_DOMAINS = {
   reference: [undefined, 'reference'],
   referenceIfAble: [undefined, 'reference'],
   dissociate: [undefined, false, true],
-  origin: [undefined, 'origin'],
+  origin: [undefined, 'origin', 'up stream'],
   shallowSince: [undefined, '2020-01-01'],
   shallowExclude: [undefined, 'main', ['main']],
   noTags: [undefined, false, true],

@@ -26,6 +26,11 @@ export { gitBoolean } from './git-boolean.js';
 import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import {
+  type ConfigParameterParser,
+  isConfigParameterParser,
+  parseConfigParameters,
+} from './config-parameters.js';
+import {
   type GitDecimalCallbacks,
   type GitDecimalParser,
   parseGitDecimal,
@@ -120,7 +125,8 @@ export type GitScalarParser =
   | 'push-recurse'
   | 'push-signed'
   | 'config-type'
-  | PushRefspecParser;
+  | PushRefspecParser
+  | ConfigParameterParser;
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
@@ -229,6 +235,9 @@ export function parseGitScalar(
   }
   if (isPushRefspecParser(parser)) {
     return { valid: parsePushRefspecs(parser, value), value };
+  }
+  if (isConfigParameterParser(parser)) {
+    return { valid: parseConfigParameters(parser, value), value };
   }
   if (parser === 'depth-initial') {
     return { valid: validInitialDepth(value, depthAtoiBits), value };

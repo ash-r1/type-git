@@ -367,6 +367,439 @@
         }
       }
     },
+    "builtin/clone.c": {
+      "sha256": "0e19294f7772a71541883d6f66f0ed40e467af81a9571c15713561c36bd3e916",
+      "functions": {
+        "add_one_reference": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 165
+            }
+          ],
+          "references": []
+        },
+        "checkout": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "HEAD not found below refs/heads!",
+              "line": 668
+            },
+            {
+              "call": "die",
+              "text": "unable to parse commit %s",
+              "line": 689
+            },
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 691
+            },
+            {
+              "call": "die",
+              "text": "unable to checkout working tree",
+              "line": 694
+            },
+            {
+              "call": "die",
+              "text": "unable to write new index file",
+              "line": 699
+            }
+          ],
+          "references": []
+        },
+        "clone_local": {
+          "sites": [],
+          "references": [
+            "copy_or_link_directory"
+          ]
+        },
+        "cmd_clone": {
+          "sites": [
+            {
+              "call": "usage_msg_opt",
+              "text": "Too many arguments.",
+              "line": 1018
+            },
+            {
+              "call": "usage_msg_opt",
+              "text": "You must specify a repository to clone.",
+              "line": 1022
+            },
+            {
+              "call": "die",
+              "text": "unknown ref storage format '%s'",
+              "line": 1033
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--bare, --separate-git-dir]",
+              "line": 1043
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--bundle-uri, --depth/--shallow-since/--shallow-exclude]",
+              "line": 1048
+            },
+            {
+              "call": "die",
+              "text": "repository '%s' does not exist",
+              "line": 1062
+            },
+            {
+              "call": "die",
+              "text": "depth %s is not a positive number",
+              "line": 1066
+            },
+            {
+              "call": "die",
+              "text": "destination path '%s' already exists and is not an empty directory.",
+              "line": 1076
+            },
+            {
+              "call": "die",
+              "text": "repository path '%s' already exists and is not an empty directory.",
+              "line": 1082
+            },
+            {
+              "call": "die",
+              "text": "working tree '%s' already exists.",
+              "line": 1096
+            },
+            {
+              "call": "die_errno",
+              "text": "could not create leading directories of '%s'",
+              "line": 1111
+            },
+            {
+              "call": "die_errno",
+              "text": "could not create work tree dir '%s'",
+              "line": 1116
+            },
+            {
+              "call": "die",
+              "text": "could not create leading directories of '%s'",
+              "line": 1132
+            },
+            {
+              "call": "die",
+              "text": "clone --recursive is not compatible with both --reference and --reference-if-able",
+              "line": 1166
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--also-filter-submodules, --filter]",
+              "line": 1273
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--also-filter-submodules, --recurse-submodules]",
+              "line": 1276
+            },
+            {
+              "call": "die",
+              "text": "'%s' is not a valid remote name",
+              "line": 1292
+            },
+            {
+              "call": "die",
+              "text": "source repository is shallow, reject to clone.",
+              "line": 1336
+            },
+            {
+              "call": "die",
+              "text": "cannot clone from filtered bundle",
+              "line": 1359
+            },
+            {
+              "call": "die_for_incompatible_opt2",
+              "text": "--revision / --branch",
+              "line": 1364
+            },
+            {
+              "call": "die_for_incompatible_opt2",
+              "text": "--revision / --mirror",
+              "line": 1366
+            },
+            {
+              "call": "die",
+              "text": "remote transport reported error",
+              "line": 1534
+            },
+            {
+              "call": "die",
+              "text": "Remote branch %s not found in upstream %s",
+              "line": 1545
+            },
+            {
+              "call": "die",
+              "text": "Remote revision %s not found in upstream %s",
+              "line": 1550
+            },
+            {
+              "call": "die",
+              "text": "remote transport reported error",
+              "line": 1601
+            }
+          ],
+          "references": [
+            "checkout",
+            "clone_local",
+            "dissociate_from_references",
+            "find_remote_branch",
+            "get_repo_path",
+            "git_clone_config",
+            "git_sparse_checkout_init",
+            "path_exists",
+            "recurse_submodules_cb",
+            "remove_junk",
+            "remove_junk_on_signal",
+            "setup_reference",
+            "update_head",
+            "update_remote_refs",
+            "wanted_peer_refs",
+            "write_config",
+            "write_refspec_config"
+          ]
+        },
+        "copy_alternates": {
+          "sites": [],
+          "references": []
+        },
+        "copy_or_link_directory": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' is a symlink, refusing to clone with --local",
+              "line": 277
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to start iterator over '%s'",
+              "line": 281
+            },
+            {
+              "call": "die",
+              "text": "symlink '%s' exists, refusing to clone with --local",
+              "line": 296
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to unlink '%s'",
+              "line": 311
+            },
+            {
+              "call": "die",
+              "text": "hardlink cannot be checked at '%s'",
+              "line": 323
+            },
+            {
+              "call": "die",
+              "text": "hardlink different from source at '%s'",
+              "line": 330
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to create link '%s'",
+              "line": 335
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to copy file to '%s'",
+              "line": 339
+            },
+            {
+              "call": "die",
+              "text": "failed to iterate over '%s'",
+              "line": 344
+            }
+          ],
+          "references": [
+            "copy_alternates",
+            "mkdir_if_missing"
+          ]
+        },
+        "dissociate_from_references": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot repack to clean up",
+              "line": 856
+            },
+            {
+              "call": "die_errno",
+              "text": "cannot unlink temporary alternates file",
+              "line": 858
+            }
+          ],
+          "references": []
+        },
+        "find_remote_branch": {
+          "sites": [],
+          "references": []
+        },
+        "get_repo_path": {
+          "sites": [],
+          "references": [
+            "get_repo_path_1"
+          ]
+        },
+        "get_repo_path_1": {
+          "sites": [],
+          "references": []
+        },
+        "git_clone_config": {
+          "sites": [],
+          "references": []
+        },
+        "git_sparse_checkout_init": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "failed to initialize sparse-checkout",
+              "line": 631
+            }
+          ],
+          "references": []
+        },
+        "iterate_ref_map": {
+          "sites": [],
+          "references": []
+        },
+        "mkdir_if_missing": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "failed to create directory '%s'",
+              "line": 239
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to stat '%s'",
+              "line": 241
+            },
+            {
+              "call": "die",
+              "text": "%s exists and is not a directory",
+              "line": 243
+            }
+          ],
+          "references": []
+        },
+        "path_exists": {
+          "sites": [],
+          "references": []
+        },
+        "recurse_submodules_cb": {
+          "sites": [],
+          "references": []
+        },
+        "remove_junk": {
+          "sites": [],
+          "references": []
+        },
+        "remove_junk_on_signal": {
+          "sites": [],
+          "references": [
+            "remove_junk"
+          ]
+        },
+        "setup_reference": {
+          "sites": [],
+          "references": [
+            "add_one_reference"
+          ]
+        },
+        "update_head": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to update HEAD",
+              "line": 579
+            },
+            {
+              "call": "die",
+              "text": "unable to update HEAD",
+              "line": 609
+            }
+          ],
+          "references": []
+        },
+        "update_remote_refs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "remote did not send all necessary objects",
+              "line": 551
+            },
+            {
+              "call": "die",
+              "text": "unable to update %s",
+              "line": 567
+            }
+          ],
+          "references": [
+            "iterate_ref_map",
+            "write_followtags",
+            "write_remote_refs"
+          ]
+        },
+        "wanted_peer_refs": {
+          "sites": [],
+          "references": [
+            "find_remote_branch"
+          ]
+        },
+        "write_config": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to write parameters to config file",
+              "line": 789
+            }
+          ],
+          "references": [
+            "write_one_config"
+          ]
+        },
+        "write_followtags": {
+          "sites": [],
+          "references": []
+        },
+        "write_one_config": {
+          "sites": [],
+          "references": [
+            "git_clone_config"
+          ]
+        },
+        "write_refspec_config": {
+          "sites": [],
+          "references": []
+        },
+        "write_remote_refs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 483
+            },
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 490
+            },
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 494
+            }
+          ],
+          "references": []
+        }
+      }
+    },
     "builtin/commit.c": {
       "sha256": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
       "functions": {

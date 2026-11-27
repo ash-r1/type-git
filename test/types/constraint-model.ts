@@ -9,6 +9,9 @@ export async function checkConstraintModel(git: Git, repo: WorktreeRepo, flag: b
   await git.clone('source', 'destination', { alsoFilterSubmodules: true, recurseSubmodules: true });
   // @ts-expect-error Explicit false does not satisfy the recursion prerequisite.
   await git.clone('source', 'destination', { alsoFilterSubmodules: true, filter: 'blob:none', recurseSubmodules: false });
+  // @ts-expect-error A recursive clone cannot use both reference kinds.
+  await git.clone('source', 'destination', { recurseSubmodules: true, reference: 'a', referenceIfAble: 'b' });
+  await git.clone('source', 'destination', { reference: 'a', referenceIfAble: 'b' });
   await repo.fetch({ depth: 1, deepen: 0 });
   // @ts-expect-error Nonzero deepen cannot be combined with depth.
   await repo.fetch({ depth: 1, deepen: 2 });

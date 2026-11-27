@@ -6957,7 +6957,7 @@
           }
         }
       ],
-      "rules": 8,
+      "rules": 12,
       "domains": {
         "verbose": [
           "undefined",
@@ -7250,8 +7250,8 @@
         ]
       },
       "total": "198310862806875000000000000",
-      "accepted": "542215120220928000000000",
-      "nodes": 785,
+      "accepted": "38171944463553331200000",
+      "nodes": 1736,
       "isolatedRuleWitnesses": {
         "cli.clone.operands": "{\"operands\":[]}",
         "cli.clone.bare-directory": "{\"bare\":true,\"operands\":[\"value\"],\"separate-git-dir\":\"\"}",
@@ -7260,7 +7260,11 @@
         "cli.clone.filter-submodules": "{\"also-filter-submodules\":true,\"operands\":[\"value\"]}",
         "cli.clone.revision-options": "{\"mirror\":true,\"operands\":[\"value\"],\"revision\":\"\"}",
         "cli.clone.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}",
-        "cli.clone.depth-initial": "{\"depth\":\"\",\"operands\":[\"value\"]}"
+        "cli.clone.depth-initial": "{\"depth\":\"\",\"operands\":[\"value\"]}",
+        "cli.clone.origin-name": "{\"operands\":[\"value\"],\"origin\":\"\"}",
+        "cli.clone.config-parameters": "{\"config\":[\"\"],\"operands\":[\"value\"]}",
+        "cli.clone.config-remote-name": null,
+        "cli.clone.recursive-references": "{\"operands\":[\"value\"],\"recurse-submodules\":[\"\"],\"reference\":[\"\"],\"reference-if-able\":[\"\"]}"
       }
     },
     {

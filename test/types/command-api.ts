@@ -650,3 +650,16 @@ git.command('fetch', [['--negotiate-only'], { operand: 'origin' }, { operand: 't
 git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }]);
 git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
 git.command('pull', [{ operand: 'tag' }]);
+// @ts-expect-error clone --origin must form a valid remote-tracking refspec.
+git.command('clone', [['--origin', 'up stream'], { operand: 'source' }]);
+// @ts-expect-error A remote name component cannot end with .lock.
+git.command('clone', [['--origin', 'a.lock/b'], { operand: 'source' }]);
+git.command('clone', [['--origin', 'up/stream'], { operand: 'source' }]);
+// @ts-expect-error A recursive clone cannot use both --reference and --reference-if-able.
+git.command('clone', [['--recursive'], ['--reference', 'a'], ['--reference-if-able', 'b'], { operand: 'source' }]);
+git.command('clone', [['--recursive'], ['--reference', 'a'], ['--reference-if-able', 'b'], ['--no-reference'], { operand: 'source' }]);
+// @ts-expect-error A clone --config key needs a section and a variable name.
+git.command('clone', [['-c', 'a=b'], { operand: 'source' }]);
+// @ts-expect-error A clone --config key cannot end with a dot.
+git.command('clone', [['--config', 'core.=x'], { operand: 'source' }]);
+git.command('clone', [['-c', 'core.autocrlf=false'], ['-c', '.x.y=1'], { operand: 'source' }]);

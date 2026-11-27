@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validateOptions } from '../core/option-rules.js';
 import { parseGitScalar } from './git-scalars.js';
+import { validRemoteName } from './push-refspecs.js';
 
 describe('refspec words (builtin/push.c set_refspecs, builtin/fetch.c fetch_one)', () => {
   it('requires a tag name after each tag shorthand', () => {
@@ -32,7 +33,7 @@ describe('refspec words (builtin/push.c set_refspecs, builtin/fetch.c fetch_one)
 });
 
 describe('repo.push refspec constraints', () => {
-  const refused = (options: object) => {
+  const refused = (options: object): boolean => {
     try {
       validateOptions('push', options);
       return false;
@@ -57,7 +58,7 @@ describe('repo.push refspec constraints', () => {
 });
 
 describe('repo.fetch refspec constraints', () => {
-  const refused = (options: object) => {
+  const refused = (options: object): boolean => {
     try {
       validateOptions('fetch', options);
       return false;
@@ -75,7 +76,7 @@ describe('repo.fetch refspec constraints', () => {
 });
 
 describe('repo.pull forwarded fetch constraints', () => {
-  const refused = (options: object) => {
+  const refused = (options: object): boolean => {
     try {
       validateOptions('pull', options);
       return false;
@@ -96,5 +97,56 @@ describe('repo.pull forwarded fetch constraints', () => {
     expect(refused({ cleanup: 'scissors' })).toBe(false);
     expect(refused({ cleanup: 'Strip' })).toBe(true);
     expect(refused({ cleanup: '' })).toBe(true);
+  });
+});
+
+describe('remote names (remote.c valid_remote_name via builtin/clone.c --origin)', () => {
+  it('accepts names that form a valid remote-tracking refspec', () => {
+    for (const name of ['origin', 'up/stream', 'a.', 'a.b', 'a@b', '@', 'a{b}', 'é', '-x']) {
+      expect(validRemoteName(name)).toBe(true);
+    }
+  });
+
+  it('refuses empty, dotted, locked and forbidden components', () => {
+    for (const name of [
+      '',
+      '.a',
+      'a/.b',
+      'a..b',
+      'a@{b',
+      'a.lock',
+      'a.lock/b',
+      'a//b',
+      '/a',
+      'a/',
+      'a b',
+      'a:b',
+      'a*',
+      'a?',
+      'a[b',
+      'a\\b',
+      'a~b',
+      'a^b',
+      'a\tb',
+      'a\x7fb',
+      'a\x01b',
+    ]) {
+      expect(validRemoteName(name)).toBe(false);
+    }
+  });
+
+  it('checks git.clone origin and reference combinations', () => {
+    const refused = (options: object): boolean => {
+      try {
+        validateOptions('clone', options);
+        return false;
+      } catch {
+        return true;
+      }
+    };
+    expect(refused({ origin: 'up stream' })).toBe(true);
+    expect(refused({ origin: 'upstream' })).toBe(false);
+    expect(refused({ recurseSubmodules: true, reference: 'a', referenceIfAble: 'b' })).toBe(true);
+    expect(refused({ reference: 'a', referenceIfAble: 'b' })).toBe(false);
   });
 });

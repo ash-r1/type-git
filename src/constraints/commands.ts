@@ -588,6 +588,24 @@ export const COMMAND_CONSTRAINTS = {
       source: git('builtin/clone.c'),
     },
     {
+      id: 'clone.recursive-references',
+      kind: 'forbid',
+      when: [active('recurseSubmodules'), active('reference'), active('referenceIfAble')],
+      origin: 'git',
+      reason: 'Recursive clones cannot use both reference and referenceIfAble.',
+      source: git('builtin/clone.c'),
+    },
+    {
+      id: 'clone.origin-name',
+      kind: 'scalar',
+      key: 'origin',
+      parser: 'remote-name',
+      origin: 'git',
+      reason:
+        'The remote name must form a valid fetch refspec refs/heads/test:refs/remotes/<name>/test.',
+      source: git('builtin/clone.c'),
+    },
+    {
       id: 'clone.depth',
       kind: 'integer',
       key: 'depth',

@@ -40,7 +40,7 @@
   },
   "commands": {
     "clone": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "clone"
       ],
@@ -80,10 +80,475 @@
         "test/types/alias-parser-clone-corpus-8.ts",
         "test/types/alias-parser-clone-corpus-9.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/clone-closure-corpus.mjs",
+        "src/commands/clone-closure-corpus.test.ts",
+        "src/constraints/push-refspecs.test.ts",
+        "src/constraints/config-parameters.test.ts",
+        "test/types/constraint-model.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/alias-parser-corpus.json",
+          "src/commands/alias-parser.test.ts",
+          "test/types/alias-parser-clone-corpus-1.ts",
+          "test/fixtures/parse-options-completion-corpus.json"
+        ],
+        "operand-grammar": [
+          "test/fixtures/clone-closure-corpus.json",
+          "src/commands/clone-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/clone-closure-corpus.json",
+          "src/commands/clone-closure-corpus.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "src/constraints/push-refspecs.test.ts"
+        ],
+        "serialization": [
+          "src/commands/clone-closure-corpus.test.ts",
+          "src/commands/alias-parser.test.ts",
+          "src/runner/depth-profiles.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/clone-closure-corpus.mjs",
+          "scripts/alias-parser-corpus.mjs",
+          "scripts/object-filter-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/constraint-model.ts",
+          "test/types/depth-scalar.ts",
+          "test/types/object-filter.ts",
+          "test/types/alias-parser-clone-corpus-1.ts"
+        ]
+      },
+      "notes": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness. Dash-prefixed repository and refspec operands after -- stay literal operands in Git 2.55.0 and are refused by transport or ref lookup, so they are delegated to native Git at runtime together with remote-name resolution, URL syntax and refspec syntax.",
+      "remaining": "",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_clone",
+        "sources": {
+          "builtin/clone.c": [
+            "cmd_clone",
+            "add_one_reference",
+            "checkout",
+            "clone_local",
+            "copy_alternates",
+            "copy_or_link_directory",
+            "dissociate_from_references",
+            "find_remote_branch",
+            "get_repo_path",
+            "get_repo_path_1",
+            "git_clone_config",
+            "git_sparse_checkout_init",
+            "iterate_ref_map",
+            "mkdir_if_missing",
+            "path_exists",
+            "recurse_submodules_cb",
+            "remove_junk",
+            "remove_junk_on_signal",
+            "setup_reference",
+            "update_head",
+            "update_remote_refs",
+            "wanted_peer_refs",
+            "write_config",
+            "write_followtags",
+            "write_one_config",
+            "write_refspec_config",
+            "write_remote_refs"
+          ]
+        },
+        "waived": {},
+        "obligations": [
+          {
+            "id": "operand-count",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: Too many arguments.",
+              "cmd_clone: You must specify a repository to clone."
+            ],
+            "disposition": "modeled",
+            "summary": "clone takes the repository and at most a directory (cli.clone.operands); git.clone always passes both.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "ref-format",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: unknown ref storage format '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "--ref-format must be files or reftable (cli.clone.ref-format).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "bare-separate-git-dir",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: options '%s' and '%s' cannot be used together [--bare, --separate-git-dir]"
+            ],
+            "disposition": "modeled",
+            "summary": "--bare, or --mirror which implies it, refuses --separate-git-dir (cli.clone.bare-directory, cli.clone.mirror-directory; git.clone clone.bare-separateGitDir, clone.mirror-separateGitDir).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "bundle-shallow",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: options '%s' and '%s' cannot be used together [--bundle-uri, --depth/--shallow-since/--shallow-exclude]"
+            ],
+            "disposition": "modeled",
+            "summary": "--bundle-uri refuses --depth, --shallow-since and --shallow-exclude (cli.clone.bundle-shallow).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "depth-positive",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: depth %s is not a positive number"
+            ],
+            "disposition": "modeled",
+            "summary": "The final --depth must be positive after atoi conversion with the selected saturation profile (cli.clone.depth-initial; git.clone clone.depth-range).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "src/commands/depth-scalar.test.ts",
+              "src/runner/depth-profiles.test.ts",
+              "test/types/depth-scalar.ts"
+            ]
+          },
+          {
+            "id": "recursive-references",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: clone --recursive is not compatible with both --reference and --reference-if-able"
+            ],
+            "disposition": "modeled",
+            "summary": "With --recurse-submodules (or --recursive) not cleared, --reference and --reference-if-able cannot both be left nonempty (cli.clone.recursive-references; git.clone clone.recursive-references).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "test/types/constraint-model.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "filter-submodules",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: the option '%s' requires '%s' [--also-filter-submodules, --filter]",
+              "cmd_clone: the option '%s' requires '%s' [--also-filter-submodules, --recurse-submodules]"
+            ],
+            "disposition": "modeled",
+            "summary": "--also-filter-submodules needs --filter and --recurse-submodules (cli.clone.filter-submodules; git.clone clone.submodule-filter). clone.filterSubmodules configuration does not trigger it.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "test/types/constraint-model.ts"
+            ]
+          },
+          {
+            "id": "remote-name",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: '%s' is not a valid remote name"
+            ],
+            "disposition": "modeled",
+            "summary": "The final --origin, or without it the last clone.defaultRemoteName from --config, must pass valid_remote_name: every '/'-separated component nonempty, without a leading '.', '..', '@{', a forbidden byte or a '.lock' suffix, and no ':' or '*' (cli.clone.origin-name, cli.clone.config-remote-name; git.clone clone.origin-name). A clone.defaultRemoteName from other configuration belongs to the configuration obligation.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "src/constraints/push-refspecs.test.ts",
+              "src/constraints/config-parameters.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "config-parameters",
+            "kind": "refusal",
+            "sites": [
+              "write_config: unable to write parameters to config file"
+            ],
+            "disposition": "modeled",
+            "summary": "Each --config key must pass git_config_parse_key, clone.defaultRemoteName needs a value and clone.rejectShallow and clone.filterSubmodules take Git booleans (cli.clone.config-parameters). git.clone accepts only an allowlist of data-only keys. The value grammars of other keys that git_default_config parses are covered by the config-values obligation.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts",
+              "src/constraints/config-parameters.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "revision-options",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: --revision / --branch",
+              "cmd_clone: --revision / --mirror"
+            ],
+            "disposition": "modeled",
+            "summary": "--revision refuses --branch and --mirror (cli.clone.revision-options).",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "source-repository",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: repository '%s' does not exist",
+              "cmd_clone: source repository is shallow, reject to clone.",
+              "cmd_clone: cannot clone from filtered bundle"
+            ],
+            "disposition": "delegated",
+            "summary": "The repository word must name an existing path or a URL; --reject-shallow and clone.rejectShallow refuse a shallow source, and a bundle with a filter cannot be cloned.",
+            "basis": "repository-state",
+            "reason": "Whether the source exists, is shallow or is a filtered bundle is decided by the source at runtime."
+          },
+          {
+            "id": "destination",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: destination path '%s' already exists and is not an empty directory.",
+              "cmd_clone: repository path '%s' already exists and is not an empty directory.",
+              "cmd_clone: working tree '%s' already exists.",
+              "cmd_clone: could not create leading directories of '%s'",
+              "cmd_clone: could not create work tree dir '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "The destination, the --separate-git-dir path and GIT_WORK_TREE must be creatable and empty.",
+            "basis": "filesystem",
+            "reason": "The filesystem is read at runtime."
+          },
+          {
+            "id": "transport",
+            "kind": "refusal",
+            "sites": [
+              "cmd_clone: remote transport reported error",
+              "cmd_clone: Remote branch %s not found in upstream %s",
+              "cmd_clone: Remote revision %s not found in upstream %s"
+            ],
+            "disposition": "delegated",
+            "summary": "The transport must succeed and --branch or --revision must name something the remote advertises.",
+            "basis": "repository-state",
+            "reason": "The advertised refs and objects of the remote are known only at runtime."
+          },
+          {
+            "id": "reference-repositories",
+            "kind": "refusal",
+            "sites": [
+              "add_one_reference: %s",
+              "dissociate_from_references: cannot repack to clean up",
+              "dissociate_from_references: cannot unlink temporary alternates file"
+            ],
+            "disposition": "delegated",
+            "summary": "--reference must name a repository (--reference-if-able only warns), and --dissociate repacks and removes the alternates file.",
+            "basis": "filesystem",
+            "reason": "Reference repositories and the repack are read and written at runtime."
+          },
+          {
+            "id": "local-copy",
+            "kind": "refusal",
+            "sites": [
+              "copy_or_link_directory: '%s' is a symlink, refusing to clone with --local",
+              "copy_or_link_directory: failed to start iterator over '%s'",
+              "copy_or_link_directory: symlink '%s' exists, refusing to clone with --local",
+              "copy_or_link_directory: failed to unlink '%s'",
+              "copy_or_link_directory: hardlink cannot be checked at '%s'",
+              "copy_or_link_directory: hardlink different from source at '%s'",
+              "copy_or_link_directory: failed to create link '%s'",
+              "copy_or_link_directory: failed to copy file to '%s'",
+              "copy_or_link_directory: failed to iterate over '%s'",
+              "mkdir_if_missing: failed to create directory '%s'",
+              "mkdir_if_missing: failed to stat '%s'",
+              "mkdir_if_missing: %s exists and is not a directory"
+            ],
+            "disposition": "delegated",
+            "summary": "A local clone copies or hardlinks the object directory and refuses symlinks and hardlink mismatches.",
+            "basis": "filesystem",
+            "reason": "The source object directory is read at runtime."
+          },
+          {
+            "id": "ref-updates",
+            "kind": "refusal",
+            "sites": [
+              "update_head: unable to update HEAD",
+              "update_remote_refs: remote did not send all necessary objects",
+              "update_remote_refs: unable to update %s",
+              "write_remote_refs: %s"
+            ],
+            "disposition": "delegated",
+            "summary": "HEAD and the remote-tracking refs are written after the fetch; a ref transaction refuses duplicate updates, for example a tag mapped twice by --branch with --mirror.",
+            "basis": "repository-state",
+            "reason": "The fetched refs and objects are known only at runtime."
+          },
+          {
+            "id": "checkout",
+            "kind": "refusal",
+            "sites": [
+              "checkout: HEAD not found below refs/heads!",
+              "checkout: unable to parse commit %s",
+              "checkout: exit 128",
+              "checkout: unable to checkout working tree",
+              "checkout: unable to write new index file",
+              "git_sparse_checkout_init: failed to initialize sparse-checkout"
+            ],
+            "disposition": "delegated",
+            "summary": "The checkout of the fetched HEAD and the sparse-checkout setup.",
+            "basis": "repository-state",
+            "reason": "The fetched commit and the work tree are read at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the clone table: long prefixes and native OPTION_ALIAS spellings, negations, short clusters, optional-argument attachment for --recurse-submodules, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/alias-parser-corpus.json",
+              "src/commands/alias-parser.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git for single options over six operand shapes, option pairs and the recursive reference triples, all as real local clones, wherever Git does not first refuse for filesystem or source state.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "filter-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--filter follows the object filter grammar, including auto.",
+            "evidence": [
+              "test/fixtures/object-filter-corpus.json",
+              "src/commands/object-filter.test.ts",
+              "test/types/object-filter.ts"
+            ]
+          },
+          {
+            "id": "integer-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--jobs is an OPTION_INTEGER value checked with the selected integer profile.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules takes an optional pathspec that is appended to a list; --no-recurse-submodules clears it.",
+            "evidence": [
+              "test/fixtures/clone-closure-corpus.json",
+              "src/commands/clone-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "config-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Values of --config keys other than clone.defaultRemoteName, clone.rejectShallow and clone.filterSubmodules are parsed by git_default_config and the readers of each key, which can refuse them.",
+            "reason": "They are configuration values, interpreted with the same per-key grammar as configuration files when Git reads them."
+          },
+          {
+            "id": "server-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--shallow-since, --shallow-exclude, --server-option, --upload-pack, --bundle-uri, --template and --branch values are passed to the transport, the server or the filesystem.",
+            "reason": "The server, the upload-pack program or the filesystem interprets them at runtime."
+          },
+          {
+            "id": "repository-url",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "The repository word is resolved as a path, a bundle or a URL, and the directory word as a path.",
+            "reason": "URL resolution and the filesystem are read at runtime; dash-prefixed words after -- stay operands and are refused by that lookup."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "clone.defaultRemoteName, clone.rejectShallow, clone.filterSubmodules, init.* and submodule.stickyRecursiveClone set defaults that argv can override.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "The source repository, its refs, shallow state and filters decide the clone.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "integer-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Integer and atoi conversions follow the C library and integer widths of the running Git; the wrapper selects the recorded profiles.",
+            "reason": "The executing platform decides the profile at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of URLs and paths.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "reset": {
       "state": "partial",

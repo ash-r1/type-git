@@ -47,16 +47,41 @@ type HasNewline<V> = V extends string
       : false
     : false;
 
+type RemoteNameCharacter = ' ' | '~' | '^' | ':' | '?' | '[' | '\\' | '*' | '\t' | '\n' | '\x7f';
+/** Certain refusals of valid_remote_name for a literal name; other control bytes stay runtime. */
+type RemoteNameInvalid<V> = V extends string
+  ? string extends V
+    ? false
+    : V extends
+          | ''
+          | `.${string}`
+          | `/${string}`
+          | `${string}/`
+          | `${string}//${string}`
+          | `${string}/.${string}`
+          | `${string}..${string}`
+          | `${string}@{${string}`
+          | `${string}.lock`
+          | `${string}.lock/${string}`
+          | `${string}${RemoteNameCharacter}${string}`
+      ? true
+      : false
+  : false;
+
 /** Whether a literal value passes the selected push parser. */
-export type PushRefspecLiteral<V, P extends PushRefspecParser> = P extends 'push-option-text'
-  ? HasNewline<V> extends true
+export type PushRefspecLiteral<V, P extends PushRefspecParser> = P extends 'remote-name'
+  ? RemoteNameInvalid<V> extends true
     ? false
     : true
-  : [AsWords<V>] extends [never]
-    ? true
-    : Words<
-          Skip<AsWords<V>, P extends 'refspec-operands' | 'push-delete-operands' ? 1 : 0>,
-          P extends 'push-delete-operands' | 'push-delete-refspecs' ? true : false
-        > extends true
+  : P extends 'push-option-text'
+    ? HasNewline<V> extends true
+      ? false
+      : true
+    : [AsWords<V>] extends [never]
       ? true
-      : false;
+      : Words<
+            Skip<AsWords<V>, P extends 'refspec-operands' | 'push-delete-operands' ? 1 : 0>,
+            P extends 'push-delete-operands' | 'push-delete-refspecs' ? true : false
+          > extends true
+        ? true
+        : false;

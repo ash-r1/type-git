@@ -1,4 +1,6 @@
 import type { BlameLineRangeLiteral } from './blame-line-range.js';
+import type { ConfigParameterLiteral } from './config-parameter-types.js';
+import type { ConfigParameterParser } from './config-parameters.js';
 import type { DepthInitialLiteral } from './depth-types.js';
 import type { GitBooleanCallback } from './git-boolean.js';
 import type {
@@ -365,7 +367,11 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
                 ? PushRefspecLiteral<V, P> extends true
                   ? V
                   : never
-                : V;
+                : P extends ConfigParameterParser
+                  ? ConfigParameterLiteral<V, P> extends true
+                    ? V
+                    : never
+                  : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

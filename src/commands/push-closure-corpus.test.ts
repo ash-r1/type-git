@@ -5,6 +5,8 @@ import { commandArguments } from './build.js';
 
 type Row = (typeof corpus.cases)[number];
 
+const ATOMIC_GROUP_REFUSAL = /^fatal: --atomic can only be used/;
+
 /** Whether the strict API accepts a corpus row, checking the serialized argv when it does. */
 function accepts(row: Row): boolean {
   try {
@@ -27,7 +29,7 @@ describe('push completion closure corpus', () => {
       const expected = row.valid || row.state;
       // Git refuses --atomic for a remote group before the bulk-mode refspec check; the
       // wrapper refuses the same argv for the refspecs, so both refuse.
-      const bothRefuse = !accepted && /^fatal: --atomic can only be used/.test(row.diagnostic);
+      const bothRefuse = !accepted && ATOMIC_GROUP_REFUSAL.test(row.diagnostic);
       if (accepted !== expected && !bothRefuse) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,

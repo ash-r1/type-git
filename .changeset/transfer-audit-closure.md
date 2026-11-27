@@ -1,0 +1,14 @@
+---
+'type-git': minor
+---
+
+**Behavior change:** `repo.push()`, `repo.fetch()` and `repo.pull()` now refuse a `refspec` (or, for pull, a `branch`) without a `remote`. Git reads the first word after the options as the repository, so before, the refspec or branch was silently used as the remote name. `repo.pull({ all: true, remote })` is refused too, as Git refuses it.
+
+`clone`, `fetch`, `pull` and `push` now match Git 2.55.0 in more places, in the strict API (types and runtime) and in the convenience methods:
+
+- A refspec word `tag` must be followed by the tag name (push, fetch and pull).
+- `push --delete` accepts only nonempty ref names without `:`, and push options cannot contain a newline.
+- `pull --cleanup` accepts only Git's cleanup modes, and the strict `pull` now accepts long-option abbreviations and the completion helpers the way `fetch` does.
+- `clone --origin` (and, without it, `clone.defaultRemoteName` passed with `-c`) must be a valid remote name; `clone -c` keys must be valid configuration keys; and a recursive clone cannot use both `--reference` and `--reference-if-able`.
+
+The clone, fetch, pull and push audits now record closures over their Git 2.55.0 sources, checked against independent Git runs.
