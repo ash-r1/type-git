@@ -4072,7 +4072,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 26,
+      "rules": 29,
       "domains": {
         "empty-pathspec": [
           "undefined",
@@ -4102,14 +4102,34 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"A <a@example.test>\"",
+          "\"nickname\"",
+          "\"x>\"",
+          "\"<>\"",
+          "\" <a>\"",
+          "\"A <a\"",
+          "\"a>b<c\"",
+          "\",;: <a>\"",
+          "\"é <a>\""
         ],
         "date": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"now\"",
+          "\"jan\"",
+          "\"ja\"",
+          "\"Mayo\"",
+          "\"friday\"",
+          "\"last\"",
+          "\"zero\"",
+          "\"one\"",
+          "\"1\"",
+          "\"2005-04-07T22:13:13\"",
+          "\"x\""
         ],
         "message": [
           "undefined",
@@ -4355,9 +4375,9 @@
           "true"
         ]
       },
-      "total": "84022787103097500000000000",
-      "accepted": "1934674640206479360000",
-      "nodes": 18949,
+      "total": "752844172443753600000000000",
+      "accepted": "14545367270537232384000",
+      "nodes": 28227,
       "isolatedRuleWitnesses": {
         "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
         "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"value\"}",
@@ -4376,6 +4396,8 @@
         "cli.commit.include-paths": "{\"include\":true,\"operands\":[]}",
         "cli.commit.fixup-amend-message": "{\"fixup\":\"amend:\",\"message\":\"\",\"operands\":[]}",
         "cli.commit.fixup-reword-message": "{\"fixup\":\"reword:\",\"message\":\"\",\"operands\":[]}",
+        "cli.commit.author-ident": "{\"author\":\"x>\",\"operands\":[]}",
+        "cli.commit.date": "{\"date\":\"\",\"operands\":[]}",
         "cli.commit.reword-paths": "{\"fixup\":\"reword:\",\"operands\":[\"value\"]}",
         "cli.commit.reword-content": "{\"fixup\":\"reword:\",\"operands\":[],\"patch\":true}",
         "cli.commit.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
@@ -4384,7 +4406,8 @@
         "cli.commit.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}",
         "cli.commit.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.commit.empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}",
-        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}"
+        "cli.commit.only-paths": "{\"only\":true,\"operands\":[]}",
+        "cli.commit.only-amend-fixup": "{\"amend\":true,\"fixup\":\"\",\"only\":true,\"operands\":[]}"
       }
     },
     {
