@@ -21,6 +21,10 @@ const supportsSubmoduleFilter = spawnSync('git', ['clone', '-h'], {
 const supportsRebaseUpdateRefs = spawnSync('git', ['rebase', '-h'], {
   encoding: 'utf8',
 }).stdout.includes('update-refs');
+// Older Git (for example 2.43) does not know --empty=stop and refuses the value in the option callback, which runs
+// before a later -h, so only a release that accepts it reaches the usage exit (129).
+const supportsRebaseEmptyStop =
+  spawnSync('git', ['rebase', '--empty=stop', '-h'], { encoding: 'utf8' }).status === 129;
 
 describe('option constraints against independent Git executions', () => {
   let root: string;
@@ -286,7 +290,12 @@ describe('option constraints against independent Git executions', () => {
         const opts = { ...options, quiet: true, ...(options.root ? {} : { upstream: 'main' }) };
         const refused = await repo.rebase(opts as never).then(
           () => false,
-          (error) => error instanceof GitArgumentError,
+          (error) => {
+            if (error instanceof GitArgumentError) {
+              return true;
+            }
+            throw error;
+          },
         );
         raw(['-C', repo.workdir, 'reset', '-q', '--hard', start]);
         expect(refused, `${JSON.stringify(options)}: ${result.stderr}`).toBe(result.status !== 0);
@@ -312,10 +321,13 @@ describe('option constraints against independent Git executions', () => {
       expect(raw(['-C', repo.workdir, 'rebase', '--whitespace', 'bogus', 'main']).status).not.toBe(
         0,
       );
-      await repo.rebase({ upstream: 'main', empty: 'stop' });
     },
     180_000,
   );
+
+  it.skipIf(!supportsRebaseEmptyStop)('passes rebase --empty=stop to Git', async () => {
+    await repo.rebase({ upstream: 'main', empty: 'stop' });
+  });
 
   it('checks show output-format and first-pass quiet combinations against Git', async () => {
     for (const options of assignments({
