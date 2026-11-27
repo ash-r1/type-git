@@ -7,6 +7,8 @@
  * a command-line push option that contains a newline. clone --origin must pass remote.c
  * valid_remote_name, which parses `refs/heads/test:refs/remotes/<name>/test` as a fetch refspec.
  */
+import { validRefnameFormat } from './refname.js';
+
 export type PushRefspecParser =
   | 'refspec-operands'
   | 'push-delete-operands'
@@ -43,41 +45,13 @@ export function validPushOptionText(value: unknown): boolean {
   );
 }
 
-/** refs.c refname_disposition: printable bytes refused outright (4) or as a glob (5). */
-const FORBIDDEN_REFNAME_CHARACTERS = ' ~^:?[\\*';
-
-/** Whether a component holds a control byte or a character that refname_disposition refuses. */
-function hasForbiddenRefnameCharacter(component: string): boolean {
-  for (const character of component) {
-    const code = character.charCodeAt(0);
-    if (code < 0x20 || code === 0x7f || FORBIDDEN_REFNAME_CHARACTERS.includes(character)) {
-      return true;
-    }
-  }
-  return false;
-}
-
 /**
- * Whether Git 2.55.0 valid_remote_name accepts a name. A ':' or '*' in the name breaks the
- * refspec itself; otherwise every '/'-separated component of the name must pass
- * check_refname_component: nonempty, no leading '.', no '..' or '@{', no forbidden byte and no
- * '.lock' suffix. Bytes from 0x80 up are allowed, so non-ASCII text is checked by its code units.
+ * Whether Git 2.55.0 valid_remote_name accepts a name. It parses
+ * `refs/heads/test:refs/remotes/<name>/test` as a fetch refspec: a ':' or '*' in the name breaks
+ * the refspec, and the right side must pass check_refname_format, which refuses both as well.
  */
 export function validRemoteName(value: unknown): boolean {
-  if (typeof value !== 'string') {
-    return false;
-  }
-  return value
-    .split('/')
-    .every(
-      (component) =>
-        component !== '' &&
-        !component.startsWith('.') &&
-        !component.includes('..') &&
-        !component.includes('@{') &&
-        !component.endsWith('.lock') &&
-        !hasForbiddenRefnameCharacter(component),
-    );
+  return typeof value === 'string' && validRefnameFormat(`refs/remotes/${value}/test`);
 }
 
 /** Runtime check for one of the refspec parsers. */
