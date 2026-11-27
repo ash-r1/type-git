@@ -948,7 +948,7 @@
               "cmd_add: options '%s' and '%s' cannot be used together [--pathspec-from-file, --interactive/--patch]"
             ],
             "disposition": "modeled",
-            "summary": "A final -i or -p refuses an active --dry-run and a set --pathspec-from-file (an empty value or --no-pathspec-from-file unsets it) before any non-interactive check (cli.add.interactive, cli.add.patch).",
+            "summary": "A final -i or -p refuses an active --dry-run and a set --pathspec-from-file (an explicit empty value unsets it; --no-pathspec-from-file does not) before any non-interactive check (cli.add.interactive, cli.add.patch).",
             "evidence": [
               "test/fixtures/add-rule-corpus.json",
               "src/commands/add-rule-corpus.test.ts"
@@ -1072,7 +1072,7 @@
             ],
             "disposition": "delegated",
             "basis": "filesystem",
-            "summary": "A pathspec that matches no file is refused by cmd_add unless --ignore-missing (which requires --dry-run) applies; with -u or --renormalize, report_path_error exits 128 for a pathspec that matches no tracked path unless --ignore-errors applies; --refresh refuses an unmatched pathspec regardless of either option.",
+            "summary": "A pathspec that matches no file is refused by cmd_add unless --ignore-missing (which requires --dry-run) applies; with -u, report_path_error exits 128 for a pathspec that matches no tracked path unless --ignore-errors or --renormalize applies; --refresh refuses an unmatched pathspec regardless of either option.",
             "reason": "Matching depends on the work tree and the index."
           },
           {
