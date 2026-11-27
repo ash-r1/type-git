@@ -60,6 +60,7 @@ const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 
 const WORDS = ['yesterday', 'noon', 'midnight', 'tea', 'pm', 'am', 'never', 'now', 'today', 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'last', 'seconds', 'second', 'minutes', 'hours', 'days', 'weeks', 'months', 'years', 'year', 'sunday', 'fridays', 'fri', 'ago'];
 const DATES = [
   '', ' ', 'x', '-', '@', 'é', '日本', 'jan.', '.jan', 'x jan', 'jan,x', 'janx', 'Jan', 'JAN', 'friday last', 'last friday', 'ten years', 'noon x', 'x-now',
+  'jan never', 'never today', 'today never', 'never noon', 'last never', 'never-yesterday', 'nevers', 'é never',
   '1', 'x1', '1x', '@1', '2005-04-07T22:13:13', 'Thu, 07 Apr 2005 22:13:13 +0200', '@1112911993 +0200', '1112911993', '1.year.ago', '1971', '200 years ago',
   ...ascii,
   ...MONTHS.flatMap((month) => [month.slice(0, 2), month.slice(0, 3), month, `${month}x`, month.toUpperCase()]),
@@ -82,14 +83,16 @@ try {
     const valid = (result.status === 0 || (dryRun && result.status === 1)) && !diagnostic;
     const state = !valid && NICKNAME.test(diagnostic);
     // ident.c re-parses the '@<seconds>' that approxidate computed from the clock and time zone.
-    const environment = !valid && option === '--date' && DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}`;
+    // Only text with a digit reaches that arithmetic; digit-free refusals are modeled.
+    const environment =
+      !valid && option === '--date' && /[0-9]/.test(value) && DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}`;
     // die() prints control characters as '?', so the value itself is not matched.
     const modeled = option === '--author' ? AUTHOR : [/^fatal: invalid date format: /];
     if (!valid && !state && !environment && !modeled.some((pattern) => pattern.test(diagnostic))) {
       throw new Error(`Unclassified ${JSON.stringify(argv)}: ${result.status}: ${result.stderr}`);
     }
     // The seconds come from the clock, so they are not recorded.
-    const recorded = environment ? 'fatal: invalid date format: @<seconds>' : diagnostic;
+    const recorded = DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}` ? 'fatal: invalid date format: @<seconds>' : diagnostic;
     cases.push({ command: 'commit', tokens, argv, valid, state, environment, status: result.status, diagnostic: recorded });
   };
   for (const dryRun of [false, true]) {

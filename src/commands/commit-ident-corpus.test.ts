@@ -74,5 +74,20 @@ describe('commit author and date corpus', () => {
     expect(() =>
       validateInput('commitPaths', { date: new Date(0), message: 'msg' }, 'commit'),
     ).not.toThrow();
+    expect(() =>
+      validateInput('commitPaths', { date: new Date(Number.NaN), message: 'msg' }, 'commit'),
+    ).toThrow('[commit.date]');
+  });
+
+  it('refuses digit-free dates with the word never, which yield seconds before 1973', () => {
+    for (const date of ['never', 'NEVER', 'jan never', 'never today', 'today never']) {
+      expect(() => commandArguments('commit', [['--date', date]], true), date).toThrow(
+        '[cli.commit.date]',
+      );
+    }
+    expect(commandArguments('commit', [['--date', 'nevers jan']], true)).toEqual([
+      'commit',
+      '--date=nevers jan',
+    ]);
   });
 });

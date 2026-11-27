@@ -126,8 +126,10 @@ export const INPUT_CONSTRAINTS = {
       kind: 'scalar',
       key: 'date',
       parser: 'commit-date',
+      // repo.commit skips an empty date and converts a Date, which still needs a valid time.
       guard: [
-        { key: 'date', test: 'nonempty' },
+        { key: 'date', test: 'present' },
+        { key: 'date', test: 'notEquals', value: '' },
         { key: 'dryRun', test: 'inactive' },
       ],
       origin: 'git',

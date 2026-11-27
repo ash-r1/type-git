@@ -60,7 +60,10 @@ const MONTHS: readonly string[] = [
   'november',
   'december',
 ];
-/** date.c special[], number_name[1..10] and "last": whole words, ASCII case-insensitive. */
+/**
+ * date.c special[], number_name[1..10] and "last": whole words, ASCII case-insensitive. "never"
+ * touches too, but is refused separately below.
+ */
 const WORDS: ReadonlySet<string> = new Set([
   'yesterday',
   'noon',
@@ -68,7 +71,6 @@ const WORDS: ReadonlySet<string> = new Set([
   'tea',
   'pm',
   'am',
-  'never',
   'now',
   'today',
   'one',
@@ -91,7 +93,9 @@ const WORDS: ReadonlySet<string> = new Set([
  * fail. Its words are runs of ASCII letters (sane_ctype; bytes >= 0x80 separate words); a word
  * touches when it is a month prefix of at least three letters, a special word, one to ten or
  * "last". Units, weekdays, "months" and "years" touch only after a number, which has already
- * touched.
+ * touched. date_never sets every field to the epoch, and digit-free words only keep fields
+ * that are already set or move back in time, so a digit-free value with the word "never"
+ * yields seconds below 100000000, which ident.c refuses in every clock and time zone.
  */
 export function validCommitDate(value: unknown): boolean {
   if (typeof value !== 'string') {
@@ -100,8 +104,11 @@ export function validCommitDate(value: unknown): boolean {
   if (DIGIT.test(value)) {
     return true;
   }
-  return (value.match(ASCII_WORDS) ?? []).some((word) => {
-    const lower = word.toLowerCase();
+  const words = (value.match(ASCII_WORDS) ?? []).map((word) => word.toLowerCase());
+  if (words.includes('never')) {
+    return false;
+  }
+  return words.some((lower) => {
     return (
       WORDS.has(lower) || (lower.length >= 3 && MONTHS.some((month) => month.startsWith(lower)))
     );

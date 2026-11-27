@@ -265,8 +265,11 @@ export function parseGitScalar(
     return { valid: value === undefined || validCommitAuthor(value), value };
   }
   if (parser === 'commit-date') {
-    // repo.commit converts a Date to ISO 8601 text, which parse_date accepts.
-    return { valid: value === undefined || value instanceof Date || validCommitDate(value), value };
+    // repo.commit converts a valid Date to ISO 8601 text, which parse_date accepts.
+    const valid =
+      value === undefined ||
+      (value instanceof Date ? !Number.isNaN(value.getTime()) : validCommitDate(value));
+    return { valid, value };
   }
   if (parser === 'blame-line-range') {
     return { valid: validBlameLineRange(value), value };
