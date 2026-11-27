@@ -8,6 +8,7 @@
  * values before spawning Git; callers that really mean an option use the typed
  * option fields or `raw()`.
  */
+import { branchNameSyntax } from '../constraints/refname.js';
 import { GitArgumentError } from './types.js';
 
 /** Whether Git would read this argv word as an option. A lone `-` is an operand. */
@@ -36,4 +37,15 @@ export function checkedOperands(
     checkedOperand(command, name, value);
   }
   return [...values];
+}
+
+/** Return a new branch name unchanged, or throw when Git refuses it in every repository. */
+export function checkedNewBranchName(command: string, name: string, value: string): string {
+  if (branchNameSyntax(value) === false) {
+    throw new GitArgumentError(
+      `${command}: ${name} is not a valid branch name (got ${JSON.stringify(value)}); ` +
+        'see git check-ref-format --branch.',
+    );
+  }
+  return value;
 }

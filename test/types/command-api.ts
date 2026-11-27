@@ -202,6 +202,26 @@ git.command('branch', [['-v'], ['--no-verbose'], ['--column']]);
 git.command('branch', [['-v'], ['--column', 'auto']]);
 // @ts-expect-error Tracking callback rejects invalid values even if overwritten.
 git.command('branch', [['--track', 'bad'], ['--track', 'direct'], { operand: 'new' }]);
+// @ts-expect-error check_refname_format refuses '..' in a new branch name.
+git.command('branch', [{ operand: 'a..b' }]);
+// @ts-expect-error A new branch name cannot be HEAD.
+git.command('branch', [{ operand: 'HEAD' }, { operand: 'main' }]);
+// @ts-expect-error A component cannot end with .lock.
+git.command('branch', [['-m'], { operand: 'old' }, { operand: 'new.lock' }]);
+// @ts-expect-error A sole rename operand is the new name.
+git.command('branch', [['-M'], { operand: 'a b' }]);
+// @ts-expect-error A copy target cannot end with '/'.
+git.command('branch', [['-c'], ['--'], { operand: 'x/' }]);
+// @ts-expect-error An '@{' that Git cannot interpret stays in the name.
+git.command('branch', [{ operand: 'a@{b' }]);
+// @ts-expect-error @{-0} is not a prior checkout.
+git.command('branch', [{ operand: '@{-0}' }]);
+git.command('branch', [{ operand: '@{-1}' }]);
+git.command('branch', [{ operand: 'topic@{U}' }]);
+git.command('branch', [{ operand: 'x/HEAD' }, { operand: 'a..b' }]);
+git.command('branch', [['-m'], { operand: 'a..b' }, { operand: 'fixed' }]);
+git.command('branch', [['-d'], { operand: 'a..b' }]);
+git.command('branch', [{ operand: '@' }]);
 git.command('switch', [['--create', 'new']]);
 git.command('switch', [['--detach']]);
 git.command('switch', [['--conflict', 'diff3'], ['--no-conflict'], ['--force'], { operand: 'main' }]);
