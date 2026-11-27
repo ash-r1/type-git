@@ -1,9 +1,20 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { checkClosureShape, closureSourceProblems, completionGaps } from './audit-completion.mjs';
 const root = new URL('../', import.meta.url);
 const inventory = JSON.parse(await readFile(new URL('spec/upstream/command-inventory.json', root), 'utf8'));
 const audit = JSON.parse(await readFile(new URL('spec/command-audit.json', root), 'utf8'));
 const exploration = JSON.parse(await readFile(new URL('docs/design/constraint-exploration.json', root), 'utf8'));
 const cli = JSON.parse(await readFile(new URL('docs/design/command-exploration.json', root), 'utf8'));
+const refusalSnapshot = JSON.parse(await readFile(new URL('spec/upstream/git-refusal-sites.json', root), 'utf8'));
+// Every Git source file the upstream snapshots pin, so a closure can only cite pinned files.
+const pinnedGit = new Map();
+for (const [path, digest] of Object.entries(inventory.sources)) if (path.startsWith('git/')) pinnedGit.set(path.slice(4), digest);
+for (const name of ['git-option-tables', 'git-revision-options']) {
+  const snapshot = JSON.parse(await readFile(new URL(`spec/upstream/${name}.json`, root), 'utf8'));
+  for (const record of snapshot.files ?? []) pinnedGit.set(record.file, record.sha256);
+  for (const [path, digest] of Object.entries(snapshot.headers ?? {})) pinnedGit.set(path, digest);
+}
+if (refusalSnapshot.baseline !== inventory.baselines.git) throw new Error('Refusal-site snapshot is for another Git baseline');
 const cliNames = new Set(cli.commands.map((entry) => entry.command));
 const models = new Set(exploration.filter((r) => r.scope !== 'operands').map((r) => r.command));
 const commands = new Map(inventory.commands.map((entry) => [entry.command, entry]));
@@ -27,13 +38,21 @@ const rows = [...commands.values()].sort((a, b) => a.command < b.command ? -1 : 
 for (const [command, record] of Object.entries(audit.commands)) {
   if (record.typedCommandAPI && !cliNames.has(command)) throw new Error(`${command}: missing typed command schema`);
   for (const model of record.models) if (!models.has(model)) throw new Error(`${command}: unknown model ${model}`);
-  if (record.state === 'complete') {
-    for (const facet of audit.facets) {
-      if (!record.evidence?.[facet]?.length) throw new Error(`${command}: missing evidence for ${facet}`);
-    }
-    if (record.remaining) throw new Error(`${command}: complete with remaining work`);
+  if (record.closure) {
+    checkClosureShape(command, record.closure, audit.completion.exclusions);
+    const problems = closureSourceProblems(record.closure, refusalSnapshot, pinnedGit);
+    if (problems.length) throw new Error(`${command}: closure disagrees with the pinned source: ${problems.join('; ')}`);
   }
+  // The state is derived from the completion criterion, never asserted by hand: a scope
+  // with no gaps must say complete, and a complete scope must have no gaps.
+  const gaps = completionGaps(record, { facets: audit.facets, baseline: inventory.baselines.git });
+  if (record.state === 'complete' && gaps.length) throw new Error(`${command}: complete with gaps ${gaps.join(', ')}`);
+  if (record.state !== 'complete' && !gaps.length) throw new Error(`${command}: meets the completion criterion; record it as complete`);
   for (const test of record.tests) await readFile(new URL(test, root));
+  // Closure evidence is a plain repository path, so a renamed fixture breaks the build.
+  for (const file of new Set((record.closure?.obligations ?? []).flatMap((o) => o.evidence ?? []))) {
+    await readFile(new URL(file, root));
+  }
 }
 const summary = {
   baselines: inventory.baselines,

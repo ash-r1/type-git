@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "scope": "All pinned upstream Git and Git LFS commands, including commands without a convenience API. An entry is complete only when every applicable facet has evidence.",
+  "scope": "All pinned upstream Git and Git LFS commands, including commands without a convenience API. A scope is complete when it meets the completion criterion below; finite native corpora witness its obligations but never establish completeness on their own.",
   "facets": [
     "option-grammar",
     "operand-grammar",
@@ -9,6 +9,35 @@
     "independent-git-tests",
     "compiler-tests"
   ],
+  "completion": {
+    "definition": "docs/design/audit-completion.md",
+    "criterion": [
+      "Every facet has evidence. Only operand-grammar and combination-rules may instead be listed in inapplicableFacets, with a reason.",
+      "A closure exists for the pinned Git baseline. It names its entry point and the audited source functions; every same-file function that a listed function calls or references (option callbacks included) is listed too or waived with a reason, which command-coverage checks against spec/upstream/git-refusal-sites.json.",
+      "Every refusal site extracted from the listed functions (scripts/refusal-sites.mjs; snapshot spec/upstream/git-refusal-sites.json, reproduced from the pinned source by verify-upstream.mjs) is named by exactly one refusal obligation, and every named site exists in the snapshot.",
+      "The closure also has at least one obligation for each of parser, values, operands, state and platform, and at least one modeled obligation.",
+      "Every obligation is modeled (with repository evidence files), delegated to native Git at runtime (with a reason and a basis naming the runtime input), or excluded under a declared exclusion that covers its kind. Refusal sites are never excluded. No obligation is open.",
+      "The free-text remaining field is empty; narrative moves to notes."
+    ],
+    "exclusions": {
+      "other-git-versions": {
+        "reason": "A closure is a claim about the pinned baseline only. Behavior of other Git releases, including the legacy 2.25.1 job, is witnessed by regression tests but is not part of the claim, and a baseline change reopens every closure.",
+        "kinds": [
+          "parser",
+          "values",
+          "operands",
+          "state",
+          "platform"
+        ]
+      },
+      "completion-output": {
+        "reason": "The text that --git-completion-helper prints is a shell-completion protocol, not part of the command interface. Its parser exits are modeled where recorded; its option listing is not typed.",
+        "kinds": [
+          "parser"
+        ]
+      }
+    }
+  },
   "commands": {
     "clone": {
       "state": "partial",

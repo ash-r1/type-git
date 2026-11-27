@@ -64,6 +64,17 @@ describe('per-command progress report', () => {
     expect(show.achieved.some((s) => /^Numeric bounds .* are checked/.test(s))).toBe(true);
   });
 
+  it('reports completion gaps that agree with the recorded state', async () => {
+    const report = await commandProgress([...GROUPS.core, ...GROUPS.next]);
+    for (const { scopes } of report) {
+      for (const scope of scopes) {
+        expect(Array.isArray(scope.completion.gaps)).toBe(true);
+        expect(scope.state === 'complete').toBe(scope.completion.gaps.length === 0);
+        if (!scope.completion.closure) expect(scope.completion.gaps).toContain('closure');
+      }
+    }
+  });
+
   it('rejects commands without an audit record', async () => {
     await expect(commandProgress(['not-a-git-command'])).rejects.toThrow('no audit record');
   });

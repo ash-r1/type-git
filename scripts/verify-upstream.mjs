@@ -67,6 +67,7 @@ for (const [path, digest] of [...expected].sort(([a], [b]) => a < b ? -1 : a > b
 }
 console.log(`Verified ${expected.size} upstream source fingerprints.`);
 
+
 // Importers write beside their scripts. Copy them to an isolated directory so a
 // verification run cannot replace the checked-in snapshots before comparison.
 const temp = await mkdtemp(join(tmpdir(), 'type-git-upstream-check-'));
@@ -74,7 +75,12 @@ try {
   await mkdir(join(temp, 'scripts'));
   await copyFile(new URL('scripts/cobra-completion.mjs', root), join(temp, 'scripts/cobra-completion.mjs'));
   await mkdir(join(temp, 'spec/upstream'), { recursive: true });
+  // The refusal-site importer reads the closures and the baseline from the ledger.
+  await copyFile(new URL('spec/command-audit.json', root), join(temp, 'spec/command-audit.json'));
+  await copyFile(new URL('spec/upstream/command-inventory.json', root), join(temp, 'spec/upstream/command-inventory.json'));
+  await copyFile(new URL('scripts/refusal-sites.mjs', root), join(temp, 'scripts/refusal-sites.mjs'));
   const jobs = [
+    [process.execPath, 'import-refusal-sites.mjs', [git], 'git-refusal-sites'],
     [process.execPath, 'import-command-inventory.mjs', [git, lfs, cobra], 'command-inventory'],
     [process.execPath, 'import-lfs-options.mjs', [lfs, cobra], 'lfs-options'],
     ['python3', 'import-revision-options.py', [git], 'git-revision-options'],

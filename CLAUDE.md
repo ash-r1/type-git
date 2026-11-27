@@ -81,6 +81,7 @@ pnpm typecheck       # TypeScript --noEmit
 # Audit progress
 pnpm commands:progress             # Per-command facets for the priority groups
 pnpm commands:progress core stash  # Named groups (core/next) or commands
+# A scope is complete only under docs/design/audit-completion.md (closure + no open obligations)
 
 # Changeset (versioning)
 pnpm changeset       # Create a new changeset
