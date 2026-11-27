@@ -9,7 +9,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
-import { GitArgumentError } from '../core/types.js';
+import { GitArgumentError, GitError } from '../core/types.js';
 import { createGit } from './git-impl.js';
 
 /**
@@ -433,6 +433,13 @@ describe('High-level API', () => {
         await expect(repo.stash.drop(index)).rejects.toThrow(GitArgumentError);
       }
       expect((await repo.stash.list()).map((entry) => entry.message)).toEqual(['second', 'first']);
+
+      // The largest entry number is passed to Git, which reports the missing entry itself.
+      const largest = await repo.stash
+        .apply({ index: 99_999_999 })
+        .catch((error: unknown) => error);
+      expect(largest).toBeInstanceOf(GitError);
+      expect(largest).not.toBeInstanceOf(GitArgumentError);
 
       await repo.stash.drop(1);
       expect((await repo.stash.list()).map((entry) => entry.message)).toEqual(['second']);

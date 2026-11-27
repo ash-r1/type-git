@@ -167,13 +167,14 @@ try {
   };
 
   for (const command of ['stash apply', 'stash drop', 'stash pop', 'stash show']) {
-    const options = command === 'stash apply' || command === 'stash pop' ? [[], [['--index']], [['-q']]] : [[], [['-q']]].slice(0, command === 'stash show' ? 1 : 2);
+    const labels = [[['--label-ours', '']], [['--label-base', 'base'], ['--label-theirs', 'theirs']]];
+    const options = command === 'stash apply' || command === 'stash pop' ? [[], [['--index']], [['-q']], ...(command === 'stash apply' ? labels : [])] : [[], [['-q']]].slice(0, command === 'stash show' ? 1 : 2);
     for (const o of options) for (const s of STASH_OPERANDS) record(command, [...o, ...s]);
   }
   for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand(''), operand('0')], [operand('main')]]) {
     record('stash branch', s);
   }
-  for (const o of [[], [['-q']], [['-m', 'msg']]]) {
+  for (const o of [[], [['-q']], [['-m', 'msg']], [['-m', '']]]) {
     for (const s of [[], [operand('stashed')], [operand('stashed'), operand('stashed')], [operand('')], [operand('HEAD')], [operand('missing')]]) record('stash store', [...o, ...s]);
   }
   for (const s of [[], [operand('refs/exported')], [operand('refs/exported'), operand('refs/exported')], [operand('')], [operand('HEAD')], [operand('missing')]]) {

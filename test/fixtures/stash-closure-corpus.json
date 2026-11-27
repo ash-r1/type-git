@@ -556,6 +556,463 @@
       "diagnostic": "error: missing is not a valid reference"
     },
     {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours="
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "0"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "0",
+        "1"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' '1'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "0",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' ''"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": ""
+        },
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '' '0'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "stash@{1}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "stash@{1}"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "HEAD"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: 'HEAD' is not a stash-like commit"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "missing"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "missing"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 1,
+      "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "0"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "0",
+        "1"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' '1'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "0",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' ''"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": ""
+        },
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '' '0'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "stash@{1}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "stash@{1}"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "HEAD"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: 'HEAD' is not a stash-like commit"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "missing"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "missing"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 1,
+      "diagnostic": "error: missing is not a valid reference"
+    },
+    {
       "command": "stash drop",
       "tokens": [],
       "argv": [
@@ -2135,6 +2592,144 @@
         "store",
         "-m",
         "msg",
+        "missing"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 1,
+      "diagnostic": "Cannot update refs/stash with missing"
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "\"git stash store\" requires one <commit> argument"
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ],
+        {
+          "operand": "stashed"
+        }
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        "",
+        "stashed"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ],
+        {
+          "operand": "stashed"
+        },
+        {
+          "operand": "stashed"
+        }
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        "",
+        "stashed",
+        "stashed"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "\"git stash store\" requires one <commit> argument"
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ],
+        {
+          "operand": ""
+        }
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        "",
+        ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Cannot update refs/stash with "
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        "",
+        "HEAD"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: 'ed888c55db7e20671c0768f805195985e17b55de' is not a stash-like commit"
+    },
+    {
+      "command": "stash store",
+      "tokens": [
+        [
+          "-m",
+          ""
+        ],
+        {
+          "operand": "missing"
+        }
+      ],
+      "argv": [
+        "stash",
+        "store",
+        "-m",
+        "",
         "missing"
       ],
       "valid": false,

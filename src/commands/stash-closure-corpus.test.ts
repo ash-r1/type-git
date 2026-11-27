@@ -51,6 +51,10 @@ const RULES_FOR_DIAGNOSTIC: [RegExp, (row: Row) => string][] = [
   ],
 ];
 
+/** Parse-options diagnostics that the parser corpora map to option-table refusals. */
+const UNMAPPED_PARSER_ERROR =
+  /^error: (?:unknown (?:option|switch)|ambiguous option|(?:option|switch) `[^']*' (?:takes no value|requires a value))/;
+
 /** store --quiet refuses a wrong operand count or an empty commit name without a message. */
 const QUIET_STORE: [RegExp, (row: Row) => string] = [
   /^$/,
@@ -119,6 +123,8 @@ describe('stash completion closure corpus', () => {
           ? QUIET_STORE
           : RULES_FOR_DIAGNOSTIC.find(([pattern]) => pattern.test(row.diagnostic));
       if (!entry) {
+        // Only parse-options errors, which the parser corpora map, are left unmapped here.
+        expect(row.diagnostic).toMatch(UNMAPPED_PARSER_ERROR);
         continue;
       }
       const rule = entry[1](row);
@@ -130,6 +136,6 @@ describe('stash completion closure corpus', () => {
       }
     }
     expect(missing).toEqual([]);
-    expect(reached.size).toBeGreaterThan(30);
+    expect(reached.size).toBeGreaterThanOrEqual(35);
   });
 });
