@@ -55,9 +55,10 @@ const NAMES = [
   'a.lock', 'a.lock/b', 'a/b.lock', 'a.locks', 'lock', '.lock', 'a.LOCK', 'a.lock.lock', 'a/.lock/b',
   '@', '@@', 'a@b', 'a@', '@a', 'a@{b', '@{', '@{}', 'a@{', '{', 'a{b}', '@{-1}', '@{-1}x', '@{-0}', '@{-x}',
   'topic@{u}', 'topic@{U}', 'topic@{upstream}', 'topic@{push}', '@{u}', 'x@{u}', 'a..b@{u}',
-  // Interpreted names followed by literal text: @{-1} is topic, topic@{u} is main, @{u} is topic.
+  // Interpreted names followed by literal text: @{-1} is topic, topic@{u} is main, @{u} is topic,
+  // topic@{push} is mirror/topic.
   '@{-1}x', '@{- +01}x', '@{-1}..', '@{-1}x..', '@{-1}/x', '@{-1}/.x', '@{-1}.lock', '@{-1}:x', '@{-1}@{-1}',
-  'topic@{u}x', 'topic@{U}/y', 'topic@{u}..', 'topic@{u}:', 'a:b@{u}', '@{u}..', 'topic@{u}@{x', '@{-1}x@{u}',
+  'topic@{u}x', 'topic@{U}/y', 'topic@{push}x', 'topic@{PUSH}..', 'topic@{Push}.LOCK', '@{-1}.LOCK', 'topic@{u}..', 'topic@{u}:', 'a:b@{u}', '@{u}..', 'topic@{u}@{x', '@{-1}x@{u}',
   'HEAD', 'head', 'x/HEAD', 'HEAD/x', 'HEADx', '-', '-a', 'a-', '--', 'é', 'aÿb', '日本',
   'refs/heads/x', 'refs', 'a*', '*', 'a/*', 'a/b/c', 'a.b.c', 'a/-b', 'a/@', '@/a',
 ];
@@ -81,6 +82,11 @@ try {
     // A prior checkout makes @{-1} resolve to topic.
     ['checkout', '-q', 'topic'],
     ['checkout', '-q', 'main'],
+    // topic@{push} is mirror/topic: remote "self" maps its branches under refs/heads/mirror/.
+    ['remote', 'add', 'self', '.'],
+    ['config', 'remote.self.fetch', '+refs/heads/*:refs/heads/mirror/*'],
+    ['config', 'push.default', 'current'],
+    ['config', 'branch.topic.pushRemote', 'self'],
   ]) {
     if (git(args, seed).status !== 0) throw new Error(`Cannot seed oracle: ${args.join(' ')}`);
   }
@@ -98,7 +104,9 @@ try {
       // Interpreting @{...} (reflog, upstream, push) can fail on repository state before the check.
       const state = !valid && !refused && (STATE.some((pattern) => pattern.test(diagnostic)) || name.includes('@{'));
       if (!valid && !refused && !state) throw new Error(`Unclassified ${JSON.stringify(argv)}: ${result.stderr}`);
-      cases.push({ command: 'branch', action: action.label, name, tokens, argv, valid, state, diagnostic });
+      // Worktree paths in diagnostics come from the temporary directory.
+      const recorded = diagnostic.replaceAll(base, '<tmp>');
+      cases.push({ command: 'branch', action: action.label, name, tokens, argv, valid, state, diagnostic: recorded });
     }
   }
   const fixture = {

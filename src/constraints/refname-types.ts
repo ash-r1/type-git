@@ -65,26 +65,28 @@ type PositiveDigits<S extends string> = S extends `0${infer R}`
   : S extends `${Exclude<Digit, '0'>}${infer R}`
     ? Digits<R>
     : false;
-/** The text after the first upstream or push mark, if any (marks match case-insensitively). */
-type AfterMark<S extends string> = S extends `${string}@{u}${infer R}`
-  ? R
-  : S extends `${string}@{upstream}${infer R}`
+/** The original text after the first @{upstream}, @{u} or @{push} mark, matched case-insensitively. */
+type AfterMark<S extends string> = S extends `@{${infer Body}}${infer R}`
+  ? Lowercase<Body> extends 'u' | 'upstream' | 'push'
     ? R
-    : S extends `${string}@{push}${infer R}`
-      ? R
-      : never;
+    : S extends `${infer _C}${infer Rest}`
+      ? AfterMark<Rest>
+      : never
+  : S extends `${infer _C}${infer Rest}`
+    ? AfterMark<Rest>
+    : never;
 /** The literal text after the last rewritable mark. */
 type LastTail<S extends string> = [AfterMark<S>] extends [never] ? S : LastTail<AfterMark<S>>;
 /** The literal tail after the rewritable parts, or never when nothing can be rewritten. */
 type InterpretedTail<V extends string> = V extends `@{-${infer N}}${infer R}`
   ? PositiveDecimal<N> extends true
-    ? LastTail<Lowercase<R>>
-    : [AfterMark<Lowercase<V>>] extends [never]
+    ? LastTail<R>
+    : [AfterMark<V>] extends [never]
       ? never
-      : LastTail<Lowercase<V>>
-  : [AfterMark<Lowercase<V>>] extends [never]
+      : LastTail<V>
+  : [AfterMark<V>] extends [never]
     ? never
-    : LastTail<Lowercase<V>>;
+    : LastTail<V>;
 type RefnameFormat<R extends string> = R extends `${string}${ForbiddenRefnameText}${string}`
   ? false
   : R extends `${string}${'/' | '.' | '.lock'}`

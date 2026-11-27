@@ -226,6 +226,11 @@ git.command('branch', [{ operand: 'topic@{u}@{x' }]);
 git.command('branch', [{ operand: '@{-1}x' }]);
 git.command('branch', [{ operand: 'topic@{u}x' }]);
 git.command('branch', [{ operand: '@{-1}x@{U}' }]);
+// The rewritten tail keeps its case: only '.lock' is refused.
+git.command('branch', [{ operand: '@{-1}.LOCK' }]);
+git.command('branch', [{ operand: 'topic@{Push}.LOCK' }]);
+// @ts-expect-error A '.lock' tail is refused after any rewrite.
+git.command('branch', [{ operand: 'topic@{PUSH}x.lock' }]);
 git.command('branch', [{ operand: 'topic@{U}' }]);
 git.command('branch', [{ operand: 'x/HEAD' }, { operand: 'a..b' }]);
 git.command('branch', [['-m'], { operand: 'a..b' }, { operand: 'fixed' }]);
