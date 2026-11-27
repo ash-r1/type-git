@@ -554,7 +554,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for every pair and ordered triple of the closure vocabulary, whichever refusal Git reaches first. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for every single word and ordered pair of the closure vocabulary, for format/NUL triples with the NUL word in each position, for --ignored=matching with two untracked modes in each position, and for the listed refusal-order pairs. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
             "evidence": [
               "test/fixtures/status-closure-corpus.json",
               "src/commands/status-closure-corpus.test.ts"
