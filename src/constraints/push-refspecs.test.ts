@@ -44,6 +44,8 @@ describe('repo.push refspec constraints', () => {
 
   it('needs a remote before refspecs', () => {
     expect(refused({ refspec: 'main' })).toBe(true);
+    expect(refused({ remote: '', refspec: 'main' })).toBe(true);
+    expect(refused({ refspec: [] })).toBe(false);
     expect(refused({ remote: 'origin', refspec: 'main' })).toBe(false);
   });
 
@@ -69,6 +71,8 @@ describe('repo.fetch refspec constraints', () => {
 
   it('needs a remote before refspecs and a tag name after the tag shorthand', () => {
     expect(refused({ refspec: 'main' })).toBe(true);
+    expect(refused({ remote: '', refspec: 'main' })).toBe(true);
+    expect(refused({ refspec: [] })).toBe(false);
     expect(refused({ remote: 'origin', refspec: 'main' })).toBe(false);
     expect(refused({ remote: 'origin', refspec: 'tag' })).toBe(true);
     expect(refused({ remote: 'origin', refspec: ['tag', 'v1'] })).toBe(false);
@@ -87,6 +91,11 @@ describe('repo.pull forwarded fetch constraints', () => {
 
   it('needs a remote before a branch and no remote with all', () => {
     expect(refused({ branch: 'main' })).toBe(true);
+    // Empty values are not emitted, so they neither need nor supply a remote.
+    expect(refused({ remote: '', branch: 'main' })).toBe(true);
+    expect(refused({ branch: '' })).toBe(false);
+    expect(refused({ all: true, remote: '' })).toBe(false);
+    expect(refused({ cleanup: '' })).toBe(false);
     expect(refused({ remote: 'origin', branch: 'main' })).toBe(false);
     expect(refused({ all: true, remote: 'origin' })).toBe(true);
     expect(refused({ all: true })).toBe(false);
@@ -96,7 +105,6 @@ describe('repo.pull forwarded fetch constraints', () => {
     expect(refused({ remote: 'origin', branch: 'tag' })).toBe(true);
     expect(refused({ cleanup: 'scissors' })).toBe(false);
     expect(refused({ cleanup: 'Strip' })).toBe(true);
-    expect(refused({ cleanup: '' })).toBe(true);
   });
 });
 

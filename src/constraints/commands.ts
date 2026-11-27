@@ -847,8 +847,8 @@ export const COMMAND_CONSTRAINTS = {
     {
       id: 'fetch.refspec-remote',
       kind: 'requires',
-      when: active('refspec'),
-      required: [present('remote')],
+      when: { key: 'refspec', test: 'nonempty' },
+      required: [{ key: 'remote', test: 'nonempty' }],
       origin: 'git',
       reason:
         'Git reads the first positional word as the repository, so refspecs need an explicit remote.',
@@ -1005,8 +1005,8 @@ export const COMMAND_CONSTRAINTS = {
     {
       id: 'push.refspec-remote',
       kind: 'requires',
-      when: active('refspec'),
-      required: [present('remote')],
+      when: { key: 'refspec', test: 'nonempty' },
+      required: [{ key: 'remote', test: 'nonempty' }],
       origin: 'git',
       reason:
         'Git reads the first positional word as the repository, so refspecs need an explicit remote.',
@@ -1376,8 +1376,8 @@ export const COMMAND_CONSTRAINTS = {
     {
       id: 'pull.branch-remote',
       kind: 'requires',
-      when: active('branch'),
-      required: [present('remote')],
+      when: { key: 'branch', test: 'nonempty' },
+      required: [{ key: 'remote', test: 'nonempty' }],
       origin: 'git',
       reason:
         'Git reads the first positional word as the repository, so a branch needs an explicit remote.',
@@ -1385,8 +1385,8 @@ export const COMMAND_CONSTRAINTS = {
     },
     {
       id: 'pull.all-remote',
-      kind: 'exclusive',
-      keys: ['all', 'remote'],
+      kind: 'forbid',
+      when: [active('all'), { key: 'remote', test: 'nonempty' }],
       origin: 'git',
       reason: 'Fetching from all remotes cannot name a repository.',
       source: git('builtin/fetch.c'),
@@ -1404,6 +1404,7 @@ export const COMMAND_CONSTRAINTS = {
       id: 'pull.cleanup',
       kind: 'value',
       key: 'cleanup',
+      guard: [{ key: 'cleanup', test: 'nonempty' }],
       allowed: ['default', 'verbatim', 'whitespace', 'strip', 'scissors'],
       origin: 'git',
       reason: 'Pull validates the final cleanup value before fetching.',

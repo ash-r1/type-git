@@ -8,24 +8,27 @@ type DeleteWordInvalid<W> = string extends W
     : W extends `${string}:${string}`
       ? true
       : false;
-/** Walk refspec words: `tag` consumes the next word; unknown lengths stay accepted. */
+/**
+ * Walk refspec words: `tag` consumes the next word. A word that may be `tag` (a wide string or
+ * a union that includes it) and unknown lengths stay accepted for the runtime check.
+ */
 type Words<W extends readonly unknown[], D extends boolean> = W extends readonly [
   infer H,
   ...infer R,
 ]
-  ? H extends 'tag'
-    ? string extends H
-      ? true
-      : R extends readonly [unknown, ...infer Rest]
-        ? Words<Rest, D>
-        : R extends readonly []
-          ? false
-          : true
-    : D extends true
-      ? DeleteWordInvalid<H> extends true
+  ? [H] extends ['tag']
+    ? R extends readonly [unknown, ...infer Rest]
+      ? Words<Rest, D>
+      : R extends readonly []
         ? false
+        : true
+    : 'tag' extends H
+      ? true
+      : D extends true
+        ? DeleteWordInvalid<H> extends true
+          ? false
+          : Words<R, D>
         : Words<R, D>
-      : Words<R, D>
   : true;
 type Skip<W extends readonly unknown[], N extends number> = N extends 1
   ? W extends readonly [unknown, ...infer R]

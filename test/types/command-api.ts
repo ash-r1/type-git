@@ -663,3 +663,6 @@ git.command('clone', [['-c', 'a=b'], { operand: 'source' }]);
 // @ts-expect-error A clone --config key cannot end with a dot.
 git.command('clone', [['--config', 'core.=x'], { operand: 'source' }]);
 git.command('clone', [['-c', 'core.autocrlf=false'], ['-c', '.x.y=1'], { operand: 'source' }]);
+// A word that may be the tag shorthand consumes the next word, so it stays a runtime check.
+const pushWord: string = String(Date.now());
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: pushWord }, { operand: 'a:b' }]);
