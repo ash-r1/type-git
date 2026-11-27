@@ -42110,6 +42110,110 @@
       },
       "transitions": [
         {
+          "flag": "--strategy",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
+          "flag": "-s",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
           "flag": "--file",
           "rules": [
             "merge.message-file-nonempty"

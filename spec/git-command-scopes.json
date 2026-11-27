@@ -3773,12 +3773,52 @@
       "--strategy": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "-s": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "--file": {
         "key": "file",

@@ -33,4 +33,30 @@ describe('merge completion closure corpus', () => {
     }
     expect(mismatches).toEqual([]);
   });
+
+  it('refuses a second custom strategy before a later help word', () => {
+    // Git 2.55.0 with git-merge-bogus on PATH: the -s callback resolves each name in order, so
+    // the second custom name exits 1 before -h; help reached first exits 129 with usage.
+    const refused = (tokens: unknown[]) => {
+      try {
+        commandArguments('merge', tokens as never, true);
+        return false;
+      } catch (error) {
+        if (error instanceof GitArgumentError) {
+          return true;
+        }
+        throw error;
+      }
+    };
+    expect(refused([['-s', 'bogus'], ['--strategy', 'bogus'], ['-h']])).toBe(true);
+    expect(
+      refused([
+        ['-s', 'bogus'],
+        ['-s', 'bogus'],
+      ]),
+    ).toBe(true);
+    expect(refused([['-s', 'bogus'], ['-h'], ['-s', 'bogus']])).toBe(false);
+    expect(refused([['-s', 'ours'], ['-s', 'bogus'], ['-h']])).toBe(false);
+    expect(refused([['-h'], ['-s', 'bogus'], ['-s', 'bogus']])).toBe(false);
+  });
 });
