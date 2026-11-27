@@ -989,6 +989,198 @@
           "references": []
         }
       }
+    },
+    "builtin/reset.c": {
+      "sha256": "5074de60017cb736fda6aa96a2544f0d21234441ea029e1ba9f255fe029ece51",
+      "functions": {
+        "cmd_reset": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "line": 393
+            },
+            {
+              "call": "die",
+              "text": "'%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "line": 396
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "line": 402
+            },
+            {
+              "call": "die",
+              "text": "Failed to resolve '%s' as a valid revision.",
+              "line": 413
+            },
+            {
+              "call": "die",
+              "text": "Could not parse object '%s'.",
+              "line": 416
+            },
+            {
+              "call": "die",
+              "text": "Failed to resolve '%s' as a valid tree.",
+              "line": 421
+            },
+            {
+              "call": "die",
+              "text": "Could not parse object '%s'.",
+              "line": 424
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 429
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 431
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--patch, --{hard,mixed,soft}]",
+              "line": 438
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --patch]",
+              "line": 445
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "line": 447
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "line": 449
+            },
+            {
+              "call": "die",
+              "text": "Cannot do %s reset with paths.",
+              "line": 459
+            },
+            {
+              "call": "die",
+              "text": "%s reset is not allowed in a bare repository",
+              "line": 474
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [-N, --mixed]",
+              "line": 478
+            },
+            {
+              "call": "die",
+              "text": "index file corrupt",
+              "line": 481
+            },
+            {
+              "call": "die",
+              "text": "Could not reset index file to revision '%s'.",
+              "line": 526
+            },
+            {
+              "call": "die",
+              "text": "Could not write new index file.",
+              "line": 531
+            }
+          ],
+          "references": [
+            "die_if_unmerged_cache",
+            "git_reset_config",
+            "parse_args",
+            "print_new_head_line",
+            "read_from_tree",
+            "reset_index",
+            "reset_refs"
+          ]
+        },
+        "die_if_unmerged_cache": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Cannot do a %s reset in the middle of a merge.",
+              "line": 242
+            }
+          ],
+          "references": [
+            "is_merge"
+          ]
+        },
+        "git_reset_config": {
+          "sites": [],
+          "references": []
+        },
+        "is_merge": {
+          "sites": [],
+          "references": []
+        },
+        "parse_args": {
+          "sites": [],
+          "references": []
+        },
+        "print_new_head_line": {
+          "sites": [],
+          "references": []
+        },
+        "read_from_tree": {
+          "sites": [],
+          "references": [
+            "update_index_from_diff"
+          ]
+        },
+        "reset_index": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "You do not have a valid HEAD.",
+              "line": 104
+            },
+            {
+              "call": "error",
+              "text": "Failed to find tree of HEAD.",
+              "line": 106
+            },
+            {
+              "call": "error",
+              "text": "Failed to find tree of %s.",
+              "line": 112
+            },
+            {
+              "call": "error",
+              "text": "unable to read tree (%s)",
+              "line": 123
+            }
+          ],
+          "references": []
+        },
+        "reset_refs": {
+          "sites": [],
+          "references": [
+            "set_reflog_message"
+          ]
+        },
+        "set_reflog_message": {
+          "sites": [],
+          "references": []
+        },
+        "update_index_from_diff": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "make_cache_entry failed for path '%s'",
+              "line": 186
+            }
+          ],
+          "references": []
+        }
+      }
     }
   }
 }

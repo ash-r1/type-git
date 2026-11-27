@@ -3045,7 +3045,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (target) {
-      args.push(checkedOperand('reset', 'target', target));
+      // A trailing separator makes parse_args take the target as a revision even when a path
+      // of the same name exists, and it keeps a pathspec file from meeting a command-line path.
+      args.push(checkedOperand('reset', 'target', target), '--');
     }
 
     await this.runner.runOrThrow(this.context, args, {

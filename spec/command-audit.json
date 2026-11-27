@@ -86,7 +86,7 @@
       "typedCommandAPI": true
     },
     "reset": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "reset"
       ],
@@ -119,10 +119,378 @@
         "test/types/reset-path-arity-corpus.ts",
         "scripts/reset-path-arity-corpus.mjs",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/reset-closure-corpus.mjs",
+        "src/commands/reset-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Guaranteed path arity without a recognized separator is now source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. Single-word ref/path ambiguity and pathspec-file content remain native.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "notes": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled; reset recognizes -- only at retained index 0 or 1. Guaranteed path arity without a recognized separator is source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. The closure corpus runs every case in a fresh repository and counts a refusal as state-dependent only when the same argv shape is accepted with path and revision operands swapped or with an empty pathspec file; the wrapper must accept exactly the argv that some such state accepts. --no-pathspec-from-file does not clear an earlier --pathspec-from-file (OPTION_FILENAME ignores unset), which the strict API already reproduces. repo.reset passes its target followed by -- so that a path with the same name cannot turn it into a pathspec.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-reset-corpus-1.ts",
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts",
+          "test/fixtures/reset-path-arity-corpus.json",
+          "src/commands/reset-path-arity.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/reset-closure-corpus.test.ts",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/high-level-api.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/reset-closure-corpus.mjs",
+          "scripts/checkout-parser-corpus.mjs",
+          "scripts/reset-path-arity-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/checkout-parser-reset-corpus-1.ts",
+          "test/types/reset-path-arity-corpus.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_reset",
+        "sources": {
+          "builtin/reset.c": [
+            "cmd_reset",
+            "die_if_unmerged_cache",
+            "git_reset_config",
+            "is_merge",
+            "parse_args",
+            "print_new_head_line",
+            "read_from_tree",
+            "reset_index",
+            "reset_refs",
+            "set_reflog_message",
+            "update_index_from_diff"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "pathspec-file-patch",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A pathspec file is refused in patch mode (reset-file-patch); --no-pathspec-from-file does not clear an earlier file.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-paths",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "A pathspec file is refused with command-line paths: any word after a recognized separator, and any word after the first when there is none (reset-file-paths, reset-unseparated-file-paths). Whether a single unseparated word is a path is covered by the rev-or-path obligation.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/fixtures/reset-path-arity-corpus.json",
+              "src/commands/reset-path-arity.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-nul",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "--pathspec-file-nul requires a pathspec file (reset-file-nul).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "revision-resolution",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: Failed to resolve '%s' as a valid revision.",
+              "cmd_reset: Could not parse object '%s'.",
+              "cmd_reset: Failed to resolve '%s' as a valid tree."
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The revision must name a commit, or a tree when paths or patch mode are given; an empty word never resolves and is refused by cli.reset.empty-operand.",
+            "reason": "Revisions resolve against the object database at runtime."
+          },
+          {
+            "id": "context-range",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: '%s' cannot be negative [--unified]",
+              "cmd_reset: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "-U/--unified and --inter-hunk-context accept -1 (unset) or more (reset-unified-range, reset-inter-hunk-context-range).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "patch-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: options '%s' and '%s' cannot be used together [--patch, --{hard,mixed,soft}]"
+            ],
+            "disposition": "modeled",
+            "summary": "Patch mode refuses any explicit mode, mixed included (reset-patch-mode).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "patch-only-options",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [--unified, --patch]",
+              "cmd_reset: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "cmd_reset: the option '%s' requires '%s' [--no-auto-advance, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A context other than -1 and --no-auto-advance require patch mode (reset-unified-patch, reset-inter-hunk-context-patch, reset-auto-advance).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "paths-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: Cannot do %s reset with paths."
+            ],
+            "disposition": "modeled",
+            "summary": "Soft, hard, merge and keep resets refuse explicit paths (reset-paths-mode, reset-unseparated-paths-mode). Paths read from a pathspec file are covered by the pathspec-file-content obligation, and a single unseparated word by rev-or-path.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "intent-to-add-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [-N, --mixed]"
+            ],
+            "disposition": "modeled",
+            "summary": "-N requires the default or explicit mixed mode (reset-intent-mode); repo.reset refuses intentToAdd with another mode (reset.intent-to-add-mode).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "bare-repository",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: %s reset is not allowed in a bare repository"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "A mixed reset is refused in a bare repository; hard, merge and keep need a work tree (setup_work_tree).",
+            "reason": "Whether the repository is bare is known only at runtime."
+          },
+          {
+            "id": "index-state",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: index file corrupt",
+              "cmd_reset: Could not reset index file to revision '%s'.",
+              "cmd_reset: Could not write new index file.",
+              "die_if_unmerged_cache: Cannot do a %s reset in the middle of a merge.",
+              "reset_index: You do not have a valid HEAD.",
+              "reset_index: Failed to find tree of HEAD.",
+              "reset_index: Failed to find tree of %s.",
+              "reset_index: unable to read tree (%s)",
+              "update_index_from_diff: make_cache_entry failed for path '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Index reading, locking and writing, unmerged entries or an in-progress merge for soft and keep resets, and trees that cannot be read.",
+            "reason": "The index, HEAD and merge state are read at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the reset table with PARSE_OPT_KEEP_DASHDASH: long prefixes and negations, short clusters, optional-argument attachment, takes-no-value and unknown-option errors, a kept first separator and help timing.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "test/types/checkout-parser-reset-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for modes crossed with every modifier and fourteen operand shapes, modifier pairs with no operand or HEAD, mode pairs with every operand shape and mode-modifier-modifier triples before a path (6,370 real resets). Only acceptance is compared; the typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "mode-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "The mode is the last of --soft, --mixed, --hard, --merge and --keep (OPT_SET_INT_F with PARSE_OPT_NONEG); repo.reset accepts the same five names.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules takes an optional Git boolean (option_parse_recurse_submodules_worktree_updater, parse_update_recurse in submodule-config.c); check and other words are refused.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts"
+            ]
+          },
+          {
+            "id": "integer-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-U/--unified and --inter-hunk-context take OPT_INTEGER values with Git's lexical rules.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-content",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "Whether a pathspec file yields paths, and so whether a non-mixed reset with it is refused with paths.",
+            "reason": "The file is read at runtime; an empty file yields no paths."
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty word is refused anywhere: as the first unseparated word by verify_filename, as a path by parse_pathspec, and as a revision by resolution (cli.reset.empty-operand).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "rev-or-path",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Without a separator at retained index 0 or 1, a single word is a revision when it names a commit and otherwise must be an existing path (verify_filename), and the first of several words is a revision when it names a tree (verify_non_filename refuses a word that is also a path). repo.reset passes its target followed by -- so it is always a revision.",
+            "reason": "Which words name objects and which name paths is known only at runtime."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS inherited at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Pathspecs outside the repository.",
+            "reason": "parse_pathspec refuses paths outside the repository relative to the runtime prefix."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "submodule.recurse and core settings set defaults that argv can override, and invalid configuration values are refused.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "unborn-head",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "On an unborn branch HEAD resets to the empty tree; ORIG_HEAD and branch state are updated from the repository.",
+            "reason": "HEAD is read at runtime."
+          },
+          {
+            "id": "patch-terminal",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "Patch mode reads hunk selections interactively.",
+            "reason": "The answers come from standard input at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Pathspec case folding and Windows command-line encoding of operands.",
+            "reason": "Both are decided by the filesystem and platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash push": {
       "state": "partial",

@@ -25302,6 +25302,9 @@ const commandSpec36 = {
 } as const satisfies CommandSpec;
 const commandSpec37 = {
   argv: ['reset'],
+  initial: {
+    'empty-pathspec': '',
+  },
   options: {
     '--quiet': sharedOption48,
     '-q': sharedOption48,
@@ -25578,6 +25581,15 @@ const commandSpec37 = {
           test: 'present',
         },
       ],
+    },
+    {
+      id: 'cli.reset.empty-operand',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'Git 2.55.0 builtin/reset.c:parse_args; pathspec.c:init_pathspec_item',
+      reason:
+        'An empty word is never a revision. As the first retained word without a recognized separator, verify_filename refuses it as ambiguous; after the revision or a separator, parse_pathspec refuses it as an empty pathspec; as the revision before a separator it cannot resolve.',
+      when: sharedPredicates13,
     },
   ],
   source: 'builtin/reset.c',

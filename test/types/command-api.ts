@@ -250,6 +250,13 @@ git.command('reset', [['--mixed'], ['--patch']]);
 git.command('reset', [{ operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
 // @ts-expect-error A late marker cannot remove paths from a hard reset.
 git.command('reset', [['--hard'], { operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error An empty reset path is not a valid pathspec.
+git.command('reset', [['--'], { operand: '' }]);
+// @ts-expect-error An empty reset word is never a revision, even before a separator.
+git.command('reset', [{ operand: '' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error An empty single reset word is ambiguous whatever the repository holds.
+git.command('reset', [{ operand: '' }]);
+git.command('reset', [{ operand: 'HEAD' }, ['--'], { operand: 'file' }]);
 // @ts-expect-error Explicit path mode cannot create a branch.
 git.command('checkout', [['-b', 'new'], ['--'], { operand: 'file' }]);
 git.command('tag', [['--list'], ['--list']]);
