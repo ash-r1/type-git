@@ -2625,8 +2625,8 @@
       ]
     },
     "total": "10294556604732450",
-    "accepted": "257753835646848",
-    "nodes": 1379,
+    "accepted": "302580586389888",
+    "nodes": 1233,
     "isolatedRuleWitnesses": {
       "rebase.action-alone": "{\"skip\":true,\"verbose\":true}",
       "rebase.backend": "{\"apply\":true,\"updateRefs\":true}",
@@ -2635,8 +2635,7 @@
       "rebase.unsupported": "{\"interactive\":false}",
       "rebase.root-forkPoint": "{\"forkPoint\":true,\"root\":true}",
       "rebase.whitespace-value": "{\"whitespace\":\"value\"}",
-      "rebase.empty-value": null,
-      "rebase.root-upstream": "{\"root\":true,\"upstream\":\"\"}"
+      "rebase.empty-value": null
     }
   },
   {

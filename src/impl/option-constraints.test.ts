@@ -287,14 +287,16 @@ describe('option constraints against independent Git executions', () => {
     await expect(repo.rebase({ abort: true, quiet: true })).rejects.toBeInstanceOf(
       GitArgumentError,
     );
-    // check_exec_cmd refuses a command with a newline, and an empty one in a list.
-    await expect(repo.rebase({ upstream: 'main', exec: 'a\nb' })).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
+    // check_exec_cmd refuses a command with a newline, a blank one, and an empty one in a list.
+    for (const exec of ['a\nb', ' \t']) {
+      await expect(repo.rebase({ upstream: 'main', exec })).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
+    }
     await expect(
       repo.rebase({ upstream: 'main', exec: ['true', ''] } as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
-    for (const exec of ['', 'a\nb']) {
+    for (const exec of ['', 'a\nb', ' \t']) {
       expect(raw(['-C', repo.workdir, 'rebase', '--exec', exec, 'main']).status).not.toBe(0);
     }
     await expect(

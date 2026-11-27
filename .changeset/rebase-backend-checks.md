@@ -7,8 +7,7 @@
 - `abort`, `continue` or `skip` together with any other option (Git prints usage);
 - `apply` or `whitespace` together with an option that selects or requires the merge backend (`strategy`, `strategyOption`, `exec`, `rebaseMerges`, `updateRefs: true`, `autosquash: true`, `empty`, `rescheduleFailedExec: true`), with `root` without `onto`, with `reapplyCherryPicks` without `keepBase`, and `whitespace` with `ignoreWhitespace` unless `apply` is set;
 - a `whitespace` value other than `nowarn`, `warn`, `error`, `error-all`, `fix` or `strip`;
-- an `exec` command that contains a newline or, in a list, is empty;
-- `root` together with `upstream`, which Git would take as the branch to rebase.
+- an `exec` command that contains a newline or is blank.
 
 `empty` now also accepts `'stop'`, the current name of the deprecated `'ask'`.
 

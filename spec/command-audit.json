@@ -3034,7 +3034,7 @@
             "kind": "operands",
             "disposition": "delegated",
             "basis": "object-resolution",
-            "summary": "The upstream (- means @{-1}), the branch and --onto resolve to commits; with --root the only operand is the branch, which repo.rebase refuses to fill from upstream (rebase.root-upstream).",
+            "summary": "The upstream (- means @{-1}), the branch and --onto resolve to commits; with --root the only operand is the branch, which repo.rebase fills from upstream.",
             "reason": "Names resolve against refs and the object database at runtime."
           },
           {

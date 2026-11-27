@@ -1725,15 +1725,6 @@ export const COMMAND_CONSTRAINTS = {
       reason: 'parse_empty_value accepts drop, keep, stop and the deprecated ask.',
       source: git('builtin/rebase.c'),
     },
-    {
-      id: 'rebase.root-upstream',
-      kind: 'exclusive',
-      keys: ['root', 'upstream'],
-      origin: 'type-git',
-      reason:
-        'With --root the only operand Git accepts is the branch to rebase, so an upstream would be taken as that branch.',
-      source: git('builtin/rebase.c'),
-    },
   ],
   restore: [
     {

@@ -3827,8 +3827,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.exec) {
       const execs: readonly unknown[] = Array.isArray(opts.exec) ? opts.exec : [opts.exec];
       for (const cmd of execs) {
-        // check_exec_cmd refuses an empty command and one that spans lines.
-        if (typeof cmd !== 'string' || cmd.length === 0 || cmd.includes('\n')) {
+        // check_exec_cmd refuses a blank command (only " \t\r\f\v") and one that spans lines.
+        if (typeof cmd !== 'string' || /^[ \t\r\f\v]*$/.test(cmd) || cmd.includes('\n')) {
           throw new GitArgumentError(
             'rebase: exec must be a nonempty command without newlines [rebase.exec-command]',
           );
