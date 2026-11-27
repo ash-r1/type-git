@@ -20817,6 +20817,266 @@
       "command": "add",
       "tokens": [
         [
+          "--chmod",
+          "x"
+        ],
+        [
+          "--no-chmod"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=x",
+        "--no-chmod"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-chmod"
+        ],
+        [
+          "--chmod",
+          "x"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-chmod",
+        "--chmod=x"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --chmod param 'x' must be either -x or +x"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-n"
+        ],
+        [
+          "--no-dry-run"
+        ],
+        [
+          "--ignore-missing"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-n",
+        "--no-dry-run",
+        "--ignore-missing"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--ignore-missing"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "--no-dry-run"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--ignore-missing",
+        "-n",
+        "--no-dry-run"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--ignore-missing' requires '--dry-run'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-i"
+        ],
+        [
+          "--no-interactive"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-i",
+        "--no-interactive",
+        "--unified=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--no-patch"
+        ],
+        [
+          "--no-auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--no-patch",
+        "--no-auto-advance"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--no-auto-advance' requires '--interactive/--patch'"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-p"
+        ],
+        [
+          "--no-patch"
+        ],
+        [
+          "-n"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-p",
+        "--no-patch",
+        "-n"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--no-auto-advance"
+        ],
+        [
+          "--auto-advance"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--no-auto-advance",
+        "--auto-advance"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--no-pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--pathspec-file-nul",
+        "--no-pathspec-file-nul"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-A"
+        ],
+        [
+          "--no-update"
+        ],
+        [
+          "-u"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-A",
+        "--no-update",
+        "-u"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '-A' and '-u' cannot be used together"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-u"
+        ],
+        [
+          "--no-update"
+        ],
+        [
+          "-A"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-u",
+        "--no-update",
+        "-A"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--unified",
+          "1k"
+        ],
+        [
+          "-p"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--unified=1k",
+        "-p"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
           "--"
         ],
         {

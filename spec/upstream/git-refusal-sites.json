@@ -169,6 +169,10 @@
           ],
           "references": []
         },
+        "ignore_removal_cb": {
+          "sites": [],
+          "references": []
+        },
         "interactive_add": {
           "sites": [],
           "references": []
