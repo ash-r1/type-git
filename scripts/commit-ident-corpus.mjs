@@ -23,6 +23,8 @@ const env = {
   GIT_CONFIG_COUNT: '0',
   LC_ALL: 'C',
   TZ: 'UTC',
+  // date.c:get_time reads the clock from here, so relative dates are reproducible.
+  GIT_TEST_DATE_NOW: String(Date.UTC(2026, 10, 1) / 1000),
   GIT_PAGER: 'cat',
   GIT_EDITOR: 'true',
   GIT_AUTHOR_NAME: 'Test',
@@ -58,13 +60,15 @@ const AUTHORS = [
 ];
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const WORDS = ['yesterday', 'noon', 'midnight', 'tea', 'pm', 'am', 'never', 'now', 'today', 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'last', 'seconds', 'second', 'minutes', 'hours', 'days', 'weeks', 'months', 'years', 'year', 'sunday', 'fridays', 'fri', 'ago'];
-const NUMBER_WORDS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'last'];
+// date.c special[] (never excluded), number_name[1..10] and last.
+const TOUCHING = ['yesterday', 'noon', 'midnight', 'tea', 'pm', 'am', 'now', 'today', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'last'];
 const DATES = [
   '', ' ', 'x', '-', '@', 'é', '日本', 'jan.', '.jan', 'x jan', 'jan,x', 'janx', 'Jan', 'JAN', 'friday last', 'last friday', 'ten years', 'noon x', 'x-now',
   'jan never', 'never today', 'today never', 'never noon', 'last never', 'never-yesterday', 'nevers', 'é never',
   'never ten years', 'never one year', 'never last friday', 'never yesterday', 'never ten days', 'never ten years ten years', 'never ten months',
   'never ten hours', 'never ten weeks', 'never one second', 'never friday', 'never last year', 'never noon yesterday', 'never ten', 'never pm',
   Array(8).fill('ten years').join(' ').replace(/^/, 'never '),
+  `never${' jan yesterday'.repeat(70)}`, `never${' jan yesterday'.repeat(71)}`,
   '1', 'x1', '1x', '@1', '2005-04-07T22:13:13', 'Thu, 07 Apr 2005 22:13:13 +0200', '@1112911993 +0200', '1112911993', '1.year.ago', '1971', '200 years ago',
   ...ascii,
   ...MONTHS.flatMap((month) => [month.slice(0, 2), month.slice(0, 3), month, `${month}x`, month.toUpperCase()]),
@@ -87,10 +91,13 @@ try {
     const valid = (result.status === 0 || (dryRun && result.status === 1)) && !diagnostic;
     const state = !valid && NICKNAME.test(diagnostic);
     // ident.c re-parses the '@<seconds>' that approxidate computed from the clock and time zone.
-    // Only text with a digit, or "never" with a number word, reaches that arithmetic; other
-    // digit-free refusals are modeled.
+    // Only text with a digit, or "never" followed by a word that touches (date_never resets every
+    // field, so only later words can move the result), reaches that arithmetic; other digit-free
+    // refusals are modeled.
     const words = (value.match(/[A-Za-z]+/g) ?? []).map((word) => word.toLowerCase());
-    const arithmetic = /[0-9]/.test(value) || (words.includes('never') && words.some((word) => NUMBER_WORDS.includes(word)));
+    const touches = (word) => TOUCHING.includes(word) || (word.length >= 3 && MONTHS.some((month) => month.startsWith(word)));
+    const never = words.lastIndexOf('never');
+    const arithmetic = /[0-9]/.test(value) || (never >= 0 && words.slice(never + 1).some(touches));
     const environment =
       !valid && option === '--date' && arithmetic && DATE_RANGE.test(diagnostic) && diagnostic !== `fatal: invalid date format: ${value}`;
     // die() prints control characters as '?', so the value itself is not matched.
@@ -109,7 +116,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; TZ=UTC; isolated repository reset to its seed commit before every case; real empty commits and dry runs with --author or --date; empty file-backed stdin',
+        'Git 2.55.0; TZ=UTC; clock GIT_TEST_DATE_NOW=2026-11-01T00:00:00Z; isolated repository reset to its seed commit before every case; real empty commits and dry runs with --author or --date; empty file-backed stdin',
       cases,
     },
     null,

@@ -62,7 +62,7 @@ const MONTHS: readonly string[] = [
 ];
 /**
  * date.c special[], number_name[1..10] and "last": whole words, ASCII case-insensitive. "never"
- * touches too, but is refused separately below.
+ * touches too, but resets every field, so it is handled separately below.
  */
 const NUMBERS: ReadonlySet<string> = new Set([
   'one',
@@ -96,11 +96,13 @@ const WORDS: ReadonlySet<string> = new Set([
  * fail. Its words are runs of ASCII letters (sane_ctype; bytes >= 0x80 separate words); a word
  * touches when it is a month prefix of at least three letters, a special word, one to ten or
  * "last". Units, weekdays, "months" and "years" touch only after a number, which has already
- * touched. date_never sets every field to the epoch; without a number word, the remaining
- * digit-free words only keep fields that are already set or move back in time, so such a value
- * yields seconds below 100000000, which ident.c refuses in every clock and time zone. With a
- * number word, repeated units can wrap tm_year past 1973 (eight "ten years" after "never"
- * reach 2026), which is clock arithmetic left to Git like the digit case.
+ * touched. date_never ("never", a special word) overwrites every field with the epoch and
+ * clears the pending number, and a word that does not touch changes nothing, so when no word
+ * after the last "never" touches, the value yields seconds below 100000000, which ident.c
+ * refuses in every clock and time zone. Any touching word after it can move the date, and
+ * repeated moves can wrap tm_year past 1973 depending on the clock (eight "ten years", or with
+ * the clock at 2026-11-01 seventy-one "jan yesterday"), which is left to Git like the digit
+ * case.
  */
 export function validCommitDate(value: unknown): boolean {
   if (typeof value !== 'string') {
@@ -110,12 +112,8 @@ export function validCommitDate(value: unknown): boolean {
     return true;
   }
   const words = (value.match(ASCII_WORDS) ?? []).map((word) => word.toLowerCase());
-  if (words.includes('never')) {
-    return words.some((lower) => NUMBERS.has(lower));
-  }
-  return words.some((lower) => {
-    return (
-      WORDS.has(lower) || (lower.length >= 3 && MONTHS.some((month) => month.startsWith(lower)))
-    );
-  });
+  const touches = (lower: string): boolean =>
+    WORDS.has(lower) || (lower.length >= 3 && MONTHS.some((month) => month.startsWith(lower)));
+  const never = words.lastIndexOf('never');
+  return never < 0 ? words.some(touches) : words.slice(never + 1).some(touches);
 }

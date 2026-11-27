@@ -45,7 +45,9 @@ describe('commit author and date corpus', () => {
     for (const row of corpus.cases) {
       const [option, text] = value(row);
       // repo.commit skips an empty author or date instead of passing it to Git.
-      if (text === '') {
+      // repo.commit refuses dryRun itself (commit.unsupported), so dry-run rows only witness the
+      // strict API.
+      if (text === '' || row.argv.includes('--dry-run')) {
         continue;
       }
       const opts = {
@@ -79,8 +81,15 @@ describe('commit author and date corpus', () => {
     ).toThrow('[commit.date]');
   });
 
-  it('refuses digit-free dates with never and no number word, which yield seconds before 1973', () => {
-    for (const date of ['never', 'NEVER', 'jan never', 'never today', 'never noon yesterday']) {
+  it('refuses digit-free dates where no word after never touches, which yield seconds before 1973', () => {
+    for (const date of [
+      'never',
+      'NEVER',
+      'jan never',
+      'today never',
+      'last never',
+      'never friday',
+    ]) {
       expect(() => commandArguments('commit', [['--date', date]], true), date).toThrow(
         '[cli.commit.date]',
       );
@@ -89,11 +98,16 @@ describe('commit author and date corpus', () => {
       'commit',
       '--date=nevers jan',
     ]);
-    // Repeated units after a number word can wrap the year past 1973, so Git decides.
-    const wrapped = `never ${Array(8).fill('ten years').join(' ')}`;
-    expect(commandArguments('commit', [['--date', wrapped]], true)).toEqual([
-      'commit',
-      `--date=${wrapped}`,
-    ]);
+    // Repeated moves after never can wrap the year past 1973, depending on the clock, so Git decides.
+    for (const wrapped of [
+      `never ${Array(8).fill('ten years').join(' ')}`,
+      `never${' jan yesterday'.repeat(71)}`,
+      'never today',
+    ]) {
+      expect(commandArguments('commit', [['--date', wrapped]], true)).toEqual([
+        'commit',
+        `--date=${wrapped}`,
+      ]);
+    }
   });
 });

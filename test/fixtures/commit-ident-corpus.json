@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; TZ=UTC; isolated repository reset to its seed commit before every case; real empty commits and dry runs with --author or --date; empty file-backed stdin",
+  "profile": "Git 2.55.0; TZ=UTC; clock GIT_TEST_DATE_NOW=2026-11-01T00:00:00Z; isolated repository reset to its seed commit before every case; real empty commits and dry runs with --author or --date; empty file-backed stdin",
   "cases": [
     {
       "command": "commit",
@@ -8341,7 +8341,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8397,7 +8397,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8425,7 +8425,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": true,
+      "environment": false,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8453,7 +8453,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8621,7 +8621,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8873,7 +8873,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8929,7 +8929,7 @@
       ],
       "valid": false,
       "state": false,
-      "environment": false,
+      "environment": true,
       "status": 128,
       "diagnostic": "fatal: invalid date format: @<seconds>"
     },
@@ -8954,6 +8954,62 @@
         "-m",
         "msg",
         "--date=never ten years ten years ten years ten years ten years ten years ten years ten years"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
+      ],
+      "valid": false,
+      "state": false,
+      "environment": true,
+      "status": 128,
+      "diagnostic": "fatal: invalid date format: @<seconds>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
       ],
       "valid": true,
       "state": false,
@@ -27453,6 +27509,70 @@
         "-m",
         "msg",
         "--date=never ten years ten years ten years ten years ten years ten years ten years ten years",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday",
+        "--dry-run"
+      ],
+      "valid": true,
+      "state": false,
+      "environment": false,
+      "status": 1,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--allow-empty"
+        ],
+        [
+          "-m",
+          "msg"
+        ],
+        [
+          "--date",
+          "never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--allow-empty",
+        "-m",
+        "msg",
+        "--date=never jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday jan yesterday",
         "--dry-run"
       ],
       "valid": true,
