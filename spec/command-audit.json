@@ -4134,10 +4134,11 @@
         "src/commands/reference-full-help.test.ts",
         "test/types/reference-full-help.ts",
         "scripts/branch-closure-corpus.mjs",
-        "src/commands/branch-closure-corpus.test.ts"
+        "src/commands/branch-closure-corpus.test.ts",
+        "src/commands/branch-name-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open. The closure leaves two obligations open: the --format/--sort ref-filter grammar and the branch name syntax. repo.branch.create with setUpstreamTo creates the branch first and sets its upstream with a second command, because --set-upstream-to is a separate action that Git refuses or applies to an existing branch when combined with a name.",
+      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open. The closure leaves one obligation open: the --format/--sort ref-filter grammar. New branch names are checked against refs.c:check_branch_ref in the strict API and in repo.branch.create and repo.branch.rename. repo.branch.create with setUpstreamTo creates the branch first and sets its upstream with a second command, because --set-upstream-to is a separate action that Git refuses or applies to an existing branch when combined with a name.",
       "evidence": {
         "option-grammar": [
           "test/fixtures/reference-parser-corpus.json",
@@ -4147,7 +4148,9 @@
         ],
         "operand-grammar": [
           "test/fixtures/branch-closure-corpus.json",
-          "src/commands/branch-closure-corpus.test.ts"
+          "src/commands/branch-closure-corpus.test.ts",
+          "test/fixtures/branch-name-corpus.json",
+          "src/commands/branch-name-corpus.test.ts"
         ],
         "combination-rules": [
           "test/fixtures/branch-closure-corpus.json",
@@ -4160,7 +4163,8 @@
         ],
         "independent-git-tests": [
           "scripts/branch-closure-corpus.mjs",
-          "scripts/reference-parser-corpus.mjs"
+          "scripts/reference-parser-corpus.mjs",
+          "scripts/branch-name-corpus.mjs"
         ],
         "compiler-tests": [
           "test/types/reference-parser-branch-corpus-1.ts",
@@ -4488,9 +4492,16 @@
           {
             "id": "branch-name-syntax",
             "kind": "values",
-            "disposition": "open",
-            "summary": "New branch names (and rename or copy targets) must pass check_refname_format after @{-N} and @ interpretation (branch.c validate_new_branchname).",
-            "reason": "Ref name syntax is not yet modeled; the strict API accepts names such as 'a..b' that Git refuses."
+            "disposition": "modeled",
+            "summary": "New branch names (creation, and the -m/-M/-c/-C target, which is the sole operand or the second) must pass refs.c:check_branch_ref: no leading '-', not HEAD, and check_refname_format on refs/heads/<name> (branch-create-name, branch-{move,M,copy,C}-new-name, branch-{move,M,copy,C}-sole-new-name; parser branch-name in types and at runtime; repo.branch.create and repo.branch.rename at runtime). A leading @{-N} (N a positive strtol decimal) or an @{u}, @{upstream} or @{push} mark not preceded by ':' is rewritten from the reflog or configuration first, so those names are left to native Git unless the literal text after the last rewritable part, or a ':', makes every rewrite invalid; any other '@{' is refused.",
+            "evidence": [
+              "src/constraints/refname.ts",
+              "src/constraints/refname-types.ts",
+              "scripts/branch-name-corpus.mjs",
+              "test/fixtures/branch-name-corpus.json",
+              "src/commands/branch-name-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
           },
           {
             "id": "object-names",

@@ -21088,6 +21088,170 @@ const commandSpec33 = {
       ],
     },
     {
+      id: 'branch-create-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      guard: sharedPredicates23,
+      origin: 'git',
+      reason:
+        "A new branch name must pass check_branch_ref: no leading '-', not HEAD, and check_refname_format on refs/heads/<name> (names that @{-N} or an @{upstream}/@{push} mark can rewrite are left to native Git).",
+      source:
+        'Git 2.55.0 builtin/branch.c:cmd_branch -> branch.c:create_branch/validate_new_branchname -> refs.c:check_branch_ref/check_refname_format',
+    },
+    {
+      id: 'branch-move-new-name',
+      kind: 'scalar',
+      key: 'operand1',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'move',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The rename or copy target must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-move-sole-new-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'move',
+          test: 'active',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A sole rename or copy operand is the target name and must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-M-new-name',
+      kind: 'scalar',
+      key: 'operand1',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'M',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The rename or copy target must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-M-sole-new-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'M',
+          test: 'active',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A sole rename or copy operand is the target name and must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-copy-new-name',
+      kind: 'scalar',
+      key: 'operand1',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'copy',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The rename or copy target must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-copy-sole-new-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'copy',
+          test: 'active',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A sole rename or copy operand is the target name and must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-C-new-name',
+      kind: 'scalar',
+      key: 'operand1',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'C',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The rename or copy target must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
+      id: 'branch-C-sole-new-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      guard: [
+        {
+          key: 'C',
+          test: 'active',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A sole rename or copy operand is the target name and must be a valid new branch name (check_branch_ref).',
+      source:
+        'Git 2.55.0 builtin/branch.c:copy_or_rename_branch -> branch.c:validate_branchname -> refs.c:check_branch_ref',
+    },
+    {
       id: 'cli.branch.column-verbose',
       kind: 'forbid',
       when: [

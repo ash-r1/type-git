@@ -160,6 +160,22 @@ describe('High-level API', () => {
       expect(branches.some((b) => b.name === 'feature')).toBe(false);
     });
 
+    it('refuses new branch names that check_refname_format rejects before running Git', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      for (const name of ['a..b', 'HEAD', 'x.lock', 'a b', 'a@{b']) {
+        await expect(repo.branch.create(name)).rejects.toThrow(GitArgumentError);
+      }
+      await repo.branch.create('topic');
+      await expect(repo.branch.rename('topic', 'bad/')).rejects.toThrow(GitArgumentError);
+      // Only the exact name HEAD is reserved.
+      await repo.branch.create('x/HEAD');
+      const branches = await repo.branch.list();
+      expect(branches.map((b) => b.name).sort()).toContain('x/HEAD');
+      expect(branches.some((b) => b.name === 'topic')).toBe(true);
+    });
+
     it('should delete a branch', async () => {
       const repoPath = join(tempDir, 'repo');
       const repo = await initRepoWithCommit(repoPath);

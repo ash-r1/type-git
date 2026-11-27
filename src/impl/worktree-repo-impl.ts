@@ -1,4 +1,4 @@
-import { checkedOperand, checkedOperands } from '../core/operands.js';
+import { checkedNewBranchName, checkedOperand, checkedOperands } from '../core/operands.js';
 import {
   type ExclusiveQuery,
   validateInput,
@@ -2085,6 +2085,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     args.push(checkedOperand('branch.create', 'name', name));
+    checkedNewBranchName('branch.create', 'name', name);
 
     if (opts?.startPoint) {
       args.push(checkedOperand('branch.create', 'startPoint', opts.startPoint));
@@ -2136,7 +2137,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         'branch',
         '-m',
         checkedOperand('branch.rename', 'oldName', oldName),
-        checkedOperand('branch.rename', 'newName', newName),
+        checkedNewBranchName(
+          'branch.rename',
+          'newName',
+          checkedOperand('branch.rename', 'newName', newName),
+        ),
       ],
       {
         signal: opts?.signal,
