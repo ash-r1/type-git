@@ -604,7 +604,13 @@ export type BranchCreateOpts = {
   track?: boolean;
 
   // New options
-  /** Set up upstream configuration for the new branch */
+  /**
+   * Set the upstream of the new branch after creating it. Git treats --set-upstream-to as a
+   * separate action, so this runs `git branch --set-upstream-to` as a second command. If that
+   * fails (for example because the upstream is not a branch), the branch has already been
+   * created, or with `force` an existing branch has already been reset. Cannot be combined
+   * with `recurseSubmodules`.
+   */
   setUpstreamTo?: string;
   /** Create the branch's reflog */
   createReflog?: boolean;

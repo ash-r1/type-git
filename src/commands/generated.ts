@@ -21079,6 +21079,25 @@ const commandSpec33 = {
         },
       ],
     },
+    {
+      id: 'cli.branch.column-verbose',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'column',
+          test: 'equals',
+          value: 'always',
+        },
+        {
+          key: 'verbose',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Explicitly enabled columns conflict with verbose listing. --column=auto depends on the terminal (or GIT_PAGER_IN_USE), which native Git decides; column.ui never triggers the conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+    },
   ],
   source: 'builtin/branch.c',
   separator: true,

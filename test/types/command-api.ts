@@ -192,6 +192,14 @@ git.command('branch', [['--contains', 'HEAD'], ['--no-list'], ['-D'], { operand:
 git.command('branch', [['-M'], ['-C'], { operand: 'new' }]);
 // @ts-expect-error Combined scope cannot delete branches.
 git.command('branch', [['-r'], ['-a'], ['-D'], { operand: 'old' }]);
+// @ts-expect-error Explicitly enabled columns conflict with verbose listing.
+git.command('branch', [['-v'], ['--column']]);
+// @ts-expect-error A layout word alone also enables columns.
+git.command('branch', [['--column', 'row'], ['--verbose']]);
+git.command('branch', [['-v'], ['--column', 'never']]);
+git.command('branch', [['-v'], ['--no-verbose'], ['--column']]);
+// Auto columns depend on the terminal and are left to native Git.
+git.command('branch', [['-v'], ['--column', 'auto']]);
 // @ts-expect-error Tracking callback rejects invalid values even if overwritten.
 git.command('branch', [['--track', 'bad'], ['--track', 'direct'], { operand: 'new' }]);
 git.command('switch', [['--create', 'new']]);

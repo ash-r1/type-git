@@ -11206,7 +11206,7 @@
           }
         }
       ],
-      "rules": 34,
+      "rules": 35,
       "domains": {
         "verbose": [
           "undefined",
@@ -11371,7 +11371,8 @@
           "\"value\"",
           "\"0b\"",
           "\"1kb\"",
-          "\"never\""
+          "\"never\"",
+          "\"always\""
         ],
         "sort": [
           "undefined",
@@ -11430,9 +11431,9 @@
           "true"
         ]
       },
-      "total": "799784658763776000000",
-      "accepted": "1170253322374348800",
-      "nodes": 2530,
+      "total": "933082101891072000000",
+      "accepted": "1267774432572211200",
+      "nodes": 3969,
       "isolatedRuleWitnesses": {
         "branch-actions": "{\"operands\":[],\"unset-upstream\":true,\"without\":\"\"}",
         "branch-delete-arity": "{\"delete\":true,\"operands\":[]}",
@@ -11467,7 +11468,8 @@
         "branch-delete-all-D": "{\"D\":true,\"operands\":[\"value\"],\"scope\":\"all\"}",
         "branch-create-arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
         "branch-create-scope": "{\"operands\":[\"value\"],\"scope\":\"remotes\"}",
-        "branch-create-track": "{\"operands\":[\"value\"],\"track\":\"override\"}"
+        "branch-create-track": "{\"operands\":[\"value\"],\"track\":\"override\"}",
+        "cli.branch.column-verbose": "{\"column\":\"always\",\"operands\":[],\"verbose\":[true]}"
       }
     },
     {

@@ -9,6 +9,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
+import { GitArgumentError } from '../core/types.js';
 import { createGit } from './git-impl.js';
 
 /**
@@ -130,6 +131,33 @@ describe('High-level API', () => {
       await repo.branch.create('feature');
       const branches = await repo.branch.list();
       expect(branches.some((b) => b.name === 'feature')).toBe(true);
+    });
+
+    it('creates a branch and then sets its upstream', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      const base = await repo.branch.current();
+      if (!base) {
+        throw new Error('expected a current branch');
+      }
+
+      // Git treats --set-upstream-to as its own action; one command would not create it.
+      await repo.branch.create('feature', { setUpstreamTo: base, startPoint: 'HEAD' });
+      const branches = await repo.branch.list();
+      expect(branches.some((b) => b.name === 'feature')).toBe(true);
+      const upstream = await repo.raw(['rev-parse', '--abbrev-ref', 'feature@{upstream}']);
+      expect(upstream.stdout.trim()).toBe(base);
+    });
+
+    it('refuses setUpstreamTo with recurseSubmodules before running Git', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      await expect(
+        repo.branch.create('feature', { setUpstreamTo: 'main', recurseSubmodules: true }),
+      ).rejects.toThrow(GitArgumentError);
+      const branches = await repo.branch.list();
+      expect(branches.some((b) => b.name === 'feature')).toBe(false);
     });
 
     it('should delete a branch', async () => {

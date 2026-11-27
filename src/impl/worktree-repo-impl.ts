@@ -2058,6 +2058,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   private async branchCreate(name: string, opts?: BranchCreateOpts & ExecOpts): Promise<void> {
     const args = ['branch'];
+    if (opts?.setUpstreamTo && opts.recurseSubmodules) {
+      // The upstream would be set in the superproject only, after creating the branch in
+      // every submodule; Git itself refuses --set-upstream-to with --recurse-submodules.
+      throw new GitArgumentError(
+        'branch.create: setUpstreamTo cannot be combined with recurseSubmodules',
+      );
+    }
 
     // Existing options
     if (opts?.force) {
@@ -2069,10 +2076,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     // New options
-    if (opts?.setUpstreamTo) {
-      args.push(`--set-upstream-to=${opts.setUpstreamTo}`);
-    }
-
     if (opts?.createReflog) {
       args.push('--create-reflog');
     }
@@ -2090,6 +2093,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
+
+    // --set-upstream-to is its own branch action: Git refuses it together with creation (with
+    // a start point) or treats the name as an existing branch, so it runs as a second command.
+    if (opts?.setUpstreamTo) {
+      await this.runner.runOrThrow(
+        this.context,
+        [
+          'branch',
+          `--set-upstream-to=${opts.setUpstreamTo}`,
+          checkedOperand('branch.create', 'name', name),
+        ],
+        { signal: opts?.signal },
+      );
+    }
   }
 
   private async branchDelete(name: string, opts?: BranchDeleteOpts & ExecOpts): Promise<void> {
