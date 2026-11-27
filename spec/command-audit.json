@@ -2013,7 +2013,7 @@
               "cmd_diff: exit diff_no_index(&rev, the_repository->hash_algo,\n\t\t\t\t   no_index == DIFF_NO_INDEX_IMPLICIT,\n\t\t\t\t   argc, argv)"
             ],
             "disposition": "delegated",
-            "summary": "An explicit --no-index found by the raw word scan before the first \"--\" is modeled as the separate diff --no-index scope (raw-word scans in test/fixtures/diff-parser-corpus.json); implicit dispatch outside a repository or for out-of-tree paths is left to Git.",
+            "summary": "An explicit --no-index found by the raw word scan, which stops at the first \"--\" and at the first word that does not start with \"-\", is modeled as the separate diff --no-index scope (raw-word scans in test/fixtures/diff-parser-corpus.json); implicit dispatch outside a repository or for out-of-tree paths is left to Git.",
             "basis": "repository-state",
             "reason": "Implicit no-index mode depends on whether a repository was found and whether the paths lie inside it."
           },
@@ -2104,7 +2104,7 @@
             "id": "date-values",
             "kind": "values",
             "disposition": "modeled",
-            "summary": "--since, --until, --max-age and --min-age with --cached and no revisions are refused (diff.cached-*), because Git prints usage for them. Under a timezone where a date text resolves to exactly the epoch sentinel Git accepts the option; the typed API refuses every date text here (a restriction).",
+            "summary": "With --cached and no revisions, Git prints usage when the final age filter is not its -1 default. A final --max-age or --min-age other than -1 is refused (diff.cached-max-age, diff.cached-min-age); a later --max-age=-1 or --min-age=-1 resets the filter, so --since=now --max-age=-1 is accepted. A final --since/--after or --until/--before date text is refused (diff.cached-since, diff.cached-until) even though, under a timezone where the text resolves to exactly the epoch sentinel, Git accepts it (a restriction).",
             "evidence": [
               "test/fixtures/diff-log-show-closure-corpus.json",
               "src/commands/diff-log-show-closure-corpus.test.ts",

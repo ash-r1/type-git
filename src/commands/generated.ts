@@ -34635,7 +34635,7 @@ const commandSpec70 = {
       source:
         'Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful',
       reason:
-        'The HEAD-by-hand diff-index branch rejects a final --until or --before date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=Asia/Tokyo). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
+        'The HEAD-by-hand diff-index branch rejects a final --until or --before date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
     },
     {
       id: 'diff.cached-since',
@@ -34660,7 +34660,7 @@ const commandSpec70 = {
       source:
         'Git 2.55.0 builtin/diff.c:cmd_diff/builtin_diff_index; revision.c:handle_revision_opt (--since, --after, --until, --before call approxidate); date.c:approxidate_careful',
       reason:
-        'The HEAD-by-hand diff-index branch rejects a final --since or --after date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=Asia/Tokyo). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
+        'The HEAD-by-hand diff-index branch rejects a final --since or --after date, because approxidate leaves the age filter at its -1 default only for a text that names one second before the epoch in the local time zone (for example 1970-01-01 08:59:59 under TZ=JST-9). That exception depends on the environment, so every date text is refused; -h exits first. Revision operands and pending-object options (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) select repository-dependent modes and are delegated.',
     },
     {
       id: 'diff.follow-without-path',

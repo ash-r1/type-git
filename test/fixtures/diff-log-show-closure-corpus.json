@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; one commit whose file a is 'a, b, c, f() {, d, }'; git log and git show with --format=%h. lineRanges: -L <value>, values crossing numeric, relative, /regex/ and ^ anchors with file suffixes, plus :funcname forms; values ending with a backslash are excluded (undefined native behavior). counts: single count options and ordered pairs, each without and with '-- missing'. ages: diff --cached with date and age filters, alone, with HEAD and with -h, under TZ=UTC and TZ=Asia/Tokyo. completion: git diff completion words in nine positions, and git diff --no-index completion words alone, before two paths and after another option. dash: git diff with a bare - in nine positions. Empty file-backed stdin",
+  "profile": "Git 2.55.0; one commit whose file a is 'a, b, c, f() {, d, }'; git log and git show with --format=%h. lineRanges: -L <value>, values crossing numeric, relative, /regex/ and ^ anchors with file suffixes, plus :funcname forms; values ending with a backslash are excluded (undefined native behavior). counts: single count options and ordered pairs, each without and with '-- missing'. ages: diff --cached with date and age filters, alone, with HEAD and with -h, under TZ=UTC and TZ=JST-9. completion: git diff completion words in nine positions, and git diff --no-index completion words alone, before two paths and after another option. dash: git diff with a bare - in nine positions. Empty file-backed stdin",
   "lineRanges": [
     {
       "command": "log",
@@ -46082,7 +46082,7 @@
         "--cached",
         "--since=2020-01-01"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46132,7 +46132,7 @@
         "--since=2020-01-01",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46182,7 +46182,7 @@
         "--since=2020-01-01",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46224,7 +46224,7 @@
         "--cached",
         "--after=garbage"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46274,7 +46274,7 @@
         "--after=garbage",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46324,7 +46324,7 @@
         "--after=garbage",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46366,7 +46366,7 @@
         "--cached",
         "--until="
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46416,7 +46416,7 @@
         "--until=",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46466,7 +46466,7 @@
         "--until=",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46508,7 +46508,7 @@
         "--cached",
         "--before=1970-01-01 08:59:59"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -46558,7 +46558,7 @@
         "--before=1970-01-01 08:59:59",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -46608,7 +46608,7 @@
         "--before=1970-01-01 08:59:59",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46650,7 +46650,7 @@
         "--cached",
         "--since=1970-01-01 08:59:59"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -46700,7 +46700,7 @@
         "--since=1970-01-01 08:59:59",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -46750,7 +46750,7 @@
         "--since=1970-01-01 08:59:59",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46792,7 +46792,7 @@
         "--cached",
         "--max-age=5"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46842,7 +46842,7 @@
         "--max-age=5",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46892,7 +46892,7 @@
         "--max-age=5",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -46934,7 +46934,7 @@
         "--cached",
         "--max-age=-1"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -46984,7 +46984,7 @@
         "--max-age=-1",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -47034,7 +47034,7 @@
         "--max-age=-1",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47076,7 +47076,7 @@
         "--cached",
         "--min-age=0"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47126,7 +47126,7 @@
         "--min-age=0",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47176,7 +47176,7 @@
         "--min-age=0",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47228,7 +47228,7 @@
         "--since=now",
         "--max-age=-1"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -47288,7 +47288,7 @@
         "--max-age=-1",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": true,
       "help": false,
       "diagnostic": ""
@@ -47348,7 +47348,7 @@
         "--max-age=-1",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47400,7 +47400,7 @@
         "--max-age=5",
         "--since=now"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47460,7 +47460,7 @@
         "--since=now",
         "HEAD"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"
@@ -47520,7 +47520,7 @@
         "--since=now",
         "-h"
       ],
-      "zone": "Asia/Tokyo",
+      "zone": "JST-9",
       "valid": false,
       "help": false,
       "diagnostic": "usage: git diff [<options>] [<commit>] [--] [<path>...]"

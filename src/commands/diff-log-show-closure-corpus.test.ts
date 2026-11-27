@@ -67,7 +67,7 @@ describe('git diff --cached without revisions against Git 2.55.0', () => {
           return !accepted;
         }
         if (row.zone !== 'UTC') {
-          // Under TZ=Asia/Tokyo one text names the second before the epoch and leaves the
+          // Under TZ=JST-9 one text names the second before the epoch and leaves the
           // filter at its default; the wrapper refuses date text in every zone.
           return accepted !== utc.get(JSON.stringify(row.argv))?.valid;
         }

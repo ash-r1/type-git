@@ -27,19 +27,22 @@ describe('git log/show -L syntax', () => {
       .map((row) => `${row.command} ${row.value}`),
   );
   /**
-   * Whether refusing a row is consistent with Git. Syntax rows must be refused and accepted rows
-   * accepted. A file-dependent row may be refused only when Git refuses it in every state: Git
-   * resolves the file and a /regex/ start (and may fail there) before it checks the numbers, so
-   * the row may be refused when the same range with an existing file `a` and a numeric start is
-   * a syntax refusal, which Git reaches whenever the file and the regex resolve.
+   * Whether the outcome for a row is consistent with Git. Syntax rows must be refused and
+   * accepted rows accepted. A file-dependent row must be refused exactly when Git refuses it in
+   * every state: Git resolves the file and a /regex/ start (and may fail there) before it checks
+   * the numbers, so the row must be refused when the same range with an existing file `a` and a
+   * numeric start is a syntax refusal, which Git reaches whenever the file and the regex resolve,
+   * and accepted otherwise.
    */
   function expected(row: (typeof corpus.cases)[number], accepted: boolean): boolean {
     if (!row.state) {
       return accepted === row.valid;
     }
-    if (accepted) {
-      return true;
-    }
+    return accepted !== syntaxInEveryState(row);
+  }
+
+  /** Whether a file-dependent row's range is a syntax refusal once the file and regex resolve. */
+  function syntaxInEveryState(row: (typeof corpus.cases)[number]): boolean {
     if (row.range === undefined || row.suffix === undefined) {
       return false;
     }

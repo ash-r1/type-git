@@ -21,6 +21,12 @@ for (const command of ['log', 'show'] as const) {
   git.command(command, [['-L', `${1 as number}:a`]]);
   git.command(command, [['-L', `${dynamic}:a`]]);
   git.command(command, [['-L', '1,2'], ['-h']]);
+  // @ts-expect-error A space after the relative sign stops skip_range_arg's scan.
+  git.command(command, [['-L', '1,+ 2:a']]);
+  // @ts-expect-error A space after the relative sign stops the scan even for a zero length.
+  git.command(command, [['-L', '1,+ 0:a']]);
+  // @ts-expect-error A second sign after the relative sign stops the scan.
+  git.command(command, [['-L', '1,+-2:a']]);
   // @ts-expect-error A range needs ':' and a file name.
   git.command(command, [['-L', '1,2']]);
   // @ts-expect-error The file name must not be empty.

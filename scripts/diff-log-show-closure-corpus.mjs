@@ -16,7 +16,7 @@
 // pathspec that matches nothing, where the walk yields no commit.
 //
 // ages: git diff --cached without revisions (the HEAD-by-hand diff-index branch) with a date or
-// age filter. Each case also runs under TZ=Asia/Tokyo, where one date text names the second
+// age filter. Each case also runs under TZ=JST-9, where one date text names the second
 // before the epoch and leaves the filter at its -1 default.
 //
 // dash: git diff with a bare - before and after "--"; before it, - is a retained unknown word.
@@ -158,7 +158,7 @@ try {
   const ages = [];
   for (const age of AGES) {
     for (const tail of [[], [operand('HEAD')], [['-h']]]) {
-      for (const zone of ['UTC', 'Asia/Tokyo']) {
+      for (const zone of ['UTC', 'JST-9']) {
         const tokens = [['--cached'], ...age, ...tail];
         const argv = ['diff', ...serialize(tokens)];
         const result = git(argv, { TZ: zone });
@@ -227,7 +227,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        "Git 2.55.0; one commit whose file a is 'a, b, c, f() {, d, }'; git log and git show with --format=%h. lineRanges: -L <value>, values crossing numeric, relative, /regex/ and ^ anchors with file suffixes, plus :funcname forms; values ending with a backslash are excluded (undefined native behavior). counts: single count options and ordered pairs, each without and with '-- missing'. ages: diff --cached with date and age filters, alone, with HEAD and with -h, under TZ=UTC and TZ=Asia/Tokyo. completion: git diff completion words in nine positions, and git diff --no-index completion words alone, before two paths and after another option. dash: git diff with a bare - in nine positions. Empty file-backed stdin",
+        "Git 2.55.0; one commit whose file a is 'a, b, c, f() {, d, }'; git log and git show with --format=%h. lineRanges: -L <value>, values crossing numeric, relative, /regex/ and ^ anchors with file suffixes, plus :funcname forms; values ending with a backslash are excluded (undefined native behavior). counts: single count options and ordered pairs, each without and with '-- missing'. ages: diff --cached with date and age filters, alone, with HEAD and with -h, under TZ=UTC and TZ=JST-9. completion: git diff completion words in nine positions, and git diff --no-index completion words alone, before two paths and after another option. dash: git diff with a bare - in nine positions. Empty file-backed stdin",
       lineRanges: cases,
       counts,
       ages,
