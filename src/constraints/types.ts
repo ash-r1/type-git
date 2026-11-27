@@ -9,6 +9,7 @@ import type {
 import type { GitEnabledLiteral } from './git-enabled-types.js';
 import type { GitNumericLiteral, GitNumericParser } from './git-numeric-types.js';
 import type { TIMESTAMP_DEFAULT } from './git-timestamp.js';
+import type { LogLineRangeLiteral } from './log-line-range.js';
 import type { Constraint, Predicate } from './model.js';
 import type {
   NumberAtLeast,
@@ -331,35 +332,39 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
     ? BlameLineRangeLiteral<V> extends true
       ? V
       : never
-    : P extends GitBooleanCallback
-      ? GitBooleanCallbackLiteral<V, P> extends true
+    : P extends 'log-line-range'
+      ? LogLineRangeLiteral<V> extends true
         ? V
         : never
-      : P extends GitNumericParser
-        ? GitNumericLiteral<V, P> extends true
+      : P extends GitBooleanCallback
+        ? GitBooleanCallbackLiteral<V, P> extends true
           ? V
           : never
-        : P extends 'depth-initial'
-          ? DepthInitialLiteral<V> extends true
+        : P extends GitNumericParser
+          ? GitNumericLiteral<V, P> extends true
             ? V
             : never
-          : P extends 'object-filter' | 'object-filter-auto'
-            ? V extends undefined
+          : P extends 'depth-initial'
+            ? DepthInitialLiteral<V> extends true
               ? V
-              : V extends string
-                ? ObjectFilterLiteral<
-                    V,
-                    P extends 'object-filter-auto' ? true : false,
-                    Negative
-                  > extends true
+              : never
+            : P extends 'object-filter' | 'object-filter-auto'
+              ? V extends undefined
+                ? V
+                : V extends string
+                  ? ObjectFilterLiteral<
+                      V,
+                      P extends 'object-filter-auto' ? true : false,
+                      Negative
+                    > extends true
+                    ? V
+                    : never
+                  : never
+              : P extends StringCallbackParser
+                ? StringCallbackLiteral<V, P> extends true
                   ? V
                   : never
-                : never
-            : P extends StringCallbackParser
-              ? StringCallbackLiteral<V, P> extends true
-                ? V
-                : never
-              : V;
+                : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

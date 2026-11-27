@@ -678,7 +678,7 @@
       }
     },
     "log": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "log"
       ],
@@ -728,7 +728,7 @@
         "src/commands/log-show-option-corpus.test.ts",
         "test/types/log-show-option-corpus.ts"
       ],
-      "remaining": "Every typed option spelling except help, completion and --end-of-options exits, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count, follow, -L and decoration families, and operand forms are run against Git 2.55.0 for log and show (scripts/log-show-option-corpus.mjs, 6,918 outcomes on a repository whose HEAD is a merge); rows whose outcome Git decides from state are compared for soundness only. --follow needs exactly one pathspec (none without operands unless --stdin, exactly one after \"--\", never with --full-diff); --find-object with --pickaxe-regex or -i aborts natively with BUG() and is refused; -L refuses --check and the stat, numstat, shortstat and dirstat formats unless --name-only, --name-status or suppressed output drops them in diff_setup_done (-s, --no-patch and --no-no-patch replace every format, so a later -p does not revive a stat, and --no-compact-summary keeps --compact-summary's stat); the first-pass --quiet/-q suppresses output before any diff option is parsed, so it conflicts with --name-only, --name-status and --check unless a later format option clears it. Delegated and witnessed only for soundness: object, ref, stdin and merge-state resolution and whether a word before \"--\" names a revision or path; POSIX regcomp acceptance of patterns; pretty.<name> format aliases and the configured -m/on diff-merges mode; --rotate-to/--skip-to paths and -L ranges past the end of a file; -L paths missing from the revision; the -L <range>:<file> syntax itself (numbers, offsets, /regex/ and :funcname ranges parsed against the file) is not modeled and is left to Git; -L with reflog walks, whose outcome depends on whether a commit-graph supplies generation numbers; the -O order file and --output path; the undefined behavior of an empty output-indicator argument and of a negative final --max-count-oldest. Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, pathspec magic with --follow and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations. Revision date-format direct modes have finite native/API log comparisons and public log type witnesses; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete.",
+      "remaining": "",
       "typedCommandAPI": true,
       "evidence": {
         "option-grammar": [
@@ -756,7 +756,304 @@
           "test/types/phased-parser-exit-corpus.ts",
           "test/types/residual-argv-corpus.ts"
         ]
-      }
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_log",
+        "sources": {
+          "builtin/log.c": [
+            "auto_decoration_style",
+            "clear_decorations_callback",
+            "cmd_log",
+            "cmd_log_init",
+            "cmd_log_init_defaults",
+            "cmd_log_init_finish",
+            "cmd_log_walk",
+            "cmd_log_walk_no_free",
+            "decorate_callback",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "log_line_range_callback",
+            "log_setup_revisions_tweak",
+            "parse_decoration_style",
+            "session_is_interactive",
+            "set_default_decoration_filter"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "unrecognized-argument",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_init_finish: unrecognized argument: %s"
+            ],
+            "disposition": "modeled",
+            "summary": "A dash word left after setup_revisions (an unknown option, an abbreviated long name, or an option such as --exclude-promisor-objects that log does not allow) is refused; the typed API has no spelling for such words.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts",
+              "test/fixtures/residual-argv-corpus.json",
+              "src/commands/residual-argv.test.ts"
+            ]
+          },
+          {
+            "id": "line-range-pathspec",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_init_finish: -L<range>:<file> cannot be used with pathspec"
+            ],
+            "disposition": "delegated",
+            "summary": "-L with a path after \"--\" is modeled and checked in test/fixtures/log-show-option-corpus.json; a word before \"--\" that Git reads as a path is left to Git.",
+            "basis": "object-resolution",
+            "reason": "Whether a word before \"--\" is a revision or a path depends on the repository."
+          },
+          {
+            "id": "walk-setup",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_walk_no_free: revision walk setup failed"
+            ],
+            "disposition": "delegated",
+            "summary": "prepare_revision_walk fails on missing or unreadable objects.",
+            "basis": "repository-state",
+            "reason": "It depends on the object database."
+          },
+          {
+            "id": "decorate",
+            "kind": "refusal",
+            "sites": [
+              "decorate_callback: invalid --decorate option: %s"
+            ],
+            "disposition": "modeled",
+            "summary": "--decorate accepts short, full and auto (case-sensitively) and every Git boolean spelling (yes/no/true/false/on/off in any case, integers and the empty value) through git_parse_maybe_bool, and nothing else.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "setup_revisions and the log option table accept no abbreviated long names; every typed spelling, sampled value and ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count, follow, -L and decoration families are compared with Git 2.55.0.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts",
+              "test/types/log-show-option-corpus.ts"
+            ]
+          },
+          {
+            "id": "help-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The first-pass KEEP_UNKNOWN_OPT help exits, split values and short clusters are modeled from serialized argv.",
+            "evidence": [
+              "test/fixtures/phased-parser-exit-corpus.json",
+              "src/commands/phased-parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit in the first parse pass.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "end-of-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The typed API has no --end-of-options spelling, and an operand starting with \"-\" must follow an explicit \"--\". Git accepts --end-of-options before revisions; the typed API refuses it (a restriction). Raw --default/--end-of-options residual words are witnessed in the residual argv corpus.",
+            "evidence": [
+              "src/commands/literal-operand.test.ts",
+              "test/fixtures/residual-argv-corpus.json",
+              "src/commands/residual-argv.test.ts"
+            ]
+          },
+          {
+            "id": "line-range-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-L <range>:<file> follows line-range.c skip_range_arg and line-log.c parse_lines: a \":\" and a nonempty file name must follow the range, absolute line numbers must be positive, a relative length must be nonzero, a /regex/ scan ending in a backslash is refused, and an LP64-saturated start makes a relative end absolute (cli.log.line-range-syntax). The saturated case follows the pinned build, whose signed overflow at begin + 1 wraps. Ranges past the end of the file, regex and :funcname matches and the file itself are left to Git.",
+            "evidence": [
+              "src/constraints/log-line-range.test.ts",
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "test/types/diff-log-show-closure.ts"
+            ]
+          },
+          {
+            "id": "line-range-content",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "line-log.c refuses more than one starting commit, a non-commit start and a missing start (More than one commit to dig from, Non commit %s?, No commit specified?), ranges past the end of the file, unmatched regexes and function names, and -L paths missing from the revision; -L with reflog walks depends on whether a commit-graph supplies generation numbers. line-log.c is outside these closures, and its argv-only refusals are covered by line-range-values.",
+            "basis": "file-content",
+            "reason": "They depend on the file content and commit-graph of the repository."
+          },
+          {
+            "id": "oldest-count",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "With --max-count-oldest in effect, a negative final count crashes Git 2.55.0 (SIGSEGV), so the typed API refuses it unless the final count is positive or zero (cli.log.oldest-negative-count). Git exits normally when the walk yields no commit (an empty range, a blob or a path that matches nothing); the typed API refuses those too (a restriction).",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts",
+              "test/types/diff-log-show-closure.ts"
+            ]
+          },
+          {
+            "id": "count-shorthand",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-<n> count shorthand follows setup_revisions.",
+            "evidence": [
+              "src/commands/revision-count-shorthand.test.ts",
+              "test/types/revision-count-shorthand.ts"
+            ]
+          },
+          {
+            "id": "date-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--date modes, --since/--until/--before/--after spellings and timestamp grammars are compared with native Git; arbitrary strftime payloads are passed through.",
+            "evidence": [
+              "src/commands/revision-date-format.test.ts",
+              "src/commands/revision-age.test.ts",
+              "src/constraints/git-timestamp.test.ts"
+            ]
+          },
+          {
+            "id": "approxidate",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "approxidate and strftime results depend on the clock, timezone and C library.",
+            "basis": "environment",
+            "reason": "They read the current time, TZ and locale."
+          },
+          {
+            "id": "separated-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Words after \"--\" are paths and are checked exactly, including --follow pathspec arity and -L with a pathspec.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "revision-words",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Words before \"--\", --stdin input and ref selectors (--all, --branches, --glob, --reflog and similar) resolve against the repository; acceptances are witnessed for soundness.",
+            "basis": "object-resolution",
+            "reason": "Word meaning depends on the repository."
+          },
+          {
+            "id": "output-files",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "The -O order file and --output path must be readable or writable.",
+            "basis": "filesystem",
+            "reason": "They are opened at run time."
+          },
+          {
+            "id": "rotate-skip",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "--rotate-to and --skip-to name paths that must occur in the diff.",
+            "basis": "file-content",
+            "reason": "The queued paths depend on the compared content."
+          },
+          {
+            "id": "empty-output-indicator",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "An empty --output-indicator-* argument reads undefined memory.",
+            "basis": "platform",
+            "reason": "The outcome depends on the memory layout of the build."
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "The option list printed by the completion helper is not typed.",
+            "exclusion": "completion-output"
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "Parser differences of other Git releases are covered by the legacy regression tests only.",
+            "exclusion": "other-git-versions"
+          },
+          {
+            "id": "numeric-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "OPTION_INTEGER/OPTION_UNSIGNED and decimal callback values (counts, widths, depths, scores) follow the pinned LP64 compiler/libc profile, including saturation, narrowing and validation order.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "src/commands/numeric-callbacks.test.ts",
+              "src/constraints/git-decimal.test.ts",
+              "test/types/decimal-literals.ts"
+            ]
+          },
+          {
+            "id": "callback-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Callback argument languages (color, color-moved and its whitespace modes, dirstat, rename/break/copy scores, stat widths, ws-error-highlight, diff-filter, empty pickaxe values, output indicators) follow the diff.c callbacks; each is compared with native Git.",
+            "evidence": [
+              "src/commands/diff-color-callback-native.test.ts",
+              "src/commands/diff-dirstat-native.test.ts",
+              "src/commands/diff-moved-colors-native.test.ts",
+              "src/commands/diff-rename-scores-native.test.ts",
+              "src/commands/diff-stat-callback-native.test.ts",
+              "src/commands/diff-ws-error-highlight-native.test.ts",
+              "src/commands/diff-filter-grammar-native.test.ts",
+              "src/commands/pickaxe-empty-native.test.ts",
+              "test/fixtures/log-show-option-corpus.json"
+            ]
+          },
+          {
+            "id": "regex-values",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Whether -G, -I, --word-diff-regex, --color-words and (for log/show) --author, --committer and --grep patterns compile is decided by the platform regcomp; a native acceptance is never refused.",
+            "basis": "platform",
+            "reason": "POSIX regcomp acceptance differs between C libraries."
+          },
+          {
+            "id": "numeric-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Numbers are modeled for the pinned LP64 profile; ILP32 or LLP64 builds saturate and narrow differently.",
+            "basis": "platform",
+            "reason": "C long width is a property of the Git build, not of argv."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Configured defaults (diff.*, color.*, log.*, pretty.<name> aliases, the configured diff-merges mode) change which arguments are accepted; refusals of invalid configuration values belong to Git.",
+            "basis": "configuration",
+            "reason": "Configuration is read from the repository and user files at run time."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "summary": "Pathspec magic and its errors are parsed by parse_pathspec only when GIT_LITERAL_PATHSPECS and related variables leave magic enabled, so the typed API passes pathspecs after \"--\" unchanged.",
+            "basis": "environment",
+            "reason": "GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS change how the same pathspec is parsed."
+          }
+        ]
+      },
+      "notes": "Every typed option spelling, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count, follow, -L and decoration families, and operand forms are run against Git 2.55.0 (scripts/log-show-option-corpus.mjs on a repository whose HEAD is a merge). scripts/diff-log-show-closure-corpus.mjs adds 3,302 -L range outcomes and the negative --max-count-oldest crash. First-pass help and completion exits and residual argv have their own native corpora. Restriction: --end-of-options is refused. Repository, object, file-content, configuration, regex and date-clock outcomes are delegated as the closure records. Output bytes are not typed."
     },
     "fetch": {
       "state": "partial",
@@ -1540,7 +1837,7 @@
       }
     },
     "diff": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "diff"
       ],
@@ -1587,7 +1884,7 @@
         "test/types/diff-option-corpus.ts",
         "test/fixtures/diff-option-corpus.json"
       ],
-      "remaining": "Every typed option spelling, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count and follow families, and operand forms are run against Git 2.55.0 (scripts/diff-option-corpus.mjs, 3,090 outcomes, each in a clean and a modified worktree); rows whose outcome Git decides from state are compared for soundness only. --max-depth with a non-negative final value is rejected without revisions (worktree and HEAD-by-hand index diffs); --no-walk still in effect with --graph is rejected by setup_revisions unless a later count re-enables walking; --exclude-hidden accepts only fetch, receive and uploadpack; --find-object with --pickaxe-regex or -i aborts natively with BUG() after -h has exited and is refused. Delegated and witnessed only for soundness: object, ref, stdin and merge-state resolution and whether a word before \"--\" names a revision; POSIX regcomp acceptance of -G/-I/--word-diff-regex/--color-words/--author/--committer/--grep patterns; pretty.<name> format aliases and the configured -m/on diff-merges mode for --combined-all-paths; --rotate-to/--skip-to paths that must occur in the diff; the -O order file and --output path; the undefined behavior of an empty output-indicator argument. Not covered here: max-depth with wildcard pathspecs (diff_setup_done); the same --max-depth and --find-object rules for diff-files/diff-index/diff-tree are checked by scripts/diff-plumbing-option-corpus.mjs; log and show have their own corpus (scripts/log-show-option-corpus.mjs). Residual diff-files and HEAD-by-hand diff-index words (including -h after setup_revisions), detached-value raw-word scans for --no-index and the first \"--\", --follow pathspec arity and the aborting --no-ignore-matching-lines negation are modeled for Git 2.55.0 and checked against an independent native corpus with literal-type witnesses for selected cases. Revision, path and revision-producing option resolution (--all, --branches, --tags, --remotes, --glob, --bisect, --reflog, --indexed-objects, --alternate-refs, --stdin, --default, --merge) selects repository-dependent modes and is delegated to native Git. Implicit no-index dispatch outside a repository or for out-of-tree paths is delegated to native Git. Abbreviated long spellings stay outside the canonical API and remain unmodeled, with only prefix soundness witnessed natively. An index-mode -h after a misuse word remains source-ordered without a native witness, because its usage output is indistinguishable. A bare \"-\" operand before the separator does not stop the raw --no-index scan natively and remains unmodeled. Pathspec magic with --follow, numeric shorthand, --end-of-options, configuration-dependent defaults, callback languages and binary output remain open. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete.",
+      "remaining": "",
       "typedCommandAPI": true,
       "evidence": {
         "option-grammar": [
@@ -1618,7 +1915,313 @@
           "test/types/diff-parser-corpus.ts: literal-type witnesses for selected native corpus cases",
           "test/types/diff-option-corpus.ts: literal-type witnesses for the new rule families"
         ]
-      }
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_diff",
+        "sources": {
+          "builtin/diff.c": [
+            "blob_path",
+            "builtin_diff_b_f",
+            "builtin_diff_blobs",
+            "builtin_diff_combined",
+            "builtin_diff_files",
+            "builtin_diff_index",
+            "builtin_diff_tree",
+            "cmd_diff",
+            "refresh_index_quietly",
+            "stuff_change",
+            "symdiff_prepare",
+            "symdiff_release"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "residual-usage",
+            "kind": "refusal",
+            "sites": [
+              "builtin_diff_b_f: <builtin_diff_usage>",
+              "builtin_diff_blobs: <builtin_diff_usage>",
+              "builtin_diff_combined: <builtin_diff_usage>",
+              "builtin_diff_files: <builtin_diff_usage>",
+              "builtin_diff_files: invalid option: %s",
+              "builtin_diff_index: <builtin_diff_usage>",
+              "builtin_diff_tree: <builtin_diff_usage>",
+              "cmd_diff: <builtin_diff_usage>",
+              "symdiff_prepare: <builtin_diff_usage>"
+            ],
+            "disposition": "delegated",
+            "summary": "Which builtin_diff_* mode runs depends on how many words before \"--\" name revisions, blobs or paths. Where the argv alone fixes the mode (no words before \"--\", or an explicit --cached/--staged/--merge-base with HEAD by hand), residual options, --cached with revision counts or ages (including --since/--until), --max-depth without trees and a bare \"-\" are modeled (diff.files-residual-option, diff.cached-*, diff.max-depth-*, diff.dash-word) and checked in test/fixtures/diff-parser-corpus.json, test/fixtures/diff-option-corpus.json and test/fixtures/diff-log-show-closure-corpus.json.",
+            "basis": "object-resolution",
+            "reason": "Whether a word names a commit, tree, blob, range or path is decided by resolving it in the repository."
+          },
+          {
+            "id": "blob-file",
+            "kind": "refusal",
+            "sites": [
+              "builtin_diff_b_f: failed to stat '%s'",
+              "builtin_diff_b_f: '%s': not a regular file or symlink"
+            ],
+            "disposition": "delegated",
+            "summary": "A blob compared with a path needs the path to exist as a regular file or symlink.",
+            "basis": "filesystem",
+            "reason": "The path is checked with lstat at run time."
+          },
+          {
+            "id": "object-kinds",
+            "kind": "refusal",
+            "sites": [
+              "builtin_diff_combined: no merge given, only parents.",
+              "cmd_diff: invalid object '%s' given.",
+              "cmd_diff: more than two blobs given: '%s'",
+              "cmd_diff: unhandled object '%s' given.",
+              "symdiff_prepare: %s...%s: no merge base"
+            ],
+            "disposition": "delegated",
+            "summary": "Object kinds, negative revisions, symmetric ranges and their merge bases decide these refusals.",
+            "basis": "object-resolution",
+            "reason": "They depend on the objects the words resolve to."
+          },
+          {
+            "id": "index-read",
+            "kind": "refusal",
+            "sites": [
+              "builtin_diff_files: repo_read_index_preload",
+              "builtin_diff_index: repo_read_index_preload",
+              "builtin_diff_index: repo_read_cache"
+            ],
+            "disposition": "delegated",
+            "summary": "Reading the index fails only for a corrupt or unreadable index.",
+            "basis": "repository-state",
+            "reason": "The index is repository state."
+          },
+          {
+            "id": "cwd-return",
+            "kind": "refusal",
+            "sites": [
+              "cmd_diff: cannot come back to cwd"
+            ],
+            "disposition": "delegated",
+            "summary": "Returning to the working directory after setup fails only when it was removed or made inaccessible.",
+            "basis": "filesystem",
+            "reason": "It depends on the current directory at run time."
+          },
+          {
+            "id": "no-index-dispatch",
+            "kind": "refusal",
+            "sites": [
+              "cmd_diff: exit diff_no_index(&rev, the_repository->hash_algo,\n\t\t\t\t   no_index == DIFF_NO_INDEX_IMPLICIT,\n\t\t\t\t   argc, argv)"
+            ],
+            "disposition": "delegated",
+            "summary": "An explicit --no-index found by the raw word scan before the first \"--\" is modeled as the separate diff --no-index scope (raw-word scans in test/fixtures/diff-parser-corpus.json); implicit dispatch outside a repository or for out-of-tree paths is left to Git.",
+            "basis": "repository-state",
+            "reason": "Implicit no-index mode depends on whether a repository was found and whether the paths lie inside it."
+          },
+          {
+            "id": "outside-repository",
+            "kind": "refusal",
+            "sites": [
+              "cmd_diff: Not a git repository"
+            ],
+            "disposition": "delegated",
+            "summary": "Comparing in-repository words outside a repository is refused.",
+            "basis": "repository-state",
+            "reason": "Repository discovery happens at run time."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "diff_opt_parse and setup_revisions accept no abbreviated long names; every typed spelling, sampled value, negation and the residual word dispatch are compared with Git 2.55.0, and a word left after setup_revisions is refused as Git refuses it.",
+            "evidence": [
+              "test/fixtures/diff-option-corpus.json",
+              "src/commands/diff-option-corpus.test.ts",
+              "test/fixtures/diff-parser-corpus.json",
+              "src/commands/diff-parser.test.ts"
+            ]
+          },
+          {
+            "id": "help-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "-h exits with usage after setup_revisions and --help reaches the global help dispatch; a later invalid word does not change the exit.",
+            "evidence": [
+              "test/fixtures/diff-parser-corpus.json",
+              "src/commands/diff-parser.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully when they are the last word before \"--\" (after any valid options, -h or revisions); a completion word followed by another word is an invalid option. The typed API accepts only the sole form, so it refuses e.g. --stat --git-completion-helper, which Git accepts (a restriction).",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts",
+              "test/types/diff-log-show-closure.ts"
+            ]
+          },
+          {
+            "id": "end-of-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The typed API has no --end-of-options spelling, and an operand starting with \"-\" must follow an explicit \"--\". Git accepts --end-of-options before revisions; the typed API refuses it (a restriction).",
+            "evidence": [
+              "src/commands/literal-operand.test.ts"
+            ]
+          },
+          {
+            "id": "dash-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Inside a repository Git 2.55.0 always refuses a bare \"-\" before \"--\"; outside a repository implicit no-index mode reads it as standard input. The typed API refuses it before \"--\" (diff.dash-word), so standard input needs the diff --no-index scope (a restriction for the implicit mode).",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "separated-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Words after \"--\" are paths and are checked exactly, including --follow pathspec arity and --full-diff.",
+            "evidence": [
+              "test/fixtures/diff-option-corpus.json",
+              "src/commands/diff-option-corpus.test.ts",
+              "test/fixtures/diff-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "revision-words",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Words before \"--\" are revisions, ranges, blobs or paths depending on the repository; the typed API passes them through and its acceptances are witnessed for soundness.",
+            "basis": "object-resolution",
+            "reason": "Word meaning depends on the objects and paths in the repository."
+          },
+          {
+            "id": "date-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--since, --until, --max-age and --min-age with --cached and no revisions are refused (diff.cached-*), because Git prints usage for them. Under a timezone where a date text resolves to exactly the epoch sentinel Git accepts the option; the typed API refuses every date text here (a restriction).",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts",
+              "test/types/diff-log-show-closure.ts",
+              "src/commands/revision-age.test.ts"
+            ]
+          },
+          {
+            "id": "approxidate",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Date texts other than the cached-mode refusal are parsed by approxidate, whose result depends on the clock and timezone.",
+            "basis": "environment",
+            "reason": "approxidate reads the current time and TZ."
+          },
+          {
+            "id": "output-files",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "The -O order file and --output path must be readable or writable.",
+            "basis": "filesystem",
+            "reason": "They are opened at run time."
+          },
+          {
+            "id": "rotate-skip",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "--rotate-to and --skip-to name paths that must occur in the diff.",
+            "basis": "file-content",
+            "reason": "The queued paths depend on the compared content."
+          },
+          {
+            "id": "empty-output-indicator",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "An empty --output-indicator-* argument reads undefined memory.",
+            "basis": "platform",
+            "reason": "The outcome depends on the memory layout of the build."
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "The option list printed by the completion helper is not typed.",
+            "exclusion": "completion-output"
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "Parser differences of other Git releases are covered by the legacy regression tests only.",
+            "exclusion": "other-git-versions"
+          },
+          {
+            "id": "numeric-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "OPTION_INTEGER/OPTION_UNSIGNED and decimal callback values (counts, widths, depths, scores) follow the pinned LP64 compiler/libc profile, including saturation, narrowing and validation order.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "src/commands/numeric-callbacks.test.ts",
+              "src/constraints/git-decimal.test.ts",
+              "test/types/decimal-literals.ts"
+            ]
+          },
+          {
+            "id": "callback-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Callback argument languages (color, color-moved and its whitespace modes, dirstat, rename/break/copy scores, stat widths, ws-error-highlight, diff-filter, empty pickaxe values, output indicators) follow the diff.c callbacks; each is compared with native Git.",
+            "evidence": [
+              "src/commands/diff-color-callback-native.test.ts",
+              "src/commands/diff-dirstat-native.test.ts",
+              "src/commands/diff-moved-colors-native.test.ts",
+              "src/commands/diff-rename-scores-native.test.ts",
+              "src/commands/diff-stat-callback-native.test.ts",
+              "src/commands/diff-ws-error-highlight-native.test.ts",
+              "src/commands/diff-filter-grammar-native.test.ts",
+              "src/commands/pickaxe-empty-native.test.ts",
+              "test/fixtures/diff-option-corpus.json"
+            ]
+          },
+          {
+            "id": "regex-values",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Whether -G, -I, --word-diff-regex, --color-words and (for log/show) --author, --committer and --grep patterns compile is decided by the platform regcomp; a native acceptance is never refused.",
+            "basis": "platform",
+            "reason": "POSIX regcomp acceptance differs between C libraries."
+          },
+          {
+            "id": "numeric-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Numbers are modeled for the pinned LP64 profile; ILP32 or LLP64 builds saturate and narrow differently.",
+            "basis": "platform",
+            "reason": "C long width is a property of the Git build, not of argv."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Configured defaults (diff.*, color.*, log.*, pretty.<name> aliases, the configured diff-merges mode) change which arguments are accepted; refusals of invalid configuration values belong to Git.",
+            "basis": "configuration",
+            "reason": "Configuration is read from the repository and user files at run time."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "summary": "Pathspec magic and its errors are parsed by parse_pathspec only when GIT_LITERAL_PATHSPECS and related variables leave magic enabled, so the typed API passes pathspecs after \"--\" unchanged.",
+            "basis": "environment",
+            "reason": "GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS change how the same pathspec is parsed."
+          }
+        ]
+      },
+      "notes": "Every typed option spelling, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count and follow families, and operand forms are run against Git 2.55.0 (scripts/diff-option-corpus.mjs, each in a clean and a modified worktree); residual dispatch and raw-word scans are checked in scripts/diff-parser-corpus.mjs. scripts/diff-log-show-closure-corpus.mjs adds --cached with --since/--until, the bare \"-\" operand and the completion helper words. Restrictions: --end-of-options and non-sole completion words are refused, and --cached --since/--until texts are refused in every timezone. Repository, object, filesystem, configuration, regex and date-clock outcomes are delegated as the closure records. Output bytes are not typed. The finite corpora do not establish completeness."
     },
     "merge": {
       "state": "partial",
@@ -3770,7 +4373,7 @@
       "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. 190 independent Git 2.55.0 runs (scripts/stash-create-corpus.mjs; 95 word sequences in clean and modified worktrees), each recorded as a direct and a root-dispatched wrapper case (380 cases), cover help, completion, terminator, typo, cluster, unknown-option, empty and repeated-empty, space, non-ASCII (é) and TAB/LF/CR/U+0001 words on Linux; all exit 0, a clean tree creates nothing and a modified tree stores \"On <branch>: <joined words>\" or the WIP message for an empty join (checked by the generator), and the wrapper accepts and serializes every case unchanged. The corpus is finite and does not prove completeness over all message words. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words; these legacy exits are covered by runtime witnesses that leave the exit to the selected Git and were rechecked against a Git 2.25.1 build. Whether a commit is created depends on tracked index/worktree changes and remains delegated to native Git: a clean tree exits 0 with no output, while a tracked file that is only stat-dirty (rewritten with unchanged content) exits 1 with no output in 2.55.0, 2.25.1 and 2.43.0, because the quick tracked-change check sees the stat change and the refreshed index then has nothing to stash; a runtime witness compares that exit with native Git. An unborn HEAD and core.trustctime/core.checkStat, which change what counts as stat-dirty, are likewise delegated without a witness. Cross-platform (Windows argv and message encoding) witnesses remain pending."
     },
     "show": {
-      "state": "partial",
+      "state": "complete",
       "typedCommandAPI": true,
       "models": [
         "show"
@@ -3818,7 +4421,7 @@
         "src/impl/option-constraints.test.ts",
         "test/types/generated-command-constraints.ts"
       ],
-      "remaining": "repo.show() ShowOpts are now a checked finite model (stat, nameOnly, nameStatus and quiet combinations compared with native Git in src/impl/option-constraints.test.ts; quiet with nameOnly/nameStatus is refused even with stat, which Git 2.55.0 accepts but Git 2.25 rejects); its decoration and format strings are passed to Git unchecked. Every typed option spelling except help, completion and --end-of-options exits, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count, follow, -L and decoration families, and operand forms are run against Git 2.55.0 for log and show (scripts/log-show-option-corpus.mjs, 6,918 outcomes on a repository whose HEAD is a merge); rows whose outcome Git decides from state are compared for soundness only. --follow needs exactly one pathspec (none without operands unless --stdin, exactly one after \"--\", never with --full-diff); --find-object with --pickaxe-regex or -i aborts natively with BUG() and is refused; -L refuses --check and the stat, numstat, shortstat and dirstat formats unless --name-only, --name-status or suppressed output drops them in diff_setup_done (-s, --no-patch and --no-no-patch replace every format, so a later -p does not revive a stat, and --no-compact-summary keeps --compact-summary's stat); the first-pass --quiet/-q suppresses output before any diff option is parsed, so it conflicts with --name-only, --name-status and --check unless a later format option clears it. git show starts with no_walk set, so --graph is refused unless a later --do-walk, -n, --max-count or --max-count-oldest re-enables walking. Delegated and witnessed only for soundness: object, ref, stdin and merge-state resolution and whether a word before \"--\" names a revision or path; POSIX regcomp acceptance of patterns; pretty.<name> format aliases and the configured -m/on diff-merges mode; --rotate-to/--skip-to paths and -L ranges past the end of a file; -L paths missing from the revision; the -L <range>:<file> syntax itself (numbers, offsets, /regex/ and :funcname ranges parsed against the file) is not modeled and is left to Git; -L with reflog walks, whose outcome depends on whether a commit-graph supplies generation numbers; the -O order file and --output path; the undefined behavior of an empty output-indicator argument and of a negative final --max-count-oldest. git show formats a merge as a combined diff, which rejects -I/--ignore-matching-lines; whether the shown commit is a merge is repository state and is delegated. Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, pathspec magic with --follow and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open. Revision date-format has public show type witnesses and native/API help-reachability tests; direct show mode comparisons remain pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete.",
+      "remaining": "",
       "evidence": {
         "option-grammar": [
           "test/fixtures/log-show-option-corpus.json (scripts/log-show-option-corpus.mjs, Git 2.55.0): every typed show option spelling from the upstream diff.c/revision.c/builtin/log.c extraction with sampled valid and invalid values; state-dependent values are soundness-only",
@@ -3845,7 +4448,331 @@
           "test/types/phased-parser-exit-corpus.ts",
           "test/types/residual-argv-corpus.ts"
         ]
-      }
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_show",
+        "sources": {
+          "builtin/log.c": [
+            "auto_decoration_style",
+            "clear_decorations_callback",
+            "cmd_log_init",
+            "cmd_log_init_defaults",
+            "cmd_log_init_finish",
+            "cmd_log_walk",
+            "cmd_log_walk_no_free",
+            "cmd_show",
+            "decorate_callback",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "log_line_range_callback",
+            "parse_decoration_style",
+            "session_is_interactive",
+            "set_default_decoration_filter",
+            "show_blob_object",
+            "show_setup_revisions_tweak",
+            "show_tag_object",
+            "show_tagger",
+            "show_tree_object"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "unrecognized-argument",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_init_finish: unrecognized argument: %s"
+            ],
+            "disposition": "modeled",
+            "summary": "A dash word left after setup_revisions (an unknown option, an abbreviated long name, or an option such as --exclude-promisor-objects that log does not allow) is refused; the typed API has no spelling for such words.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts",
+              "test/fixtures/residual-argv-corpus.json",
+              "src/commands/residual-argv.test.ts"
+            ]
+          },
+          {
+            "id": "line-range-pathspec",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_init_finish: -L<range>:<file> cannot be used with pathspec"
+            ],
+            "disposition": "delegated",
+            "summary": "-L with a path after \"--\" is modeled and checked in test/fixtures/log-show-option-corpus.json; a word before \"--\" that Git reads as a path is left to Git.",
+            "basis": "object-resolution",
+            "reason": "Whether a word before \"--\" is a revision or a path depends on the repository."
+          },
+          {
+            "id": "walk-setup",
+            "kind": "refusal",
+            "sites": [
+              "cmd_log_walk_no_free: revision walk setup failed"
+            ],
+            "disposition": "delegated",
+            "summary": "prepare_revision_walk fails on missing or unreadable objects.",
+            "basis": "repository-state",
+            "reason": "It depends on the object database."
+          },
+          {
+            "id": "decorate",
+            "kind": "refusal",
+            "sites": [
+              "decorate_callback: invalid --decorate option: %s"
+            ],
+            "disposition": "modeled",
+            "summary": "--decorate accepts short, full and auto (case-sensitively) and every Git boolean spelling (yes/no/true/false/on/off in any case, integers and the empty value) through git_parse_maybe_bool, and nothing else.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "object-read",
+            "kind": "refusal",
+            "sites": [
+              "cmd_show: could not read object %s",
+              "cmd_show: unknown type: %d",
+              "show_blob_object: not a valid object name %s",
+              "show_blob_object: git show %s: bad file",
+              "show_tag_object: could not read object %s"
+            ],
+            "disposition": "delegated",
+            "summary": "Objects named on the command line must exist and be readable; a blob shown with --textconv must name a path.",
+            "basis": "object-resolution",
+            "reason": "They depend on the objects the words resolve to."
+          },
+          {
+            "id": "merge-combined",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "git show formats a merge as a combined diff, which refuses -I/--ignore-matching-lines; whether the shown commit is a merge is repository state.",
+            "basis": "repository-state",
+            "reason": "It depends on the shown commit."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "setup_revisions and the log option table accept no abbreviated long names; every typed spelling, sampled value and ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count, follow, -L and decoration families are compared with Git 2.55.0.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts",
+              "test/types/log-show-option-corpus.ts"
+            ]
+          },
+          {
+            "id": "help-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The first-pass KEEP_UNKNOWN_OPT help exits, split values and short clusters are modeled from serialized argv.",
+            "evidence": [
+              "test/fixtures/phased-parser-exit-corpus.json",
+              "src/commands/phased-parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit in the first parse pass.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "end-of-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The typed API has no --end-of-options spelling, and an operand starting with \"-\" must follow an explicit \"--\". Git accepts --end-of-options before revisions; the typed API refuses it (a restriction). Raw --default/--end-of-options residual words are witnessed in the residual argv corpus.",
+            "evidence": [
+              "src/commands/literal-operand.test.ts",
+              "test/fixtures/residual-argv-corpus.json",
+              "src/commands/residual-argv.test.ts"
+            ]
+          },
+          {
+            "id": "line-range-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-L <range>:<file> follows line-range.c skip_range_arg and line-log.c parse_lines: a \":\" and a nonempty file name must follow the range, absolute line numbers must be positive, a relative length must be nonzero, a /regex/ scan ending in a backslash is refused, and an LP64-saturated start makes a relative end absolute (cli.show.line-range-syntax). The saturated case follows the pinned build, whose signed overflow at begin + 1 wraps. Ranges past the end of the file, regex and :funcname matches and the file itself are left to Git.",
+            "evidence": [
+              "src/constraints/log-line-range.test.ts",
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "test/types/diff-log-show-closure.ts"
+            ]
+          },
+          {
+            "id": "line-range-content",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "line-log.c refuses more than one starting commit, a non-commit start and a missing start (More than one commit to dig from, Non commit %s?, No commit specified?), ranges past the end of the file, unmatched regexes and function names, and -L paths missing from the revision; -L with reflog walks depends on whether a commit-graph supplies generation numbers. line-log.c is outside these closures, and its argv-only refusals are covered by line-range-values.",
+            "basis": "file-content",
+            "reason": "They depend on the file content and commit-graph of the repository."
+          },
+          {
+            "id": "oldest-count",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "With --max-count-oldest in effect, a negative final count crashes Git 2.55.0 (SIGSEGV), so the typed API refuses it unless the final count is positive or zero (cli.show.oldest-negative-count). Git exits normally when the walk yields no commit (an empty range, a blob or a path that matches nothing); the typed API refuses those too (a restriction).",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts",
+              "test/types/diff-log-show-closure.ts"
+            ]
+          },
+          {
+            "id": "count-shorthand",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-<n> count shorthand follows setup_revisions.",
+            "evidence": [
+              "src/commands/revision-count-shorthand.test.ts",
+              "test/types/revision-count-shorthand.ts"
+            ]
+          },
+          {
+            "id": "date-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--date modes, --since/--until/--before/--after spellings and timestamp grammars are compared with native Git; arbitrary strftime payloads are passed through.",
+            "evidence": [
+              "src/commands/revision-date-format.test.ts",
+              "src/commands/revision-age.test.ts",
+              "src/constraints/git-timestamp.test.ts"
+            ]
+          },
+          {
+            "id": "approxidate",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "approxidate and strftime results depend on the clock, timezone and C library.",
+            "basis": "environment",
+            "reason": "They read the current time, TZ and locale."
+          },
+          {
+            "id": "separated-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Words after \"--\" are paths and are checked exactly, including --follow pathspec arity and -L with a pathspec.",
+            "evidence": [
+              "test/fixtures/log-show-option-corpus.json",
+              "src/commands/log-show-option-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "revision-words",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Words before \"--\", --stdin input and ref selectors (--all, --branches, --glob, --reflog and similar) resolve against the repository; acceptances are witnessed for soundness.",
+            "basis": "object-resolution",
+            "reason": "Word meaning depends on the repository."
+          },
+          {
+            "id": "output-files",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "The -O order file and --output path must be readable or writable.",
+            "basis": "filesystem",
+            "reason": "They are opened at run time."
+          },
+          {
+            "id": "rotate-skip",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "--rotate-to and --skip-to name paths that must occur in the diff.",
+            "basis": "file-content",
+            "reason": "The queued paths depend on the compared content."
+          },
+          {
+            "id": "empty-output-indicator",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "An empty --output-indicator-* argument reads undefined memory.",
+            "basis": "platform",
+            "reason": "The outcome depends on the memory layout of the build."
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "The option list printed by the completion helper is not typed.",
+            "exclusion": "completion-output"
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "Parser differences of other Git releases are covered by the legacy regression tests only.",
+            "exclusion": "other-git-versions"
+          },
+          {
+            "id": "numeric-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "OPTION_INTEGER/OPTION_UNSIGNED and decimal callback values (counts, widths, depths, scores) follow the pinned LP64 compiler/libc profile, including saturation, narrowing and validation order.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "src/commands/numeric-callbacks.test.ts",
+              "src/constraints/git-decimal.test.ts",
+              "test/types/decimal-literals.ts"
+            ]
+          },
+          {
+            "id": "callback-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Callback argument languages (color, color-moved and its whitespace modes, dirstat, rename/break/copy scores, stat widths, ws-error-highlight, diff-filter, empty pickaxe values, output indicators) follow the diff.c callbacks; each is compared with native Git.",
+            "evidence": [
+              "src/commands/diff-color-callback-native.test.ts",
+              "src/commands/diff-dirstat-native.test.ts",
+              "src/commands/diff-moved-colors-native.test.ts",
+              "src/commands/diff-rename-scores-native.test.ts",
+              "src/commands/diff-stat-callback-native.test.ts",
+              "src/commands/diff-ws-error-highlight-native.test.ts",
+              "src/commands/diff-filter-grammar-native.test.ts",
+              "src/commands/pickaxe-empty-native.test.ts",
+              "test/fixtures/log-show-option-corpus.json"
+            ]
+          },
+          {
+            "id": "regex-values",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Whether -G, -I, --word-diff-regex, --color-words and (for log/show) --author, --committer and --grep patterns compile is decided by the platform regcomp; a native acceptance is never refused.",
+            "basis": "platform",
+            "reason": "POSIX regcomp acceptance differs between C libraries."
+          },
+          {
+            "id": "numeric-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Numbers are modeled for the pinned LP64 profile; ILP32 or LLP64 builds saturate and narrow differently.",
+            "basis": "platform",
+            "reason": "C long width is a property of the Git build, not of argv."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Configured defaults (diff.*, color.*, log.*, pretty.<name> aliases, the configured diff-merges mode) change which arguments are accepted; refusals of invalid configuration values belong to Git.",
+            "basis": "configuration",
+            "reason": "Configuration is read from the repository and user files at run time."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "summary": "Pathspec magic and its errors are parsed by parse_pathspec only when GIT_LITERAL_PATHSPECS and related variables leave magic enabled, so the typed API passes pathspecs after \"--\" unchanged.",
+            "basis": "environment",
+            "reason": "GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS change how the same pathspec is parsed."
+          }
+        ]
+      },
+      "notes": "repo.show() ShowOpts are a checked finite model (src/impl/option-constraints.test.ts). The strict command shares the log corpora: every typed option spelling, sampled value grammars, ordered pairs and operand forms are run against Git 2.55.0 (scripts/log-show-option-corpus.mjs), plus -L ranges and the negative --max-count-oldest crash (scripts/diff-log-show-closure-corpus.mjs). git show starts with no_walk set, so --graph is refused unless a later --do-walk, -n, --max-count or --max-count-oldest re-enables walking. Restriction: --end-of-options is refused. Object reads, combined merge diffs, configuration, regex and date-clock outcomes are delegated as the closure records. Output bytes are not typed."
     },
     "diff-files": {
       "state": "partial",
@@ -3973,7 +4900,7 @@
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete. --max-depth is accepted for tree diffs, which is checked against an independent Git 2.55.0 corpus (scripts/diff-plumbing-option-corpus.mjs) with a literal-type witness. --find-object with --pickaxe-regex or -i aborts natively with BUG() only when the compared trees produce a diff queue (a single root commit exits 0), so it is repository-dependent, delegated to native Git and witnessed for soundness only. --max-depth with wildcard pathspecs remains unmodeled."
     },
     "diff --no-index": {
-      "state": "partial",
+      "state": "complete",
       "typedCommandAPI": true,
       "models": [],
       "tests": [
@@ -4000,7 +4927,7 @@
         "test/types/diff-no-index-option-corpus.ts",
         "test/fixtures/diff-no-index-option-corpus.json"
       ],
-      "remaining": "Every typed option spelling with sampled value grammars, ordered pairs over the output-format, exit-status, pickaxe, follow, depth and path-rewriting families, and operand forms are run against Git 2.55.0 outside a repository (scripts/diff-no-index-option-corpus.mjs, 879 outcomes, each on equal and on different files); regex, filesystem, diff-content and object-name rows are compared for soundness only, including rows Git accepts in only one state, and empty output indicators (undefined behavior) are not recorded. Help exits, unknown options, the two-path minimum, stdin paths without pathspecs and the --follow pathspec failure are checked against an independent Git 2.55.0 corpus with literal-type witnesses. Directory detection for pathspec operands and stdin/directory pairs is filesystem-dependent and delegated to native Git. The Git 2.25.1 exactly-two-paths difference is recorded in a native test rather than modeled as a separate grammar. Pathspec grammar, abbreviated long spellings, callback argument languages and binary output remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
+      "remaining": "",
       "evidence": {
         "independent-git-tests": [
           "test/fixtures/diff-parser-corpus.json (scripts/diff-parser-corpus.mjs, Git 2.55.0): residual dispatch, raw-word scans, no-index parser and long-name prefix soundness",
@@ -4030,7 +4957,207 @@
           "src/commands/diff-no-index-option-corpus.test.ts: every accepted row serializes to the argv Git ran",
           "src/commands/diff-parser.test.ts"
         ]
-      }
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "diff_no_index",
+        "sources": {
+          "diff-no-index.c": [
+            "append_basename",
+            "diff_no_index",
+            "fixup_paths",
+            "get_mode",
+            "noindex_filespec",
+            "populate_common",
+            "populate_from_pipe",
+            "populate_from_stdin",
+            "queue_diff",
+            "read_directory_contents"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "path-count",
+            "kind": "refusal",
+            "sites": [
+              "diff_no_index: usage_with_options"
+            ],
+            "disposition": "delegated",
+            "summary": "Fewer than two paths is modeled (diff.no-index-paths). Pathspecs after the two paths are accepted only when both paths are directories, which is left to Git.",
+            "basis": "filesystem",
+            "reason": "Whether both paths are directories is a filesystem question."
+          },
+          {
+            "id": "stdin-directory",
+            "kind": "refusal",
+            "sites": [
+              "fixup_paths: cannot compare stdin to a directory",
+              "fixup_paths: cannot compare a named pipe to a directory"
+            ],
+            "disposition": "delegated",
+            "summary": "Comparing \"-\" or a named pipe with a directory is refused.",
+            "basis": "filesystem",
+            "reason": "It depends on the file types of the paths."
+          },
+          {
+            "id": "path-access",
+            "kind": "refusal",
+            "sites": [
+              "get_mode: Could not access '%s'",
+              "read_directory_contents: Could not open directory %s",
+              "populate_from_pipe: error while reading from '%s'"
+            ],
+            "disposition": "delegated",
+            "summary": "Missing, unreadable or failing paths are refused while the diff is queued.",
+            "basis": "filesystem",
+            "reason": "They depend on the files at run time."
+          },
+          {
+            "id": "stdin-read",
+            "kind": "refusal",
+            "sites": [
+              "populate_from_stdin: error while reading from stdin"
+            ],
+            "disposition": "delegated",
+            "summary": "A read error on standard input is refused.",
+            "basis": "environment",
+            "reason": "Standard input is supplied by the caller at run time."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "parse_options over add_diff_options: every typed spelling, sampled value, negation, options after paths and help exits are compared with Git 2.55.0 outside a repository. Git accepts unambiguous abbreviated long names here; the typed API accepts only full spellings (a restriction).",
+            "evidence": [
+              "test/fixtures/diff-no-index-option-corpus.json",
+              "src/commands/diff-no-index-option-corpus.test.ts",
+              "test/fixtures/diff-parser-corpus.json",
+              "src/commands/diff-parser.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "The completion helper words end in usage (exit 129) in diff --no-index, and the typed API has no spelling for them.",
+            "evidence": [
+              "test/fixtures/diff-log-show-closure-corpus.json",
+              "src/commands/diff-log-show-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "At least two paths, \"-\" for standard input and --follow pathspec failures are compared with Git 2.55.0.",
+            "evidence": [
+              "test/fixtures/diff-no-index-option-corpus.json",
+              "src/commands/diff-no-index-option-corpus.test.ts",
+              "test/fixtures/diff-parser-corpus.json"
+            ]
+          },
+          {
+            "id": "path-types",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Directory, missing-path and trailing-pathspec rows are witnessed for soundness only.",
+            "basis": "filesystem",
+            "reason": "They depend on the compared paths."
+          },
+          {
+            "id": "output-files",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "The -O order file and --output path must be readable or writable.",
+            "basis": "filesystem",
+            "reason": "They are opened at run time."
+          },
+          {
+            "id": "empty-output-indicator",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "An empty --output-indicator-* argument reads undefined memory.",
+            "basis": "platform",
+            "reason": "The outcome depends on the memory layout of the build."
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "The option list printed by the completion helper is not typed.",
+            "exclusion": "completion-output"
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "summary": "Parser differences of other Git releases are covered by the legacy regression tests only.",
+            "exclusion": "other-git-versions"
+          },
+          {
+            "id": "numeric-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "OPTION_INTEGER/OPTION_UNSIGNED and decimal callback values (counts, widths, depths, scores) follow the pinned LP64 compiler/libc profile, including saturation, narrowing and validation order.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "src/commands/numeric-callbacks.test.ts",
+              "src/constraints/git-decimal.test.ts",
+              "test/types/decimal-literals.ts"
+            ]
+          },
+          {
+            "id": "callback-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Callback argument languages (color, color-moved and its whitespace modes, dirstat, rename/break/copy scores, stat widths, ws-error-highlight, diff-filter, empty pickaxe values, output indicators) follow the diff.c callbacks; each is compared with native Git.",
+            "evidence": [
+              "src/commands/diff-color-callback-native.test.ts",
+              "src/commands/diff-dirstat-native.test.ts",
+              "src/commands/diff-moved-colors-native.test.ts",
+              "src/commands/diff-rename-scores-native.test.ts",
+              "src/commands/diff-stat-callback-native.test.ts",
+              "src/commands/diff-ws-error-highlight-native.test.ts",
+              "src/commands/diff-filter-grammar-native.test.ts",
+              "src/commands/pickaxe-empty-native.test.ts",
+              "test/fixtures/diff-no-index-option-corpus.json"
+            ]
+          },
+          {
+            "id": "regex-values",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Whether -G, -I, --word-diff-regex, --color-words and (for log/show) --author, --committer and --grep patterns compile is decided by the platform regcomp; a native acceptance is never refused.",
+            "basis": "platform",
+            "reason": "POSIX regcomp acceptance differs between C libraries."
+          },
+          {
+            "id": "numeric-profile",
+            "kind": "platform",
+            "disposition": "delegated",
+            "summary": "Numbers are modeled for the pinned LP64 profile; ILP32 or LLP64 builds saturate and narrow differently.",
+            "basis": "platform",
+            "reason": "C long width is a property of the Git build, not of argv."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "summary": "Pathspec magic and its errors are parsed by parse_pathspec only when GIT_LITERAL_PATHSPECS and related variables leave magic enabled, so the typed API passes pathspecs after \"--\" unchanged.",
+            "basis": "environment",
+            "reason": "GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS change how the same pathspec is parsed."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "summary": "Configured diff.* and color.* defaults change which outputs are produced; refusals of invalid configuration values belong to Git.",
+            "basis": "configuration",
+            "reason": "Configuration is read from user and system files at run time."
+          }
+        ]
+      },
+      "notes": "Every typed option spelling with sampled value grammars, ordered pairs over the output-format, exit-status, pickaxe, follow, depth and path-rewriting families, and operand forms are run against Git 2.55.0 outside a repository (scripts/diff-no-index-option-corpus.mjs, on equal and on different files); help exits, unknown options, the two-path minimum, stdin paths and the --follow pathspec failure are checked in scripts/diff-parser-corpus.mjs. Restriction: abbreviated long names, which Git accepts here, are refused. Filesystem, regex and configuration outcomes are delegated as the closure records; the Git 2.25.1 exactly-two-paths difference is a legacy regression test. Output bytes are not typed."
     },
     "reflog list": {
       "state": "partial",
