@@ -38865,6 +38865,17 @@ const commandSpec83 = {
         'An empty name never resolves to a commit, so collect_parents refuses it as not something Git can merge; the continuation operations refuse any operand first.',
       when: sharedPredicates34,
     },
+    {
+      id: 'cli.merge.custom-strategies',
+      kind: 'elements',
+      key: 'strategy',
+      allowed: ['recursive', 'octopus', 'ort', 'resolve', 'ours', 'subtree'],
+      maxOutside: 1,
+      origin: 'git',
+      source: 'Git 2.55.0 builtin/merge.c:get_strategy',
+      reason:
+        'Only one -s may name a strategy outside the built-in table: get_strategy releases the git-merge-* command lists after resolving the first custom strategy but keeps them marked loaded, so every later custom name is not found and Git exits 1 while parsing options.',
+    },
   ],
   source: 'builtin/merge.c',
   separator: true,

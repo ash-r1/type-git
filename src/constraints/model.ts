@@ -64,7 +64,13 @@ export type Constraint = Evidence & {
     | { kind: 'forbid'; when: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
-    | { kind: 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
+    | {
+        kind: 'elements';
+        key: string;
+        allowed: readonly (string | number | boolean)[];
+        /** How many items may lie outside `allowed` (default 0). */
+        maxOutside?: number;
+      }
     | { kind: 'scalar'; key: string; parser: GitScalarParser }
     | { kind: 'eachScalar'; key: string; parser: GitScalarParser }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
@@ -217,7 +223,8 @@ function violates(
       const items = options[rule.key];
       return (
         items !== undefined &&
-        (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
+        (!Array.isArray(items) ||
+          items.filter((item) => !rule.allowed.includes(item)).length > (rule.maxOutside ?? 0))
       );
     }
     case 'eachScalar': {

@@ -288,7 +288,7 @@ describe('option constraints against independent Git executions', () => {
       GitArgumentError,
     );
     // check_exec_cmd refuses a command with a newline, a blank one, and an empty one in a list.
-    for (const exec of ['a\nb', ' \t']) {
+    for (const exec of ['', 'a\nb', ' \t']) {
       await expect(repo.rebase({ upstream: 'main', exec })).rejects.toBeInstanceOf(
         GitArgumentError,
       );

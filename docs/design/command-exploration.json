@@ -42150,7 +42150,7 @@
           }
         }
       ],
-      "rules": 6,
+      "rules": 7,
       "domains": {
         "empty-operand": [
           "undefined",
@@ -42237,7 +42237,27 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"invalid\"]",
+          "[\"invalid\",\"invalid-\"]",
+          "[\"recursive\"]",
+          "[\"recursive\",\"recursive\"]",
+          "[\"recursive\",\"invalid\"]",
+          "[\"octopus\"]",
+          "[\"octopus\",\"octopus\"]",
+          "[\"octopus\",\"invalid\"]",
+          "[\"ort\"]",
+          "[\"ort\",\"ort\"]",
+          "[\"ort\",\"invalid\"]",
+          "[\"resolve\"]",
+          "[\"resolve\",\"resolve\"]",
+          "[\"resolve\",\"invalid\"]",
+          "[\"ours\"]",
+          "[\"ours\",\"ours\"]",
+          "[\"ours\",\"invalid\"]",
+          "[\"subtree\"]",
+          "[\"subtree\",\"subtree\"]",
+          "[\"subtree\",\"invalid\"]"
         ],
         "strategy-option": [
           "undefined",
@@ -42363,16 +42383,17 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "27336389703840000000",
-      "accepted": "5532364582920000000",
-      "nodes": 153,
+      "total": "82009169111520000000",
+      "accepted": "13830911457300000000",
+      "nodes": 217,
       "isolatedRuleWitnesses": {
         "merge.squash": "{\"ff-mode\":\"no\",\"operands\":[],\"squash\":true}",
         "merge.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "merge.abort-only": "{\"abort\":true,\"operands\":[]}",
         "merge.quit-only": "{\"operands\":[],\"quit\":true}",
         "merge.continue-only": "{\"continue\":true,\"operands\":[]}",
-        "cli.merge.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
+        "cli.merge.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "cli.merge.custom-strategies": "{\"operands\":[],\"strategy\":[\"\",\"\"]}"
       }
     },
     {

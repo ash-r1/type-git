@@ -3829,7 +3829,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-autostash');
     }
 
-    if (opts?.exec) {
+    if (opts?.exec !== undefined) {
       const execs: readonly unknown[] = Array.isArray(opts.exec) ? opts.exec : [opts.exec];
       for (const cmd of execs) {
         // check_exec_cmd refuses a blank command (only " \t\r\f\v") and one that spans lines.

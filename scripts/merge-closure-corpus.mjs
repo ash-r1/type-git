@@ -22,6 +22,7 @@ const root = new URL('../', import.meta.url);
 const base = await mkdtemp(join(tmpdir(), 'type-git-merge-closure-'));
 const seeds = { clean: join(base, 'clean'), merging: join(base, 'merging') };
 const directory = join(base, 'repo');
+const strategies = join(base, 'strategies');
 const env = {
   ...nativeOracleBaseEnv(),
   HOME: base,
@@ -37,12 +38,15 @@ const env = {
   GIT_AUTHOR_EMAIL: 'test@example.test',
   GIT_COMMITTER_NAME: 'Test',
   GIT_COMMITTER_EMAIL: 'test@example.test',
+  // Fixed dates keep commit IDs, and so diagnostics that name them, stable across runs.
+  GIT_AUTHOR_DATE: '1700000000 +0000',
+  GIT_COMMITTER_DATE: '1700000000 +0000',
 };
 /** Execute native Git with file-backed empty stdin and report abnormal termination. */
-function git(args, cwd = directory) {
+function git(args, cwd = directory, extraEnv = {}) {
   const input = openSync(join(base, 'oracle-stdin'), 'r');
   try {
-    const result = spawnSync('git', args, { cwd, env, stdio: [input, 'pipe', 'pipe'], encoding: 'utf8', timeout: 60000 });
+    const result = spawnSync('git', args, { cwd, env: { ...env, ...extraEnv }, stdio: [input, 'pipe', 'pipe'], encoding: 'utf8', timeout: 60000 });
     if (result.error || result.signal) throw result.error ?? new Error(`Git terminated: ${result.signal}`);
     return result;
   } finally {
@@ -117,6 +121,9 @@ const swap = (tokens) => {
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
   await writeFile(join(base, 'message'), 'from file\n');
+  // A custom strategy that succeeds without changing the index, for the strategy-installed state.
+  await mkdir(strategies);
+  await writeFile(join(strategies, 'git-merge-bogus'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
   const clean = seeds.clean;
   await mkdir(clean);
   if (git(['--version'], clean).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
@@ -166,11 +173,11 @@ try {
   if (git(['add', 'f'], merging).status !== 0) throw new Error('Cannot stage the resolution');
 
   /** Run one argv in a fresh copy of a seed and classify its first diagnostic. */
-  const run = (tokens, state = 'clean') => {
+  const run = (tokens, state = 'clean', withStrategy = false) => {
     rmSync(directory, { recursive: true, force: true });
     cpSync(seeds[state], directory, { recursive: true, preserveTimestamps: true });
     const argv = ['merge', ...serialize(tokens).map((w) => (w === 'message' || w.endsWith('=message') ? w.replace('message', join(base, 'message')) : w))];
-    const result = git(argv);
+    const result = git(argv, directory, withStrategy ? { PATH: `${strategies}:${env.PATH}` } : {});
     const lines = `${result.stderr}`.split('\n');
     const diagnostic = lines.find((line) => /^(usage|fatal|error|merge):|^Could not find merge strategy/.test(line)) ?? '';
     // A conflicted merge exits 1 and reports the conflict on stdout; that is an accepted argv.
@@ -181,27 +188,34 @@ try {
   const unclassified = new Map();
   /**
    * -s and -F are resolved by option callbacks while parsing, before every later check. A case
-   * refused for a missing strategy or message file is state-dependent only when the same argv
-   * with an existing strategy (ours) and message file is accepted, or is itself state-dependent.
+   * refused for a missing strategy or message file is state-dependent only when the same argv is
+   * accepted, or is itself state-dependent, once a custom strategy git-merge-bogus is installed
+   * on PATH and -F names a readable file. Git resolves at most one custom strategy per run, so
+   * a second -s bogus is still refused then.
    */
   const PARSE_TIME = [/^Could not find merge strategy '.*'\.$/, /^error: could not read file '.*'$/];
-  const resolvable = (tokens) =>
-    tokens.map((t) =>
-      Array.isArray(t) && t[0] === '-s' && t[1] === 'bogus' ? ['-s', 'ours'] : Array.isArray(t) && t[0] === '-F' && t[1] === 'missing' ? ['-F', 'message'] : t,
-    );
-  const classify = (tokens) => {
-    const outcome = run(tokens);
+  const readable = (tokens) =>
+    tokens.map((t) => (Array.isArray(t) && t[0] === '-F' && t[1] === 'missing' ? ['-F', 'message'] : t));
+  const classify = (tokens, withStrategy = false) => {
+    const outcome = run(tokens, 'clean', withStrategy);
     const { valid, diagnostic } = outcome;
     let state = false;
     if (!valid && PARSE_TIME.some((p) => p.test(diagnostic))) {
-      const other = resolvable(tokens);
-      if (JSON.stringify(other) === JSON.stringify(tokens)) throw new Error(`Unexpected parse-time refusal: ${diagnostic}`);
-      const resolved = classify(other);
+      const other = readable(tokens);
+      if (withStrategy && JSON.stringify(other) === JSON.stringify(tokens)) {
+        // Refused even with the strategy installed and every message file readable.
+        return { outcome, valid, diagnostic, state };
+      }
+      const resolved = classify(other, true);
       state = resolved.valid || resolved.state;
     } else if (!valid && !GUARANTEED.some((p) => p.test(diagnostic))) {
       state =
         STATE.some((p) => p.test(diagnostic)) ||
-        swap(tokens).some((v) => (JSON.stringify(v) !== JSON.stringify(tokens) && run(v).valid) || run(v, 'merging').valid);
+        swap(tokens).some(
+          (v) =>
+            (JSON.stringify(v) !== JSON.stringify(tokens) && run(v, 'clean', withStrategy).valid) ||
+            run(v, 'merging', withStrategy).valid,
+        );
     }
     return { outcome, valid, diagnostic, state };
   };
@@ -227,7 +241,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with its named operands replaced by topic, ahead, main or - or during the merge, or, for a missing strategy or message file, when the argv with -s ours or the readable file is accepted or state-dependent, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin',
+        'Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with its named operands replaced by topic, ahead, main or - or during the merge, or, for a missing strategy or message file, when the argv is accepted or state-dependent with a custom strategy git-merge-bogus installed and the file readable, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin',
       cases,
     },
     null,

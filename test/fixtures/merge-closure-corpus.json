@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with its named operands replaced by topic, ahead, main or - or during the merge, or, for a missing strategy or message file, when the argv with -s ours or the readable file is accepted or state-dependent, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin",
+  "profile": "Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with its named operands replaced by topic, ahead, main or - or during the merge, or, for a missing strategy or message file, when the argv is accepted or state-dependent with a custom strategy git-merge-bogus installed and the file readable, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin",
   "cases": [
     {
       "command": "merge",
@@ -3541,7 +3541,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -3561,7 +3561,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -3581,7 +3581,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -3605,7 +3605,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -42441,7 +42441,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -42465,7 +42465,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -42489,7 +42489,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -42517,7 +42517,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -52395,7 +52395,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -52419,7 +52419,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -52443,7 +52443,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -52471,7 +52471,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -59284,7 +59284,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -59308,7 +59308,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -62088,7 +62088,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -62112,7 +62112,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -64892,7 +64892,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -64916,7 +64916,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -67696,7 +67696,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -67720,7 +67720,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -70500,7 +70500,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -70524,7 +70524,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -73304,7 +73304,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -73328,7 +73328,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -76108,7 +76108,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -76132,7 +76132,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -78961,7 +78961,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -78986,7 +78986,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -81879,7 +81879,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -81904,7 +81904,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -84748,7 +84748,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -84772,7 +84772,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -87552,7 +87552,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -87576,7 +87576,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -90356,7 +90356,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -90380,7 +90380,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -93160,7 +93160,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -93184,7 +93184,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -95964,7 +95964,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -95988,7 +95988,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -98768,7 +98768,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -98792,7 +98792,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -101572,7 +101572,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -101596,7 +101596,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -104425,7 +104425,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -104450,7 +104450,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -107343,7 +107343,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -107368,7 +107368,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -113130,7 +113130,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -113154,7 +113154,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -115934,7 +115934,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -115958,7 +115958,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -118738,7 +118738,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -118762,7 +118762,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -121542,7 +121542,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -121566,7 +121566,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -124346,7 +124346,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -124370,7 +124370,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -125988,7 +125988,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126012,7 +126012,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126036,7 +126036,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126060,7 +126060,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126084,7 +126084,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126108,7 +126108,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126132,7 +126132,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126156,7 +126156,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126180,7 +126180,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126204,7 +126204,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126228,7 +126228,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126252,7 +126252,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126276,7 +126276,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126300,7 +126300,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126325,7 +126325,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126350,7 +126350,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126375,7 +126375,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126400,7 +126400,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126424,7 +126424,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126448,7 +126448,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126472,7 +126472,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126496,7 +126496,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126520,7 +126520,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126544,7 +126544,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126568,7 +126568,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126592,7 +126592,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126616,7 +126616,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126640,7 +126640,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126664,7 +126664,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126688,7 +126688,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126712,7 +126712,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126736,7 +126736,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126761,7 +126761,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126786,7 +126786,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126811,7 +126811,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126836,7 +126836,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126910,7 +126910,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126934,7 +126934,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126958,7 +126958,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -126982,7 +126982,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127006,7 +127006,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127030,7 +127030,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127054,7 +127054,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127078,7 +127078,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127102,7 +127102,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127126,7 +127126,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127150,7 +127150,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127174,7 +127174,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127248,7 +127248,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127274,7 +127274,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127300,7 +127300,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127326,7 +127326,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127352,7 +127352,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127378,7 +127378,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127404,7 +127404,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127430,7 +127430,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127456,7 +127456,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127482,7 +127482,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127508,7 +127508,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127534,7 +127534,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127610,7 +127610,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127634,7 +127634,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127660,7 +127660,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127686,7 +127686,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127712,7 +127712,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127738,7 +127738,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127764,7 +127764,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127790,7 +127790,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127814,7 +127814,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127838,7 +127838,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127864,7 +127864,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127890,7 +127890,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127916,7 +127916,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127942,7 +127942,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127966,7 +127966,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -127990,7 +127990,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128016,7 +128016,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128042,7 +128042,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128119,7 +128119,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128144,7 +128144,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128168,7 +128168,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128192,7 +128192,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128216,7 +128216,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128240,7 +128240,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128264,7 +128264,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128288,7 +128288,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128312,7 +128312,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128336,7 +128336,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128360,7 +128360,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128384,7 +128384,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128408,7 +128408,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128432,7 +128432,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128456,7 +128456,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128480,7 +128480,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128504,7 +128504,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128528,7 +128528,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128552,7 +128552,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128576,7 +128576,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128600,7 +128600,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128624,7 +128624,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128648,7 +128648,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128672,7 +128672,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128696,7 +128696,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128720,7 +128720,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128744,7 +128744,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -128768,7 +128768,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -129954,7 +129954,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -129978,7 +129978,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -132856,7 +132856,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -132882,7 +132882,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -135888,7 +135888,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -135914,7 +135914,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -138920,7 +138920,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -138946,7 +138946,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -141952,7 +141952,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -141978,7 +141978,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -144984,7 +144984,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -145010,7 +145010,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -148016,7 +148016,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -148042,7 +148042,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -151488,7 +151488,7 @@
         "topic"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 1,
       "diagnostic": "Could not find merge strategy 'bogus'."
     },
@@ -151516,7 +151516,7 @@
         "ahead"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 1,
       "diagnostic": "Could not find merge strategy 'bogus'."
     },
@@ -153982,7 +153982,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -154006,7 +154006,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -156884,7 +156884,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -156910,7 +156910,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -159916,7 +159916,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -159942,7 +159942,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -162948,7 +162948,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -162974,7 +162974,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -165882,7 +165882,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -165906,7 +165906,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -168784,7 +168784,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -168810,7 +168810,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -171816,7 +171816,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -171842,7 +171842,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -174750,7 +174750,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -174774,7 +174774,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -177652,7 +177652,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -177678,7 +177678,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -183667,7 +183667,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -183692,7 +183692,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -186536,7 +186536,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -186560,7 +186560,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -189340,7 +189340,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -189364,7 +189364,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -192144,7 +192144,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -192168,7 +192168,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -194948,7 +194948,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -194972,7 +194972,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -197752,7 +197752,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -197776,7 +197776,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -200556,7 +200556,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -200580,7 +200580,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -203360,7 +203360,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -203384,7 +203384,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -206164,7 +206164,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -206188,7 +206188,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -208968,7 +208968,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -208992,7 +208992,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -211772,7 +211772,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -211796,7 +211796,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -214576,7 +214576,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -214600,7 +214600,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -217380,7 +217380,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -217404,7 +217404,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -220184,7 +220184,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit 0fc5ead does not have a GPG signature."
+      "diagnostic": "fatal: Commit d1c4514 does not have a GPG signature."
     },
     {
       "command": "merge",
@@ -220208,7 +220208,7 @@
       "valid": false,
       "state": true,
       "status": 128,
-      "diagnostic": "fatal: Commit ae28152 does not have a GPG signature."
+      "diagnostic": "fatal: Commit 7a0841c does not have a GPG signature."
     },
     {
       "command": "merge",
