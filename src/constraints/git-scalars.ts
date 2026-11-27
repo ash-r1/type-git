@@ -40,6 +40,7 @@ import {
 } from './git-integer.js';
 import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
+import { validNewBranchName, validRefnameFormat } from './refname.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
 export const PYTHON_INTEGER_DEFERRED = Symbol('python-integer-deferred');
@@ -118,7 +119,9 @@ export type GitScalarParser =
   | 'fetch-recurse'
   | 'push-recurse'
   | 'push-signed'
-  | 'config-type';
+  | 'config-type'
+  | 'branch-name'
+  | 'refname-onelevel';
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
@@ -242,6 +245,16 @@ export function parseGitScalar(
             unsignedChar,
             combineEmptyComponents,
           )),
+      value,
+    };
+  }
+  if (parser === 'branch-name') {
+    // Absent operands (listing) are not names; see refname.ts for repository-dependent names.
+    return { valid: value === undefined || validNewBranchName(value), value };
+  }
+  if (parser === 'refname-onelevel') {
+    return {
+      valid: value === undefined || (typeof value === 'string' && validRefnameFormat(value, true)),
       value,
     };
   }
