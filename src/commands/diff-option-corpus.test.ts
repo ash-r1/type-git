@@ -55,8 +55,11 @@ describe('native diff option grammar, rule combinations and operand forms (Git 2
 
   it('samples every typed diff option spelling', () => {
     const spec = commandSpecs().diff as { options: Record<string, unknown> };
-    // Residual-dispatch words and help are covered by test/fixtures/diff-parser-corpus.json.
+    // Residual-dispatch words and help are covered by test/fixtures/diff-parser-corpus.json,
+    // completion words by test/fixtures/diff-log-show-closure-corpus.json.
     const residual = new Set([
+      '--git-completion-helper',
+      '--git-completion-helper-all',
       '-h',
       '--help',
       '--cached',

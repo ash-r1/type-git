@@ -990,6 +990,415 @@
         }
       }
     },
+    "builtin/diff.c": {
+      "sha256": "4cba61165eb1a49f6945962380d26663d511ca03554eeb9a7b1da929683f690c",
+      "functions": {
+        "blob_path": {
+          "sites": [],
+          "references": []
+        },
+        "builtin_diff_b_f": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 90
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to stat '%s'",
+              "line": 96
+            },
+            {
+              "call": "die",
+              "text": "'%s': not a regular file or symlink",
+              "line": 98
+            }
+          ],
+          "references": [
+            "stuff_change"
+          ]
+        },
+        "builtin_diff_blobs": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 122
+            }
+          ],
+          "references": [
+            "blob_path",
+            "stuff_change"
+          ]
+        },
+        "builtin_diff_combined": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 220
+            },
+            {
+              "call": "die",
+              "text": "no merge given, only parents.",
+              "line": 223
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_files": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 266
+            },
+            {
+              "call": "error",
+              "text": "invalid option: %s",
+              "line": 268
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 269
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_index_preload",
+              "line": 287
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_index": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 150
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 160
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_index_preload",
+              "line": 165
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_cache",
+              "line": 168
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_tree": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 187
+            }
+          ],
+          "references": []
+        },
+        "cmd_diff": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot come back to cwd",
+              "line": 501
+            },
+            {
+              "call": "exit",
+              "text": "exit diff_no_index(&rev, the_repository->hash_algo,\n\t\t\t\t   no_index == DIFF_NO_INDEX_IMPLICIT,\n\t\t\t\t   argc, argv)",
+              "line": 516
+            },
+            {
+              "call": "die",
+              "text": "Not a git repository",
+              "line": 535
+            },
+            {
+              "call": "die",
+              "text": "invalid object '%s' given.",
+              "line": 581
+            },
+            {
+              "call": "die",
+              "text": "more than two blobs given: '%s'",
+              "line": 597
+            },
+            {
+              "call": "die",
+              "text": "unhandled object '%s' given.",
+              "line": 602
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 618
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 623
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 627
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 631
+            }
+          ],
+          "references": [
+            "builtin_diff_b_f",
+            "builtin_diff_blobs",
+            "builtin_diff_combined",
+            "builtin_diff_files",
+            "builtin_diff_index",
+            "builtin_diff_tree",
+            "refresh_index_quietly",
+            "symdiff_prepare",
+            "symdiff_release"
+          ]
+        },
+        "refresh_index_quietly": {
+          "sites": [],
+          "references": []
+        },
+        "stuff_change": {
+          "sites": [],
+          "references": []
+        },
+        "symdiff_prepare": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 348
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 357
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 375
+            },
+            {
+              "call": "die",
+              "text": "%s...%s: no merge base",
+              "line": 387
+            }
+          ],
+          "references": []
+        },
+        "symdiff_release": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
+    "builtin/log.c": {
+      "sha256": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
+      "functions": {
+        "auto_decoration_style": {
+          "sites": [],
+          "references": [
+            "session_is_interactive"
+          ]
+        },
+        "clear_decorations_callback": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_log": {
+          "sites": [],
+          "references": [
+            "cmd_log_init",
+            "cmd_log_walk",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "log_setup_revisions_tweak"
+          ]
+        },
+        "cmd_log_init": {
+          "sites": [],
+          "references": [
+            "cmd_log_init_defaults",
+            "cmd_log_init_finish"
+          ]
+        },
+        "cmd_log_init_defaults": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_log_init_finish": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unrecognized argument: %s",
+              "line": 320
+            },
+            {
+              "call": "die",
+              "text": "-L<range>:<file> cannot be used with pathspec",
+              "line": 323
+            }
+          ],
+          "references": [
+            "clear_decorations_callback",
+            "decorate_callback",
+            "log_line_range_callback",
+            "set_default_decoration_filter"
+          ]
+        },
+        "cmd_log_walk": {
+          "sites": [],
+          "references": [
+            "cmd_log_walk_no_free"
+          ]
+        },
+        "cmd_log_walk_no_free": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "revision walk setup failed",
+              "line": 407
+            }
+          ],
+          "references": []
+        },
+        "cmd_show": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not read object %s",
+              "line": 727
+            },
+            {
+              "call": "error",
+              "text": "unknown type: %d",
+              "line": 765
+            }
+          ],
+          "references": [
+            "cmd_log_init",
+            "cmd_log_walk",
+            "cmd_log_walk_no_free",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "show_blob_object",
+            "show_setup_revisions_tweak",
+            "show_tag_object",
+            "show_tree_object"
+          ]
+        },
+        "decorate_callback": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "invalid --decorate option: %s",
+              "line": 179
+            }
+          ],
+          "references": [
+            "parse_decoration_style"
+          ]
+        },
+        "git_log_config": {
+          "sites": [],
+          "references": [
+            "parse_decoration_style"
+          ]
+        },
+        "log_config_init": {
+          "sites": [],
+          "references": [
+            "auto_decoration_style"
+          ]
+        },
+        "log_config_release": {
+          "sites": [],
+          "references": []
+        },
+        "log_line_range_callback": {
+          "sites": [],
+          "references": []
+        },
+        "log_setup_revisions_tweak": {
+          "sites": [],
+          "references": []
+        },
+        "parse_decoration_style": {
+          "sites": [],
+          "references": [
+            "auto_decoration_style"
+          ]
+        },
+        "session_is_interactive": {
+          "sites": [],
+          "references": []
+        },
+        "set_default_decoration_filter": {
+          "sites": [],
+          "references": []
+        },
+        "show_blob_object": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "not a valid object name %s",
+              "line": 597
+            },
+            {
+              "call": "die",
+              "text": "git show %s: bad file",
+              "line": 606
+            }
+          ],
+          "references": []
+        },
+        "show_setup_revisions_tweak": {
+          "sites": [],
+          "references": []
+        },
+        "show_tag_object": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not read object %s",
+              "line": 622
+            }
+          ],
+          "references": [
+            "show_tagger"
+          ]
+        },
+        "show_tagger": {
+          "sites": [],
+          "references": []
+        },
+        "show_tree_object": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
     "builtin/merge.c": {
       "sha256": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
       "functions": {
@@ -2229,6 +2638,113 @@
               "call": "die",
               "text": "make_cache_entry failed for path '%s'",
               "line": 186
+            }
+          ],
+          "references": []
+        }
+      }
+    },
+    "diff-no-index.c": {
+      "sha256": "b3be27d49453fde08ad09382cfe8301f6c201669180337eec860af06da22d36e",
+      "functions": {
+        "append_basename": {
+          "sites": [],
+          "references": []
+        },
+        "diff_no_index": {
+          "sites": [
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 379
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 403
+            }
+          ],
+          "references": [
+            "fixup_paths",
+            "queue_diff"
+          ]
+        },
+        "fixup_paths": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot compare stdin to a directory",
+              "line": 329
+            },
+            {
+              "call": "die",
+              "text": "cannot compare a named pipe to a directory",
+              "line": 332
+            }
+          ],
+          "references": [
+            "append_basename"
+          ]
+        },
+        "get_mode": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "Could not access '%s'",
+              "line": 95
+            }
+          ],
+          "references": []
+        },
+        "noindex_filespec": {
+          "sites": [],
+          "references": [
+            "populate_from_pipe",
+            "populate_from_stdin"
+          ]
+        },
+        "populate_common": {
+          "sites": [],
+          "references": []
+        },
+        "populate_from_pipe": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "error while reading from '%s'",
+              "line": 130
+            }
+          ],
+          "references": [
+            "populate_common"
+          ]
+        },
+        "populate_from_stdin": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "error while reading from stdin",
+              "line": 140
+            }
+          ],
+          "references": [
+            "populate_common"
+          ]
+        },
+        "queue_diff": {
+          "sites": [],
+          "references": [
+            "get_mode",
+            "noindex_filespec",
+            "read_directory_contents"
+          ]
+        },
+        "read_directory_contents": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "Could not open directory %s",
+              "line": 31
             }
           ],
           "references": []
