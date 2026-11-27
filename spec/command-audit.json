@@ -86,7 +86,7 @@
       "typedCommandAPI": true
     },
     "reset": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "reset"
       ],
@@ -119,10 +119,378 @@
         "test/types/reset-path-arity-corpus.ts",
         "scripts/reset-path-arity-corpus.mjs",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/reset-closure-corpus.mjs",
+        "src/commands/reset-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Guaranteed path arity without a recognized separator is now source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. Single-word ref/path ambiguity and pathspec-file content remain native.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "notes": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled; reset recognizes -- only at retained index 0 or 1. Guaranteed path arity without a recognized separator is source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. The closure corpus runs every case in a fresh repository and counts a refusal as state-dependent only when the same argv shape is accepted with path and revision operands swapped or with an empty pathspec file; the wrapper must accept exactly the argv that some such state accepts. --no-pathspec-from-file does not clear an earlier --pathspec-from-file (OPTION_FILENAME ignores unset), which the strict API already reproduces. repo.reset passes its target followed by -- so that a path with the same name cannot turn it into a pathspec.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/checkout-parser-corpus.json",
+          "src/commands/checkout-parser.test.ts",
+          "test/types/checkout-parser-reset-corpus-1.ts",
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts",
+          "test/fixtures/reset-path-arity-corpus.json",
+          "src/commands/reset-path-arity.test.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/reset-closure-corpus.json",
+          "src/commands/reset-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/reset-closure-corpus.test.ts",
+          "src/commands/checkout-parser.test.ts",
+          "src/impl/high-level-api.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/reset-closure-corpus.mjs",
+          "scripts/checkout-parser-corpus.mjs",
+          "scripts/reset-path-arity-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/checkout-parser-reset-corpus-1.ts",
+          "test/types/reset-path-arity-corpus.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_reset",
+        "sources": {
+          "builtin/reset.c": [
+            "cmd_reset",
+            "die_if_unmerged_cache",
+            "git_reset_config",
+            "is_merge",
+            "parse_args",
+            "print_new_head_line",
+            "read_from_tree",
+            "reset_index",
+            "reset_refs",
+            "set_reflog_message",
+            "update_index_from_diff"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "pathspec-file-patch",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A pathspec file is refused in patch mode (reset-file-patch); --no-pathspec-from-file does not clear an earlier file.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-paths",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "A pathspec file is refused with command-line paths: any word after a recognized separator, and any word after the first when there is none (reset-file-paths, reset-unseparated-file-paths). Whether a single unseparated word is a path is covered by the rev-or-path obligation.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/fixtures/reset-path-arity-corpus.json",
+              "src/commands/reset-path-arity.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-nul",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "--pathspec-file-nul requires a pathspec file (reset-file-nul).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "revision-resolution",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: Failed to resolve '%s' as a valid revision.",
+              "cmd_reset: Could not parse object '%s'.",
+              "cmd_reset: Failed to resolve '%s' as a valid tree."
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The revision must name a commit, or a tree when paths or patch mode are given; an empty word never resolves and is refused by cli.reset.empty-operand.",
+            "reason": "Revisions resolve against the object database at runtime."
+          },
+          {
+            "id": "context-range",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: '%s' cannot be negative [--unified]",
+              "cmd_reset: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "-U/--unified and --inter-hunk-context accept -1 (unset) or more (reset-unified-range, reset-inter-hunk-context-range).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "patch-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: options '%s' and '%s' cannot be used together [--patch, --{hard,mixed,soft}]"
+            ],
+            "disposition": "modeled",
+            "summary": "Patch mode refuses any explicit mode, mixed included (reset-patch-mode).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "patch-only-options",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [--unified, --patch]",
+              "cmd_reset: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "cmd_reset: the option '%s' requires '%s' [--no-auto-advance, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A context other than -1 and --no-auto-advance require patch mode (reset-unified-patch, reset-inter-hunk-context-patch, reset-auto-advance).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "paths-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: Cannot do %s reset with paths."
+            ],
+            "disposition": "modeled",
+            "summary": "Soft, hard, merge and keep resets refuse explicit paths (reset-paths-mode, reset-unseparated-paths-mode). Paths read from a pathspec file are covered by the pathspec-file-content obligation, and a single unseparated word by rev-or-path.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "intent-to-add-mode",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: the option '%s' requires '%s' [-N, --mixed]"
+            ],
+            "disposition": "modeled",
+            "summary": "-N requires the default or explicit mixed mode (reset-intent-mode); repo.reset refuses intentToAdd with another mode (reset.intent-to-add-mode).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "bare-repository",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: %s reset is not allowed in a bare repository"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "A mixed reset is refused in a bare repository; hard, merge and keep need a work tree (setup_work_tree).",
+            "reason": "Whether the repository is bare is known only at runtime."
+          },
+          {
+            "id": "index-state",
+            "kind": "refusal",
+            "sites": [
+              "cmd_reset: index file corrupt",
+              "cmd_reset: Could not reset index file to revision '%s'.",
+              "cmd_reset: Could not write new index file.",
+              "die_if_unmerged_cache: Cannot do a %s reset in the middle of a merge.",
+              "reset_index: You do not have a valid HEAD.",
+              "reset_index: Failed to find tree of HEAD.",
+              "reset_index: Failed to find tree of %s.",
+              "reset_index: unable to read tree (%s)",
+              "update_index_from_diff: make_cache_entry failed for path '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Index reading, locking and writing, unmerged entries or an in-progress merge for soft and keep resets, and trees that cannot be read. On an existing branch a reset without paths calls reset_refs, which updates ORIG_HEAD and then HEAD as separate updates; only the HEAD update decides the exit status, so a failed ORIG_HEAD update still exits 0, and a failed HEAD update (for example on a lock) exits with an error after ORIG_HEAD may already have moved. Mixed, hard, merge and keep resets write the index before reset_refs, so after a failed HEAD update the index is already updated; a soft reset writes no index.",
+            "reason": "The index, HEAD and merge state are read at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the reset table with PARSE_OPT_KEEP_DASHDASH: long prefixes and negations, short clusters, optional-argument attachment, takes-no-value and unknown-option errors, a kept first separator and help timing.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "test/types/checkout-parser-reset-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for modes crossed with every modifier and fourteen operand shapes, modifier pairs with no operand or HEAD, mode pairs with every operand shape and mode-modifier-modifier triples before a path (6,370 real resets). Only acceptance is compared; the typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "mode-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "The mode is the last of --soft, --mixed, --hard, --merge and --keep (OPT_SET_INT_F with PARSE_OPT_NONEG); repo.reset accepts the same five names.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules takes an optional Git boolean (option_parse_recurse_submodules_worktree_updater, parse_update_recurse in submodule-config.c); check and other words are refused.",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/fixtures/boolean-callback-corpus.json",
+              "src/commands/boolean-callbacks.test.ts"
+            ]
+          },
+          {
+            "id": "integer-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-U/--unified and --inter-hunk-context take OPT_INTEGER values with Git's lexical rules.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-content",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "Whether a pathspec file yields paths, and so whether a non-mixed reset with it is refused with paths.",
+            "reason": "The file is read at runtime; an empty file yields no paths."
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty word is refused anywhere: as the first unseparated word by verify_filename, as a path by parse_pathspec, and as a revision by resolution (cli.reset.empty-operand).",
+            "evidence": [
+              "test/fixtures/reset-closure-corpus.json",
+              "src/commands/reset-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "rev-or-path",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Without a separator at retained index 0 or 1, a single word is a revision when it names a commit and otherwise must be an existing path (verify_filename), and the first of several words is a revision when it names a tree (verify_non_filename refuses a word that is also a path). repo.reset passes its target followed by -- so it is always a revision.",
+            "reason": "Which words name objects and which name paths is known only at runtime."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS inherited at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Pathspecs outside the repository.",
+            "reason": "parse_pathspec refuses paths outside the repository relative to the runtime prefix."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "submodule.recurse and core settings set defaults that argv can override, and invalid configuration values are refused.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "unborn-head",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "When the target is HEAD (the default) and HEAD cannot be resolved on an unborn branch, the reset uses the empty tree and reset_refs is not called, so neither HEAD nor ORIG_HEAD is updated. A target that resolves, such as an existing main, is reset to normally even on an unborn branch, and reset_refs creates the current branch.",
+            "reason": "HEAD is read at runtime."
+          },
+          {
+            "id": "patch-terminal",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "Patch mode reads hunk selections interactively.",
+            "reason": "The answers come from standard input at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Pathspec case folding and Windows command-line encoding of operands.",
+            "reason": "Both are decided by the filesystem and platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash push": {
       "state": "partial",
@@ -2224,7 +2592,7 @@
       "notes": "Every typed option spelling, sampled value grammars, ordered pairs over the output-format, pickaxe, walk-shape, merge-diff, count and follow families, and operand forms are run against Git 2.55.0 (scripts/diff-option-corpus.mjs, each in a clean and a modified worktree); residual dispatch and raw-word scans are checked in scripts/diff-parser-corpus.mjs. scripts/diff-log-show-closure-corpus.mjs adds --cached with --since/--until, the bare \"-\" operand and the completion helper words. Restrictions: --end-of-options and non-sole completion words are refused, and --cached --since/--until texts are refused in every timezone. Repository, object, filesystem, configuration, regex and date-clock outcomes are delegated as the closure records. Output bytes are not typed. The finite corpora do not establish completeness."
     },
     "merge": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "merge"
       ],
@@ -2251,10 +2619,440 @@
         "test/types/history-parser-merge-corpus-6.ts",
         "test/types/history-parser-merge-corpus-7.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/merge-closure-corpus.mjs",
+        "src/commands/merge-closure-corpus.test.ts"
       ],
-      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_merge",
+        "sources": {
+          "builtin/merge.c": [
+            "abort_commit",
+            "add_strategies",
+            "append_strategy",
+            "cmd_merge",
+            "collect_parents",
+            "count_diff_files",
+            "count_unmerged_entries",
+            "default_edit_option",
+            "evaluate_result",
+            "finish",
+            "finish_automerge",
+            "finish_up_to_date",
+            "get_strategy",
+            "git_merge_config",
+            "handle_fetch_head",
+            "merge_name",
+            "merge_trivial",
+            "merging_a_throwaway_tag",
+            "option_parse_compact_summary",
+            "option_parse_message",
+            "option_parse_strategy",
+            "option_read_message",
+            "parse_branch_merge_options",
+            "prepare_merge_message",
+            "prepare_to_commit",
+            "read_empty",
+            "read_merge_msg",
+            "read_tree_trivial",
+            "reduce_parents",
+            "reset_hard",
+            "restore_state",
+            "save_state",
+            "setup_with_upstream",
+            "squash_message",
+            "suggest_conflicts",
+            "try_merge_strategy",
+            "write_merge_heads",
+            "write_merge_state",
+            "write_tree_trivial"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "help",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: show_usage_with_options_if_asked"
+            ],
+            "disposition": "modeled",
+            "summary": "A sole -h prints usage and exits 129 before configuration or parsing.",
+            "evidence": [
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "continuation-alone",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: --abort expects no arguments",
+              "cmd_merge: --quit expects no arguments",
+              "cmd_merge: --continue expects no arguments"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --abort, --quit or --continue must be the only word, counting repetitions, negations and operands (merge.abort-only, merge.quit-only, merge.continue-only); --abort is checked before --quit and --quit before --continue.",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts",
+              "test/fixtures/history-parser-corpus.json",
+              "src/commands/history-parser.test.ts",
+              "test/types/history-parser-merge-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "squash-conflicts",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: options '%s' and '%s' cannot be used together [--squash, --no-ff.]",
+              "cmd_merge: options '%s' and '%s' cannot be used together [--squash, --commit.]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --squash is refused with a final --no-ff and with an explicit final --commit (merge.squash); repo.merge refuses squash with ff no or false.",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "in-progress",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: There is no merge to abort (MERGE_HEAD missing).",
+              "cmd_merge: There is no merge in progress (MERGE_HEAD missing).",
+              "cmd_merge: You have not concluded your merge (MERGE_HEAD exists).\nPlease, commit your changes before you merge.",
+              "cmd_merge: You have not concluded your merge (MERGE_HEAD exists).",
+              "cmd_merge: You have not concluded your cherry-pick (CHERRY_PICK_HEAD exists).\nPlease, commit your changes before you merge.",
+              "cmd_merge: You have not concluded your cherry-pick (CHERRY_PICK_HEAD exists)."
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--abort and --continue need a merge in progress; a new merge is refused while a merge or cherry-pick is unconcluded or the index has unmerged entries.",
+            "reason": "MERGE_HEAD, CHERRY_PICK_HEAD and the index are read at runtime."
+          },
+          {
+            "id": "default-upstream",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: No commit specified and merge.defaultToUpstream not set.",
+              "cmd_merge: usage_with_options",
+              "setup_with_upstream: No current branch.",
+              "setup_with_upstream: No remote for the current branch.",
+              "setup_with_upstream: No default upstream defined for the current branch.",
+              "setup_with_upstream: No remote-tracking branch for %s from %s"
+            ],
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Without operands, merge.defaultToUpstream (default true) merges the configured upstream of the current branch; the usage exits follow when that yields no commit.",
+            "reason": "The setting, the current branch and its upstream are read at runtime."
+          },
+          {
+            "id": "unborn-head",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: Squash commit into empty head not supported yet",
+              "cmd_merge: Non-fast-forward commit does not make sense into an empty head",
+              "cmd_merge: %s - not something we can merge",
+              "cmd_merge: Can merge only exactly one commit into empty head"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "On an unborn branch Git refuses --squash, --no-ff and more than one commit, and needs the operand to resolve.",
+            "reason": "Whether HEAD is born is known only at runtime."
+          },
+          {
+            "id": "history-checks",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: refusing to merge unrelated histories",
+              "cmd_merge: exit 128",
+              "merge_name: '%s' does not point to a commit",
+              "try_merge_strategy: Not handling anything other than two heads merge."
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Unrelated histories without --allow-unrelated-histories, merge-base failures, names that resolve to non-commits, and ort or recursive with more than one head left after reduce_parents. With --ff-only a merge that cannot fast-forward, because the histories diverged, is refused by die_ff_impossible (advice.c) when the effective mode is still FF_ONLY after strategy selection; one that can fast-forward succeeds first. A strategy marked NO_FAST_FORWARD (ours, subtree) turns the mode into FF_NO, so git merge --ff-only -s ours on diverged histories makes a merge commit instead.",
+            "reason": "The commit graph is read at runtime; how many heads remain depends on ancestry."
+          },
+          {
+            "id": "strategy-options",
+            "kind": "refusal",
+            "sites": [
+              "try_merge_strategy: unknown strategy option: -X%s"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "ort and recursive refuse an unknown -X option (parse_merge_opt in merge-ort.c), but only when they run: a fast-forward or already up-to-date merge accepts any -X value, as do other strategies.",
+            "reason": "Whether a strategy runs depends on the history at runtime."
+          },
+          {
+            "id": "strategy-discovery",
+            "kind": "refusal",
+            "sites": [
+              "get_strategy: exit 1"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "-s accepts the built-in recursive, octopus, ort, resolve, ours and subtree and a git-merge-<name> found only in PATH directories outside Git's exec path; others are refused while options are parsed. load_command_list puts exec-path commands in main_cmds and get_strategy drops every main_cmds name outside the built-in table, so a custom strategy in the exec path is refused, including when a git-merge-<name> of the same name is also in another PATH directory: load_command_list drops other_cmds names that main_cmds already holds. At most one -s may name a custom strategy: after resolving one, get_strategy releases the command lists but keeps them marked loaded, so a later custom name is always refused; cli.merge.custom-strategies refuses a second name outside the built-in table, and the option check cli.merge.custom-strategy-reached refuses it where it is reached, before a later -h or --help.",
+            "reason": "Custom strategies are discovered at runtime in PATH directories outside the exec path; the refusals that would follow parsing are still checked."
+          },
+          {
+            "id": "local-changes",
+            "kind": "refusal",
+            "sites": [
+              "cmd_merge: Your local changes to the following files would be overwritten by merge:\n  %s"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Local changes that a merge would overwrite.",
+            "reason": "The work tree and index are read at runtime."
+          },
+          {
+            "id": "fetch-head",
+            "kind": "refusal",
+            "sites": [
+              "handle_fetch_head: could not read '%s'",
+              "handle_fetch_head: could not close '%s'",
+              "handle_fetch_head: not something we can merge in %s: %s"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "A sole FETCH_HEAD operand reads the heads recorded by the last fetch.",
+            "reason": "FETCH_HEAD is read at runtime."
+          },
+          {
+            "id": "message-file",
+            "kind": "refusal",
+            "sites": [
+              "option_read_message: could not read file '%s'",
+              "read_merge_msg: Could not read from '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "-F must name a readable file; an empty name is refused by merge.message-file-nonempty.",
+            "reason": "Files are read at runtime; the refusals that would follow parsing are still checked."
+          },
+          {
+            "id": "callback-values",
+            "kind": "refusal",
+            "sites": [
+              "option_parse_message: switch `m' requires a value",
+              "option_read_message: option `%s' requires a value"
+            ],
+            "disposition": "modeled",
+            "summary": "-m and -F require a value; -F cannot be negated.",
+            "evidence": [
+              "test/fixtures/history-parser-corpus.json",
+              "src/commands/history-parser.test.ts",
+              "test/types/history-parser-merge-corpus-1.ts",
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "environment",
+            "kind": "refusal",
+            "sites": [
+              "default_edit_option: Bad value '%s' in environment '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "GIT_MERGE_AUTOEDIT must be yes or no.",
+            "reason": "The variable is inherited at runtime."
+          },
+          {
+            "id": "branch-mergeoptions",
+            "kind": "refusal",
+            "sites": [
+              "parse_branch_merge_options: Bad branch.%s.mergeoptions string: %s"
+            ],
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "branch.<name>.mergeoptions is split and parsed before argv, so its words can change what argv means.",
+            "reason": "Configuration is read at runtime."
+          },
+          {
+            "id": "writes-and-hooks",
+            "kind": "refusal",
+            "sites": [
+              "finish_automerge: failed to write commit object",
+              "merge_trivial: Unable to write index.",
+              "merge_trivial: failed to write commit object",
+              "try_merge_strategy: Unable to write index.",
+              "try_merge_strategy: unable to write %s",
+              "write_tree_trivial: git write-tree failed to write a tree",
+              "read_empty: read-tree failed",
+              "reset_hard: read-tree failed",
+              "restore_state: could not read index",
+              "save_state: could not run stash.",
+              "save_state: stash failed",
+              "save_state: not a valid object: %s",
+              "squash_message: revision walk setup failed",
+              "abort_commit: %s",
+              "abort_commit: exit 1"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Index, tree, commit and stash writes, signing (-S), the editor and pre-merge-commit and commit-msg hooks, and an empty final message when a merge commit is written.",
+            "reason": "Signing keys, hooks, the editor and the filesystem are used at runtime; an empty -m is accepted because a fast-forward writes no message and hooks can supply one."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of builtin_merge_options: long prefixes and negations, short clusters, optional-argument attachment for --log and -S, takes-no-value and unknown-option errors, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/history-parser-corpus.json",
+              "src/commands/history-parser.test.ts",
+              "test/types/history-parser-merge-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for continuation actions crossed with every modifier and seven operand shapes, modifier pairs before a diverged or a fast-forward branch, and action pairs (8,959 real merges). Only acceptance is compared; the typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "cleanup-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--cleanup accepts default, verbatim, whitespace, strip and scissors (sequencer.c get_cleanup_mode; merge.cleanup).",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "log-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--log takes an optional OPTION_INTEGER count; a negative count is accepted and falls back to merge.log.",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts",
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "free-text-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "-m, --into-name and -S key ids are free text; -X values are checked only when ort or recursive runs (strategy-options).",
+            "reason": "Messages and names are used verbatim; key ids are resolved by the signing program at runtime."
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty operand never resolves, so collect_parents refuses it (cli.merge.empty-operand).",
+            "evidence": [
+              "test/fixtures/merge-closure-corpus.json",
+              "src/commands/merge-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "commit-names",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Operands must resolve to commits (get_merge_parent, help_unknown_ref in help.c); a sole - means @{-1} and a sole FETCH_HEAD reads the fetched heads.",
+            "reason": "Names resolve against refs and the object database at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "merge.*, branch.<name>.mergeoptions, pull.twohead and pull.octopus set defaults that argv can override.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "signatures",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "--verify-signatures refuses commits without a valid signature.",
+            "reason": "Signatures and trust are checked at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of names and messages.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      },
+      "notes": "The ordinary native option pass models long-prefix resolution, short clusters, consumed end markers and retained operands, and OPTION_INTEGER storage and lexical semantics for --log follow the recorded Git 2.55 compiler/libc profile. The closure corpus runs every case in a fresh repository and counts a refusal as state-dependent only when the same argv succeeds with its named operands replaced by a diverged branch, a fast-forward branch, the current branch or -, or during a conflicted merge, or when it depends on signatures, keys, upstream configuration or unrelated histories; a missing strategy or message file stops parsing, so such a case is state-dependent only when the same argv with an existing strategy and file is; the wrapper must accept exactly the argv that some such state accepts. -X values and an empty -m are therefore left to Git: they are refused only when a strategy runs or a merge commit is written.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/history-parser-corpus.json",
+          "src/commands/history-parser.test.ts",
+          "test/types/history-parser-merge-corpus-1.ts",
+          "test/fixtures/merge-closure-corpus.json",
+          "src/commands/merge-closure-corpus.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/merge-closure-corpus.json",
+          "src/commands/merge-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/merge-closure-corpus.json",
+          "src/commands/merge-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/merge-closure-corpus.test.ts",
+          "src/commands/history-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/merge-closure-corpus.mjs",
+          "scripts/history-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/history-parser-merge-corpus-1.ts",
+          "test/types/native-integer-command-api.ts"
+        ]
+      }
     },
     "pull": {
       "state": "partial",
@@ -2458,7 +3256,7 @@
       "typedCommandAPI": true
     },
     "rebase": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "rebase"
       ],
@@ -2487,10 +3285,418 @@
         "test/types/history-parser-rebase-corpus-8.ts",
         "test/types/history-parser-rebase-corpus-9.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "scripts/rebase-closure-corpus.mjs",
+        "src/commands/rebase-closure-corpus.test.ts",
+        "src/impl/option-constraints.test.ts"
       ],
-      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_rebase",
+        "sources": {
+          "builtin/rebase.c": [
+            "can_fast_forward",
+            "check_exec_cmd",
+            "checkout_up_to_date",
+            "cleanup_autostash",
+            "cmd_rebase",
+            "do_interactive_rebase",
+            "edit_todo_file",
+            "error_on_missing_default_upstream",
+            "fill_branch_base",
+            "finish_rebase",
+            "get_replay_opts",
+            "get_revision_ranges",
+            "imply_merge",
+            "init_basic_state",
+            "is_linear_history",
+            "is_merge",
+            "move_to_original_branch",
+            "parse_empty_value",
+            "parse_opt_am",
+            "parse_opt_empty",
+            "parse_opt_interactive",
+            "parse_opt_keep_empty",
+            "parse_opt_merge",
+            "parse_opt_rebase_merges",
+            "parse_rebase_merges_value",
+            "read_basic_state",
+            "rebase_options_release",
+            "rebase_write_basic_state",
+            "run_am",
+            "run_sequencer_rebase",
+            "run_specific_rebase",
+            "state_dir_path"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "help",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: show_usage_with_options_if_asked"
+            ],
+            "disposition": "modeled",
+            "summary": "A sole -h prints usage and exits 129 before configuration or parsing.",
+            "evidence": [
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts",
+              "src/commands/global-help-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "usage",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: usage_with_options"
+            ],
+            "disposition": "modeled",
+            "summary": "An action (--continue, --skip, --abort, --quit, --edit-todo, --show-current-patch) must be the only word (rebase.*-only); more than two operands (rebase.arity) and, with --root, more than one (rebase.root-arity) print usage. repo.rebase refuses abort, continue or skip with any other option (rebase.action-alone).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts",
+              "test/types/generated-command-constraints.ts"
+            ]
+          },
+          {
+            "id": "trailers",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: <NULL>"
+            ],
+            "disposition": "modeled",
+            "summary": "validate_trailer_args (trailer.c) prints an error for an empty --trailer or one starting with = and cmd_rebase dies (cli.rebase.trailer). A first character that trailer.separators names (default :) is refused as well; that depends on configuration (trailer-separators).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "preserve-merges",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: --preserve-merges was replaced by --rebase-merges\nNote: Your `pull.rebase` configuration may also be set to 'preserve',\nwhich is no longer supported; use 'merges' instead"
+            ],
+            "disposition": "modeled",
+            "summary": "A final -p/--preserve-merges is refused (rebase.removed-preserve).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "keep-base-root-fork-point",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: options '%s' and '%s' cannot be used together [--keep-base, --onto]",
+              "cmd_rebase: options '%s' and '%s' cannot be used together [--keep-base, --root]",
+              "cmd_rebase: options '%s' and '%s' cannot be used together [--root, --fork-point]"
+            ],
+            "disposition": "modeled",
+            "summary": "--keep-base refuses --onto and --root, and --root refuses an explicit --fork-point (rebase.keep-base, rebase.root-fork; repo.rebase rebase.keepBase-onto, rebase.keepBase-root, rebase.root-forkPoint).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "test/types/generated-command-constraints.ts"
+            ]
+          },
+          {
+            "id": "apply-values",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: switch `C' expects a numerical value",
+              "cmd_rebase: Invalid whitespace option: '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "Every -C value must be digits only (cli.rebase.apply-context) and --whitespace must be nowarn, warn, error, error-all, fix, strip or empty (cli.rebase.whitespace; repo.rebase rebase.whitespace-value).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "exec-commands",
+            "kind": "refusal",
+            "sites": [
+              "check_exec_cmd: exec commands cannot contain newlines",
+              "check_exec_cmd: empty exec command"
+            ],
+            "disposition": "modeled",
+            "summary": "An --exec command must not contain a newline or consist only of spaces, tabs, carriage returns, form feeds and vertical tabs (cli.rebase.exec; repo.rebase checks the same).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "backends",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: apply options and merge options cannot be used together",
+              "parse_opt_am: apply options and merge options cannot be used together",
+              "parse_opt_merge: apply options and merge options cannot be used together",
+              "parse_opt_interactive: apply options and merge options cannot be used together",
+              "imply_merge: %s requires the merge backend",
+              "cmd_rebase: --reschedule-failed-exec requires --exec or --interactive"
+            ],
+            "disposition": "modeled",
+            "summary": "Apply options (--apply, -C, --whitespace) refuse explicit or implied merge requests: --merge, -i, --empty, -k, --exec, --strategy, -X, --trailer, --rebase-merges, --update-refs, --autosquash, --root without --onto, --[no-]reapply-cherry-picks without --keep-base and --reschedule-failed-exec, whichever comes first (rebase.backends, rebase.apply-*, rebase.implicit-whitespace-backend; repo.rebase rebase.backend and its runtime check).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "value-callbacks",
+            "kind": "refusal",
+            "sites": [
+              "parse_empty_value: unrecognized empty type '%s'; valid values are \"drop\", \"keep\", and \"stop\".",
+              "parse_rebase_merges_value: Unknown rebase-merges mode: %s"
+            ],
+            "disposition": "modeled",
+            "summary": "--empty accepts drop, keep, stop and ask in any case, and --rebase-merges accepts an empty value, rebase-cousins and no-rebase-cousins; both are checked while options are parsed.",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "test/fixtures/history-parser-corpus.json",
+              "src/commands/history-parser.test.ts",
+              "test/types/history-parser-rebase-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "empty-names",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: invalid upstream '%s'",
+              "cmd_rebase: no such branch/commit '%s'",
+              "cmd_rebase: Does not point to a valid commit '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The upstream, branch and --onto must resolve to commits; empty names never do and are refused by cli.rebase.empty-operand and cli.rebase.empty-onto.",
+            "reason": "Nonempty names resolve against refs and the object database at runtime."
+          },
+          {
+            "id": "merge-bases",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: '%s': need exactly one merge base with branch",
+              "cmd_rebase: '%s': need exactly one merge base",
+              "fill_branch_base: exit 128",
+              "can_fast_forward: exit 128",
+              "cmd_rebase: No such ref: %s [HEAD]",
+              "cmd_rebase: Could not resolve HEAD to a commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "--keep-base and A...B onto names need exactly one merge base; HEAD must resolve when no branch is named.",
+            "reason": "Merge bases and HEAD are computed at runtime."
+          },
+          {
+            "id": "in-progress",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: It looks like 'git am' is in progress. Cannot rebase.",
+              "cmd_rebase: `rebase --preserve-merges` (-p) is no longer supported.\nUse `git rebase --abort` to terminate current rebase.\nOr downgrade to v2.33, or earlier, to complete the rebase.",
+              "cmd_rebase: no rebase in progress",
+              "cmd_rebase: The --edit-todo action can only be used during interactive rebase.",
+              "cmd_rebase: It seems that there is already a %s directory, and\nI wonder if you are in the middle of another rebase.  If that is the\ncase, please try\n\t%s\nIf that is not the case, please\n\t%s\nand run me again.  I am stopping in case you still have something\nvaluable there.\n",
+              "cmd_rebase: Cannot read HEAD",
+              "cmd_rebase: could not read index",
+              "cmd_rebase: exit 1",
+              "cmd_rebase: could not discard worktree changes",
+              "cmd_rebase: could not move back to %s",
+              "cmd_rebase: could not remove '%s'",
+              "read_basic_state: invalid onto: '%s'",
+              "read_basic_state: invalid orig-head: '%s'",
+              "edit_todo_file: could not read '%s'.",
+              "edit_todo_file: could not write '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Actions need a rebase in progress of the right backend, and a new rebase is refused while one or git am is in progress; continuing, skipping, aborting and quitting read and update its state. The exit 1 label also covers the exit after check_exec_cmd errors, which exec-commands models.",
+            "reason": "The rebase state directories, HEAD and index are read at runtime."
+          },
+          {
+            "id": "configuration-refusals",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: apply options are incompatible with rebase.rebaseMerges.  Consider adding --no-rebase-merges",
+              "cmd_rebase: apply options are incompatible with rebase.updateRefs.  Consider adding --no-update-refs",
+              "cmd_rebase: Unknown rebase backend: %s",
+              "error_on_missing_default_upstream: exit 1"
+            ],
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "rebase.rebaseMerges and rebase.updateRefs conflict with apply options unless argv negates them, rebase.backend must name a backend, and without an upstream operand the branch needs a configured upstream.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "writes-and-hooks",
+            "kind": "refusal",
+            "sites": [
+              "cmd_rebase: Could not create new root commit",
+              "cmd_rebase: The pre-rebase hook refused to rebase.",
+              "cmd_rebase: Could not detach HEAD",
+              "checkout_up_to_date: could not switch to %s",
+              "cleanup_autostash: could not remove '%s'",
+              "finish_rebase: could not remove '%s'",
+              "do_interactive_rebase: could not generate todo list",
+              "init_basic_state: could not create temporary %s",
+              "init_basic_state: could not mark as interactive",
+              "run_am: could not open '%s' for writing",
+              "run_am: \ngit encountered an error while preparing the patches to replay\nthese revisions:\n\n    %s\n\nAs a result, git cannot rebase them.",
+              "run_am: could not open '%s' for reading",
+              "run_sequencer_rebase: a base commit must be provided with --upstream or --onto",
+              "run_specific_rebase: Nothing to do"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Writing commits and state files, signing (-S), the pre-rebase hook, the sequence editor and git am or apply (which refuses an empty --whitespace when there are patches).",
+            "reason": "Hooks, editors, signing keys and the filesystem are used at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of builtin_rebase_options: long prefixes and negations, short clusters, optional-argument attachment for -r and -S, takes-no-value and unknown-option errors, OPT_CMDMODE action conflicts, consumed end markers and help timing.",
+            "evidence": [
+              "test/fixtures/history-parser-corpus.json",
+              "src/commands/history-parser.test.ts",
+              "test/types/history-parser-rebase-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for actions crossed with every modifier and seven operand shapes, modifier pairs before main, and action pairs (7,857 real rebases). Only acceptance is compared; the typed error lists every violated rule.",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "trailer-separators",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "A --trailer starting with a separator from trailer.separators (default :) is refused.",
+            "reason": "The separators are read from configuration at runtime."
+          },
+          {
+            "id": "free-text-values",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "-s names a strategy that the sequencer runs, -X values are checked by that strategy, and -S key ids are resolved by the signing program.",
+            "reason": "Strategies and keys are resolved at runtime."
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty upstream, branch or --onto never resolves (cli.rebase.empty-operand, cli.rebase.empty-onto).",
+            "evidence": [
+              "test/fixtures/rebase-closure-corpus.json",
+              "src/commands/rebase-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "commit-names",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The upstream (- means @{-1}), the branch and --onto resolve to commits; with --root the only operand is the branch, which repo.rebase fills from upstream.",
+            "reason": "Names resolve against refs and the object database at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "rebase.* (backend, autoSquash, autoStash, forkPoint, rebaseMerges, updateRefs, rescheduleFailedExec, abbreviateCommands) and pull.rebase set defaults that argv can override.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of names and commands; --exec commands run in the platform shell.",
+            "reason": "Decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ],
+        "waived": {
+          "rebase_config": "Configuration callback (rebase.*, pull.rebase and core settings); parse_rebase_merges_value refuses an invalid rebase.rebaseMerges value from configuration, which the configuration obligation covers. Its refusal sites are listed through parse_rebase_merges_value."
+        }
+      },
+      "notes": "The ordinary native option pass models long-prefix resolution, short clusters, consumed end markers and retained operands. The closure corpus runs every case in a fresh repository and counts a refusal as state-dependent only when the same argv succeeds on a branch that already contains its upstream or during a stopped merge-backend rebase, or when it depends on signing keys, strategy executables, an in-progress rebase, whether there are patches to apply, or unusual ref names; the wrapper must accept exactly the argv that some such state accepts. -C and --whitespace keep their own keys and set apply-option, which the backend rules read. repo.rebase checks the backend implications that need two options at once at runtime, and the rest through its option types.",
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/history-parser-corpus.json",
+          "src/commands/history-parser.test.ts",
+          "test/types/history-parser-rebase-corpus-1.ts",
+          "test/fixtures/rebase-closure-corpus.json",
+          "src/commands/rebase-closure-corpus.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/rebase-closure-corpus.json",
+          "src/commands/rebase-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/rebase-closure-corpus.json",
+          "src/commands/rebase-closure-corpus.test.ts",
+          "src/impl/option-constraints.test.ts",
+          "test/types/command-api.ts",
+          "test/types/generated-command-constraints.ts"
+        ],
+        "serialization": [
+          "src/commands/rebase-closure-corpus.test.ts",
+          "src/commands/history-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/rebase-closure-corpus.mjs",
+          "scripts/history-parser-corpus.mjs",
+          "src/impl/option-constraints.test.ts"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/history-parser-rebase-corpus-1.ts",
+          "test/types/generated-command-constraints.ts"
+        ]
+      }
     },
     "restore": {
       "state": "partial",

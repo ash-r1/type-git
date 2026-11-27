@@ -4522,6 +4522,20 @@
           "test": "present"
         }
       ]
+    },
+    {
+      "id": "cli.reset.empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reset.c:parse_args; pathspec.c:init_pathspec_item",
+      "reason": "An empty word is never a revision. As the first retained word without a recognized separator, verify_filename refuses it as ambiguous; after the revision or a separator, parse_pathspec refuses it as an empty pathspec; as the revision before a separator it cannot resolve.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
     }
   ],
   "tag": [
@@ -9557,6 +9571,37 @@
         "key": "continue",
         "test": "active"
       }
+    },
+    {
+      "id": "cli.merge.empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:collect_parents/cmd_merge",
+      "reason": "An empty name never resolves to a commit, so collect_parents refuses it as not something Git can merge; the continuation operations refuse any operand first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
+    },
+    {
+      "id": "cli.merge.custom-strategies",
+      "kind": "elements",
+      "key": "strategy",
+      "allowed": [
+        "recursive",
+        "octopus",
+        "ort",
+        "resolve",
+        "ours",
+        "subtree"
+      ],
+      "maxOutside": 1,
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:get_strategy",
+      "reason": "Only one -s may name a strategy outside the built-in table: get_strategy releases the git-merge-* command lists after resolving the first custom strategy but keeps them marked loaded, so every later custom name is not found and Git exits 1 while parsing options."
     }
   ],
   "rebase": [
@@ -9635,8 +9680,8 @@
             "value": "apply"
           },
           {
-            "key": "am-options",
-            "test": "nonempty"
+            "key": "apply-option",
+            "test": "active"
           }
         ],
         [
@@ -9834,8 +9879,8 @@
       "reason": "Root without onto implies the merge backend.",
       "when": [
         {
-          "key": "am-options",
-          "test": "nonempty"
+          "key": "apply-option",
+          "test": "active"
         },
         {
           "key": "root",
@@ -9855,8 +9900,8 @@
       "reason": "Explicit reapply-cherry-picks, including its negation, implies merge unless keep-base is active.",
       "when": [
         {
-          "key": "am-options",
-          "test": "nonempty"
+          "key": "apply-option",
+          "test": "active"
         },
         {
           "key": "reapply-cherry-picks",
@@ -9876,8 +9921,8 @@
       "reason": "Rescheduling exec requires the merge backend, including when it is selected by default.",
       "when": [
         {
-          "key": "am-options",
-          "test": "nonempty"
+          "key": "apply-option",
+          "test": "active"
         },
         {
           "key": "reschedule-failed-exec",
@@ -9893,8 +9938,8 @@
       "reason": "Without an explicitly selected apply backend, ignore-whitespace adds a merge strategy option before apply arguments select their backend.",
       "when": [
         {
-          "key": "am-options",
-          "test": "nonempty"
+          "key": "apply-option",
+          "test": "active"
         },
         {
           "key": "backend",
@@ -9920,6 +9965,70 @@
       "origin": "git",
       "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
       "reason": "Root mode accepts an optional branch but no upstream operand."
+    },
+    {
+      "id": "cli.rebase.apply-context",
+      "kind": "eachScalar",
+      "key": "apply-context",
+      "parser": "rebase-apply-context",
+      "origin": "git",
+      "reason": "Every character of a -C value must be a decimal digit; cmd_rebase checks this after option parsing.",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase"
+    },
+    {
+      "id": "cli.rebase.whitespace",
+      "kind": "eachScalar",
+      "key": "whitespace",
+      "parser": "rebase-whitespace",
+      "origin": "git",
+      "reason": "--whitespace accepts nowarn, warn, error, error-all, fix and strip; cmd_rebase refuses other nonempty values after option parsing.",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase"
+    },
+    {
+      "id": "cli.rebase.trailer",
+      "kind": "eachScalar",
+      "key": "trailer",
+      "parser": "rebase-trailer",
+      "origin": "git",
+      "reason": "validate_trailer_args refuses an empty trailer and one that starts with '=' before any other check.",
+      "source": "Git 2.55.0 trailer.c:validate_trailer_args; builtin/rebase.c:cmd_rebase"
+    },
+    {
+      "id": "cli.rebase.exec",
+      "kind": "eachScalar",
+      "key": "exec",
+      "parser": "rebase-exec",
+      "origin": "git",
+      "reason": "check_exec_cmd refuses a command that contains a newline or consists only of whitespace.",
+      "source": "Git 2.55.0 builtin/rebase.c:check_exec_cmd"
+    },
+    {
+      "id": "cli.rebase.empty-onto",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "An empty --onto never resolves to a commit.",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "when": [
+        {
+          "key": "onto",
+          "test": "equals",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "cli.rebase.empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "An empty upstream or branch never resolves to a commit.",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
     }
   ],
   "cherry-pick": [

@@ -1385,6 +1385,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "tag": {
@@ -3770,12 +3773,52 @@
       "--strategy": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "-s": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "--file": {
         "key": "file",
@@ -3839,6 +3882,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "rebase": {
@@ -4068,20 +4114,38 @@
         "set": false
       },
       "-C": {
-        "key": "am-options",
+        "key": "apply-context",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--whitespace": {
-        "key": "am-options",
+        "key": "whitespace",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--no-whitespace": {
         "key": "am-options",
         "value": "flag",
         "set": "--no-whitespace",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       }
     },
     "parserExit": {
@@ -4107,6 +4171,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "cherry-pick": {

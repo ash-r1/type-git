@@ -14721,8 +14721,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 14,
+      "rules": 15,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -14799,7 +14803,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -14825,9 +14831,9 @@
           "true"
         ]
       },
-      "total": "3401222400",
-      "accepted": "61498656",
-      "nodes": 583,
+      "total": "9523422720",
+      "accepted": "149122944",
+      "nodes": 1045,
       "isolatedRuleWitnesses": {
         "reset-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "reset-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -14842,7 +14848,8 @@
         "reset-paths-mode": "{\"mode\":\"soft\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
         "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}",
         "reset-unseparated-paths-mode": "{\"mode\":\"soft\",\"operands\":[\"value\",\"value\"]}",
-        "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}"
+        "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.reset.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -42103,6 +42110,110 @@
       },
       "transitions": [
         {
+          "flag": "--strategy",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
+          "flag": "-s",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
           "flag": "--file",
           "rules": [
             "merge.message-file-nonempty"
@@ -42143,8 +42254,12 @@
           }
         }
       ],
-      "rules": 5,
+      "rules": 7,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "n": [
           "undefined",
           "true"
@@ -42226,7 +42341,27 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"invalid\"]",
+          "[\"invalid\",\"invalid-\"]",
+          "[\"recursive\"]",
+          "[\"recursive\",\"recursive\"]",
+          "[\"recursive\",\"invalid\"]",
+          "[\"octopus\"]",
+          "[\"octopus\",\"octopus\"]",
+          "[\"octopus\",\"invalid\"]",
+          "[\"ort\"]",
+          "[\"ort\",\"ort\"]",
+          "[\"ort\",\"invalid\"]",
+          "[\"resolve\"]",
+          "[\"resolve\",\"resolve\"]",
+          "[\"resolve\",\"invalid\"]",
+          "[\"ours\"]",
+          "[\"ours\",\"ours\"]",
+          "[\"ours\",\"invalid\"]",
+          "[\"subtree\"]",
+          "[\"subtree\",\"subtree\"]",
+          "[\"subtree\",\"invalid\"]"
         ],
         "strategy-option": [
           "undefined",
@@ -42332,7 +42467,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -42350,15 +42487,17 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "9762996322800000000",
-      "accepted": "2305151909550000000",
-      "nodes": 90,
+      "total": "82009169111520000000",
+      "accepted": "13830911457300000000",
+      "nodes": 217,
       "isolatedRuleWitnesses": {
         "merge.squash": "{\"ff-mode\":\"no\",\"operands\":[],\"squash\":true}",
         "merge.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "merge.abort-only": "{\"abort\":true,\"operands\":[]}",
         "merge.quit-only": "{\"operands\":[],\"quit\":true}",
-        "merge.continue-only": "{\"continue\":true,\"operands\":[]}"
+        "merge.continue-only": "{\"continue\":true,\"operands\":[]}",
+        "cli.merge.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "cli.merge.custom-strategies": "{\"operands\":[],\"strategy\":[\"\",\"\"]}"
       }
     },
     {
@@ -44102,8 +44241,12 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 25,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "onto": [
           "undefined",
           "\"\"",
@@ -44168,7 +44311,11 @@
           "true",
           "false"
         ],
-        "am-options": [
+        "apply-option": [
+          "undefined",
+          "true"
+        ],
+        "apply-context": [
           "undefined",
           "[]",
           "[\"\"]",
@@ -44178,14 +44325,24 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]",
-          "[\"--no-whitespace\"]",
-          "[\"--no-whitespace\",\"--no-whitespace\"]"
+          "[\"1kb\",\"1kb\"]"
         ],
         "ignore-whitespace": [
           "undefined",
           "true",
           "false"
+        ],
+        "whitespace": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "force-rebase": [
           "undefined",
@@ -44334,6 +44491,12 @@
           "true",
           "false"
         ],
+        "am-options": [
+          "undefined",
+          "[]",
+          "[\"--no-whitespace\"]",
+          "[\"--no-whitespace\",\"--no-whitespace\"]"
+        ],
         "help": [
           "undefined",
           "true"
@@ -44343,7 +44506,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -44361,9 +44526,9 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "195215295615667200000000",
-      "accepted": "1334479659222261242880",
-      "nodes": 2085,
+      "total": "36440188514924544000000000",
+      "accepted": "58792509588824842567680",
+      "nodes": 4285,
       "isolatedRuleWitnesses": {
         "rebase.arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
         "rebase.removed-preserve": "{\"operands\":[],\"preserve-merges\":true}",
@@ -44379,11 +44544,17 @@
         "rebase.apply-0-root": "{\"backend\":\"apply\",\"operands\":[],\"root\":true}",
         "rebase.apply-0-reapply": "{\"backend\":\"apply\",\"operands\":[],\"reapply-cherry-picks\":true}",
         "rebase.apply-0-reschedule": "{\"backend\":\"apply\",\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.apply-1-root": "{\"am-options\":[\"\"],\"operands\":[],\"root\":true}",
-        "rebase.apply-1-reapply": "{\"am-options\":[\"\"],\"operands\":[],\"reapply-cherry-picks\":true}",
-        "rebase.apply-1-reschedule": "{\"am-options\":[\"\"],\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.implicit-whitespace-backend": "{\"am-options\":[\"\"],\"ignore-whitespace\":true,\"operands\":[]}",
-        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}"
+        "rebase.apply-1-root": "{\"apply-option\":true,\"operands\":[],\"root\":true}",
+        "rebase.apply-1-reapply": "{\"apply-option\":true,\"operands\":[],\"reapply-cherry-picks\":true}",
+        "rebase.apply-1-reschedule": "{\"apply-option\":true,\"operands\":[],\"reschedule-failed-exec\":true}",
+        "rebase.implicit-whitespace-backend": "{\"apply-option\":true,\"ignore-whitespace\":true,\"operands\":[]}",
+        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}",
+        "cli.rebase.apply-context": "{\"apply-context\":[\"value\"],\"operands\":[]}",
+        "cli.rebase.whitespace": "{\"operands\":[],\"whitespace\":[\"value\"]}",
+        "cli.rebase.trailer": "{\"operands\":[],\"trailer\":[\"\"]}",
+        "cli.rebase.exec": "{\"exec\":[\"\"],\"operands\":[]}",
+        "cli.rebase.empty-onto": "{\"onto\":\"\",\"operands\":[]}",
+        "cli.rebase.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
