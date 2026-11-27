@@ -8,7 +8,7 @@ Version-pinned upstream commands, registered aliases/helpers, and companion prog
 
 Inventory contains 223 entries; the table also includes individually reviewed operation scopes. Candidate nested dispatch names are retained in the JSON inventory, not counted as audited operations.
 
-Typed inventory entries: 221/223; sourced-library exclusions: 2. Total typed operation scopes: 428. Completed constraint audits: 13.
+Typed inventory entries: 221/223; sourced-library exclusions: 2. Total typed operation scopes: 428. Completed constraint audits: 15.
 
 | Command / operation | Classification | Audit | Typed CLI | Models | Remaining work |
 | --- | --- | --- | --- | --- | --- |
@@ -344,11 +344,11 @@ Typed inventory entries: 221/223; sourced-library exclusions: 2. Total typed ope
 | `stage` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. |
 | `stash` | documented | complete | yes |  | None; the audit closure is complete. |
 | `stash apply` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
-| `stash branch` | reviewed-scope | partial | yes |  | Completion gaps: open:branch-name. |
+| `stash branch` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash clear` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash create` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash drop` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
-| `stash export` | reviewed-scope | partial | yes |  | Completion gaps: open:to-ref. |
+| `stash export` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash import` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash list` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |
 | `stash pop` | reviewed-scope | complete | yes |  | None; the audit closure is complete. |

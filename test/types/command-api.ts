@@ -367,6 +367,21 @@ git.command('stash import', [{ operand: '' }]);
 // @ts-expect-error An empty stash entry cannot be found for export.
 git.command('stash export', [['--print'], { operand: '0' }, { operand: '' }]);
 git.command('stash export', [['--print'], { operand: '0' }]);
+// @ts-expect-error checkout -b refuses a branch name that fails check_branch_ref.
+git.command('stash branch', [{ operand: 'a..b' }]);
+// @ts-expect-error HEAD is never a valid new branch name.
+git.command('stash branch', [{ operand: 'HEAD' }, { operand: '0' }]);
+git.command('stash branch', [{ operand: 'topic/name' }]);
+// @ts-expect-error refs_update_ref refuses a --to-ref that fails check_refname_format.
+git.command('stash export', [['--to-ref', 'a..b']]);
+// @ts-expect-error An empty --to-ref is not a ref name.
+git.command('stash export', [['--to-ref', '']]);
+// @ts-expect-error The pseudoref FETCH_HEAD cannot be updated.
+git.command('stash export', [['--to-ref', 'FETCH_HEAD']]);
+git.command('stash export', [['--to-ref', 'HEAD']]);
+git.command('stash export', [['--to-ref', 'out'], { operand: '0' }]);
+// The last --to-ref is cleared by --no-to-ref before --print is chosen.
+git.command('stash export', [['--to-ref', 'a..b'], ['--no-to-ref'], ['--print']]);
 // @ts-expect-error parse_pathspec rejects an empty add pathspec after the final checks.
 git.command('add', [['--'], { operand: '' }]);
 // @ts-expect-error Interactive add parses the same pathspec, even after edit mode.

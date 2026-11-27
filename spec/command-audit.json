@@ -182,7 +182,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Push applies the final checks of push_stash (pathspec file, patch-only context options, negative context) and do_push_stash (patch or staged with untracked files), and refuses an empty pathspec. repo.stash.push refuses an empty path before Git runs. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Push applies the final checks of push_stash (pathspec file, patch-only context options, negative context) and do_push_stash (patch or staged with untracked files), and refuses an empty pathspec. repo.stash.push refuses an empty path before Git runs. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "push_stash_unassumed",
@@ -3651,7 +3651,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Clear refuses any remaining word; a leading -- is consumed. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Clear refuses any remaining word; a leading -- is consumed. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "clear_stash",
@@ -3812,7 +3812,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Apply accepts at most one stash revision and refuses an empty one; resolution, stash-likeness and the apply itself are left to native Git. repo.stash.apply refuses an index Git would not read as an entry number. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Apply accepts at most one stash revision and refuses an empty one; resolution, stash-likeness and the apply itself are left to native Git. repo.stash.apply refuses an index Git would not read as an entry number. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "apply_stash",
@@ -4051,7 +4051,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Drop accepts at most one stash revision and refuses an empty one; resolution and the stash-reference check are left to native Git. repo.stash.drop refuses an index Git would not read as an entry number. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Drop accepts at most one stash revision and refuses an empty one; resolution and the stash-reference check are left to native Git. repo.stash.drop refuses an index Git would not read as an entry number. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "drop_stash",
@@ -4281,7 +4281,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Pop accepts at most one stash revision and refuses an empty one; resolution, the stash-reference check and the apply are left to native Git. repo.stash.pop refuses an index Git would not read as an entry number. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Pop accepts at most one stash revision and refuses an empty one; resolution, the stash-reference check and the apply are left to native Git. repo.stash.pop refuses an index Git would not read as an entry number. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "pop_stash",
@@ -4497,7 +4497,7 @@
       }
     },
     "stash branch": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -4546,7 +4546,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Branch requires a branch name and at most one stash revision, and refuses empty operands. The branch name syntax that checkout -b checks stays open until the shared branch-name grammar is available. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Branch requires a branch name and at most one stash revision, and refuses empty operands. The branch name must pass check_branch_ref, as checkout -b requires; names rewritten from @{-N} or upstream marks are left to Git. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "branch_stash",
@@ -4671,9 +4671,13 @@
           {
             "id": "branch-name",
             "kind": "values",
-            "disposition": "open",
-            "summary": "The branch name is passed to checkout -b, which checks branch name syntax.",
-            "reason": "Waiting for the shared branch-name grammar (PR #355)."
+            "disposition": "modeled",
+            "summary": "The branch name is passed to checkout -b, which refuses names that fail check_branch_ref (stash-branch-name); names rewritten from @{-N} or upstream marks depend on the reflog and configuration and are left to Git.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
           },
           {
             "id": "branch-arity",
@@ -4784,7 +4788,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Store requires exactly one commit and refuses an empty one, also under --quiet, which hides the message but not the exit status. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Store requires exactly one commit and refuses an empty one, also under --quiet, which hides the message but not the exit status. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "store_stash",
@@ -4966,7 +4970,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Save applies the context checks of save_stash and the untracked combinations of do_push_stash; remaining words form the message. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Save applies the context checks of save_stash and the untracked combinations of do_push_stash; remaining words form the message. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "save_stash",
@@ -5204,7 +5208,7 @@
           "test/types/stash-transfer-corpus.ts"
         ]
       },
-      "notes": "Import requires exactly one revision and refuses an empty one; the exported chain is validated by native Git. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Import requires exactly one revision and refuses an empty one; the exported chain is validated by native Git. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "import_stash",
@@ -5350,7 +5354,7 @@
       }
     },
     "stash export": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -5398,7 +5402,7 @@
           "test/types/stash-transfer-corpus.ts"
         ]
       },
-      "notes": "Export requires exactly one of --print and --to-ref and refuses an empty entry. The --to-ref name syntax stays open until the shared refname grammar is available. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Export requires exactly one of --print and --to-ref and refuses an empty entry. --to-ref must be a valid one-level ref name other than FETCH_HEAD or MERGE_HEAD. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "export_stash",
@@ -5484,9 +5488,13 @@
           {
             "id": "to-ref",
             "kind": "values",
-            "disposition": "open",
-            "summary": "--to-ref must be a valid ref name.",
-            "reason": "Waiting for the shared refname grammar (PR #355)."
+            "disposition": "modeled",
+            "summary": "--to-ref must pass check_refname_format with REFNAME_ALLOW_ONELEVEL and must not be the pseudoref FETCH_HEAD or MERGE_HEAD, as refs_update_ref dies otherwise after writing the chain (stash-export-to-ref, stash-export-to-ref-fetch-head, stash-export-to-ref-merge-head). Directory/file conflicts with existing refs are repository state.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
           },
           {
             "id": "empty-reference",
@@ -6380,7 +6388,7 @@
           "test/types/stash-show-corpus-1.ts"
         ]
       },
-      "notes": "Show partitions retained words into revision options and stash revisions, accepts at most one revision and refuses an empty one. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Show partitions retained words into revision options and stash revisions, accepts at most one revision and refuses an empty one. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "show_stash",
@@ -10521,7 +10529,7 @@
           "test/types/stash-parser-corpus.ts"
         ]
       },
-      "notes": "Root dispatch sends a first word that names a subcommand to it; any other argv is parsed as an assumed push that stops at the first non-option word unless --patch is active, with the push final checks and empty-pathspec refusal applied. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "Root dispatch sends a first word that names a subcommand to it; any other argv is parsed as an assumed push that stops at the first non-option word unless --patch is active, with the push final checks and empty-pathspec refusal applied. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "cmd_stash",
@@ -10866,7 +10874,7 @@
           "test/types/conditional-stash-corpus.ts"
         ]
       },
-      "notes": "List passes retained words to git log between fixed arguments and exits 0 without running log when refs/stash does not exist. The closure is checked against 4,290 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "notes": "List passes retained words to git log between fixed arguments and exits 0 without running log when refs/stash does not exist. The closure is checked against 4,313 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
       "closure": {
         "git": "2.55.0",
         "entry": "list_stash",

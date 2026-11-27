@@ -60,7 +60,8 @@ const REFUSALS = [
   /^Too many revisions specified:( '[^']*')+$/,
   /^error: refs\/stash@\{\} is not a valid reference$/,
   /^No branch name specified$/,
-  /^fatal: '' is not a valid branch name$/,
+  /^fatal: '.*' is not a valid branch name$/,
+  /^fatal: update_ref failed for ref '.*': refusing to update (?:ref with bad name|pseudoref) '.*'$/,
   /^"git stash store" requires one <commit> argument$/,
   /^Cannot update refs\/stash with $/,
   /^fatal: a revision is required$/,
@@ -155,10 +156,12 @@ try {
     // resolves; both are still refused by argv alone.
     const commits = tokens.filter((token) => !Array.isArray(token)).map((token) => token.operand);
     const quietStore = command === 'stash store' && (commits.length !== 1 || commits[0] === '') && !valid && !diagnostic;
-    const refused = !valid && (quietStore || REFUSALS.some((p) => p.test(diagnostic)));
+    // checkout -b rewrites @{-N} from the reflog, so whether such a name is valid is repository state.
+    const rewritten = command === 'stash branch' && argv.some((word) => word.includes('@{'));
+    const refused = !valid && !rewritten && (quietStore || REFUSALS.some((p) => p.test(diagnostic)));
     // Otherwise --quiet hides only state outcomes, such as nothing staged to stash.
     const quiet = !valid && !refused && !diagnostic && argv.includes('-q');
-    const state = !valid && !refused && (quiet || STATE.some((p) => p.test(diagnostic)));
+    const state = !valid && !refused && (quiet || rewritten || STATE.some((p) => p.test(diagnostic)));
     if (!valid && !refused && !state) {
       unclassified.set(diagnostic || `${result.status}: ${result.stderr}`, argv);
       return;
@@ -171,7 +174,8 @@ try {
     const options = command === 'stash apply' || command === 'stash pop' ? [[], [['--index']], [['-q']], ...(command === 'stash apply' ? labels : [])] : [[], [['-q']]].slice(0, command === 'stash show' ? 1 : 2);
     for (const o of options) for (const s of STASH_OPERANDS) record(command, [...o, ...s]);
   }
-  for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand(''), operand('0')], [operand('main')]]) {
+  for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand(''), operand('0')], [operand('main')],
+    [operand('a..b')], [operand('HEAD')], [operand('topic/name')], [operand('@{-1}')], [operand('x.lock')]]) {
     record('stash branch', s);
   }
   for (const o of [[], [['-q']], [['-m', 'msg']], [['-m', '']]]) {
@@ -181,7 +185,9 @@ try {
     record('stash import', s);
   }
   const MODES = [[], [['--print']], [['--to-ref', 'refs/out']], [['--print'], ['--to-ref', 'refs/out']], [['--to-ref', 'refs/out'], ['--print']], [['--to-ref', 'refs/out'], ['--no-to-ref']], [['--to-ref', 'refs/out'], ['--no-to-ref'], ['--print']]];
+  const REFS = ['', 'a..b', 'FETCH_HEAD', 'MERGE_HEAD', 'HEAD', 'out', 'refs/heads/new', 'x.lock', 'refs/a@{b'];
   for (const m of MODES) for (const s of STASH_OPERANDS) record('stash export', [...m, ...s]);
+  for (const ref of REFS) for (const s of [[], [operand('0')]]) record('stash export', [['--to-ref', ref], ...s]);
   for (const s of [[], [operand('x')], [['--']], [operand('')], [['--'], operand('x')]]) record('stash clear', s);
   for (const command of ['stash push', 'stash save', 'stash']) {
     const paths = command === 'stash save' ? PATHS.slice(0, 1) : PATHS;

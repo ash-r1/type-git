@@ -2235,6 +2235,91 @@
       "diagnostic": "fatal: a branch named 'main' already exists"
     },
     {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "a..b"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "a..b"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "fatal: 'a..b' is not a valid branch name"
+    },
+    {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "HEAD"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "fatal: 'HEAD' is not a valid branch name"
+    },
+    {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "topic/name"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "topic/name"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": "Switched to a new branch 'topic/name'"
+    },
+    {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "@{-1}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "@{-1}"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 1,
+      "diagnostic": "fatal: '@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "x.lock"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "x.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "fatal: 'x.lock' is not a valid branch name"
+    },
+    {
       "command": "stash store",
       "tokens": [],
       "argv": [
@@ -4404,6 +4489,366 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: unable to find stash entry missing"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref="
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref '': refusing to update ref with bad name ''"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          ""
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref '': refusing to update ref with bad name ''"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "a..b"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=a..b"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'a..b': refusing to update ref with bad name 'a..b'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "a..b"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=a..b",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'a..b': refusing to update ref with bad name 'a..b'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "FETCH_HEAD"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=FETCH_HEAD"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'FETCH_HEAD': refusing to update pseudoref 'FETCH_HEAD'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "FETCH_HEAD"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=FETCH_HEAD",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'FETCH_HEAD': refusing to update pseudoref 'FETCH_HEAD'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "MERGE_HEAD"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=MERGE_HEAD"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'MERGE_HEAD': refusing to update pseudoref 'MERGE_HEAD'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "MERGE_HEAD"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=MERGE_HEAD",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'MERGE_HEAD': refusing to update pseudoref 'MERGE_HEAD'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=HEAD"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "HEAD"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=HEAD",
+        "0"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "out"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=out"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "out"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=out",
+        "0"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/heads/new"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/heads/new"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/heads/new"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/heads/new",
+        "0"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "x.lock"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=x.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'x.lock': refusing to update ref with bad name 'x.lock'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "x.lock"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=x.lock",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'x.lock': refusing to update ref with bad name 'x.lock'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/a@{b"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/a@{b"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'refs/a@{b': refusing to update ref with bad name 'refs/a@{b'"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/a@{b"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/a@{b",
+        "0"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: update_ref failed for ref 'refs/a@{b': refusing to update ref with bad name 'refs/a@{b'"
     },
     {
       "command": "stash clear",

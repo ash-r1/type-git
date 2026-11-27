@@ -18,6 +18,11 @@ const RULES_FOR_DIAGNOSTIC: [RegExp, (row: Row) => string][] = [
   [/^error: refs\/stash@\{\} is not a valid reference$/, (row) => emptyRule(row)],
   [/^No branch name specified$/, () => 'stash-branch-arity'],
   [/^fatal: '' is not a valid branch name$/, () => 'stash-branch-empty-operand'],
+  [/^fatal: '.+' is not a valid branch name$/, () => 'stash-branch-name'],
+  [/^fatal: update_ref failed for ref '': /, () => 'stash-export-to-ref'],
+  [/refusing to update ref with bad name/, () => 'stash-export-to-ref'],
+  [/refusing to update pseudoref 'FETCH_HEAD'$/, () => 'stash-export-to-ref-fetch-head'],
+  [/refusing to update pseudoref 'MERGE_HEAD'$/, () => 'stash-export-to-ref-merge-head'],
   [/^"git stash store" requires one <commit> argument$/, () => 'stash-store-arity'],
   [/^Cannot update refs\/stash with $/, () => 'stash-store-empty-operand'],
   [/^fatal: a revision is required$/, () => 'stash-import-arity'],
@@ -136,6 +141,6 @@ describe('stash completion closure corpus', () => {
       }
     }
     expect(missing).toEqual([]);
-    expect(reached.size).toBeGreaterThanOrEqual(35);
+    expect(reached.size).toBeGreaterThanOrEqual(39);
   });
 });

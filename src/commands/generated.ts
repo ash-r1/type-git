@@ -29539,6 +29539,17 @@ const commandSpec43 = {
         'An empty branch name fails checkout -b, and an empty stash reference expands to refs/stash@{}, which is not a valid revision; a help exit happens first.',
       when: sharedPredicates34,
     },
+    {
+      id: 'stash-branch-name',
+      kind: 'scalar',
+      key: 'operand0',
+      parser: 'branch-name',
+      origin: 'git',
+      reason:
+        'The branch name is passed to checkout -b, which refuses names that fail check_branch_ref; names rewritten from @{-N} or upstream marks are left to Git.',
+      source:
+        'Git 2.55.0 builtin/stash.c:branch_stash -> builtin/checkout.c -> branch.c:validate_new_branchname -> refs.c:check_branch_ref',
+    },
   ],
   source: 'builtin/stash.c',
   separator: true,
@@ -30892,6 +30903,47 @@ const commandSpec48 = {
       reason:
         'An explicit empty stash entry expands to refs/stash@{}, which cannot be found (do_export_stash: unable to find stash entry); a help exit happens first.',
       when: sharedPredicates37,
+    },
+    {
+      id: 'stash-export-to-ref',
+      kind: 'scalar',
+      key: 'to-ref',
+      parser: 'refname-onelevel',
+      origin: 'git',
+      reason:
+        'refs_update_ref dies after writing the chain when --to-ref fails check_refname_format with REFNAME_ALLOW_ONELEVEL.',
+      source:
+        'Git 2.55.0 builtin/stash.c:do_export_stash -> refs.c:ref_transaction_update/check_refname_format',
+    },
+    {
+      id: 'stash-export-to-ref-fetch-head',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/refs.c#L1367-L1372',
+      reason:
+        'refs_update_ref refuses to update the pseudoref FETCH_HEAD; a help exit happens first.',
+      when: [
+        {
+          key: 'to-ref',
+          test: 'equals',
+          value: 'FETCH_HEAD',
+        },
+      ],
+    },
+    {
+      id: 'stash-export-to-ref-merge-head',
+      kind: 'forbid',
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/refs.c#L1367-L1372',
+      reason:
+        'refs_update_ref refuses to update the pseudoref MERGE_HEAD; a help exit happens first.',
+      when: [
+        {
+          key: 'to-ref',
+          test: 'equals',
+          value: 'MERGE_HEAD',
+        },
+      ],
     },
   ],
   source: 'builtin/stash.c',

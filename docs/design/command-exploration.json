@@ -16658,7 +16658,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 2,
+      "rules": 3,
       "domains": {
         "empty-operand": [
           "undefined",
@@ -16678,8 +16678,23 @@
           "[\"value\",\"\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
-          "\"value\""
+          "\"value\"",
+          "\"topic\"",
+          "\"a/b\"",
+          "\"@\"",
+          "\"x/HEAD\"",
+          "\"-x\"",
+          "\"HEAD\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\".a\"",
+          "\"a b\"",
+          "\"a@{b\"",
+          "\"@{-1}\"",
+          "\"x@{u}\""
         ],
         "inRepository": [
           "undefined",
@@ -16687,12 +16702,13 @@
           "true"
         ]
       },
-      "total": "168",
-      "accepted": "72",
-      "nodes": 8,
+      "total": "1428",
+      "accepted": "288",
+      "nodes": 21,
       "isolatedRuleWitnesses": {
         "stash-branch-arity": "{\"operands\":[]}",
-        "stash-branch-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
+        "stash-branch-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "stash-branch-name": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -18059,7 +18075,7 @@
           ]
         }
       ],
-      "rules": 3,
+      "rules": 6,
       "domains": {
         "empty-stash-reference": [
           "undefined",
@@ -18074,7 +18090,18 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"topic\"",
+          "\"refs/x\"",
+          "\"@\"",
+          "\".a\"",
+          "\"/a\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\"a@{b\"",
+          "\"FETCH_HEAD\"",
+          "\"MERGE_HEAD\""
         ],
         "help": [
           "undefined",
@@ -18099,13 +18126,16 @@
           "true"
         ]
       },
-      "total": "1680",
-      "accepted": "792",
-      "nodes": 35,
+      "total": "5376",
+      "accepted": "936",
+      "nodes": 99,
       "isolatedRuleWitnesses": {
         "stash-export-destination": "{\"operands\":[]}",
-        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"\"}",
-        "stash-export-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"],\"to-ref\":\"\"}"
+        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"value\"}",
+        "stash-export-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"],\"to-ref\":\"value\"}",
+        "stash-export-to-ref": "{\"operands\":[],\"to-ref\":\"\"}",
+        "stash-export-to-ref-fetch-head": "{\"operands\":[],\"to-ref\":\"FETCH_HEAD\"}",
+        "stash-export-to-ref-merge-head": "{\"operands\":[],\"to-ref\":\"MERGE_HEAD\"}"
       }
     },
     {
