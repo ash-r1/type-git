@@ -18,6 +18,7 @@ import type {
   SafeIntegerAtLeast,
 } from './number-types.js';
 import type { ObjectFilterLiteral } from './object-filter-types.js';
+import type { BranchNameLiteral, RefnameOnelevelLiteral } from './refname-types.js';
 import type { StringCallbackParser } from './string-callback.js';
 import type { StringCallbackLiteral } from './string-callback-types.js';
 
@@ -348,23 +349,31 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
             ? DepthInitialLiteral<V> extends true
               ? V
               : never
-            : P extends 'object-filter' | 'object-filter-auto'
-              ? V extends undefined
+            : P extends 'branch-name'
+              ? BranchNameLiteral<V> extends true
                 ? V
-                : V extends string
-                  ? ObjectFilterLiteral<
-                      V,
-                      P extends 'object-filter-auto' ? true : false,
-                      Negative
-                    > extends true
-                    ? V
-                    : never
-                  : never
-              : P extends StringCallbackParser
-                ? StringCallbackLiteral<V, P> extends true
+                : never
+              : P extends 'refname-onelevel'
+                ? RefnameOnelevelLiteral<V> extends true
                   ? V
                   : never
-                : V;
+                : P extends 'object-filter' | 'object-filter-auto'
+                  ? V extends undefined
+                    ? V
+                    : V extends string
+                      ? ObjectFilterLiteral<
+                          V,
+                          P extends 'object-filter-auto' ? true : false,
+                          Negative
+                        > extends true
+                        ? V
+                        : never
+                      : never
+                  : P extends StringCallbackParser
+                    ? StringCallbackLiteral<V, P> extends true
+                      ? V
+                      : never
+                    : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]
