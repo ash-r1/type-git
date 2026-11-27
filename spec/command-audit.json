@@ -2075,7 +2075,7 @@
             "id": "dash-operand",
             "kind": "operands",
             "disposition": "modeled",
-            "summary": "Inside a repository Git 2.55.0 always refuses a bare \"-\" before \"--\"; outside a repository implicit no-index mode reads it as standard input. The typed API refuses it before \"--\" (diff.dash-word), so standard input needs the diff --no-index scope (a restriction for the implicit mode).",
+            "summary": "Git 2.55.0 refuses a bare \"-\" before \"--\" unless implicit no-index mode applies: outside a repository, or inside one when exactly two words remain and one of them names a path outside the worktree (git diff ../outside - reads standard input). The typed API refuses it before \"--\" (diff.dash-word), so standard input needs the diff --no-index scope (a restriction for the implicit mode, which depends on repository discovery and the paths).",
             "evidence": [
               "test/fixtures/diff-log-show-closure-corpus.json",
               "src/commands/diff-log-show-closure-corpus.test.ts"
