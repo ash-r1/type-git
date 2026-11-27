@@ -22,6 +22,7 @@ export type StringCallbackProfile = { source: string } & (
       projection: { initial: string; values: Readonly<Record<string, string>> };
     }
   | { kind: 'first-separator'; separator: string; allowUnseparated: boolean }
+  | { kind: 'alpha-prefix'; separator: string; allowed: readonly string[] }
 );
 export type StringCallbackParser = keyof typeof STRING_CALLBACKS;
 /** Recognize only profiles declared by the source-audited callback registry. */
@@ -137,6 +138,12 @@ export function parseStringCallback(
   }
   if (profile.kind === 'byte-character') {
     return { valid: value === '' || (value.length === 1 && value.charCodeAt(0) < 128), value };
+  }
+  if (profile.kind === 'alpha-prefix') {
+    // A nonempty run of ASCII letters directly followed by the separator names a suboption.
+    const name = /^[A-Za-z]+/.exec(value)?.[0];
+    const named = name !== undefined && value[name.length] === profile.separator;
+    return { valid: !named || profile.allowed.includes(name), value };
   }
   if (profile.kind === 'choice') {
     return {

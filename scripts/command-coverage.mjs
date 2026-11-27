@@ -79,9 +79,15 @@ const lines = ['# Upstream command coverage', '',
   `Typed inventory entries: ${summary.inventoryTypedCLI}/${summary.inventoryEntries}; sourced-library exclusions: ${summary.sourcedLibraries.length}. Total typed operation scopes: ${summary.typedScopes}. Completed constraint audits: ${summary.completeConstraintAudits}.`, '',
   '| Command / operation | Classification | Audit | Typed CLI | Models | Remaining work |',
   '| --- | --- | --- | --- | --- | --- |'];
+/** Ledger prose for scopes without a closure; completion gaps for scopes with one. */
+function remainingWork(record) {
+  if (!record?.closure) return record?.remaining ?? 'Audit every applicable facet.';
+  const gaps = completionGaps(record, { facets: audit.facets, baseline: inventory.baselines.git });
+  return gaps.length ? `Completion gaps: ${gaps.join(', ')}.` : 'None; the audit closure is complete.';
+}
 for (const entry of rows) {
   const record = audit.commands[entry.command];
-  lines.push(`| \`${entry.command}\` | ${entry.classification} | ${record?.state ?? 'pending'} | ${record?.apiApplicability === 'sourced-library' ? 'n/a (sourced library)' : record?.typedCommandAPI ? 'yes' : 'pending'} | ${(record?.models ?? []).join(', ')} | ${record?.remaining ?? 'Audit every applicable facet.'} |`);
+  lines.push(`| \`${entry.command}\` | ${entry.classification} | ${record?.state ?? 'pending'} | ${record?.apiApplicability === 'sourced-library' ? 'n/a (sourced library)' : record?.typedCommandAPI ? 'yes' : 'pending'} | ${(record?.models ?? []).join(', ')} | ${remainingWork(record)} |`);
 }
 const text = lines.join('\n') + '\n';
 const target = new URL('docs/design/command-coverage.md', root);

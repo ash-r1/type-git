@@ -17,6 +17,8 @@ import type {
   SafeIntegerAtLeast,
 } from './number-types.js';
 import type { ObjectFilterLiteral } from './object-filter-types.js';
+import type { StringCallbackParser } from './string-callback.js';
+import type { StringCallbackLiteral } from './string-callback-types.js';
 
 type MaybeGitDisabled<V> = V extends unknown
   ? GitEnabledLiteral<V> extends true
@@ -353,7 +355,11 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
                   ? V
                   : never
                 : never
-            : V;
+            : P extends StringCallbackParser
+              ? StringCallbackLiteral<V, P> extends true
+                ? V
+                : never
+              : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

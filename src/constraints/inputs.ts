@@ -15,8 +15,8 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
     },
   ],
-  // repo.commit emits no paths. These stay runtime checks: modeling them in CommitOpts
-  // multiplies the compiler's work on every caller of the option type.
+  // repo.commit emits no paths, and its fixup is a free string. These stay runtime checks:
+  // modeling them in CommitOpts multiplies the compiler's work on every caller of the type.
   commitPaths: [
     {
       id: 'commit.only-paths',
@@ -44,6 +44,50 @@ export const INPUT_CONSTRAINTS = {
       ],
       origin: 'git',
       reason: 'A reword: fixup cannot include changed files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    // Runtime checks: in CommitOpts these exceed the compiler's union budget.
+    {
+      id: 'commit.fixup-suboption',
+      kind: 'scalar',
+      key: 'fixup',
+      parser: 'commit-fixup',
+      origin: 'git',
+      reason: 'A fixup suboption (letters before a colon) must be amend or reword.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.reset-author-amend-fixup',
+      kind: 'forbid',
+      when: [
+        { key: 'resetAuthor', test: 'active' },
+        { key: 'amend', test: 'active' },
+        { key: 'fixup', test: 'nonempty' },
+      ],
+      origin: 'git',
+      reason: 'With a fixup, amend reuses no message, so resetAuthor has nothing to reset.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.fixup-amend-message',
+      kind: 'forbid',
+      when: [
+        { key: 'fixup', test: 'startsWith', value: 'amend:' },
+        { key: 'message', test: 'nonempty' },
+      ],
+      origin: 'git',
+      reason: 'An amend: fixup takes its message from the amended commit, not from a message.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.fixup-reword-message',
+      kind: 'forbid',
+      when: [
+        { key: 'fixup', test: 'startsWith', value: 'reword:' },
+        { key: 'message', test: 'nonempty' },
+      ],
+      origin: 'git',
+      reason: 'A reword: fixup takes its message from the amended commit, not from a message.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
   ],
@@ -96,7 +140,9 @@ export const INPUT_DOMAINS = {
     allowEmpty: [undefined, false, true],
     amend: [undefined, false, true],
     pathspecFromFile: [undefined, '', 'paths'],
-    fixup: [undefined, '', 'HEAD', 'amend:HEAD', 'reword:HEAD'],
+    fixup: [undefined, '', 'HEAD', 'amend:HEAD', 'reword:HEAD', 'Amend:HEAD', 'x:HEAD'],
+    message: [undefined, '', 'm'],
+    resetAuthor: [undefined, false, true],
   },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],

@@ -11,7 +11,8 @@
     "date.c": "ee1f260f43aab1c6c79b7688d408eafc511fd1086764cc320771dd8f2972858e",
     "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
     "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097",
-    "string-list.c": "9976ef5acd9f31b9ad174dde39b651bd4112ee73fd233bb2b505b5bf45abad05"
+    "string-list.c": "9976ef5acd9f31b9ad174dde39b651bd4112ee73fd233bb2b505b5bf45abad05",
+    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121"
   },
   "profiles": {
     "anonymize-map": {
@@ -161,6 +162,15 @@
         "cumulative"
       ],
       "source": "Git 2.25.1/2.55.0 diff.c:parse_dirstat_params/parse_dirstat_opt/diff_opt_dirstat; whole empty text/bare defaults accepted, nonempty comma fields must be exact words or ASCII digit-first decimal with at most one dot (trailing dot accepted). No trimming or range clamp. Invalid fields accumulate errors and cannot be repaired by later words; native fatal128. Keep raw argv and native cutoff arithmetic/rendering."
+    },
+    "commit-fixup": {
+      "kind": "alpha-prefix",
+      "separator": ":",
+      "allowed": [
+        "amend",
+        "reword"
+      ],
+      "source": "builtin/commit.c:parse_and_validate_options; a nonempty run of ASCII letters (git-compat-util/sane-ctype isalpha, which ignores the locale) directly followed by ':' names a suboption, which must be amend or reword; any other value is a commit name"
     }
   }
 }

@@ -1270,6 +1270,27 @@
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
     },
     {
+      "id": "cli.commit.reset-author-amend-fixup",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "reset-author",
+          "test": "active"
+        },
+        {
+          "key": "amend",
+          "test": "active"
+        },
+        {
+          "key": "fixup",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "With --fixup, --amend reuses no message, so --reset-author has nothing to reset; Git refuses this in every repository state (other --reset-author cases depend on an in-progress cherry-pick or rebase and are left to native Git).",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+    },
+    {
       "id": "cli.commit.fixup-squash",
       "kind": "exclusive",
       "keys": [
@@ -1278,6 +1299,15 @@
       ],
       "origin": "git",
       "reason": "Fixup and squash are incompatible.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+    },
+    {
+      "id": "cli.commit.fixup-suboption",
+      "kind": "scalar",
+      "key": "fixup",
+      "parser": "commit-fixup",
+      "origin": "git",
+      "reason": "A --fixup suboption (letters before ':') must be amend or reword.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
     },
     {

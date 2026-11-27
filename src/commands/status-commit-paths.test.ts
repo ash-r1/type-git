@@ -284,4 +284,40 @@ describe('status and commit path operands', () => {
       GitArgumentError,
     );
   });
+
+  it('checks repo.commit fixup suboptions and their message rules like Git', async () => {
+    for (const opts of [
+      { fixup: 'x:HEAD' },
+      { fixup: 'Amend:HEAD' },
+      { fixup: 'amend:HEAD', message: 'm' },
+      { fixup: 'reword:HEAD', message: 'm' },
+      { fixup: 'HEAD', amend: true, resetAuthor: true },
+    ]) {
+      expect(() => validateInput('commitPaths', opts, 'commit'), JSON.stringify(opts)).toThrow(
+        GitArgumentError,
+      );
+    }
+    for (const opts of [
+      { fixup: 'HEAD', message: 'm' },
+      { fixup: 'HEAD~1:file' },
+      { fixup: 'v1:HEAD' },
+      // An empty message is not emitted, so it does not conflict with the suboption.
+      { fixup: 'amend:HEAD', message: '' },
+      // Without a fixup, --amend supplies the message that --reset-author resets.
+      { amend: true, resetAuthor: true },
+      { fixup: '', amend: true, resetAuthor: true },
+    ]) {
+      expect(
+        () => validateInput('commitPaths', opts, 'commit'),
+        JSON.stringify(opts),
+      ).not.toThrow();
+    }
+    const native = direct('commit', ['--fixup=x:HEAD']);
+    expect(native.status).toBe(128);
+    // Before Git 2.32 the whole value is a commit name, which also fails here.
+    expect(native.stderr).toContain(
+      fixupPrefixes ? 'unknown option: --fixup=x:HEAD' : 'could not lookup commit',
+    );
+    await expect(repo.commit({ fixup: 'x:HEAD' })).rejects.toThrow(GitArgumentError);
+  });
 });
