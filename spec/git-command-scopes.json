@@ -1387,7 +1387,7 @@
       ]
     },
     "initial": {
-      "empty-pathspec": ""
+      "empty-operand": ""
     }
   },
   "tag": {
@@ -3797,6 +3797,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "rebase": {
@@ -4026,20 +4029,38 @@
         "set": false
       },
       "-C": {
-        "key": "am-options",
+        "key": "apply-context",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--whitespace": {
-        "key": "am-options",
+        "key": "whitespace",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--no-whitespace": {
         "key": "am-options",
         "value": "flag",
         "set": "--no-whitespace",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       }
     },
     "parserExit": {
@@ -4065,6 +4086,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "cherry-pick": {

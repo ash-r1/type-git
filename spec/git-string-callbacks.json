@@ -12,7 +12,9 @@
     "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
     "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097",
     "string-list.c": "9976ef5acd9f31b9ad174dde39b651bd4112ee73fd233bb2b505b5bf45abad05",
-    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121"
+    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
+    "trailer.c": "d2cd030cdd59a1685cc623976c0cf84f15583e291646e9c81c467c1eff0a995d",
+    "builtin/rebase.c": "cdf7863a13d8acc59ee3d51b599e16650e28453a73dd41a818b0a48bc392ff45"
   },
   "profiles": {
     "anonymize-map": {
@@ -171,6 +173,39 @@
         "reword"
       ],
       "source": "builtin/commit.c:parse_and_validate_options; a nonempty run of ASCII letters (git-compat-util/sane-ctype isalpha, which ignores the locale) directly followed by ':' names a suboption, which must be amend or reword; any other value is a commit name"
+    },
+    "rebase-apply-context": {
+      "kind": "character-set",
+      "characters": "0123456789",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase; every character after -C must be a decimal digit, and an empty value is accepted."
+    },
+    "rebase-whitespace": {
+      "kind": "choice",
+      "exact": [
+        "nowarn",
+        "warn",
+        "error",
+        "error-all",
+        "fix",
+        "strip"
+      ],
+      "prefixes": [],
+      "allowEmpty": true,
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase; --whitespace=fix and strip are matched first, then any nonempty value other than warn, nowarn, error and error-all is refused. An empty value passes cmd_rebase; git apply refuses it only when there are patches to apply."
+    },
+    "rebase-trailer": {
+      "kind": "text",
+      "blank": "",
+      "forbiddenFirst": "=",
+      "forbidden": "",
+      "source": "Git 2.55.0 trailer.c:validate_trailer_args/find_separator; an empty trailer and one whose first character is '=' are always refused. Other separators come from trailer.separators (default ':') and remain native."
+    },
+    "rebase-exec": {
+      "kind": "text",
+      "blank": " \t\r\f\u000b",
+      "forbiddenFirst": "",
+      "forbidden": "\n",
+      "source": "Git 2.55.0 builtin/rebase.c:check_exec_cmd; a command must not contain a newline and must not consist only of spaces, tabs, carriage returns, form feeds and vertical tabs."
     }
   }
 }

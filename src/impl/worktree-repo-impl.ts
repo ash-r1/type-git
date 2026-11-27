@@ -3721,6 +3721,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async rebase(opts?: RebaseOpts & ExecOpts): Promise<void> {
     validateOptions('rebase', opts);
+    checkRebaseBackend(opts);
     const args = ['rebase'];
     if (opts?.abort) {
       args.push('--abort');
@@ -3824,8 +3825,14 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.exec) {
-      const execs = Array.isArray(opts.exec) ? opts.exec : [opts.exec];
+      const execs: readonly unknown[] = Array.isArray(opts.exec) ? opts.exec : [opts.exec];
       for (const cmd of execs) {
+        // check_exec_cmd refuses an empty command and one that spans lines.
+        if (typeof cmd !== 'string' || cmd.length === 0 || cmd.includes('\n')) {
+          throw new GitArgumentError(
+            'rebase: exec must be a nonempty command without newlines [rebase.exec-command]',
+          );
+        }
         args.push('--exec', cmd);
       }
     }
@@ -5090,6 +5097,30 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       {
         signal: opts?.signal,
       },
+    );
+  }
+}
+
+/**
+ * Apply options (--apply, --whitespace) select the apply backend, which cmd_rebase refuses
+ * once another option has implied the merge backend. These implications depend on two
+ * options at once, so they are checked here rather than in the option types.
+ */
+function checkRebaseBackend(opts: RebaseOpts | undefined): void {
+  if (!(opts?.apply || opts?.whitespace)) {
+    return;
+  }
+  const implied =
+    opts.root && !opts.onto
+      ? '--root without --onto'
+      : opts.reapplyCherryPicks !== undefined && !opts.keepBase
+        ? '--[no-]reapply-cherry-picks without --keep-base'
+        : !opts.apply && opts.ignoreWhitespace
+          ? '--ignore-whitespace without --apply'
+          : undefined;
+  if (implied) {
+    throw new GitArgumentError(
+      `rebase: ${implied} implies the merge backend, which apply options cannot use [rebase.apply-implied-merge]`,
     );
   }
 }

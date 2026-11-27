@@ -164,11 +164,11 @@ export const witness80: CherryPickOpts = {"continue":true,"skip":true};
 // @ts-expect-error cherryPick.unsupported
 export const witness81: CherryPickOpts = {"noVerify":false};
 // @ts-expect-error cherryPick.abort-options
-export const witness82: CherryPickOpts = {"abort":true,"strategyOption":""};
+export const witness82: CherryPickOpts = {"abort":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.continue-options
-export const witness83: CherryPickOpts = {"continue":true,"strategyOption":""};
+export const witness83: CherryPickOpts = {"continue":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.skip-options
-export const witness84: CherryPickOpts = {"skip":true,"strategyOption":""};
+export const witness84: CherryPickOpts = {"skip":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.ff-signoff
 export const witness85: CherryPickOpts = {"ff":true,"signoff":true};
 // @ts-expect-error cherryPick.ff-noCommit
@@ -183,22 +183,22 @@ export const witness89: CleanOpts = {};
 export const witness90: CleanOpts = {"ignored":true,"onlyIgnored":true};
 import type { RebaseOpts } from '../../src/core/repo.js';
 export const witness91: RebaseOpts = {};
-// @ts-expect-error rebase.abort-continue-skip
-export const witness92: RebaseOpts = {"continue":true,"skip":true};
+// @ts-expect-error rebase.action-alone
+export const witness92: RebaseOpts = {"skip":true,"verbose":true};
+// @ts-expect-error rebase.backend
+export const witness93: RebaseOpts = {"apply":true,"updateRefs":true};
 // @ts-expect-error rebase.keepBase-onto
-export const witness93: RebaseOpts = {"keepBase":true,"onto":""};
+export const witness94: RebaseOpts = {"keepBase":true,"onto":""};
 // @ts-expect-error rebase.keepBase-root
-export const witness94: RebaseOpts = {"keepBase":true,"root":true};
-// @ts-expect-error rebase.apply-rebaseMerges
-export const witness95: RebaseOpts = {"apply":true,"rebaseMerges":true};
-// @ts-expect-error rebase.apply-strategy
-export const witness96: RebaseOpts = {"apply":true,"strategy":""};
-// @ts-expect-error rebase.apply-exec
-export const witness97: RebaseOpts = {"apply":true,"exec":""};
+export const witness95: RebaseOpts = {"keepBase":true,"root":true};
 // @ts-expect-error rebase.unsupported
-export const witness98: RebaseOpts = {"interactive":false};
+export const witness96: RebaseOpts = {"interactive":false};
 // @ts-expect-error rebase.root-forkPoint
-export const witness99: RebaseOpts = {"forkPoint":true,"root":true};
+export const witness97: RebaseOpts = {"forkPoint":true,"root":true};
+// @ts-expect-error rebase.whitespace-value
+export const witness98: RebaseOpts = {"whitespace":"value"};
+// @ts-expect-error rebase.root-upstream
+export const witness99: RebaseOpts = {"root":true,"upstream":""};
 import type { RestoreOpts } from '../../src/core/repo.js';
 export const witness100: RestoreOpts = {};
 // @ts-expect-error restore.staged-conflict
@@ -218,11 +218,11 @@ export const witness107: RevertOpts = {"continue":true,"skip":true};
 // @ts-expect-error revert.unsupported
 export const witness108: RevertOpts = {"noVerify":false};
 // @ts-expect-error revert.abort-options
-export const witness109: RevertOpts = {"abort":true,"strategyOption":""};
+export const witness109: RevertOpts = {"abort":true,"strategyOption":"value"};
 // @ts-expect-error revert.continue-options
-export const witness110: RevertOpts = {"continue":true,"strategyOption":""};
+export const witness110: RevertOpts = {"continue":true,"strategyOption":"value"};
 // @ts-expect-error revert.skip-options
-export const witness111: RevertOpts = {"skip":true,"strategyOption":""};
+export const witness111: RevertOpts = {"skip":true,"strategyOption":"value"};
 import type { ShowOpts } from '../../src/core/repo.js';
 export const witness112: ShowOpts = {};
 // @ts-expect-error show.nameOnly-nameStatus

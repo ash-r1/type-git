@@ -14680,7 +14680,7 @@
       },
       "rules": 15,
       "domains": {
-        "empty-pathspec": [
+        "empty-operand": [
           "undefined",
           "\"\""
         ],
@@ -14806,7 +14806,7 @@
         "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}",
         "reset-unseparated-paths-mode": "{\"mode\":\"soft\",\"operands\":[\"value\",\"value\"]}",
         "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}",
-        "cli.reset.empty-operand": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
+        "cli.reset.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -41978,8 +41978,12 @@
           }
         }
       ],
-      "rules": 5,
+      "rules": 6,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "n": [
           "undefined",
           "true"
@@ -42167,7 +42171,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -42185,15 +42191,16 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "9762996322800000000",
-      "accepted": "2305151909550000000",
-      "nodes": 90,
+      "total": "27336389703840000000",
+      "accepted": "5532364582920000000",
+      "nodes": 153,
       "isolatedRuleWitnesses": {
         "merge.squash": "{\"ff-mode\":\"no\",\"operands\":[],\"squash\":true}",
         "merge.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "merge.abort-only": "{\"abort\":true,\"operands\":[]}",
         "merge.quit-only": "{\"operands\":[],\"quit\":true}",
-        "merge.continue-only": "{\"continue\":true,\"operands\":[]}"
+        "merge.continue-only": "{\"continue\":true,\"operands\":[]}",
+        "cli.merge.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -43937,8 +43944,12 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 25,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "onto": [
           "undefined",
           "\"\"",
@@ -44003,7 +44014,11 @@
           "true",
           "false"
         ],
-        "am-options": [
+        "apply-option": [
+          "undefined",
+          "true"
+        ],
+        "apply-context": [
           "undefined",
           "[]",
           "[\"\"]",
@@ -44013,14 +44028,24 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]",
-          "[\"--no-whitespace\"]",
-          "[\"--no-whitespace\",\"--no-whitespace\"]"
+          "[\"1kb\",\"1kb\"]"
         ],
         "ignore-whitespace": [
           "undefined",
           "true",
           "false"
+        ],
+        "whitespace": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "force-rebase": [
           "undefined",
@@ -44169,6 +44194,12 @@
           "true",
           "false"
         ],
+        "am-options": [
+          "undefined",
+          "[]",
+          "[\"--no-whitespace\"]",
+          "[\"--no-whitespace\",\"--no-whitespace\"]"
+        ],
         "help": [
           "undefined",
           "true"
@@ -44178,7 +44209,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -44196,9 +44229,9 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "195215295615667200000000",
-      "accepted": "1334479659222261242880",
-      "nodes": 2085,
+      "total": "36440188514924544000000000",
+      "accepted": "58792509588824842567680",
+      "nodes": 4285,
       "isolatedRuleWitnesses": {
         "rebase.arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
         "rebase.removed-preserve": "{\"operands\":[],\"preserve-merges\":true}",
@@ -44214,11 +44247,17 @@
         "rebase.apply-0-root": "{\"backend\":\"apply\",\"operands\":[],\"root\":true}",
         "rebase.apply-0-reapply": "{\"backend\":\"apply\",\"operands\":[],\"reapply-cherry-picks\":true}",
         "rebase.apply-0-reschedule": "{\"backend\":\"apply\",\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.apply-1-root": "{\"am-options\":[\"\"],\"operands\":[],\"root\":true}",
-        "rebase.apply-1-reapply": "{\"am-options\":[\"\"],\"operands\":[],\"reapply-cherry-picks\":true}",
-        "rebase.apply-1-reschedule": "{\"am-options\":[\"\"],\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.implicit-whitespace-backend": "{\"am-options\":[\"\"],\"ignore-whitespace\":true,\"operands\":[]}",
-        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}"
+        "rebase.apply-1-root": "{\"apply-option\":true,\"operands\":[],\"root\":true}",
+        "rebase.apply-1-reapply": "{\"apply-option\":true,\"operands\":[],\"reapply-cherry-picks\":true}",
+        "rebase.apply-1-reschedule": "{\"apply-option\":true,\"operands\":[],\"reschedule-failed-exec\":true}",
+        "rebase.implicit-whitespace-backend": "{\"apply-option\":true,\"ignore-whitespace\":true,\"operands\":[]}",
+        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}",
+        "cli.rebase.apply-context": "{\"apply-context\":[\"value\"],\"operands\":[]}",
+        "cli.rebase.whitespace": "{\"operands\":[],\"whitespace\":[\"value\"]}",
+        "cli.rebase.trailer": "{\"operands\":[],\"trailer\":[\"\"]}",
+        "cli.rebase.exec": "{\"exec\":[\"\"],\"operands\":[]}",
+        "cli.rebase.empty-onto": "{\"onto\":\"\",\"operands\":[]}",
+        "cli.rebase.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {

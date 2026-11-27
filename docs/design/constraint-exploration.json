@@ -1755,7 +1755,7 @@
       ]
     },
     "total": "28242953648100",
-    "accepted": "7252511652384",
+    "accepted": "7252512143904",
     "nodes": 500,
     "isolatedRuleWitnesses": {
       "merge.abort-continue-quit": "{\"continue\":true,\"quit\":true}",
@@ -2380,16 +2380,16 @@
       ]
     },
     "total": "12627038160",
-    "accepted": "415393920",
+    "accepted": "416171520",
     "nodes": 392,
     "isolatedRuleWitnesses": {
       "cherryPick.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
       "cherryPick.unsupported": "{\"noVerify\":false}",
       "cherryPick.mainline": null,
       "cherryPick.mainline-range": "{\"mainline\":-1}",
-      "cherryPick.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
-      "cherryPick.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
-      "cherryPick.skip-options": "{\"skip\":true,\"strategyOption\":\"\"}",
+      "cherryPick.abort-options": "{\"abort\":true,\"strategyOption\":\"value\"}",
+      "cherryPick.continue-options": "{\"continue\":true,\"strategyOption\":\"value\"}",
+      "cherryPick.skip-options": "{\"skip\":true,\"strategyOption\":\"value\"}",
       "cherryPick.ff-signoff": "{\"ff\":true,\"signoff\":true}",
       "cherryPick.ff-noCommit": "{\"ff\":true,\"noCommit\":true}",
       "cherryPick.ff-appendCommitName": "{\"appendCommitName\":true,\"ff\":true}",
@@ -2560,6 +2560,7 @@
         "undefined",
         "\"drop\"",
         "\"keep\"",
+        "\"stop\"",
         "\"ask\""
       ],
       "autosquash": [
@@ -2623,18 +2624,19 @@
         "true"
       ]
     },
-    "total": "8235645283785960",
-    "accepted": "937247646988800",
-    "nodes": 422,
+    "total": "10294556604732450",
+    "accepted": "257753835646848",
+    "nodes": 1379,
     "isolatedRuleWitnesses": {
-      "rebase.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
+      "rebase.action-alone": "{\"skip\":true,\"verbose\":true}",
+      "rebase.backend": "{\"apply\":true,\"updateRefs\":true}",
       "rebase.keepBase-onto": "{\"keepBase\":true,\"onto\":\"\"}",
       "rebase.keepBase-root": "{\"keepBase\":true,\"root\":true}",
-      "rebase.apply-rebaseMerges": "{\"apply\":true,\"rebaseMerges\":true}",
-      "rebase.apply-strategy": "{\"apply\":true,\"strategy\":\"\"}",
-      "rebase.apply-exec": "{\"apply\":true,\"exec\":\"\"}",
       "rebase.unsupported": "{\"interactive\":false}",
-      "rebase.root-forkPoint": "{\"forkPoint\":true,\"root\":true}"
+      "rebase.root-forkPoint": "{\"forkPoint\":true,\"root\":true}",
+      "rebase.whitespace-value": "{\"whitespace\":\"value\"}",
+      "rebase.empty-value": null,
+      "rebase.root-upstream": "{\"root\":true,\"upstream\":\"\"}"
     }
   },
   {
@@ -2816,16 +2818,16 @@
       ]
     },
     "total": "116917020",
-    "accepted": "5261760",
+    "accepted": "5326560",
     "nodes": 163,
     "isolatedRuleWitnesses": {
       "revert.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
       "revert.unsupported": "{\"noVerify\":false}",
       "revert.mainline": null,
       "revert.mainline-range": "{\"mainline\":-1}",
-      "revert.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
-      "revert.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
-      "revert.skip-options": "{\"skip\":true,\"strategyOption\":\"\"}"
+      "revert.abort-options": "{\"abort\":true,\"strategyOption\":\"value\"}",
+      "revert.continue-options": "{\"continue\":true,\"strategyOption\":\"value\"}",
+      "revert.skip-options": "{\"skip\":true,\"strategyOption\":\"value\"}"
     }
   },
   {

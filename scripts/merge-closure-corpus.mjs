@@ -7,7 +7,7 @@
 // not a completeness argument.
 //
 // A refused case is state-dependent when the same argv is accepted in another seed state: the
-// operands swapped between a diverged branch (topic) and a fast-forward branch (ahead), or a
+// each named operand replaced by a diverged branch (topic), a fast-forward branch (ahead), the current branch (main) or '-', or a
 // repository with a conflicted merge in progress. The wrapper must accept exactly the argv
 // that some such state accepts, except for refusals listed in STATE, which depend on inputs
 // no seed here provides (signatures, keys, upstream configuration, merge drivers).
@@ -55,6 +55,16 @@ const serialize = (tokens) =>
   tokens.flatMap((token) =>
     !Array.isArray(token) ? [token.operand] : token.length === 1 ? token : token[0].startsWith('--') ? [`${token[0]}=${token[1]}`] : token,
   );
+/** Parser and argument refusals that precede every repository read they could depend on. */
+const GUARANTEED = [
+  /^fatal: --(?:abort|quit|continue) expects no arguments$/,
+  /^fatal: options '--squash' and '--(?:no-ff|commit)\.' cannot be used together$/,
+  /^fatal: Invalid cleanup mode .*$/,
+  /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value|cannot be negated)$/,
+  /^error: unknown (?:option|switch) /,
+  // An empty name never resolves to a commit.
+  /^merge:  - not something we can merge$/,
+];
 /** Argument refusals these cases may reach in Git 2.55.0. */
 const REFUSALS = [
   /^usage: git merge /,
@@ -64,18 +74,20 @@ const REFUSALS = [
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value|cannot be negated)$/,
   /^error: (?:option|switch) `[^']*' isn't available$/,
   /^error: unknown (?:option|switch) /,
-  /^error: could not read file '.*'$/,
-  /^Could not find merge strategy '.*'\.$/,
+  /^merge:  - not something we can merge$/,
+  // A missing strategy or message file stops parsing before a refusal that would follow.
+  /^Could not find merge strategy 'bogus'\.$/,
+  /^error: could not read file 'missing'$/,
 ];
 /**
  * Refusals that depend on inputs these seeds do not vary: commit signatures and signing keys,
- * the branch's upstream, and whether two histories are related.
+ * the branch's upstream, names that do not resolve here, and whether two histories are related.
  */
 const STATE = [
   /^fatal: Commit [0-9a-f]+ does not have a GPG signature\.$/,
-  /^error: gpg failed to sign the data$/,
+  /^error: gpg failed to sign the data:?$/,
   /^fatal: No (?:remote|default upstream defined) for the current branch\.$/,
-  /^merge: .* - not something we can merge$/,
+  /^merge: .+ - not something we can merge$/,
   /^fatal: refusing to merge unrelated histories$/,
 ];
 const ACTIONS = [[], [['--abort']], [['--quit']], [['--continue']], [['--no-abort']], [['--no-continue']]];
@@ -92,13 +104,13 @@ const MODIFIERS = [
   [['--autostash']], [['--no-autostash']], [['--overwrite-ignore']], [['--signoff']], [['--no-signoff']], [['--no-verify']],
 ];
 const OPERANDS = [[], [operand('topic')], [operand('ahead')], [operand('-')], [operand('topic'), operand('ahead')], [operand('HEAD')], [operand('')]];
-/** Swap each operand between the diverged and the fast-forward branch. */
+/** Replace each named operand by each of a diverged branch, a fast-forward branch, the current branch and '-' (topic). */
+const NAMES = ['topic', 'ahead', 'main', '-'];
 const swap = (tokens) => {
   let out = [tokens];
   tokens.forEach((token, index) => {
-    if (Array.isArray(token) || !['topic', 'ahead'].includes(token.operand)) return;
-    const other = operand(token.operand === 'topic' ? 'ahead' : 'topic');
-    out = out.flatMap((v) => [v, v.map((t, i) => (i === index ? other : t))]);
+    if (Array.isArray(token) || !NAMES.includes(token.operand)) return;
+    out = out.flatMap((v) => NAMES.map((name) => v.map((t, i) => (i === index ? operand(name) : t))));
   });
   return out;
 };
@@ -117,6 +129,9 @@ try {
   };
   await seed(clean, [
     ['init', '-qb', 'main'],
+    // Copies keep mtimes but not inodes or ctimes; compare only what a copy preserves.
+    ['config', 'core.checkStat', 'minimal'],
+    ['config', 'core.trustctime', 'false'],
     ['add', 'f'],
     ['commit', '-qm', 'base'],
     ['checkout', '-qb', 'topic'],
@@ -136,7 +151,7 @@ try {
   // ahead is now behind main's new commit, so recreate it as a strict descendant of main.
   await seed(clean, [['branch', '-qf', 'ahead', 'main'], ['checkout', '-q', 'ahead'], ['commit', '-q', '--allow-empty', '-m', 'ahead'], ['checkout', '-q', 'topic'], ['checkout', '-q', 'main']]);
   const merging = seeds.merging;
-  cpSync(clean, merging, { recursive: true });
+  cpSync(clean, merging, { recursive: true, preserveTimestamps: true });
   await seed(merging, [
     ['checkout', '-qb', 'conflict', 'topic'],
     () => writeFile(join(merging, 'f'), 'conflict\n'),
@@ -153,7 +168,7 @@ try {
   /** Run one argv in a fresh copy of a seed and classify its first diagnostic. */
   const run = (tokens, state = 'clean') => {
     rmSync(directory, { recursive: true, force: true });
-    cpSync(seeds[state], directory, { recursive: true });
+    cpSync(seeds[state], directory, { recursive: true, preserveTimestamps: true });
     const argv = ['merge', ...serialize(tokens).map((w) => (w === 'message' || w.endsWith('=message') ? w.replace('message', join(base, 'message')) : w))];
     const result = git(argv);
     const lines = `${result.stderr}`.split('\n');
@@ -164,16 +179,35 @@ try {
   };
   const cases = [];
   const unclassified = new Map();
-  const record = (tokens) => {
+  /**
+   * -s and -F are resolved by option callbacks while parsing, before every later check. A case
+   * refused for a missing strategy or message file is state-dependent only when the same argv
+   * with an existing strategy (ours) and message file is accepted, or is itself state-dependent.
+   */
+  const PARSE_TIME = [/^Could not find merge strategy '.*'\.$/, /^error: could not read file '.*'$/];
+  const resolvable = (tokens) =>
+    tokens.map((t) =>
+      Array.isArray(t) && t[0] === '-s' && t[1] === 'bogus' ? ['-s', 'ours'] : Array.isArray(t) && t[0] === '-F' && t[1] === 'missing' ? ['-F', 'message'] : t,
+    );
+  const classify = (tokens) => {
     const outcome = run(tokens);
     const { valid, diagnostic } = outcome;
-    const argv = ['merge', ...serialize(tokens)];
     let state = false;
-    if (!valid) {
+    if (!valid && PARSE_TIME.some((p) => p.test(diagnostic))) {
+      const other = resolvable(tokens);
+      if (JSON.stringify(other) === JSON.stringify(tokens)) throw new Error(`Unexpected parse-time refusal: ${diagnostic}`);
+      const resolved = classify(other);
+      state = resolved.valid || resolved.state;
+    } else if (!valid && !GUARANTEED.some((p) => p.test(diagnostic))) {
       state =
         STATE.some((p) => p.test(diagnostic)) ||
-        swap(tokens).some((v, i) => (i > 0 && run(v).valid) || run(v, 'merging').valid);
+        swap(tokens).some((v) => (JSON.stringify(v) !== JSON.stringify(tokens) && run(v).valid) || run(v, 'merging').valid);
     }
+    return { outcome, valid, diagnostic, state };
+  };
+  const record = (tokens) => {
+    const { outcome, valid, diagnostic, state } = classify(tokens);
+    const argv = ['merge', ...serialize(tokens)];
     if (!valid && !state && !REFUSALS.some((p) => p.test(diagnostic))) {
       // Remaining refusals are repository conditions in the clean seed that another seed lifts.
       unclassified.set(diagnostic || `${outcome.status}`, argv);
@@ -193,7 +227,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with topic and ahead swapped or during the merge, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin',
+        'Git 2.55.0; fresh copy of a seed repository on main with a diverged branch topic (also @{-1}) and a fast-forward branch ahead, or of the same repository with a resolved but uncommitted conflicted merge, for every case; GIT_EDITOR=true; -F names a readable message file; actions crossed with modifiers and seven operand shapes, modifier pairs before topic or ahead, action pairs; a refused case is state-dependent when the same argv succeeds with its named operands replaced by topic, ahead, main or - or during the merge, or, for a missing strategy or message file, when the argv with -s ours or the readable file is accepted or state-dependent, or when its diagnostic depends on signatures, signing keys, upstream configuration or unrelated histories; empty file-backed stdin',
       cases,
     },
     null,

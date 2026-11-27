@@ -1391,8 +1391,8 @@ export type RebaseOpts = CheckedOptions<
     apply?: boolean;
     /** Automatically update rerere state */
     rerereAutoupdate?: boolean;
-    /** How to handle empty commits */
-    empty?: 'drop' | 'keep' | 'ask';
+    /** How to handle commits that become empty ('ask' is Git's deprecated synonym of 'stop') */
+    empty?: 'drop' | 'keep' | 'stop' | 'ask';
     /** Automatically squash fixup commits */
     autosquash?: boolean;
     /** Update refs that point to rebased commits */

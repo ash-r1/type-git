@@ -24,6 +24,9 @@ for (const [name, profile] of Object.entries(registry.profiles)) {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || /[A-Za-z]/.test(profile.separator) || !Array.isArray(profile.allowed) || !profile.allowed.length || profile.allowed.some(value => typeof value !== 'string' || !/^[A-Za-z]+$/.test(value))) throw new Error(`${name}: invalid alpha-prefix grammar`);
   } else if (profile.kind === 'choice') {
     for (const field of ['exact', 'prefixes']) if (!Array.isArray(profile[field]) || profile[field].some(value => typeof value !== 'string' || !value)) throw new Error(`${name}: invalid ${field}`);
+    if (profile.allowEmpty !== undefined && profile.allowEmpty !== true) throw new Error(`${name}: allowEmpty must be true when present`);
+  } else if (profile.kind === 'text') {
+    for (const field of ['blank', 'forbiddenFirst', 'forbidden']) if (typeof profile[field] !== 'string' || [...profile[field]].some(character => character.charCodeAt(0) === 0 || character.charCodeAt(0) >= 128)) throw new Error(`${name}: invalid ${field} characters`);
   } else if (profile.kind === 'token-list') {
     if (!Array.isArray(profile.separators) || !profile.separators.length || profile.separators.some(value => typeof value !== 'string' || value.length !== 1)) throw new Error(`${name}: invalid token separators`);
     if (!Array.isArray(profile.exact) || !profile.exact.length || profile.exact.some(value => typeof value !== 'string' || !value || profile.separators.some(separator => value.includes(separator)))) throw new Error(`${name}: invalid token vocabulary`);
