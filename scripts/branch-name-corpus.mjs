@@ -55,6 +55,9 @@ const NAMES = [
   'a.lock', 'a.lock/b', 'a/b.lock', 'a.locks', 'lock', '.lock', 'a.LOCK', 'a.lock.lock', 'a/.lock/b',
   '@', '@@', 'a@b', 'a@', '@a', 'a@{b', '@{', '@{}', 'a@{', '{', 'a{b}', '@{-1}', '@{-1}x', '@{-0}', '@{-x}',
   'topic@{u}', 'topic@{U}', 'topic@{upstream}', 'topic@{push}', '@{u}', 'x@{u}', 'a..b@{u}',
+  // Interpreted names followed by literal text: @{-1} is topic, topic@{u} is main, @{u} is topic.
+  '@{-1}x', '@{- +01}x', '@{-1}..', '@{-1}x..', '@{-1}/x', '@{-1}/.x', '@{-1}.lock', '@{-1}:x', '@{-1}@{-1}',
+  'topic@{u}x', 'topic@{U}/y', 'topic@{u}..', 'topic@{u}:', 'a:b@{u}', '@{u}..', 'topic@{u}@{x', '@{-1}x@{u}',
   'HEAD', 'head', 'x/HEAD', 'HEAD/x', 'HEADx', '-', '-a', 'a-', '--', 'é', 'aÿb', '日本',
   'refs/heads/x', 'refs', 'a*', '*', 'a/*', 'a/b/c', 'a.b.c', 'a/-b', 'a/@', '@/a',
 ];
@@ -74,7 +77,8 @@ try {
     ['commit', '-q', '--allow-empty', '-m', 'one'],
     ['branch', 'topic'],
     ['branch', '--set-upstream-to', 'main', 'topic'],
-    // A prior checkout makes @{-1} resolve to main.
+    ['branch', '--set-upstream-to', 'topic', 'main'],
+    // A prior checkout makes @{-1} resolve to topic.
     ['checkout', '-q', 'topic'],
     ['checkout', '-q', 'main'],
   ]) {

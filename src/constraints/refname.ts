@@ -54,24 +54,36 @@ export function validRefnameFormat(refname: string, allowOnelevel: boolean = fal
 
 /**
  * repo_interpret_branch_name (INTERPRET_BRANCH_LOCAL) can rewrite a leading @{-N} from the
- * reflog and @{upstream}, @{u} or @{push} marks from configuration. interpret_nth_prior_checkout
- * reads N with strtol up to the first '}' and needs it positive. Only names with such a part can
- * depend on the repository; any other '@{' stays in the name and is refused.
+ * reflog (interpret_nth_prior_checkout reads N with strtol up to the first '}' and needs it
+ * positive) and an @{upstream}, @{u} or @{push} mark from configuration, unless a ':' precedes
+ * the mark. copy_branchname appends the text after the last rewritten part literally.
  */
-const INTERPRETABLE_BRANCH = /^@\{-[ \t\n\v\f\r]*\+?0*[1-9][0-9]*\}|@\{(?:upstream|u|push)\}/i;
+const NTH_PRIOR = /^@\{-[ \t\n\v\f\r]*\+?0*[1-9][0-9]*\}/;
+const BRANCH_MARK = /@\{(?:upstream|u|push)\}/gi;
 
 /**
  * Whether a new branch name (branch creation, rename and copy targets, switch -c/-C/--orphan,
  * checkout -b/-B, worktree add -b/-B) can pass refs.c:check_branch_ref. `true` means valid,
  * `false` means refused in every repository, and `'repository'` means the repository decides,
- * because @{-N} or an upstream/push mark is interpreted first.
+ * because @{-N} or an upstream/push mark is rewritten first. A rewritten part is a valid
+ * branch name, so the name is refused whenever ':' appears (it is forbidden, and before a mark
+ * it stops the rewrite) or the literal text after the last rewritable part cannot follow one.
  */
 export function branchNameSyntax(name: string): boolean | 'repository' {
   if (name.startsWith('-')) {
     return false;
   }
-  if (name.includes('@{') && INTERPRETABLE_BRANCH.test(name)) {
-    return 'repository';
+  if (name.includes('@{')) {
+    let end = NTH_PRIOR.exec(name)?.[0].length ?? 0;
+    for (const mark of name.matchAll(BRANCH_MARK)) {
+      end = Math.max(end, mark.index + mark[0].length);
+    }
+    if (end > 0) {
+      // 'x' stands in for the rewritten branch name, which never ends in '.' or '/'.
+      return !name.includes(':') && validRefnameFormat(`refs/heads/x${name.slice(end)}`)
+        ? 'repository'
+        : false;
+    }
   }
   return name !== 'HEAD' && validRefnameFormat(`refs/heads/${name}`);
 }

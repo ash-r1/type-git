@@ -69542,7 +69542,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69571,7 +69571,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69650,7 +69650,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69679,7 +69679,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69779,7 +69779,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69808,7 +69808,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69887,7 +69887,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -69916,7 +69916,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -70016,7 +70016,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -70045,7 +70045,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -70124,7 +70124,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -70153,7 +70153,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-sjtQWt/repo'"
+      "diagnostic": "fatal: cannot force update the branch 'main' used by worktree at '/tmp/type-git-branch-name-Jbxz94/repo'"
     },
     {
       "command": "branch",
@@ -70411,7 +70411,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "diagnostic": "fatal: a branch named 'topic' already exists"
     },
     {
       "command": "branch",
@@ -70436,7 +70436,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "diagnostic": "fatal: a branch named 'topic' already exists"
     },
     {
       "command": "branch",
@@ -70465,7 +70465,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "diagnostic": "fatal: a branch named 'topic' already exists"
     },
     {
       "command": "branch",
@@ -70488,9 +70488,9 @@
         "--",
         "@{u}"
       ],
-      "valid": false,
-      "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
     },
     {
       "command": "branch",
@@ -70517,9 +70517,9 @@
         "topic",
         "@{u}"
       ],
-      "valid": false,
-      "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
     },
     {
       "command": "branch",
@@ -70544,7 +70544,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "diagnostic": "fatal: a branch named 'topic' already exists"
     },
     {
       "command": "branch",
@@ -70573,7 +70573,7 @@
       ],
       "valid": false,
       "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "diagnostic": "fatal: a branch named 'topic' already exists"
     },
     {
       "command": "branch",
@@ -70596,9 +70596,9 @@
         "--",
         "@{u}"
       ],
-      "valid": false,
-      "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
     },
     {
       "command": "branch",
@@ -70625,9 +70625,9 @@
         "topic",
         "@{u}"
       ],
-      "valid": false,
-      "state": true,
-      "diagnostic": "fatal: no upstream configured for branch 'main'"
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
     },
     {
       "command": "branch",
@@ -71102,6 +71102,4035 @@
       "valid": false,
       "state": true,
       "diagnostic": "fatal: no such branch: 'a..b'"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{- +01}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{- +01}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{- +01}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}x..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}x.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}x..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: cannot lock ref 'refs/heads/topic/x': 'refs/heads/topic' exists; cannot create 'refs/heads/topic/x'"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/topic' exists; cannot create 'refs/heads/topic/x'"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}/x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/topic' exists; cannot create 'refs/heads/topic/x'"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}/x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/topic' exists; cannot create 'refs/heads/topic/x'"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: directory not empty: .git/logs/refs/heads/topic/x"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/topic' exists; cannot create 'refs/heads/topic/x'"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}/x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}/x"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: directory not empty: .git/logs/refs/heads/topic/x"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}/.x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}/.x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}/.x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}/.x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}.lock",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}.lock"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}.lock"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}.lock' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}:x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}:x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}:x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}:x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}@{-1}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}@{-1}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}@{-1}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{-1}@{-1}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "topic@{u}x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "topic@{u}x"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: cannot lock ref 'refs/heads/main/y': 'refs/heads/main' exists; cannot create 'refs/heads/main/y'"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic@{U}/y"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/main' exists; cannot create 'refs/heads/main/y'"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic@{U}/y"
+      ],
+      "valid": true,
+      "state": false,
+      "diagnostic": ""
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/main' exists; cannot create 'refs/heads/main/y'"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: directory not empty: .git/logs/refs/heads/main/y"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/main' exists; cannot create 'refs/heads/main/y'"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: directory not empty: .git/logs/refs/heads/main/y"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "topic@{U}/y",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{U}/y"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "topic@{U}/y"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "error: 'refs/heads/main' exists; cannot create 'refs/heads/main/y'"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "topic@{u}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "topic@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "topic@{u}:",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}:"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "topic@{u}:"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}:' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "a:b@{u}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "a:b@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "a:b@{u}"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'a:b@{u}' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{u}..",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{u}.."
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{u}.."
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: '@{u}..' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "topic@{u}@{x",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "topic@{u}@{x"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "topic@{u}@{x"
+      ],
+      "valid": false,
+      "state": false,
+      "diagnostic": "fatal: 'topic@{u}@{x' is not a valid branch name"
+    },
+    {
+      "command": "branch",
+      "action": "create",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "--",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-m sole",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-m pair",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-m"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-m",
+        "--",
+        "topic",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-M sole",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-M pair",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-M"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-M",
+        "--",
+        "topic",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-c sole",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-c pair",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-c"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-c",
+        "--",
+        "topic",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-C sole",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
+    },
+    {
+      "command": "branch",
+      "action": "-C pair",
+      "name": "@{-1}x@{u}",
+      "tokens": [
+        [
+          "-C"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "topic"
+        },
+        {
+          "operand": "@{-1}x@{u}"
+        }
+      ],
+      "argv": [
+        "branch",
+        "-C",
+        "--",
+        "topic",
+        "@{-1}x@{u}"
+      ],
+      "valid": false,
+      "state": true,
+      "diagnostic": "fatal: no such branch: 'topicx'"
     },
     {
       "command": "branch",

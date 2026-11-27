@@ -37,9 +37,49 @@ describe('branch name corpus', () => {
     expect(branchNameSyntax('@{-1}')).toBe('repository');
     expect(branchNameSyntax('topic@{U}')).toBe('repository');
     expect(branchNameSyntax('a@{b')).toBe(false);
+    expect(branchNameSyntax('@{-1}x')).toBe('repository');
+    expect(branchNameSyntax('@{-1}..')).toBe(false);
+    expect(branchNameSyntax('a:b@{u}')).toBe(false);
+    expect(branchNameSyntax('@{-0}x')).toBe(false);
     expect(branchNameSyntax('-a')).toBe(false);
     expect(branchNameSyntax('HEAD')).toBe(false);
     expect(branchNameSyntax('x/HEAD')).toBe(true);
+  });
+
+  it('checks the name only where an action makes it a new branch name', () => {
+    const acceptsTokens = (tokens: unknown[]): boolean => {
+      try {
+        commandArguments('branch', tokens as never, true);
+        return true;
+      } catch (error) {
+        if (error instanceof GitArgumentError) {
+          return false;
+        }
+        throw error;
+      }
+    };
+    const bad = { operand: 'a..b' };
+    // A negation that clears the only action bit returns to creation.
+    for (const action of [
+      [['-d'], ['--no-delete']],
+      [['-m'], ['--no-move']],
+      [['-u', 'x'], ['--no-set-upstream-to']],
+    ]) {
+      expect(acceptsTokens([...action, bad])).toBe(false);
+    }
+    // -D, -M and -C keep their other bit after the long negation.
+    expect(acceptsTokens([['-D'], ['--no-delete'], bad])).toBe(true);
+    expect(acceptsTokens([['-M'], ['--no-move'], { operand: 'topic' }, bad])).toBe(false);
+    expect(acceptsTokens([['-M'], ['--no-move'], bad, { operand: 'fixed' }])).toBe(true);
+    for (const action of [
+      [['-d']],
+      [['--edit-description']],
+      [['-u', 'main']],
+      [['--unset-upstream']],
+      [['--merged', 'HEAD']],
+    ]) {
+      expect(acceptsTokens([...action, bad])).toBe(true);
+    }
   });
 
   it('applies REFNAME_ALLOW_ONELEVEL only when asked', () => {

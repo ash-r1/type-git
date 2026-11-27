@@ -65,15 +65,26 @@ type PositiveDigits<S extends string> = S extends `0${infer R}`
   : S extends `${Exclude<Digit, '0'>}${infer R}`
     ? Digits<R>
     : false;
-type Interpretable<V extends string> = V extends `@{-${infer N}}${string}`
+/** The text after the first upstream or push mark, if any (marks match case-insensitively). */
+type AfterMark<S extends string> = S extends `${string}@{u}${infer R}`
+  ? R
+  : S extends `${string}@{upstream}${infer R}`
+    ? R
+    : S extends `${string}@{push}${infer R}`
+      ? R
+      : never;
+/** The literal text after the last rewritable mark. */
+type LastTail<S extends string> = [AfterMark<S>] extends [never] ? S : LastTail<AfterMark<S>>;
+/** The literal tail after the rewritable parts, or never when nothing can be rewritten. */
+type InterpretedTail<V extends string> = V extends `@{-${infer N}}${infer R}`
   ? PositiveDecimal<N> extends true
-    ? true
-    : Lowercase<V> extends `${string}@{${'u' | 'upstream' | 'push'}}${string}`
-      ? true
-      : false
-  : Lowercase<V> extends `${string}@{${'u' | 'upstream' | 'push'}}${string}`
-    ? true
-    : false;
+    ? LastTail<Lowercase<R>>
+    : [AfterMark<Lowercase<V>>] extends [never]
+      ? never
+      : LastTail<Lowercase<V>>
+  : [AfterMark<Lowercase<V>>] extends [never]
+    ? never
+    : LastTail<Lowercase<V>>;
 type RefnameFormat<R extends string> = R extends `${string}${ForbiddenRefnameText}${string}`
   ? false
   : R extends `${string}${'/' | '.' | '.lock'}`
@@ -89,9 +100,11 @@ export type BranchNameLiteral<V> = V extends string
     : V extends `-${string}` | 'HEAD'
       ? false
       : V extends `${string}@{${string}`
-        ? Interpretable<V> extends true
-          ? true
-          : false
+        ? [InterpretedTail<V>] extends [never]
+          ? false
+          : V extends `${string}:${string}`
+            ? false
+            : RefnameFormat<`refs/heads/x${InterpretedTail<V>}`>
         : RefnameFormat<`refs/heads/${V}`>
   : false;
 

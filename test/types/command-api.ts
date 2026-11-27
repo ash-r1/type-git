@@ -217,6 +217,15 @@ git.command('branch', [{ operand: 'a@{b' }]);
 // @ts-expect-error @{-0} is not a prior checkout.
 git.command('branch', [{ operand: '@{-0}' }]);
 git.command('branch', [{ operand: '@{-1}' }]);
+// @ts-expect-error The text after a rewritten @{-N} or mark is appended literally.
+git.command('branch', [{ operand: '@{-1}..' }]);
+// @ts-expect-error A ':' before a mark stops the rewrite and is forbidden anyway.
+git.command('branch', [{ operand: 'a:b@{u}' }]);
+// @ts-expect-error The second @{u} stays in the name.
+git.command('branch', [{ operand: 'topic@{u}@{x' }]);
+git.command('branch', [{ operand: '@{-1}x' }]);
+git.command('branch', [{ operand: 'topic@{u}x' }]);
+git.command('branch', [{ operand: '@{-1}x@{U}' }]);
 git.command('branch', [{ operand: 'topic@{U}' }]);
 git.command('branch', [{ operand: 'x/HEAD' }, { operand: 'a..b' }]);
 git.command('branch', [['-m'], { operand: 'a..b' }, { operand: 'fixed' }]);
