@@ -2,6 +2,197 @@
   "baseline": "2.55.0",
   "extractor": "scripts/refusal-sites.mjs",
   "files": {
+    "builtin/add.c": {
+      "sha256": "0295cb9ba55e9e66b4d25e7b6a3c14d655a0b0c3ef4e0540783ee2ecff995b4e",
+      "functions": {
+        "add_config": {
+          "sites": [],
+          "references": []
+        },
+        "add_files": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "adding files failed",
+              "line": 365
+            }
+          ],
+          "references": [
+            "check_embedded_repo"
+          ]
+        },
+        "check_embedded_repo": {
+          "sites": [],
+          "references": []
+        },
+        "chmod_pathspec": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "cannot chmod %cx '%s'",
+              "line": 67
+            }
+          ],
+          "references": []
+        },
+        "cmd_add": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 407
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 409
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--dry-run, --interactive/--patch]",
+              "line": 415
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --interactive/--patch]",
+              "line": 417
+            },
+            {
+              "call": "exit",
+              "text": "exit interactive_add(repo, argv + 1, prefix, patch_interactive, &interactive_opts)",
+              "line": 418
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --interactive/--patch]",
+              "line": 421
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --interactive/--patch]",
+              "line": 423
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --interactive/--patch]",
+              "line": 425
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --edit]",
+              "line": 430
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [-A, -u]",
+              "line": 442
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--ignore-missing, --dry-run]",
+              "line": 445
+            },
+            {
+              "call": "die",
+              "text": "--chmod param '%s' must be either -x or +x",
+              "line": 449
+            },
+            {
+              "call": "die",
+              "text": "'%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "line": 467
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "line": 474
+            },
+            {
+              "call": "die",
+              "text": "index file corrupt",
+              "line": 496
+            },
+            {
+              "call": "die",
+              "text": "pathspec '%s' did not match any files",
+              "line": 568
+            },
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 596
+            },
+            {
+              "call": "die",
+              "text": "unable to write new index file",
+              "line": 608
+            }
+          ],
+          "references": [
+            "add_config",
+            "add_files",
+            "chmod_pathspec",
+            "edit_patch",
+            "interactive_add",
+            "prune_directory",
+            "refresh",
+            "renormalize_tracked_files"
+          ]
+        },
+        "edit_patch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "could not read the index",
+              "line": 198
+            },
+            {
+              "call": "die",
+              "text": "editing patch failed",
+              "line": 213
+            },
+            {
+              "call": "die_errno",
+              "text": "could not stat '%s'",
+              "line": 216
+            },
+            {
+              "call": "die",
+              "text": "empty patch. aborted",
+              "line": 218
+            },
+            {
+              "call": "die",
+              "text": "could not apply '%s'",
+              "line": 224
+            }
+          ],
+          "references": []
+        },
+        "interactive_add": {
+          "sites": [],
+          "references": []
+        },
+        "prune_directory": {
+          "sites": [],
+          "references": []
+        },
+        "refresh": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "pathspec '%s' did not match any files",
+              "line": 144
+            }
+          ],
+          "references": []
+        },
+        "renormalize_tracked_files": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
     "builtin/branch.c": {
       "sha256": "37492ef65cfcba63871fa95c027def56ec5b9b2438b6d912a5277493441617bf",
       "functions": {

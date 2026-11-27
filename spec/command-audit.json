@@ -847,7 +847,7 @@
       "typedCommandAPI": true
     },
     "add": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "add"
       ],
@@ -871,8 +871,8 @@
         "test/types/generated-command-constraints.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Final add rules are modeled with 1,036 independent Git 2.55.0 cases covering the shared -A/--no-all/--ignore-removal/-u last-wins mode, interactive and edit precedence, empty and negated pathspec-file pointer states, the executable-bit value and context checks, and every typed cli.add rule is reached by a native refusal. Git 2.25.1 filename-pointer differences for these rules are covered by explicit legacy-profile cases. The convenience API rejects --ignore-missing without dry-run, invalid --chmod values and the all/ignoreRemoval pair whose emitted order resets --all, and these combinations are checked against the executing Git. Interactive selection, edit-patch application, configuration, index/worktree state, pathspec file contents and filesystem resolution are delegated to native Git at runtime. Pathspec magic validity depends on the inherited GIT_*_PATHSPECS environment and is delegated to native Git. Empty-string pathspec operands are rejected in the typed and convenience APIs wherever Git 2.55.0 reaches parse_pathspec (final and interactive add; the native convenience-API test was also run against Git 2.25.1); after a final edit mode they go to revision parsing and stay delegated. Completion and other parser modes require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true,
+      "notes": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Final add rules are modeled with 1,036 independent Git 2.55.0 cases covering the shared -A/--no-all/--ignore-removal/-u last-wins mode, interactive and edit precedence, empty and negated pathspec-file pointer states, the executable-bit value and context checks, and every typed cli.add rule is reached by a native refusal. Git 2.25.1 filename-pointer differences for these rules are covered by explicit legacy-profile cases. The convenience API rejects --ignore-missing without dry-run, invalid --chmod values and the all/ignoreRemoval pair whose emitted order resets --all, and these combinations are checked against the executing Git. Interactive selection, edit-patch application, configuration, index/worktree state, pathspec file contents and filesystem resolution are delegated to native Git at runtime. Pathspec magic validity depends on the inherited GIT_*_PATHSPECS environment and is delegated to native Git. Empty-string pathspec operands are rejected in the typed and convenience APIs wherever Git 2.55.0 reaches parse_pathspec (final and interactive add; the native convenience-API test was also run against Git 2.25.1); after a final edit mode they go to revision parsing and stay delegated. Completeness rests on the closure below (docs/design/audit-completion.md), not on the corpus size.",
       "evidence": {
         "option-grammar": [
           "test/fixtures/worktree-parser-corpus.json",
@@ -905,6 +905,349 @@
           "test/types/add-rule-corpus.ts",
           "test/types/worktree-parser-add-corpus.ts",
           "test/types/generated-command-constraints.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_add",
+        "sources": {
+          "builtin/add.c": [
+            "add_config",
+            "add_files",
+            "check_embedded_repo",
+            "chmod_pathspec",
+            "cmd_add",
+            "edit_patch",
+            "interactive_add",
+            "prune_directory",
+            "refresh",
+            "renormalize_tracked_files"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "context-negative",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: '%s' cannot be negative [--unified]",
+              "cmd_add: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --unified or --inter-hunk-context below the unset sentinel -1 is refused first, in every mode (cli.add.unified-minimum, cli.add.inter-hunk-context-minimum).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "interactive-conflicts",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: options '%s' and '%s' cannot be used together [--dry-run, --interactive/--patch]",
+              "cmd_add: options '%s' and '%s' cannot be used together [--pathspec-from-file, --interactive/--patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final -i or -p refuses an active --dry-run and a set --pathspec-from-file (an empty value or --no-pathspec-from-file unsets it) before any non-interactive check (cli.add.interactive, cli.add.patch).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "interactive-run",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: exit interactive_add(repo, argv + 1, prefix, patch_interactive, &interactive_opts)"
+            ],
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "Interactive add exits with the status of the hunk selection, which reads answers from standard input.",
+            "reason": "The outcome depends on the answers given at runtime and on the index and work tree; argv only selects the mode. Empty pathspec operands are refused inside interactive add and are modeled under empty-pathspec."
+          },
+          {
+            "id": "interactive-only-options",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: the option '%s' requires '%s' [--unified, --interactive/--patch]",
+              "cmd_add: the option '%s' requires '%s' [--inter-hunk-context, --interactive/--patch]",
+              "cmd_add: the option '%s' requires '%s' [--no-auto-advance, --interactive/--patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "Without a final -i or -p, a context other than -1 and a final --no-auto-advance are refused (cli.add.unified-interactive, cli.add.inter-hunk-context-interactive, cli.add.auto-advance).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "edit-pathspec-file",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: options '%s' and '%s' cannot be used together [--pathspec-from-file, --edit]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final -e without -i/-p refuses a set --pathspec-from-file (cli.add.edit-pathspec-file).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "all-update",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: options '%s' and '%s' cannot be used together [-A, -u]"
+            ],
+            "disposition": "modeled",
+            "summary": "-A, --no-all, --ignore-removal and --no-ignore-removal share one last-wins variable; a final explicit all mode with -u is refused (cli.add.all-update). repo.add refuses all with update, and all with ignoreRemoval because the emitted --ignore-removal would reset --all (add.all-update, add.all-ignoreRemoval).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "ignore-missing",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: the option '%s' requires '%s' [--ignore-missing, --dry-run]"
+            ],
+            "disposition": "modeled",
+            "summary": "--ignore-missing requires a final --dry-run outside interactive and edit modes (cli.add.ignore-missing; repo.add add.ignoreMissing-dryRun).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "chmod-value",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: --chmod param '%s' must be either -x or +x"
+            ],
+            "disposition": "modeled",
+            "summary": "A set --chmod value must be exactly +x or -x outside interactive and edit modes; --no-chmod unsets it (cli.add.chmod; repo.add add.chmod).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-operands",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "A set --pathspec-from-file refuses pathspec operands (cli.add.pathspec-file-operands). An empty operand is refused earlier by parse_pathspec (empty-pathspec).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file-nul",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --pathspec-file-nul requires a set --pathspec-from-file outside interactive and edit modes (cli.add.pathspec-file-nul).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "unmatched-pathspec",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: pathspec '%s' did not match any files",
+              "cmd_add: exit 128",
+              "refresh: pathspec '%s' did not match any files"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "A pathspec that matches no file, and with -u a pathspec that matches no tracked path, is refused unless --ignore-missing (with --dry-run) or --ignore-errors applies.",
+            "reason": "Matching depends on the work tree and the index."
+          },
+          {
+            "id": "index-io",
+            "kind": "refusal",
+            "sites": [
+              "cmd_add: index file corrupt",
+              "cmd_add: unable to write new index file",
+              "edit_patch: could not read the index"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Reading, locking and writing the index can fail.",
+            "reason": "Index contents and lock state are repository state."
+          },
+          {
+            "id": "add-failures",
+            "kind": "refusal",
+            "sites": [
+              "add_files: adding files failed",
+              "chmod_pathspec: cannot chmod %cx '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Adding an unreadable path, and --chmod on a path that is not a tracked regular file, fail per path.",
+            "reason": "Whether a path can be read or is a tracked regular file depends on the work tree and the index."
+          },
+          {
+            "id": "edit-editor",
+            "kind": "refusal",
+            "sites": [
+              "edit_patch: editing patch failed"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Edit mode fails when the editor (GIT_EDITOR, core.editor, VISUAL or EDITOR) fails.",
+            "reason": "The editor is chosen from the environment and configuration at runtime."
+          },
+          {
+            "id": "edit-result",
+            "kind": "refusal",
+            "sites": [
+              "edit_patch: could not stat '%s'",
+              "edit_patch: empty patch. aborted",
+              "edit_patch: could not apply '%s'"
+            ],
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "Edit mode refuses an edited patch that is missing, empty or does not apply.",
+            "reason": "The patch is the file the user edits at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the add table: help exits, long prefixes and negations, short clusters, attached and detached values, takes-no-value and unknown-option errors, consumed end markers and literal retained operands.",
+            "evidence": [
+              "test/fixtures/worktree-parser-corpus.json",
+              "src/commands/worktree-parser.test.ts",
+              "test/types/worktree-parser-add-corpus.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever refusal Git reaches first, for every ordered pair of the 31-word rule vocabulary, every ordered triple of distinct mode words, pathspec-file pointer resets in three positions, and interactive or edit mode before each pair of later-checked options. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "test/types/add-rule-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases (for example the Git 2.25.1 filename pointer states) are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "context-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--unified and --inter-hunk-context take OPT_INTEGER values: decimal integers with optional k, m or g suffixes, refused when malformed or out of int range.",
+            "evidence": [
+              "src/commands/native-integer.test.ts",
+              "test/types/native-integer-command-api.ts"
+            ]
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "parse_pathspec refuses an empty operand after the final add checks and in interactive add; in final edit mode operands go to setup_revisions instead (cli.add.empty-pathspec; repo.add rejects empty paths because it has no edit mode).",
+            "evidence": [
+              "test/fixtures/add-rule-corpus.json",
+              "src/commands/add-rule-corpus.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "edit-operands",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "In final edit mode the operands are revision and path arguments of the diff that is edited.",
+            "reason": "setup_revisions resolves them against objects and the work tree at runtime."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity, including the GIT_*_PATHSPECS defaults.",
+            "reason": "Magic is enabled and checked by parse_pathspec under the inherited environment."
+          },
+          {
+            "id": "pathspec-file-content",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "Pathspecs read from --pathspec-from-file, including quoting and NUL separation.",
+            "reason": "The file is read at runtime."
+          },
+          {
+            "id": "submodule-paths",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Pathspecs inside a submodule or an unpopulated submodule are refused (die_in_unpopulated_submodule, die_path_inside_submodule in submodule.c), and embedded repositories are warned about.",
+            "reason": "Submodule layout is repository state."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "add.ignoreErrors, add.interactive.*, advice and core settings change defaults and messages, not argv acceptance.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Sparse checkout entries, ignored files, an empty pathspec without -A/-u (\"Nothing specified\") and the index lock change the outcome.",
+            "reason": "They depend on the index and work tree."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Pathspec case folding (core.ignoreCase) and Windows command-line encoding of operands.",
+            "reason": "They depend on the file system and platform."
+          }
         ]
       }
     },

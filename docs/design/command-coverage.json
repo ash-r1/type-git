@@ -12,7 +12,7 @@
   ],
   "typedScopes": 428,
   "auditedScopes": 430,
-  "completeConstraintAudits": 1,
+  "completeConstraintAudits": 2,
   "finalRules": 1650,
   "callbackTransitions": 449,
   "interpretation": "Typed API coverage is separate from upstream constraint completeness. Exploration is exact only over the declared finite normalized-state domains, not over all argv or repository states."
