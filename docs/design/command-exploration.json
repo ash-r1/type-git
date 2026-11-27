@@ -16293,8 +16293,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16336,7 +16340,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16348,11 +16354,12 @@
           "true"
         ]
       },
-      "total": "90000",
-      "accepted": "36000",
-      "nodes": 2,
+      "total": "252000",
+      "accepted": "90000",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-apply-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-apply-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-apply-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -16426,8 +16433,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16443,7 +16454,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16455,11 +16468,12 @@
           "true"
         ]
       },
-      "total": "240",
-      "accepted": "96",
-      "nodes": 2,
+      "total": "672",
+      "accepted": "240",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-drop-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-drop-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-drop-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -16556,8 +16570,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16578,7 +16596,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16590,11 +16610,12 @@
           "true"
         ]
       },
-      "total": "720",
-      "accepted": "288",
-      "nodes": 2,
+      "total": "2016",
+      "accepted": "720",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-pop-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-pop-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-pop-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -16637,8 +16658,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "help": [
           "undefined",
           "true"
@@ -16648,7 +16673,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16660,11 +16687,12 @@
           "true"
         ]
       },
-      "total": "60",
-      "accepted": "24",
-      "nodes": 2,
+      "total": "168",
+      "accepted": "72",
+      "nodes": 8,
       "isolatedRuleWitnesses": {
-        "stash-branch-arity": "{\"operands\":[]}"
+        "stash-branch-arity": "{\"operands\":[]}",
+        "stash-branch-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -16726,8 +16754,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16750,7 +16782,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16762,11 +16796,12 @@
           "true"
         ]
       },
-      "total": "1200",
-      "accepted": "240",
-      "nodes": 2,
+      "total": "3360",
+      "accepted": "720",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-store-arity": "{\"operands\":[]}"
+        "stash-store-arity": "{\"operands\":[]}",
+        "stash-store-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -17875,8 +17910,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "help": [
           "undefined",
           "true"
@@ -17886,7 +17925,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -17898,11 +17939,12 @@
           "true"
         ]
       },
-      "total": "60",
-      "accepted": "12",
-      "nodes": 2,
+      "total": "168",
+      "accepted": "36",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-import-arity": "{\"operands\":[]}"
+        "stash-import-arity": "{\"operands\":[]}",
+        "stash-import-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -18017,8 +18059,12 @@
           ]
         }
       ],
-      "rules": 2,
+      "rules": 3,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
         "print": [
           "undefined",
           "true"
@@ -18039,7 +18085,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -18051,12 +18099,13 @@
           "true"
         ]
       },
-      "total": "600",
-      "accepted": "330",
-      "nodes": 14,
+      "total": "1680",
+      "accepted": "792",
+      "nodes": 35,
       "isolatedRuleWitnesses": {
         "stash-export-destination": "{\"operands\":[]}",
-        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"\"}"
+        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"\"}",
+        "stash-export-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"],\"to-ref\":\"\"}"
       }
     },
     {

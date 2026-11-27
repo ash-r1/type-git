@@ -6657,6 +6657,20 @@
       "key": "operands",
       "min": 0,
       "max": 1
+    },
+    {
+      "id": "stash-apply-empty-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit empty stash reference expands to refs/stash@{}, which is not a valid revision (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-stash-reference"
+        }
+      ]
     }
   ],
   "stash drop": [
@@ -6669,6 +6683,20 @@
       "key": "operands",
       "min": 0,
       "max": 1
+    },
+    {
+      "id": "stash-drop-empty-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit empty stash reference expands to refs/stash@{}, which is not a valid revision (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-stash-reference"
+        }
+      ]
     }
   ],
   "stash pop": [
@@ -6681,6 +6709,20 @@
       "key": "operands",
       "min": 0,
       "max": 1
+    },
+    {
+      "id": "stash-pop-empty-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit empty stash reference expands to refs/stash@{}, which is not a valid revision (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-stash-reference"
+        }
+      ]
     }
   ],
   "stash branch": [
@@ -6693,6 +6735,20 @@
       "key": "operands",
       "min": 1,
       "max": 2
+    },
+    {
+      "id": "stash-branch-empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L911-L949",
+      "reason": "An empty branch name fails checkout -b, and an empty stash reference expands to refs/stash@{}, which is not a valid revision; a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
     }
   ],
   "stash store": [
@@ -6705,6 +6761,20 @@
       "key": "operands",
       "min": 1,
       "max": 1
+    },
+    {
+      "id": "stash-store-empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L1153-L1191",
+      "reason": "An empty commit name never resolves (repo_get_oid), so store fails with or without --quiet; a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
     }
   ],
   "stash push": [
@@ -7052,6 +7122,20 @@
       "key": "operands",
       "min": 1,
       "max": 1
+    },
+    {
+      "id": "stash-import-empty-operand",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L2133-L2145",
+      "reason": "An empty revision never resolves (do_import_stash: not a valid revision); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-operand"
+        }
+      ]
     }
   ],
   "stash export": [
@@ -7085,6 +7169,20 @@
       "keys": [
         "print",
         "to-ref"
+      ]
+    },
+    {
+      "id": "stash-export-empty-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L2317-L2370",
+      "reason": "An explicit empty stash entry expands to refs/stash@{}, which cannot be found (do_export_stash: unable to find stash entry); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "empty-stash-reference"
+        }
       ]
     }
   ],

@@ -125,7 +125,7 @@
       "typedCommandAPI": true
     },
     "stash push": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "stashPush"
       ],
@@ -144,10 +144,263 @@
         "test/types/stash-parser-api.ts",
         "src/commands/legacy-stash-parent.test.ts",
         "src/commands/stash-create.test.ts",
-        "src/commands/stash-empty-pathspec.test.ts"
+        "src/commands/stash-empty-pathspec.test.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. An empty positional pathspec is rejected after option parsing and help, as Git 2.55.0 parse_pathspec does for direct and assumed push. Pathspec matching against the index and worktree (report_path_error), presence of local changes, --pathspec-from-file contents, untracked-file state and interactive --patch selection remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open.",
-      "typedCommandAPI": true
+      "typedCommandAPI": true,
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Push applies the final checks of push_stash (pathspec file, patch-only context options, negative context) and do_push_stash (patch or staged with untracked files), and refuses an empty pathspec. repo.stash.push refuses an empty path before Git runs. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "push_stash_unassumed",
+        "sources": {
+          "builtin/stash.c": [
+            "add_diff_to_buf",
+            "add_pathspecs",
+            "assert_stash_like",
+            "check_changes",
+            "check_changes_tracked_files",
+            "create_index_from_tree",
+            "do_clear_stash",
+            "do_create_stash",
+            "do_push_stash",
+            "do_store_stash",
+            "free_stash_info",
+            "get_untracked_files",
+            "is_path_a_directory",
+            "push_stash",
+            "push_stash_unassumed",
+            "reset_tree",
+            "save_untracked_files",
+            "stash_patch",
+            "stash_staged",
+            "stash_working_tree"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "push-final-checks",
+            "kind": "refusal",
+            "sites": [
+              "push_stash: subcommand wasn't specified; 'push' can't be assumed due to unexpected token '%s'",
+              "push_stash: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "push_stash: options '%s' and '%s' cannot be used together [--pathspec-from-file, --staged]",
+              "push_stash: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "push_stash: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "push_stash: the option '%s' requires '%s' [--unified, --patch]",
+              "push_stash: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "push_stash: the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "push_stash: '%s' cannot be negative [--unified]",
+              "push_stash: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "Assumed push refuses a non-option word before -- unless --patch is active; --pathspec-from-file refuses --patch, --staged and pathspec operands; --pathspec-file-nul requires --pathspec-from-file; -U, --inter-hunk-context and --no-auto-advance require --patch; negative context values are refused. Explicit push passes push_assumed as 0 and never reaches the assumed-push site.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "do_push_stash: could not write index",
+              "do_create_stash: could not write index",
+              "create_index_from_tree: unable to write new index file",
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "untracked-combinations",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "do_push_stash refuses --patch with --include-untracked or --all, and --staged with either unless --patch overrides it; --no-include-untracked and --no-all clear both, because they share one value (stash-push-patch-untracked, stash-push-staged-untracked).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "context-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-U and --inter-hunk-context take a signed int with an optional k/m/g suffix; -1 is the unset value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "message",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-m takes any message text, including empty.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "parse_pathspec refuses an empty pathspec after option parsing (stash-push-empty-pathspec); repo.stash.push refuses an empty path before Git runs.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts",
+              "src/impl/high-level-api.test.ts",
+              "src/commands/stash-empty-pathspec.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without --include-untracked, a pathspec that matches no tracked file is refused (\"Did you forget to 'git add'?\"); paths outside the repository are refused relative to the runtime prefix.",
+            "reason": "Matching depends on the index and work tree at runtime."
+          },
+          {
+            "id": "pathspec-file",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "--pathspec-from-file names a file (or - for standard input) whose content supplies the pathspecs.",
+            "reason": "The file content is read at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.* configuration does not change push parsing; core.* settings change what counts as a change.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "tag": {
       "state": "partial",
@@ -3349,7 +3602,7 @@
       }
     },
     "stash clear": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3361,13 +3614,155 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Removal of refs/stash and its reflog has no argument-dependent state check and remains delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Clear refuses any remaining word; a leading -- is consumed. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "clear_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "clear_stash",
+            "do_clear_stash"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "clear-arity",
+            "kind": "refusal",
+            "sites": [
+              "clear_stash: git stash clear with arguments is unimplemented"
+            ],
+            "disposition": "modeled",
+            "summary": "Clear stops at the first non-option word and refuses any word that remains; a leading -- is consumed (stash-clear-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "no-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "The option table is empty; every option word is unknown.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Clear takes no operands; the refusal is the clear-arity site.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how clear reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash apply": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3379,13 +3774,234 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a stash-like commit (builtin/stash.c:get_stash_info), index/worktree state, merge outcome and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Apply accepts at most one stash revision and refuses an empty one; resolution, stash-likeness and the apply itself are left to native Git. repo.stash.apply refuses an index Git would not read as an entry number. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "apply_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "apply_cached",
+            "apply_stash",
+            "assert_stash_like",
+            "diff_tree_binary",
+            "do_apply_stash",
+            "free_stash_info",
+            "get_stash_info",
+            "parse_stash_revision",
+            "reset_head",
+            "reset_tree",
+            "restore_untracked",
+            "unstage_changes_unless_new"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "reference-resolution",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info: %s is not a valid reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A stash reference that does not resolve is refused (\"%s is not a valid reference\"). A digits-only operand becomes refs/stash@{<n>}; any other is used as written. The empty operand, which always fails, is the separate empty-reference obligation.",
+            "reason": "Resolution depends on the refs, reflog and objects of the repository."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "apply-state",
+            "kind": "refusal",
+            "sites": [
+              "do_apply_stash: could not write index",
+              "do_apply_stash: cannot apply a stash in the middle of a merge",
+              "do_apply_stash: could not generate diff %s^!.",
+              "do_apply_stash: conflicts in index. Try without --index.",
+              "do_apply_stash: could not save index tree",
+              "do_apply_stash: could not restore untracked files from stash",
+              "unstage_changes_unless_new: Failed to move %s to %s",
+              "unstage_changes_unless_new: could not write index"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Applying refuses during a merge, with conflicts in the index under --index, or when the index, untracked files or the diff of the stash cannot be written or generated.",
+            "reason": "These depend on the index, work tree and objects at runtime."
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "labels",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--label-ours, --label-theirs and --label-base take any text, including empty; --index and --quiet take no value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "high-level-index",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "repo.stash.apply refuses an index that is not an integer from 0 to 99999999, which Git would read as a date, a timestamp or an invalid revision.",
+            "evidence": [
+              "src/impl/high-level-api.test.ts"
+            ]
+          },
+          {
+            "id": "stash-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "get_stash_info accepts at most one stash revision and prints \"Too many revisions specified\" otherwise (stash-apply-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-reference",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty stash operand expands to refs/stash@{}, which never resolves; help exits first (stash-apply-empty-stash-reference).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "no-entries",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without an operand the latest entry is used, and \"No stash entries found.\" is printed when refs/stash does not exist.",
+            "reason": "Whether refs/stash exists is known only at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.index sets the default of --index for apply and pop; other stash.* and diff.* settings change output only.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash drop": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3397,13 +4013,225 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a refs/stash reflog entry (get_stash_info_assert) and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Drop accepts at most one stash revision and refuses an empty one; resolution and the stash-reference check are left to native Git. repo.stash.drop refuses an index Git would not read as an entry number. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "drop_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "assert_stash_like",
+            "do_clear_stash",
+            "do_drop_stash",
+            "drop_stash",
+            "free_stash_info",
+            "get_stash_info",
+            "get_stash_info_assert",
+            "parse_stash_revision",
+            "reflog_is_empty",
+            "reject_reflog_ent"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "stash-reference",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info_assert: '%s' is not a stash reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Drop and pop refuse a stash-like commit that is not reached through refs/stash (\"'%s' is not a stash reference\").",
+            "reason": "Whether the symbolic part of the name expands to refs/stash depends on the refs that exist."
+          },
+          {
+            "id": "reference-resolution",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info: %s is not a valid reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A stash reference that does not resolve is refused (\"%s is not a valid reference\"). A digits-only operand becomes refs/stash@{<n>}; any other is used as written. The empty operand, which always fails, is the separate empty-reference obligation.",
+            "reason": "Resolution depends on the refs, reflog and objects of the repository."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "drop-state",
+            "kind": "refusal",
+            "sites": [
+              "do_drop_stash: %s: Could not drop stash entry"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Dropping refuses when the reflog entry cannot be deleted.",
+            "reason": "The stash reflog is read and rewritten at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "no-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--quiet takes no value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "high-level-index",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "repo.stash.drop refuses an index that is not an integer from 0 to 99999999.",
+            "evidence": [
+              "src/impl/high-level-api.test.ts"
+            ]
+          },
+          {
+            "id": "stash-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "get_stash_info accepts at most one stash revision and prints \"Too many revisions specified\" otherwise (stash-drop-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-reference",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty stash operand expands to refs/stash@{}, which never resolves; help exits first (stash-drop-empty-stash-reference).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "no-entries",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without an operand the latest entry is used, and \"No stash entries found.\" is printed when refs/stash does not exist.",
+            "reason": "Whether refs/stash exists is known only at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how drop reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash pop": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3415,10 +4243,258 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "src/impl/high-level-api.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Resolution of the stash reference to a stash-like commit that is also a refs/stash reflog entry (get_stash_info_assert), index/worktree state, merge outcome and configuration remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Pop accepts at most one stash revision and refuses an empty one; resolution, the stash-reference check and the apply are left to native Git. repo.stash.pop refuses an index Git would not read as an entry number. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "pop_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "apply_cached",
+            "assert_stash_like",
+            "diff_tree_binary",
+            "do_apply_stash",
+            "do_clear_stash",
+            "do_drop_stash",
+            "free_stash_info",
+            "get_stash_info",
+            "get_stash_info_assert",
+            "parse_stash_revision",
+            "pop_stash",
+            "reflog_is_empty",
+            "reject_reflog_ent",
+            "reset_head",
+            "reset_tree",
+            "restore_untracked",
+            "unstage_changes_unless_new"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "stash-reference",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info_assert: '%s' is not a stash reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Drop and pop refuse a stash-like commit that is not reached through refs/stash (\"'%s' is not a stash reference\").",
+            "reason": "Whether the symbolic part of the name expands to refs/stash depends on the refs that exist."
+          },
+          {
+            "id": "reference-resolution",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info: %s is not a valid reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A stash reference that does not resolve is refused (\"%s is not a valid reference\"). A digits-only operand becomes refs/stash@{<n>}; any other is used as written. The empty operand, which always fails, is the separate empty-reference obligation.",
+            "reason": "Resolution depends on the refs, reflog and objects of the repository."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "apply-state",
+            "kind": "refusal",
+            "sites": [
+              "do_apply_stash: could not write index",
+              "do_apply_stash: cannot apply a stash in the middle of a merge",
+              "do_apply_stash: could not generate diff %s^!.",
+              "do_apply_stash: conflicts in index. Try without --index.",
+              "do_apply_stash: could not save index tree",
+              "do_apply_stash: could not restore untracked files from stash",
+              "unstage_changes_unless_new: Failed to move %s to %s",
+              "unstage_changes_unless_new: could not write index"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Applying refuses during a merge, with conflicts in the index under --index, or when the index, untracked files or the diff of the stash cannot be written or generated.",
+            "reason": "These depend on the index, work tree and objects at runtime."
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "drop-state",
+            "kind": "refusal",
+            "sites": [
+              "do_drop_stash: %s: Could not drop stash entry"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Dropping refuses when the reflog entry cannot be deleted.",
+            "reason": "The stash reflog is read and rewritten at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "no-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--index and --quiet take no value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "high-level-index",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "repo.stash.pop refuses an index that is not an integer from 0 to 99999999, which Git would read as a date, a timestamp or an invalid revision.",
+            "evidence": [
+              "src/impl/high-level-api.test.ts"
+            ]
+          },
+          {
+            "id": "stash-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "get_stash_info accepts at most one stash revision and prints \"Too many revisions specified\" otherwise (stash-pop-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-reference",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty stash operand expands to refs/stash@{}, which never resolves; help exits first (stash-pop-empty-stash-reference).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "no-entries",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without an operand the latest entry is used, and \"No stash entries found.\" is printed when refs/stash does not exist.",
+            "reason": "Whether refs/stash exists is known only at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.index sets the default of --index for apply and pop; other stash.* and diff.* settings change output only.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash branch": {
       "state": "partial",
@@ -3433,13 +4509,233 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Branch-name validity and existence, resolution of the stash reference to a stash-like commit and worktree state remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Branch requires a branch name and at most one stash revision, and refuses empty operands. The branch name syntax that checkout -b checks stays open until the shared branch-name grammar is available. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "branch_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "apply_cached",
+            "assert_stash_like",
+            "branch_stash",
+            "diff_tree_binary",
+            "do_apply_stash",
+            "do_clear_stash",
+            "do_drop_stash",
+            "free_stash_info",
+            "get_stash_info",
+            "parse_stash_revision",
+            "reflog_is_empty",
+            "reject_reflog_ent",
+            "reset_head",
+            "reset_tree",
+            "restore_untracked",
+            "unstage_changes_unless_new"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "reference-resolution",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info: %s is not a valid reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A stash reference that does not resolve is refused (\"%s is not a valid reference\"). A digits-only operand becomes refs/stash@{<n>}; any other is used as written. The empty operand, which always fails, is the separate empty-reference obligation.",
+            "reason": "Resolution depends on the refs, reflog and objects of the repository."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "apply-state",
+            "kind": "refusal",
+            "sites": [
+              "do_apply_stash: could not write index",
+              "do_apply_stash: cannot apply a stash in the middle of a merge",
+              "do_apply_stash: could not generate diff %s^!.",
+              "do_apply_stash: conflicts in index. Try without --index.",
+              "do_apply_stash: could not save index tree",
+              "do_apply_stash: could not restore untracked files from stash",
+              "unstage_changes_unless_new: Failed to move %s to %s",
+              "unstage_changes_unless_new: could not write index"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Applying refuses during a merge, with conflicts in the index under --index, or when the index, untracked files or the diff of the stash cannot be written or generated.",
+            "reason": "These depend on the index, work tree and objects at runtime."
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "drop-state",
+            "kind": "refusal",
+            "sites": [
+              "do_drop_stash: %s: Could not drop stash entry"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Dropping refuses when the reflog entry cannot be deleted.",
+            "reason": "The stash reflog is read and rewritten at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "branch-name",
+            "kind": "values",
+            "disposition": "open",
+            "summary": "The branch name is passed to checkout -b, which checks branch name syntax.",
+            "reason": "Waiting for the shared branch-name grammar (PR #355)."
+          },
+          {
+            "id": "branch-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "A branch name is required (\"No branch name specified\") and at most one stash revision may follow it (stash-branch-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty branch name fails checkout -b and an empty stash operand never resolves (stash-branch-empty-operand).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "branch-exists",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "checkout -b refuses an existing branch, and local changes can block the checkout or the apply.",
+            "reason": "Existing branches and local changes are known only at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.index sets the default of --index for apply and pop; other stash.* and diff.* settings change output only.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash store": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3451,13 +4747,175 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Whether the single commit operand names a stash-like commit and the refs/stash reflog update remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Store requires exactly one commit and refuses an empty one, also under --quiet, which hides the message but not the exit status. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "store_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "assert_stash_like",
+            "do_store_stash",
+            "store_stash"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "message",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-m takes any message text, including empty.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "store-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Store requires exactly one commit; --quiet suppresses the message but not the refusal (stash-store-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty commit name never resolves, with or without --quiet (stash-store-empty-operand).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "commit-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Other names are refused when they do not resolve (\"Cannot update refs/stash with\") or are not stash-like, or when refs/stash cannot be updated.",
+            "reason": "Object resolution and ref updates happen at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how store reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash save": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3471,13 +4929,234 @@
         "src/commands/stash-parser.test.ts",
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts",
-        "src/commands/legacy-stash-parent.test.ts"
+        "src/commands/legacy-stash-parent.test.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Presence of local changes, untracked-file state and interactive --patch selection remain delegated to native Git. Completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Save applies the context checks of save_stash and the untracked combinations of do_push_stash; remaining words form the message. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "save_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "add_diff_to_buf",
+            "add_pathspecs",
+            "assert_stash_like",
+            "check_changes",
+            "check_changes_tracked_files",
+            "create_index_from_tree",
+            "do_clear_stash",
+            "do_create_stash",
+            "do_push_stash",
+            "do_store_stash",
+            "free_stash_info",
+            "get_untracked_files",
+            "is_path_a_directory",
+            "reset_tree",
+            "save_stash",
+            "save_untracked_files",
+            "stash_patch",
+            "stash_staged",
+            "stash_working_tree"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "save-final-checks",
+            "kind": "refusal",
+            "sites": [
+              "save_stash: '%s' cannot be negative [--unified]",
+              "save_stash: '%s' cannot be negative [--inter-hunk-context]",
+              "save_stash: the option '%s' requires '%s' [--unified, --patch]",
+              "save_stash: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "save_stash: the option '%s' requires '%s' [--no-auto-advance, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "Save refuses negative context values and -U, --inter-hunk-context and --no-auto-advance without --patch.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "do_push_stash: could not write index",
+              "do_create_stash: could not write index",
+              "create_index_from_tree: unable to write new index file",
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "untracked-combinations",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "do_push_stash refuses --patch with --include-untracked or --all, and --staged with either unless --patch overrides it; --no-include-untracked and --no-all clear both, because they share one value (stash-save-patch-untracked, stash-save-staged-untracked).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "context-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-U and --inter-hunk-context take a signed int with an optional k/m/g suffix; -1 is the unset value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "message",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-m takes any message text, including empty.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "message-words",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Remaining words, including a retained --, are joined into the message; save takes no pathspec.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.* configuration does not change push parsing; core.* settings change what counts as a change.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash import": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -3488,10 +5167,187 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/stash-transfer.test.ts",
         "test/types/stash-transfer-corpus.ts",
-        "test/types/stash-transfer-api.ts"
+        "test/types/stash-transfer-api.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax and resolution and export-chain topology remain delegated to native Git. Repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-transfer-corpus.json",
+          "src/commands/stash-transfer.test.ts",
+          "test/types/stash-transfer-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-transfer-corpus.json",
+          "src/commands/stash-transfer.test.ts",
+          "test/types/stash-transfer-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-transfer-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-transfer-corpus.ts"
+        ]
+      },
+      "notes": "Import requires exactly one revision and refuses an empty one; the exported chain is validated by native Git. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "import_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "assert_stash_like",
+            "check_stash_topology",
+            "do_import_stash",
+            "do_store_stash",
+            "import_stash"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "import-arity",
+            "kind": "refusal",
+            "sites": [
+              "import_stash: a revision is required"
+            ],
+            "disposition": "modeled",
+            "summary": "Import requires exactly one revision; -- is kept as an operand (stash-import-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "import-chain",
+            "kind": "refusal",
+            "sites": [
+              "do_import_stash: not a valid revision: %s",
+              "do_import_stash: not a commit: %s",
+              "do_import_stash: %s is not a valid exported stash commit",
+              "do_import_stash: cannot parse commit %s",
+              "do_import_stash: found root commit %s with invalid data",
+              "do_import_stash: found stash commit %s without expected prefix",
+              "do_import_stash: cannot parse parents of commit: %s",
+              "do_import_stash: %s does not look like a stash commit",
+              "do_import_stash: cannot read commit buffer for %s",
+              "do_import_stash: cannot save the stash for %s"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Import refuses a revision that does not resolve to a commit, a chain that is not an exported stash, and entries that cannot be parsed or stored. The empty revision, which never resolves, is the separate empty-operand obligation.",
+            "reason": "The exported chain is read from the object database at runtime."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "no-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "The option table is empty; -- is kept as an operand.",
+            "evidence": [
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-operand",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty revision never resolves (stash-import-empty-operand).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how import reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "stash export": {
       "state": "partial",
@@ -3505,10 +5361,183 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/stash-transfer.test.ts",
         "test/types/stash-transfer-corpus.ts",
-        "test/types/stash-transfer-api.ts"
+        "test/types/stash-transfer-api.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax and resolution of each stash revision and the destination ref update remain delegated to native Git. Repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-transfer-corpus.json",
+          "src/commands/stash-transfer.test.ts",
+          "test/types/stash-transfer-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-transfer-corpus.json",
+          "src/commands/stash-transfer.test.ts",
+          "test/types/stash-transfer-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-transfer-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-transfer-corpus.ts"
+        ]
+      },
+      "notes": "Export requires exactly one of --print and --to-ref and refuses an empty entry. The --to-ref name syntax stays open until the shared refname grammar is available. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "export_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "check_stash_topology",
+            "collect_stash_entries",
+            "do_export_stash",
+            "export_stash",
+            "parse_stash_revision",
+            "write_commit_with_parents"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "export-mode",
+            "kind": "refusal",
+            "sites": [
+              "export_stash: exactly one of --print and --to-ref is required"
+            ],
+            "disposition": "modeled",
+            "summary": "Export requires exactly one of --print and --to-ref; --to-ref followed by --print is refused too, and --no-to-ref clears the ref (stash-export-destination, stash-export-modes).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "export-entries",
+            "kind": "refusal",
+            "sites": [
+              "do_export_stash: unable to write base commit",
+              "do_export_stash: unable to find stash entry %s",
+              "do_export_stash: %s does not look like a stash commit",
+              "collect_stash_entries: %s does not look like a stash commit",
+              "write_commit_with_parents: cannot parse commit %s",
+              "write_commit_with_parents: invalid author or committer for %s",
+              "write_commit_with_parents: could not write commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Export refuses an entry that cannot be found or is not a stash commit, and fails when the base or chain commits cannot be written. The empty entry, which cannot be found, is the separate empty-reference obligation.",
+            "reason": "Entries are resolved from the stash reflog and object database at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "to-ref",
+            "kind": "values",
+            "disposition": "open",
+            "summary": "--to-ref must be a valid ref name.",
+            "reason": "Waiting for the shared refname grammar (PR #355)."
+          },
+          {
+            "id": "empty-reference",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty stash entry expands to refs/stash@{}, which cannot be found (stash-export-empty-stash-reference).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "entries",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Any number of entries may be named; without one, every entry of the stash reflog is exported.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-transfer-corpus.json",
+              "src/commands/stash-transfer.test.ts",
+              "test/types/stash-transfer-corpus.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how export reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "config set": {
       "state": "partial",
@@ -3737,7 +5766,7 @@
       "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
     },
     "stash create": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/config-notes.test.ts",
@@ -3747,7 +5776,8 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/stash-create.test.ts",
-        "test/types/stash-create-corpus.ts"
+        "test/types/stash-create-corpus.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
       "typedCommandAPI": true,
       "evidence": {
@@ -3778,7 +5808,120 @@
           "test/types/command-api.ts"
         ]
       },
-      "remaining": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. 190 independent Git 2.55.0 runs (scripts/stash-create-corpus.mjs; 95 word sequences in clean and modified worktrees), each recorded as a direct and a root-dispatched wrapper case (380 cases), cover help, completion, terminator, typo, cluster, unknown-option, empty and repeated-empty, space, non-ASCII (é) and TAB/LF/CR/U+0001 words on Linux; all exit 0, a clean tree creates nothing and a modified tree stores \"On <branch>: <joined words>\" or the WIP message for an empty join (checked by the generator), and the wrapper accepts and serializes every case unchanged. The corpus is finite and does not prove completeness over all message words. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words; these legacy exits are covered by runtime witnesses that leave the exit to the selected Git and were rechecked against a Git 2.25.1 build. Whether a commit is created depends on tracked index/worktree changes and remains delegated to native Git: a clean tree exits 0 with no output, while a tracked file that is only stat-dirty (rewritten with unchanged content) exits 1 with no output in 2.55.0, 2.25.1 and 2.43.0, because the quick tracked-change check sees the stat change and the refreshed index then has nothing to stash; a runtime witness compares that exit with native Git. An unborn HEAD and core.trustctime/core.checkStat, which change what counts as stat-dirty, are likewise delegated without a witness. Cross-platform (Windows argv and message encoding) witnesses remain pending."
+      "notes": "The child performs no option parsing: every word after create is joined with single spaces into the message (Git 2.55.0 builtin/stash.c:create_stash), so dash-prefixed words, --help, -- and --end-of-options are message text, while option and separator tokens and NUL are rejected. 190 independent Git 2.55.0 runs (scripts/stash-create-corpus.mjs; 95 word sequences in clean and modified worktrees), each recorded as a direct and a root-dispatched wrapper case (380 cases), cover help, completion, terminator, typo, cluster, unknown-option, empty and repeated-empty, space, non-ASCII (é) and TAB/LF/CR/U+0001 words on Linux; all exit 0, a clean tree creates nothing and a modified tree stores \"On <branch>: <joined words>\" or the WIP message for an empty join (checked by the generator), and the wrapper accepts and serializes every case unchanged. The corpus is finite and does not prove completeness over all message words. Git 2.25.1 instead runs an empty parent parse_options pass over the whole argv first, which before a -- or --end-of-options exits 129 for -h-prefixed words, --help, --help-all and single-dash -no- typo words; these legacy exits are covered by runtime witnesses that leave the exit to the selected Git and were rechecked against a Git 2.25.1 build. Whether a commit is created depends on tracked index/worktree changes and remains delegated to native Git: a clean tree exits 0 with no output, while a tracked file that is only stat-dirty (rewritten with unchanged content) exits 1 with no output in 2.55.0, 2.25.1 and 2.43.0, because the quick tracked-change check sees the stat change and the refreshed index then has nothing to stash; a runtime witness compares that exit with native Git. An unborn HEAD and core.trustctime/core.checkStat, which change what counts as stat-dirty, are likewise delegated without a witness. The closure over create_stash and do_create_stash delegates repository-state, filesystem and platform behavior to native Git.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "create_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "add_diff_to_buf",
+            "check_changes",
+            "check_changes_tracked_files",
+            "create_index_from_tree",
+            "create_stash",
+            "do_create_stash",
+            "free_stash_info",
+            "get_untracked_files",
+            "is_path_a_directory",
+            "reset_tree",
+            "save_untracked_files",
+            "stash_patch",
+            "stash_staged",
+            "stash_working_tree"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "do_create_stash: could not write index",
+              "create_index_from_tree: unable to write new index file",
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-create-corpus.json",
+              "src/commands/stash-create.test.ts",
+              "test/types/stash-create-corpus.ts"
+            ]
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Create parses no options, so completion helper words are message text.",
+            "evidence": [
+              "test/fixtures/stash-create-corpus.json",
+              "src/commands/stash-create.test.ts",
+              "test/types/stash-create-corpus.ts"
+            ]
+          },
+          {
+            "id": "message",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Every word after create is joined with single spaces into the message.",
+            "evidence": [
+              "test/fixtures/stash-create-corpus.json",
+              "src/commands/stash-create.test.ts",
+              "test/types/stash-create-corpus.ts"
+            ]
+          },
+          {
+            "id": "message-words",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Dash words, -- and --end-of-options are message text.",
+            "evidence": [
+              "test/fixtures/stash-create-corpus.json",
+              "src/commands/stash-create.test.ts",
+              "test/types/stash-create-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "Configuration does not change how create reads argv.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "show": {
       "state": "partial",
@@ -4166,7 +6309,7 @@
       "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 425 independent native cases across direct and dispatched calls. Subcommand-name typo prefixes are included. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete."
     },
     "stash show": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "typedCommandAPI": true,
       "tests": [
@@ -4201,9 +6344,212 @@
         "src/commands/revision-age.test.ts",
         "test/types/revision-age.ts",
         "src/commands/revision-date-format.test.ts",
-        "test/types/revision-date-format.ts"
+        "test/types/revision-date-format.ts",
+        "src/commands/stash-closure-corpus.test.ts"
       ],
-      "remaining": "Initial KEEP_UNKNOWN_OPT pass, own-flag/help timing, ordered retained-word prefix partition, separate stash-reference arity, later revision/diff parsing and color grammar are modeled. 1,150 independent native outcomes include both direct and root dispatch and valid dash-prefixed refs to distinguish object absence from syntax. Stash/revision object resolution and configuration/repository state remain delegated to native Git. Pathspec languages, remaining revision callbacks, completion and other parser modes remain open; finite examples and normalized state counts do not establish completeness. Existing selected C long 32/64, numeric/source profiles and legacy parent-help alternatives remain independently modeled; other profiles and callbacks remain partial. The stable corpus executes Git 2.56.0 against the pinned Git 2.55.0 option vocabulary, because unmodified Git 2.55.0 aborts on `stash show -G -L` (argv lifetime, fixed in 2.56.0); its 1,150 rows are therefore 2.56.0 execution evidence for the 2.55.0 option tables, not 2.55.0 execution evidence. All unmodified Git 2.55.0 outcomes are separately observed (--observe), including abnormal native terminations without inferred argument validity. Required empty short values retain their separate argv word. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-show-corpus.json",
+          "src/commands/stash-show.test.ts",
+          "test/types/stash-show-corpus-1.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-show-corpus.json",
+          "src/commands/stash-show.test.ts",
+          "test/types/stash-show-corpus-1.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-show-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-show-corpus-1.ts"
+        ]
+      },
+      "notes": "Show partitions retained words into revision options and stash revisions, accepts at most one revision and refuses an empty one. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "show_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "assert_stash_like",
+            "diff_include_untracked",
+            "free_stash_info",
+            "get_stash_info",
+            "parse_stash_revision",
+            "show_stash"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "show-diff-options",
+            "kind": "refusal",
+            "sites": [
+              "show_stash: usage_with_options"
+            ],
+            "disposition": "modeled",
+            "summary": "Retained dash words go to setup_revisions; a word it does not consume prints usage. Non-dash words are stash revisions.",
+            "evidence": [
+              "test/fixtures/stash-show-corpus.json",
+              "src/commands/stash-show.test.ts",
+              "test/types/stash-show-corpus-1.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "untracked-tree",
+            "kind": "refusal",
+            "sites": [
+              "diff_include_untracked: failed to parse tree",
+              "diff_include_untracked: failed to unpack trees"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Showing untracked files dies when the stash untracked tree cannot be parsed or merged with the work tree commit.",
+            "reason": "The trees are read from the object database at runtime."
+          },
+          {
+            "id": "reference-resolution",
+            "kind": "refusal",
+            "sites": [
+              "get_stash_info: %s is not a valid reference"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A stash reference that does not resolve is refused (\"%s is not a valid reference\"). A digits-only operand becomes refs/stash@{<n>}; any other is used as written. The empty operand, which always fails, is the separate empty-reference obligation.",
+            "reason": "Resolution depends on the refs, reflog and objects of the repository."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-show-corpus.json",
+              "src/commands/stash-show.test.ts",
+              "test/types/stash-show-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "diff-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Diff and revision option values follow setup_revisions and the diff option callbacks.",
+            "evidence": [
+              "test/fixtures/stash-show-corpus.json",
+              "src/commands/stash-show.test.ts",
+              "test/types/stash-show-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "show-arity",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Non-dash words are stash revisions and at most one is accepted, even after an end marker (stash.show-arity).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-show-corpus.json",
+              "src/commands/stash-show.test.ts",
+              "test/types/stash-show-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "empty-reference",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty stash operand expands to refs/stash@{}, which never resolves (stash.show-empty-reference).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-show-corpus.json",
+              "src/commands/stash-show.test.ts",
+              "test/types/stash-show-corpus-1.ts"
+            ]
+          },
+          {
+            "id": "no-entries",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without an operand the latest entry is shown, and \"No stash entries found.\" is printed when refs/stash does not exist.",
+            "reason": "Whether refs/stash exists is known only at runtime."
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.showStat, stash.showPatch and stash.showIncludeUntracked choose the output only when no option is given; diff.* changes output.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "merge-base": {
       "models": [],
@@ -8119,7 +10465,7 @@
       "remaining": "Exact first-word child dispatch and legacy fallback actions are modeled. Full key/value/path/configuration languages, callback ordering, action/type/source selectors, abbreviations and help precedence across selected Git versions remain pending. Native old-profile modern selector cases omitted by the fixture are not claimed covered; finite counts do not prove argv reachability."
     },
     "stash": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "typedCommandAPI": true,
       "tests": [
@@ -8138,9 +10484,290 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts",
         "src/commands/stash-create.test.ts",
-        "src/commands/stash-empty-pathspec.test.ts"
+        "src/commands/stash-empty-pathspec.test.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Exact child dispatch, implicit push/path separator rules and delegated list behavior are modeled. Index/worktree/ref stash state, patch/untracked/file/callback phases, partial delegated revision and output/merge behavior, abbreviations/help and selected-version differences remain pending. Native success for an empty stash does not prove all stash lifecycle behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open. Additional audit: Exact child dispatch, optional-subcommand wrapper typo checks, assumed-push STOP_AT_NON_OPTION, native long prefix/negation resolution, help timing and retained leading-separator path boundaries are modeled. 4,978 independent native cases cover root and eight explicit stash subcommands. Configuration, repository/path/object resolution, completion/global help, further callback grammars and other parser modes remain open. Finite outcomes do not establish full argv reachability or audit completeness."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/stash-parser-corpus.json",
+          "src/commands/stash-parser.test.ts",
+          "test/types/stash-parser-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/stash-parser-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/stash-parser-corpus.ts"
+        ]
+      },
+      "notes": "Root dispatch sends a first word that names a subcommand to it; any other argv is parsed as an assumed push that stops at the first non-option word unless --patch is active, with the push final checks and empty-pathspec refusal applied. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "add_diff_to_buf",
+            "add_pathspecs",
+            "assert_stash_like",
+            "check_changes",
+            "check_changes_tracked_files",
+            "cmd_stash",
+            "create_index_from_tree",
+            "do_clear_stash",
+            "do_create_stash",
+            "do_push_stash",
+            "do_store_stash",
+            "free_stash_info",
+            "get_untracked_files",
+            "is_path_a_directory",
+            "push_stash",
+            "reset_tree",
+            "save_untracked_files",
+            "stash_patch",
+            "stash_staged",
+            "stash_working_tree"
+          ]
+        },
+        "waived": {
+          "apply_stash": "Subcommand reached by dispatch; audited by the `stash apply` closure.",
+          "branch_stash": "Subcommand reached by dispatch; audited by the `stash branch` closure.",
+          "clear_stash": "Subcommand reached by dispatch; audited by the `stash clear` closure.",
+          "create_stash": "Subcommand reached by dispatch; audited by the `stash create` closure.",
+          "drop_stash": "Subcommand reached by dispatch; audited by the `stash drop` closure.",
+          "export_stash": "Subcommand reached by dispatch; audited by the `stash export` closure.",
+          "git_stash_config": "Configuration callback (stash.showStat, stash.showPatch, stash.showIncludeUntracked, stash.index and diff settings); covered by the configuration obligation.",
+          "import_stash": "Subcommand reached by dispatch; audited by the `stash import` closure.",
+          "list_stash": "Subcommand reached by dispatch; audited by the `stash list` closure.",
+          "pop_stash": "Subcommand reached by dispatch; audited by the `stash pop` closure.",
+          "push_stash_unassumed": "Subcommand reached by dispatch; audited by the `stash push` closure.",
+          "save_stash": "Subcommand reached by dispatch; audited by the `stash save` closure.",
+          "show_stash": "Subcommand reached by dispatch; audited by the `stash show` closure.",
+          "store_stash": "Subcommand reached by dispatch; audited by the `stash store` closure."
+        },
+        "obligations": [
+          {
+            "id": "push-final-checks",
+            "kind": "refusal",
+            "sites": [
+              "push_stash: subcommand wasn't specified; 'push' can't be assumed due to unexpected token '%s'",
+              "push_stash: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "push_stash: options '%s' and '%s' cannot be used together [--pathspec-from-file, --staged]",
+              "push_stash: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "push_stash: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "push_stash: the option '%s' requires '%s' [--unified, --patch]",
+              "push_stash: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "push_stash: the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "push_stash: '%s' cannot be negative [--unified]",
+              "push_stash: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "Assumed push refuses a non-option word before -- unless --patch is active; --pathspec-from-file refuses --patch, --staged and pathspec operands; --pathspec-file-nul requires --pathspec-from-file; -U, --inter-hunk-context and --no-auto-advance require --patch; negative context values are refused. Explicit push passes push_assumed as 0 and never reaches the assumed-push site.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "index-write",
+            "kind": "refusal",
+            "sites": [
+              "do_push_stash: could not write index",
+              "do_create_stash: could not write index",
+              "create_index_from_tree: unable to write new index file",
+              "reset_tree: unable to write new index file"
+            ],
+            "disposition": "delegated",
+            "basis": "filesystem",
+            "summary": "Writing the temporary or real index file can fail.",
+            "reason": "Index writes depend on the filesystem and lock files at runtime."
+          },
+          {
+            "id": "stash-like",
+            "kind": "refusal",
+            "sites": [
+              "assert_stash_like: '%s' is not a stash-like commit"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A revision that resolves but is not stash-like (no first parent or second-parent tree) dies with \"'%s' is not a stash-like commit\".",
+            "reason": "Whether a name resolves to a stash-like commit depends on the objects in the repository."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "untracked-combinations",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "do_push_stash refuses --patch with --include-untracked or --all, and --staged with either unless --patch overrides it; --no-include-untracked and --no-all clear both, because they share one value (stash-push-patch-untracked, stash-push-staged-untracked).",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "context-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-U and --inter-hunk-context take a signed int with an optional k/m/g suffix; -1 is the unset value.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "src/commands/native-integer.test.ts"
+            ]
+          },
+          {
+            "id": "message",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "-m takes any message text, including empty.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts"
+            ]
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "parse_pathspec refuses an empty pathspec after option parsing (stash-empty-pathspec); repo.stash.push refuses an empty path before Git runs.",
+            "evidence": [
+              "test/fixtures/stash-closure-corpus.json",
+              "src/commands/stash-closure-corpus.test.ts",
+              "test/types/command-api.ts",
+              "src/impl/high-level-api.test.ts",
+              "src/commands/stash-empty-pathspec.test.ts"
+            ]
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity.",
+            "reason": "Which magic is allowed depends on GIT_LITERAL_PATHSPECS, GIT_GLOB_PATHSPECS, GIT_NOGLOB_PATHSPECS and GIT_ICASE_PATHSPECS at runtime."
+          },
+          {
+            "id": "pathspec-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Without --include-untracked, a pathspec that matches no tracked file is refused (\"Did you forget to 'git add'?\"); paths outside the repository are refused relative to the runtime prefix.",
+            "reason": "Matching depends on the index and work tree at runtime."
+          },
+          {
+            "id": "pathspec-file",
+            "kind": "values",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "--pathspec-from-file names a file (or - for standard input) whose content supplies the pathspecs.",
+            "reason": "The file content is read at runtime."
+          },
+          {
+            "id": "dispatch",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "A first word that names a subcommand dispatches to it; otherwise the words are parsed as an assumed push that stops at the first non-option word.",
+            "evidence": [
+              "test/fixtures/stash-parser-corpus.json",
+              "src/commands/stash-parser.test.ts",
+              "test/types/stash-parser-corpus.ts",
+              "src/commands/fallback-dispatch.test.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "stash.* configuration does not change push parsing; core.* settings change what counts as a change.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "reflog": {
       "state": "partial",
@@ -8183,7 +10810,7 @@
       "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 425 independent native cases across direct and dispatched calls. Subcommand-name typo prefixes are included. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Revision date-format has shared log runtime and log/show type witnesses; this consumer is covered by help/error reachability only, with direct mode comparisons pending; arbitrary strftime payloads, auto terminal/pager semantics and broader parser/repository profiles remain native-owned and incomplete."
     },
     "stash list": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "typedCommandAPI": true,
       "tests": [
@@ -8201,9 +10828,138 @@
         "src/commands/revision-age.test.ts",
         "test/types/revision-age.ts",
         "src/commands/revision-date-format.test.ts",
-        "test/types/revision-date-format.ts"
+        "test/types/revision-date-format.ts",
+        "src/commands/stash-closure-corpus.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Empty initial parser, help/typo timing, separator removal, typed child-option vocabulary, refs/stash gate, injected child argv and parent exit-status mapping are modeled. 204 sequences in both ref states (408 outcomes) include independent native trace2 child evidence. With unknown ref state, child validation remains delegated to native execution; configuration, object/path resolution, completion exits, remaining child grammars and other conditional pipelines remain open. Date callback delegation has empty/existing-stash native/API witnesses; broader date, repository and source/profile semantics remain partial."
+      "evidence": {
+        "option-grammar": [
+          "test/fixtures/conditional-stash-corpus.json",
+          "src/commands/conditional-stash.test.ts",
+          "test/types/conditional-stash-corpus.ts",
+          "test/fixtures/parse-options-completion-corpus.json",
+          "src/commands/parse-options-completion.test.ts"
+        ],
+        "operand-grammar": [
+          "test/fixtures/stash-closure-corpus.json",
+          "src/commands/stash-closure-corpus.test.ts",
+          "test/fixtures/conditional-stash-corpus.json",
+          "src/commands/conditional-stash.test.ts",
+          "test/types/conditional-stash-corpus.ts"
+        ],
+        "combination-rules": [
+          "test/fixtures/conditional-stash-corpus.json",
+          "src/commands/conditional-stash.test.ts",
+          "test/types/conditional-stash-corpus.ts",
+          "test/types/command-api.ts"
+        ],
+        "serialization": [
+          "src/commands/stash-closure-corpus.test.ts",
+          "src/commands/stash-parser.test.ts"
+        ],
+        "independent-git-tests": [
+          "scripts/stash-closure-corpus.mjs",
+          "scripts/conditional-stash-corpus.mjs"
+        ],
+        "compiler-tests": [
+          "test/types/command-api.ts",
+          "test/types/conditional-stash-corpus.ts"
+        ]
+      },
+      "notes": "List passes retained words to git log between fixed arguments and exits 0 without running log when refs/stash does not exist. The closure is checked against 4,266 independent Git 2.55.0 outcomes in test/fixtures/stash-closure-corpus.json (scripts/stash-closure-corpus.mjs) together with the earlier stash parser, show, transfer and conditional corpora; those finite corpora witness the modeled obligations and are not the completeness argument, which rests on the closure over builtin/stash.c.",
+      "closure": {
+        "git": "2.55.0",
+        "entry": "list_stash",
+        "sources": {
+          "builtin/stash.c": [
+            "list_stash"
+          ]
+        },
+        "obligations": [
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the subcommand table: long prefixes and negations, short clusters, value attachment, unknown options, end markers and help timing.",
+            "evidence": [
+              "test/fixtures/conditional-stash-corpus.json",
+              "src/commands/conditional-stash.test.ts",
+              "test/types/conditional-stash-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases, including the older parent parse of cmd_stash, are covered by regression tests only."
+          },
+          {
+            "id": "log-options",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "Retained words are passed to git log after --format=%gd: %gs -g --first-parent and before refs/stash --, so they follow the log option grammar; list exits 0 without running log when refs/stash does not exist.",
+            "evidence": [
+              "test/fixtures/conditional-stash-corpus.json",
+              "src/commands/conditional-stash.test.ts",
+              "test/types/conditional-stash-corpus.ts",
+              "test/types/conditional-stash-api.ts"
+            ]
+          },
+          {
+            "id": "log-operands",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Non-option words also reach git log before the fixed refs/stash and --.",
+            "evidence": [
+              "test/fixtures/conditional-stash-corpus.json",
+              "src/commands/conditional-stash.test.ts",
+              "test/types/conditional-stash-corpus.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "log.* and format configuration change the child log output only.",
+            "reason": "Configuration is read by native Git at runtime and only changes defaults that argv can override."
+          },
+          {
+            "id": "repository-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Whether stash entries exist, the index and work tree contents, locks and in-progress operations decide the outcome of accepted argv.",
+            "reason": "Repository state is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Windows command-line encoding of operands and messages, and path case folding.",
+            "reason": "Both are decided by the platform at runtime; the wrapper only rejects NUL bytes, which no platform can pass in argv."
+          }
+        ]
+      }
     },
     "scalar": {
       "state": "partial",

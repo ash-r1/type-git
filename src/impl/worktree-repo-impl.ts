@@ -193,6 +193,22 @@ const PRE_UPLOAD_DEFAULT_CONCURRENCY = 4;
 const PRE_UPLOAD_WARMUP_BATCH_COUNT = 1;
 
 /**
+ * The `stash@{<n>}` operand for a stash entry index. Git reads digits below 100000000 as an
+ * entry number and larger ones as a timestamp (object-name.c get_oid_basic), and passes any
+ * other text on as a reflog date or an invalid revision. An index that is negative,
+ * fractional, non-finite or that large would therefore select by date or fail, so it is
+ * refused before Git runs.
+ */
+function stashEntry(index: number, command: string): string {
+  if (!Number.isInteger(index) || index < 0 || index >= 100_000_000) {
+    throw new GitArgumentError(
+      `${command}: index must be an integer from 0 to 99999999 (got ${index})`,
+    );
+  }
+  return `stash@{${index}}`;
+}
+
+/**
  * WorktreeRepo implementation
  */
 export class WorktreeRepoImpl implements WorktreeRepo {
@@ -3181,6 +3197,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.paths && opts.paths.length > 0) {
+      // Every listed path reaches parse_pathspec, which refuses an empty one.
+      validatePathInput('stash.push', opts.paths, opts);
       args.push('--', ...opts.paths);
     }
 
@@ -3197,7 +3215,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.index !== undefined) {
-      args.push(`stash@{${opts.index}}`);
+      args.push(stashEntry(opts.index, 'stash.pop'));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3213,7 +3231,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.index !== undefined) {
-      args.push(`stash@{${opts.index}}`);
+      args.push(stashEntry(opts.index, 'stash.apply'));
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -3225,7 +3243,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const args = ['stash', 'drop'];
 
     if (index !== undefined) {
-      args.push(`stash@{${index}}`);
+      args.push(stashEntry(index, 'stash.drop'));
     }
 
     await this.runner.runOrThrow(this.context, args, {

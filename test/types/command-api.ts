@@ -344,6 +344,29 @@ git.command('stash', [['--'], { operand: '' }]);
 // Help exits before the pathspec is parsed.
 git.command('stash push', [['-h'], ['--'], { operand: '' }]);
 git.command('stash push', [['--'], { operand: 'path' }]);
+// @ts-expect-error An empty stash reference expands to refs/stash@{}, which never resolves.
+git.command('stash apply', [{ operand: '' }]);
+// @ts-expect-error Drop resolves the same empty reference.
+git.command('stash drop', [{ operand: '' }]);
+// @ts-expect-error Pop resolves the same empty reference, with or without --index.
+git.command('stash pop', [['--index'], { operand: '' }]);
+// @ts-expect-error Root dispatch reaches the same child check.
+git.command('stash', [{ operand: 'apply' }, { operand: '' }]);
+// Help exits before the reference is resolved.
+git.command('stash apply', [{ operand: '' }, ['-h']]);
+git.command('stash apply', [{ operand: '0' }]);
+// @ts-expect-error An empty branch name fails checkout -b.
+git.command('stash branch', [{ operand: '' }]);
+// @ts-expect-error An empty stash reference after the branch name never resolves.
+git.command('stash branch', [{ operand: 'topic' }, { operand: '' }]);
+git.command('stash branch', [{ operand: 'topic' }, { operand: '0' }]);
+// @ts-expect-error An empty commit name never resolves, even with --quiet.
+git.command('stash store', [['-q'], { operand: '' }]);
+// @ts-expect-error An empty revision is never a valid exported stash.
+git.command('stash import', [{ operand: '' }]);
+// @ts-expect-error An empty stash entry cannot be found for export.
+git.command('stash export', [['--print'], { operand: '0' }, { operand: '' }]);
+git.command('stash export', [['--print'], { operand: '0' }]);
 // @ts-expect-error parse_pathspec rejects an empty add pathspec after the final checks.
 git.command('add', [['--'], { operand: '' }]);
 // @ts-expect-error Interactive add parses the same pathspec, even after edit mode.
