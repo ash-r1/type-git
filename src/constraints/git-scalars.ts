@@ -41,7 +41,7 @@ import {
 } from './git-integer.js';
 import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
-import { validNewBranchName, validRefnameFormat } from './refname.js';
+import { branchNameSyntax, validNewBranchName, validRefnameFormat } from './refname.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
 export const PYTHON_INTEGER_DEFERRED = Symbol('python-integer-deferred');
@@ -102,6 +102,7 @@ export type GitScalarParser =
   | GitIntegerParser
   | 'blame-line-range'
   | 'log-line-range'
+  | 'track-start-point'
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
@@ -266,6 +267,9 @@ export function parseGitScalar(
   if (parser === 'log-line-range') {
     return { valid: validLogLineRange(value), value };
   }
+  if (parser === 'track-start-point') {
+    return { valid: validTrackStartPoint(value), value };
+  }
   if (isStringCallback(parser)) {
     return parseStringCallback(parser, value);
   }
@@ -358,4 +362,21 @@ export function parseGitScalar(
   }
   const boolean = gitBoolean(value);
   return boolean === undefined ? { valid: false } : { valid: true, value: boolean };
+}
+
+/**
+ * checkout_main derives the new branch for --track/--no-track without -c/-C/--orphan from the
+ * start point: after skipping "refs/" and then "remotes/", the text after the first '/' must be
+ * nonempty (builtin/checkout.c, "missing branch name; try -%c").
+ */
+export function validTrackStartPoint(value: unknown): boolean {
+  if (typeof value !== 'string') {
+    return false;
+  }
+  let rest = value.startsWith('refs/') ? value.slice(5) : value;
+  if (rest.startsWith('remotes/')) {
+    rest = rest.slice(8);
+  }
+  const slash = rest.indexOf('/');
+  return slash >= 0 && slash + 1 < rest.length && branchNameSyntax(rest.slice(slash + 1)) !== false;
 }

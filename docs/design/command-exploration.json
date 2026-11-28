@@ -13225,7 +13225,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 15,
+      "rules": 19,
       "domains": {
         "empty-operand": [
           "undefined",
@@ -13236,14 +13236,42 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"topic\"",
+          "\"a/b\"",
+          "\"@\"",
+          "\"x/HEAD\"",
+          "\"-x\"",
+          "\"HEAD\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\".a\"",
+          "\"a b\"",
+          "\"a@{b\"",
+          "\"@{-1}\"",
+          "\"x@{u}\""
         ],
         "force-create": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"topic\"",
+          "\"a/b\"",
+          "\"@\"",
+          "\"x/HEAD\"",
+          "\"-x\"",
+          "\"HEAD\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\".a\"",
+          "\"a b\"",
+          "\"a@{b\"",
+          "\"@{-1}\"",
+          "\"x@{u}\""
         ],
         "guess": [
           "undefined",
@@ -13304,7 +13332,21 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"topic\"",
+          "\"a/b\"",
+          "\"@\"",
+          "\"x/HEAD\"",
+          "\"-x\"",
+          "\"HEAD\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\".a\"",
+          "\"a b\"",
+          "\"a@{b\"",
+          "\"@{-1}\"",
+          "\"x@{u}\""
         ],
         "overwrite-ignore": [
           "undefined",
@@ -13330,8 +13372,22 @@
           "[\"value\",\"\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
-          "\"value\""
+          "\"value\"",
+          "\"origin/feat\"",
+          "\"refs/remotes/origin/feat\"",
+          "\"remotes/origin/feat\"",
+          "\"origin/\"",
+          "\"origin\"",
+          "\"refs/x\"",
+          "\"remotes/\"",
+          "\"origin/HEAD\"",
+          "\"origin/a..b\"",
+          "\"origin/feat@{0}\"",
+          "\"origin/-x\"",
+          "\"origin/@{-1}\"",
+          "\"a/b/c\""
         ],
         "inRepository": [
           "undefined",
@@ -13339,25 +13395,29 @@
           "true"
         ]
       },
-      "total": "35271936000",
-      "accepted": "350573184",
-      "nodes": 699,
+      "total": "15483533377536",
+      "accepted": "7550060544",
+      "nodes": 1026,
       "isolatedRuleWitnesses": {
-        "switch-creation": "{\"force-create\":\"value\",\"operands\":[],\"orphan\":\"value\"}",
-        "switch-detach-create": "{\"create\":\"value\",\"detach\":true,\"operands\":[]}",
-        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"value\",\"operands\":[]}",
-        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"value\"}",
+        "switch-creation": "{\"force-create\":\"value\",\"operand0\":\"\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-detach-create": "{\"create\":\"value\",\"detach\":true,\"operand0\":\"\",\"operands\":[]}",
+        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"value\",\"operand0\":\"\",\"operands\":[]}",
+        "switch-detach-orphan": "{\"detach\":true,\"operand0\":\"\",\"operands\":[],\"orphan\":\"value\"}",
         "switch-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
-        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"value\",\"track\":\"direct\"}",
-        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
-        "switch-arity": "{\"operands\":[\"value\",\"value\"]}",
-        "switch-target": "{\"operands\":[]}",
-        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"value\"}",
-        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"value\"}",
-        "switch-empty-start-point": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
-        "switch-empty-create": "{\"create\":\"\",\"operands\":[]}",
-        "switch-empty-force-create": "{\"force-create\":\"\",\"operands\":[]}",
-        "switch-empty-orphan": "{\"operands\":[],\"orphan\":\"\"}"
+        "switch-orphan-tracking": "{\"operand0\":\"\",\"operands\":[],\"orphan\":\"value\",\"track\":\"direct\"}",
+        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operand0\":\"\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-arity": "{\"operand0\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "switch-target": "{\"operand0\":\"\",\"operands\":[]}",
+        "switch-orphan-start": "{\"operand0\":\"\",\"operands\":[\"value\"],\"orphan\":\"value\"}",
+        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operand0\":\"\",\"operands\":[],\"orphan\":\"value\"}",
+        "switch-empty-start-point": "{\"empty-operand\":\"\",\"operand0\":\"\",\"operands\":[\"\"]}",
+        "switch-empty-create": "{\"create\":\"\",\"operand0\":\"\",\"operands\":[]}",
+        "switch-empty-force-create": "{\"force-create\":\"\",\"operand0\":\"\",\"operands\":[]}",
+        "switch-empty-orphan": "{\"operand0\":\"\",\"operands\":[],\"orphan\":\"\"}",
+        "switch-track-start-point": "{\"operand0\":\"\",\"operands\":[\"value\"],\"track\":\"direct\"}",
+        "switch-create-name": "{\"create\":\"-x\",\"operand0\":\"\",\"operands\":[]}",
+        "switch-force-create-name": "{\"force-create\":\"-x\",\"operand0\":\"\",\"operands\":[]}",
+        "switch-orphan-name": "{\"operand0\":\"\",\"operands\":[],\"orphan\":\"-x\"}"
       }
     },
     {
@@ -14050,7 +14110,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 20,
+      "rules": 21,
       "domains": {
         "empty-pathspec": [
           "undefined",
@@ -14178,8 +14238,8 @@
         ]
       },
       "total": "571405363200",
-      "accepted": "2200670208",
-      "nodes": 1790,
+      "accepted": "1845338112",
+      "nodes": 1941,
       "isolatedRuleWitnesses": {
         "restore-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
         "restore-patch-merge": "{\"merge\":true,\"operands\":[],\"patch\":true}",
@@ -14193,14 +14253,15 @@
         "restore-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
         "restore-staged-stage": "{\"operands\":[],\"pathspec-from-file\":\"\",\"stage\":2,\"staged\":true}",
         "restore-staged-merge": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
-        "restore-source-stage": "{\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"\",\"stage\":2}",
-        "restore-source-merge": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"\"}",
+        "restore-source-stage": "{\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"value\",\"stage\":2}",
+        "restore-source-merge": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"value\"}",
         "restore-merge-stage": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"stage\":2}",
         "restore-ignore-unmerged-merge": "{\"ignore-unmerged\":true,\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
         "restore-ignore-unmerged-patch": "{\"ignore-unmerged\":true,\"operands\":[],\"patch\":true}",
         "restore-destination-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":false}",
         "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}",
-        "restore-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}"
+        "restore-empty-pathspec": "{\"empty-pathspec\":\"\",\"operands\":[\"\"]}",
+        "restore-empty-source": "{\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"\"}"
       }
     },
     {

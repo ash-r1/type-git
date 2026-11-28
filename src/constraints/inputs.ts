@@ -91,6 +91,18 @@ export const INPUT_CONSTRAINTS = {
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
   ],
+  restorePaths: [
+    {
+      id: 'restore.paths',
+      kind: 'requiresAny',
+      when: { key: 'paths', test: 'lengthEquals', value: 0 },
+      // An empty pathspecFromFile is not emitted, so it does not count.
+      choices: [{ key: 'pathspecFromFile', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'Restore without patch mode needs paths or a pathspec file.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+    },
+  ],
   pathspec: [
     {
       id: 'pathspec.file-operands',
@@ -124,6 +136,22 @@ export const INPUT_CONSTRAINTS = {
         'An empty switch target is never a valid reference or branch name, with or without create, force-create or orphan.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
     },
+    {
+      id: 'switch.track-start-point',
+      kind: 'scalar',
+      key: 'branch',
+      parser: 'track-start-point',
+      guard: [
+        { key: 'track', test: 'active' },
+        { key: 'create', test: 'inactive' },
+        { key: 'forceCreate', test: 'inactive' },
+        { key: 'orphan', test: 'inactive' },
+      ],
+      origin: 'git',
+      reason:
+        "--track without create, forceCreate or orphan names the new branch after the first '/' of the target (after refs/ and remotes/), which must leave a nonempty name.",
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+    },
   ],
 } as const satisfies Record<string, readonly Constraint[]>;
 
@@ -149,7 +177,15 @@ export const INPUT_DOMAINS = {
     paths: [[], [''], ['file'], ['file', ''], ['a', 'b']],
     emptyPathspec: [''],
   },
+  restorePaths: {
+    paths: [[], ['file']],
+    pathspecFromFile: [undefined, '', 'paths'],
+  },
   switchTarget: {
-    branch: ['', 'main'],
+    branch: ['', 'main', 'origin/main', 'origin/', 'refs/remotes/main'],
+    track: [undefined, true],
+    create: [undefined, true],
+    forceCreate: [undefined, true],
+    orphan: [undefined, true],
   },
 } as const;

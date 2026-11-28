@@ -14,6 +14,13 @@
     "nodes": 197
   },
   {
+    "command": "restorePaths",
+    "scope": "operands",
+    "total": "6",
+    "accepted": "4",
+    "nodes": 6
+  },
+  {
     "command": "pathspec",
     "scope": "operands",
     "total": "15",
@@ -23,9 +30,9 @@
   {
     "command": "switchTarget",
     "scope": "operands",
-    "total": "2",
-    "accepted": "1",
-    "nodes": 2
+    "total": "80",
+    "accepted": "61",
+    "nodes": 23
   },
   {
     "command": "clone",
@@ -2199,12 +2206,17 @@
       ]
     },
     "total": "19131876",
-    "accepted": "9237888",
-    "nodes": 94,
+    "accepted": "4284576",
+    "nodes": 359,
     "isolatedRuleWitnesses": {
       "switch.create-forceCreate-detach-orphan": "{\"forceCreate\":true,\"orphan\":true}",
       "switch.discard-merge": "{\"discard\":true,\"merge\":true}",
-      "switch.force-merge": "{\"force\":true,\"merge\":true}"
+      "switch.force-merge": "{\"force\":true,\"merge\":true}",
+      "switch.discard-conflict": "{\"conflict\":\"merge\",\"discard\":true}",
+      "switch.force-conflict": "{\"conflict\":\"merge\",\"force\":true}",
+      "switch.detach-track": "{\"detach\":true,\"track\":true}",
+      "switch.orphan-track": "{\"orphan\":true,\"track\":true}",
+      "switch.startPoint": "{\"startPoint\":\"value\"}"
     }
   },
   {
@@ -2715,14 +2727,17 @@
       ]
     },
     "total": "6377292",
-    "accepted": "1784592",
-    "nodes": 85,
+    "accepted": "953532",
+    "nodes": 154,
     "isolatedRuleWitnesses": {
       "restore.staged-conflict": "{\"staged\":true,\"theirs\":true}",
       "restore.source-ours": "{\"ours\":true,\"source\":\"\"}",
       "restore.source-theirs": "{\"source\":\"\",\"theirs\":true}",
       "restore.source-merge": "{\"merge\":true,\"source\":\"\"}",
-      "restore.source-conflict": "{\"conflict\":\"merge\",\"source\":\"\"}"
+      "restore.source-conflict": "{\"conflict\":\"merge\",\"source\":\"\"}",
+      "restore.stage-merge": "{\"merge\":true,\"theirs\":true}",
+      "restore.stage-conflict": "{\"conflict\":\"merge\",\"theirs\":true}",
+      "restore.ignoreUnmerged-merge": "{\"ignoreUnmerged\":true,\"merge\":true}"
     }
   },
   {
