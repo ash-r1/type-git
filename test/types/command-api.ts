@@ -355,6 +355,15 @@ git.command('stash', [{ operand: 'apply' }, { operand: '' }]);
 // Help exits before the reference is resolved.
 git.command('stash apply', [{ operand: '' }, ['-h']]);
 git.command('stash apply', [{ operand: '0' }]);
+// @ts-expect-error The explicit expansion of an empty reference is refused the same way.
+git.command('stash apply', [{ operand: 'refs/stash@{}' }]);
+// @ts-expect-error Show resolves the same explicit expansion.
+git.command('stash show', [{ operand: 'refs/stash@{}' }]);
+// @ts-expect-error The explicit expansion is never a stash reference for stash branch.
+git.command('stash branch', [{ operand: 'topic' }, { operand: 'refs/stash@{}' }]);
+// @ts-expect-error Export cannot find refs/stash@{} as a stash entry.
+git.command('stash export', [['--print'], { operand: 'refs/stash@{}' }]);
+git.command('stash apply', [{ operand: 'stash@{0}' }]);
 // @ts-expect-error An empty branch name fails checkout -b.
 git.command('stash branch', [{ operand: '' }]);
 // @ts-expect-error An empty stash reference after the branch name never resolves.

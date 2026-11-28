@@ -6671,6 +6671,20 @@
           "valueKey": "empty-stash-reference"
         }
       ]
+    },
+    {
+      "id": "stash-apply-expanded-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit refs/stash@{}, the form an empty stash reference expands to, is not a valid revision whatever the repository holds (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "expanded-stash-reference"
+        }
+      ]
     }
   ],
   "stash drop": [
@@ -6695,6 +6709,20 @@
           "key": "operands",
           "test": "includes",
           "valueKey": "empty-stash-reference"
+        }
+      ]
+    },
+    {
+      "id": "stash-drop-expanded-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit refs/stash@{}, the form an empty stash reference expands to, is not a valid revision whatever the repository holds (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "expanded-stash-reference"
         }
       ]
     }
@@ -6723,6 +6751,20 @@
           "valueKey": "empty-stash-reference"
         }
       ]
+    },
+    {
+      "id": "stash-pop-expanded-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L225-L279",
+      "reason": "An explicit refs/stash@{}, the form an empty stash reference expands to, is not a valid revision whatever the repository holds (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "expanded-stash-reference"
+        }
+      ]
     }
   ],
   "stash branch": [
@@ -6747,6 +6789,20 @@
           "key": "operands",
           "test": "includes",
           "valueKey": "empty-operand"
+        }
+      ]
+    },
+    {
+      "id": "stash-branch-expanded-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L911-L949",
+      "reason": "An explicit refs/stash@{} as the stash reference, the form an empty reference expands to, is not a valid revision whatever the repository holds (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "operand1",
+          "test": "equals",
+          "value": "refs/stash@{}"
         }
       ]
     },
@@ -7191,6 +7247,20 @@
           "key": "operands",
           "test": "includes",
           "valueKey": "empty-stash-reference"
+        }
+      ]
+    },
+    {
+      "id": "stash-export-expanded-stash-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L2317-L2370",
+      "reason": "An explicit refs/stash@{} is never a stash entry whatever the repository holds (get_stash_info), so the export cannot find it; a help exit happens first.",
+      "when": [
+        {
+          "key": "operands",
+          "test": "includes",
+          "valueKey": "expanded-stash-reference"
         }
       ]
     },
@@ -9386,6 +9456,20 @@
           "key": "stash-operands",
           "test": "includes",
           "valueKey": "empty-stash-reference"
+        }
+      ]
+    },
+    {
+      "id": "stash.show-expanded-reference",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L244-L279",
+      "reason": "An explicit refs/stash@{}, the form an empty stash reference expands to, is not a valid revision whatever the repository holds (get_stash_info); a help exit happens first.",
+      "when": [
+        {
+          "key": "stash-operands",
+          "test": "includes",
+          "valueKey": "expanded-stash-reference"
         }
       ]
     }

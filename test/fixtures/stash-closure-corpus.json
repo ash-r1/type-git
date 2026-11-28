@@ -164,6 +164,44 @@
     {
       "command": "stash apply",
       "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
         [
           "--index"
         ]
@@ -362,6 +400,52 @@
       "command": "stash apply",
       "tokens": [
         [
+          "--index"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--index",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--index"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--index",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
           "-q"
         ]
       ],
@@ -554,6 +638,52 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "-q",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "-q",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
     },
     {
       "command": "stash apply",
@@ -760,6 +890,54 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-ours",
+          ""
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-ours=",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
     },
     {
       "command": "stash apply",
@@ -1013,6 +1191,64 @@
       "diagnostic": "error: missing is not a valid reference"
     },
     {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash apply",
+      "tokens": [
+        [
+          "--label-base",
+          "base"
+        ],
+        [
+          "--label-theirs",
+          "theirs"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "apply",
+        "--label-base=base",
+        "--label-theirs=theirs",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
       "command": "stash drop",
       "tokens": [],
       "argv": [
@@ -1171,6 +1407,44 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash drop",
+      "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "drop",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash drop",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "drop",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
     },
     {
       "command": "stash drop",
@@ -1370,6 +1644,52 @@
       "diagnostic": "error: missing is not a valid reference"
     },
     {
+      "command": "stash drop",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "drop",
+        "-q",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash drop",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "drop",
+        "-q",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
       "command": "stash pop",
       "tokens": [],
       "argv": [
@@ -1528,6 +1848,44 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash pop",
+      "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash pop",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
     },
     {
       "command": "stash pop",
@@ -1730,6 +2088,52 @@
       "command": "stash pop",
       "tokens": [
         [
+          "--index"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "--index",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash pop",
+      "tokens": [
+        [
+          "--index"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "--index",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
+      "command": "stash pop",
+      "tokens": [
+        [
           "-q"
         ]
       ],
@@ -1924,6 +2328,52 @@
       "diagnostic": "error: missing is not a valid reference"
     },
     {
+      "command": "stash pop",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "-q",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash pop",
+      "tokens": [
+        [
+          "-q"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "pop",
+        "-q",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
       "command": "stash show",
       "tokens": [],
       "argv": [
@@ -2084,6 +2534,44 @@
       "diagnostic": "error: missing is not a valid reference"
     },
     {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
       "command": "stash branch",
       "tokens": [],
       "argv": [
@@ -2190,6 +2678,27 @@
         "branch",
         "b",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash branch",
+      "tokens": [
+        {
+          "operand": "b"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "branch",
+        "b",
+        "refs/stash@{}"
       ],
       "valid": false,
       "state": false,
@@ -3086,6 +3595,44 @@
     {
       "command": "stash export",
       "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
         [
           "--print"
         ]
@@ -3279,6 +3826,52 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: unable to find stash entry missing"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--print"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--print",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--print"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--print",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
     },
     {
       "command": "stash export",
@@ -3490,6 +4083,54 @@
       "command": "stash export",
       "tokens": [
         [
+          "--to-ref",
+          "refs/out"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
           "--print"
         ],
         [
@@ -3732,6 +4373,62 @@
       "command": "stash export",
       "tokens": [
         [
+          "--print"
+        ],
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--print",
+        "--to-ref=refs/out",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--print"
+        ],
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--print",
+        "--to-ref=refs/out",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
           "--to-ref",
           "refs/out"
         ],
@@ -3964,6 +4661,62 @@
         "--to-ref=refs/out",
         "--print",
         "missing"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--print"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--print",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--print"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--print",
+        "0",
+        "refs/stash@{}"
       ],
       "valid": false,
       "state": false,
@@ -4222,6 +4975,62 @@
         [
           "--no-to-ref"
         ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--no-to-ref",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--no-to-ref"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--no-to-ref",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: exactly one of --print and --to-ref is required"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--no-to-ref"
+        ],
         [
           "--print"
         ]
@@ -4489,6 +5298,70 @@
       "state": true,
       "status": 1,
       "diagnostic": "error: unable to find stash entry missing"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--no-to-ref"
+        ],
+        [
+          "--print"
+        ],
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--no-to-ref",
+        "--print",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
+    },
+    {
+      "command": "stash export",
+      "tokens": [
+        [
+          "--to-ref",
+          "refs/out"
+        ],
+        [
+          "--no-to-ref"
+        ],
+        [
+          "--print"
+        ],
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        }
+      ],
+      "argv": [
+        "stash",
+        "export",
+        "--to-ref=refs/out",
+        "--no-to-ref",
+        "--print",
+        "0",
+        "refs/stash@{}"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: unable to find stash entry refs/stash@{}"
     },
     {
       "command": "stash export",

@@ -67,7 +67,7 @@ const REFUSALS = [
   /^fatal: a revision is required$/,
   /^error: not a valid revision: $/,
   /^error: exactly one of --print and --to-ref is required$/,
-  /^error: unable to find stash entry $/,
+  /^error: unable to find stash entry (?:refs\/stash@\{\})?$/,
   /^error: git stash clear with arguments is unimplemented$/,
   /^fatal: subcommand wasn't specified; 'push' can't be assumed due to unexpected token '.*'$/,
   /^fatal: options '--pathspec-from-file' and '--(?:patch|staged)' cannot be used together$/,
@@ -97,8 +97,9 @@ const STATE = [
   // Patch mode reads hunk choices from standard input, which is empty here.
   /^No changes selected$/,
 ];
-/** Stash operand shapes: none, one, two, empty in each position and resolvable or not. */
-const STASH_OPERANDS = [[], [operand('0')], [operand('0'), operand('1')], [operand('')], [operand('0'), operand('')], [operand(''), operand('0')], [operand('stash@{1}')], [operand('HEAD')], [operand('missing')]];
+/** Stash operand shapes: none, one, two, empty or its refs/stash@{} expansion in each position, and resolvable or not. */
+const STASH_OPERANDS = [[], [operand('0')], [operand('0'), operand('1')], [operand('')], [operand('0'), operand('')], [operand(''), operand('0')], [operand('stash@{1}')], [operand('HEAD')], [operand('missing')],
+  [operand('refs/stash@{}')], [operand('0'), operand('refs/stash@{}')]];
 const PUSH_WORDS = [
   [], [['-p']], [['--no-patch']], [['-S']], [['--no-staged']], [['-u']], [['--no-include-untracked']], [['-a']], [['--no-all']],
   [['-k']], [['--no-keep-index']], [['-q']], [['-m', 'msg']], [['--pathspec-from-file', 'paths']], [['--pathspec-file-nul']],
@@ -156,8 +157,9 @@ try {
     // resolves; both are still refused by argv alone.
     const commits = tokens.filter((token) => !Array.isArray(token)).map((token) => token.operand);
     const quietStore = command === 'stash store' && (commits.length !== 1 || commits[0] === '') && !valid && !diagnostic;
-    // checkout -b rewrites @{-N} from the reflog, so whether such a name is valid is repository state.
-    const rewritten = command === 'stash branch' && argv.some((word) => word.includes('@{'));
+    // checkout -b rewrites a branch name with @{-N} from the reflog, so whether such a name is
+    // valid is repository state; the stash reference after it is resolved like any other.
+    const rewritten = command === 'stash branch' && (argv[2] ?? '').includes('@{');
     const refused = !valid && !rewritten && (quietStore || REFUSALS.some((p) => p.test(diagnostic)));
     // Otherwise --quiet hides only state outcomes, such as nothing staged to stash.
     const quiet = !valid && !refused && !diagnostic && argv.includes('-q');
@@ -174,7 +176,7 @@ try {
     const options = command === 'stash apply' || command === 'stash pop' ? [[], [['--index']], [['-q']], ...(command === 'stash apply' ? labels : [])] : [[], [['-q']]].slice(0, command === 'stash show' ? 1 : 2);
     for (const o of options) for (const s of STASH_OPERANDS) record(command, [...o, ...s]);
   }
-  for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand(''), operand('0')], [operand('main')],
+  for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand('b'), operand('refs/stash@{}')], [operand(''), operand('0')], [operand('main')],
     [operand('a..b')], [operand('HEAD')], [operand('topic/name')], [operand('@{-1}')], [operand('x.lock')]]) {
     record('stash branch', s);
   }

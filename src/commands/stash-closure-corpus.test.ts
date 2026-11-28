@@ -29,6 +29,10 @@ const RULES_FOR_DIAGNOSTIC: [RegExp, (row: Row) => string][] = [
   [/^error: not a valid revision: $/, () => 'stash-import-empty-operand'],
   [/^error: exactly one of --print and --to-ref is required$/, (row) => exportModeRule(row)],
   [/^error: unable to find stash entry $/, () => 'stash-export-empty-stash-reference'],
+  [
+    /^error: unable to find stash entry refs\/stash@\{\}$/,
+    () => 'stash-export-expanded-stash-reference',
+  ],
   [/^error: git stash clear with arguments is unimplemented$/, () => 'stash-clear-arity'],
   [/^fatal: subcommand wasn't specified/, () => 'cli.stash.assumed-push-paths'],
   [
@@ -69,11 +73,19 @@ const QUIET_STORE: [RegExp, (row: Row) => string] = [
       : 'stash-store-arity',
 ];
 
+/** The form an empty stash reference expands to, which Git also refuses when given explicitly. */
+const EXPANDED_STASH_REFERENCE = 'refs/stash@{}';
+
 /** The rule prefix of the push parser that a push, save or assumed-push case reaches. */
 function pushRule(row: Row): string {
   return row.command === 'stash save' ? 'stash-save' : 'stash-push';
 }
 function emptyRule(row: Row): string {
+  if (row.argv.includes(EXPANDED_STASH_REFERENCE)) {
+    return row.command === 'stash show'
+      ? 'stash.show-expanded-reference'
+      : `${row.command.replaceAll(' ', '-')}-expanded-stash-reference`;
+  }
   return row.command === 'stash branch'
     ? 'stash-branch-empty-operand'
     : row.command === 'stash show'

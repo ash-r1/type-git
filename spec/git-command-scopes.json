@@ -1495,7 +1495,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash drop": {
@@ -1527,7 +1528,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash pop": {
@@ -1559,7 +1561,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash branch": {
@@ -1778,7 +1781,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "config list": {
@@ -3697,7 +3701,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     },
     "numericOption": {
       "key": "max-count",
