@@ -177,6 +177,17 @@ describe('High-level API', () => {
       expect(branches.some((b) => b.name === 'topic')).toBe(true);
     });
 
+    it('refuses sort keys that ref_sorting_options rejects before running Git', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      for (const sort of ['', 'bogus', '-', 'objectname:short=0', 'color:bogus', 'align']) {
+        await expect(repo.branch.list({ sort })).rejects.toThrow(GitArgumentError);
+      }
+      const branches = await repo.branch.list({ sort: '-v:committerdate' });
+      expect(branches.length).toBeGreaterThan(0);
+    });
+
     it('should delete a branch', async () => {
       const repoPath = join(tempDir, 'repo');
       const repo = await initRepoWithCommit(repoPath);

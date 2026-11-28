@@ -8,6 +8,7 @@
  * values before spawning Git; callers that really mean an option use the typed
  * option fields or `raw()`.
  */
+import { validRefSortKey } from '../constraints/ref-format.js';
 import { branchNameSyntax } from '../constraints/refname.js';
 import { GitArgumentError } from './types.js';
 
@@ -45,6 +46,17 @@ export function checkedNewBranchName(command: string, name: string, value: strin
     throw new GitArgumentError(
       `${command}: ${name} is not a valid branch name (got ${JSON.stringify(value)}); ` +
         'see git check-ref-format --branch.',
+    );
+  }
+  return value;
+}
+
+/** Return a ref-filter sort key unchanged, or throw when ref_sorting_options would die on it. */
+export function checkedRefSortKey(command: string, value: string): string {
+  if (!validRefSortKey(value)) {
+    throw new GitArgumentError(
+      `${command}: sort is not a ref-filter sort key (got ${JSON.stringify(value)}); ` +
+        "use an optional '-', an optional version: or v:, and a field name such as refname.",
     );
   }
   return value;
