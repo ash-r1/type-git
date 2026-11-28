@@ -9,6 +9,7 @@ import type {
 import type { GitEnabledLiteral } from './git-enabled-types.js';
 import type { GitNumericLiteral, GitNumericParser } from './git-numeric-types.js';
 import type { TIMESTAMP_DEFAULT } from './git-timestamp.js';
+import type { LogLineRangeLiteral } from './log-line-range.js';
 import type { Constraint, Predicate } from './model.js';
 import type {
   NumberAtLeast,
@@ -332,43 +333,47 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
     ? BlameLineRangeLiteral<V> extends true
       ? V
       : never
-    : P extends GitBooleanCallback
-      ? GitBooleanCallbackLiteral<V, P> extends true
+    : P extends 'log-line-range'
+      ? LogLineRangeLiteral<V> extends true
         ? V
         : never
-      : P extends GitNumericParser
-        ? GitNumericLiteral<V, P> extends true
+      : P extends GitBooleanCallback
+        ? GitBooleanCallbackLiteral<V, P> extends true
           ? V
           : never
-        : P extends 'depth-initial'
-          ? DepthInitialLiteral<V> extends true
+        : P extends GitNumericParser
+          ? GitNumericLiteral<V, P> extends true
             ? V
             : never
-          : P extends 'branch-name'
-            ? BranchNameLiteral<V> extends true
+          : P extends 'depth-initial'
+            ? DepthInitialLiteral<V> extends true
               ? V
               : never
-            : P extends 'refname-onelevel'
-              ? RefnameOnelevelLiteral<V> extends true
+            : P extends 'branch-name'
+              ? BranchNameLiteral<V> extends true
                 ? V
                 : never
-              : P extends 'object-filter' | 'object-filter-auto'
-                ? V extends undefined
+              : P extends 'refname-onelevel'
+                ? RefnameOnelevelLiteral<V> extends true
                   ? V
-                  : V extends string
-                    ? ObjectFilterLiteral<
-                        V,
-                        P extends 'object-filter-auto' ? true : false,
-                        Negative
-                      > extends true
+                  : never
+                : P extends 'object-filter' | 'object-filter-auto'
+                  ? V extends undefined
+                    ? V
+                    : V extends string
+                      ? ObjectFilterLiteral<
+                          V,
+                          P extends 'object-filter-auto' ? true : false,
+                          Negative
+                        > extends true
+                        ? V
+                        : never
+                      : never
+                  : P extends StringCallbackParser
+                    ? StringCallbackLiteral<V, P> extends true
                       ? V
                       : never
-                    : never
-                : P extends StringCallbackParser
-                  ? StringCallbackLiteral<V, P> extends true
-                    ? V
-                    : never
-                  : V;
+                    : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]
@@ -452,24 +457,26 @@ type ApplyBody<T, R extends Constraint> = R extends {
                       ? Reject<T, P> | None<T, Q>
                       : R extends { kind: 'forbid'; when: infer P extends readonly Predicate[] }
                         ? NotEvery<T, P>
-                        : R extends {
-                              kind: 'elements';
-                              key: infer K extends keyof T;
-                              allowed: infer V extends readonly unknown[];
-                            }
-                          ? { [P in K]?: AllowedElements<Exclude<T[P], undefined>, V[number]> }
+                        : R extends { kind: 'elements'; maxOutside: number }
+                          ? unknown // Counting items outside the allowed set stays a runtime check.
                           : R extends {
-                                kind: 'unsupported';
-                                keys: infer K extends readonly string[];
+                                kind: 'elements';
+                                key: infer K extends keyof T;
+                                allowed: infer V extends readonly unknown[];
                               }
-                            ? { [P in K[number]]?: never }
+                            ? { [P in K]?: AllowedElements<Exclude<T[P], undefined>, V[number]> }
                             : R extends {
-                                  kind: 'value';
-                                  key: infer K extends keyof T;
-                                  allowed: infer V extends readonly unknown[];
+                                  kind: 'unsupported';
+                                  keys: infer K extends readonly string[];
                                 }
-                              ? { [P in K]?: Extract<V[number], T[P]> }
-                              : unknown; // Unmodeled scalar languages remain runtime checks.
+                              ? { [P in K[number]]?: never }
+                              : R extends {
+                                    kind: 'value';
+                                    key: infer K extends keyof T;
+                                    allowed: infer V extends readonly unknown[];
+                                  }
+                                ? { [P in K]?: Extract<V[number], T[P]> }
+                                : unknown; // Unmodeled scalar languages remain runtime checks.
 
 type Rules<T, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,

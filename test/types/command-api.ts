@@ -284,6 +284,18 @@ git.command('reset', [['--mixed'], ['--patch']]);
 git.command('reset', [{ operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
 // @ts-expect-error A late marker cannot remove paths from a hard reset.
 git.command('reset', [['--hard'], { operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error An empty reset path is not a valid pathspec.
+git.command('reset', [['--'], { operand: '' }]);
+// @ts-expect-error An empty reset word is never a revision, even before a separator.
+git.command('reset', [{ operand: '' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error An empty single reset word is ambiguous whatever the repository holds.
+git.command('reset', [{ operand: '' }]);
+git.command('reset', [{ operand: 'HEAD' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error An empty merge operand never resolves to a commit.
+git.command('merge', [{ operand: '' }]);
+// @ts-expect-error An empty merge operand is refused even beside a valid one.
+git.command('merge', [{ operand: 'topic' }, { operand: '' }]);
+git.command('merge', [['--no-ff'], { operand: 'topic' }]);
 // @ts-expect-error Explicit path mode cannot create a branch.
 git.command('checkout', [['-b', 'new'], ['--'], { operand: 'file' }]);
 git.command('tag', [['--list'], ['--list']]);
@@ -489,6 +501,25 @@ git.command('rebase', [['-C', '2'], ['--ignore-whitespace'], { operand: 'HEAD' }
 git.command('rebase', [['--empty', 'invalid'], { operand: 'HEAD' }]);
 // @ts-expect-error Unicode lookalikes are not ASCII enum variants.
 git.command('rebase', [['--empty', 'ASK'], { operand: 'HEAD' }]);
+git.command('rebase', [['--trailer', 'Reviewed-by: Test'], ['--exec', 'make test'], { operand: 'HEAD' }]);
+git.command('rebase', [['--apply'], ['-C', '3'], ['--whitespace', 'fix'], { operand: 'HEAD' }]);
+git.command('rebase', [['--apply'], ['--whitespace', ''], { operand: 'HEAD' }]);
+// @ts-expect-error An empty trailer is refused before the rebase starts.
+git.command('rebase', [['--trailer', ''], { operand: 'HEAD' }]);
+// @ts-expect-error A trailer cannot start with its separator.
+git.command('rebase', [['--trailer', '=value'], { operand: 'HEAD' }]);
+// @ts-expect-error An exec command of only blanks is empty.
+git.command('rebase', [['--exec', ' \t'], { operand: 'HEAD' }]);
+// @ts-expect-error An exec command cannot span lines.
+git.command('rebase', [['--exec', 'true\nfalse'], { operand: 'HEAD' }]);
+// @ts-expect-error The apply context takes digits only.
+git.command('rebase', [['--apply'], ['-C', 'x'], { operand: 'HEAD' }]);
+// @ts-expect-error Whitespace takes one of apply's actions.
+git.command('rebase', [['--apply'], ['--whitespace', 'bogus'], { operand: 'HEAD' }]);
+// @ts-expect-error An empty onto never names a commit.
+git.command('rebase', [['--onto', ''], { operand: 'HEAD' }]);
+// @ts-expect-error An empty operand never names a commit.
+git.command('rebase', [{ operand: '' }]);
 git.command('cherry-pick', [['--quit'], ['--quit'], ['--edit']]);
 git.command('cherry-pick', [['--quit'], ['--strategy', 'unused']]);
 git.command('cherry-pick', [['--quit'], ['-S']]);

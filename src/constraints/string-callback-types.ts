@@ -226,6 +226,23 @@ type CharacterSetText<
   : Dynamic<S> extends true
     ? true
     : CharacterSetLoop<S, CharacterMembers<Characters>>;
+/** Free text with a required non-blank character and forbidden first or inner characters. */
+type TextValue<
+  S extends string,
+  Blank extends string,
+  First extends string,
+  Forbidden extends string,
+> = S extends `${CharacterMembers<First>}${string}`
+  ? false
+  : S extends `${string}${CharacterMembers<Forbidden>}${string}`
+    ? false
+    : S extends ''
+      ? false
+      : Dynamic<S> extends true
+        ? true
+        : CharacterSetLoop<S, CharacterMembers<Blank>> extends true
+          ? false
+          : true;
 type ScoreDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type ScoreForbiddenAscii = Exclude<AsciiByte, ScoreDigit | '.' | '%'>;
 type ScoreLoop<
@@ -364,51 +381,61 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
               exact: readonly (infer E)[];
               prefixes: readonly (infer Prefix extends string)[];
             }
-          ? V extends E | `${Prefix}${string}`
+          ? V extends
+              | E
+              | `${Prefix}${string}`
+              | (Profile<P> extends { allowEmpty: true } ? '' : never)
             ? true
             : Dynamic<V>
           : Profile<P> extends {
-                kind: 'first-separator';
-                separator: infer Sep extends string;
-                allowUnseparated: infer Optional extends boolean;
+                kind: 'text';
+                blank: infer Blank extends string;
+                forbiddenFirst: infer First extends string;
+                forbidden: infer Forbidden extends string;
               }
-            ? Pair<V, Sep, Optional>
+            ? TextValue<V, Blank, First, Forbidden>
             : Profile<P> extends {
-                  kind: 'alpha-prefix';
+                  kind: 'first-separator';
                   separator: infer Sep extends string;
-                  allowed: readonly (infer Allowed extends string)[];
+                  allowUnseparated: infer Optional extends boolean;
                 }
-              ? AlphaPrefix<V, Sep, Allowed>
-              : Profile<P> extends { kind: 'rename-score'; parts: infer Parts extends 1 | 2 }
-                ? ScoreText<V, Parts>
-                : Profile<P> extends {
-                      kind: 'character-set';
-                      characters: infer Characters extends string;
-                    }
-                  ? CharacterSetText<V, Characters>
-                  : Profile<P> extends { kind: 'resetting-token-list' }
-                    ? Dynamic<V> extends true
-                      ? true
-                      : ResetTokenList<V, Profile<P>>
-                    : Profile<P> extends {
-                          kind: 'trailing-token-list';
-                          separator: infer Separator extends string;
-                          exact: readonly (infer Exact extends string)[];
-                        }
+              ? Pair<V, Sep, Optional>
+              : Profile<P> extends {
+                    kind: 'alpha-prefix';
+                    separator: infer Sep extends string;
+                    allowed: readonly (infer Allowed extends string)[];
+                  }
+                ? AlphaPrefix<V, Sep, Allowed>
+                : Profile<P> extends { kind: 'rename-score'; parts: infer Parts extends 1 | 2 }
+                  ? ScoreText<V, Parts>
+                  : Profile<P> extends {
+                        kind: 'character-set';
+                        characters: infer Characters extends string;
+                      }
+                    ? CharacterSetText<V, Characters>
+                    : Profile<P> extends { kind: 'resetting-token-list' }
                       ? Dynamic<V> extends true
                         ? true
-                        : TrailingTokenList<V, Separator, Exact>
+                        : ResetTokenList<V, Profile<P>>
                       : Profile<P> extends {
-                            kind: 'dirstat-params';
+                            kind: 'trailing-token-list';
                             separator: infer Separator extends string;
                             exact: readonly (infer Exact extends string)[];
                           }
                         ? Dynamic<V> extends true
                           ? true
-                          : V extends ''
+                          : TrailingTokenList<V, Separator, Exact>
+                        : Profile<P> extends {
+                              kind: 'dirstat-params';
+                              separator: infer Separator extends string;
+                              exact: readonly (infer Exact extends string)[];
+                            }
+                          ? Dynamic<V> extends true
                             ? true
-                            : DirstatTokens<V, Separator, Exact>
-                        : false
+                            : V extends ''
+                              ? true
+                              : DirstatTokens<V, Separator, Exact>
+                          : false
   : V extends true
     ? Profile<P> extends { kind: 'rename-score' | 'dirstat-params' }
       ? true

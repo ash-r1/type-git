@@ -71,6 +71,7 @@ export function commandDomains(spec, referencedKeys) {
       let rejected = 'invalid';
       while (value.allowed.includes(rejected)) rejected += '-';
       add(value.key, [rejected]);
+      if (value.maxOutside) add(value.key, [rejected, `${rejected}-`]);
       for (const allowed of value.allowed) { add(value.key, [allowed]); add(value.key, [allowed, allowed]); add(value.key, [allowed, rejected]); }
     }
     if (value.kind === 'value') for (const allowed of value.allowed) add(value.key, allowed);
