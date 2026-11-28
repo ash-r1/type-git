@@ -328,6 +328,24 @@ type Unless<T, W> = W extends Predicate
 type Apply<T, R extends Constraint> = R extends { guard: infer G extends readonly Predicate[] }
   ? NotEvery<T, G> | ApplyBody<T, R>
   : ApplyBody<T, R>;
+type SkipRemotes<V extends string> = V extends `remotes/${infer R}` ? R : V;
+type SkipRefs<V extends string> = V extends `refs/${infer R}` ? SkipRemotes<R> : SkipRemotes<V>;
+type TrackStartPointCheck<V extends string> = string extends V
+  ? true
+  : SkipRefs<V> extends `${infer _Remote}/${infer Branch}`
+    ? Branch extends ''
+      ? false
+      : BranchNameLiteral<Branch>
+    : false;
+/**
+ * --track without -c/-C/--orphan needs a start point with a nonempty valid branch name after its
+ * first '/'.
+ */
+type TrackStartPointLiteral<V> = [V] extends [string]
+  ? false extends (V extends string ? TrackStartPointCheck<V> : false)
+    ? false
+    : true
+  : false;
 type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
   ? V
   : P extends 'blame-line-range'
@@ -338,47 +356,51 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
       ? LogLineRangeLiteral<V> extends true
         ? V
         : never
-      : P extends GitBooleanCallback
-        ? GitBooleanCallbackLiteral<V, P> extends true
+      : P extends 'track-start-point'
+        ? TrackStartPointLiteral<V> extends true
           ? V
           : never
-        : P extends GitNumericParser
-          ? GitNumericLiteral<V, P> extends true
+        : P extends GitBooleanCallback
+          ? GitBooleanCallbackLiteral<V, P> extends true
             ? V
             : never
-          : P extends 'depth-initial'
-            ? DepthInitialLiteral<V> extends true
+          : P extends GitNumericParser
+            ? GitNumericLiteral<V, P> extends true
               ? V
               : never
-            : P extends 'branch-name'
-              ? BranchNameLiteral<V> extends true
+            : P extends 'depth-initial'
+              ? DepthInitialLiteral<V> extends true
                 ? V
                 : never
-              : P extends 'refname-onelevel'
-                ? RefnameOnelevelLiteral<V> extends true
+              : P extends 'branch-name'
+                ? BranchNameLiteral<V> extends true
                   ? V
                   : never
-                : P extends 'commit-author'
-                  ? CommitAuthorLiteral<V> extends true
+                : P extends 'refname-onelevel'
+                  ? RefnameOnelevelLiteral<V> extends true
                     ? V
                     : never
-                  : P extends 'object-filter' | 'object-filter-auto'
-                    ? V extends undefined
+                  : P extends 'commit-author'
+                    ? CommitAuthorLiteral<V> extends true
                       ? V
-                      : V extends string
-                        ? ObjectFilterLiteral<
-                            V,
-                            P extends 'object-filter-auto' ? true : false,
-                            Negative
-                          > extends true
+                      : never
+                    : P extends 'object-filter' | 'object-filter-auto'
+                      ? V extends undefined
+                        ? V
+                        : V extends string
+                          ? ObjectFilterLiteral<
+                              V,
+                              P extends 'object-filter-auto' ? true : false,
+                              Negative
+                            > extends true
+                            ? V
+                            : never
+                          : never
+                      : P extends StringCallbackParser
+                        ? StringCallbackLiteral<V, P> extends true
                           ? V
                           : never
-                        : never
-                    : P extends StringCallbackParser
-                      ? StringCallbackLiteral<V, P> extends true
-                        ? V
-                        : never
-                      : V;
+                        : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

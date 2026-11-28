@@ -562,6 +562,700 @@
         }
       }
     },
+    "builtin/checkout.c": {
+      "sha256": "d61e44ee7c4047af7a36f3c7e7a749550fdbd0583953fe6c2c12c1aef0bfcd0c",
+      "functions": {
+        "add_checkout_path_options": {
+          "sites": [],
+          "references": []
+        },
+        "add_common_options": {
+          "sites": [],
+          "references": [
+            "parse_opt_conflict"
+          ]
+        },
+        "add_common_switch_branch_options": {
+          "sites": [],
+          "references": []
+        },
+        "add_pending_uninteresting_ref": {
+          "sites": [],
+          "references": []
+        },
+        "branch_info_release": {
+          "sites": [],
+          "references": []
+        },
+        "check_stage": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "path '%s' does not have our version",
+              "line": 269
+            },
+            {
+              "call": "error",
+              "text": "path '%s' does not have their version",
+              "line": 271
+            }
+          ],
+          "references": []
+        },
+        "check_stages": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "path '%s' does not have all necessary versions",
+              "line": 287
+            }
+          ],
+          "references": []
+        },
+        "checkout_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "paths cannot be used with switching branches",
+              "line": 1665
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with switching branches [--patch]",
+              "line": 1668
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with switching branches [--[no]-overlay]",
+              "line": 1672
+            },
+            {
+              "call": "die",
+              "text": "<msg> [--ours/--theirs]",
+              "line": 1681
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with '%s' [-f, -m]",
+              "line": 1685
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with '%s' [--discard-changes, --merge]",
+              "line": 1688
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with '%s' [--detach, -b/-B/--orphan]",
+              "line": 1691
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with '%s' [--orphan, -t]",
+              "line": 1696
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot take <start-point> [--orphan]",
+              "line": 1698
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with '%s' [--detach, -t]",
+              "line": 1701
+            },
+            {
+              "call": "die",
+              "text": "Cannot switch branch to a non-commit '%s'",
+              "line": 1706
+            },
+            {
+              "call": "die",
+              "text": "missing branch or commit argument",
+              "line": 1711
+            }
+          ],
+          "references": [
+            "die_expecting_a_branch",
+            "die_if_some_operation_in_progress",
+            "die_if_switching_to_a_branch_in_use",
+            "switch_branches",
+            "switch_unborn_to_new_branch"
+          ]
+        },
+        "checkout_main": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 1896
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 1898
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --patch]",
+              "line": 1902
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "line": 1904
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "line": 1906
+            },
+            {
+              "call": "die",
+              "text": "options '-%c', '-%c', and '%s' cannot be used together [*, *, --orphan]",
+              "line": 1927
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [-p, --overlay]",
+              "line": 1931
+            },
+            {
+              "call": "die",
+              "text": "--track needs a branch name",
+              "line": 1968
+            },
+            {
+              "call": "die",
+              "text": "missing branch name; try -%c",
+              "line": 1973
+            },
+            {
+              "call": "die",
+              "text": "could not resolve '%s'",
+              "line": 2005
+            },
+            {
+              "call": "die",
+              "text": "reference is not a tree: %s",
+              "line": 2012
+            },
+            {
+              "call": "die",
+              "text": "invalid path specification",
+              "line": 2021
+            },
+            {
+              "call": "die",
+              "text": "'%s' is not a commit and a branch '%s' cannot be created from it",
+              "line": 2028
+            },
+            {
+              "call": "die",
+              "text": "git checkout: --detach does not take a path argument '%s'",
+              "line": 2032
+            },
+            {
+              "call": "die",
+              "text": "'%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "line": 2038
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --detach]",
+              "line": 2041
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "line": 2044
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "line": 2050
+            },
+            {
+              "call": "die",
+              "text": "git checkout: --ours/--theirs, --force and --merge are incompatible when\nchecking out of the index.",
+              "line": 2057
+            },
+            {
+              "call": "die",
+              "text": "you must specify path(s) to restore",
+              "line": 2062
+            }
+          ],
+          "references": [
+            "branch_info_release",
+            "checkout_branch",
+            "checkout_paths",
+            "checkout_worktree",
+            "git_checkout_config",
+            "parse_branchname_arg",
+            "setup_new_branch_info_and_source_tree"
+          ]
+        },
+        "checkout_merged": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "path '%s' does not have necessary versions",
+              "line": 342
+            },
+            {
+              "call": "error",
+              "text": "path '%s': cannot merge",
+              "line": 362
+            },
+            {
+              "call": "die",
+              "text": "Unable to add merge result for '%s'",
+              "line": 378
+            },
+            {
+              "call": "die",
+              "text": "make_cache_entry failed for path '%s'",
+              "line": 382
+            }
+          ],
+          "references": []
+        },
+        "checkout_paths": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with updating paths [--track]",
+              "line": 531
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with updating paths [-l]",
+              "line": 534
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with updating paths",
+              "line": 537
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be used with updating paths [--detach]",
+              "line": 541
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--merge, --patch]",
+              "line": 544
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [*, -m]",
+              "line": 547
+            },
+            {
+              "call": "die",
+              "text": "Cannot update paths and switch to branch '%s' at the same time.",
+              "line": 551
+            },
+            {
+              "call": "die",
+              "text": "neither '%s' or '%s' is specified [--staged, --worktree]",
+              "line": 555
+            },
+            {
+              "call": "die",
+              "text": "'%s' must be used when '%s' is not specified [--worktree, --source]",
+              "line": 559
+            },
+            {
+              "call": "die",
+              "text": "'%s' or '%s' cannot be used with %s [--ours, --theirs, --staged]",
+              "line": 577
+            },
+            {
+              "call": "die",
+              "text": "'%s' or '%s' cannot be used with %s [--merge, --conflict, --staged]",
+              "line": 581
+            },
+            {
+              "call": "die",
+              "text": "'%s', '%s', or '%s' cannot be used when checking out of a tree [--merge, --ours, --theirs]",
+              "line": 591
+            },
+            {
+              "call": "error",
+              "text": "index file corrupt",
+              "line": 632
+            },
+            {
+              "call": "error",
+              "text": "path '%s' is unmerged",
+              "line": 677
+            },
+            {
+              "call": "die",
+              "text": "unable to write new index file",
+              "line": 702
+            }
+          ],
+          "references": [
+            "check_stage",
+            "check_stages",
+            "checkout_worktree",
+            "mark_ce_for_checkout_no_overlay",
+            "mark_ce_for_checkout_overlay",
+            "post_checkout_hook",
+            "read_tree_some",
+            "skip_same_name"
+          ]
+        },
+        "checkout_stage": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "path '%s' does not have our version",
+              "line": 308
+            },
+            {
+              "call": "error",
+              "text": "path '%s' does not have their version",
+              "line": 310
+            }
+          ],
+          "references": []
+        },
+        "checkout_worktree": {
+          "sites": [],
+          "references": [
+            "checkout_merged",
+            "checkout_stage",
+            "skip_same_name"
+          ]
+        },
+        "cmd_restore": {
+          "sites": [],
+          "references": [
+            "add_checkout_path_options",
+            "add_common_options",
+            "checkout_main",
+            "checkout_worktree"
+          ]
+        },
+        "cmd_switch": {
+          "sites": [],
+          "references": [
+            "add_common_options",
+            "add_common_switch_branch_options",
+            "checkout_main"
+          ]
+        },
+        "describe_detached_head": {
+          "sites": [],
+          "references": []
+        },
+        "describe_one_orphan": {
+          "sites": [],
+          "references": []
+        },
+        "die_expecting_a_branch": {
+          "sites": [
+            {
+              "call": "die_message",
+              "text": "a branch is expected, got tag '%s'",
+              "line": 1581
+            },
+            {
+              "call": "die_message",
+              "text": "a branch is expected, got remote branch '%s'",
+              "line": 1583
+            },
+            {
+              "call": "die_message",
+              "text": "a branch is expected, got '%s'",
+              "line": 1585
+            },
+            {
+              "call": "die_message",
+              "text": "a branch is expected, got commit '%s'",
+              "line": 1588
+            },
+            {
+              "call": "die_message",
+              "text": "a branch is expected, got '%s'",
+              "line": 1594
+            },
+            {
+              "call": "exit",
+              "text": "exit code",
+              "line": 1599
+            }
+          ],
+          "references": []
+        },
+        "die_if_some_operation_in_progress": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot switch branch while merging\nConsider \"git merge --quit\" or \"git worktree add\".",
+              "line": 1610
+            },
+            {
+              "call": "die",
+              "text": "cannot switch branch in the middle of an am session\nConsider \"git am --quit\" or \"git worktree add\".",
+              "line": 1614
+            },
+            {
+              "call": "die",
+              "text": "cannot switch branch while rebasing\nConsider \"git rebase --quit\" or \"git worktree add\".",
+              "line": 1618
+            },
+            {
+              "call": "die",
+              "text": "cannot switch branch while cherry-picking\nConsider \"git cherry-pick --quit\" or \"git worktree add\".",
+              "line": 1622
+            },
+            {
+              "call": "die",
+              "text": "cannot switch branch while reverting\nConsider \"git revert --quit\" or \"git worktree add\".",
+              "line": 1626
+            }
+          ],
+          "references": []
+        },
+        "die_if_switching_to_a_branch_in_use": {
+          "sites": [],
+          "references": []
+        },
+        "init_topts": {
+          "sites": [],
+          "references": []
+        },
+        "mark_ce_for_checkout_no_overlay": {
+          "sites": [],
+          "references": []
+        },
+        "mark_ce_for_checkout_overlay": {
+          "sites": [],
+          "references": []
+        },
+        "merge_working_tree": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "index file corrupt",
+              "line": 851
+            },
+            {
+              "call": "error",
+              "text": "unable to read tree (%s)",
+              "line": 867
+            },
+            {
+              "call": "error",
+              "text": "you need to resolve your current index first",
+              "line": 887
+            },
+            {
+              "call": "die",
+              "text": "unable to parse commit %s",
+              "line": 905
+            },
+            {
+              "call": "die",
+              "text": "<NULL>",
+              "line": 911
+            },
+            {
+              "call": "die",
+              "text": "unable to write new index file",
+              "line": 928
+            }
+          ],
+          "references": [
+            "init_topts",
+            "reset_tree",
+            "show_local_changes"
+          ]
+        },
+        "orphaned_commit_warning": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "internal error in revision walk",
+              "line": 1146
+            }
+          ],
+          "references": [
+            "add_pending_uninteresting_ref",
+            "describe_detached_head",
+            "suggest_reattach"
+          ]
+        },
+        "parse_branchname_arg": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "only one reference expected",
+              "line": 1453
+            },
+            {
+              "call": "die",
+              "text": "only one reference expected, %d given.",
+              "line": 1470
+            },
+            {
+              "call": "die",
+              "text": "invalid reference: %s",
+              "line": 1517
+            },
+            {
+              "call": "die",
+              "text": "reference is not a tree: %s",
+              "line": 1530
+            }
+          ],
+          "references": [
+            "parse_remote_branch",
+            "setup_new_branch_info_and_source_tree"
+          ]
+        },
+        "parse_opt_conflict": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "unknown conflict style '%s'",
+              "line": 1756
+            }
+          ],
+          "references": []
+        },
+        "parse_remote_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' could be both a local file and a tracking branch.\nPlease use -- (and optionally --no-guess) to disambiguate",
+              "line": 1352
+            },
+            {
+              "call": "die",
+              "text": "'%s' matched multiple (%d) remote tracking branches",
+              "line": 1385
+            }
+          ],
+          "references": []
+        },
+        "post_checkout_hook": {
+          "sites": [],
+          "references": []
+        },
+        "read_tree_some": {
+          "sites": [],
+          "references": [
+            "update_some"
+          ]
+        },
+        "report_tracking": {
+          "sites": [],
+          "references": []
+        },
+        "reset_tree": {
+          "sites": [],
+          "references": []
+        },
+        "setup_branch_path": {
+          "sites": [],
+          "references": []
+        },
+        "setup_new_branch_info_and_source_tree": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to read tree (%s)",
+              "line": 1325
+            },
+            {
+              "call": "die",
+              "text": "unable to read tree (%s)",
+              "line": 1331
+            }
+          ],
+          "references": [
+            "setup_branch_path"
+          ]
+        },
+        "show_local_changes": {
+          "sites": [],
+          "references": []
+        },
+        "skip_same_name": {
+          "sites": [],
+          "references": []
+        },
+        "suggest_reattach": {
+          "sites": [],
+          "references": [
+            "describe_one_orphan"
+          ]
+        },
+        "switch_branches": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "You are on a branch yet to be born",
+              "line": 1199
+            },
+            {
+              "call": "die",
+              "text": "index file corrupt",
+              "line": 1260
+            }
+          ],
+          "references": [
+            "branch_info_release",
+            "merge_working_tree",
+            "orphaned_commit_warning",
+            "post_checkout_hook",
+            "show_local_changes",
+            "update_refs_for_switch"
+          ]
+        },
+        "switch_unborn_to_new_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "You are on a branch yet to be born",
+              "line": 1559
+            }
+          ],
+          "references": []
+        },
+        "try_update_sparse_directory": {
+          "sites": [],
+          "references": []
+        },
+        "update_refs_for_switch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to update HEAD",
+              "line": 1019
+            }
+          ],
+          "references": [
+            "describe_detached_head",
+            "report_tracking",
+            "setup_branch_path"
+          ]
+        },
+        "update_some": {
+          "sites": [],
+          "references": [
+            "try_update_sparse_directory"
+          ]
+        }
+      }
+    },
     "builtin/commit.c": {
       "sha256": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
       "functions": {

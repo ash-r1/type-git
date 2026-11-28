@@ -13,6 +13,7 @@ export function scalarRepresentatives(parser) {
     return [...boundaries, ...boundaries.map(String), ...boundaries.filter(n => n >= BigInt(Number.MIN_SAFE_INTEGER) && n <= BigInt(Number.MAX_SAFE_INTEGER)).map(Number), '', '-0', '08', '0x10', '0b10', '  +010k', '1m', '-2g', '1 ', '1\n', '1.5', Number.MAX_SAFE_INTEGER + 1];
   }
   if (parser === 'object-filter' || parser === 'object-filter-auto') return ['', 'invalid', 'blob:none', 'auto', 'tree:0', 'tree:-1', 'combine:+'];
+  if (parser === 'track-start-point') return ['origin/feat', 'refs/remotes/origin/feat', 'remotes/origin/feat', 'origin/', 'origin', '', 'refs/x', 'remotes/', 'origin/HEAD', 'origin/a..b', 'origin/feat@{0}', 'origin/-x', 'origin/@{-1}', 'a/b/c'];
   if (parser === 'branch-name') return ['topic', 'a/b', '@', 'x/HEAD', '', '-x', 'HEAD', 'a..b', 'a.lock', 'a/', '.a', 'a b', 'a@{b', '@{-1}', 'x@{u}'];
   if (parser === 'refname-onelevel') return ['topic', 'refs/x', '@', '', '.a', '/a', 'a..b', 'a.lock', 'a/', 'a@{b'];
   if (parser === 'commit-author') return ['A <a@example.test>', 'nickname', 'x>', '<>', ' <a>', 'A <a', 'a>b<c', ',;: <a>', 'é <a>'];

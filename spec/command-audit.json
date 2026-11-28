@@ -3741,7 +3741,7 @@
       }
     },
     "switch": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "switch"
       ],
@@ -3772,10 +3772,12 @@
         "test/types/checkout-parser-switch-corpus-5.ts",
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/switch-restore-closure-corpus.test.ts",
+        "test/types/switch-restore-closure-corpus.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. An empty start point is rejected in every switch mode (\"invalid reference\"), and an empty -c/-C/--orphan name fails the branch-name check; both are covered by Git 2.55.0 corpus cases, follow a help exit, and repo.switch rejects an empty target before running Git. Whether a nonempty target names a branch, a remote-tracking guess or a commit, and whether a nonempty new name passes check-ref-format, depend on repository state or the full ref-name grammar and are delegated to native Git at runtime, as are configuration, worktree state and conflicts. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true,
+      "notes": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. An empty start point is rejected in every switch mode (\"invalid reference\"), and an empty -c/-C/--orphan name fails the branch-name check; both are covered by Git 2.55.0 corpus cases, follow a help exit, and repo.switch rejects an empty target before running Git. Whether a nonempty target names a branch, a remote-tracking guess or a commit depends on repository state and is delegated to native Git at runtime, as are configuration, worktree state and conflicts; a nonempty new branch name is checked against check_branch_ref (closure obligation branch-name-syntax). The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completeness rests on the closure below (docs/design/audit-completion.md), not on corpus size.",
       "evidence": {
         "option-grammar": [
           "test/fixtures/checkout-parser-corpus.json",
@@ -3800,14 +3802,17 @@
           "test/types/checkout-parser-switch-corpus-2.ts",
           "test/types/checkout-parser-switch-corpus-3.ts",
           "test/types/checkout-parser-switch-corpus-4.ts",
-          "test/types/checkout-parser-switch-corpus-5.ts"
+          "test/types/checkout-parser-switch-corpus-5.ts",
+          "test/fixtures/switch-restore-closure-corpus.json",
+          "src/commands/switch-restore-closure-corpus.test.ts"
         ],
         "serialization": [
           "src/commands/checkout-parser.test.ts"
         ],
         "independent-git-tests": [
           "scripts/checkout-parser-corpus.mjs",
-          "src/impl/option-constraints.test.ts"
+          "src/impl/option-constraints.test.ts",
+          "scripts/switch-restore-closure-corpus.mjs"
         ],
         "compiler-tests": [
           "test/types/checkout-parser-switch-corpus-1.ts",
@@ -3816,7 +3821,425 @@
           "test/types/checkout-parser-switch-corpus-4.ts",
           "test/types/checkout-parser-switch-corpus-5.ts",
           "test/types/checkout-parser-api.ts",
-          "test/types/command-api.ts"
+          "test/types/command-api.ts",
+          "test/types/switch-restore-closure-corpus.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_switch",
+        "sources": {
+          "builtin/checkout.c": [
+            "add_common_options",
+            "add_common_switch_branch_options",
+            "add_pending_uninteresting_ref",
+            "branch_info_release",
+            "checkout_branch",
+            "checkout_main",
+            "cmd_switch",
+            "describe_detached_head",
+            "describe_one_orphan",
+            "die_expecting_a_branch",
+            "die_if_some_operation_in_progress",
+            "die_if_switching_to_a_branch_in_use",
+            "init_topts",
+            "merge_working_tree",
+            "orphaned_commit_warning",
+            "parse_branchname_arg",
+            "parse_opt_conflict",
+            "parse_remote_branch",
+            "post_checkout_hook",
+            "report_tracking",
+            "reset_tree",
+            "setup_branch_path",
+            "setup_new_branch_info_and_source_tree",
+            "show_local_changes",
+            "suggest_reattach",
+            "switch_branches",
+            "switch_unborn_to_new_branch",
+            "update_refs_for_switch"
+          ]
+        },
+        "waived": {
+          "checkout_paths": "Path checkout: checkout_main calls it only with --patch or a pathspec, and switch has no --patch option and parse_branchname_arg leaves no operand after the target.",
+          "checkout_worktree": "Not called by checkout_main: the extractor matches the checkout_worktree field of struct checkout_opts. The function is reached only from checkout_paths.",
+          "git_checkout_config": "Configuration callback; covered by the configuration obligation."
+        },
+        "obligations": [
+          {
+            "id": "unreachable-options",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: '%s' cannot be negative [--unified]",
+              "checkout_main: '%s' cannot be negative [--inter-hunk-context]",
+              "checkout_main: the option '%s' requires '%s' [--unified, --patch]",
+              "checkout_main: the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "checkout_main: the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "checkout_main: options '%s' and '%s' cannot be used together [-p, --overlay]",
+              "checkout_branch: '%s' cannot be used with switching branches [--patch]",
+              "checkout_branch: '%s' cannot be used with switching branches [--[no]-overlay]",
+              "checkout_branch: <msg> [--ours/--theirs]",
+              "checkout_main: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "Unreachable from switch: its option table has no --unified, --inter-hunk-context, --auto-advance, --patch, --overlay, --ours, --theirs or pathspec-file options, so those values keep their defaults and the words are refused as unknown options, which the typed API models.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts"
+            ]
+          },
+          {
+            "id": "unreachable-paths",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: could not resolve '%s'",
+              "checkout_main: reference is not a tree: %s",
+              "checkout_main: invalid path specification",
+              "checkout_main: '%s' is not a commit and a branch '%s' cannot be created from it",
+              "checkout_main: git checkout: --detach does not take a path argument '%s'",
+              "checkout_main: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "checkout_main: options '%s' and '%s' cannot be used together [--pathspec-from-file, --detach]",
+              "checkout_main: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "checkout_main: git checkout: --ours/--theirs, --force and --merge are incompatible when\nchecking out of the index.",
+              "checkout_main: you must specify path(s) to restore",
+              "checkout_branch: paths cannot be used with switching branches",
+              "parse_branchname_arg: only one reference expected, %d given.",
+              "parse_remote_branch: '%s' could be both a local file and a tracking branch.\nPlease use -- (and optionally --no-guess) to disambiguate"
+            ],
+            "disposition": "modeled",
+            "summary": "Unreachable from switch: accept_ref is set and accept_pathspec is not, so --source is not an option, parse_branchname_arg refuses a second operand and consumes the first, no pathspec is parsed, and the target is never checked as a file name (has_dash_dash is forced).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts"
+            ]
+          },
+          {
+            "id": "creation-modes",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: options '-%c', '-%c', and '%s' cannot be used together [*, *, --orphan]"
+            ],
+            "disposition": "modeled",
+            "summary": "At most one of -c, -C and --orphan (switch-creation; repo.switch switch.create-forceCreate-detach-orphan).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "track-without-name",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: --track needs a branch name",
+              "checkout_main: missing branch name; try -%c"
+            ],
+            "disposition": "modeled",
+            "summary": "Explicit --track or --no-track without -c, -C or --orphan derives the new branch from the start point: with no start point Git refuses (switch-target, switch-detach-tracking), and the text after the first slash, once refs/ and then remotes/ are skipped, must be nonempty and a valid new branch name (switch-track-start-point, see branch-name-syntax; repo.switch switch.track-start-point).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts",
+              "test/types/command-api.ts"
+            ]
+          },
+          {
+            "id": "arity",
+            "kind": "refusal",
+            "sites": [
+              "parse_branchname_arg: only one reference expected"
+            ],
+            "disposition": "modeled",
+            "summary": "At most one start point; repo.switch emits a second operand only after -c or -C (switch-arity; repo.switch switch.startPoint).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "force-merge",
+            "kind": "refusal",
+            "sites": [
+              "checkout_branch: '%s' cannot be used with '%s' [-f, -m]",
+              "checkout_branch: '%s' cannot be used with '%s' [--discard-changes, --merge]"
+            ],
+            "disposition": "modeled",
+            "summary": "--force and --discard-changes refuse a final merge, which a set --conflict style implies (switch-force-merge, switch-discard-merge; repo.switch switch.force-merge, switch.discard-merge, switch.force-conflict, switch.discard-conflict).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "detach-and-orphan",
+            "kind": "refusal",
+            "sites": [
+              "checkout_branch: '%s' cannot be used with '%s' [--detach, -b/-B/--orphan]",
+              "checkout_branch: '%s' cannot be used with '%s' [--orphan, -t]",
+              "checkout_branch: '%s' cannot take <start-point> [--orphan]",
+              "checkout_branch: '%s' cannot be used with '%s' [--detach, -t]"
+            ],
+            "disposition": "modeled",
+            "summary": "--detach refuses a new branch and explicit tracking, and --orphan refuses explicit tracking and a start point (switch-detach-*, switch-orphan-tracking, switch-orphan-start; repo.switch switch.detach-track, switch.orphan-track, switch.startPoint).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "missing-target",
+            "kind": "refusal",
+            "sites": [
+              "checkout_branch: missing branch or commit argument"
+            ],
+            "disposition": "modeled",
+            "summary": "Switch needs a target, a new branch or --detach (switch-target).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "conflict-style-callback",
+            "kind": "refusal",
+            "sites": [
+              "parse_opt_conflict: unknown conflict style '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "An unknown --conflict style is refused while parsing (see conflict-style).",
+            "evidence": [
+              "src/runner/conflict-style-profiles.test.ts",
+              "test/types/conflict-style-profiles.ts"
+            ]
+          },
+          {
+            "id": "target-resolution",
+            "kind": "refusal",
+            "sites": [
+              "parse_branchname_arg: invalid reference: %s",
+              "parse_branchname_arg: reference is not a tree: %s",
+              "checkout_branch: Cannot switch branch to a non-commit '%s'",
+              "setup_new_branch_info_and_source_tree: unable to read tree (%s)"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The target must resolve to a commit (or be guessed from a unique remote-tracking branch). An empty target is additionally refused statically (switch-empty-start-point; repo.switch switch.empty-branch).",
+            "reason": "Resolution depends on the refs and objects of the repository."
+          },
+          {
+            "id": "remote-guess",
+            "kind": "refusal",
+            "sites": [
+              "parse_remote_branch: '%s' matched multiple (%d) remote tracking branches"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "A guessed name that matches remote-tracking branches of several remotes is refused unless checkout.defaultRemote picks one.",
+            "reason": "It depends on the remote-tracking refs and configuration."
+          },
+          {
+            "id": "branch-expected",
+            "kind": "refusal",
+            "sites": [
+              "die_expecting_a_branch: a branch is expected, got tag '%s'",
+              "die_expecting_a_branch: a branch is expected, got remote branch '%s'",
+              "die_expecting_a_branch: a branch is expected, got '%s'",
+              "die_expecting_a_branch: a branch is expected, got commit '%s'",
+              "die_expecting_a_branch: exit code"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "Without --detach or a new branch, the target must be a local branch.",
+            "reason": "Whether a name is a branch, tag, remote-tracking branch or commit depends on the refs."
+          },
+          {
+            "id": "operation-in-progress",
+            "kind": "refusal",
+            "sites": [
+              "die_if_some_operation_in_progress: cannot switch branch while merging\nConsider \"git merge --quit\" or \"git worktree add\".",
+              "die_if_some_operation_in_progress: cannot switch branch in the middle of an am session\nConsider \"git am --quit\" or \"git worktree add\".",
+              "die_if_some_operation_in_progress: cannot switch branch while rebasing\nConsider \"git rebase --quit\" or \"git worktree add\".",
+              "die_if_some_operation_in_progress: cannot switch branch while cherry-picking\nConsider \"git cherry-pick --quit\" or \"git worktree add\".",
+              "die_if_some_operation_in_progress: cannot switch branch while reverting\nConsider \"git revert --quit\" or \"git worktree add\"."
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Switching is refused during a merge, am, rebase, cherry-pick or revert; the branch-in-use check (branch.c) refuses a branch checked out elsewhere unless --ignore-other-worktrees.",
+            "reason": "Both depend on repository and worktree state."
+          },
+          {
+            "id": "worktree-update",
+            "kind": "refusal",
+            "sites": [
+              "switch_branches: You are on a branch yet to be born",
+              "switch_unborn_to_new_branch: You are on a branch yet to be born",
+              "switch_branches: index file corrupt",
+              "merge_working_tree: index file corrupt",
+              "merge_working_tree: unable to read tree (%s)",
+              "merge_working_tree: you need to resolve your current index first",
+              "merge_working_tree: unable to parse commit %s",
+              "merge_working_tree: <NULL>",
+              "merge_working_tree: unable to write new index file",
+              "orphaned_commit_warning: internal error in revision walk",
+              "update_refs_for_switch: unable to update HEAD"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Updating the index, work tree and HEAD can fail on an unborn branch, an unmerged or corrupt index, local changes that a merge cannot carry, or ref write failures.",
+            "reason": "They depend on the index, work tree and refs."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the switch table: help exits, long prefixes and negations, short clusters, attached and detached values, takes-no-value and unknown-option errors (including options of the other checkout-family commands), the consumed initial end marker and literal retained operands.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and every ordered pair of two distinct words of the switch closure vocabulary (a word is never paired with itself) with each operand shape. Outcomes that Git decides from repository state are recorded as delegated: the builder accepts them, except where a state refusal hides an argument refusal, and then the same options with a resolvable operand reach that refusal in both Git and the builder. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "conflict-style",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--conflict accepts merge, diff3 and zdiff3 (parse_conflict_style_name), refusing other values while parsing; --no-conflict clears it, and a set style implies --merge unless a later --no-merge clears it.",
+            "evidence": [
+              "src/runner/conflict-style-profiles.test.ts",
+              "test/types/conflict-style-profiles.ts",
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules takes an optional Git boolean through option_parse_recurse_submodules_worktree_updater in submodule.c.",
+            "evidence": [
+              "src/commands/boolean-callbacks.test.ts",
+              "test/types/boolean-callback-corpus.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "checkout.* , diff.*, merge.conflictStyle, submodule.recurse and branch.autoSetupMerge set defaults that argv overrides; invalid configuration values are refused by git_checkout_config and the configuration readers.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Case folding (core.ignoreCase) and Windows command-line encoding of operands.",
+            "reason": "They depend on the file system and platform."
+          },
+          {
+            "id": "empty-names",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "An empty target, start point or -c, -C, --orphan name is refused (switch-empty-*; repo.switch switch.empty-branch).",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "track-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--track takes an optional direct or inherit (parse_opt_tracking_mode in branch.c), refusing other values.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "branch-name-syntax",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "A new branch name from -c, -C or --orphan, or derived from a --track start point, must pass validate_new_branchname or validate_branchname (refs.c:check_branch_ref: no leading '-', not HEAD, check_refname_format on refs/heads/<name>). checkout_main checks it after parse_branchname_arg resolves the start point, so an unresolvable start point is refused first. Modeled by switch-create-name, switch-force-create-name and switch-orphan-name (parser branch-name, guarded on a nonempty value; empty values stay with switch-empty-*) and by the derived-name check of switch-track-start-point, in types and at runtime; repo.switch checks the name of create, forceCreate and orphan at runtime (checkedNewBranchName) and the derived name through switch.track-start-point. A leading @{-N} or an @{u}, @{upstream} or @{push} mark is rewritten from the reflog or configuration first and is left to native Git unless the literal remainder makes every rewrite invalid.",
+            "evidence": [
+              "src/constraints/refname.ts",
+              "src/constraints/refname-types.ts",
+              "scripts/switch-restore-closure-corpus.mjs",
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "target-dwim",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "A nonexistent target becomes a new tracking branch when exactly one remote has it and --no-guess is not given; - names the previous branch.",
+            "reason": "It depends on remote-tracking refs, reflogs and checkout.defaultRemote."
+          },
+          {
+            "id": "worktree-state",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Local changes, untracked files that would be overwritten, sparse checkout and submodule state decide whether the switch succeeds.",
+            "reason": "They depend on the work tree and index."
+          }
         ]
       }
     },
@@ -4332,7 +4755,7 @@
       }
     },
     "restore": {
-      "state": "partial",
+      "state": "complete",
       "models": [
         "restore"
       ],
@@ -4367,10 +4790,12 @@
         "src/commands/global-help-dispatch.test.ts",
         "test/types/global-help-dispatch.ts",
         "src/commands/restore-empty-pathspec.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/switch-restore-closure-corpus.test.ts",
+        "test/types/switch-restore-closure-corpus.ts"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected as parse_pathspec does after option parsing, in normal, staged, source, patch and pathspec-file modes, while help still exits first; Git 2.55.0 corpus cases cover these modes. repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. Pathspec magic, pathspec file contents, path matching, interactive patch selection, configuration and index/worktree state are delegated to native Git at runtime. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true,
+      "notes": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,902 independent Git 2.55.0 outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Every restore operand is a pathspec, so an empty operand is rejected as parse_pathspec does after option parsing, in normal, staged, source, patch and pathspec-file modes, while help still exits first; Git 2.55.0 corpus cases cover these modes. repo.restore applies the same check, and an empty pathspecFromFile counts as omitted because it is not emitted. Pathspec magic, pathspec file contents, path matching, interactive patch selection, configuration and index/worktree state are delegated to native Git at runtime. The typed builder requires an explicit -- before a dash-prefixed operand, so a literal --end-of-options operand is refused as a type-git policy rather than a Git rule. Completeness rests on the closure below (docs/design/audit-completion.md), not on corpus size.",
       "evidence": {
         "option-grammar": [
           "test/fixtures/checkout-parser-corpus.json",
@@ -4398,14 +4823,17 @@
           "test/types/checkout-parser-restore-corpus-3.ts",
           "test/types/checkout-parser-restore-corpus-4.ts",
           "test/types/checkout-parser-restore-corpus-5.ts",
-          "test/types/checkout-parser-restore-corpus-6.ts"
+          "test/types/checkout-parser-restore-corpus-6.ts",
+          "test/fixtures/switch-restore-closure-corpus.json",
+          "src/commands/switch-restore-closure-corpus.test.ts"
         ],
         "serialization": [
           "src/commands/checkout-parser.test.ts"
         ],
         "independent-git-tests": [
           "scripts/checkout-parser-corpus.mjs",
-          "src/impl/option-constraints.test.ts"
+          "src/impl/option-constraints.test.ts",
+          "scripts/switch-restore-closure-corpus.mjs"
         ],
         "compiler-tests": [
           "test/types/checkout-parser-restore-corpus-1.ts",
@@ -4415,7 +4843,437 @@
           "test/types/checkout-parser-restore-corpus-5.ts",
           "test/types/checkout-parser-restore-corpus-6.ts",
           "test/types/checkout-parser-api.ts",
-          "test/types/command-api.ts"
+          "test/types/command-api.ts",
+          "test/types/switch-restore-closure-corpus.ts"
+        ]
+      },
+      "closure": {
+        "git": "2.55.0",
+        "entry": "cmd_restore",
+        "sources": {
+          "builtin/checkout.c": [
+            "add_checkout_path_options",
+            "add_common_options",
+            "branch_info_release",
+            "check_stage",
+            "check_stages",
+            "checkout_main",
+            "checkout_merged",
+            "checkout_paths",
+            "checkout_stage",
+            "checkout_worktree",
+            "cmd_restore",
+            "mark_ce_for_checkout_no_overlay",
+            "mark_ce_for_checkout_overlay",
+            "parse_opt_conflict",
+            "post_checkout_hook",
+            "read_tree_some",
+            "setup_branch_path",
+            "setup_new_branch_info_and_source_tree",
+            "skip_same_name",
+            "try_update_sparse_directory",
+            "update_some"
+          ]
+        },
+        "waived": {
+          "checkout_branch": "Branch switching: restore always reaches checkout_paths, because checkout_main refuses restore without a pathspec unless --patch is given.",
+          "parse_branchname_arg": "Called only when accept_ref is set; restore takes its tree from --source instead.",
+          "git_checkout_config": "Configuration callback; covered by the configuration obligation."
+        },
+        "obligations": [
+          {
+            "id": "context-negative",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: '%s' cannot be negative [--unified]",
+              "checkout_main: '%s' cannot be negative [--inter-hunk-context]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --unified or --inter-hunk-context below -1 is refused (restore-unified-range, restore-inter-hunk-context-range).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "patch-only",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: the option '%s' requires '%s' [--unified, --patch]",
+              "checkout_main: the option '%s' requires '%s' [--inter-hunk-context, --patch]"
+            ],
+            "disposition": "modeled",
+            "summary": "A context other than -1 requires a final --patch (restore-unified-patch, restore-inter-hunk-context-patch).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "patch-overlay",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: options '%s' and '%s' cannot be used together [-p, --overlay]"
+            ],
+            "disposition": "modeled",
+            "summary": "A final --patch refuses a final --overlay (restore-patch-overlay).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "unreachable-options",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "checkout_main: options '-%c', '-%c', and '%s' cannot be used together [*, *, --orphan]",
+              "checkout_main: --track needs a branch name",
+              "checkout_main: missing branch name; try -%c",
+              "checkout_main: '%s' is not a commit and a branch '%s' cannot be created from it",
+              "checkout_main: git checkout: --detach does not take a path argument '%s'",
+              "checkout_main: options '%s' and '%s' cannot be used together [--pathspec-from-file, --detach]",
+              "checkout_paths: '%s' cannot be used with updating paths [--track]",
+              "checkout_paths: '%s' cannot be used with updating paths [-l]",
+              "checkout_paths: '%s' cannot be used with updating paths [--detach]",
+              "checkout_paths: Cannot update paths and switch to branch '%s' at the same time."
+            ],
+            "disposition": "modeled",
+            "summary": "Unreachable from restore: its option table has no --auto-advance, -b, -B, -c, -C, --orphan, --track, -l or --detach, so those values keep their defaults and the words are refused as unknown options, which the typed API models.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts"
+            ]
+          },
+          {
+            "id": "unreachable-source-default",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: '%s' must be used when '%s' is not specified [--worktree, --source]"
+            ],
+            "disposition": "modeled",
+            "summary": "Unreachable from restore: without --worktree and --staged checkout_paths refuses first (\"neither\"), and --staged without --source defaults the source to HEAD in checkout_main.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "pathspec-file",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: '%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "checkout_main: options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "checkout_main: the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]"
+            ],
+            "disposition": "modeled",
+            "summary": "A set --pathspec-from-file refuses operands and --patch, and --pathspec-file-nul requires it (restore-file-operands, restore-file-patch, restore-file-nul; repo.restore pathspec.file-operands).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "stage-force-merge",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: git checkout: --ours/--theirs, --force and --merge are incompatible when\nchecking out of the index."
+            ],
+            "disposition": "modeled",
+            "summary": "--ours or --theirs refuses a final merge, which a set --conflict style implies (restore-merge-stage; repo.restore restore.stage-merge, restore.stage-conflict). Restore has no --force.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "paths-required",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: you must specify path(s) to restore"
+            ],
+            "disposition": "modeled",
+            "summary": "Restore needs a pathspec operand, a pathspec file or --patch (restore-paths; repo.restore restore.paths); that argv refusal is modeled. Git also reaches this site when a pathspec file yields no pathspec (for example an empty file); that file-content outcome is delegated under pathspec-file-content, and a file naming a path does not reach it.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "updating-paths",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: '%s' cannot be used with updating paths",
+              "checkout_paths: options '%s' and '%s' cannot be used together [--merge, --patch]",
+              "checkout_paths: options '%s' and '%s' cannot be used together [*, -m]"
+            ],
+            "disposition": "modeled",
+            "summary": "--ignore-unmerged refuses --patch and a final merge, and --patch refuses a final merge (restore-ignore-unmerged-patch, restore-patch-merge, restore-ignore-unmerged-merge; repo.restore restore.ignoreUnmerged-merge).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "destinations",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: neither '%s' or '%s' is specified [--staged, --worktree]"
+            ],
+            "disposition": "modeled",
+            "summary": "Naming either destination disables the default worktree destination, and at least one must remain (restore-destination-*).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "staged-conflicts",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: '%s' or '%s' cannot be used with %s [--ours, --theirs, --staged]",
+              "checkout_paths: '%s' or '%s' cannot be used with %s [--merge, --conflict, --staged]"
+            ],
+            "disposition": "modeled",
+            "summary": "--staged refuses --ours, --theirs and a final merge (restore-staged-*; repo.restore restore.staged-conflict).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "source-conflicts",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: '%s', '%s', or '%s' cannot be used when checking out of a tree [--merge, --ours, --theirs]"
+            ],
+            "disposition": "modeled",
+            "summary": "An explicit or implied (--staged) source refuses --ours, --theirs and a final merge (restore-source-*; repo.restore restore.source-*).",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "conflict-style-callback",
+            "kind": "refusal",
+            "sites": [
+              "parse_opt_conflict: unknown conflict style '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "An unknown --conflict style is refused while parsing (see conflict-style).",
+            "evidence": [
+              "src/runner/conflict-style-profiles.test.ts",
+              "test/types/conflict-style-profiles.ts"
+            ]
+          },
+          {
+            "id": "empty-source",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: could not resolve '%s'"
+            ],
+            "disposition": "modeled",
+            "summary": "An empty --source never resolves and is refused statically (restore-empty-source); repo.restore refuses it too (restore.source-empty) instead of silently restoring from the index. Whether a nonempty source resolves is delegated under source-resolution.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "source-tree",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: reference is not a tree: %s",
+              "setup_new_branch_info_and_source_tree: unable to read tree (%s)"
+            ],
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "The source must name a tree-ish whose tree can be read.",
+            "reason": "It depends on the objects of the repository."
+          },
+          {
+            "id": "pathspec-result",
+            "kind": "refusal",
+            "sites": [
+              "checkout_main: invalid path specification"
+            ],
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "parse_pathspec leaves no pathspec items.",
+            "reason": "parse_pathspec yields no items for a nonempty operand list only under pathspec magic or environment settings; no plain operand reaches it."
+          },
+          {
+            "id": "index-state",
+            "kind": "refusal",
+            "sites": [
+              "checkout_paths: index file corrupt",
+              "checkout_paths: path '%s' is unmerged",
+              "checkout_paths: unable to write new index file",
+              "check_stage: path '%s' does not have our version",
+              "check_stage: path '%s' does not have their version",
+              "check_stages: path '%s' does not have all necessary versions",
+              "checkout_merged: path '%s' does not have necessary versions",
+              "checkout_merged: path '%s': cannot merge",
+              "checkout_merged: Unable to add merge result for '%s'",
+              "checkout_merged: make_cache_entry failed for path '%s'",
+              "checkout_stage: path '%s' does not have our version",
+              "checkout_stage: path '%s' does not have their version"
+            ],
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Stage selection, merge recreation and unmerged paths depend on the index entries of the matched paths.",
+            "reason": "They depend on the index."
+          },
+          {
+            "id": "parse-options",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Ordinary parse-options behavior of the restore table: help exits, long prefixes and negations, short clusters, attached and detached values, takes-no-value and unknown-option errors (including options of the other checkout-family commands), the consumed initial end marker and literal retained operands.",
+            "evidence": [
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "test/fixtures/parser-exit-corpus.json",
+              "src/commands/parser-exits.test.ts"
+            ]
+          },
+          {
+            "id": "refusal-order",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and every ordered pair of two distinct words of the restore closure vocabulary (a word is never paired with itself) with each operand shape. Outcomes that Git decides from repository state are recorded as delegated: the builder accepts them, except where a state refusal hides an argument refusal, and then the same options with a resolvable operand reach that refusal in both Git and the builder. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "evidence": [
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "completion-exits",
+            "kind": "parser",
+            "disposition": "modeled",
+            "summary": "--git-completion-helper and --git-completion-helper-all exit successfully as single words.",
+            "evidence": [
+              "test/fixtures/parse-options-completion-corpus.json",
+              "src/commands/parse-options-completion.test.ts"
+            ]
+          },
+          {
+            "id": "completion-listing",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "completion-output",
+            "summary": "The option list printed by the completion helper is not typed."
+          },
+          {
+            "id": "legacy-parsers",
+            "kind": "parser",
+            "disposition": "excluded",
+            "exclusion": "other-git-versions",
+            "summary": "Parser differences of other Git releases are covered by the legacy job's regression tests only."
+          },
+          {
+            "id": "conflict-style",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--conflict accepts merge, diff3 and zdiff3 (parse_conflict_style_name), refusing other values while parsing; --no-conflict clears it, and a set style implies --merge unless a later --no-merge clears it.",
+            "evidence": [
+              "src/runner/conflict-style-profiles.test.ts",
+              "test/types/conflict-style-profiles.ts",
+              "test/fixtures/switch-restore-closure-corpus.json",
+              "src/commands/switch-restore-closure-corpus.test.ts",
+              "test/types/switch-restore-closure-corpus.ts"
+            ]
+          },
+          {
+            "id": "recurse-submodules-values",
+            "kind": "values",
+            "disposition": "modeled",
+            "summary": "--recurse-submodules takes an optional Git boolean through option_parse_recurse_submodules_worktree_updater in submodule.c.",
+            "evidence": [
+              "src/commands/boolean-callbacks.test.ts",
+              "test/types/boolean-callback-corpus.ts"
+            ]
+          },
+          {
+            "id": "configuration",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "configuration",
+            "summary": "checkout.* , diff.*, merge.conflictStyle, submodule.recurse and branch.autoSetupMerge set defaults that argv overrides; invalid configuration values are refused by git_checkout_config and the configuration readers.",
+            "reason": "Configuration is read by native Git at runtime."
+          },
+          {
+            "id": "argv-encoding",
+            "kind": "platform",
+            "disposition": "delegated",
+            "basis": "platform",
+            "summary": "Case folding (core.ignoreCase) and Windows command-line encoding of operands.",
+            "reason": "They depend on the file system and platform."
+          },
+          {
+            "id": "empty-pathspec",
+            "kind": "operands",
+            "disposition": "modeled",
+            "summary": "Every operand is a pathspec, and parse_pathspec refuses an empty one after option parsing (restore-empty-pathspec; repo.restore pathspec.empty-pathspec).",
+            "evidence": [
+              "src/commands/restore-empty-pathspec.test.ts",
+              "test/fixtures/checkout-parser-corpus.json",
+              "src/commands/checkout-parser.test.ts",
+              "src/impl/option-constraints.test.ts"
+            ]
+          },
+          {
+            "id": "source-resolution",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "A nonempty --source must resolve to a tree-ish.",
+            "reason": "Resolution depends on the refs and objects of the repository."
+          },
+          {
+            "id": "pathspec-magic",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "environment",
+            "summary": "Pathspec magic and its validity, including the GIT_*_PATHSPECS defaults.",
+            "reason": "Magic is enabled and checked by parse_pathspec under the inherited environment."
+          },
+          {
+            "id": "pathspec-file-content",
+            "kind": "operands",
+            "disposition": "delegated",
+            "basis": "file-content",
+            "summary": "Pathspecs read from --pathspec-from-file, including quoting and NUL separation, unmatched pathspecs, and a file that yields no pathspec (checkout_main: you must specify path(s) to restore, recorded under paths-required).",
+            "reason": "The file and the matching paths are read at runtime."
+          },
+          {
+            "id": "patch-selection",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "terminal",
+            "summary": "--patch selects hunks interactively from standard input.",
+            "reason": "The answers are given at runtime."
+          }
         ]
       }
     },

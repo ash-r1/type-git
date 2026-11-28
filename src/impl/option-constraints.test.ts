@@ -480,6 +480,226 @@ describe('option constraints against independent Git executions', () => {
     await expect(repo.switch('main')).resolves.toBeUndefined();
   });
 
+  it('checks switch modes, tracking, start points and conflict styles against Git', async () => {
+    raw(['-C', repo.workdir, 'branch', 'other']);
+    raw(['-C', repo.workdir, 'config', 'remote.origin.url', repo.workdir]);
+    raw([
+      '-C',
+      repo.workdir,
+      'config',
+      'remote.origin.fetch',
+      '+refs/heads/*:refs/remotes/origin/*',
+    ]);
+    raw(['-C', repo.workdir, 'update-ref', 'refs/remotes/origin/feat', 'HEAD']);
+    // Only an accepted switch changes HEAD or creates a branch.
+    const reset = () => {
+      raw(['-C', repo.workdir, 'switch', '-qf', 'main']);
+      raw(['-C', repo.workdir, 'branch', '-qD', 'neu', 'feat']);
+    };
+    for (const options of assignments({
+      create: [undefined, true],
+      forceCreate: [undefined, true],
+      orphan: [undefined, true],
+      detach: [undefined, true],
+      track: [undefined, true],
+      conflict: [undefined, 'diff3'],
+      force: [undefined, true],
+      startPoint: [undefined, 'main'],
+    })) {
+      const creates = options.create || options.forceCreate || options.orphan;
+      // Without a creation mode, --track derives the new branch name from a slashed target; a
+      // plain switch to a remote-tracking branch is refused from repository state instead.
+      const targets = creates
+        ? ['neu']
+        : options.track || options.detach
+          ? ['other', 'origin/feat']
+          : ['other'];
+      for (const target of targets) {
+        // Independent of WorktreeRepo.switch: options first, then the target as the value of
+        // -c/-C/--orphan or as the first operand, then the start point.
+        const args = ['-C', repo.workdir, 'switch'];
+        if (options.detach) {
+          args.push('--detach');
+        }
+        if (options.track) {
+          args.push('--track');
+        }
+        if (options.conflict) {
+          args.push(`--conflict=${options.conflict}`);
+        }
+        if (options.force) {
+          args.push('--force');
+        }
+        if (options.create) {
+          args.push('-c');
+        }
+        if (options.forceCreate) {
+          args.push('-C');
+        }
+        if (options.orphan) {
+          args.push('--orphan');
+        }
+        args.push(target);
+        if (options.startPoint) {
+          args.push(options.startPoint);
+        }
+        const result = raw(args);
+        const rejected = [
+          ...violations(COMMAND_CONSTRAINTS.switch, options),
+          ...violations(INPUT_CONSTRAINTS.switchTarget, { ...options, branch: target }),
+        ].map((rule) => rule.id);
+        const label = `${JSON.stringify(args.slice(3))}: ${result.stderr} ${rejected.join(',')}`;
+        expect(result.status === 0, label).toBe(rejected.length === 0);
+        if (rejected.length > 0) {
+          await expect(repo.switch(target, options as never), label).rejects.toBeInstanceOf(
+            GitArgumentError,
+          );
+        } else {
+          reset();
+          await expect(repo.switch(target, options as never), label).resolves.toBeUndefined();
+          reset();
+        }
+      }
+    }
+  }, 30000);
+
+  it('checks new switch branch names, including the --track derived name, against Git', async () => {
+    raw(['-C', repo.workdir, 'config', 'remote.origin.url', repo.workdir]);
+    raw([
+      '-C',
+      repo.workdir,
+      'config',
+      'remote.origin.fetch',
+      '+refs/heads/*:refs/remotes/origin/*',
+    ]);
+    raw(['-C', repo.workdir, 'update-ref', 'refs/remotes/origin/feat', 'HEAD']);
+    raw([
+      '-C',
+      repo.workdir,
+      'symbolic-ref',
+      'refs/remotes/origin/HEAD',
+      'refs/remotes/origin/feat',
+    ]);
+    const reset = () => {
+      raw(['-C', repo.workdir, 'switch', '-qf', 'main']);
+      raw(['-C', repo.workdir, 'branch', '-qD', 'ok/x', 'feat']);
+    };
+    raw(['-C', repo.workdir, 'branch', 'side']);
+    const cases: [string, Record<string, unknown>, string[]][] = [];
+    for (const name of ['ok/x', 'a..b', 'HEAD', 'a.lock', 'x~1']) {
+      cases.push([name, { create: true }, ['-c', name]]);
+      cases.push([name, { forceCreate: true }, ['-C', name]]);
+      cases.push([name, { orphan: true }, ['--orphan', name]]);
+    }
+    for (const start of ['origin/HEAD', 'origin/feat']) {
+      cases.push([start, { track: true }, ['--track', start]]);
+    }
+    // An empty startPoint is not emitted, so it needs no creation mode.
+    cases.push(['side', { startPoint: '' }, ['side']]);
+    cases.push(['ok/x', { orphan: true, startPoint: '' }, ['--orphan', 'ok/x']]);
+    for (const [target, options, argv] of cases) {
+      reset();
+      const result = raw(['-C', repo.workdir, 'switch', ...argv]);
+      const label = `${JSON.stringify(argv)}: ${result.stderr}`;
+      reset();
+      if (result.status === 0) {
+        await expect(repo.switch(target, options as never), label).resolves.toBeUndefined();
+      } else {
+        expect(result.stderr, label).toMatch(/is not a valid branch name/);
+        await expect(repo.switch(target, options as never), label).rejects.toBeInstanceOf(
+          GitArgumentError,
+        );
+      }
+    }
+    reset();
+  });
+
+  it('checks restore stage, merge, unmerged, source and path requirements against Git', async () => {
+    const pathsFile = join(root, 'restore-paths');
+    await writeFile(pathsFile, 'file\n');
+    // Older Git (for example 2.25) checks out --ours/--theirs/--merge/--conflict paths from a
+    // --source tree without refusing; the model keeps the current refusal, so on such Git only the
+    // source rules may reject what Git accepts.
+    const sourceStageProbe = raw([
+      '-C',
+      repo.workdir,
+      'restore',
+      '--source=HEAD',
+      '--ours',
+      '--',
+      'file',
+    ]);
+    const refusesSourceStage = sourceStageProbe.status === 128;
+    const SOURCE_STAGE_RULES = new Set([
+      'restore.source-ours',
+      'restore.source-theirs',
+      'restore.source-merge',
+      'restore.source-conflict',
+    ]);
+    for (const options of assignments({
+      staged: [undefined, true],
+      source: [undefined, 'HEAD', ''],
+      ours: [undefined, true],
+      merge: [undefined, true],
+      conflict: [undefined, 'merge'],
+      ignoreUnmerged: [undefined, true],
+      pathspecFromFile: [undefined, pathsFile],
+    })) {
+      for (const paths of options.pathspecFromFile ? [[]] : [[], ['file']]) {
+        const args = ['-C', repo.workdir, 'restore'];
+        if (options.staged) {
+          args.push('--staged');
+        }
+        if (options.source !== undefined) {
+          args.push(`--source=${options.source}`);
+        }
+        if (options.ours) {
+          args.push('--ours');
+        }
+        if (options.ignoreUnmerged) {
+          args.push('--ignore-unmerged');
+        }
+        if (options.merge) {
+          args.push('--merge');
+        }
+        if (options.conflict) {
+          args.push(`--conflict=${options.conflict}`);
+        }
+        if (options.pathspecFromFile) {
+          args.push(`--pathspec-from-file=${options.pathspecFromFile}`);
+        }
+        args.push('--', ...paths);
+        const result = raw(args);
+        const rejected = [
+          ...violations(COMMAND_CONSTRAINTS.restore, options),
+          ...violations(INPUT_CONSTRAINTS.restorePaths, { ...options, paths }),
+        ].map((rule) => rule.id);
+        const label = `${JSON.stringify(args.slice(3))}: ${result.stderr} ${rejected.join(',')}`;
+        // Argument refusals die (128); stage lookups on a clean index are per-path errors (1).
+        const legacyAccepted =
+          !refusesSourceStage &&
+          rejected.length > 0 &&
+          rejected.every((id) => SOURCE_STAGE_RULES.has(id));
+        if (!legacyAccepted) {
+          expect(result.status === 128, label).toBe(rejected.length > 0);
+        }
+        if (rejected.length === 0 && result.status !== 0) {
+          // The only accepted failure: --ours or --merge finds no stage entry for the clean path.
+          expect(result.status, label).toBe(1);
+          expect(Boolean(options.ours || options.merge || options.conflict), label).toBe(true);
+          expect(result.stderr, label).toMatch(
+            /^error: path 'file' does not have (our version|all necessary versions)$/m,
+          );
+        }
+        if (rejected.length > 0) {
+          await expect(repo.restore(paths, options as never), label).rejects.toBeInstanceOf(
+            GitArgumentError,
+          );
+        }
+      }
+    }
+  });
+
   it('treats an empty pathspec file option as omitted, as the convenience APIs emit it', async () => {
     const run = vi.spyOn(
       (repo as unknown as { runner: { runOrThrow: (...args: unknown[]) => unknown } }).runner,

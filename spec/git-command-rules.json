@@ -3988,6 +3988,78 @@
           "value": ""
         }
       ]
+    },
+    {
+      "id": "switch-track-start-point",
+      "kind": "scalar",
+      "key": "operand0",
+      "parser": "track-start-point",
+      "guard": [
+        {
+          "key": "track",
+          "test": "present"
+        },
+        {
+          "key": "create",
+          "test": "inactive"
+        },
+        {
+          "key": "force-create",
+          "test": "inactive"
+        },
+        {
+          "key": "orphan",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "--track or --no-track without -c, -C or --orphan names the new branch after the first '/' of the start point (after refs/ and remotes/), which must leave a nonempty name that check_branch_ref accepts; a help exit happens first.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c"
+    },
+    {
+      "id": "switch-create-name",
+      "kind": "scalar",
+      "key": "create",
+      "parser": "branch-name",
+      "guard": [
+        {
+          "key": "create",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "A nonempty -c name must pass validate_new_branchname or validate_branchname (check_branch_ref: no leading '-', not HEAD, a valid refs/heads/<name>); a leading @{-N} or an @{u}/@{push} mark is rewritten from the repository first. A help exit happens first.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c"
+    },
+    {
+      "id": "switch-force-create-name",
+      "kind": "scalar",
+      "key": "force-create",
+      "parser": "branch-name",
+      "guard": [
+        {
+          "key": "force-create",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "A nonempty -C name must pass validate_new_branchname or validate_branchname (check_branch_ref: no leading '-', not HEAD, a valid refs/heads/<name>); a leading @{-N} or an @{u}/@{push} mark is rewritten from the repository first. A help exit happens first.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c"
+    },
+    {
+      "id": "switch-orphan-name",
+      "kind": "scalar",
+      "key": "orphan",
+      "parser": "branch-name",
+      "guard": [
+        {
+          "key": "orphan",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "A nonempty --orphan name must pass validate_new_branchname or validate_branchname (check_branch_ref: no leading '-', not HEAD, a valid refs/heads/<name>); a leading @{-N} or an @{u}/@{push} mark is rewritten from the repository first. A help exit happens first.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c"
     }
   ],
   "restore": [
@@ -4340,6 +4412,20 @@
           "valueKey": "empty-pathspec"
         }
       ]
+    },
+    {
+      "id": "restore-empty-source",
+      "kind": "forbid",
+      "reason": "An empty --source never resolves, so checkout_main dies with \"could not resolve ''\"; --no-source unsets it and a help exit happens first.",
+      "when": [
+        {
+          "key": "source",
+          "test": "equals",
+          "value": ""
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout.c"
     }
   ],
   "reset": [

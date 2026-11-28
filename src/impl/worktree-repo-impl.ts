@@ -3265,16 +3265,19 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void> {
     // An empty startPoint is not emitted, so only the always-emitted target is checked here.
-    validateInput('switchTarget', { branch }, 'switch');
+    validateInput(
+      'switchTarget',
+      {
+        branch,
+        track: opts?.track,
+        create: opts?.create,
+        forceCreate: opts?.forceCreate,
+        orphan: opts?.orphan,
+      },
+      'switch',
+    );
     validateOptions('switch', opts);
     const args = ['switch'];
-
-    // Existing options
-    if (opts?.create) {
-      args.push('-c');
-    } else if (opts?.forceCreate) {
-      args.push('-C');
-    }
 
     if (opts?.discard) {
       args.push('--discard-changes');
@@ -3313,10 +3316,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--force');
     }
 
-    if (opts?.orphan) {
-      args.push('--orphan');
-    }
-
     if (opts?.overwriteIgnore === false) {
       args.push('--no-overwrite-ignore');
     }
@@ -3325,7 +3324,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--ignore-other-worktrees');
     }
 
-    args.push(checkedOperand('switch', 'branch', branch));
+    // -c, -C and --orphan take the branch as their value, so it must follow them directly.
+    const target = checkedOperand('switch', 'branch', branch);
+    if (opts?.create || opts?.forceCreate || opts?.orphan) {
+      checkedNewBranchName('switch', 'branch', target);
+    }
+    if (opts?.create) {
+      args.push('-c', target);
+    } else if (opts?.forceCreate) {
+      args.push('-C', target);
+    } else if (opts?.orphan) {
+      args.push('--orphan', target);
+    } else {
+      args.push(target);
+    }
 
     if (opts?.startPoint) {
       args.push(checkedOperand('switch', 'startPoint', opts.startPoint));
@@ -3919,6 +3931,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   ): Promise<void>;
   public async restore(paths: string | string[], opts?: RestoreOpts & ExecOpts): Promise<void> {
     validatePathInput('restore', paths, opts);
+    validateInput(
+      'restorePaths',
+      {
+        paths: Array.isArray(paths) ? paths : [paths],
+        pathspecFromFile: opts?.pathspecFromFile,
+        source: opts?.source,
+      },
+      'restore',
+    );
     validateOptions('restore', opts);
     const args = ['restore'];
 
