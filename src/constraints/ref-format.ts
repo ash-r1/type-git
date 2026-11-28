@@ -262,15 +262,23 @@ function trailersOptions(arg: string): boolean {
       rest = separator.rest;
       continue;
     }
-    const flag = ['only', 'unfold', 'keyonly', 'valueonly']
-      .map((name) => matchPlaceholder(rest, name))
-      .find(
-        (match) => match && (match.value === undefined || gitBoolean(match.value) !== undefined),
-      );
-    if (!flag) {
+    // match_placeholder_bool_arg moves past a matched name even when its value is not a
+    // boolean, so the next candidate is tried on the text after it: only=bogus,unfold works.
+    let matched = false;
+    for (const name of ['only', 'unfold', 'keyonly', 'valueonly']) {
+      const flag = matchPlaceholder(rest, name);
+      if (!flag) {
+        continue;
+      }
+      rest = flag.rest;
+      if (flag.value === undefined || gitBoolean(flag.value) !== undefined) {
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
       return false;
     }
-    rest = flag.rest;
   }
   return true;
 }

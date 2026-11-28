@@ -80,6 +80,8 @@ const ARGS = [
   'sanitize', 'body', 'size', 'signature', 'subject', 'trailers', 'trailers:', 'trailers:only', 'trailers:only=no', 'trailers:only=maybe',
   'trailers:key', 'trailers:key=', 'trailers:key=a,unfold', 'trailers:separator', 'trailers:separator=%x2c', 'trailers:key_value_separator=:',
   'trailers:keyonly,valueonly=1', 'trailers:,only', 'trailers:only,', 'trailers:bogus', 'lines=3', 'lines=-1', 'lines=', 'lines=0',
+  'only=bogus,unfold=true', 'only=bogus,only', 'only=x,unfold=y,keyonly', 'unfold=x,only',
+  'trailers:only=bogus,unfold=true', 'trailers:only=bogus,only', 'trailers:only=x,unfold=y,keyonly', 'trailers:unfold=x,only',
   'only', 'unfold=yes', 'key=Signed-off-by', 'key', 'separator=,', 'only=2', 'only=0x10',
   'signer', 'grade', 'key', 'fingerprint', 'primarykeyfingerprint', 'trustlevel',
   'tags', 'tags=no', 'tags=2', 'tags=maybe', 'tags=', 'abbrev', 'abbrev=', 'abbrev=4', 'abbrev=-1', 'abbrev=4x', 'abbrev= 4', 'abbrev=+4',
@@ -163,7 +165,11 @@ try {
     record('create', 'sort', value, [['--sort', value], ['--'], operand('created')]);
   }
   // Filters and an explicit --list select list mode even with operands.
-  for (const tokens of [[['--merged', 'main']], [['--contains', 'main']], [['--points-at', 'main']], [['--list'], ['--'], operand('main')]]) {
+  for (const tokens of [
+    [['--merged', 'main']], [['--contains', 'main']], [['--points-at', 'main']], [['--list'], ['--'], operand('main')],
+    [['--merged', 'main'], ['--'], operand('main')], [['--contains', 'main'], ['--'], operand('main')],
+    [['--points-at', 'main'], ['--'], operand('main')],
+  ]) {
     record('filter', 'format', '%(foo)', [['--format', '%(foo)'], ...tokens]);
     record('filter', 'sort', 'foo', [['--sort', 'foo'], ...tokens]);
   }
@@ -182,7 +188,10 @@ try {
       if (tokens[0][0] === '-d' && git(['branch', 'created']).status !== 0) throw new Error('Cannot seed oracle');
       record('action', option, value, [[`--${option}`, value], ...tokens]);
       if (git(['branch', '--set-upstream-to', 'main', 'topic']).status !== 0) throw new Error('Cannot reset oracle');
-      git(['branch', '-D', 'created']);
+      const reset = git(['branch', '-D', 'created']);
+      if (tokens.some((token) => token.operand === 'created') && tokens[0][0] !== '-d' && reset.status !== 0) {
+        throw new Error(`Cannot reset oracle: ${reset.stderr}`);
+      }
     }
   }
   // One case per line keeps the fixture reviewable; argv is the tokens serialized as option=value.
