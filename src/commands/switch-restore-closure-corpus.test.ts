@@ -25,14 +25,37 @@ const resolvedKey = (row: Row): string =>
     row.command,
     row.tokens.map((token) => (Array.isArray(token) ? token : { operand: 'side' })),
   ]);
-/** The rule ids (with `*` wildcards) the generator mapped a Git diagnostic to, as one pattern. */
-const rulePattern = (label: string): RegExp =>
-  new RegExp(
-    label
-      .split(', ')
-      .map((id) => `\\[${id.replace(/\*/g, '[a-z-]+')}\\]`)
-      .join('|'),
-  );
+/** The `--` or `--no-` prefix of a long option name. */
+const OPTION_PREFIX = /^--(no-)?/;
+/** The option names that select one rule id for a generator label's `*` wildcard. */
+const WILDCARD_PARTS: Record<string, string> = {
+  create: 'create',
+  'force-create': 'force-create',
+  orphan: 'orphan',
+  ours: 'stage',
+  theirs: 'stage',
+  merge: 'merge',
+  conflict: 'merge',
+  staged: 'staged',
+  worktree: 'worktree',
+};
+/**
+ * The exact rule ids a generator label names for one row: each `*` expands only to the parts the
+ * row's own options select, so `switch-detach-*` with `--create` requires `[switch-detach-create]`.
+ */
+const ruleIds = (label: string, row: Row): string[] => {
+  const parts = row.tokens.flatMap((token) => {
+    const name = Array.isArray(token) ? String(token[0]).replace(OPTION_PREFIX, '') : '';
+    const part = WILDCARD_PARTS[name];
+    return part === undefined ? [] : [part];
+  });
+  return label
+    .split(', ')
+    .flatMap((id) => (id.includes('*') ? parts.map((part) => id.replace('*', part)) : [id]));
+};
+/** Whether a builder rejection names one of the exact rule ids. */
+const namesRule = (message: string, ids: string[]): boolean =>
+  ids.some((id) => message.includes(`[${id}]`));
 /** Rules whose outcome depends on the operand's value, not only on its presence. */
 const OPERAND_VALUE_RULE = /switch-track-start-point|-name\b/;
 /** Explicit new-branch options and the rule that checks each one's name. */
@@ -94,8 +117,8 @@ describe('switch and restore completion closure corpus', () => {
         resolved.valid ||
         rule === undefined ||
         typeof resolvedResult !== 'string' ||
-        !rulePattern(rule).test(resolvedResult) ||
-        !rulePattern(rule).test(result)
+        !namesRule(resolvedResult, ruleIds(rule, resolved)) ||
+        !namesRule(result, ruleIds(rule, resolved))
       ) {
         unexplained.push(`${JSON.stringify(row.argv)}: ${row.diagnostic}; builder: ${result}`);
       } else {

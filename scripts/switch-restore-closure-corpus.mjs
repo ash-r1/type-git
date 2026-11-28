@@ -277,14 +277,18 @@ try {
   for (const row of derived.filter((candidate) => !candidate.delegated)) typeRows.switch.push(row);
   // Numeric context bounds with --patch and a path: -1 is accepted and -2 is refused as negative.
   // Pinned acceptances: @{-1} as a forced new branch name and a NUL-separated pathspec file.
-  for (const spelled of [
-    ['restore', '--patch', '--unified=-1', 'file'],
-    ['restore', '--patch', '--inter-hunk-context=-2', 'file'],
-    ['switch', '--force-create=@{-1}'],
-    ['restore', '--pathspec-from-file=../oracle-paths-nul', '--pathspec-file-nul'],
+  // Each pinned row states the outcome it witnesses, so a changed Git outcome stops generation.
+  for (const [spelled, valid] of [
+    [['restore', '--patch', '--unified=-1', 'file'], true],
+    [['restore', '--patch', '--inter-hunk-context=-2', 'file'], false],
+    [['switch', '--force-create=@{-1}'], true],
+    [['restore', '--pathspec-from-file=../oracle-paths-nul', '--pathspec-file-nul'], true],
   ]) {
     const row = cases.find((candidate) => JSON.stringify(candidate.argv) === JSON.stringify(spelled));
     if (!row) throw new Error(`Missing pinned row ${spelled.join(' ')}`);
+    if (row.valid !== valid) {
+      throw new Error(`Pinned row ${spelled.join(' ')}: expected valid=${valid}, got ${row.diagnostic}`);
+    }
     typeRows[row.command].push(row);
   }
   for (const row of cases.filter((candidate) => !candidate.delegated && !typeRows[candidate.command].includes(candidate))) {
