@@ -368,6 +368,61 @@ git.command('stash', [['--'], { operand: '' }]);
 // Help exits before the pathspec is parsed.
 git.command('stash push', [['-h'], ['--'], { operand: '' }]);
 git.command('stash push', [['--'], { operand: 'path' }]);
+// @ts-expect-error An empty stash reference expands to refs/stash@{}, which never resolves.
+git.command('stash apply', [{ operand: '' }]);
+// @ts-expect-error Drop resolves the same empty reference.
+git.command('stash drop', [{ operand: '' }]);
+// @ts-expect-error Pop resolves the same empty reference, with or without --index.
+git.command('stash pop', [['--index'], { operand: '' }]);
+// @ts-expect-error Root dispatch reaches the same child check.
+git.command('stash', [{ operand: 'apply' }, { operand: '' }]);
+// Help exits before the reference is resolved.
+git.command('stash apply', [{ operand: '' }, ['-h']]);
+git.command('stash apply', [{ operand: '0' }]);
+// @ts-expect-error The explicit expansion of an empty reference is refused the same way.
+git.command('stash apply', [{ operand: 'refs/stash@{}' }]);
+// @ts-expect-error Show resolves the same explicit expansion.
+git.command('stash show', [{ operand: 'refs/stash@{}' }]);
+// @ts-expect-error The reference is resolved before a later completion helper exits.
+git.command('stash show', [{ operand: 'refs/stash@{}' }, ['--git-completion-helper']]);
+// @ts-expect-error The empty reference is resolved before the completion helper too.
+git.command('stash show', [['--git-completion-helper'], { operand: '' }]);
+// @ts-expect-error So is the stash revision count.
+git.command('stash show', [{ operand: '0' }, { operand: '1' }, ['--git-completion-helper']]);
+git.command('stash show', [{ operand: 'stash@{0}' }, ['--git-completion-helper']]);
+git.command('stash show', [{ operand: 'refs/stash@{}' }, ['-h']]);
+// @ts-expect-error The explicit expansion is never a stash reference for stash branch.
+git.command('stash branch', [{ operand: 'topic' }, { operand: 'refs/stash@{}' }]);
+// @ts-expect-error Export cannot find refs/stash@{} as a stash entry.
+git.command('stash export', [['--print'], { operand: 'refs/stash@{}' }]);
+git.command('stash apply', [{ operand: 'stash@{0}' }]);
+// @ts-expect-error An empty branch name fails checkout -b.
+git.command('stash branch', [{ operand: '' }]);
+// @ts-expect-error An empty stash reference after the branch name never resolves.
+git.command('stash branch', [{ operand: 'topic' }, { operand: '' }]);
+git.command('stash branch', [{ operand: 'topic' }, { operand: '0' }]);
+// @ts-expect-error An empty commit name never resolves, even with --quiet.
+git.command('stash store', [['-q'], { operand: '' }]);
+// @ts-expect-error An empty revision is never a valid exported stash.
+git.command('stash import', [{ operand: '' }]);
+// @ts-expect-error An empty stash entry cannot be found for export.
+git.command('stash export', [['--print'], { operand: '0' }, { operand: '' }]);
+git.command('stash export', [['--print'], { operand: '0' }]);
+// @ts-expect-error checkout -b refuses a branch name that fails check_branch_ref.
+git.command('stash branch', [{ operand: 'a..b' }]);
+// @ts-expect-error HEAD is never a valid new branch name.
+git.command('stash branch', [{ operand: 'HEAD' }, { operand: '0' }]);
+git.command('stash branch', [{ operand: 'topic/name' }]);
+// @ts-expect-error refs_update_ref refuses a --to-ref that fails check_refname_format.
+git.command('stash export', [['--to-ref', 'a..b']]);
+// @ts-expect-error An empty --to-ref is not a ref name.
+git.command('stash export', [['--to-ref', '']]);
+// @ts-expect-error The pseudoref FETCH_HEAD cannot be updated.
+git.command('stash export', [['--to-ref', 'FETCH_HEAD']]);
+git.command('stash export', [['--to-ref', 'HEAD']]);
+git.command('stash export', [['--to-ref', 'out'], { operand: '0' }]);
+// The last --to-ref is cleared by --no-to-ref before --print is chosen.
+git.command('stash export', [['--to-ref', 'a..b'], ['--no-to-ref'], ['--print']]);
 // @ts-expect-error parse_pathspec rejects an empty add pathspec after the final checks.
 git.command('add', [['--'], { operand: '' }]);
 // @ts-expect-error Interactive add parses the same pathspec, even after edit mode.

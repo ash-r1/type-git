@@ -1311,13 +1311,45 @@ type RevisionPassState<
       ? [S] extends [never]
         ? InvalidPass
         : P extends { exited: true }
-          ? S & { parserExited: true }
+          ? PartitionRulesValid<C, S> extends true
+            ? S & { parserExited: true }
+            : InvalidPass
           : S
       : InvalidPass
     : P extends { dynamic: true }
       ? { parserExited: true }
       : InvalidPass
   : InvalidPass;
+/** Rules that read only a partitioned operand key run before the revision parser can exit. */
+type PartitionRuleKeysOnly<H, K extends string> = H extends
+  | { keys: unknown }
+  | { others: unknown }
+  | { guard: unknown }
+  ? false
+  : H extends { when: readonly (infer P)[] }
+    ? [P] extends [{ key: K }]
+      ? H extends { key: infer X }
+        ? [X] extends [K]
+          ? true
+          : false
+        : true
+      : false
+    : H extends { key: K }
+      ? true
+      : false;
+type PartitionRules<R, K extends string> = R extends readonly [
+  infer H extends Constraint,
+  ...infer Rest,
+]
+  ? PartitionRuleKeysOnly<H, K> extends true
+    ? readonly [H, ...PartitionRules<Rest, K>]
+    : PartitionRules<Rest, K>
+  : readonly [];
+type PartitionRulesValid<C extends GitCommandName, S> = Spec<C> extends {
+  parserExit: { remainingPartition: { operandKey: infer K extends string } };
+}
+  ? CheckRules<S, PartitionRules<Spec<C>['rules'], K>>
+  : true;
 type RemainingState<
   C extends GitCommandName,
   E extends readonly unknown[],
