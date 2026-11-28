@@ -617,6 +617,19 @@ describe('option constraints against independent Git executions', () => {
   it('checks restore stage, merge, unmerged, source and path requirements against Git', async () => {
     const pathsFile = join(root, 'restore-paths');
     await writeFile(pathsFile, 'file\n');
+    // Older Git (for example 2.25) checks out --ours/--theirs/--merge/--conflict paths from a
+    // --source tree without refusing; the model keeps the current refusal, so on such Git only the
+    // source rules may reject what Git accepts.
+    const sourceStageProbe = raw([
+      '-C',
+      repo.workdir,
+      'restore',
+      '--source=HEAD',
+      '--ours',
+      '--',
+      'file',
+    ]);
+    const refusesSourceStage = sourceStageProbe.status === 128;
     for (const options of assignments({
       staged: [undefined, true],
       source: [undefined, 'HEAD'],
@@ -657,7 +670,13 @@ describe('option constraints against independent Git executions', () => {
         ].map((rule) => rule.id);
         const label = `${JSON.stringify(args.slice(3))}: ${result.stderr} ${rejected.join(',')}`;
         // Argument refusals die (128); stage lookups on a clean index are per-path errors (1).
-        expect(result.status === 128, label).toBe(rejected.length > 0);
+        const legacyAccepted =
+          !refusesSourceStage &&
+          rejected.length > 0 &&
+          rejected.every((id) => id.startsWith('restore.source-'));
+        if (!legacyAccepted) {
+          expect(result.status === 128, label).toBe(rejected.length > 0);
+        }
         if (rejected.length > 0) {
           await expect(repo.restore(paths, options as never), label).rejects.toBeInstanceOf(
             GitArgumentError,
