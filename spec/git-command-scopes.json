@@ -1385,6 +1385,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "tag": {
@@ -2931,6 +2934,9 @@
       "revision",
       "color-flag"
     ],
+    "initial": {
+      "dash-word": "-"
+    },
     "options": {
       "-h": {
         "key": "diff-usage",
@@ -3066,6 +3072,38 @@
             }
           }
         ]
+      },
+      "--git-completion-helper": {
+        "key": "completion-helper",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.diff.completion-helper-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The typed API accepts this completion word only as the sole argument. Git also exits on it as the last word before the first \"--\" after other words; elsewhere it is a residual unknown word.",
+            "source": "Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
+      },
+      "--git-completion-helper-all": {
+        "key": "completion-helper-all",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.diff.completion-helper-all-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The typed API accepts this completion word only as the sole argument. Git also exits on it as the last word before the first \"--\" after other words; elsewhere it is a residual unknown word.",
+            "source": "Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+          }
+        ]
       }
     },
     "numericOption": {
@@ -3130,6 +3168,16 @@
           "reason": "A detached --no-index value reached by the explicit no-index scan switches git diff to the separate no-index grammar; use the diff --no-index scope."
         }
       ]
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "origin": "git",
+      "reason": "setup_revisions hands each unrecognized word to diff_opt_parse, whose ONE_SHOT parse_options run sees the words that remain before the first \"--\"; a completion word exits there when it is the last of them. The typed API accepts it as the sole word and refuses it after other words (a restriction: Git also exits when earlier words precede it). -h is a residual word of the selected diff mode, not a parser exit.",
+      "source": "Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
     }
   },
   "diff-files": {
@@ -3751,12 +3799,52 @@
       "--strategy": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "-s": {
         "key": "strategy",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge.custom-strategy-reached",
+            "kind": "elements",
+            "key": "strategy",
+            "withKey": "$value",
+            "allowed": [
+              "recursive",
+              "octopus",
+              "ort",
+              "resolve",
+              "ours",
+              "subtree"
+            ],
+            "maxOutside": 1,
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_parse_strategy/get_strategy",
+            "reason": "The -s callback resolves each strategy while options are parsed, so a second name outside the built-in table is refused before a later -h or --help is reached."
+          }
+        ]
       },
       "--file": {
         "key": "file",
@@ -3820,6 +3908,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "rebase": {
@@ -4049,20 +4140,38 @@
         "set": false
       },
       "-C": {
-        "key": "am-options",
+        "key": "apply-context",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--whitespace": {
-        "key": "am-options",
+        "key": "whitespace",
         "value": "string",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       },
       "--no-whitespace": {
         "key": "am-options",
         "value": "flag",
         "set": "--no-whitespace",
-        "repeat": true
+        "repeat": true,
+        "effects": [
+          {
+            "key": "apply-option",
+            "set": true
+          }
+        ]
       }
     },
     "parserExit": {
@@ -4088,6 +4197,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "cherry-pick": {

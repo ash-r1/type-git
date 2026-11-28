@@ -205,6 +205,21 @@ try {
       sequences.push([mode, a, b]);
     }
   }
+  // Negations that reset a rule input: the later word restores the default before final checks.
+  sequences.push(
+    [['--chmod', 'x'], ['--no-chmod']],
+    [['--no-chmod'], ['--chmod', 'x']],
+    [['-n'], ['--no-dry-run'], ['--ignore-missing']],
+    [['--ignore-missing'], ['-n'], ['--no-dry-run']],
+    [['-i'], ['--no-interactive'], ['--unified', '1']],
+    [['-p'], ['--no-patch'], ['--no-auto-advance']],
+    [['-p'], ['--no-patch'], ['-n']],
+    [['--no-auto-advance'], ['--auto-advance']],
+    [['--pathspec-file-nul'], ['--no-pathspec-file-nul']],
+    [['-A'], ['--no-update'], ['-u']],
+    [['-u'], ['--no-update'], ['-A']],
+    [['--unified', '1k'], ['-p']],
+  );
   // An empty pathspec is rejected after the final checks and inside interactive add, but not
   // after a later --no-edit, a separator or a nonempty path.
   sequences.push(

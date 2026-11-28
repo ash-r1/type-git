@@ -16,6 +16,16 @@ import { createGitSync } from './git-impl.js';
 const supportsSubmoduleFilter = spawnSync('git', ['clone', '-h'], {
   encoding: 'utf8',
 }).stdout.includes('also-filter-submodules');
+// The rebase backend comparison runs every option the audit covers, the newest being
+// --update-refs (Git 2.38); older Git refuses it as unknown, which is not the rule under test.
+const supportsRebaseUpdateRefs = spawnSync('git', ['rebase', '-h'], {
+  encoding: 'utf8',
+}).stdout.includes('update-refs');
+// Git that knows --empty but not its stop value (for example 2.43) refuses the value in the option
+// callback (exit 128); Git without --empty (2.25) reports an unknown option. Both happen before a
+// later -h, so only a release that accepts --empty=stop reaches the plain usage exit.
+const emptyStopProbe = spawnSync('git', ['rebase', '--empty=stop', '-h'], { encoding: 'utf8' });
+const supportsRebaseEmptyStop = emptyStopProbe.status === 129 && emptyStopProbe.stderr === '';
 
 describe('option constraints against independent Git executions', () => {
   let root: string;
@@ -226,6 +236,98 @@ describe('option constraints against independent Git executions', () => {
     await expect(
       repo.reset('HEAD', { mode: 'hard', intentToAdd: true } as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
+  });
+
+  it.skipIf(!supportsRebaseUpdateRefs)(
+    'checks rebase backend selections and actions against Git',
+    async () => {
+      await repo.raw(['checkout', '-q', '-b', 'topic']);
+      await writeFile(join(repo.workdir, 'topic'), 'topic\n');
+      await repo.add('topic');
+      await repo.commit({ message: 'topic' });
+      await repo.raw(['checkout', '-q', 'main']);
+      await writeFile(join(repo.workdir, 'main'), 'main\n');
+      await repo.add('main');
+      await repo.commit({ message: 'main' });
+      await repo.raw(['checkout', '-q', 'topic']);
+      const start = (await repo.raw(['rev-parse', 'topic'])).stdout.trim();
+      for (const options of assignments({
+        apply: [undefined, true],
+        whitespace: [undefined, 'fix'],
+        root: [undefined, true],
+        onto: [undefined, 'main'],
+        keepBase: [undefined, true],
+        reapplyCherryPicks: [undefined, true],
+        ignoreWhitespace: [undefined, true],
+        updateRefs: [undefined, true],
+      })) {
+        // A refused native run leaves nothing to undo; a successful one is undone below.
+        const args = ['-C', repo.workdir, 'rebase', '-q'];
+        for (const [key, flag] of [
+          ['apply', '--apply'],
+          ['root', '--root'],
+          ['keepBase', '--keep-base'],
+          ['reapplyCherryPicks', '--reapply-cherry-picks'],
+          ['ignoreWhitespace', '--ignore-whitespace'],
+          ['updateRefs', '--update-refs'],
+        ] as const) {
+          if (options[key]) {
+            args.push(flag);
+          }
+        }
+        if (options.whitespace) {
+          args.push('--whitespace', options.whitespace);
+        }
+        if (options.onto) {
+          args.push('--onto', options.onto);
+        }
+        if (!options.root) {
+          args.push('main');
+        }
+        const result = raw(args);
+        if (result.status === 0) {
+          raw(['-C', repo.workdir, 'reset', '-q', '--hard', start]);
+        }
+        const opts = { ...options, quiet: true, ...(options.root ? {} : { upstream: 'main' }) };
+        const refused = await repo.rebase(opts as never).then(
+          () => false,
+          (error) => {
+            if (error instanceof GitArgumentError) {
+              return true;
+            }
+            throw error;
+          },
+        );
+        raw(['-C', repo.workdir, 'reset', '-q', '--hard', start]);
+        expect(refused, `${JSON.stringify(options)}: ${result.stderr}`).toBe(result.status !== 0);
+      }
+      await expect(repo.rebase({ abort: true, quiet: true })).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
+      // check_exec_cmd refuses a command with a newline, a blank one, and an empty one in a list.
+      for (const exec of ['', 'a\nb', ' \t']) {
+        await expect(repo.rebase({ upstream: 'main', exec })).rejects.toBeInstanceOf(
+          GitArgumentError,
+        );
+      }
+      await expect(
+        repo.rebase({ upstream: 'main', exec: ['true', ''] } as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+      for (const exec of ['', 'a\nb', ' \t']) {
+        expect(raw(['-C', repo.workdir, 'rebase', '--exec', exec, 'main']).status).not.toBe(0);
+      }
+      await expect(
+        repo.rebase({ upstream: 'main', whitespace: 'bogus' } as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+      expect(raw(['-C', repo.workdir, 'rebase', '--whitespace', 'bogus', 'main']).status).not.toBe(
+        0,
+      );
+    },
+    180_000,
+  );
+
+  it.skipIf(!supportsRebaseEmptyStop)('passes rebase --empty=stop to Git', async () => {
+    await repo.rebase({ upstream: 'main', empty: 'stop' });
   });
 
   it('checks show output-format and first-pass quiet combinations against Git', async () => {
@@ -715,10 +817,11 @@ describe('option constraints against independent Git executions', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(spy).not.toHaveBeenCalled();
     const checked = await client.open(repo.workdir);
-    // No operation is in progress: the error must come from Git, after serialization.
-    await expect(checked.rebase({ abort: true, quiet: true })).rejects.not.toBeInstanceOf(
+    // A rebase action must be the only argument: Git prints usage whatever the state.
+    await expect(checked.rebase({ abort: true, quiet: true })).rejects.toBeInstanceOf(
       GitArgumentError,
     );
+    // No operation is in progress: the error must come from Git, after serialization.
     await expect(
       checked.cherryPick([], { continue: true, cleanup: 'strip' }),
     ).rejects.not.toBeInstanceOf(GitArgumentError);
@@ -731,8 +834,8 @@ describe('option constraints against independent Git executions', () => {
       ),
     ).toBe(true);
     expect(
-      spy.mock.calls.some(([{ argv }]) => argv.includes('--abort') && argv.includes('--quiet')),
-    ).toBe(true);
+      spy.mock.calls.some(([{ argv }]) => argv.includes('rebase') && argv.includes('--abort')),
+    ).toBe(false);
     expect(
       spy.mock.calls.some(
         ([{ argv }]) => argv.includes('--continue') && argv.includes('--cleanup'),

@@ -14,6 +14,7 @@ import {
   isBooleanCallback,
   parseBooleanCallback,
 } from './git-boolean.js';
+import { validLogLineRange } from './log-line-range.js';
 import {
   isStringCallback,
   parseStringCallback,
@@ -100,6 +101,7 @@ export type GitScalarParser =
   | GitTimestampParser
   | GitIntegerParser
   | 'blame-line-range'
+  | 'log-line-range'
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
@@ -260,6 +262,9 @@ export function parseGitScalar(
   }
   if (parser === 'blame-line-range') {
     return { valid: validBlameLineRange(value), value };
+  }
+  if (parser === 'log-line-range') {
+    return { valid: validLogLineRange(value), value };
   }
   if (isStringCallback(parser)) {
     return parseStringCallback(parser, value);

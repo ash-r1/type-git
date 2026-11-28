@@ -52,6 +52,7 @@ export type NativeAddRuleCases = readonly [
   Check<Accepted<[["-e"],["--pathspec-from-file","../oracle-paths"],["--no-pathspec-from-file"]]> extends false ? true : false>,
   Check<Accepted<[["--no-pathspec-from-file"],["--pathspec-from-file","../oracle-paths"],["-e"]]> extends false ? true : false>,
   Check<Accepted<[["-e"],["--unified","1"],["--inter-hunk-context","1"]]> extends false ? true : false>,
+  Check<Accepted<[["-n"],["--no-dry-run"],["--ignore-missing"]]> extends false ? true : false>,
   Check<Accepted<[["-n"],["--"],{"operand":""}]> extends false ? true : false>,
   Check<Accepted<[["-e"],["--no-edit"],{"operand":""}]> extends false ? true : false>,
 ];

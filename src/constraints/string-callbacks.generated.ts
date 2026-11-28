@@ -130,4 +130,34 @@ export const STRING_CALLBACKS = {
     source:
       "builtin/commit.c:parse_and_validate_options; a nonempty run of ASCII letters (git-compat-util/sane-ctype isalpha, which ignores the locale) directly followed by ':' names a suboption, which must be amend or reword; any other value is a commit name",
   },
+  'rebase-apply-context': {
+    kind: 'character-set',
+    characters: '0123456789',
+    source:
+      'Git 2.55.0 builtin/rebase.c:cmd_rebase; every character after -C must be a decimal digit, and an empty value is accepted.',
+  },
+  'rebase-whitespace': {
+    kind: 'choice',
+    exact: ['nowarn', 'warn', 'error', 'error-all', 'fix', 'strip'],
+    prefixes: [],
+    allowEmpty: true,
+    source:
+      'Git 2.55.0 builtin/rebase.c:cmd_rebase; --whitespace=fix and strip are matched first, then any nonempty value other than warn, nowarn, error and error-all is refused. An empty value passes cmd_rebase; git apply refuses it only when there are patches to apply.',
+  },
+  'rebase-trailer': {
+    kind: 'text',
+    blank: '',
+    forbiddenFirst: '=',
+    forbidden: '',
+    source:
+      "Git 2.55.0 trailer.c:validate_trailer_args/find_separator; an empty trailer and one whose first character is '=' are always refused. Other separators come from trailer.separators (default ':') and remain native.",
+  },
+  'rebase-exec': {
+    kind: 'text',
+    blank: ' \t\r\f\u000b',
+    forbiddenFirst: '',
+    forbidden: '\n',
+    source:
+      'Git 2.55.0 builtin/rebase.c:check_exec_cmd; a command must not contain a newline and must not consist only of spaces, tabs, carriage returns, form feeds and vertical tabs.',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;
