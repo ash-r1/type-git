@@ -145,7 +145,11 @@
       "origin": [
         "undefined",
         "\"\"",
-        "\"value\""
+        "\"value\"",
+        "\"origin\"",
+        "\"a b\"",
+        "\".x\"",
+        "\"a:b\""
       ],
       "shallowSince": [
         "undefined",
@@ -212,8 +216,8 @@
         "true"
       ]
     },
-    "total": "76866022648668960",
-    "accepted": "3951688987800000",
+    "total": "179354052846894240",
+    "accepted": "5927533481700000",
     "nodes": 302,
     "isolatedRuleWitnesses": {
       "clone.filter-grammar": "{\"filter\":\"\"}",
@@ -689,7 +693,11 @@
         "\"value\"",
         "[]",
         "[\"\"]",
-        "[\"value\"]"
+        "[\"value\"]",
+        "\"main\"",
+        "\"tag\"",
+        "[\"tag\",\"v1\"]",
+        "[\"tag\",\"\"]"
       ],
       "prune": [
         "undefined",
@@ -874,9 +882,9 @@
         "true"
       ]
     },
-    "total": "3228372951244096320",
-    "accepted": "44059007691036000",
-    "nodes": 280,
+    "total": "5380621585406827200",
+    "accepted": "51108448921601760",
+    "nodes": 312,
     "isolatedRuleWitnesses": {
       "fetch.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
       "fetch.deepen-depth": "{\"deepen\":1,\"depth\":1}",
@@ -884,7 +892,7 @@
       "fetch.all-remote": "{\"all\":true,\"remote\":\"\"}",
       "fetch.all-refspec": "{\"all\":true,\"refspec\":\"\"}",
       "fetch.refspec-remote": "{\"refspec\":\"value\"}",
-      "fetch.tag-shorthand": null,
+      "fetch.tag-shorthand": "{\"refspec\":\"tag\",\"remote\":\"value\"}",
       "fetch.unsupported": "{\"multiple\":false}",
       "fetch.depth": "{\"depth\":1.5}",
       "fetch.depth-range": "{\"depth\":-1}",
@@ -908,7 +916,14 @@
         "\"value\"",
         "[]",
         "[\"\"]",
-        "[\"value\"]"
+        "[\"value\"]",
+        "\"main\"",
+        "\"tag\"",
+        "[\"tag\",\"v1\"]",
+        "[\"tag\",\"\"]",
+        "\"a:b\"",
+        "\"bad name\"",
+        "[\"main\",\"a:b\"]"
       ],
       "force": [
         "undefined",
@@ -1020,7 +1035,10 @@
         "\"value\"",
         "[]",
         "[\"\"]",
-        "[\"value\"]"
+        "[\"value\"]",
+        "\"a\"",
+        "\"a\\nb\"",
+        "[\"a\",\"a\\nb\"]"
       ],
       "ipv4": [
         "undefined",
@@ -1033,9 +1051,9 @@
         "true"
       ]
     },
-    "total": "10041939074880",
-    "accepted": "1891759898880",
-    "nodes": 192,
+    "total": "32636301993360",
+    "accepted": "2935595053440",
+    "nodes": 257,
     "isolatedRuleWitnesses": {
       "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"\"}",
       "push.all-tags": "{\"all\":true,\"tags\":true}",
@@ -1048,9 +1066,9 @@
       "push.delete-tags": "{\"deleteRefs\":true,\"refspec\":\"value\",\"remote\":\"value\",\"tags\":true}",
       "push.delete-refs": "{\"deleteRefs\":true}",
       "push.refspec-remote": "{\"refspec\":\"value\"}",
-      "push.tag-shorthand": null,
+      "push.tag-shorthand": "{\"refspec\":\"tag\",\"remote\":\"value\"}",
       "push.delete-names": "{\"deleteRefs\":true,\"refspec\":\"\"}",
-      "push.option-newline": null
+      "push.option-newline": "{\"pushOption\":\"a\\nb\"}"
     }
   },
   {
@@ -1786,7 +1804,9 @@
       "branch": [
         "undefined",
         "\"\"",
-        "\"value\""
+        "\"value\"",
+        "\"main\"",
+        "\"tag\""
       ],
       "rebase": [
         "undefined",
@@ -2012,13 +2032,13 @@
         "true"
       ]
     },
-    "total": "15254062194628355112000",
-    "accepted": "592966460432589120000",
-    "nodes": 335,
+    "total": "25423436991047258520000",
+    "accepted": "658851622702876800000",
+    "nodes": 346,
     "isolatedRuleWitnesses": {
       "pull.branch-remote": "{\"branch\":\"value\"}",
       "pull.all-remote": "{\"all\":true,\"remote\":\"value\"}",
-      "pull.tag-shorthand": null,
+      "pull.tag-shorthand": "{\"branch\":\"tag\",\"remote\":\"value\"}",
       "pull.cleanup": "{\"cleanup\":\"value\"}",
       "pull.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
       "pull.deepen-depth": "{\"deepen\":1,\"depth\":1}",

@@ -6,7 +6,7 @@
 // remotes. Cases are singles and pairs over a fixed vocabulary crossed with operand shapes;
 // they witness the closure's mappings and are not a completeness argument.
 import { spawnSync } from 'node:child_process';
-import { closeSync, openSync } from 'node:fs';
+import { closeSync, cpSync, openSync, rmSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -15,6 +15,8 @@ import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 const root = new URL('../', import.meta.url);
 const base = await mkdtemp(join(tmpdir(), 'type-git-fetch-closure-'));
 const directory = join(base, 'repo');
+// Each case starts from a copy of the seeded clone: a dry run can still update .git/shallow.
+const pristine = join(base, 'pristine');
 const env = {
   ...nativeOracleBaseEnv(),
   HOME: base,
@@ -59,6 +61,8 @@ const REFUSALS = [
   /^fatal: --atomic can only be used when fetching from one remote$/,
   /^fatal: --stdin can only be used when fetching from one remote$/,
   /^fatal: you need to specify a tag name$/,
+  // The refspec a tag shorthand expands to is parsed from argv alone (push-refspecs.ts).
+  /^fatal: invalid refspec 'refs\/tags\/.*'$/,
   /^fatal: bad recurse-submodules argument: .*$/,
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value)$/,
 ];
@@ -99,14 +103,15 @@ const OPERANDS = [
   [operand('origin'), operand('tag'), operand('v1')], [operand('origin'), operand('main'), operand('tag')],
   [operand('origin'), operand('tag'), operand('tag')], [operand('origin'), operand('second')], [operand('both')],
   [operand('both'), operand('main')], [operand('../origin.git'), operand('main')],
+  [operand('origin'), operand('tag'), operand('')], [operand('origin'), operand('tag'), operand('a:b')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
   await mkdir(join(base, 'work'));
   if (git(['--version'], base).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   for (const [args, cwd] of [
-    [['init', '-q', '--bare', 'origin.git'], base],
-    [['init', '-q', '--bare', 'second.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'origin.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'second.git'], base],
     [['init', '-qb', 'main'], join(base, 'work')],
     [['commit', '-q', '--allow-empty', '-m', 'one'], join(base, 'work')],
     [['tag', 'v1'], join(base, 'work')],
@@ -120,11 +125,16 @@ try {
   ]) {
     if (git(args, cwd).status !== 0) throw new Error(`Cannot seed oracle: ${args.join(' ')}`);
   }
+  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD', '@{upstream}']).stdout.trim().split('\n');
+  if (branch.join(' ') !== 'main origin/main') throw new Error(`Unexpected seed branch: ${branch.join(' ')}`);
+  cpSync(directory, pristine, { recursive: true });
   const cases = [];
   const unclassified = new Map();
   const record = (rest) => {
     const tokens = [['--dry-run'], ...rest];
     const argv = ['fetch', ...serialize(tokens)];
+    rmSync(directory, { recursive: true, force: true });
+    cpSync(pristine, directory, { recursive: true });
     const result = git(argv);
     const output = `${result.stderr}`.split('\n');
     const diagnostic = output.find((line) => /^(usage|fatal|error):/.test(line)) ?? '';
@@ -150,7 +160,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a complete clone of a local bare origin (main and tags v1 and tag) with a second local bare remote and the remote group both = origin second; every case starts with --dry-run; mode pairs and mode-modifier pairs crossed with eleven operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
+        'Git 2.55.0; a complete clone of a local bare origin (main and tags v1 and tag) with a second local bare remote and the remote group both = origin second; each case runs on a fresh copy of that clone and starts with --dry-run; mode pairs and mode-modifier pairs crossed with thirteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
       cases,
     },
     null,

@@ -41,7 +41,10 @@ describe('pull completion closure corpus', () => {
       // type-git restriction: pull's scope checks a forwarded --deepen value when it is parsed,
       // so an invalid value before -h is refused although Git prints usage first.
       const deepenBeforeHelp =
-        row.usage && !accepted && row.argv.indexOf('--deepen=x') < row.argv.indexOf('-h');
+        row.usage &&
+        !accepted &&
+        row.argv.includes('--deepen=x') &&
+        row.argv.indexOf('--deepen=x') < row.argv.indexOf('-h');
       if (accepted !== row.valid && !deepenBeforeHelp) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,

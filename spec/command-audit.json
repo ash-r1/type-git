@@ -1466,7 +1466,7 @@
               "fetch_one: you need to specify a tag name"
             ],
             "disposition": "modeled",
-            "summary": "For a single remote, a refspec word 'tag' consumes the next word as a tag name and is refused as the last word; --multiple treats every word as a remote and --negotiate-only does not read refspecs (cli.fetch.tag-shorthand; repo.fetch fetch.tag-shorthand).",
+            "summary": "For a single remote, a refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and the refspec refs/tags/<tag>:refs/tags/<tag> it expands to must pass parse_refspec; --multiple treats every word as a remote and --negotiate-only does not read refspecs (cli.fetch.tag-shorthand; repo.fetch fetch.tag-shorthand).",
             "evidence": [
               "test/fixtures/fetch-closure-corpus.json",
               "src/commands/fetch-closure-corpus.test.ts",
@@ -1613,7 +1613,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over eleven operand shapes and modifier pairs, all as dry runs, wherever Git does not first refuse for repository or configuration state; where it does, the wrapper may refuse the same argv for a rule Git checks later (for example the tag shorthand after remote resolution).",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over thirteen operand shapes and modifier pairs, all as dry runs, wherever Git does not first refuse for repository or configuration state; where it does, the wrapper may refuse the same argv for a rule Git checks later (for example the tag shorthand after remote resolution).",
             "evidence": [
               "test/fixtures/fetch-closure-corpus.json",
               "src/commands/fetch-closure-corpus.test.ts"
@@ -1902,7 +1902,7 @@
               "set_refspecs: tag shorthand without <tag>"
             ],
             "disposition": "modeled",
-            "summary": "A refspec word 'tag' consumes the next word as a tag name and is refused as the last word (cli.push.tag-shorthand; repo.push push.tag-shorthand).",
+            "summary": "A refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and the refspec it expands to (refs/tags/<tag>, or :refs/tags/<tag> under --delete) must pass parse_refspec (cli.push.tag-shorthand, cli.push.delete-names; repo.push push.tag-shorthand, push.delete-names).",
             "evidence": [
               "test/fixtures/push-closure-corpus.json",
               "src/commands/push-closure-corpus.test.ts",
@@ -1917,7 +1917,7 @@
               "set_refspecs: --delete only accepts plain target ref names"
             ],
             "disposition": "modeled",
-            "summary": "Under --delete every refspec word that a 'tag' word does not consume must be nonempty and contain no ':' (cli.push.delete-names; repo.push push.delete-names).",
+            "summary": "Under --delete every refspec word that a 'tag' word does not consume must be nonempty and contain no ':', and the refspec :<name> it expands to must pass parse_refspec, so <name> must be a valid one-level ref name without '*' (cli.push.delete-names; repo.push push.delete-names).",
             "evidence": [
               "test/fixtures/push-closure-corpus.json",
               "src/commands/push-closure-corpus.test.ts",
@@ -1997,7 +1997,7 @@
             "disposition": "delegated",
             "summary": "Usage is printed when a push returns -1.",
             "basis": "repository-state",
-            "reason": "In Git 2.55.0 do_push and push_multiple return only 0 or 1, so this is reached only if a transport reports -1 at runtime; argv alone never selects it."
+            "reason": "In Git 2.55.0 do_push turns every failure into 1 (return !!errs) and push_multiple returns 1 when a child push fails, so rc is only 0 or 1 and the rc == -1 branch is unreachable from either caller; argv never selects it."
           },
           {
             "id": "parse-options",
@@ -2015,7 +2015,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over fifteen operand shapes and modifier pairs, all as dry runs; the only differences allowed are the listed state diagnostics (remote groups, ref matching, unknown repositories). The typed error lists every violated rule.",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over eighteen operand shapes and modifier pairs, all as dry runs; the only differences allowed are the listed state diagnostics (remote groups, ref matching, unknown repositories). The typed error lists every violated rule.",
             "evidence": [
               "test/fixtures/push-closure-corpus.json",
               "src/commands/push-closure-corpus.test.ts"
@@ -3194,7 +3194,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for single options over ten operand shapes and option pairs over four, all as dry runs, wherever Git does not first refuse for repository or remote state.",
+            "summary": "Acceptance agrees with Git for single options over eleven operand shapes and option pairs over four, all as dry runs, wherever Git does not first refuse for repository or remote state.",
             "evidence": [
               "test/fixtures/pull-closure-corpus.json",
               "src/commands/pull-closure-corpus.test.ts"
@@ -3293,7 +3293,7 @@
             "id": "tag-shorthand",
             "kind": "operands",
             "disposition": "modeled",
-            "summary": "Fetch reads a forwarded refspec word 'tag' as a tag shorthand and refuses it as the last word (cli.pull.tag-shorthand; repo.pull pull.tag-shorthand).",
+            "summary": "Fetch reads a forwarded refspec word 'tag' as a tag shorthand, refuses it as the last word, and parses the refspec refs/tags/<tag>:refs/tags/<tag> it expands to (cli.pull.tag-shorthand; repo.pull pull.tag-shorthand).",
             "evidence": [
               "test/fixtures/pull-closure-corpus.json",
               "src/commands/pull-closure-corpus.test.ts",
@@ -3315,7 +3315,7 @@
             "id": "forwarded-dash-operands",
             "kind": "operands",
             "disposition": "modeled",
-            "summary": "type-git restriction: pull consumes its own -- and forwards the words to fetch without one, so dash-prefixed operands are refused even after -- (forwardedOperands).",
+            "summary": "type-git restriction: when pull's parse does not end at a help exit, pull consumes its own -- and forwards the words to fetch without one, so dash-prefixed operands are refused even after -- (forwardedOperands). A -h before them ends pull's parse, so nothing is forwarded and they are not refused.",
             "evidence": [
               "test/fixtures/pull-forwarding-corpus.json",
               "src/commands/pull-forwarding-corpus.test.ts",

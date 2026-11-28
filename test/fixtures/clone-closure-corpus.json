@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in each order and with each negation; empty file-backed stdin",
+  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference or --no-recurse-submodules; empty file-backed stdin",
   "cases": [
     {
       "command": "clone",
@@ -6412,6 +6412,154 @@
       "command": "clone",
       "tokens": [
         [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ]
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 129,
+      "diagnostic": "fatal: You must specify a repository to clone."
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "dst"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git",
+        "dst"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "dst"
+        },
+        {
+          "operand": "extra"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git",
+        "dst",
+        "extra"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 129,
+      "diagnostic": "fatal: Too many arguments."
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "missing"
+        },
+        {
+          "operand": "dst"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "missing",
+        "dst"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: repository 'missing' does not exist"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "full"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git",
+        "full"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: destination path 'full' already exists and is not an empty directory."
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--bare"
         ],
         [
@@ -7520,6 +7668,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--bare"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--bare",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--no-bare"
         ],
         [
@@ -8623,6 +8797,32 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-bare"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-bare",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -9736,6 +9936,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--mirror"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--mirror",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--separate-git-dir",
           "sep"
         ],
@@ -10888,6 +11114,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--separate-git-dir",
+          "sep"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--separate-git-dir=sep",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--no-checkout"
         ],
         [
@@ -11991,6 +12244,32 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-checkout"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-checkout",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -13143,6 +13422,33 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "up"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=up",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -14301,6 +14607,33 @@
       "tokens": [
         [
           "--origin",
+          "up/stream"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=up/stream",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
           "a b"
         ],
         [
@@ -15453,6 +15786,33 @@
       "tokens": [
         [
           "--origin",
+          "a b"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a b",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
           "x.lock"
         ],
         [
@@ -16605,6 +16965,33 @@
       "tokens": [
         [
           "--origin",
+          "x.lock"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=x.lock",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
           ""
         ],
         [
@@ -17756,6 +18143,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--origin",
+          ""
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "-o",
           ".x"
         ],
@@ -18952,6 +19366,34 @@
       "command": "clone",
       "tokens": [
         [
+          "-o",
+          ".x"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-o",
+        ".x",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--origin",
           "a:b"
         ],
@@ -20099,6 +20541,33 @@
       "state": false,
       "status": 128,
       "diagnostic": "fatal: 'a:b' is not a valid remote name"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "a:b"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a:b",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -21432,6 +21901,37 @@
       "command": "clone",
       "tokens": [
         [
+          "--origin",
+          "a b"
+        ],
+        [
+          "--no-origin"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a b",
+        "--no-origin",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--ref-format",
           "files"
         ],
@@ -22585,6 +23085,33 @@
       "tokens": [
         [
           "--ref-format",
+          "files"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--ref-format=files",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--ref-format",
           "bad"
         ],
         [
@@ -23725,6 +24252,33 @@
         "--ref-format=bad",
         "-c",
         "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: unknown ref storage format 'bad'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--ref-format",
+          "bad"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--ref-format=bad",
+        "-c",
+        "clone.filterSubmodules=maybe",
         "../origin.git"
       ],
       "valid": false,
@@ -24889,6 +25443,33 @@
       "tokens": [
         [
           "--depth",
+          "1"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=1",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
           "0"
         ],
         [
@@ -26041,6 +26622,33 @@
       "tokens": [
         [
           "--depth",
+          "0"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=0",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
           "x"
         ],
         [
@@ -27181,6 +27789,33 @@
         "--depth=x",
         "-c",
         "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=x",
+        "-c",
+        "clone.filterSubmodules=maybe",
         "../origin.git"
       ],
       "valid": false,
@@ -28344,6 +28979,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--shallow-since",
+          "2000-01-01"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--shallow-since=2000-01-01",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--bundle-uri",
           "none.bundle"
         ],
@@ -29491,6 +30153,33 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--bundle-uri",
+          "none.bundle"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--bundle-uri=none.bundle",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -30643,6 +31332,33 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--revision",
+          "main"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--revision=main",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -31801,6 +32517,33 @@
       "tokens": [
         [
           "--branch",
+          "main"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--branch=main",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--branch",
           "nope"
         ],
         [
@@ -32952,6 +33695,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--branch",
+          "nope"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--branch=nope",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--filter",
           "blob:none"
         ],
@@ -34104,6 +34874,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--filter",
+          "blob:none"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--filter=blob:none",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--also-filter-submodules"
         ],
         [
@@ -35212,6 +36009,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--also-filter-submodules"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--also-filter-submodules",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--recurse-submodules"
         ],
         [
@@ -36320,6 +37143,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--recurse-submodules"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recurse-submodules",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--recursive"
         ],
         [
@@ -37428,6 +38277,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--recursive"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recursive",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--no-recurse-submodules"
         ],
         [
@@ -38536,6 +39411,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--no-recurse-submodules"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-recurse-submodules",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--reference",
           "../origin.git"
         ],
@@ -39688,6 +40589,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--reference-if-able",
           "../origin.git"
         ],
@@ -40840,6 +41768,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--no-reference"
         ],
         [
@@ -41948,6 +42903,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--no-reference"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-reference",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--single-branch"
         ],
         [
@@ -43056,6 +44037,32 @@
       "command": "clone",
       "tokens": [
         [
+          "--single-branch"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--single-branch",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "-h"
         ],
         [
@@ -44153,6 +45160,32 @@
         "-h",
         "-c",
         "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-h",
+        "-c",
+        "clone.filterSubmodules=maybe",
         "../origin.git"
       ],
       "valid": true,
@@ -45361,6 +46394,34 @@
       "tokens": [
         [
           "-c",
+          "a=b"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a=b",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "error: key does not contain a section: a"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
           "a.1b=x"
         ],
         [
@@ -46545,6 +47606,34 @@
         "a.1b=x",
         "-c",
         "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "error: invalid key: a.1b"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a.1b=x"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a.1b=x",
+        "-c",
+        "clone.filterSubmodules=maybe",
         "../origin.git"
       ],
       "valid": false,
@@ -47752,6 +48841,34 @@
       "command": "clone",
       "tokens": [
         [
+          "-c",
+          "a.b"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a.b",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--config",
           "sec.sub.var=1"
         ],
@@ -48904,6 +50021,33 @@
       "command": "clone",
       "tokens": [
         [
+          "--config",
+          "sec.sub.var=1"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--config=sec.sub.var=1",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "-c",
           ".x.y=1"
         ],
@@ -50101,6 +51245,34 @@
       "tokens": [
         [
           "-c",
+          ".x.y=1"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        ".x.y=1",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
           "a=b"
         ],
         [
@@ -51467,6 +52639,38 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a=b"
+        ],
+        [
+          "--no-config"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a=b",
+        "--no-config",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
     },
     {
       "command": "clone",
@@ -52669,6 +53873,34 @@
       "tokens": [
         [
           "-c",
+          "clone.defaultRemoteName=up"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName=up",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
           "clone.defaultRemoteName=a b"
         ],
         [
@@ -53865,6 +55097,34 @@
       "tokens": [
         [
           "-c",
+          "clone.defaultRemoteName=a b"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName=a b",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
           "clone.defaultRemoteName"
         ],
         [
@@ -55061,6 +56321,34 @@
       "tokens": [
         [
           "-c",
+          "clone.defaultRemoteName"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "error: missing value for 'clone.defaultremotename'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
           "Clone.RejectShallow=maybe"
         ],
         [
@@ -56245,6 +57533,34 @@
         "Clone.RejectShallow=maybe",
         "-c",
         "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.rejectshallow'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "Clone.RejectShallow=maybe"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "Clone.RejectShallow=maybe",
+        "-c",
+        "clone.filterSubmodules=maybe",
         "../origin.git"
       ],
       "valid": false,
@@ -57452,6 +58768,1258 @@
       "command": "clone",
       "tokens": [
         [
+          "-c",
+          "clone.filterSubmodules=1k"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=1k",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--bare"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--bare",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--no-bare"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--no-bare",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--mirror"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--mirror",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--separate-git-dir",
+          "sep"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--separate-git-dir=sep",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--no-checkout"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--no-checkout",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "up"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=up",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "up/stream"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=up/stream",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "a b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=a b",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "x.lock"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=x.lock",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          ""
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-o",
+          ".x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-o",
+        ".x",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "a:b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=a:b",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--origin",
+          "a b"
+        ],
+        [
+          "--no-origin"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--origin=a b",
+        "--no-origin",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--ref-format",
+          "files"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--ref-format=files",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--ref-format",
+          "bad"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--ref-format=bad",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: unknown ref storage format 'bad'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--depth=1",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--depth=0",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: depth 0 is not a positive number"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--depth=x",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: depth x is not a positive number"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--shallow-since",
+          "2000-01-01"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--shallow-since=2000-01-01",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--bundle-uri",
+          "none.bundle"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--bundle-uri=none.bundle",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--revision",
+          "main"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--revision=main",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--branch",
+          "main"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--branch=main",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--branch",
+          "nope"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--branch=nope",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--filter",
+          "blob:none"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--filter=blob:none",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--also-filter-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--also-filter-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--recursive"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--recursive",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--no-recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--reference=../origin.git",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--reference-if-able=../origin.git",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--no-reference"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--no-reference",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--single-branch"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--single-branch",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "a=b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "a=b",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "a.1b=x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "a.1b=x",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "a.b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "a.b",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "--config",
+          "sec.sub.var=1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--config=sec.sub.var=1",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          ".x.y=1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        ".x.y=1",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "a=b"
+        ],
+        [
+          "--no-config"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "a=b",
+        "--no-config",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName=up"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "clone.defaultRemoteName=up",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName=a b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "clone.defaultRemoteName=a b",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "clone.defaultRemoteName",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "Clone.RejectShallow=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "Clone.RejectShallow=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=1k"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: bad boolean config value 'maybe' for 'clone.filtersubmodules'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--reference",
           "../origin.git"
         ],
@@ -57471,6 +60039,96 @@
         "--reference=../origin.git",
         "--reference-if-able=../origin.git",
         "--recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--reference-if-able=../origin.git",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--reference=../origin.git",
         "../origin.git"
       ],
       "valid": false,
@@ -57512,11 +60170,11 @@
       "command": "clone",
       "tokens": [
         [
-          "--reference-if-able",
-          "../origin.git"
+          "--recurse-submodules"
         ],
         [
-          "--recurse-submodules"
+          "--reference-if-able",
+          "../origin.git"
         ],
         [
           "--reference",
@@ -57528,8 +60186,8 @@
       ],
       "argv": [
         "clone",
-        "--reference-if-able=../origin.git",
         "--recurse-submodules",
+        "--reference-if-able=../origin.git",
         "--reference=../origin.git",
         "../origin.git"
       ],
@@ -57576,6 +60234,108 @@
       "command": "clone",
       "tokens": [
         [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--no-reference"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--reference-if-able=../origin.git",
+        "--no-reference",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-reference"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--no-reference",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--no-reference"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--reference=../origin.git",
+        "--no-reference",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--recurse-submodules"
         ],
         [
@@ -57610,11 +60370,11 @@
       "command": "clone",
       "tokens": [
         [
-          "--reference-if-able",
-          "../origin.git"
+          "--recurse-submodules"
         ],
         [
-          "--recurse-submodules"
+          "--reference-if-able",
+          "../origin.git"
         ],
         [
           "--reference",
@@ -57629,8 +60389,8 @@
       ],
       "argv": [
         "clone",
-        "--reference-if-able=../origin.git",
         "--recurse-submodules",
+        "--reference-if-able=../origin.git",
         "--reference=../origin.git",
         "--no-reference",
         "../origin.git"
@@ -57678,6 +60438,108 @@
       "command": "clone",
       "tokens": [
         [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--reference-if-able=../origin.git",
+        "--no-recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--no-recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--reference=../origin.git",
+        "--no-recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "--recurse-submodules"
         ],
         [
@@ -57712,11 +60574,11 @@
       "command": "clone",
       "tokens": [
         [
-          "--reference-if-able",
-          "../origin.git"
+          "--recurse-submodules"
         ],
         [
-          "--recurse-submodules"
+          "--reference-if-able",
+          "../origin.git"
         ],
         [
           "--reference",
@@ -57731,8 +60593,8 @@
       ],
       "argv": [
         "clone",
-        "--reference-if-able=../origin.git",
         "--recurse-submodules",
+        "--reference-if-able=../origin.git",
         "--reference=../origin.git",
         "--no-recurse-submodules",
         "../origin.git"

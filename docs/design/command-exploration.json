@@ -7072,7 +7072,11 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"origin\"",
+          "\"a b\"",
+          "\".x\"",
+          "\"a:b\""
         ],
         "branch": [
           "undefined",
@@ -7170,7 +7174,13 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"a.b=1\"]",
+          "[\"a\"]",
+          "[\"clone.defaultRemoteName=up\"]",
+          "[\"clone.defaultRemoteName=a b\"]",
+          "[\"clone.defaultRemoteName\"]",
+          "[\"clone.rejectShallow=maybe\"]"
         ],
         "server-option": [
           "undefined",
@@ -7249,9 +7259,9 @@
           "true"
         ]
       },
-      "total": "198310862806875000000000000",
-      "accepted": "38171944463553331200000",
-      "nodes": 1736,
+      "total": "571135284883800000000000000",
+      "accepted": "114515833390659993600000",
+      "nodes": 2611,
       "isolatedRuleWitnesses": {
         "cli.clone.operands": "{\"operands\":[]}",
         "cli.clone.bare-directory": "{\"bare\":true,\"operands\":[\"value\"],\"separate-git-dir\":\"\"}",
@@ -7263,7 +7273,7 @@
         "cli.clone.depth-initial": "{\"depth\":\"\",\"operands\":[\"value\"]}",
         "cli.clone.origin-name": "{\"operands\":[\"value\"],\"origin\":\"\"}",
         "cli.clone.config-parameters": "{\"config\":[\"\"],\"operands\":[\"value\"]}",
-        "cli.clone.config-remote-name": null,
+        "cli.clone.config-remote-name": "{\"config\":[\"clone.defaultRemoteName=a b\"],\"operands\":[\"value\"]}",
         "cli.clone.recursive-references": "{\"operands\":[\"value\"],\"recurse-submodules\":[\"\"],\"reference\":[\"\"],\"reference-if-able\":[\"\"]}"
       }
     },
@@ -9087,7 +9097,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"origin\",\"main\"]",
+          "[\"origin\",\"tag\"]",
+          "[\"origin\",\"tag\",\"v1\"]",
+          "[\"origin\",\"tag\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -9099,9 +9113,9 @@
           "true"
         ]
       },
-      "total": "1268899421501836800000000000",
-      "accepted": "53360632701895680000000000",
-      "nodes": 441,
+      "total": "2284018958703306240000000000",
+      "accepted": "75069073439769600000000000",
+      "nodes": 506,
       "isolatedRuleWitnesses": {
         "cli.fetch.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
         "cli.fetch.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
@@ -9115,7 +9129,7 @@
         "cli.fetch.multiple-filter": "{\"filter\":\"\",\"multiple\":true,\"operands\":[\"value\"]}",
         "cli.fetch.multiple-negotiate-only": "{\"multiple\":true,\"negotiate-only\":true,\"operands\":[\"value\"]}",
         "cli.fetch.depth-initial": "{\"depth\":\"\",\"operands\":[]}",
-        "cli.fetch.tag-shorthand": null
+        "cli.fetch.tag-shorthand": "{\"operands\":[\"origin\",\"tag\"]}"
       }
     },
     {
@@ -10103,7 +10117,8 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"a\",\"a\\nb\"]"
         ],
         "ipv4": [
           "undefined",
@@ -10122,7 +10137,14 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"origin\",\"main\"]",
+          "[\"origin\",\"tag\"]",
+          "[\"origin\",\"tag\",\"v1\"]",
+          "[\"origin\",\"tag\",\"\"]",
+          "[\"origin\",\"\"]",
+          "[\"origin\",\"a:b\"]",
+          "[\"origin\",\"bad name\"]"
         ],
         "operand0": [
           "undefined",
@@ -10134,17 +10156,17 @@
           "true"
         ]
       },
-      "total": "4649045868000000",
-      "accepted": "2020326105600000",
-      "nodes": 78,
+      "total": "12273481091520000",
+      "accepted": "3581487187200000",
+      "nodes": 147,
       "isolatedRuleWitnesses": {
         "cli.push.mode": "{\"mirror\":true,\"operands\":[],\"tags\":true}",
         "cli.push.delete-refs": "{\"delete\":true,\"operands\":[]}",
         "cli.push.all-refs": "{\"all\":true,\"operands\":[\"value\",\"value\"]}",
         "cli.push.mirror-refs": "{\"mirror\":true,\"operands\":[\"value\",\"value\"]}",
-        "cli.push.tag-shorthand": null,
-        "cli.push.delete-names": null,
-        "cli.push.option-newline": null
+        "cli.push.tag-shorthand": "{\"operands\":[\"origin\",\"tag\"]}",
+        "cli.push.delete-names": "{\"delete\":true,\"operands\":[\"origin\",\"\"]}",
+        "cli.push.option-newline": "{\"operands\":[],\"push-option\":[\"a\",\"a\\nb\"]}"
       }
     },
     {
@@ -97860,7 +97882,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"origin\",\"main\"]",
+          "[\"origin\",\"tag\"]",
+          "[\"origin\",\"tag\",\"v1\"]",
+          "[\"origin\",\"tag\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -97872,11 +97898,11 @@
           "true"
         ]
       },
-      "total": "246245793985200204000000000000",
-      "accepted": "5797894279785315840000000000",
-      "nodes": 204,
+      "total": "443242429173360367200000000000",
+      "accepted": "7906219472434521600000000000",
+      "nodes": 235,
       "isolatedRuleWitnesses": {
-        "cli.pull.tag-shorthand": null,
+        "cli.pull.tag-shorthand": "{\"operands\":[\"origin\",\"tag\"]}",
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "cli.pull.all-repositories": "{\"all\":true,\"operands\":[\"value\"]}",
         "cli.pull.depth-unshallow": "{\"depth\":\"1kb\",\"operands\":[],\"unshallow\":true}",

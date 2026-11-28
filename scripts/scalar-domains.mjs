@@ -14,6 +14,15 @@ export function scalarRepresentatives(parser) {
   if (parser === 'object-filter' || parser === 'object-filter-auto') return ['', 'invalid', 'blob:none', 'auto', 'tree:0', 'tree:-1', 'combine:+'];
   if (parser === 'branch-name') return ['topic', 'a/b', '@', 'x/HEAD', '', '-x', 'HEAD', 'a..b', 'a.lock', 'a/', '.a', 'a b', 'a@{b', '@{-1}', 'x@{u}'];
   if (parser === 'refname-onelevel') return ['topic', 'refs/x', '@', '', '.a', '/a', 'a..b', 'a.lock', 'a/', 'a@{b'];
+  // Refspec words, push options, remote names and clone -c parameters (push-refspecs.ts,
+  // config-parameters.ts): one accepted value and the refusals each parser adds.
+  if (parser === 'refspec-operands' || parser === 'fetch-refspec-operands') return [['origin', 'main'], ['origin', 'tag'], ['origin', 'tag', 'v1'], ['origin', 'tag', '']];
+  if (parser === 'push-delete-operands') return [['origin', 'main'], ['origin', ''], ['origin', 'a:b'], ['origin', 'bad name']];
+  if (parser === 'refspec-words' || parser === 'fetch-refspec-words') return ['main', 'tag', ['tag', 'v1'], ['tag', '']];
+  if (parser === 'push-delete-refspecs') return ['main', '', 'a:b', 'bad name', ['main', 'a:b']];
+  if (parser === 'push-option-text') return ['a', 'a\nb', ['a', 'a\nb']];
+  if (parser === 'remote-name') return ['origin', '', 'a b', '.x', 'a:b'];
+  if (parser === 'clone-config-parameters' || parser === 'clone-config-remote-name') return [['a.b=1'], ['a'], ['clone.defaultRemoteName=up'], ['clone.defaultRemoteName=a b'], ['clone.defaultRemoteName'], ['clone.rejectShallow=maybe']];
   if (parser === 'depth-initial') {
     const numbers = [-4294967295, -1, 0, 1, 2147483648, 4294967297];
     return [...numbers, ...numbers.map(String), '', '1suffix', '0x10'];

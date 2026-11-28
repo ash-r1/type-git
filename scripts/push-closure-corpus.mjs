@@ -56,6 +56,8 @@ const REFUSALS = [
   /^fatal: --all can't be combined with refspecs$/,
   /^fatal: --mirror can't be combined with refspecs$/,
   /^fatal: tag shorthand without <tag>$/,
+  // The refspec a tag shorthand or a deleted name expands to is parsed from argv alone.
+  /^fatal: invalid refspec '(?:refs\/tags\/|:).*'$/,
   /^fatal: --delete only accepts plain target ref names$/,
   /^fatal: bad (?:recurse-submodules|signed) argument: .*$/,
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value)$/,
@@ -67,7 +69,7 @@ const STATE = [
   /^error: src refspec .* does not match any$/,
   /^error: failed to push some refs to '.*'$/,
   /^fatal: '.*' does not appear to be a git repository$/,
-  /^fatal: invalid refspec '.*'$/,
+  /^fatal: invalid refspec '(?!refs\/tags\/|:).*'$/,
   /^error: dst refspec .* matches more than one$/,
   /^error: The destination you provided is not a full refname .*$/,
 ];
@@ -88,15 +90,16 @@ const OPERANDS = [
   [operand('origin'), operand('tag'), operand('tag')], [operand('origin'), operand('tag'), operand('main:main')],
   [operand('origin'), operand('main:main')], [operand('origin'), operand(':main')], [operand('origin'), operand('')],
   [operand('origin'), operand('main'), operand('')], [operand('both')], [operand('both'), operand('main')],
-  [operand('../origin.git'), operand('main')],
+  [operand('../origin.git'), operand('main')], [operand('origin'), operand('tag'), operand('')],
+  [operand('origin'), operand('tag'), operand('v*')], [operand('origin'), operand('bad name')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
   await mkdir(directory);
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   for (const [args, cwd] of [
-    [['init', '-q', '--bare', 'origin.git'], base],
-    [['init', '-q', '--bare', 'second.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'origin.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'second.git'], base],
     [['config', 'receive.advertisePushOptions', 'true'], join(base, 'origin.git')],
     [['config', 'receive.advertisePushOptions', 'true'], join(base, 'second.git')],
     [['init', '-qb', 'main']],
@@ -138,7 +141,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; one repository on main with tags v1 and tag, remotes origin (main and v1 pushed, upstream of main) and second as local bare repositories that advertise push options, and the remote group both = origin second; every case starts with --dry-run; mode pairs and mode-modifier pairs crossed with fifteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
+        'Git 2.55.0; one repository on main with tags v1 and tag, remotes origin (main and v1 pushed, upstream of main) and second as local bare repositories that advertise push options, and the remote group both = origin second; every case starts with --dry-run; mode pairs and mode-modifier pairs crossed with eighteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
       cases,
     },
     null,

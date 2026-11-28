@@ -104,7 +104,7 @@ export function parseStringCallback(
         invalid = true;
       }
     }
-    return { valid: !invalid && !(ordinary && exclusive), value };
+    return { valid: !(invalid || (ordinary && exclusive)), value };
   }
   if (profile.kind === 'character-set') {
     return {

@@ -6,7 +6,7 @@
 // Cases are option pairs crossed with operand shapes; they witness the closure's mappings and
 // are not a completeness argument.
 import { spawnSync } from 'node:child_process';
-import { closeSync, openSync } from 'node:fs';
+import { closeSync, cpSync, openSync, rmSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -15,6 +15,8 @@ import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 const root = new URL('../', import.meta.url);
 const base = await mkdtemp(join(tmpdir(), 'type-git-pull-closure-'));
 const directory = join(base, 'repo');
+// Each case starts from a copy of the seeded clone: a dry run can still update .git/shallow.
+const pristine = join(base, 'pristine');
 const env = {
   ...nativeOracleBaseEnv(),
   HOME: base,
@@ -56,6 +58,8 @@ const REFUSALS = [
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value)$/,
   /^fatal: fetch --all does not take a repository argument$/,
   /^fatal: you need to specify a tag name$/i,
+  // The refspec a tag shorthand expands to is parsed from argv alone (push-refspecs.ts).
+  /^fatal: invalid refspec 'refs\/tags\/.*'$/,
   /^fatal: fetch --all does not make sense with refspecs$/,
   /^error: option `deepen' expects an integer value with an optional k\/m\/g suffix$/,
   /^fatal: options '.*' and '.*' cannot be used together$/,
@@ -68,7 +72,7 @@ const STATE = [
   /^fatal: '.*' does not appear to be a git repository$/,
   /^fatal: couldn't find remote ref .*$/,
   /^fatal: --unshallow on a complete repository does not make sense$/,
-  /^fatal: invalid refspec '.*'$/,
+  /^fatal: invalid refspec '(?!refs\/tags\/|:).*'$/,
 ];
 // --dry-run precedes every case, so pull stops after the fetch.
 const OPTIONS = [
@@ -88,14 +92,14 @@ const OPERANDS = [
   [], [operand('origin')], [operand('origin'), operand('main')], [operand('origin'), operand('tag')],
   [operand('origin'), operand('tag'), operand('v1')], [operand('origin'), operand('main'), operand('tag')],
   [operand('origin'), operand('tag'), operand('tag')], [operand('tag')], [operand('origin'), operand('main:main')],
-  [['--'], operand('origin'), operand('main')],
+  [['--'], operand('origin'), operand('main')], [operand('origin'), operand('tag'), operand('')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
   if (git(['--version'], base).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   await mkdir(join(base, 'seed'));
   for (const [args, cwd] of [
-    [['init', '-q', '--bare', 'origin.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'origin.git'], base],
     [['init', '-qb', 'main'], join(base, 'seed')],
     [['commit', '-q', '--allow-empty', '-m', 'one'], join(base, 'seed')],
     [['tag', 'v1'], join(base, 'seed')],
@@ -105,11 +109,16 @@ try {
   ]) {
     if (git(args, cwd).status !== 0) throw new Error(`Cannot seed oracle: ${args.join(' ')}`);
   }
+  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD', '@{upstream}']).stdout.trim().split('\n');
+  if (branch.join(' ') !== 'main origin/main') throw new Error(`Unexpected seed branch: ${branch.join(' ')}`);
+  cpSync(directory, pristine, { recursive: true });
   const cases = [];
   const unclassified = new Map();
   const record = (rest, dryRun = true) => {
     const tokens = dryRun ? [['--dry-run'], ...rest] : rest;
     const argv = ['pull', ...serialize(tokens)];
+    rmSync(directory, { recursive: true, force: true });
+    cpSync(pristine, directory, { recursive: true });
     const result = git(argv);
     const diagnostic = `${result.stderr}`.split('\n').find((line) => /^(fatal|error):/.test(line)) ?? '';
     // A help exit prints usage on stdout and is an accepted invocation, as in the other oracles.
@@ -135,7 +144,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; every case starts with --dry-run; single options crossed with ten operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin',
+        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with eleven operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin',
       cases,
     },
     null,

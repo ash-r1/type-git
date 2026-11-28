@@ -858,9 +858,9 @@ export const COMMAND_CONSTRAINTS = {
       id: 'fetch.tag-shorthand',
       kind: 'scalar',
       key: 'refspec',
-      parser: 'refspec-words',
+      parser: 'fetch-refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: git('builtin/fetch.c'),
     },
     {
@@ -1018,7 +1018,7 @@ export const COMMAND_CONSTRAINTS = {
       key: 'refspec',
       parser: 'refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: git('builtin/push.c'),
     },
     {
@@ -1028,7 +1028,8 @@ export const COMMAND_CONSTRAINTS = {
       parser: 'push-delete-refspecs',
       guard: [active('deleteRefs')],
       origin: 'git',
-      reason: 'Deletion accepts only nonempty plain ref names without a colon.',
+      reason:
+        'Deletion accepts only nonempty plain ref names without a colon that are valid ref names.',
       source: git('builtin/push.c'),
     },
     {
@@ -1395,9 +1396,9 @@ export const COMMAND_CONSTRAINTS = {
       id: 'pull.tag-shorthand',
       kind: 'scalar',
       key: 'branch',
-      parser: 'refspec-words',
+      parser: 'fetch-refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: git('builtin/fetch.c'),
     },
     {

@@ -684,6 +684,20 @@ git.command('fetch', [['--negotiate-only'], { operand: 'origin' }, { operand: 't
 git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }]);
 git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
 git.command('pull', [{ operand: 'tag' }]);
+// @ts-expect-error The tag name must form a valid refspec: refs/tags/ is not a ref name.
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: '' }]);
+// @ts-expect-error A deleted name must be a valid ref name.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'bad name' }]);
+// @ts-expect-error A deleted name cannot be a pattern.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'a*' }]);
+// @ts-expect-error fetch expands the tag shorthand to refs/tags/<tag>:refs/tags/<tag>.
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'a.' }]);
+// @ts-expect-error pull forwards the expanded tag refspec to fetch.
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: '.x' }]);
+// A ':' splits the push refspec and '*' makes a pattern, so these stay accepted.
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'a:b' }]);
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v*' }]);
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'tag' }, { operand: '@' }]);
 // @ts-expect-error clone --origin must form a valid remote-tracking refspec.
 git.command('clone', [['--origin', 'up stream'], { operand: 'source' }]);
 // @ts-expect-error A remote name component cannot end with .lock.

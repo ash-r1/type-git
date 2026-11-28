@@ -21,6 +21,10 @@ export async function checkConstraintModel(git: Git, repo: WorktreeRepo, flag: b
   // @ts-expect-error repo.fetch reads the first positional word as the repository as well.
   await repo.fetch({ refspec: 'main' });
   await repo.fetch({ remote: 'origin', refspec: ['tag', 'v1'] });
+  // @ts-expect-error The tag shorthand must expand to a valid refspec.
+  await repo.fetch({ remote: 'origin', refspec: ['tag', ''] });
+  // @ts-expect-error A deleted name must be a valid ref name.
+  await repo.push({ remote: 'origin', deleteRefs: true, refspec: 'bad name' });
   // @ts-expect-error repo.pull reads the first positional word as the repository too.
   await repo.pull({ branch: 'main' });
   // @ts-expect-error Fetching from all remotes cannot name a repository.

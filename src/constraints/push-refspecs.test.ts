@@ -25,6 +25,47 @@ describe('refspec words (builtin/push.c set_refspecs, builtin/fetch.c fetch_one)
     expect(parseGitScalar('push-delete-operands', ['host:repo', 'main']).valid).toBe(true);
   });
 
+  it('parses the refspec each tag shorthand and deleted name expands to', () => {
+    // Observed with Git 2.55.0: push origin tag <x>, push --delete origin [tag] <x>, fetch.
+    const push = (words: string[]) => parseGitScalar('refspec-operands', ['origin', ...words]);
+    const del = (words: string[]) => parseGitScalar('push-delete-operands', ['origin', ...words]);
+    const fetch = (words: string[]) =>
+      parseGitScalar('fetch-refspec-operands', ['origin', ...words]);
+    for (const tag of ['', 'bad name', 'a.', 'a*b*', '.x', 'x.lock']) {
+      expect(push(['tag', tag]).valid, tag).toBe(false);
+      expect(del(['tag', tag]).valid, tag).toBe(false);
+      expect(fetch(['tag', tag]).valid, tag).toBe(false);
+    }
+    for (const tag of ['v1', 'tag', '@']) {
+      expect(push(['tag', tag]).valid, tag).toBe(true);
+      expect(del(['tag', tag]).valid, tag).toBe(true);
+      expect(fetch(['tag', tag]).valid, tag).toBe(true);
+    }
+    // A glob is a push or fetch pattern, but a deletion cannot be one.
+    for (const tag of ['v*', '*']) {
+      expect(push(['tag', tag]).valid, tag).toBe(true);
+      expect(del(['tag', tag]).valid, tag).toBe(false);
+      expect(fetch(['tag', tag]).valid, tag).toBe(true);
+    }
+    // A ':' splits the push refspec, so only its right side must be a ref name; fetch repeats
+    // the name on both sides and always refuses it.
+    for (const tag of ['a:b', 'x y:z']) {
+      expect(push(['tag', tag]).valid, tag).toBe(true);
+      expect(del(['tag', tag]).valid, tag).toBe(true);
+      expect(fetch(['tag', tag]).valid, tag).toBe(false);
+    }
+    expect(push(['tag', 'a:b c']).valid).toBe(false);
+    for (const name of ['bad name', 'a..b', '@', 'x.lock', '*', 'a*', 'a.']) {
+      expect(del([name]).valid, name).toBe(false);
+    }
+    for (const name of ['main', 'refs/heads/main', 'HEAD']) {
+      expect(del([name]).valid, name).toBe(true);
+    }
+    // Other push and fetch words are left to the transport.
+    expect(push(['bad name']).valid).toBe(true);
+    expect(fetch(['bad name']).valid).toBe(true);
+  });
+
   it('refuses push options that contain a newline', () => {
     expect(parseGitScalar('push-option-text', ['a', 'b c']).valid).toBe(true);
     expect(parseGitScalar('push-option-text', 'a\nb').valid).toBe(false);
@@ -52,6 +93,8 @@ describe('repo.push refspec constraints', () => {
   it('checks tag shorthands, deletion names and push options', () => {
     expect(refused({ remote: 'origin', refspec: ['main', 'tag'] })).toBe(true);
     expect(refused({ remote: 'origin', refspec: ['tag', 'v1'] })).toBe(false);
+    expect(refused({ remote: 'origin', refspec: ['tag', ''] })).toBe(true);
+    expect(refused({ remote: 'origin', deleteRefs: true, refspec: 'bad name' })).toBe(true);
     expect(refused({ remote: 'origin', deleteRefs: true, refspec: 'a:b' })).toBe(true);
     expect(refused({ remote: 'origin', refspec: 'a:b' })).toBe(false);
     expect(refused({ remote: 'origin', pushOption: 'a\nb' })).toBe(true);
@@ -76,6 +119,8 @@ describe('repo.fetch refspec constraints', () => {
     expect(refused({ remote: 'origin', refspec: 'main' })).toBe(false);
     expect(refused({ remote: 'origin', refspec: 'tag' })).toBe(true);
     expect(refused({ remote: 'origin', refspec: ['tag', 'v1'] })).toBe(false);
+    expect(refused({ remote: 'origin', refspec: ['tag', ''] })).toBe(true);
+    expect(refused({ remote: 'origin', refspec: ['tag', 'a:b'] })).toBe(true);
   });
 });
 

@@ -17930,7 +17930,7 @@ const commandSpec31 = {
       id: 'cli.fetch.tag-shorthand',
       kind: 'scalar',
       key: 'operands',
-      parser: 'refspec-operands',
+      parser: 'fetch-refspec-operands',
       guard: [
         {
           key: 'multiple',
@@ -17942,7 +17942,7 @@ const commandSpec31 = {
         },
       ],
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
     },
   ],
@@ -19575,7 +19575,7 @@ const commandSpec32 = {
       key: 'operands',
       parser: 'refspec-operands',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
     },
     {
@@ -19585,7 +19585,8 @@ const commandSpec32 = {
       parser: 'push-delete-operands',
       guard: sharedPredicates10,
       origin: 'git',
-      reason: "--delete accepts only nonempty plain ref names without ':'.",
+      reason:
+        "--delete accepts only nonempty plain ref names without ':' that are valid ref names.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
     },
     {
@@ -64881,9 +64882,9 @@ const commandSpec208 = {
       id: 'cli.pull.tag-shorthand',
       kind: 'scalar',
       key: 'operands',
-      parser: 'refspec-operands',
+      parser: 'fetch-refspec-operands',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by the tag name it abbreviates.",
+      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
     },
     {

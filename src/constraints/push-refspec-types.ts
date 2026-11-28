@@ -1,13 +1,42 @@
 import type { PushRefspecParser } from './push-refspecs.js';
 
-/** A word that set_refspecs cannot accept under --delete; wide strings stay unknown. */
-type DeleteWordInvalid<W> = string extends W
-  ? false
-  : W extends ''
-    ? true
+/** Characters check_refname_format always refuses; ':' and '*' depend on the refspec shape. */
+type RefnameCharacter = ' ' | '~' | '^' | '?' | '[' | '\\' | '\t' | '\n' | '\x7f';
+/** Certain refusals of check_refname_format for the text after `refs/<x>/`; others stay runtime. */
+type RefnameTailInvalid<V extends string> = V extends
+  | ''
+  | `.${string}`
+  | `/${string}`
+  | `${string}/`
+  | `${string}.`
+  | `${string}//${string}`
+  | `${string}/.${string}`
+  | `${string}..${string}`
+  | `${string}@{${string}`
+  | `${string}.lock`
+  | `${string}.lock/${string}`
+  | `${string}${RefnameCharacter}${string}`
+  ? true
+  : false;
+/**
+ * A literal tag name whose expanded refspec parse_refspec refuses. A name with ':' splits the
+ * refspec differently per command and stays runtime, as do wide strings.
+ */
+type TagNameInvalid<W> = W extends string
+  ? string extends W
+    ? false
     : W extends `${string}:${string}`
+      ? false
+      : RefnameTailInvalid<W>
+  : false;
+/** A word that set_refspecs cannot accept under --delete; wide strings stay unknown. */
+type DeleteWordInvalid<W> = W extends string
+  ? string extends W
+    ? false
+    : W extends '' | '@' | `${string}:${string}` | `${string}*${string}`
       ? true
-      : false;
+      : RefnameTailInvalid<W>
+  : false;
 /**
  * Walk refspec words: `tag` consumes the next word. A word that may be `tag` (a wide string or
  * a union that includes it) and unknown lengths stay accepted for the runtime check.
@@ -17,8 +46,10 @@ type Words<W extends readonly unknown[], D extends boolean> = W extends readonly
   ...infer R,
 ]
   ? [H] extends ['tag']
-    ? R extends readonly [unknown, ...infer Rest]
-      ? Words<Rest, D>
+    ? R extends readonly [infer T, ...infer Rest]
+      ? TagNameInvalid<T> extends true
+        ? false
+        : Words<Rest, D>
       : R extends readonly []
         ? false
         : true
@@ -83,7 +114,12 @@ export type PushRefspecLiteral<V, P extends PushRefspecParser> = P extends 'remo
     : [AsWords<V>] extends [never]
       ? true
       : Words<
-            Skip<AsWords<V>, P extends 'refspec-operands' | 'push-delete-operands' ? 1 : 0>,
+            Skip<
+              AsWords<V>,
+              P extends 'refspec-operands' | 'push-delete-operands' | 'fetch-refspec-operands'
+                ? 1
+                : 0
+            >,
             P extends 'push-delete-operands' | 'push-delete-refspecs' ? true : false
           > extends true
         ? true

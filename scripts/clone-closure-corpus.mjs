@@ -91,6 +91,7 @@ const OPTIONS = [
   [['-c', 'a=b'], ['--no-config']], [['-c', 'clone.defaultRemoteName=up']],
   [['-c', 'clone.defaultRemoteName=a b']], [['-c', 'clone.defaultRemoteName']],
   [['-c', 'Clone.RejectShallow=maybe']], [['-c', 'clone.filterSubmodules=1k']],
+  [['-c', 'clone.filterSubmodules=maybe']],
 ];
 const OPERANDS = [
   [], [operand(SOURCE)], [operand(SOURCE), operand('dst')], [operand(SOURCE), operand('dst'), operand('extra')],
@@ -101,7 +102,7 @@ try {
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   await mkdir(join(base, 'seed'));
   for (const [args, cwd] of [
-    [['init', '-q', '--bare', 'origin.git'], base],
+    [['init', '-q', '-b', 'main', '--bare', 'origin.git'], base],
     [['init', '-qb', 'main'], join(base, 'seed')],
     [['commit', '-q', '--allow-empty', '-m', 'one'], join(base, 'seed')],
     [['tag', 'v1'], join(base, 'seed')],
@@ -134,10 +135,10 @@ try {
   const sequences = [];
   for (const a of OPTIONS) for (const o of OPERANDS) sequences.push([...a, ...o]);
   for (const a of OPTIONS) for (const b of OPTIONS) sequences.push([...a, ...b, ...OPERANDS[1]]);
-  // --recursive with both reference kinds, each cleared by its negation in any position.
+  // --recursive with both reference kinds in every order, alone or followed by a negation.
   const references = [[['--reference', SOURCE]], [['--reference-if-able', SOURCE]], [['--recurse-submodules']]];
   for (const clear of [[], [['--no-reference']], [['--no-recurse-submodules']]]) {
-    for (const [a, b, c] of [[0, 1, 2], [2, 0, 1], [1, 2, 0]]) {
+    for (const [a, b, c] of [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]) {
       sequences.push([...references[a], ...references[b], ...references[c], ...clear, ...OPERANDS[1]]);
     }
   }
@@ -149,7 +150,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in each order and with each negation; empty file-backed stdin',
+        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference or --no-recurse-submodules; empty file-backed stdin',
       cases,
     },
     null,
