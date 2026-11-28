@@ -17975,7 +17975,8 @@ const commandSpec31 = {
         },
       ],
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
     },
   ],
@@ -19608,7 +19609,8 @@ const commandSpec32 = {
       key: 'operands',
       parser: 'refspec-operands',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
     },
     {
@@ -65188,7 +65190,8 @@ const commandSpec208 = {
       key: 'operands',
       parser: 'fetch-refspec-operands',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
     },
     {

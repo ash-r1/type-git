@@ -3,10 +3,10 @@
  *
  * builtin/push.c set_refspecs and builtin/fetch.c fetch_one walk the words after the
  * repository: a word `tag` consumes the next word as a tag name and dies when none follows.
- * Under push --delete every other word must be a nonempty name without ':'. The words they
- * expand to (`refs/tags/<tag>` for push, `:refs/tags/<tag>` under --delete, `:<name>` for a
- * deleted name, `refs/tags/<tag>:refs/tags/<tag>` for fetch) go to refspec.c parse_refspec at
- * once, which dies on an invalid one. cmd_push refuses a command-line push option that contains
+ * Under push --delete every other word must be a nonempty name without ':'. Every word, or the
+ * refspec it expands to (`refs/tags/<tag>` for push, `:refs/tags/<tag>` under --delete, `:<name>`
+ * for a deleted name, `refs/tags/<tag>:refs/tags/<tag>` for fetch), goes to refspec.c
+ * parse_refspec at once, which dies on an invalid one before any transport runs. cmd_push refuses a command-line push option that contains
  * a newline. clone --origin must pass remote.c valid_remote_name, which parses
  * `refs/heads/test:refs/remotes/<name>/test` as a fetch refspec.
  */
@@ -25,27 +25,46 @@ export type PushRefspecParser =
 /** Which caller expands the words: push, push --delete, or fetch (and pull, which runs it). */
 type RefspecMode = 'push' | 'delete' | 'fetch';
 
+/** A full object name; whether it counts as one depends on the repository's hash. */
+const FULL_OBJECT_NAME = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/i;
+
 /**
- * refspec.c parse_refspec for a refspec that set_refspecs or fetch_one built. These never start
- * with '+' or '^', and their source is never `@` or a full object name.
+ * refspec.c parse_refspec: whether a push (`fetch` false) or fetch refspec parses. A negative
+ * refspec spelled as a full object name is refused only for the repository's hash length, so it
+ * is left to Git.
  */
-function validExpandedRefspec(refspec: string, fetch: boolean): boolean {
-  const colon = refspec.lastIndexOf(':');
-  if (!fetch && refspec === ':') {
+export function validRefspec(refspec: string, fetch: boolean): boolean {
+  let lhs = refspec;
+  let negative = false;
+  if (lhs.startsWith('+')) {
+    lhs = lhs.slice(1);
+  } else if (lhs.startsWith('^')) {
+    negative = true;
+    lhs = lhs.slice(1);
+  }
+  const colon = lhs.lastIndexOf(':');
+  if (negative && colon >= 0) {
+    return false;
+  }
+  if (!fetch && lhs === ':') {
     return true;
   }
-  const dst = colon >= 0 ? refspec.slice(colon + 1) : undefined;
-  const src = colon >= 0 ? refspec.slice(0, colon) : refspec;
+  const dst = colon >= 0 ? lhs.slice(colon + 1) : undefined;
+  const left = colon >= 0 ? lhs.slice(0, colon) : lhs;
   let glob = dst !== undefined && dst.includes('*');
-  if (src.includes('*')) {
-    if ((dst !== undefined && !glob) || (dst === undefined && fetch)) {
+  if (left.includes('*')) {
+    if ((dst !== undefined && !glob) || (dst === undefined && !negative && fetch)) {
       return false;
     }
     glob = true;
   } else if (glob) {
     return false;
   }
+  const src = left === '@' ? 'HEAD' : left;
   const valid = (name: string): boolean => validRefnameFormat(name, true, glob);
+  if (negative) {
+    return src !== '' && (FULL_OBJECT_NAME.test(src) || valid(src));
+  }
   if (fetch) {
     return (src === '' || valid(src)) && (dst === undefined || dst === '' || valid(dst));
   }
@@ -79,16 +98,21 @@ export function validRefspecWords(value: unknown, skip: number, mode: RefspecMod
         mode === 'fetch'
           ? `refs/tags/${tag}:refs/tags/${tag}`
           : `${mode === 'delete' ? ':' : ''}refs/tags/${tag}`;
-      if (!validExpandedRefspec(refspec, mode === 'fetch')) {
+      if (!validRefspec(refspec, mode === 'fetch')) {
         return false;
       }
-    } else if (
-      mode === 'delete' &&
-      (typeof word !== 'string' ||
+    } else if (mode === 'delete') {
+      if (
+        typeof word !== 'string' ||
         word === '' ||
         word.includes(':') ||
-        !validExpandedRefspec(`:${word}`, false))
-    ) {
+        !validRefspec(`:${word}`, false)
+      ) {
+        return false;
+      }
+    } else if (typeof word === 'string' && !validRefspec(word, mode === 'fetch')) {
+      // A push word without ':' that uniquely names a local branch is mapped instead, but such
+      // a word is a valid ref name and parses either way.
       return false;
     }
   }

@@ -56,8 +56,9 @@ const REFUSALS = [
   /^fatal: --all can't be combined with refspecs$/,
   /^fatal: --mirror can't be combined with refspecs$/,
   /^fatal: tag shorthand without <tag>$/,
-  // The refspec a tag shorthand or a deleted name expands to is parsed from argv alone.
-  /^fatal: invalid refspec '(?:refs\/tags\/|:).*'$/,
+  // parse_refspec reads every refspec word, or the refspec a tag shorthand or a deleted name
+  // expands to, from argv alone before any transport (push-refspecs.ts).
+  /^fatal: invalid refspec '.*'$/,
   /^fatal: --delete only accepts plain target ref names$/,
   /^fatal: bad (?:recurse-submodules|signed) argument: .*$/,
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value)$/,
@@ -69,7 +70,6 @@ const STATE = [
   /^error: src refspec .* does not match any$/,
   /^error: failed to push some refs to '.*'$/,
   /^fatal: '.*' does not appear to be a git repository$/,
-  /^fatal: invalid refspec '(?!refs\/tags\/|:).*'$/,
   /^error: dst refspec .* matches more than one$/,
   /^error: The destination you provided is not a full refname .*$/,
 ];

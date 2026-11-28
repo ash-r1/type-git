@@ -61,8 +61,9 @@ const REFUSALS = [
   /^fatal: --atomic can only be used when fetching from one remote$/,
   /^fatal: --stdin can only be used when fetching from one remote$/,
   /^fatal: you need to specify a tag name$/,
-  // The refspec a tag shorthand expands to is parsed from argv alone (push-refspecs.ts).
-  /^fatal: invalid refspec 'refs\/tags\/.*'$/,
+  // parse_refspec reads every refspec word, or the refspec a tag shorthand or a deleted name
+  // expands to, from argv alone before any transport (push-refspecs.ts).
+  /^fatal: invalid refspec '.*'$/,
   /^fatal: bad recurse-submodules argument: .*$/,
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value)$/,
 ];
@@ -104,6 +105,7 @@ const OPERANDS = [
   [operand('origin'), operand('tag'), operand('tag')], [operand('origin'), operand('second')], [operand('both')],
   [operand('both'), operand('main')], [operand('../origin.git'), operand('main')],
   [operand('origin'), operand('tag'), operand('')], [operand('origin'), operand('tag'), operand('a:b')],
+  [operand('origin'), operand('bad name')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
@@ -160,7 +162,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a complete clone of a local bare origin (main and tags v1 and tag) with a second local bare remote and the remote group both = origin second; each case runs on a fresh copy of that clone and starts with --dry-run; mode pairs and mode-modifier pairs crossed with thirteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
+        'Git 2.55.0; a complete clone of a local bare origin (main and tags v1 and tag) with a second local bare remote and the remote group both = origin second; each case runs on a fresh copy of that clone and starts with --dry-run; mode pairs and mode-modifier pairs crossed with fourteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
       cases,
     },
     null,

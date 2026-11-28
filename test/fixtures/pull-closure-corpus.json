@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with eleven operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin",
+  "profile": "Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with twelve operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin",
   "cases": [
     {
       "command": "pull",
@@ -279,6 +279,31 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -610,6 +635,35 @@
           "--dry-run"
         ],
         [
+          "--rebase"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "-r"
         ]
       ],
@@ -933,6 +987,35 @@
           "--dry-run"
         ],
         [
+          "-r"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "-r",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--no-rebase"
         ]
       ],
@@ -1248,6 +1331,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--no-rebase"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-rebase",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -1591,6 +1703,36 @@
         ],
         [
           "--rebase",
+          "false"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase=false",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--rebase",
           "merges"
         ]
       ],
@@ -1916,6 +2058,36 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--rebase",
+          "merges"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase=merges",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -2259,6 +2431,36 @@
         ],
         [
           "--rebase",
+          "interactive"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase=interactive",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--rebase",
           "bad"
         ]
       ],
@@ -2578,6 +2780,36 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 129,
+      "diagnostic": "error: invalid value for '--rebase': 'bad'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--rebase",
+          "bad"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase=bad",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -2926,6 +3158,36 @@
           "--dry-run"
         ],
         [
+          "--rebase",
+          ""
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--rebase=",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--ff"
         ]
       ],
@@ -3241,6 +3503,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--ff"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--ff",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -3572,6 +3863,35 @@
           "--dry-run"
         ],
         [
+          "--no-ff"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-ff",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--ff-only"
         ]
       ],
@@ -3887,6 +4207,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--ff-only"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--ff-only",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -4230,6 +4579,36 @@
         ],
         [
           "--cleanup",
+          "strip"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup=strip",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--cleanup",
           "scissors"
         ]
       ],
@@ -4555,6 +4934,36 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--cleanup",
+          "scissors"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup=scissors",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -4898,6 +5307,36 @@
         ],
         [
           "--cleanup",
+          "Strip"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup=Strip",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid cleanup mode Strip"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--cleanup",
           ""
         ]
       ],
@@ -5217,6 +5656,36 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid cleanup mode "
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--cleanup",
+          ""
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup=",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -5620,6 +6089,41 @@
           "--dry-run"
         ],
         [
+          "--cleanup",
+          "bad"
+        ],
+        [
+          "--cleanup",
+          "default"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup=bad",
+        "--cleanup=default",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--squash"
         ]
       ],
@@ -5943,6 +6447,35 @@
           "--dry-run"
         ],
         [
+          "--squash"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--squash",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--no-commit"
         ]
       ],
@@ -6258,6 +6791,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--no-commit"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-commit",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -6601,6 +7163,36 @@
         ],
         [
           "--recurse-submodules",
+          "on-demand"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--recurse-submodules=on-demand",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--recurse-submodules",
           "bad"
         ]
       ],
@@ -6920,6 +7512,36 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: bad recurse-submodules argument: bad"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--recurse-submodules",
+          "bad"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--recurse-submodules=bad",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -7257,6 +7879,35 @@
           "--dry-run"
         ],
         [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-recurse-submodules",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--all"
         ]
       ],
@@ -7566,6 +8217,35 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: fetch --all does not make sense with refspecs"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--all"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--all",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -7903,6 +8583,35 @@
           "--dry-run"
         ],
         [
+          "--no-all"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-all",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--tags"
         ]
       ],
@@ -8226,6 +8935,35 @@
           "--dry-run"
         ],
         [
+          "--tags"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--tags",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "-q"
         ]
       ],
@@ -8541,6 +9279,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "-q"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "-q",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -8884,6 +9651,36 @@
         ],
         [
           "--deepen",
+          "1"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--deepen=1",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--deepen",
           "x"
         ]
       ],
@@ -9203,6 +10000,36 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "error: option `deepen' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--deepen",
+          "x"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--deepen=x",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -9551,6 +10378,36 @@
           "--dry-run"
         ],
         [
+          "--depth",
+          "1"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--depth=1",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "--unshallow"
         ]
       ],
@@ -9874,6 +10731,35 @@
           "--dry-run"
         ],
         [
+          "--unshallow"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--unshallow",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": true,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: --unshallow on a complete repository does not make sense"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
           "-h"
         ]
       ],
@@ -10183,6 +11069,35 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": true,
+      "state": false,
+      "usage": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "-h",
+        "origin",
+        "main~"
       ],
       "valid": true,
       "state": false,
@@ -10520,6 +11435,35 @@
           "--dry-run"
         ],
         {
+          "operand": "--reb"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--reb",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
           "operand": "--cl=strip"
         }
       ],
@@ -10835,6 +11779,35 @@
       "usage": false,
       "status": 1,
       "diagnostic": "fatal: invalid refspec 'refs/tags/:refs/tags/'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "--cl=strip"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cl=strip",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
     },
     {
       "command": "pull",
@@ -11166,6 +12139,35 @@
           "--dry-run"
         ],
         {
+          "operand": "-qv"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "-qv",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 1,
+      "diagnostic": "fatal: invalid refspec 'main~'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
           "operand": "-rq"
         }
       ],
@@ -11475,6 +12477,35 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 129,
+      "diagnostic": "error: invalid value for '--rebase': 'q'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "-rq"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "-rq",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,
@@ -11812,6 +12843,35 @@
           "--dry-run"
         ],
         {
+          "operand": "--no-ff-only"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--no-ff-only",
+        "origin",
+        "main~"
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 129,
+      "diagnostic": "error: unknown option `no-ff-only'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
           "operand": "--cleanup"
         }
       ],
@@ -12121,6 +13181,35 @@
         "origin",
         "tag",
         ""
+      ],
+      "valid": false,
+      "state": false,
+      "usage": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid cleanup mode origin"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        {
+          "operand": "--cleanup"
+        },
+        {
+          "operand": "origin"
+        },
+        {
+          "operand": "main~"
+        }
+      ],
+      "argv": [
+        "pull",
+        "--dry-run",
+        "--cleanup",
+        "origin",
+        "main~"
       ],
       "valid": false,
       "state": false,

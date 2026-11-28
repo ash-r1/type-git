@@ -265,7 +265,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -293,7 +293,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -441,7 +441,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -1785,7 +1785,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -1817,7 +1817,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -1989,7 +1989,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -2301,7 +2301,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -2333,7 +2333,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -2505,7 +2505,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -2817,7 +2817,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -2849,7 +2849,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -3021,7 +3021,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -4365,7 +4365,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -4397,7 +4397,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -4569,7 +4569,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -5397,7 +5397,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -5429,7 +5429,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -5601,7 +5601,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -7133,7 +7133,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -7169,7 +7169,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -7365,7 +7365,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -13013,7 +13013,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -13049,7 +13049,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -13245,7 +13245,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -18893,7 +18893,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -18929,7 +18929,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -19125,7 +19125,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -19481,7 +19481,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -19517,7 +19517,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -19713,7 +19713,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -20069,7 +20069,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -20105,7 +20105,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -20301,7 +20301,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -21833,7 +21833,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -21869,7 +21869,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -22065,7 +22065,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -23009,7 +23009,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -23045,7 +23045,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -23241,7 +23241,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -24773,7 +24773,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -24809,7 +24809,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -25005,7 +25005,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -25361,7 +25361,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -25397,7 +25397,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -25593,7 +25593,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -25949,7 +25949,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -25985,7 +25985,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -26181,7 +26181,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -27713,7 +27713,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -27749,7 +27749,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -27945,7 +27945,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -28889,7 +28889,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -28925,7 +28925,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -29121,7 +29121,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -30653,7 +30653,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -30689,7 +30689,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -30885,7 +30885,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -31241,7 +31241,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -31277,7 +31277,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -31473,7 +31473,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -31829,7 +31829,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -31865,7 +31865,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -32061,7 +32061,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -33593,7 +33593,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -33629,7 +33629,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -33825,7 +33825,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -34769,7 +34769,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -34805,7 +34805,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -35001,7 +35001,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -39473,7 +39473,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -39509,7 +39509,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -39705,7 +39705,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -45353,7 +45353,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -45389,7 +45389,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -45585,7 +45585,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -48293,7 +48293,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -48329,7 +48329,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -48525,7 +48525,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -48881,7 +48881,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -48917,7 +48917,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -49113,7 +49113,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -49469,7 +49469,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -49505,7 +49505,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -49701,7 +49701,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -51233,7 +51233,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -51269,7 +51269,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -51465,7 +51465,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -52409,7 +52409,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -52445,7 +52445,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -52641,7 +52641,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -58289,7 +58289,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -58325,7 +58325,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -58521,7 +58521,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -60053,7 +60053,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -60089,7 +60089,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -60285,7 +60285,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -60641,7 +60641,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -60677,7 +60677,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -60873,7 +60873,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -61229,7 +61229,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -61265,7 +61265,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -61461,7 +61461,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -62993,7 +62993,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -63029,7 +63029,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -63225,7 +63225,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -64169,7 +64169,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -64205,7 +64205,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -64401,7 +64401,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -64713,7 +64713,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -64745,7 +64745,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -64917,7 +64917,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -65251,7 +65251,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -65285,7 +65285,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -65469,7 +65469,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -66933,7 +66933,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -66971,7 +66971,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -67179,7 +67179,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -68115,7 +68115,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -68147,7 +68147,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -68319,7 +68319,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -68642,7 +68642,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -68675,7 +68675,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -68853,7 +68853,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -69165,7 +69165,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -69197,7 +69197,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -69369,7 +69369,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -69692,7 +69692,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -69725,7 +69725,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -69903,7 +69903,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -70226,7 +70226,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -70259,7 +70259,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -70437,7 +70437,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -71294,7 +71294,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -71327,7 +71327,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -71505,7 +71505,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -72351,7 +72351,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -72383,7 +72383,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -72555,7 +72555,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -72867,7 +72867,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -72899,7 +72899,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -73071,7 +73071,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -73383,7 +73383,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -73415,7 +73415,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -73587,7 +73587,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -73899,7 +73899,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -73931,7 +73931,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -74103,7 +74103,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -96455,7 +96455,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -96491,7 +96491,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -96687,7 +96687,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -97065,7 +97065,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -97103,7 +97103,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -97311,7 +97311,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -98963,7 +98963,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -99005,7 +99005,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -99237,7 +99237,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -100289,7 +100289,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -100325,7 +100325,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -100521,7 +100521,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -100888,7 +100888,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -100925,7 +100925,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -101127,7 +101127,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -101483,7 +101483,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -101519,7 +101519,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -101715,7 +101715,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -102082,7 +102082,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -102119,7 +102119,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -102321,7 +102321,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -102688,7 +102688,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -102725,7 +102725,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -102927,7 +102927,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -103900,7 +103900,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -103937,7 +103937,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -104139,7 +104139,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -105101,7 +105101,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -105137,7 +105137,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -105333,7 +105333,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -105689,7 +105689,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -105725,7 +105725,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -105921,7 +105921,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -106277,7 +106277,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -106313,7 +106313,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -106509,7 +106509,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -106865,7 +106865,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -106901,7 +106901,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -107097,7 +107097,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -107453,7 +107453,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -107489,7 +107489,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -107685,7 +107685,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -108063,7 +108063,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -108101,7 +108101,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -108309,7 +108309,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -109961,7 +109961,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -110003,7 +110003,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -110235,7 +110235,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -111287,7 +111287,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -111323,7 +111323,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -111519,7 +111519,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -111886,7 +111886,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -111923,7 +111923,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -112125,7 +112125,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -112481,7 +112481,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -112517,7 +112517,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -112713,7 +112713,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -113080,7 +113080,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -113117,7 +113117,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -113319,7 +113319,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -113686,7 +113686,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -113723,7 +113723,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -113925,7 +113925,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -114898,7 +114898,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -114935,7 +114935,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -115137,7 +115137,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -116099,7 +116099,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -116135,7 +116135,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -116331,7 +116331,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -116687,7 +116687,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -116723,7 +116723,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -116919,7 +116919,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -117275,7 +117275,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -117311,7 +117311,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -117507,7 +117507,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -117863,7 +117863,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -117899,7 +117899,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -118095,7 +118095,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -118451,7 +118451,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -118487,7 +118487,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -118683,7 +118683,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -119061,7 +119061,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -119099,7 +119099,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -119307,7 +119307,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -120959,7 +120959,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -121001,7 +121001,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -121233,7 +121233,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -122285,7 +122285,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -122321,7 +122321,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -122517,7 +122517,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -122884,7 +122884,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -122921,7 +122921,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -123123,7 +123123,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -123479,7 +123479,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -123515,7 +123515,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -123711,7 +123711,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -124078,7 +124078,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -124115,7 +124115,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -124317,7 +124317,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -124684,7 +124684,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -124721,7 +124721,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -124923,7 +124923,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -125896,7 +125896,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -125933,7 +125933,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -126135,7 +126135,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -127097,7 +127097,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -127133,7 +127133,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -127329,7 +127329,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -127685,7 +127685,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -127721,7 +127721,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -127917,7 +127917,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -128273,7 +128273,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -128309,7 +128309,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -128505,7 +128505,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -128861,7 +128861,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -128897,7 +128897,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -129093,7 +129093,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -151445,7 +151445,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -151481,7 +151481,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -151677,7 +151677,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -152055,7 +152055,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -152093,7 +152093,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -152301,7 +152301,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -153953,7 +153953,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -153995,7 +153995,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -154227,7 +154227,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -155279,7 +155279,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -155315,7 +155315,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -155511,7 +155511,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -155878,7 +155878,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -155915,7 +155915,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -156117,7 +156117,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -156473,7 +156473,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -156509,7 +156509,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -156705,7 +156705,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -157072,7 +157072,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -157109,7 +157109,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -157311,7 +157311,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -157678,7 +157678,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -157715,7 +157715,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -157917,7 +157917,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -158890,7 +158890,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -158927,7 +158927,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -159129,7 +159129,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -160091,7 +160091,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -160127,7 +160127,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -160323,7 +160323,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -160679,7 +160679,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -160715,7 +160715,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -160911,7 +160911,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -161267,7 +161267,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -161303,7 +161303,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -161499,7 +161499,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -161855,7 +161855,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -161891,7 +161891,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -162087,7 +162087,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -173441,7 +173441,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -173477,7 +173477,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -173673,7 +173673,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -174051,7 +174051,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -174089,7 +174089,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -174297,7 +174297,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -175949,7 +175949,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -175991,7 +175991,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -176223,7 +176223,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -177275,7 +177275,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -177311,7 +177311,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -177507,7 +177507,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -177874,7 +177874,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -177911,7 +177911,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -178113,7 +178113,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -178469,7 +178469,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -178505,7 +178505,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -178701,7 +178701,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -179068,7 +179068,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -179105,7 +179105,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -179307,7 +179307,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -179674,7 +179674,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -179711,7 +179711,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -179913,7 +179913,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -180886,7 +180886,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -180923,7 +180923,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -181125,7 +181125,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -182087,7 +182087,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -182123,7 +182123,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -182319,7 +182319,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -182675,7 +182675,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -182711,7 +182711,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -182907,7 +182907,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -183263,7 +183263,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -183299,7 +183299,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -183495,7 +183495,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },
@@ -183851,7 +183851,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -183887,7 +183887,7 @@
         ""
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec ''"
     },
@@ -184083,7 +184083,7 @@
         "bad name"
       ],
       "valid": false,
-      "state": true,
+      "state": false,
       "status": 128,
       "diagnostic": "fatal: invalid refspec 'bad name'"
     },

@@ -137,7 +137,7 @@ try {
   for (const a of OPTIONS) for (const b of OPTIONS) sequences.push([...a, ...b, ...OPERANDS[1]]);
   // --recursive with both reference kinds in every order, alone or followed by a negation.
   const references = [[['--reference', SOURCE]], [['--reference-if-able', SOURCE]], [['--recurse-submodules']]];
-  for (const clear of [[], [['--no-reference']], [['--no-recurse-submodules']]]) {
+  for (const clear of [[], [['--no-reference']], [['--no-reference-if-able']], [['--no-recurse-submodules']]]) {
     for (const [a, b, c] of [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]) {
       sequences.push([...references[a], ...references[b], ...references[c], ...clear, ...OPERANDS[1]]);
     }
@@ -150,7 +150,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference or --no-recurse-submodules; empty file-backed stdin',
+        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference, --no-reference-if-able or --no-recurse-submodules; empty file-backed stdin',
       cases,
     },
     null,

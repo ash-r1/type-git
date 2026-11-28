@@ -1052,12 +1052,12 @@
       ]
     },
     "total": "32636301993360",
-    "accepted": "2935595053440",
+    "accepted": "2292764019840",
     "nodes": 257,
     "isolatedRuleWitnesses": {
-      "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"\"}",
+      "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"value\",\"remote\":\"value\"}",
       "push.all-tags": "{\"all\":true,\"tags\":true}",
-      "push.branches-mirror-refspec": "{\"branches\":true,\"refspec\":\"\"}",
+      "push.branches-mirror-refspec": "{\"branches\":true,\"refspec\":\"value\",\"remote\":\"value\"}",
       "push.branches-tags": "{\"branches\":true,\"tags\":true}",
       "push.mirror-tags": "{\"mirror\":true,\"tags\":true}",
       "push.delete-all": null,
@@ -1066,8 +1066,8 @@
       "push.delete-tags": "{\"deleteRefs\":true,\"refspec\":\"value\",\"remote\":\"value\",\"tags\":true}",
       "push.delete-refs": "{\"deleteRefs\":true}",
       "push.refspec-remote": "{\"refspec\":\"value\"}",
-      "push.tag-shorthand": "{\"refspec\":\"tag\",\"remote\":\"value\"}",
-      "push.delete-names": "{\"deleteRefs\":true,\"refspec\":\"\"}",
+      "push.tag-shorthand": "{\"refspec\":\"\"}",
+      "push.delete-names": "{\"deleteRefs\":true,\"refspec\":\"a:b\",\"remote\":\"value\"}",
       "push.option-newline": "{\"pushOption\":\"a\\nb\"}"
     }
   },

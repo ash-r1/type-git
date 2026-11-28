@@ -2131,7 +2131,7 @@
               "fetch_one: you need to specify a tag name"
             ],
             "disposition": "modeled",
-            "summary": "For a single remote, a refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and the refspec refs/tags/<tag>:refs/tags/<tag> it expands to must pass parse_refspec; --multiple treats every word as a remote and --negotiate-only does not read refspecs (cli.fetch.tag-shorthand; repo.fetch fetch.tag-shorthand).",
+            "summary": "For a single remote, a refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and every refspec word, or the refspec refs/tags/<tag>:refs/tags/<tag> a shorthand expands to, must pass parse_refspec; --multiple treats every word as a remote and --negotiate-only does not read refspecs (cli.fetch.tag-shorthand; repo.fetch fetch.tag-shorthand).",
             "evidence": [
               "test/fixtures/fetch-closure-corpus.json",
               "src/commands/fetch-closure-corpus.test.ts",
@@ -2278,7 +2278,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over thirteen operand shapes and modifier pairs, all as dry runs, wherever Git does not first refuse for repository or configuration state; where it does, the wrapper may refuse the same argv for a rule Git checks later (for example the tag shorthand after remote resolution).",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over fourteen operand shapes and modifier pairs, all as dry runs, wherever Git does not first refuse for repository or configuration state; where it does, the wrapper may refuse the same argv for a rule Git checks later (for example the tag shorthand after remote resolution).",
             "evidence": [
               "test/fixtures/fetch-closure-corpus.json",
               "src/commands/fetch-closure-corpus.test.ts"
@@ -2354,7 +2354,7 @@
             "kind": "operands",
             "disposition": "delegated",
             "basis": "repository-state",
-            "summary": "Repository words and refspecs other than the tag shorthand, and --refmap values, are parsed and matched by the transport.",
+            "summary": "Repository words, the matching of refspecs against remote refs, and --refmap values are resolved by the transport; refspec syntax is checked under tag-shorthand.",
             "reason": "Refspec matching and URL resolution use the refs and remotes that exist at runtime; dash-prefixed words after -- stay operands and are refused by that lookup."
           },
           {
@@ -2567,7 +2567,7 @@
               "set_refspecs: tag shorthand without <tag>"
             ],
             "disposition": "modeled",
-            "summary": "A refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and the refspec it expands to (refs/tags/<tag>, or :refs/tags/<tag> under --delete) must pass parse_refspec (cli.push.tag-shorthand, cli.push.delete-names; repo.push push.tag-shorthand, push.delete-names).",
+            "summary": "A refspec word 'tag' consumes the next word as a tag name and is refused as the last word, and every other refspec word, or the refspec a shorthand expands to (refs/tags/<tag>, or :refs/tags/<tag> under --delete), must pass parse_refspec (cli.push.tag-shorthand, cli.push.delete-names; repo.push push.tag-shorthand, push.delete-names).",
             "evidence": [
               "test/fixtures/push-closure-corpus.json",
               "src/commands/push-closure-corpus.test.ts",
@@ -2757,7 +2757,7 @@
             "kind": "operands",
             "disposition": "delegated",
             "basis": "repository-state",
-            "summary": "The repository word and the refspec words other than the tag shorthand and --delete names are parsed and matched against local and remote refs by the transport.",
+            "summary": "The repository word and the matching of refspecs against local and remote refs are resolved by the transport; refspec syntax is checked under tag-shorthand and delete-plain-names.",
             "reason": "Refspec matching and remote URL resolution use the refs and remotes that exist at runtime; dash-prefixed words after -- stay operands and are refused by that lookup."
           },
           {
@@ -4595,7 +4595,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for single options over eleven operand shapes and option pairs over four, all as dry runs, wherever Git does not first refuse for repository or remote state.",
+            "summary": "Acceptance agrees with Git for single options over twelve operand shapes and option pairs over four, all as dry runs, wherever Git does not first refuse for repository or remote state.",
             "evidence": [
               "test/fixtures/pull-closure-corpus.json",
               "src/commands/pull-closure-corpus.test.ts"
@@ -4694,7 +4694,7 @@
             "id": "tag-shorthand",
             "kind": "operands",
             "disposition": "modeled",
-            "summary": "Fetch reads a forwarded refspec word 'tag' as a tag shorthand, refuses it as the last word, and parses the refspec refs/tags/<tag>:refs/tags/<tag> it expands to (cli.pull.tag-shorthand; repo.pull pull.tag-shorthand).",
+            "summary": "Fetch reads a forwarded refspec word 'tag' as a tag shorthand, refuses it as the last word, and parses every refspec word, or the refspec refs/tags/<tag>:refs/tags/<tag> a shorthand expands to (cli.pull.tag-shorthand; repo.pull pull.tag-shorthand).",
             "evidence": [
               "test/fixtures/pull-closure-corpus.json",
               "src/commands/pull-closure-corpus.test.ts",
@@ -4728,7 +4728,7 @@
             "kind": "operands",
             "disposition": "delegated",
             "basis": "repository-state",
-            "summary": "Repository words and refspecs other than the tag shorthand are parsed and matched by fetch.",
+            "summary": "Repository words and the matching of refspecs against remote refs are resolved by fetch; refspec syntax is checked under tag-shorthand.",
             "reason": "Refspec matching and URL resolution use the refs and remotes that exist at runtime."
           },
           {

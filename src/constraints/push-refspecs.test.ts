@@ -61,9 +61,30 @@ describe('refspec words (builtin/push.c set_refspecs, builtin/fetch.c fetch_one)
     for (const name of ['main', 'refs/heads/main', 'HEAD']) {
       expect(del([name]).valid, name).toBe(true);
     }
-    // Other push and fetch words are left to the transport.
-    expect(push(['bad name']).valid).toBe(true);
-    expect(fetch(['bad name']).valid).toBe(true);
+  });
+
+  it('parses every other refspec word as Git does before any transport', () => {
+    // Observed with Git 2.55.0: push --dry-run origin <x> and fetch --dry-run origin <x>.
+    const push = (word: string) => parseGitScalar('refspec-operands', ['origin', word]).valid;
+    const fetch = (word: string) =>
+      parseGitScalar('fetch-refspec-operands', ['origin', word]).valid;
+    for (const word of ['bad name', 'HEAD~1', 'main~', '+bad name', '^', '^a:b']) {
+      expect(push(word), word).toBe(false);
+      expect(fetch(word), word).toBe(false);
+    }
+    for (const word of ['main', '+main', '^main', '@', ':', ':b', '*:*', 'HEAD~1:refs/heads/x']) {
+      expect(push(word), word).toBe(true);
+    }
+    for (const word of ['main', '+main', '^main', '@', '', '+', ':', 'a:', ':b', '*:*']) {
+      expect(fetch(word), word).toBe(true);
+    }
+    // A push needs a source or a destination; fetch reads an empty side as HEAD or no store.
+    for (const word of ['', '+', 'a:']) {
+      expect(push(word), word).toBe(false);
+    }
+    // A pattern without a destination is a push pattern but not a fetch refspec.
+    expect(push('a*')).toBe(true);
+    expect(fetch('a*')).toBe(false);
   });
 
   it('refuses push options that contain a newline', () => {

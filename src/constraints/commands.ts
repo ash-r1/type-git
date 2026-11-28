@@ -860,7 +860,8 @@ export const COMMAND_CONSTRAINTS = {
       key: 'refspec',
       parser: 'fetch-refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: git('builtin/fetch.c'),
     },
     {
@@ -1018,7 +1019,8 @@ export const COMMAND_CONSTRAINTS = {
       key: 'refspec',
       parser: 'refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: git('builtin/push.c'),
     },
     {
@@ -1398,7 +1400,8 @@ export const COMMAND_CONSTRAINTS = {
       key: 'branch',
       parser: 'fetch-refspec-words',
       origin: 'git',
-      reason: "A refspec word 'tag' must be followed by a tag name that forms a valid refspec.",
+      reason:
+        "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       source: git('builtin/fetch.c'),
     },
     {

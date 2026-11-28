@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference or --no-recurse-submodules; empty file-backed stdin",
+  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference, --no-reference-if-able or --no-recurse-submodules; empty file-backed stdin",
   "cases": [
     {
       "command": "clone",
@@ -60393,6 +60393,210 @@
         "--reference-if-able=../origin.git",
         "--reference=../origin.git",
         "--no-reference",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--no-reference-if-able",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--reference-if-able=../origin.git",
+        "--no-reference-if-able",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--reference=../origin.git",
+        "--recurse-submodules",
+        "--no-reference-if-able",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--reference=../origin.git",
+        "--no-reference-if-able",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recurse-submodules",
+        "--reference=../origin.git",
+        "--reference-if-able=../origin.git",
+        "--no-reference-if-able",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recurse-submodules",
+        "--reference-if-able=../origin.git",
+        "--reference=../origin.git",
+        "--no-reference-if-able",
         "../origin.git"
       ],
       "valid": true,

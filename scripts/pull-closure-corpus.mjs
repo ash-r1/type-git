@@ -58,8 +58,9 @@ const REFUSALS = [
   /^error: (?:option|switch) `[^']*' (?:takes no value|requires a value|expects a numerical value)$/,
   /^fatal: fetch --all does not take a repository argument$/,
   /^fatal: you need to specify a tag name$/i,
-  // The refspec a tag shorthand expands to is parsed from argv alone (push-refspecs.ts).
-  /^fatal: invalid refspec 'refs\/tags\/.*'$/,
+  // parse_refspec reads every refspec word, or the refspec a tag shorthand or a deleted name
+  // expands to, from argv alone before any transport (push-refspecs.ts).
+  /^fatal: invalid refspec '.*'$/,
   /^fatal: fetch --all does not make sense with refspecs$/,
   /^error: option `deepen' expects an integer value with an optional k\/m\/g suffix$/,
   /^fatal: options '.*' and '.*' cannot be used together$/,
@@ -72,7 +73,6 @@ const STATE = [
   /^fatal: '.*' does not appear to be a git repository$/,
   /^fatal: couldn't find remote ref .*$/,
   /^fatal: --unshallow on a complete repository does not make sense$/,
-  /^fatal: invalid refspec '(?!refs\/tags\/|:).*'$/,
 ];
 // --dry-run precedes every case, so pull stops after the fetch.
 const OPTIONS = [
@@ -93,6 +93,7 @@ const OPERANDS = [
   [operand('origin'), operand('tag'), operand('v1')], [operand('origin'), operand('main'), operand('tag')],
   [operand('origin'), operand('tag'), operand('tag')], [operand('tag')], [operand('origin'), operand('main:main')],
   [['--'], operand('origin'), operand('main')], [operand('origin'), operand('tag'), operand('')],
+  [operand('origin'), operand('main~')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
@@ -144,7 +145,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with eleven operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin',
+        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with twelve operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin',
       cases,
     },
     null,
