@@ -9,7 +9,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vite
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
-import { GitArgumentError } from '../core/types.js';
+import { GitArgumentError, GitError } from '../core/types.js';
 import { CliRunner } from '../runner/cli-runner.js';
 import { createGit } from './git-impl.js';
 
@@ -461,6 +461,53 @@ describe('High-level API', () => {
 
       const status = await repo.status();
       expect(status.entries.some((e) => e.path === 'README.md')).toBe(true);
+    });
+
+    it('selects stash entries by number and refuses indexes Git would not read as one', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      await writeFile(join(repoPath, 'README.md'), 'first');
+      await repo.stash.push({ message: 'first' });
+      await writeFile(join(repoPath, 'README.md'), 'second');
+      await repo.stash.push({ message: 'second' });
+
+      // Git reads a fraction as a reflog date, which selects an entry instead of failing.
+      const byDate = await repo.raw(['rev-parse', '--verify', '-q', 'stash@{1.5}']);
+      expect(byDate.exitCode).toBe(0);
+      // Nine or more digits are a timestamp, not an entry number.
+      const byTime = await repo.raw(['rev-parse', '--verify', '-q', 'stash@{100000000}']);
+      expect(byTime.exitCode).toBe(0);
+
+      for (const index of [-1, 1.5, Number.NaN, Number.POSITIVE_INFINITY, 100_000_000]) {
+        await expect(repo.stash.apply({ index })).rejects.toThrow(GitArgumentError);
+        await expect(repo.stash.pop({ index })).rejects.toThrow(GitArgumentError);
+        await expect(repo.stash.drop(index)).rejects.toThrow(GitArgumentError);
+      }
+      expect((await repo.stash.list()).map((entry) => entry.message)).toEqual(['second', 'first']);
+
+      // The largest entry number is passed to Git, which reports the missing entry itself.
+      const largest = await repo.stash
+        .apply({ index: 99_999_999 })
+        .catch((error: unknown) => error);
+      expect(largest).toBeInstanceOf(GitError);
+      expect(largest).not.toBeInstanceOf(GitArgumentError);
+
+      await repo.stash.drop(1);
+      expect((await repo.stash.list()).map((entry) => entry.message)).toEqual(['second']);
+    });
+
+    it('refuses an empty path, which Git rejects as a pathspec', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      await writeFile(join(repoPath, 'README.md'), 'changed');
+
+      const native = await repo.raw(['stash', 'push', '--', '']);
+      expect(native.exitCode).not.toBe(0);
+      await expect(repo.stash.push({ paths: ['README.md', ''] })).rejects.toThrow(GitArgumentError);
+      expect(await repo.stash.list()).toEqual([]);
+
+      await repo.stash.push({ paths: ['README.md'] });
+      expect(await repo.stash.list()).toHaveLength(1);
     });
   });
 

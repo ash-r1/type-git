@@ -33,6 +33,8 @@ const rulePattern = (label: string): RegExp =>
       .map((id) => `\\[${id.replace(/\*/g, '[a-z-]+')}\\]`)
       .join('|'),
   );
+/** Rules whose outcome depends on the operand's value, not only on its presence. */
+const OPERAND_VALUE_RULE = /switch-track-start-point|-name\b/;
 /** Explicit new-branch options and the rule that checks each one's name. */
 const NAME_RULES: Record<string, string> = {
   '--create': 'switch-create-name',
@@ -69,6 +71,13 @@ describe('switch and restore completion closure corpus', () => {
     for (const row of corpus.cases.filter((candidate) => candidate.delegated)) {
       const result = accepts(row.command as Command, row.tokens, row.argv);
       if (result === true) {
+        // An accepted delegated row must not hide an argument refusal that holds for any operand
+        // value; only the operand-dependent name rules may refuse the resolved row alone.
+        const resolved = byKey.get(resolvedKey(row));
+        const rule = resolved && 'rule' in resolved ? resolved.rule : undefined;
+        if (rule !== undefined && !OPERAND_VALUE_RULE.test(rule)) {
+          unexplained.push(`${JSON.stringify(row.argv)}: accepted, but side reaches ${rule}`);
+        }
         continue;
       }
       // A state refusal (an unresolvable operand) can hide a later argument refusal. The same

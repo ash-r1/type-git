@@ -196,8 +196,12 @@ try {
     for (const args of [['switch', '-qf', 'side'], ['switch', '-qf', 'main'], ['reset', '-q', '--hard']]) {
       if (git(args).status !== 0) throw new Error(`Cannot reset oracle: ${args.join(' ')}`);
     }
-    for (const name of git(['for-each-ref', '--format=%(refname:short)', 'refs/heads']).stdout.split('\n')) {
-      if (name && name !== 'main' && name !== 'side') git(['branch', '-qD', name]);
+    const refs = git(['for-each-ref', '--format=%(refname:short)', 'refs/heads']);
+    if (refs.status !== 0) throw new Error(`Cannot list oracle branches: ${refs.stderr}`);
+    for (const name of refs.stdout.split('\n')) {
+      if (!name || name === 'main' || name === 'side') continue;
+      const removed = git(['branch', '-qD', name]);
+      if (removed.status !== 0) throw new Error(`Cannot delete oracle branch ${name}: ${removed.stderr}`);
     }
   };
   const cases = [];
@@ -272,13 +276,16 @@ try {
   // Every derived --track name row is a type witness, accepted or refused.
   for (const row of derived.filter((candidate) => !candidate.delegated)) typeRows.switch.push(row);
   // Numeric context bounds with --patch and a path: -1 is accepted and -2 is refused as negative.
+  // Pinned acceptances: @{-1} as a forced new branch name and a NUL-separated pathspec file.
   for (const spelled of [
     ['restore', '--patch', '--unified=-1', 'file'],
     ['restore', '--patch', '--inter-hunk-context=-2', 'file'],
+    ['switch', '--force-create=@{-1}'],
+    ['restore', '--pathspec-from-file=../oracle-paths-nul', '--pathspec-file-nul'],
   ]) {
     const row = cases.find((candidate) => JSON.stringify(candidate.argv) === JSON.stringify(spelled));
-    if (!row) throw new Error(`Missing context bound row ${spelled.join(' ')}`);
-    typeRows.restore.push(row);
+    if (!row) throw new Error(`Missing pinned row ${spelled.join(' ')}`);
+    typeRows[row.command].push(row);
   }
   for (const row of cases.filter((candidate) => !candidate.delegated && !typeRows[candidate.command].includes(candidate))) {
     // Quoted option names stay in the family, so each option's diagnostic keeps its own witnesses.

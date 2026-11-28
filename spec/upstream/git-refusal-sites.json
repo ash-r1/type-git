@@ -3533,6 +3533,629 @@
         }
       }
     },
+    "builtin/stash.c": {
+      "sha256": "456652e87f456ed85ea86a84d756d6b27c58d15f32916aca45d398e2f0123f84",
+      "functions": {
+        "add_diff_to_buf": {
+          "sites": [],
+          "references": [
+            "is_path_a_directory"
+          ]
+        },
+        "add_pathspecs": {
+          "sites": [],
+          "references": []
+        },
+        "apply_cached": {
+          "sites": [],
+          "references": []
+        },
+        "apply_stash": {
+          "sites": [],
+          "references": [
+            "do_apply_stash",
+            "free_stash_info",
+            "get_stash_info"
+          ]
+        },
+        "assert_stash_like": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' is not a stash-like commit",
+              "line": 222
+            }
+          ],
+          "references": []
+        },
+        "branch_stash": {
+          "sites": [],
+          "references": [
+            "do_apply_stash",
+            "do_drop_stash",
+            "free_stash_info",
+            "get_stash_info"
+          ]
+        },
+        "check_changes": {
+          "sites": [],
+          "references": [
+            "check_changes_tracked_files",
+            "get_untracked_files"
+          ]
+        },
+        "check_changes_tracked_files": {
+          "sites": [],
+          "references": []
+        },
+        "check_stash_topology": {
+          "sites": [],
+          "references": []
+        },
+        "clear_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "git stash clear with arguments is unimplemented",
+              "line": 328
+            }
+          ],
+          "references": [
+            "do_clear_stash"
+          ]
+        },
+        "cmd_stash": {
+          "sites": [],
+          "references": [
+            "apply_stash",
+            "branch_stash",
+            "clear_stash",
+            "create_stash",
+            "drop_stash",
+            "export_stash",
+            "git_stash_config",
+            "import_stash",
+            "list_stash",
+            "pop_stash",
+            "push_stash",
+            "push_stash_unassumed",
+            "save_stash",
+            "show_stash",
+            "store_stash"
+          ]
+        },
+        "collect_stash_entries": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s does not look like a stash commit",
+              "line": 2310
+            }
+          ],
+          "references": [
+            "check_stash_topology"
+          ]
+        },
+        "create_index_from_tree": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "unable to write new index file",
+              "line": 414
+            }
+          ],
+          "references": []
+        },
+        "create_stash": {
+          "sites": [],
+          "references": [
+            "check_changes_tracked_files",
+            "do_create_stash",
+            "free_stash_info"
+          ]
+        },
+        "diff_include_untracked": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "failed to parse tree",
+              "line": 1007
+            },
+            {
+              "call": "die",
+              "text": "failed to unpack trees",
+              "line": 1019
+            }
+          ],
+          "references": []
+        },
+        "diff_tree_binary": {
+          "sites": [],
+          "references": []
+        },
+        "do_apply_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not write index",
+              "line": 659
+            },
+            {
+              "call": "error",
+              "text": "cannot apply a stash in the middle of a merge",
+              "line": 663
+            },
+            {
+              "call": "error",
+              "text": "could not generate diff %s^!.",
+              "line": 674
+            },
+            {
+              "call": "error",
+              "text": "conflicts in index. Try without --index.",
+              "line": 681
+            },
+            {
+              "call": "error",
+              "text": "could not save index tree",
+              "line": 688
+            },
+            {
+              "call": "error",
+              "text": "could not write index",
+              "line": 729
+            },
+            {
+              "call": "error",
+              "text": "could not restore untracked files from stash",
+              "line": 749
+            }
+          ],
+          "references": [
+            "apply_cached",
+            "diff_tree_binary",
+            "reset_head",
+            "reset_tree",
+            "restore_untracked",
+            "unstage_changes_unless_new"
+          ]
+        },
+        "do_clear_stash": {
+          "sites": [],
+          "references": []
+        },
+        "do_create_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not write index",
+              "line": 1523
+            }
+          ],
+          "references": [
+            "check_changes",
+            "save_untracked_files",
+            "stash_patch",
+            "stash_staged",
+            "stash_working_tree"
+          ]
+        },
+        "do_drop_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s: Could not drop stash entry",
+              "line": 832
+            }
+          ],
+          "references": [
+            "do_clear_stash",
+            "reflog_is_empty"
+          ]
+        },
+        "do_export_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "unable to write base commit",
+              "line": 2343
+            },
+            {
+              "call": "error",
+              "text": "unable to find stash entry %s",
+              "line": 2359
+            },
+            {
+              "call": "error",
+              "text": "%s does not look like a stash commit",
+              "line": 2365
+            }
+          ],
+          "references": [
+            "check_stash_topology",
+            "collect_stash_entries",
+            "parse_stash_revision",
+            "write_commit_with_parents"
+          ]
+        },
+        "do_import_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "not a valid revision: %s",
+              "line": 2144
+            },
+            {
+              "call": "error",
+              "text": "not a commit: %s",
+              "line": 2148
+            },
+            {
+              "call": "error",
+              "text": "%s is not a valid exported stash commit",
+              "line": 2167
+            },
+            {
+              "call": "error",
+              "text": "cannot parse commit %s",
+              "line": 2183
+            },
+            {
+              "call": "error",
+              "text": "found root commit %s with invalid data",
+              "line": 2191
+            },
+            {
+              "call": "error",
+              "text": "cannot parse commit %s",
+              "line": 2199
+            },
+            {
+              "call": "error",
+              "text": "found stash commit %s without expected prefix",
+              "line": 2206
+            },
+            {
+              "call": "error",
+              "text": "cannot parse parents of commit: %s",
+              "line": 2214
+            },
+            {
+              "call": "error",
+              "text": "%s does not look like a stash commit",
+              "line": 2220
+            },
+            {
+              "call": "error",
+              "text": "cannot read commit buffer for %s",
+              "line": 2243
+            },
+            {
+              "call": "error",
+              "text": "cannot parse commit %s",
+              "line": 2249
+            },
+            {
+              "call": "error",
+              "text": "cannot save the stash for %s",
+              "line": 2259
+            }
+          ],
+          "references": [
+            "check_stash_topology",
+            "do_store_stash"
+          ]
+        },
+        "do_push_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not write index",
+              "line": 1722
+            }
+          ],
+          "references": [
+            "add_pathspecs",
+            "check_changes",
+            "do_clear_stash",
+            "do_create_stash",
+            "do_store_stash",
+            "free_stash_info"
+          ]
+        },
+        "do_store_stash": {
+          "sites": [],
+          "references": [
+            "assert_stash_like"
+          ]
+        },
+        "drop_stash": {
+          "sites": [],
+          "references": [
+            "do_drop_stash",
+            "free_stash_info",
+            "get_stash_info_assert"
+          ]
+        },
+        "export_stash": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "exactly one of --print and --to-ref is required",
+              "line": 2448
+            }
+          ],
+          "references": [
+            "do_export_stash"
+          ]
+        },
+        "free_stash_info": {
+          "sites": [],
+          "references": []
+        },
+        "get_stash_info": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s is not a valid reference",
+              "line": 279
+            }
+          ],
+          "references": [
+            "assert_stash_like",
+            "parse_stash_revision"
+          ]
+        },
+        "get_stash_info_assert": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "'%s' is not a stash reference",
+              "line": 851
+            }
+          ],
+          "references": [
+            "get_stash_info"
+          ]
+        },
+        "get_untracked_files": {
+          "sites": [],
+          "references": []
+        },
+        "import_stash": {
+          "sites": [
+            {
+              "call": "usage_msg_opt",
+              "text": "a revision is required",
+              "line": 2285
+            }
+          ],
+          "references": [
+            "do_import_stash"
+          ]
+        },
+        "is_path_a_directory": {
+          "sites": [],
+          "references": []
+        },
+        "list_stash": {
+          "sites": [],
+          "references": []
+        },
+        "parse_stash_revision": {
+          "sites": [],
+          "references": []
+        },
+        "pop_stash": {
+          "sites": [],
+          "references": [
+            "do_apply_stash",
+            "do_drop_stash",
+            "free_stash_info",
+            "get_stash_info_assert"
+          ]
+        },
+        "push_stash": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "subcommand wasn't specified; 'push' can't be assumed due to unexpected token '%s'",
+              "line": 1958
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "line": 1968
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --staged]",
+              "line": 1971
+            },
+            {
+              "call": "die",
+              "text": "'%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "line": 1974
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "line": 1980
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --patch]",
+              "line": 1985
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "line": 1987
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "line": 1989
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 1993
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 1995
+            }
+          ],
+          "references": [
+            "do_push_stash"
+          ]
+        },
+        "push_stash_unassumed": {
+          "sites": [],
+          "references": [
+            "push_stash"
+          ]
+        },
+        "reflog_is_empty": {
+          "sites": [],
+          "references": [
+            "reject_reflog_ent"
+          ]
+        },
+        "reject_reflog_ent": {
+          "sites": [],
+          "references": []
+        },
+        "reset_head": {
+          "sites": [],
+          "references": []
+        },
+        "reset_tree": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "unable to write new index file",
+              "line": 370
+            }
+          ],
+          "references": []
+        },
+        "restore_untracked": {
+          "sites": [],
+          "references": []
+        },
+        "save_stash": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 2055
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 2057
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --patch]",
+              "line": 2061
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "line": 2063
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "line": 2065
+            }
+          ],
+          "references": [
+            "do_push_stash"
+          ]
+        },
+        "save_untracked_files": {
+          "sites": [],
+          "references": []
+        },
+        "show_stash": {
+          "sites": [
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1120
+            }
+          ],
+          "references": [
+            "diff_include_untracked",
+            "free_stash_info",
+            "get_stash_info"
+          ]
+        },
+        "stash_patch": {
+          "sites": [],
+          "references": [
+            "create_index_from_tree"
+          ]
+        },
+        "stash_staged": {
+          "sites": [],
+          "references": []
+        },
+        "stash_working_tree": {
+          "sites": [],
+          "references": [
+            "add_diff_to_buf",
+            "reset_tree"
+          ]
+        },
+        "store_stash": {
+          "sites": [],
+          "references": [
+            "do_store_stash"
+          ]
+        },
+        "unstage_changes_unless_new": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Failed to move %s to %s",
+              "line": 604
+            },
+            {
+              "call": "die",
+              "text": "could not write index",
+              "line": 640
+            }
+          ],
+          "references": []
+        },
+        "write_commit_with_parents": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "cannot parse commit %s",
+              "line": 2098
+            },
+            {
+              "call": "error",
+              "text": "invalid author or committer for %s",
+              "line": 2104
+            },
+            {
+              "call": "error",
+              "text": "could not write commit",
+              "line": 2122
+            }
+          ],
+          "references": []
+        }
+      }
+    },
     "diff-no-index.c": {
       "sha256": "b3be27d49453fde08ad09382cfe8301f6c201669180337eec860af06da22d36e",
       "functions": {
