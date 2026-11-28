@@ -562,6 +562,439 @@
         }
       }
     },
+    "builtin/clone.c": {
+      "sha256": "0e19294f7772a71541883d6f66f0ed40e467af81a9571c15713561c36bd3e916",
+      "functions": {
+        "add_one_reference": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 165
+            }
+          ],
+          "references": []
+        },
+        "checkout": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "HEAD not found below refs/heads!",
+              "line": 668
+            },
+            {
+              "call": "die",
+              "text": "unable to parse commit %s",
+              "line": 689
+            },
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 691
+            },
+            {
+              "call": "die",
+              "text": "unable to checkout working tree",
+              "line": 694
+            },
+            {
+              "call": "die",
+              "text": "unable to write new index file",
+              "line": 699
+            }
+          ],
+          "references": []
+        },
+        "clone_local": {
+          "sites": [],
+          "references": [
+            "copy_or_link_directory"
+          ]
+        },
+        "cmd_clone": {
+          "sites": [
+            {
+              "call": "usage_msg_opt",
+              "text": "Too many arguments.",
+              "line": 1018
+            },
+            {
+              "call": "usage_msg_opt",
+              "text": "You must specify a repository to clone.",
+              "line": 1022
+            },
+            {
+              "call": "die",
+              "text": "unknown ref storage format '%s'",
+              "line": 1033
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--bare, --separate-git-dir]",
+              "line": 1043
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--bundle-uri, --depth/--shallow-since/--shallow-exclude]",
+              "line": 1048
+            },
+            {
+              "call": "die",
+              "text": "repository '%s' does not exist",
+              "line": 1062
+            },
+            {
+              "call": "die",
+              "text": "depth %s is not a positive number",
+              "line": 1066
+            },
+            {
+              "call": "die",
+              "text": "destination path '%s' already exists and is not an empty directory.",
+              "line": 1076
+            },
+            {
+              "call": "die",
+              "text": "repository path '%s' already exists and is not an empty directory.",
+              "line": 1082
+            },
+            {
+              "call": "die",
+              "text": "working tree '%s' already exists.",
+              "line": 1096
+            },
+            {
+              "call": "die_errno",
+              "text": "could not create leading directories of '%s'",
+              "line": 1111
+            },
+            {
+              "call": "die_errno",
+              "text": "could not create work tree dir '%s'",
+              "line": 1116
+            },
+            {
+              "call": "die",
+              "text": "could not create leading directories of '%s'",
+              "line": 1132
+            },
+            {
+              "call": "die",
+              "text": "clone --recursive is not compatible with both --reference and --reference-if-able",
+              "line": 1166
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--also-filter-submodules, --filter]",
+              "line": 1273
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--also-filter-submodules, --recurse-submodules]",
+              "line": 1276
+            },
+            {
+              "call": "die",
+              "text": "'%s' is not a valid remote name",
+              "line": 1292
+            },
+            {
+              "call": "die",
+              "text": "source repository is shallow, reject to clone.",
+              "line": 1336
+            },
+            {
+              "call": "die",
+              "text": "cannot clone from filtered bundle",
+              "line": 1359
+            },
+            {
+              "call": "die_for_incompatible_opt2",
+              "text": "--revision / --branch",
+              "line": 1364
+            },
+            {
+              "call": "die_for_incompatible_opt2",
+              "text": "--revision / --mirror",
+              "line": 1366
+            },
+            {
+              "call": "die",
+              "text": "remote transport reported error",
+              "line": 1534
+            },
+            {
+              "call": "die",
+              "text": "Remote branch %s not found in upstream %s",
+              "line": 1545
+            },
+            {
+              "call": "die",
+              "text": "Remote revision %s not found in upstream %s",
+              "line": 1550
+            },
+            {
+              "call": "die",
+              "text": "remote transport reported error",
+              "line": 1601
+            }
+          ],
+          "references": [
+            "checkout",
+            "clone_local",
+            "dissociate_from_references",
+            "find_remote_branch",
+            "get_repo_path",
+            "git_clone_config",
+            "git_sparse_checkout_init",
+            "path_exists",
+            "recurse_submodules_cb",
+            "remove_junk",
+            "remove_junk_on_signal",
+            "setup_reference",
+            "update_head",
+            "update_remote_refs",
+            "wanted_peer_refs",
+            "write_config",
+            "write_refspec_config"
+          ]
+        },
+        "copy_alternates": {
+          "sites": [],
+          "references": []
+        },
+        "copy_or_link_directory": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' is a symlink, refusing to clone with --local",
+              "line": 277
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to start iterator over '%s'",
+              "line": 281
+            },
+            {
+              "call": "die",
+              "text": "symlink '%s' exists, refusing to clone with --local",
+              "line": 296
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to unlink '%s'",
+              "line": 311
+            },
+            {
+              "call": "die",
+              "text": "hardlink cannot be checked at '%s'",
+              "line": 323
+            },
+            {
+              "call": "die",
+              "text": "hardlink different from source at '%s'",
+              "line": 330
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to create link '%s'",
+              "line": 335
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to copy file to '%s'",
+              "line": 339
+            },
+            {
+              "call": "die",
+              "text": "failed to iterate over '%s'",
+              "line": 344
+            }
+          ],
+          "references": [
+            "copy_alternates",
+            "mkdir_if_missing"
+          ]
+        },
+        "dissociate_from_references": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot repack to clean up",
+              "line": 856
+            },
+            {
+              "call": "die_errno",
+              "text": "cannot unlink temporary alternates file",
+              "line": 858
+            }
+          ],
+          "references": []
+        },
+        "find_remote_branch": {
+          "sites": [],
+          "references": []
+        },
+        "get_repo_path": {
+          "sites": [],
+          "references": [
+            "get_repo_path_1"
+          ]
+        },
+        "get_repo_path_1": {
+          "sites": [],
+          "references": []
+        },
+        "git_clone_config": {
+          "sites": [],
+          "references": []
+        },
+        "git_sparse_checkout_init": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "failed to initialize sparse-checkout",
+              "line": 631
+            }
+          ],
+          "references": []
+        },
+        "iterate_ref_map": {
+          "sites": [],
+          "references": []
+        },
+        "mkdir_if_missing": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "failed to create directory '%s'",
+              "line": 239
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to stat '%s'",
+              "line": 241
+            },
+            {
+              "call": "die",
+              "text": "%s exists and is not a directory",
+              "line": 243
+            }
+          ],
+          "references": []
+        },
+        "path_exists": {
+          "sites": [],
+          "references": []
+        },
+        "recurse_submodules_cb": {
+          "sites": [],
+          "references": []
+        },
+        "remove_junk": {
+          "sites": [],
+          "references": []
+        },
+        "remove_junk_on_signal": {
+          "sites": [],
+          "references": [
+            "remove_junk"
+          ]
+        },
+        "setup_reference": {
+          "sites": [],
+          "references": [
+            "add_one_reference"
+          ]
+        },
+        "update_head": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to update HEAD",
+              "line": 579
+            },
+            {
+              "call": "die",
+              "text": "unable to update HEAD",
+              "line": 609
+            }
+          ],
+          "references": []
+        },
+        "update_remote_refs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "remote did not send all necessary objects",
+              "line": 551
+            },
+            {
+              "call": "die",
+              "text": "unable to update %s",
+              "line": 567
+            }
+          ],
+          "references": [
+            "iterate_ref_map",
+            "write_followtags",
+            "write_remote_refs"
+          ]
+        },
+        "wanted_peer_refs": {
+          "sites": [],
+          "references": [
+            "find_remote_branch"
+          ]
+        },
+        "write_config": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to write parameters to config file",
+              "line": 789
+            }
+          ],
+          "references": [
+            "write_one_config"
+          ]
+        },
+        "write_followtags": {
+          "sites": [],
+          "references": []
+        },
+        "write_one_config": {
+          "sites": [],
+          "references": [
+            "git_clone_config"
+          ]
+        },
+        "write_refspec_config": {
+          "sites": [],
+          "references": []
+        },
+        "write_remote_refs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 483
+            },
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 490
+            },
+            {
+              "call": "die",
+              "text": "%s",
+              "line": 494
+            }
+          ],
+          "references": []
+        }
+      }
+    },
     "builtin/commit.c": {
       "sha256": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
       "functions": {
@@ -1406,6 +1839,385 @@
         }
       }
     },
+    "builtin/fetch.c": {
+      "sha256": "233392c86a91623695ed8d79cde6ffdf58ecb0618fbec54e852c64403afaa96c",
+      "functions": {
+        "add_negotiation_tips": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "the object %s does not exist",
+              "line": 1559
+            }
+          ],
+          "references": [
+            "add_oid"
+          ]
+        },
+        "add_options_to_argv": {
+          "sites": [],
+          "references": []
+        },
+        "backfill_tags": {
+          "sites": [],
+          "references": [
+            "fetch_and_consume_refs",
+            "prepare_transport"
+          ]
+        },
+        "check_not_current_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "refusing to fetch into branch '%s' checked out at '%s'",
+              "line": 1502
+            }
+          ],
+          "references": []
+        },
+        "close_fetch_head": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_fetch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--negotiate-only, --recurse-submodules]",
+              "line": 2632
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--porcelain, --recurse-submodules]",
+              "line": 2659
+            },
+            {
+              "call": "die",
+              "text": "negative depth in --deepen is not supported",
+              "line": 2668
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--deepen, --depth]",
+              "line": 2670
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--depth, --unshallow]",
+              "line": 2675
+            },
+            {
+              "call": "die",
+              "text": "--unshallow on a complete repository does not make sense",
+              "line": 2677
+            },
+            {
+              "call": "die",
+              "text": "depth %s is not a positive number",
+              "line": 2684
+            },
+            {
+              "call": "die",
+              "text": "fetch --all does not take a repository argument",
+              "line": 2709
+            },
+            {
+              "call": "die",
+              "text": "fetch --all does not make sense with refspecs",
+              "line": 2711
+            },
+            {
+              "call": "die",
+              "text": "no such remote or remote group: %s",
+              "line": 2725
+            },
+            {
+              "call": "die",
+              "text": "fetching a group and specifying refspecs does not make sense",
+              "line": 2733
+            },
+            {
+              "call": "die",
+              "text": "must supply remote when using --negotiate-only",
+              "line": 2751
+            },
+            {
+              "call": "die",
+              "text": "%s needs one or more %s [--negotiate-only, --negotiation-restrict=*]",
+              "line": 2761
+            },
+            {
+              "call": "die",
+              "text": "--filter can only be used with the remote configured in extensions.partialclone",
+              "line": 2790
+            },
+            {
+              "call": "die",
+              "text": "--atomic can only be used when fetching from one remote",
+              "line": 2794
+            },
+            {
+              "call": "die",
+              "text": "--stdin can only be used when fetching from one remote",
+              "line": 2798
+            }
+          ],
+          "references": [
+            "add_options_to_argv",
+            "fetch_multiple",
+            "fetch_one",
+            "fetch_one_setup_partial",
+            "get_one_remote_for_fetch",
+            "git_fetch_config",
+            "parse_refmap_arg",
+            "prepare_transport"
+          ]
+        },
+        "commit_fetch_head": {
+          "sites": [],
+          "references": []
+        },
+        "commit_ref_transaction": {
+          "sites": [],
+          "references": [
+            "ref_transaction_rejection_handler"
+          ]
+        },
+        "do_fetch": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s",
+              "line": 2158
+            },
+            {
+              "call": "error",
+              "text": "%s",
+              "line": 2163
+            }
+          ],
+          "references": [
+            "backfill_tags",
+            "check_not_current_branch",
+            "close_fetch_head",
+            "commit_fetch_head",
+            "commit_ref_transaction",
+            "display_state_init",
+            "display_state_release",
+            "fetch_and_consume_refs",
+            "find_non_local_tags",
+            "get_ref_map",
+            "open_fetch_head",
+            "prune_refs",
+            "ref_update_display_info_display",
+            "ref_update_display_info_free",
+            "ref_update_display_info_set_failed",
+            "set_head",
+            "truncate_fetch_head"
+          ]
+        },
+        "fetch_and_consume_refs": {
+          "sites": [],
+          "references": [
+            "check_exist_and_connected",
+            "store_updated_refs"
+          ]
+        },
+        "fetch_failed_to_start": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not fetch %s",
+              "line": 2266
+            }
+          ],
+          "references": []
+        },
+        "fetch_finished": {
+          "sites": [],
+          "references": []
+        },
+        "fetch_multiple": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not fetch %s",
+              "line": 2338
+            }
+          ],
+          "references": [
+            "add_options_to_argv",
+            "fetch_failed_to_start",
+            "fetch_finished",
+            "fetch_next_remote",
+            "truncate_fetch_head"
+          ]
+        },
+        "fetch_next_remote": {
+          "sites": [],
+          "references": []
+        },
+        "fetch_one": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "no remote repository specified; please specify either a URL or a\nremote name from which new revisions should be fetched",
+              "line": 2401
+            },
+            {
+              "call": "die",
+              "text": "you need to specify a tag name",
+              "line": 2437
+            }
+          ],
+          "references": [
+            "do_fetch",
+            "prepare_transport",
+            "unlock_pack_atexit",
+            "unlock_pack_on_signal"
+          ]
+        },
+        "fetch_one_setup_partial": {
+          "sites": [],
+          "references": []
+        },
+        "get_one_remote_for_fetch": {
+          "sites": [],
+          "references": []
+        },
+        "get_ref_map": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "--refmap option is only meaningful with command-line refspec(s)",
+              "line": 545
+            },
+            {
+              "call": "die",
+              "text": "couldn't find remote ref HEAD",
+              "line": 576
+            }
+          ],
+          "references": [
+            "add_merge_config",
+            "add_one_refname",
+            "filter_prefetch_refspec",
+            "find_non_local_tags",
+            "refname_hash_init"
+          ]
+        },
+        "open_fetch_head": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "cannot open '%s'",
+              "line": 1136
+            }
+          ],
+          "references": []
+        },
+        "parse_refmap_arg": {
+          "sites": [],
+          "references": []
+        },
+        "prepare_transport": {
+          "sites": [],
+          "references": [
+            "add_negotiation_tips",
+            "set_option"
+          ]
+        },
+        "ref_transaction_rejection_handler": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "You're on a case-insensitive filesystem, and the remote you are\ntrying to fetch from has references that only differ in casing. It\nis impossible to store such references with the 'files' backend. You\ncan either accept this as-is, in which case you won't be able to\nstore all remote references on disk. Or you can alternatively\nmigrate your repository to use the 'reftable' backend with the\nfollowing command:\n\n    git refs migrate --ref-format=reftable\n\nPlease keep in mind that not all implementations of Git support this\nnew format yet. So if you use tools other than Git to access this\nrepository it may not be an option to migrate to reftables.\n",
+              "line": 1824
+            },
+            {
+              "call": "error",
+              "text": "some local refs could not be updated; try running\n 'git remote prune %s' to remove any old, conflicting branches",
+              "line": 1837
+            },
+            {
+              "call": "error",
+              "text": "%s",
+              "line": 1843
+            },
+            {
+              "call": "error",
+              "text": "fetching ref %s failed: %s",
+              "line": 1845
+            }
+          ],
+          "references": []
+        },
+        "s_update_ref": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s",
+              "line": 662
+            }
+          ],
+          "references": []
+        },
+        "set_option": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "option \"%s\" value \"%s\" is not valid for %s",
+              "line": 1522
+            }
+          ],
+          "references": []
+        },
+        "store_updated_refs": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s did not send all necessary objects",
+              "line": 1235
+            }
+          ],
+          "references": [
+            "append_fetch_head",
+            "iterate_ref_map",
+            "ref_update_display_info_append",
+            "update_local_ref"
+          ]
+        },
+        "truncate_fetch_head": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "cannot open '%s'",
+              "line": 1513
+            }
+          ],
+          "references": []
+        },
+        "update_local_ref": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "object %s not found",
+              "line": 951
+            },
+            {
+              "call": "die",
+              "text": "<NULL>",
+              "line": 1052
+            }
+          ],
+          "references": [
+            "ref_update_display_info_append",
+            "ref_update_display_info_set_failed",
+            "s_update_ref"
+          ]
+        }
+      }
+    },
     "builtin/log.c": {
       "sha256": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
       "functions": {
@@ -2096,6 +2908,434 @@
             }
           ],
           "references": []
+        }
+      }
+    },
+    "builtin/pull.c": {
+      "sha256": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3",
+      "functions": {
+        "already_up_to_date": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 833
+            }
+          ],
+          "references": []
+        },
+        "argv_push_force": {
+          "sites": [],
+          "references": []
+        },
+        "argv_push_verbosity": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_pull": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Updating an unborn branch with changes added to the index.",
+              "line": 1076
+            },
+            {
+              "call": "die",
+              "text": "Cannot fast-forward your working tree.\nAfter making sure that you saved anything precious from\n$ git diff %s\noutput, run\n$ git reset --hard\nto recover.",
+              "line": 1112
+            },
+            {
+              "call": "die",
+              "text": "Cannot merge multiple branches into empty head.",
+              "line": 1127
+            },
+            {
+              "call": "die",
+              "text": "Cannot rebase onto multiple branches.",
+              "line": 1133
+            },
+            {
+              "call": "die",
+              "text": "Cannot fast-forward to multiple branches.",
+              "line": 1135
+            },
+            {
+              "call": "die",
+              "text": "Need to specify how to reconcile divergent branches.",
+              "line": 1150
+            },
+            {
+              "call": "die",
+              "text": "cannot rebase with locally recorded submodule modifications",
+              "line": 1162
+            }
+          ],
+          "references": [
+            "already_up_to_date",
+            "config_get_ff",
+            "config_get_rebase",
+            "die_no_merge_candidates",
+            "get_can_ff",
+            "get_merge_heads",
+            "get_rebase_fork_point",
+            "get_rebase_newbase_and_upstream",
+            "git_pull_config",
+            "parse_opt_rebase",
+            "parse_repo_refspecs",
+            "pull_into_void",
+            "rebase_submodules",
+            "run_fetch",
+            "run_merge",
+            "run_rebase",
+            "set_reflog_message",
+            "show_advice_pull_non_ff",
+            "update_submodules"
+          ]
+        },
+        "config_get_ff": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "invalid value for '%s': '%s' [pull.ff, *]",
+              "line": 188
+            }
+          ],
+          "references": []
+        },
+        "config_get_rebase": {
+          "sites": [],
+          "references": [
+            "parse_config_rebase"
+          ]
+        },
+        "die_no_merge_candidates": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 365
+            }
+          ],
+          "references": [
+            "get_only_remote"
+          ]
+        },
+        "get_can_ff": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 808
+            }
+          ],
+          "references": []
+        },
+        "get_merge_heads": {
+          "sites": [],
+          "references": []
+        },
+        "get_octopus_merge_base": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 706
+            }
+          ],
+          "references": []
+        },
+        "get_only_remote": {
+          "sites": [],
+          "references": []
+        },
+        "get_rebase_fork_point": {
+          "sites": [],
+          "references": [
+            "get_tracking_branch",
+            "get_upstream_branch"
+          ]
+        },
+        "get_rebase_newbase_and_upstream": {
+          "sites": [],
+          "references": [
+            "get_octopus_merge_base"
+          ]
+        },
+        "get_tracking_branch": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "invalid refspec '%s'",
+              "line": 616
+            }
+          ],
+          "references": []
+        },
+        "get_upstream_branch": {
+          "sites": [],
+          "references": []
+        },
+        "git_pull_config": {
+          "sites": [],
+          "references": []
+        },
+        "parse_config_rebase": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "invalid value for '%s': '%s'",
+              "line": 49
+            },
+            {
+              "call": "error",
+              "text": "invalid value for '%s': '%s'",
+              "line": 51
+            }
+          ],
+          "references": []
+        },
+        "parse_opt_rebase": {
+          "sites": [],
+          "references": [
+            "parse_config_rebase"
+          ]
+        },
+        "parse_repo_refspecs": {
+          "sites": [],
+          "references": []
+        },
+        "pull_into_void": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unable to access commit %s",
+              "line": 472
+            }
+          ],
+          "references": []
+        },
+        "rebase_submodules": {
+          "sites": [],
+          "references": [
+            "argv_push_verbosity"
+          ]
+        },
+        "run_fetch": {
+          "sites": [],
+          "references": [
+            "argv_push_force",
+            "argv_push_verbosity"
+          ]
+        },
+        "run_merge": {
+          "sites": [],
+          "references": [
+            "argv_push_verbosity"
+          ]
+        },
+        "run_rebase": {
+          "sites": [],
+          "references": [
+            "argv_push_verbosity"
+          ]
+        },
+        "set_reflog_message": {
+          "sites": [],
+          "references": []
+        },
+        "show_advice_pull_non_ff": {
+          "sites": [],
+          "references": []
+        },
+        "update_submodules": {
+          "sites": [],
+          "references": [
+            "argv_push_verbosity"
+          ]
+        }
+      }
+    },
+    "builtin/push.c": {
+      "sha256": "80b564b62e0eed0657973c1325e5f7dc7da73480aa3640398e0ba603525eb3f7",
+      "functions": {
+        "cmd_push": {
+          "sites": [
+            {
+              "call": "die_for_incompatible_opt4",
+              "text": "--delete / --tags / --all/--branches / --mirror",
+              "line": 728
+            },
+            {
+              "call": "die",
+              "text": "--delete doesn't make sense without any refs",
+              "line": 733
+            },
+            {
+              "call": "die",
+              "text": "bad repository '%s'",
+              "line": 758
+            },
+            {
+              "call": "die",
+              "text": "No configured push destination.\nEither specify the URL from the command-line or configure a remote repository using\n\n    git remote add <name> <url>\n\nand then push using the remote name\n\n    git push <name>\n\nTo push to multiple remotes at once, configure a remote group using\n\n    git config remotes.<groupname> \"<remote1> <remote2>\"\n\nand then push using the group name\n\n    git push <groupname>\n",
+              "line": 764
+            },
+            {
+              "call": "die",
+              "text": "push options must not have new line characters",
+              "line": 788
+            },
+            {
+              "call": "die",
+              "text": "no such remote or remote group: %s",
+              "line": 807
+            },
+            {
+              "call": "die",
+              "text": "--all can't be combined with refspecs",
+              "line": 815
+            },
+            {
+              "call": "die",
+              "text": "--mirror can't be combined with refspecs",
+              "line": 819
+            },
+            {
+              "call": "die",
+              "text": "--atomic can only be used when pushing to one remote",
+              "line": 841
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 855
+            }
+          ],
+          "references": [
+            "do_push",
+            "git_push_config",
+            "option_parse_recurse_submodules",
+            "push_multiple",
+            "set_push_cert_flags",
+            "set_refspecs"
+          ]
+        },
+        "die_push_simple": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "The upstream branch of your current branch does not match\nthe name of your current branch.  To push to the upstream branch\non the remote, use\n\n    git push %s HEAD:%s\n\nTo push to the branch of the same name on the remote, use\n\n    git push %s HEAD\n%s%s",
+              "line": 174
+            }
+          ],
+          "references": []
+        },
+        "do_push": {
+          "sites": [],
+          "references": [
+            "push_with_options",
+            "setup_default_push_refspecs"
+          ]
+        },
+        "get_upstream_ref": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "The current branch %s has no upstream branch.\nTo push the current branch and set the remote as upstream, use\n\n    git push --set-upstream %s %s\n%s",
+              "line": 212
+            },
+            {
+              "call": "die",
+              "text": "The current branch %s has multiple upstream branches, refusing to push.",
+              "line": 223
+            }
+          ],
+          "references": []
+        },
+        "option_parse_recurse_submodules": {
+          "sites": [],
+          "references": []
+        },
+        "push_multiple": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not push to %s",
+              "line": 656
+            }
+          ],
+          "references": []
+        },
+        "push_with_options": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "underlying transport does not support --%s option [force-with-lease]",
+              "line": 381
+            },
+            {
+              "call": "error",
+              "text": "failed to push some refs to '%s'",
+              "line": 394
+            }
+          ],
+          "references": [
+            "advise_checkout_pull_push",
+            "advise_pull_before_push",
+            "advise_ref_already_exists",
+            "advise_ref_fetch_first",
+            "advise_ref_needs_force",
+            "advise_ref_needs_update",
+            "push_get_color"
+          ]
+        },
+        "refspec_append_mapped": {
+          "sites": [],
+          "references": []
+        },
+        "set_push_cert_flags": {
+          "sites": [],
+          "references": []
+        },
+        "set_refspecs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "tag shorthand without <tag>",
+              "line": 113
+            },
+            {
+              "call": "die",
+              "text": "--delete only accepts plain target ref names",
+              "line": 121
+            }
+          ],
+          "references": [
+            "refspec_append_mapped"
+          ]
+        },
+        "setup_default_push_refspecs": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "You didn't specify any refspecs to push, and push.default is \"nothing\".",
+              "line": 241
+            },
+            {
+              "call": "die",
+              "text": "<_(message_detached_head_die)>",
+              "line": 250
+            },
+            {
+              "call": "die",
+              "text": "You are pushing to remote '%s', which is not the upstream of\nyour current branch '%s', without telling me what to push\nto update which remote branch.",
+              "line": 267
+            }
+          ],
+          "references": [
+            "die_push_simple",
+            "get_upstream_ref"
+          ]
         }
       }
     },

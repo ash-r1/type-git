@@ -704,3 +704,62 @@ git.command('stripspace', [['--comment-lines']]);
 git.command('ls-remote', [['--refs'], { operand: '.' }, { operand: '--literal-pattern' }]);
 // @ts-expect-error Options must precede the remote operand.
 git.command('ls-remote', [{ operand: '.' }, ['--refs']]);
+// @ts-expect-error The push tag shorthand needs the tag name that follows it.
+git.command('push', [{ operand: 'origin' }, { operand: 'main' }, { operand: 'tag' }]);
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'tag' }]);
+// @ts-expect-error --delete accepts only plain ref names.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'a:b' }]);
+// @ts-expect-error --delete refuses an empty name.
+git.command('push', [['-d'], { operand: 'origin' }, { operand: '' }]);
+// The repository word may contain ':' and the word after 'tag' is a tag name.
+git.command('push', [['--delete'], { operand: 'host:repo' }, { operand: 'tag' }, { operand: 'v1' }]);
+git.command('push', [['--delete'], ['--no-delete'], { operand: 'origin' }, { operand: 'a:b' }]);
+// @ts-expect-error Push options cannot contain newlines.
+git.command('push', [['-o', 'a\nb'], { operand: 'origin' }]);
+git.command('push', [['-o', 'a\nb'], ['--no-push-option'], { operand: 'origin' }]);
+// @ts-expect-error The fetch tag shorthand needs the tag name that follows it.
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }]);
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
+// With --multiple every word is a remote, and --negotiate-only does not read refspecs.
+git.command('fetch', [['--multiple'], { operand: 'origin' }, { operand: 'tag' }]);
+git.command('fetch', [['--negotiate-only'], { operand: 'origin' }, { operand: 'tag' }]);
+// @ts-expect-error pull forwards a refspec word 'tag' to fetch, which needs the tag name after it.
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }]);
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v1' }]);
+git.command('pull', [{ operand: 'tag' }]);
+// @ts-expect-error The tag name must form a valid refspec: refs/tags/ is not a ref name.
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: '' }]);
+// @ts-expect-error A deleted name must be a valid ref name.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'bad name' }]);
+// @ts-expect-error A deleted name cannot be a pattern.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'a*' }]);
+// @ts-expect-error fetch expands the tag shorthand to refs/tags/<tag>:refs/tags/<tag>.
+git.command('fetch', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'a.' }]);
+// @ts-expect-error pull forwards the expanded tag refspec to fetch.
+git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: '.x' }]);
+// A ':' splits the push refspec and '*' makes a pattern, so these stay accepted.
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'a:b' }]);
+git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v*' }]);
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'tag' }, { operand: '@' }]);
+// Git expands a deleted name to ':<name>', so a leading '+' is part of the ref name.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: '+.topic' }]);
+git.command('pull', [['--quiet'], ['--help-all']]);
+git.command('push', [['--help-all']]);
+git.command('clone', [['--help-all']]);
+git.command('fetch', [['--all'], ['--help-all']]);
+// @ts-expect-error clone --origin must form a valid remote-tracking refspec.
+git.command('clone', [['--origin', 'up stream'], { operand: 'source' }]);
+// @ts-expect-error A remote name component cannot end with .lock.
+git.command('clone', [['--origin', 'a.lock/b'], { operand: 'source' }]);
+git.command('clone', [['--origin', 'up/stream'], { operand: 'source' }]);
+// @ts-expect-error A recursive clone cannot use both --reference and --reference-if-able.
+git.command('clone', [['--recursive'], ['--reference', 'a'], ['--reference-if-able', 'b'], { operand: 'source' }]);
+git.command('clone', [['--recursive'], ['--reference', 'a'], ['--reference-if-able', 'b'], ['--no-reference'], { operand: 'source' }]);
+// @ts-expect-error A clone --config key needs a section and a variable name.
+git.command('clone', [['-c', 'a=b'], { operand: 'source' }]);
+// @ts-expect-error A clone --config key cannot end with a dot.
+git.command('clone', [['--config', 'core.=x'], { operand: 'source' }]);
+git.command('clone', [['-c', 'core.autocrlf=false'], ['-c', '.x.y=1'], { operand: 'source' }]);
+// A word that may be the tag shorthand consumes the next word, so it stays a runtime check.
+const pushWord: string = String(Date.now());
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: pushWord }, { operand: 'a:b' }]);

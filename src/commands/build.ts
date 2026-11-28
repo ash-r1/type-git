@@ -637,6 +637,8 @@ function buildArguments(
       spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
   let guardEnded = false;
   let guardLiteral = false;
+  // Any pass: a help exit before a forwarded operand keeps the child parser unreachable.
+  let helpExited = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -684,7 +686,7 @@ function buildArguments(
       // help exit that precedes the operand makes the forwarded child parser unreachable.
       if (
         spec.forwardedOperands &&
-        !(evaluationMode === 'shape' ? guard && guardExited : parserExited) &&
+        !(helpExited || (evaluationMode === 'shape' ? guard && guardExited : parserExited)) &&
         state.help !== true &&
         operand.startsWith('-') &&
         operand !== '-'
@@ -977,7 +979,15 @@ function buildArguments(
       usageExited = true;
       parserExited = true;
       guardExited = true;
+      helpExited = true;
       continue;
+    }
+    if (
+      !ended &&
+      spec.parserExit?.flags.includes(flag) &&
+      !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+    ) {
+      helpExited = true;
     }
     if (guard && !guardExited) {
       if (option.consumesRest) {

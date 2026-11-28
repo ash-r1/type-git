@@ -1,5 +1,7 @@
 import type { BlameLineRangeLiteral } from './blame-line-range.js';
 import type { CommitAuthorLiteral } from './commit-ident-types.js';
+import type { ConfigParameterLiteral } from './config-parameter-types.js';
+import type { ConfigParameterParser } from './config-parameters.js';
 import type { DepthInitialLiteral } from './depth-types.js';
 import type { GitBooleanCallback } from './git-boolean.js';
 import type {
@@ -19,6 +21,8 @@ import type {
   SafeIntegerAtLeast,
 } from './number-types.js';
 import type { ObjectFilterLiteral } from './object-filter-types.js';
+import type { PushRefspecLiteral } from './push-refspec-types.js';
+import type { PushRefspecParser } from './push-refspecs.js';
 import type { BranchNameLiteral, RefnameOnelevelLiteral } from './refname-types.js';
 import type { StringCallbackParser } from './string-callback.js';
 import type { StringCallbackLiteral } from './string-callback-types.js';
@@ -378,7 +382,15 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
                       ? StringCallbackLiteral<V, P> extends true
                         ? V
                         : never
-                      : V;
+                      : P extends PushRefspecParser
+                        ? PushRefspecLiteral<V, P> extends true
+                          ? V
+                          : never
+                        : P extends ConfigParameterParser
+                          ? ConfigParameterLiteral<V, P> extends true
+                            ? V
+                            : never
+                          : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

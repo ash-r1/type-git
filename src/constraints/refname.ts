@@ -21,13 +21,19 @@ function forbiddenRefnameByte(code: number): boolean {
 }
 
 /**
- * refs.c:check_refname_format without REFNAME_REFSPEC_PATTERN. Without `allowOnelevel`
- * (flags 0) a ref needs at least two components; REFNAME_ALLOW_ONELEVEL lifts that.
+ * refs.c:check_refname_format. Without `allowOnelevel` (flags 0) a ref needs at least two
+ * components; REFNAME_ALLOW_ONELEVEL lifts that. With `pattern` (REFNAME_REFSPEC_PATTERN) the
+ * first '*' is allowed and clears the flag, so a second one is refused.
  */
-export function validRefnameFormat(refname: string, allowOnelevel: boolean = false): boolean {
+export function validRefnameFormat(
+  refname: string,
+  allowOnelevel: boolean = false,
+  pattern: boolean = false,
+): boolean {
   if (refname === '@' || refname.includes('\0')) {
     return false;
   }
+  let allowStar = pattern;
   const components = refname.split('/');
   if (components.length < 2 && !allowOnelevel) {
     return false;
@@ -44,7 +50,10 @@ export function validRefnameFormat(refname: string, allowOnelevel: boolean = fal
     }
     for (let index = 0; index < component.length; index += 1) {
       // Non-ASCII UTF-16 units encode to bytes >= 0x80, which the table allows.
-      if (forbiddenRefnameByte(component.charCodeAt(index))) {
+      const code = component.charCodeAt(index);
+      if (code === 0x2a && allowStar) {
+        allowStar = false;
+      } else if (forbiddenRefnameByte(code)) {
         return false;
       }
     }

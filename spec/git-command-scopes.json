@@ -759,6 +759,10 @@
         "key": "bare",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -767,7 +771,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
       "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -799,6 +804,10 @@
         "key": "tags",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -807,7 +816,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
       "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -834,10 +844,17 @@
       "builtin/push.c:cmd_push:options"
     ],
     "source": "builtin/push.c",
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
       "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -10012,18 +10029,35 @@
           "signed": true,
           "bits": 32
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.25.1/2.55.0 builtin/pull.c:parse_options; parse-options.c:parse_options_step/parse_options; git.c:handle_builtin",
+      "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; pull consumes its own -- before forwarding the words to fetch.",
+      "source": "Git 2.55.0 builtin/pull.c:cmd_pull; parse-options.c:preprocess_options/register_abbrev/parse_long_opt/parse_options; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
+      ],
+      "firstPassTables": [
+        "builtin/pull.c:cmd_pull:pull_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "singleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
       ]
     },
     "forwardedOperands": {

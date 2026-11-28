@@ -9,10 +9,23 @@ export async function checkConstraintModel(git: Git, repo: WorktreeRepo, flag: b
   await git.clone('source', 'destination', { alsoFilterSubmodules: true, recurseSubmodules: true });
   // @ts-expect-error Explicit false does not satisfy the recursion prerequisite.
   await git.clone('source', 'destination', { alsoFilterSubmodules: true, filter: 'blob:none', recurseSubmodules: false });
+  // @ts-expect-error A recursive clone cannot use both reference kinds.
+  await git.clone('source', 'destination', { recurseSubmodules: true, reference: 'a', referenceIfAble: 'b' });
+  await git.clone('source', 'destination', { reference: 'a', referenceIfAble: 'b' });
   await repo.fetch({ depth: 1, deepen: 0 });
   // @ts-expect-error Nonzero deepen cannot be combined with depth.
   await repo.fetch({ depth: 1, deepen: 2 });
+  await repo.push({ remote: 'origin', deleteRefs: true, refspec: 'obsolete' });
+  // @ts-expect-error Git reads the first positional word as the repository.
   await repo.push({ deleteRefs: true, refspec: 'obsolete' });
+  // @ts-expect-error repo.fetch reads the first positional word as the repository as well.
+  await repo.fetch({ refspec: 'main' });
+  await repo.fetch({ remote: 'origin', refspec: ['tag', 'v1'] });
+  // @ts-expect-error repo.pull reads the first positional word as the repository too.
+  await repo.pull({ branch: 'main' });
+  // @ts-expect-error Fetching from all remotes cannot name a repository.
+  await repo.pull({ all: true, remote: 'origin' });
+  await repo.pull({ remote: 'origin', branch: 'main' });
   // @ts-expect-error Deletion needs refs.
   await repo.push({ deleteRefs: true });
   // @ts-expect-error Delete and bulk push modes conflict.

@@ -28,6 +28,11 @@ import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import { validCommitAuthor, validCommitDate } from './commit-ident.js';
 import {
+  type ConfigParameterParser,
+  isConfigParameterParser,
+  parseConfigParameters,
+} from './config-parameters.js';
+import {
   type GitDecimalCallbacks,
   type GitDecimalParser,
   parseGitDecimal,
@@ -42,6 +47,7 @@ import {
 } from './git-integer.js';
 import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
+import { isPushRefspecParser, type PushRefspecParser, parsePushRefspecs } from './push-refspecs.js';
 import { validNewBranchName, validRefnameFormat } from './refname.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
@@ -126,7 +132,9 @@ export type GitScalarParser =
   | 'branch-name'
   | 'refname-onelevel'
   | 'commit-author'
-  | 'commit-date';
+  | 'commit-date'
+  | PushRefspecParser
+  | ConfigParameterParser;
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
@@ -232,6 +240,12 @@ export function parseGitScalar(
   if (parser === 'python-int') {
     const parsed = pythonInteger(value);
     return { valid: parsed !== undefined, value: parsed };
+  }
+  if (isPushRefspecParser(parser)) {
+    return { valid: parsePushRefspecs(parser, value), value };
+  }
+  if (isConfigParameterParser(parser)) {
+    return { valid: parseConfigParameters(parser, value), value };
   }
   if (parser === 'depth-initial') {
     return { valid: validInitialDepth(value, depthAtoiBits), value };
