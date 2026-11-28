@@ -39,7 +39,9 @@ export async function checkConstraintModel(git: Git, repo: WorktreeRepo, flag: b
   await repo.cherryPick([], { continue: true, rerereAutoupdate: false });
   // @ts-expect-error Mainline is forbidden with sequencer control operations.
   await repo.revert([], { abort: true, mainline: 1 });
+  // @ts-expect-error Git prints usage when a rebase action has any other argument.
   await repo.rebase({ abort: true, quiet: true });
+  await repo.rebase({ abort: true });
   // @ts-expect-error Git merge control operations do not accept extra command arguments.
   await repo.merge('', { abort: true, ff: false });
   // @ts-expect-error Squash cannot be combined with explicitly disabling fast-forward.

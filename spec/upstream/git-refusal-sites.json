@@ -1423,6 +1423,227 @@
         }
       }
     },
+    "builtin/diff.c": {
+      "sha256": "4cba61165eb1a49f6945962380d26663d511ca03554eeb9a7b1da929683f690c",
+      "functions": {
+        "blob_path": {
+          "sites": [],
+          "references": []
+        },
+        "builtin_diff_b_f": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 90
+            },
+            {
+              "call": "die_errno",
+              "text": "failed to stat '%s'",
+              "line": 96
+            },
+            {
+              "call": "die",
+              "text": "'%s': not a regular file or symlink",
+              "line": 98
+            }
+          ],
+          "references": [
+            "stuff_change"
+          ]
+        },
+        "builtin_diff_blobs": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 122
+            }
+          ],
+          "references": [
+            "blob_path",
+            "stuff_change"
+          ]
+        },
+        "builtin_diff_combined": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 220
+            },
+            {
+              "call": "die",
+              "text": "no merge given, only parents.",
+              "line": 223
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_files": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 266
+            },
+            {
+              "call": "error",
+              "text": "invalid option: %s",
+              "line": 268
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 269
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_index_preload",
+              "line": 287
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_index": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 150
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 160
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_index_preload",
+              "line": 165
+            },
+            {
+              "call": "die_errno",
+              "text": "repo_read_cache",
+              "line": 168
+            }
+          ],
+          "references": []
+        },
+        "builtin_diff_tree": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 187
+            }
+          ],
+          "references": []
+        },
+        "cmd_diff": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot come back to cwd",
+              "line": 501
+            },
+            {
+              "call": "exit",
+              "text": "exit diff_no_index(&rev, the_repository->hash_algo,\n\t\t\t\t   no_index == DIFF_NO_INDEX_IMPLICIT,\n\t\t\t\t   argc, argv)",
+              "line": 516
+            },
+            {
+              "call": "die",
+              "text": "Not a git repository",
+              "line": 535
+            },
+            {
+              "call": "die",
+              "text": "invalid object '%s' given.",
+              "line": 581
+            },
+            {
+              "call": "die",
+              "text": "more than two blobs given: '%s'",
+              "line": 597
+            },
+            {
+              "call": "die",
+              "text": "unhandled object '%s' given.",
+              "line": 602
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 618
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 623
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 627
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 631
+            }
+          ],
+          "references": [
+            "builtin_diff_b_f",
+            "builtin_diff_blobs",
+            "builtin_diff_combined",
+            "builtin_diff_files",
+            "builtin_diff_index",
+            "builtin_diff_tree",
+            "refresh_index_quietly",
+            "symdiff_prepare",
+            "symdiff_release"
+          ]
+        },
+        "refresh_index_quietly": {
+          "sites": [],
+          "references": []
+        },
+        "stuff_change": {
+          "sites": [],
+          "references": []
+        },
+        "symdiff_prepare": {
+          "sites": [
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 348
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 357
+            },
+            {
+              "call": "usage",
+              "text": "<builtin_diff_usage>",
+              "line": 375
+            },
+            {
+              "call": "die",
+              "text": "%s...%s: no merge base",
+              "line": 387
+            }
+          ],
+          "references": []
+        },
+        "symdiff_release": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
     "builtin/fetch.c": {
       "sha256": "233392c86a91623695ed8d79cde6ffdf58ecb0618fbec54e852c64403afaa96c",
       "functions": {
@@ -1799,6 +2020,699 @@
             "ref_update_display_info_set_failed",
             "s_update_ref"
           ]
+        }
+      }
+    },
+    "builtin/log.c": {
+      "sha256": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
+      "functions": {
+        "auto_decoration_style": {
+          "sites": [],
+          "references": [
+            "session_is_interactive"
+          ]
+        },
+        "clear_decorations_callback": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_log": {
+          "sites": [],
+          "references": [
+            "cmd_log_init",
+            "cmd_log_walk",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "log_setup_revisions_tweak"
+          ]
+        },
+        "cmd_log_init": {
+          "sites": [],
+          "references": [
+            "cmd_log_init_defaults",
+            "cmd_log_init_finish"
+          ]
+        },
+        "cmd_log_init_defaults": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_log_init_finish": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unrecognized argument: %s",
+              "line": 320
+            },
+            {
+              "call": "die",
+              "text": "-L<range>:<file> cannot be used with pathspec",
+              "line": 323
+            }
+          ],
+          "references": [
+            "clear_decorations_callback",
+            "decorate_callback",
+            "log_line_range_callback",
+            "set_default_decoration_filter"
+          ]
+        },
+        "cmd_log_walk": {
+          "sites": [],
+          "references": [
+            "cmd_log_walk_no_free"
+          ]
+        },
+        "cmd_log_walk_no_free": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "revision walk setup failed",
+              "line": 407
+            }
+          ],
+          "references": []
+        },
+        "cmd_show": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not read object %s",
+              "line": 727
+            },
+            {
+              "call": "error",
+              "text": "unknown type: %d",
+              "line": 765
+            }
+          ],
+          "references": [
+            "cmd_log_init",
+            "cmd_log_walk",
+            "cmd_log_walk_no_free",
+            "git_log_config",
+            "log_config_init",
+            "log_config_release",
+            "show_blob_object",
+            "show_setup_revisions_tweak",
+            "show_tag_object",
+            "show_tree_object"
+          ]
+        },
+        "decorate_callback": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "invalid --decorate option: %s",
+              "line": 179
+            }
+          ],
+          "references": [
+            "parse_decoration_style"
+          ]
+        },
+        "git_log_config": {
+          "sites": [],
+          "references": [
+            "parse_decoration_style"
+          ]
+        },
+        "log_config_init": {
+          "sites": [],
+          "references": [
+            "auto_decoration_style"
+          ]
+        },
+        "log_config_release": {
+          "sites": [],
+          "references": []
+        },
+        "log_line_range_callback": {
+          "sites": [],
+          "references": []
+        },
+        "log_setup_revisions_tweak": {
+          "sites": [],
+          "references": []
+        },
+        "parse_decoration_style": {
+          "sites": [],
+          "references": [
+            "auto_decoration_style"
+          ]
+        },
+        "session_is_interactive": {
+          "sites": [],
+          "references": []
+        },
+        "set_default_decoration_filter": {
+          "sites": [],
+          "references": []
+        },
+        "show_blob_object": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "not a valid object name %s",
+              "line": 597
+            },
+            {
+              "call": "die",
+              "text": "git show %s: bad file",
+              "line": 606
+            }
+          ],
+          "references": []
+        },
+        "show_setup_revisions_tweak": {
+          "sites": [],
+          "references": []
+        },
+        "show_tag_object": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not read object %s",
+              "line": 622
+            }
+          ],
+          "references": [
+            "show_tagger"
+          ]
+        },
+        "show_tagger": {
+          "sites": [],
+          "references": []
+        },
+        "show_tree_object": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
+    "builtin/merge.c": {
+      "sha256": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
+      "functions": {
+        "abort_commit": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "%s",
+              "line": 903
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 907
+            }
+          ],
+          "references": [
+            "write_merge_state"
+          ]
+        },
+        "add_strategies": {
+          "sites": [],
+          "references": [
+            "append_strategy",
+            "get_strategy"
+          ]
+        },
+        "append_strategy": {
+          "sites": [],
+          "references": []
+        },
+        "cmd_merge": {
+          "sites": [
+            {
+              "call": "show_usage_with_options_if_asked",
+              "text": null,
+              "line": 1380
+            },
+            {
+              "call": "usage_msg_opt",
+              "text": "--abort expects no arguments",
+              "line": 1424
+            },
+            {
+              "call": "die",
+              "text": "There is no merge to abort (MERGE_HEAD missing).",
+              "line": 1428
+            },
+            {
+              "call": "usage_msg_opt",
+              "text": "--quit expects no arguments",
+              "line": 1448
+            },
+            {
+              "call": "usage_msg_opt",
+              "text": "--continue expects no arguments",
+              "line": 1461
+            },
+            {
+              "call": "die",
+              "text": "There is no merge in progress (MERGE_HEAD missing).",
+              "line": 1465
+            },
+            {
+              "call": "die",
+              "text": "You have not concluded your merge (MERGE_HEAD exists).\nPlease, commit your changes before you merge.",
+              "line": 1481
+            },
+            {
+              "call": "die",
+              "text": "You have not concluded your merge (MERGE_HEAD exists).",
+              "line": 1484
+            },
+            {
+              "call": "die",
+              "text": "You have not concluded your cherry-pick (CHERRY_PICK_HEAD exists).\nPlease, commit your changes before you merge.",
+              "line": 1488
+            },
+            {
+              "call": "die",
+              "text": "You have not concluded your cherry-pick (CHERRY_PICK_HEAD exists).",
+              "line": 1491
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--squash, --no-ff.]",
+              "line": 1505
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--squash, --commit.]",
+              "line": 1507
+            },
+            {
+              "call": "die",
+              "text": "No commit specified and merge.defaultToUpstream not set.",
+              "line": 1523
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1529
+            },
+            {
+              "call": "die",
+              "text": "Squash commit into empty head not supported yet",
+              "line": 1540
+            },
+            {
+              "call": "die",
+              "text": "Non-fast-forward commit does not make sense into an empty head",
+              "line": 1542
+            },
+            {
+              "call": "die",
+              "text": "%s - not something we can merge",
+              "line": 1547
+            },
+            {
+              "call": "die",
+              "text": "Can merge only exactly one commit into empty head",
+              "line": 1549
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1573
+            },
+            {
+              "call": "die",
+              "text": "refusing to merge unrelated histories",
+              "line": 1642
+            },
+            {
+              "call": "error",
+              "text": "Your local changes to the following files would be overwritten by merge:\n  %s",
+              "line": 1714
+            },
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 1744
+            }
+          ],
+          "references": [
+            "add_strategies",
+            "collect_parents",
+            "default_edit_option",
+            "evaluate_result",
+            "finish",
+            "finish_automerge",
+            "finish_up_to_date",
+            "git_merge_config",
+            "merge_trivial",
+            "merging_a_throwaway_tag",
+            "parse_branch_merge_options",
+            "read_empty",
+            "read_tree_trivial",
+            "restore_state",
+            "save_state",
+            "setup_with_upstream",
+            "suggest_conflicts",
+            "try_merge_strategy",
+            "write_merge_state"
+          ]
+        },
+        "collect_parents": {
+          "sites": [],
+          "references": [
+            "handle_fetch_head",
+            "merge_name",
+            "prepare_merge_message",
+            "reduce_parents"
+          ]
+        },
+        "count_diff_files": {
+          "sites": [],
+          "references": []
+        },
+        "count_unmerged_entries": {
+          "sites": [],
+          "references": []
+        },
+        "default_edit_option": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Bad value '%s' in environment '%s'",
+              "line": 1171
+            }
+          ],
+          "references": []
+        },
+        "evaluate_result": {
+          "sites": [],
+          "references": [
+            "count_diff_files",
+            "count_unmerged_entries"
+          ]
+        },
+        "finish": {
+          "sites": [],
+          "references": [
+            "squash_message"
+          ]
+        },
+        "finish_automerge": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "failed to write commit object",
+              "line": 1033
+            }
+          ],
+          "references": [
+            "finish",
+            "prepare_to_commit",
+            "write_tree_trivial"
+          ]
+        },
+        "finish_up_to_date": {
+          "sites": [],
+          "references": []
+        },
+        "get_strategy": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 221
+            }
+          ],
+          "references": []
+        },
+        "git_merge_config": {
+          "sites": [],
+          "references": []
+        },
+        "handle_fetch_head": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "could not read '%s'",
+              "line": 1244
+            },
+            {
+              "call": "die_errno",
+              "text": "could not close '%s'",
+              "line": 1246
+            },
+            {
+              "call": "die",
+              "text": "not something we can merge in %s: %s",
+              "line": 1273
+            }
+          ],
+          "references": []
+        },
+        "merge_name": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "'%s' does not point to a commit",
+              "line": 562
+            }
+          ],
+          "references": []
+        },
+        "merge_trivial": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "Unable to write index.",
+              "line": 997
+            },
+            {
+              "call": "die",
+              "text": "failed to write commit object",
+              "line": 1006
+            }
+          ],
+          "references": [
+            "finish",
+            "prepare_to_commit",
+            "write_tree_trivial"
+          ]
+        },
+        "merging_a_throwaway_tag": {
+          "sites": [],
+          "references": []
+        },
+        "option_parse_compact_summary": {
+          "sites": [],
+          "references": []
+        },
+        "option_parse_message": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "switch `m' requires a value",
+              "line": 134
+            }
+          ],
+          "references": []
+        },
+        "option_parse_strategy": {
+          "sites": [],
+          "references": [
+            "append_strategy",
+            "get_strategy"
+          ]
+        },
+        "option_read_message": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "option `%s' requires a value",
+              "line": 157
+            },
+            {
+              "call": "error",
+              "text": "could not read file '%s'",
+              "line": 164
+            }
+          ],
+          "references": []
+        },
+        "parse_branch_merge_options": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Bad branch.%s.mergeoptions string: %s",
+              "line": 650
+            }
+          ],
+          "references": []
+        },
+        "prepare_merge_message": {
+          "sites": [],
+          "references": []
+        },
+        "prepare_to_commit": {
+          "sites": [],
+          "references": [
+            "abort_commit",
+            "read_merge_msg",
+            "write_merge_heads"
+          ]
+        },
+        "read_empty": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "read-tree failed",
+              "line": 388
+            }
+          ],
+          "references": []
+        },
+        "read_merge_msg": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "Could not read from '%s'",
+              "line": 896
+            }
+          ],
+          "references": []
+        },
+        "read_tree_trivial": {
+          "sites": [],
+          "references": []
+        },
+        "reduce_parents": {
+          "sites": [],
+          "references": []
+        },
+        "reset_hard": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "read-tree failed",
+              "line": 400
+            }
+          ],
+          "references": []
+        },
+        "restore_state": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "could not read index",
+              "line": 426
+            }
+          ],
+          "references": [
+            "reset_hard"
+          ]
+        },
+        "save_state": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "could not run stash.",
+              "line": 361
+            },
+            {
+              "call": "die",
+              "text": "stash failed",
+              "line": 366
+            },
+            {
+              "call": "die",
+              "text": "not a valid object: %s",
+              "line": 371
+            }
+          ],
+          "references": []
+        },
+        "setup_with_upstream": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "No current branch.",
+              "line": 1105
+            },
+            {
+              "call": "die",
+              "text": "No remote for the current branch.",
+              "line": 1107
+            },
+            {
+              "call": "die",
+              "text": "No default upstream defined for the current branch.",
+              "line": 1109
+            },
+            {
+              "call": "die",
+              "text": "No remote-tracking branch for %s from %s",
+              "line": 1114
+            }
+          ],
+          "references": []
+        },
+        "squash_message": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "revision walk setup failed",
+              "line": 462
+            }
+          ],
+          "references": []
+        },
+        "suggest_conflicts": {
+          "sites": [],
+          "references": []
+        },
+        "try_merge_strategy": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Unable to write index.",
+              "line": 798
+            },
+            {
+              "call": "error",
+              "text": "Not handling anything other than two heads merge.",
+              "line": 810
+            },
+            {
+              "call": "die",
+              "text": "unknown strategy option: -X%s",
+              "line": 823
+            },
+            {
+              "call": "die",
+              "text": "unable to write %s",
+              "line": 844
+            }
+          ],
+          "references": []
+        },
+        "write_merge_heads": {
+          "sites": [],
+          "references": []
+        },
+        "write_merge_state": {
+          "sites": [],
+          "references": [
+            "write_merge_heads"
+          ]
+        },
+        "write_tree_trivial": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "git write-tree failed to write a tree",
+              "line": 786
+            }
+          ],
+          "references": []
         }
       }
     },
@@ -2227,6 +3141,853 @@
             "die_push_simple",
             "get_upstream_ref"
           ]
+        }
+      }
+    },
+    "builtin/rebase.c": {
+      "sha256": "cdf7863a13d8acc59ee3d51b599e16650e28453a73dd41a818b0a48bc392ff45",
+      "functions": {
+        "can_fast_forward": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 914
+            }
+          ],
+          "references": [
+            "is_linear_history"
+          ]
+        },
+        "check_exec_cmd": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "exec commands cannot contain newlines",
+              "line": 1087
+            },
+            {
+              "call": "error",
+              "text": "empty exec command",
+              "line": 1091
+            }
+          ],
+          "references": []
+        },
+        "checkout_up_to_date": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not switch to %s",
+              "line": 870
+            }
+          ],
+          "references": []
+        },
+        "cleanup_autostash": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "could not remove '%s'",
+              "line": 552
+            }
+          ],
+          "references": [
+            "state_dir_path"
+          ]
+        },
+        "cmd_rebase": {
+          "sites": [
+            {
+              "call": "show_usage_with_options_if_asked",
+              "text": null,
+              "line": 1251
+            },
+            {
+              "call": "die",
+              "text": "It looks like 'git am' is in progress. Cannot rebase.",
+              "line": 1269
+            },
+            {
+              "call": "die",
+              "text": "`rebase --preserve-merges` (-p) is no longer supported.\nUse `git rebase --abort` to terminate current rebase.\nOr downgrade to v2.33, or earlier, to complete the rebase.",
+              "line": 1278
+            },
+            {
+              "call": "die",
+              "text": "<NULL>",
+              "line": 1301
+            },
+            {
+              "call": "die",
+              "text": "--preserve-merges was replaced by --rebase-merges\nNote: Your `pull.rebase` configuration may also be set to 'preserve',\nwhich is no longer supported; use 'merges' instead",
+              "line": 1306
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1311
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1316
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--keep-base, --onto]",
+              "line": 1321
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--keep-base, --root]",
+              "line": 1323
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--root, --fork-point]",
+              "line": 1332
+            },
+            {
+              "call": "die",
+              "text": "no rebase in progress",
+              "line": 1335
+            },
+            {
+              "call": "die",
+              "text": "The --edit-todo action can only be used during interactive rebase.",
+              "line": 1338
+            },
+            {
+              "call": "die",
+              "text": "Cannot read HEAD",
+              "line": 1362
+            },
+            {
+              "call": "die",
+              "text": "could not read index",
+              "line": 1366
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1376
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1379
+            },
+            {
+              "call": "die",
+              "text": "could not discard worktree changes",
+              "line": 1389
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1392
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1403
+            },
+            {
+              "call": "die",
+              "text": "could not move back to %s",
+              "line": 1414
+            },
+            {
+              "call": "error",
+              "text": "could not remove '%s'",
+              "line": 1434
+            },
+            {
+              "call": "die",
+              "text": "It seems that there is already a %s directory, and\nI wonder if you are in the middle of another rebase.  If that is the\ncase, please try\n\t%s\nIf that is not the case, please\n\t%s\nand run me again.  I am stopping in case you still have something\nvaluable there.\n",
+              "line": 1460
+            },
+            {
+              "call": "die",
+              "text": "switch `C' expects a numerical value",
+              "line": 1488
+            },
+            {
+              "call": "die",
+              "text": "Invalid whitespace option: '%s'",
+              "line": 1493
+            },
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1499
+            },
+            {
+              "call": "die",
+              "text": "apply options and merge options cannot be used together",
+              "line": 1576
+            },
+            {
+              "call": "die",
+              "text": "apply options are incompatible with rebase.rebaseMerges.  Consider adding --no-rebase-merges",
+              "line": 1579
+            },
+            {
+              "call": "die",
+              "text": "apply options are incompatible with rebase.updateRefs.  Consider adding --no-update-refs",
+              "line": 1581
+            },
+            {
+              "call": "die",
+              "text": "Unknown rebase backend: %s",
+              "line": 1611
+            },
+            {
+              "call": "die",
+              "text": "--reschedule-failed-exec requires --exec or --interactive",
+              "line": 1635
+            },
+            {
+              "call": "die",
+              "text": "invalid upstream '%s'",
+              "line": 1666
+            },
+            {
+              "call": "die",
+              "text": "Could not create new root commit",
+              "line": 1672
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 1682
+            },
+            {
+              "call": "die",
+              "text": "no such branch/commit '%s'",
+              "line": 1716
+            },
+            {
+              "call": "die",
+              "text": "No such ref: %s [HEAD]",
+              "line": 1723
+            },
+            {
+              "call": "die",
+              "text": "Could not resolve HEAD to a commit",
+              "line": 1735
+            },
+            {
+              "call": "die",
+              "text": "'%s': need exactly one merge base with branch",
+              "line": 1751
+            },
+            {
+              "call": "die",
+              "text": "'%s': need exactly one merge base",
+              "line": 1754
+            },
+            {
+              "call": "die",
+              "text": "Does not point to a valid commit '%s'",
+              "line": 1763
+            },
+            {
+              "call": "die",
+              "text": "could not read index",
+              "line": 1776
+            },
+            {
+              "call": "error",
+              "text": "The pre-rebase hook refused to rebase.",
+              "line": 1836
+            },
+            {
+              "call": "error",
+              "text": "Could not detach HEAD",
+              "line": 1884
+            }
+          ],
+          "references": [
+            "can_fast_forward",
+            "check_exec_cmd",
+            "checkout_up_to_date",
+            "cleanup_autostash",
+            "error_on_missing_default_upstream",
+            "fill_branch_base",
+            "finish_rebase",
+            "imply_merge",
+            "is_merge",
+            "move_to_original_branch",
+            "parse_opt_am",
+            "parse_opt_empty",
+            "parse_opt_interactive",
+            "parse_opt_keep_empty",
+            "parse_opt_merge",
+            "parse_opt_rebase_merges",
+            "read_basic_state",
+            "rebase_config",
+            "rebase_options_release",
+            "run_specific_rebase",
+            "state_dir_path"
+          ]
+        },
+        "do_interactive_rebase": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not generate todo list",
+              "line": 311
+            }
+          ],
+          "references": [
+            "get_replay_opts",
+            "get_revision_ranges",
+            "init_basic_state"
+          ]
+        },
+        "edit_todo_file": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "could not read '%s'.",
+              "line": 229
+            },
+            {
+              "call": "error_errno",
+              "text": "could not write '%s'",
+              "line": 236
+            }
+          ],
+          "references": []
+        },
+        "error_on_missing_default_upstream": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 1",
+              "line": 1081
+            }
+          ],
+          "references": []
+        },
+        "fill_branch_base": {
+          "sites": [
+            {
+              "call": "exit",
+              "text": "exit 128",
+              "line": 935
+            }
+          ],
+          "references": []
+        },
+        "finish_rebase": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "could not remove '%s'",
+              "line": 584
+            }
+          ],
+          "references": [
+            "state_dir_path"
+          ]
+        },
+        "get_replay_opts": {
+          "sites": [],
+          "references": []
+        },
+        "get_revision_ranges": {
+          "sites": [],
+          "references": []
+        },
+        "imply_merge": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "%s requires the merge backend",
+              "line": 412
+            }
+          ],
+          "references": []
+        },
+        "init_basic_state": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "could not create temporary %s",
+              "line": 279
+            },
+            {
+              "call": "error_errno",
+              "text": "could not mark as interactive",
+              "line": 285
+            }
+          ],
+          "references": []
+        },
+        "is_linear_history": {
+          "sites": [],
+          "references": []
+        },
+        "is_merge": {
+          "sites": [],
+          "references": []
+        },
+        "move_to_original_branch": {
+          "sites": [],
+          "references": []
+        },
+        "parse_empty_value": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "unrecognized empty type '%s'; valid values are \"drop\", \"keep\", and \"stop\".",
+              "line": 1006
+            }
+          ],
+          "references": []
+        },
+        "parse_opt_am": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "apply options and merge options cannot be used together",
+              "line": 952
+            }
+          ],
+          "references": []
+        },
+        "parse_opt_empty": {
+          "sites": [],
+          "references": [
+            "parse_empty_value"
+          ]
+        },
+        "parse_opt_interactive": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "apply options and merge options cannot be used together",
+              "line": 985
+            }
+          ],
+          "references": []
+        },
+        "parse_opt_keep_empty": {
+          "sites": [],
+          "references": [
+            "imply_merge"
+          ]
+        },
+        "parse_opt_merge": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "apply options and merge options cannot be used together",
+              "line": 968
+            }
+          ],
+          "references": []
+        },
+        "parse_opt_rebase_merges": {
+          "sites": [],
+          "references": [
+            "parse_rebase_merges_value"
+          ]
+        },
+        "parse_rebase_merges_value": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Unknown rebase-merges mode: %s",
+              "line": 788
+            }
+          ],
+          "references": []
+        },
+        "read_basic_state": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "invalid onto: '%s'",
+              "line": 455
+            },
+            {
+              "call": "error",
+              "text": "invalid orig-head: '%s'",
+              "line": 472
+            }
+          ],
+          "references": [
+            "state_dir_path"
+          ]
+        },
+        "rebase_options_release": {
+          "sites": [],
+          "references": []
+        },
+        "rebase_write_basic_state": {
+          "sites": [],
+          "references": [
+            "state_dir_path"
+          ]
+        },
+        "run_am": {
+          "sites": [
+            {
+              "call": "error_errno",
+              "text": "could not open '%s' for writing",
+              "line": 660
+            },
+            {
+              "call": "error",
+              "text": "\ngit encountered an error while preparing the patches to replay\nthese revisions:\n\n    %s\n\nAs a result, git cannot rebase them.",
+              "line": 697
+            },
+            {
+              "call": "error_errno",
+              "text": "could not open '%s' for reading",
+              "line": 709
+            }
+          ],
+          "references": [
+            "move_to_original_branch",
+            "rebase_write_basic_state"
+          ]
+        },
+        "run_sequencer_rebase": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "a base commit must be provided with --upstream or --onto",
+              "line": 362
+            }
+          ],
+          "references": [
+            "do_interactive_rebase",
+            "edit_todo_file",
+            "get_replay_opts"
+          ]
+        },
+        "run_specific_rebase": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Nothing to do",
+              "line": 775
+            }
+          ],
+          "references": [
+            "finish_rebase",
+            "run_am",
+            "run_sequencer_rebase",
+            "state_dir_path"
+          ]
+        },
+        "state_dir_path": {
+          "sites": [],
+          "references": []
+        }
+      }
+    },
+    "builtin/reset.c": {
+      "sha256": "5074de60017cb736fda6aa96a2544f0d21234441ea029e1ba9f255fe029ece51",
+      "functions": {
+        "cmd_reset": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--pathspec-from-file, --patch]",
+              "line": 393
+            },
+            {
+              "call": "die",
+              "text": "'%s' and pathspec arguments cannot be used together [--pathspec-from-file]",
+              "line": 396
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--pathspec-file-nul, --pathspec-from-file]",
+              "line": 402
+            },
+            {
+              "call": "die",
+              "text": "Failed to resolve '%s' as a valid revision.",
+              "line": 413
+            },
+            {
+              "call": "die",
+              "text": "Could not parse object '%s'.",
+              "line": 416
+            },
+            {
+              "call": "die",
+              "text": "Failed to resolve '%s' as a valid tree.",
+              "line": 421
+            },
+            {
+              "call": "die",
+              "text": "Could not parse object '%s'.",
+              "line": 424
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--unified]",
+              "line": 429
+            },
+            {
+              "call": "die",
+              "text": "'%s' cannot be negative [--inter-hunk-context]",
+              "line": 431
+            },
+            {
+              "call": "die",
+              "text": "options '%s' and '%s' cannot be used together [--patch, --{hard,mixed,soft}]",
+              "line": 438
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--unified, --patch]",
+              "line": 445
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--inter-hunk-context, --patch]",
+              "line": 447
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [--no-auto-advance, --patch]",
+              "line": 449
+            },
+            {
+              "call": "die",
+              "text": "Cannot do %s reset with paths.",
+              "line": 459
+            },
+            {
+              "call": "die",
+              "text": "%s reset is not allowed in a bare repository",
+              "line": 474
+            },
+            {
+              "call": "die",
+              "text": "the option '%s' requires '%s' [-N, --mixed]",
+              "line": 478
+            },
+            {
+              "call": "die",
+              "text": "index file corrupt",
+              "line": 481
+            },
+            {
+              "call": "die",
+              "text": "Could not reset index file to revision '%s'.",
+              "line": 526
+            },
+            {
+              "call": "die",
+              "text": "Could not write new index file.",
+              "line": 531
+            }
+          ],
+          "references": [
+            "die_if_unmerged_cache",
+            "git_reset_config",
+            "parse_args",
+            "print_new_head_line",
+            "read_from_tree",
+            "reset_index",
+            "reset_refs"
+          ]
+        },
+        "die_if_unmerged_cache": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "Cannot do a %s reset in the middle of a merge.",
+              "line": 242
+            }
+          ],
+          "references": [
+            "is_merge"
+          ]
+        },
+        "git_reset_config": {
+          "sites": [],
+          "references": []
+        },
+        "is_merge": {
+          "sites": [],
+          "references": []
+        },
+        "parse_args": {
+          "sites": [],
+          "references": []
+        },
+        "print_new_head_line": {
+          "sites": [],
+          "references": []
+        },
+        "read_from_tree": {
+          "sites": [],
+          "references": [
+            "update_index_from_diff"
+          ]
+        },
+        "reset_index": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "You do not have a valid HEAD.",
+              "line": 104
+            },
+            {
+              "call": "error",
+              "text": "Failed to find tree of HEAD.",
+              "line": 106
+            },
+            {
+              "call": "error",
+              "text": "Failed to find tree of %s.",
+              "line": 112
+            },
+            {
+              "call": "error",
+              "text": "unable to read tree (%s)",
+              "line": 123
+            }
+          ],
+          "references": []
+        },
+        "reset_refs": {
+          "sites": [],
+          "references": [
+            "set_reflog_message"
+          ]
+        },
+        "set_reflog_message": {
+          "sites": [],
+          "references": []
+        },
+        "update_index_from_diff": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "make_cache_entry failed for path '%s'",
+              "line": 186
+            }
+          ],
+          "references": []
+        }
+      }
+    },
+    "diff-no-index.c": {
+      "sha256": "b3be27d49453fde08ad09382cfe8301f6c201669180337eec860af06da22d36e",
+      "functions": {
+        "append_basename": {
+          "sites": [],
+          "references": []
+        },
+        "diff_no_index": {
+          "sites": [
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 379
+            },
+            {
+              "call": "usage_with_options",
+              "text": null,
+              "line": 403
+            }
+          ],
+          "references": [
+            "fixup_paths",
+            "queue_diff"
+          ]
+        },
+        "fixup_paths": {
+          "sites": [
+            {
+              "call": "die",
+              "text": "cannot compare stdin to a directory",
+              "line": 329
+            },
+            {
+              "call": "die",
+              "text": "cannot compare a named pipe to a directory",
+              "line": 332
+            }
+          ],
+          "references": [
+            "append_basename"
+          ]
+        },
+        "get_mode": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "Could not access '%s'",
+              "line": 95
+            }
+          ],
+          "references": []
+        },
+        "noindex_filespec": {
+          "sites": [],
+          "references": [
+            "populate_from_pipe",
+            "populate_from_stdin"
+          ]
+        },
+        "populate_common": {
+          "sites": [],
+          "references": []
+        },
+        "populate_from_pipe": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "error while reading from '%s'",
+              "line": 130
+            }
+          ],
+          "references": [
+            "populate_common"
+          ]
+        },
+        "populate_from_stdin": {
+          "sites": [
+            {
+              "call": "die_errno",
+              "text": "error while reading from stdin",
+              "line": 140
+            }
+          ],
+          "references": [
+            "populate_common"
+          ]
+        },
+        "queue_diff": {
+          "sites": [],
+          "references": [
+            "get_mode",
+            "noindex_filespec",
+            "read_directory_contents"
+          ]
+        },
+        "read_directory_contents": {
+          "sites": [
+            {
+              "call": "error",
+              "text": "Could not open directory %s",
+              "line": 31
+            }
+          ],
+          "references": []
         }
       }
     }

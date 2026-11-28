@@ -64,7 +64,15 @@ export type Constraint = Evidence & {
     | { kind: 'forbid'; when: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
-    | { kind: 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
+    | {
+        kind: 'elements';
+        key: string;
+        allowed: readonly (string | number | boolean)[];
+        /** How many items may lie outside `allowed` (default 0). */
+        maxOutside?: number;
+        /** An option check also counts this incoming value (`$value`) after the stored items. */
+        withKey?: string;
+      }
     | { kind: 'scalar'; key: string; parser: GitScalarParser }
     | { kind: 'eachScalar'; key: string; parser: GitScalarParser }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
@@ -214,10 +222,20 @@ function violates(
       );
     }
     case 'elements': {
-      const items = options[rule.key];
+      const stored = options[rule.key];
+      if (stored === undefined && rule.withKey === undefined) {
+        return false;
+      }
+      if (stored !== undefined && !Array.isArray(stored)) {
+        return true;
+      }
+      const items = [
+        ...((stored as readonly unknown[] | undefined) ?? []),
+        ...(rule.withKey === undefined ? [] : [options[rule.withKey]]),
+      ];
       return (
-        items !== undefined &&
-        (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
+        items.filter((item) => !rule.allowed.includes(item as string | number | boolean)).length >
+        (rule.maxOutside ?? 0)
       );
     }
     case 'eachScalar': {
@@ -309,10 +327,11 @@ function bodyKeys(rule: Constraint): string[] {
       return rule.when.flatMap(predicateKeys);
     case 'range':
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
+    case 'elements':
+      return rule.withKey === undefined ? [rule.key] : [rule.key, rule.withKey];
     case 'eachScalar':
     case 'scalar':
     case 'value':
-    case 'elements':
     case 'eachInteger':
     case 'integer':
       return [rule.key];

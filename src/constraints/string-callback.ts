@@ -14,7 +14,16 @@ export type StringCallbackProfile = { source: string } & (
       exclusive: readonly string[];
     }
   | { kind: 'byte-character'; emptyIsNative: true }
-  | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[] }
+  | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[]; allowEmpty?: true }
+  | {
+      kind: 'text';
+      /** The value must contain a character outside this set; '' only requires it nonempty. */
+      blank: string;
+      /** Characters the value must not start with. */
+      forbiddenFirst: string;
+      /** Characters the value must not contain. */
+      forbidden: string;
+    }
   | {
       kind: 'token-list';
       separators: readonly string[];
@@ -149,7 +158,18 @@ export function parseStringCallback(
     return {
       valid:
         profile.exact.includes(value) ||
-        profile.prefixes.some((prefix) => value.startsWith(prefix)),
+        profile.prefixes.some((prefix) => value.startsWith(prefix)) ||
+        (value === '' && 'allowEmpty' in profile && profile.allowEmpty === true),
+      value,
+    };
+  }
+  if (profile.kind === 'text') {
+    const first = value[0];
+    return {
+      valid:
+        [...value].some((character) => !profile.blank.includes(character)) &&
+        !(first !== undefined && profile.forbiddenFirst.includes(first)) &&
+        ![...value].some((character) => profile.forbidden.includes(character)),
       value,
     };
   }

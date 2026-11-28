@@ -1349,7 +1349,9 @@ export type MvOpts = {
 export type RebaseOpts = CheckedOptions<
   {
     // Existing options
-    /** Upstream branch */
+    /**
+     * Upstream branch. With `root`, Git takes this operand as the branch to rebase instead.
+     */
     upstream?: string;
     /** Onto target */
     onto?: string;
@@ -1391,8 +1393,8 @@ export type RebaseOpts = CheckedOptions<
     apply?: boolean;
     /** Automatically update rerere state */
     rerereAutoupdate?: boolean;
-    /** How to handle empty commits */
-    empty?: 'drop' | 'keep' | 'ask';
+    /** How to handle commits that become empty ('ask' is Git's deprecated synonym of 'stop') */
+    empty?: 'drop' | 'keep' | 'stop' | 'ask';
     /** Automatically squash fixup commits */
     autosquash?: boolean;
     /** Update refs that point to rebased commits */
@@ -3589,8 +3591,8 @@ export interface WorktreeRepo extends RepoBase {
    *
    * @example
    * ```typescript
-   * await repo.reset('HEAD~1', { hard: true });
-   * await repo.reset({ soft: true });
+   * await repo.reset('HEAD~1', { mode: 'hard' });
+   * await repo.reset(undefined, { mode: 'soft' });
    * ```
    */
   reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void>;

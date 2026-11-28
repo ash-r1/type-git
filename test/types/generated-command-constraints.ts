@@ -176,11 +176,11 @@ export const witness86: CherryPickOpts = {"continue":true,"skip":true};
 // @ts-expect-error cherryPick.unsupported
 export const witness87: CherryPickOpts = {"noVerify":false};
 // @ts-expect-error cherryPick.abort-options
-export const witness88: CherryPickOpts = {"abort":true,"strategyOption":""};
+export const witness88: CherryPickOpts = {"abort":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.continue-options
-export const witness89: CherryPickOpts = {"continue":true,"strategyOption":""};
+export const witness89: CherryPickOpts = {"continue":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.skip-options
-export const witness90: CherryPickOpts = {"skip":true,"strategyOption":""};
+export const witness90: CherryPickOpts = {"skip":true,"strategyOption":"value"};
 // @ts-expect-error cherryPick.ff-signoff
 export const witness91: CherryPickOpts = {"ff":true,"signoff":true};
 // @ts-expect-error cherryPick.ff-noCommit
@@ -195,175 +195,173 @@ export const witness95: CleanOpts = {};
 export const witness96: CleanOpts = {"ignored":true,"onlyIgnored":true};
 import type { RebaseOpts } from '../../src/core/repo.js';
 export const witness97: RebaseOpts = {};
-// @ts-expect-error rebase.abort-continue-skip
-export const witness98: RebaseOpts = {"continue":true,"skip":true};
+// @ts-expect-error rebase.action-alone
+export const witness98: RebaseOpts = {"skip":true,"verbose":true};
+// @ts-expect-error rebase.backend
+export const witness99: RebaseOpts = {"apply":true,"updateRefs":true};
 // @ts-expect-error rebase.keepBase-onto
-export const witness99: RebaseOpts = {"keepBase":true,"onto":""};
+export const witness100: RebaseOpts = {"keepBase":true,"onto":""};
 // @ts-expect-error rebase.keepBase-root
-export const witness100: RebaseOpts = {"keepBase":true,"root":true};
-// @ts-expect-error rebase.apply-rebaseMerges
-export const witness101: RebaseOpts = {"apply":true,"rebaseMerges":true};
-// @ts-expect-error rebase.apply-strategy
-export const witness102: RebaseOpts = {"apply":true,"strategy":""};
-// @ts-expect-error rebase.apply-exec
-export const witness103: RebaseOpts = {"apply":true,"exec":""};
+export const witness101: RebaseOpts = {"keepBase":true,"root":true};
 // @ts-expect-error rebase.unsupported
-export const witness104: RebaseOpts = {"interactive":false};
+export const witness102: RebaseOpts = {"interactive":false};
 // @ts-expect-error rebase.root-forkPoint
-export const witness105: RebaseOpts = {"forkPoint":true,"root":true};
+export const witness103: RebaseOpts = {"forkPoint":true,"root":true};
+// @ts-expect-error rebase.whitespace-value
+export const witness104: RebaseOpts = {"whitespace":"value"};
 import type { RestoreOpts } from '../../src/core/repo.js';
-export const witness106: RestoreOpts = {};
+export const witness105: RestoreOpts = {};
 // @ts-expect-error restore.staged-conflict
-export const witness107: RestoreOpts = {"staged":true,"theirs":true};
+export const witness106: RestoreOpts = {"staged":true,"theirs":true};
 // @ts-expect-error restore.source-ours
-export const witness108: RestoreOpts = {"ours":true,"source":""};
+export const witness107: RestoreOpts = {"ours":true,"source":""};
 // @ts-expect-error restore.source-theirs
-export const witness109: RestoreOpts = {"source":"","theirs":true};
+export const witness108: RestoreOpts = {"source":"","theirs":true};
 // @ts-expect-error restore.source-merge
-export const witness110: RestoreOpts = {"merge":true,"source":""};
+export const witness109: RestoreOpts = {"merge":true,"source":""};
 // @ts-expect-error restore.source-conflict
-export const witness111: RestoreOpts = {"conflict":"merge","source":""};
+export const witness110: RestoreOpts = {"conflict":"merge","source":""};
 import type { RevertOpts } from '../../src/core/repo.js';
-export const witness112: RevertOpts = {};
+export const witness111: RevertOpts = {};
 // @ts-expect-error revert.abort-continue-skip
-export const witness113: RevertOpts = {"continue":true,"skip":true};
+export const witness112: RevertOpts = {"continue":true,"skip":true};
 // @ts-expect-error revert.unsupported
-export const witness114: RevertOpts = {"noVerify":false};
+export const witness113: RevertOpts = {"noVerify":false};
 // @ts-expect-error revert.abort-options
-export const witness115: RevertOpts = {"abort":true,"strategyOption":""};
+export const witness114: RevertOpts = {"abort":true,"strategyOption":"value"};
 // @ts-expect-error revert.continue-options
-export const witness116: RevertOpts = {"continue":true,"strategyOption":""};
+export const witness115: RevertOpts = {"continue":true,"strategyOption":"value"};
 // @ts-expect-error revert.skip-options
-export const witness117: RevertOpts = {"skip":true,"strategyOption":""};
+export const witness116: RevertOpts = {"skip":true,"strategyOption":"value"};
 import type { ShowOpts } from '../../src/core/repo.js';
-export const witness118: ShowOpts = {};
+export const witness117: ShowOpts = {};
 // @ts-expect-error show.nameOnly-nameStatus
-export const witness119: ShowOpts = {"nameOnly":true,"nameStatus":true};
+export const witness118: ShowOpts = {"nameOnly":true,"nameStatus":true};
 // @ts-expect-error show.quiet-nameOnly
-export const witness120: ShowOpts = {"nameOnly":true,"quiet":true};
+export const witness119: ShowOpts = {"nameOnly":true,"quiet":true};
 // @ts-expect-error show.quiet-nameStatus
-export const witness121: ShowOpts = {"nameStatus":true,"quiet":true};
+export const witness120: ShowOpts = {"nameStatus":true,"quiet":true};
 import type { SubmoduleOpts } from '../../src/core/repo.js';
-export const witness122: SubmoduleOpts = {};
+export const witness121: SubmoduleOpts = {};
 // @ts-expect-error submoduleUpdate.filter-init
-export const witness123: SubmoduleOpts = {"filter":""};
+export const witness122: SubmoduleOpts = {"filter":""};
 import type { LfsPullOpts } from '../../src/core/repo.js';
-export const witness124: LfsPullOpts = {};
+export const witness123: LfsPullOpts = {};
 // @ts-expect-error lfsPull.unsupported
-export const witness125: LfsPullOpts = {"ref":""};
+export const witness124: LfsPullOpts = {"ref":""};
 import type { LfsPushOpts } from '../../src/core/repo.js';
-export const witness126: LfsPushOpts = {};
+export const witness125: LfsPushOpts = {};
 // @ts-expect-error lfsPush.ref-objectId
-export const witness127: LfsPushOpts = {"objectId":"","ref":""};
+export const witness126: LfsPushOpts = {"objectId":"","ref":""};
 import type { LfsStatusOpts } from '../../src/core/repo.js';
-export const witness128: LfsStatusOpts = {};
+export const witness127: LfsStatusOpts = {};
 // @ts-expect-error lfsStatus.unsupported
-export const witness129: LfsStatusOpts = {"porcelain":false};
+export const witness128: LfsStatusOpts = {"porcelain":false};
 // @ts-expect-error lfsStatus.json
-export const witness130: LfsStatusOpts = {"json":false};
+export const witness129: LfsStatusOpts = {"json":false};
 import type { LfsFetchOpts } from '../../src/core/repo.js';
-export const witness131: LfsFetchOpts = {};
+export const witness130: LfsFetchOpts = {};
 // @ts-expect-error lfsFetch.all-include
-export const witness132: LfsFetchOpts = {"all":true,"include":""};
+export const witness131: LfsFetchOpts = {"all":true,"include":""};
 // @ts-expect-error lfsFetch.all-exclude
-export const witness133: LfsFetchOpts = {"all":true,"exclude":""};
+export const witness132: LfsFetchOpts = {"all":true,"exclude":""};
 // @ts-expect-error lfsFetch.all-recent
-export const witness134: LfsFetchOpts = {"all":true,"recent":true};
+export const witness133: LfsFetchOpts = {"all":true,"recent":true};
 import type { LfsLsFilesOpts } from '../../src/core/repo.js';
-export const witness135: LfsLsFilesOpts = {};
+export const witness134: LfsLsFilesOpts = {};
 // @ts-expect-error lfsLsFiles.unsupported
-export const witness136: LfsLsFilesOpts = {"nameOnly":false};
+export const witness135: LfsLsFilesOpts = {"nameOnly":false};
 // @ts-expect-error lfsLsFiles.json
-export const witness137: LfsLsFilesOpts = {"json":false};
+export const witness136: LfsLsFilesOpts = {"json":false};
 import type { LfsLocksOpts } from '../../src/core/repo.js';
-export const witness138: LfsLocksOpts = {};
+export const witness137: LfsLocksOpts = {};
 // @ts-expect-error lfsLocks.cached
-export const witness139: LfsLocksOpts = {"cached":true,"path":"value"};
+export const witness138: LfsLocksOpts = {"cached":true,"path":"value"};
 // @ts-expect-error lfsLocks.verify
-export const witness140: LfsLocksOpts = {"path":"value","verify":true};
+export const witness139: LfsLocksOpts = {"path":"value","verify":true};
 import type { LfsCheckoutOpts } from '../../src/core/repo.js';
-export const witness141: LfsCheckoutOpts = {};
+export const witness140: LfsCheckoutOpts = {};
 // @ts-expect-error lfsCheckout.stage
-export const witness142: LfsCheckoutOpts = {"ours":true,"theirs":true,"to":"value"};
+export const witness141: LfsCheckoutOpts = {"ours":true,"theirs":true,"to":"value"};
 // @ts-expect-error lfsCheckout.destination-stage
-export const witness143: LfsCheckoutOpts = {"to":"value"};
+export const witness142: LfsCheckoutOpts = {"to":"value"};
 // @ts-expect-error lfsCheckout.base-destination
-export const witness144: LfsCheckoutOpts = {"base":true};
+export const witness143: LfsCheckoutOpts = {"base":true};
 // @ts-expect-error lfsCheckout.ours-destination
-export const witness145: LfsCheckoutOpts = {"ours":true};
+export const witness144: LfsCheckoutOpts = {"ours":true};
 // @ts-expect-error lfsCheckout.theirs-destination
-export const witness146: LfsCheckoutOpts = {"theirs":true};
+export const witness145: LfsCheckoutOpts = {"theirs":true};
 // @ts-expect-error lfsCheckout.unknown-options
-export const witness147: LfsCheckoutOpts = {"include":""};
+export const witness146: LfsCheckoutOpts = {"include":""};
 import type { LfsMigrateInfoOpts } from '../../src/core/repo.js';
-export const witness148: LfsMigrateInfoOpts = {};
+export const witness147: LfsMigrateInfoOpts = {};
 // @ts-expect-error lfsMigrateInfo.everything-includeRef
-export const witness149: LfsMigrateInfoOpts = {"everything":true,"includeRef":"value"};
+export const witness148: LfsMigrateInfoOpts = {"everything":true,"includeRef":"value"};
 // @ts-expect-error lfsMigrateInfo.everything-excludeRef
-export const witness150: LfsMigrateInfoOpts = {"everything":true,"excludeRef":"value"};
+export const witness149: LfsMigrateInfoOpts = {"everything":true,"excludeRef":"value"};
 // @ts-expect-error lfsMigrateInfo.everything-refs
-export const witness151: LfsMigrateInfoOpts = {"everything":true,"refs":"value"};
+export const witness150: LfsMigrateInfoOpts = {"everything":true,"refs":"value"};
 // @ts-expect-error lfsMigrateInfo.fixup-patterns
-export const witness152: LfsMigrateInfoOpts = {"fixup":true,"include":""};
+export const witness151: LfsMigrateInfoOpts = {"fixup":true,"include":""};
 // @ts-expect-error lfsMigrateInfo.fixup-pointers
-export const witness153: LfsMigrateInfoOpts = {"fixup":true,"pointers":"follow"};
+export const witness152: LfsMigrateInfoOpts = {"fixup":true,"pointers":"follow"};
 import type { LfsMigrateImportOpts } from '../../src/core/repo.js';
-export const witness154: LfsMigrateImportOpts = {};
+export const witness153: LfsMigrateImportOpts = {};
 // @ts-expect-error lfsMigrateImport.everything-includeRef
-export const witness155: LfsMigrateImportOpts = {"everything":true,"includeRef":"value"};
+export const witness154: LfsMigrateImportOpts = {"everything":true,"includeRef":"value"};
 // @ts-expect-error lfsMigrateImport.everything-excludeRef
-export const witness156: LfsMigrateImportOpts = {"everything":true,"excludeRef":"value"};
+export const witness155: LfsMigrateImportOpts = {"everything":true,"excludeRef":"value"};
 // @ts-expect-error lfsMigrateImport.everything-refs
-export const witness157: LfsMigrateImportOpts = {"everything":true,"refs":"value"};
+export const witness156: LfsMigrateImportOpts = {"everything":true,"refs":"value"};
 // @ts-expect-error lfsMigrateImport.unknown-options
-export const witness158: LfsMigrateImportOpts = {"unit":""};
+export const witness157: LfsMigrateImportOpts = {"unit":""};
 // @ts-expect-error lfsMigrateImport.no-rewrite-fixup
-export const witness159: LfsMigrateImportOpts = {"files":[""],"fixup":true,"noRewrite":true};
+export const witness158: LfsMigrateImportOpts = {"files":[""],"fixup":true,"noRewrite":true};
 // @ts-expect-error lfsMigrateImport.files
-export const witness160: LfsMigrateImportOpts = {"noRewrite":true};
+export const witness159: LfsMigrateImportOpts = {"noRewrite":true};
 // @ts-expect-error lfsMigrateImport.file-mode
-export const witness161: LfsMigrateImportOpts = {"files":[""]};
+export const witness160: LfsMigrateImportOpts = {"files":[""]};
 // @ts-expect-error lfsMigrateImport.refs-mode
-export const witness162: LfsMigrateImportOpts = {"files":[""],"noRewrite":true,"refs":"value"};
+export const witness161: LfsMigrateImportOpts = {"files":[""],"noRewrite":true,"refs":"value"};
 // @ts-expect-error lfsMigrateImport.fixup-patterns
-export const witness163: LfsMigrateImportOpts = {"fixup":true,"include":""};
+export const witness162: LfsMigrateImportOpts = {"fixup":true,"include":""};
 import type { LfsMigrateExportOpts } from '../../src/core/repo.js';
-export const witness164: LfsMigrateExportOpts = {"include":"value"};
+export const witness163: LfsMigrateExportOpts = {"include":"value"};
 // @ts-expect-error lfsMigrateExport.everything-includeRef
-export const witness165: LfsMigrateExportOpts = {"everything":true,"include":"value","includeRef":"value"};
+export const witness164: LfsMigrateExportOpts = {"everything":true,"include":"value","includeRef":"value"};
 // @ts-expect-error lfsMigrateExport.everything-excludeRef
-export const witness166: LfsMigrateExportOpts = {"everything":true,"excludeRef":"value","include":"value"};
+export const witness165: LfsMigrateExportOpts = {"everything":true,"excludeRef":"value","include":"value"};
 // @ts-expect-error lfsMigrateExport.everything-refs
-export const witness167: LfsMigrateExportOpts = {"everything":true,"include":"value","refs":"value"};
+export const witness166: LfsMigrateExportOpts = {"everything":true,"include":"value","refs":"value"};
 // @ts-expect-error lfsMigrateExport.include
-export const witness168: LfsMigrateExportOpts = {};
+export const witness167: LfsMigrateExportOpts = {};
 // @ts-expect-error lfsMigrateExport.unknown-options
-export const witness169: LfsMigrateExportOpts = {"include":"value","unit":""};
+export const witness168: LfsMigrateExportOpts = {"include":"value","unit":""};
 import type { WorktreeAddOpts } from '../../src/core/repo.js';
-export const witness170: WorktreeAddOpts = {};
+export const witness169: WorktreeAddOpts = {};
 // @ts-expect-error worktreeAdd.branch-detach
-export const witness171: WorktreeAddOpts = {"branch":"","detach":true};
+export const witness170: WorktreeAddOpts = {"branch":"","detach":true};
 // @ts-expect-error worktreeAdd.orphan-detach
-export const witness172: WorktreeAddOpts = {"detach":true,"orphan":true};
+export const witness171: WorktreeAddOpts = {"detach":true,"orphan":true};
 // @ts-expect-error worktreeAdd.orphan-track
-export const witness173: WorktreeAddOpts = {"orphan":true,"track":true};
+export const witness172: WorktreeAddOpts = {"orphan":true,"track":true};
 // @ts-expect-error worktreeAdd.orphan-commitish
-export const witness174: WorktreeAddOpts = {"commitish":"","orphan":true};
+export const witness173: WorktreeAddOpts = {"commitish":"","orphan":true};
 // @ts-expect-error worktreeAdd.orphan-no-checkout
-export const witness175: WorktreeAddOpts = {"checkout":false,"orphan":true};
+export const witness174: WorktreeAddOpts = {"checkout":false,"orphan":true};
 import type { RemoteAddOpts } from '../../src/core/repo.js';
-export const witness176: RemoteAddOpts = {};
+export const witness175: RemoteAddOpts = {};
 // @ts-expect-error remoteAdd.push-mirror-track
-export const witness177: RemoteAddOpts = {"mirror":"push","track":""};
+export const witness176: RemoteAddOpts = {"mirror":"push","track":""};
 import type { RemoteSetHeadOpts } from '../../src/core/repo.js';
-export const witness178: RemoteSetHeadOpts = {};
+export const witness177: RemoteSetHeadOpts = {};
 // @ts-expect-error remoteSetHead.auto-delete
-export const witness179: RemoteSetHeadOpts = {"auto":true,"delete":true};
+export const witness178: RemoteSetHeadOpts = {"auto":true,"delete":true};
 import type { ConfigGetOpts } from '../../src/core/repo.js';
-export const witness180: ConfigGetOpts = {};
+export const witness179: ConfigGetOpts = {};
 // @ts-expect-error configGet.all-default
-export const witness181: ConfigGetOpts = {"all":true,"default":""};
+export const witness180: ConfigGetOpts = {"all":true,"default":""};
 import type { ConfigListOpts } from '../../src/core/repo.js';
-export const witness182: ConfigListOpts = {};
+export const witness181: ConfigListOpts = {};
 // @ts-expect-error configList.unsupported
-export const witness183: ConfigListOpts = {"nameOnly":false};
+export const witness182: ConfigListOpts = {"nameOnly":false};
