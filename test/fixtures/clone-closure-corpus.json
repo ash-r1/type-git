@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone, followed by --no-reference, --no-reference-if-able or --no-recurse-submodules, or followed by such a negation and the negated option again; empty file-backed stdin",
+  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference, --no-reference-if-able or --no-recurse-submodules, plus each negation followed by the negated option again in the --reference, --reference-if-able, --recurse-submodules order only; empty file-backed stdin",
   "cases": [
     {
       "command": "clone",

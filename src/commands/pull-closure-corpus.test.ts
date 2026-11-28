@@ -14,6 +14,20 @@ function helpIndex(argv: readonly string[]): number {
   return argv.findIndex((word) => word === '-h' || word === '--help-all');
 }
 
+/** True when a dash-prefixed operand object comes before any help word. */
+function dashOperandBeforeHelp(tokens: Row['tokens']): boolean {
+  for (const token of tokens) {
+    if (Array.isArray(token)) {
+      if (token[0] === '-h' || token[0] === '--help-all') {
+        return false;
+      }
+    } else if (hasDashOperand([token])) {
+      return true;
+    }
+  }
+  return false;
+}
+
 type Outcome = { kind: 'accepted' | 'refused' | 'literal'; reason?: string };
 
 /** The strict API's outcome for a corpus row, checking the serialized argv when it accepts. */
@@ -43,8 +57,12 @@ describe('pull completion closure corpus', () => {
       }
       const result = outcome(row);
       const accepted = result.kind === 'accepted';
-      // Native acceptance of an operand object read as an option is a deliberate refusal.
-      if (row.valid && result.kind === 'literal') {
+      // Native acceptance of an operand object read as an option is a deliberate refusal, but
+      // only when the operand is reached: a help word before it exits first.
+      if (row.valid && dashOperandBeforeHelp(row.tokens)) {
+        if (result.kind !== 'literal') {
+          mismatches.push(`${JSON.stringify(row.argv)}: expected a literal-operand refusal`);
+        }
         continue;
       }
       // type-git restriction: pull's scope checks a forwarded --deepen value when it is parsed,
