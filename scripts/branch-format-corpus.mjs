@@ -118,7 +118,8 @@ const formats = new Set([
 const sorts = new Set([
   '', '-', '--refname', '*', '*refname', 'refname', '-refname', 'v:refname', 'version:refname', '-v:refname', 'v:-refname',
   'version:v:refname', 'V:refname', 'objectname:short)', 'trailers:only)x', 'trailers:only)', 'trailers:bogus)', 'committerdate:bogus',
-  'rest', 'HEAD', 'align', 'align:3', 'color:red', 'color:bogus', 'ahead-behind:main', 'ahead-behind:missing', 'is-base:main', 'describe:tags=bogus,match=v*', 'describe:tags=bogus', 'describe:tags=x,abbrev=2',
+  'rest', 'HEAD', 'align', 'align:3', 'color:red', 'color:bogus', 'ahead-behind:main', 'ahead-behind:missing', 'is-base:main', 'describe:tags=bogus,match=v*', 'describe:tags=bogus', 'describe:tags=x,abbrev=2', 'describe:tags=bogus,abbrev=4', 'describe:tags=bogus,tags',
+  'describe:tags=x,exclude=',
   ...ATOMS.flatMap((atom) => [null, '', 'x', 'short', 'short=0', 'disk', 'mailmap', 'trim', 'track', 'size', '10', 'red', 'equals=x', 'trailers:only'].map((arg) => (arg === null ? atom : `${atom}:${arg}`))),
 ]);
 
