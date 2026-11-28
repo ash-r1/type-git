@@ -683,6 +683,14 @@ describe('option constraints against independent Git executions', () => {
         if (!legacyAccepted) {
           expect(result.status === 128, label).toBe(rejected.length > 0);
         }
+        if (rejected.length === 0 && result.status !== 0) {
+          // The only accepted failure: --ours or --merge finds no stage entry for the clean path.
+          expect(result.status, label).toBe(1);
+          expect(Boolean(options.ours || options.merge || options.conflict), label).toBe(true);
+          expect(result.stderr, label).toMatch(
+            /^error: path 'file' does not have (our version|all necessary versions)$/m,
+          );
+        }
         if (rejected.length > 0) {
           await expect(repo.restore(paths, options as never), label).rejects.toBeInstanceOf(
             GitArgumentError,

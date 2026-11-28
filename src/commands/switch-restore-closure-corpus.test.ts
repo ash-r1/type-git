@@ -25,6 +25,14 @@ const resolvedKey = (row: Row): string =>
     row.command,
     row.tokens.map((token) => (Array.isArray(token) ? token : { operand: 'side' })),
   ]);
+/** The rule ids (with `*` wildcards) the generator mapped a Git diagnostic to, as one pattern. */
+const rulePattern = (label: string): RegExp =>
+  new RegExp(
+    label
+      .split(', ')
+      .map((id) => `\\[${id.replace(/\*/g, '[a-z-]+')}\\]`)
+      .join('|'),
+  );
 /** Explicit new-branch options and the rule that checks each one's name. */
 const NAME_RULES: Record<string, string> = {
   '--create': 'switch-create-name',
@@ -65,13 +73,20 @@ describe('switch and restore completion closure corpus', () => {
       }
       // A state refusal (an unresolvable operand) can hide a later argument refusal. The same
       // options with a resolvable operand must reach that argument refusal in Git and the builder.
+      // Both rows must be refused for the rule that models the resolved row's Git diagnostic.
       const resolved = byKey.get(resolvedKey(row));
+      const rule = resolved && 'rule' in resolved ? resolved.rule : undefined;
+      const resolvedResult =
+        resolved && accepts(resolved.command as Command, resolved.tokens, resolved.argv);
       if (
         !resolved ||
         resolved === row ||
         resolved.delegated ||
         resolved.valid ||
-        accepts(resolved.command as Command, resolved.tokens, resolved.argv) === true
+        rule === undefined ||
+        typeof resolvedResult !== 'string' ||
+        !rulePattern(rule).test(resolvedResult) ||
+        !rulePattern(rule).test(result)
       ) {
         unexplained.push(`${JSON.stringify(row.argv)}: ${row.diagnostic}; builder: ${result}`);
       } else {

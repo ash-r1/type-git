@@ -94,6 +94,8 @@ export type NativeSwitchRestoreClosureCases = readonly [
   Check<Accepted<'switch', [["--detach"],["--track","inherit"],{"operand":"side"},{"operand":"main"}]> extends false ? true : false>,
   Check<Accepted<'switch', [["--create","a..b"]]> extends false ? true : false>,
   Check<Accepted<'switch', [["--force-create","a..b"]]> extends false ? true : false>,
+  Check<Accepted<'restore', [["--patch"],["--unified","-1"],{"operand":"file"}]> extends true ? true : false>,
+  Check<Accepted<'restore', [["--patch"],["--inter-hunk-context","-2"],{"operand":"file"}]> extends false ? true : false>,
   Check<Accepted<'restore', [["--source","HEAD"]]> extends false ? true : false>,
   Check<Accepted<'restore', [["--source","HEAD"],["--source",""]]> extends false ? true : false>,
   Check<Accepted<'restore', [["--source","HEAD"],["--no-source"]]> extends false ? true : false>,

@@ -193,9 +193,9 @@ try {
   }
   /** Restore HEAD, the work tree, the branch list and @{-1} (side) before every case. */
   const reset = () => {
-    git(['switch', '-qf', 'side']);
-    git(['switch', '-qf', 'main']);
-    git(['reset', '-q', '--hard']);
+    for (const args of [['switch', '-qf', 'side'], ['switch', '-qf', 'main'], ['reset', '-q', '--hard']]) {
+      if (git(args).status !== 0) throw new Error(`Cannot reset oracle: ${args.join(' ')}`);
+    }
     for (const name of git(['for-each-ref', '--format=%(refname:short)', 'refs/heads']).stdout.split('\n')) {
       if (name && name !== 'main' && name !== 'side') git(['branch', '-qD', name]);
     }
@@ -210,10 +210,11 @@ try {
     }
     const diagnostic = result.stderr.split('\n').find((line) => /^(fatal|error):/.test(line)) ?? '';
     const delegated = result.status !== 0 && DELEGATED.some((pattern) => pattern.test(diagnostic));
-    if (result.status !== 0 && !delegated && !RULES.some(([pattern]) => pattern.test(diagnostic))) {
+    const rule = result.status !== 0 && !delegated ? RULES.find(([pattern]) => pattern.test(diagnostic))?.[1] : undefined;
+    if (result.status !== 0 && !delegated && rule === undefined) {
       throw new Error(`Unexpected diagnostic ${JSON.stringify(argv)}: ${result.stderr}`);
     }
-    cases.push({ command, tokens, argv, valid: result.status === 0, delegated, status: result.status, diagnostic });
+    cases.push({ command, tokens, argv, valid: result.status === 0, delegated, status: result.status, diagnostic, ...(rule ? { rule } : {}) });
   };
   for (const [command, words, operands] of [
     ['switch', SWITCH_WORDS, SWITCH_OPERANDS],
@@ -270,7 +271,16 @@ try {
   const taken = new Map();
   // Every derived --track name row is a type witness, accepted or refused.
   for (const row of derived.filter((candidate) => !candidate.delegated)) typeRows.switch.push(row);
-  for (const row of cases.filter((candidate) => !candidate.delegated && !derived.includes(candidate))) {
+  // Numeric context bounds with --patch and a path: -1 is accepted and -2 is refused as negative.
+  for (const spelled of [
+    ['restore', '--patch', '--unified=-1', 'file'],
+    ['restore', '--patch', '--inter-hunk-context=-2', 'file'],
+  ]) {
+    const row = cases.find((candidate) => JSON.stringify(candidate.argv) === JSON.stringify(spelled));
+    if (!row) throw new Error(`Missing context bound row ${spelled.join(' ')}`);
+    typeRows.restore.push(row);
+  }
+  for (const row of cases.filter((candidate) => !candidate.delegated && !typeRows[candidate.command].includes(candidate))) {
     // Quoted option names stay in the family, so each option's diagnostic keeps its own witnesses.
     const family = `${row.command}:${row.diagnostic.replace(/'(?!--)[^']*'/g, "''")}:${row.tokens.length}`;
     if ((taken.get(family) ?? 0) < 2) {
