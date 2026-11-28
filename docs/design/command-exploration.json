@@ -16323,8 +16323,16 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 3,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
+        "expanded-stash-reference": [
+          "undefined",
+          "\"refs/stash@{}\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16366,7 +16374,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]",
+          "[\"refs/stash@{}\"]",
+          "[\"value\",\"refs/stash@{}\"]"
         ],
         "operand0": [
           "undefined",
@@ -16378,11 +16390,13 @@
           "true"
         ]
       },
-      "total": "90000",
-      "accepted": "36000",
-      "nodes": 2,
+      "total": "648000",
+      "accepted": "216000",
+      "nodes": 30,
       "isolatedRuleWitnesses": {
-        "stash-apply-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-apply-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-apply-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}",
+        "stash-apply-expanded-stash-reference": "{\"expanded-stash-reference\":\"refs/stash@{}\",\"operands\":[\"refs/stash@{}\"]}"
       }
     },
     {
@@ -16456,8 +16470,16 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 3,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
+        "expanded-stash-reference": [
+          "undefined",
+          "\"refs/stash@{}\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16473,7 +16495,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]",
+          "[\"refs/stash@{}\"]",
+          "[\"value\",\"refs/stash@{}\"]"
         ],
         "operand0": [
           "undefined",
@@ -16485,11 +16511,13 @@
           "true"
         ]
       },
-      "total": "240",
-      "accepted": "96",
-      "nodes": 2,
+      "total": "1728",
+      "accepted": "576",
+      "nodes": 30,
       "isolatedRuleWitnesses": {
-        "stash-drop-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-drop-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-drop-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}",
+        "stash-drop-expanded-stash-reference": "{\"expanded-stash-reference\":\"refs/stash@{}\",\"operands\":[\"refs/stash@{}\"]}"
       }
     },
     {
@@ -16586,8 +16614,16 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 3,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
+        "expanded-stash-reference": [
+          "undefined",
+          "\"refs/stash@{}\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16608,7 +16644,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]",
+          "[\"refs/stash@{}\"]",
+          "[\"value\",\"refs/stash@{}\"]"
         ],
         "operand0": [
           "undefined",
@@ -16620,11 +16660,13 @@
           "true"
         ]
       },
-      "total": "720",
-      "accepted": "288",
-      "nodes": 2,
+      "total": "5184",
+      "accepted": "1728",
+      "nodes": 30,
       "isolatedRuleWitnesses": {
-        "stash-pop-arity": "{\"operands\":[\"value\",\"value\"]}"
+        "stash-pop-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "stash-pop-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"]}",
+        "stash-pop-expanded-stash-reference": "{\"expanded-stash-reference\":\"refs/stash@{}\",\"operands\":[\"refs/stash@{}\"]}"
       }
     },
     {
@@ -16667,8 +16709,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 4,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "help": [
           "undefined",
           "true"
@@ -16678,11 +16724,34 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
-          "\"value\""
+          "\"value\"",
+          "\"topic\"",
+          "\"a/b\"",
+          "\"@\"",
+          "\"x/HEAD\"",
+          "\"-x\"",
+          "\"HEAD\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\".a\"",
+          "\"a b\"",
+          "\"a@{b\"",
+          "\"@{-1}\"",
+          "\"x@{u}\""
+        ],
+        "operand1": [
+          "\"\"",
+          "undefined",
+          "\"value\"",
+          "\"refs/stash@{}\""
         ],
         "inRepository": [
           "undefined",
@@ -16690,11 +16759,14 @@
           "true"
         ]
       },
-      "total": "60",
-      "accepted": "24",
-      "nodes": 2,
+      "total": "5712",
+      "accepted": "864",
+      "nodes": 38,
       "isolatedRuleWitnesses": {
-        "stash-branch-arity": "{\"operands\":[]}"
+        "stash-branch-arity": "{\"operand1\":\"\",\"operands\":[]}",
+        "stash-branch-empty-operand": "{\"empty-operand\":\"\",\"operand1\":\"\",\"operands\":[\"\"]}",
+        "stash-branch-expanded-stash-reference": "{\"operand1\":\"refs/stash@{}\",\"operands\":[\"value\"]}",
+        "stash-branch-name": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -16756,8 +16828,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -16780,7 +16856,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -16792,11 +16870,12 @@
           "true"
         ]
       },
-      "total": "1200",
-      "accepted": "240",
-      "nodes": 2,
+      "total": "3360",
+      "accepted": "720",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-store-arity": "{\"operands\":[]}"
+        "stash-store-arity": "{\"operands\":[]}",
+        "stash-store-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -17905,8 +17984,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 1,
+      "rules": 2,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "help": [
           "undefined",
           "true"
@@ -17916,7 +17999,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -17928,11 +18013,12 @@
           "true"
         ]
       },
-      "total": "60",
-      "accepted": "12",
-      "nodes": 2,
+      "total": "168",
+      "accepted": "36",
+      "nodes": 12,
       "isolatedRuleWitnesses": {
-        "stash-import-arity": "{\"operands\":[]}"
+        "stash-import-arity": "{\"operands\":[]}",
+        "stash-import-empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -18047,8 +18133,16 @@
           ]
         }
       ],
-      "rules": 2,
+      "rules": 7,
       "domains": {
+        "empty-stash-reference": [
+          "undefined",
+          "\"\""
+        ],
+        "expanded-stash-reference": [
+          "undefined",
+          "\"refs/stash@{}\""
+        ],
         "print": [
           "undefined",
           "true"
@@ -18058,7 +18152,18 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"topic\"",
+          "\"refs/x\"",
+          "\"@\"",
+          "\".a\"",
+          "\"/a\"",
+          "\"a..b\"",
+          "\"a.lock\"",
+          "\"a/\"",
+          "\"a@{b\"",
+          "\"FETCH_HEAD\"",
+          "\"MERGE_HEAD\""
         ],
         "help": [
           "undefined",
@@ -18069,7 +18174,11 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]",
+          "[\"refs/stash@{}\"]",
+          "[\"value\",\"refs/stash@{}\"]"
         ],
         "operand0": [
           "undefined",
@@ -18081,12 +18190,17 @@
           "true"
         ]
       },
-      "total": "600",
-      "accepted": "330",
-      "nodes": 14,
+      "total": "13824",
+      "accepted": "2184",
+      "nodes": 191,
       "isolatedRuleWitnesses": {
         "stash-export-destination": "{\"operands\":[]}",
-        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"\"}"
+        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"value\"}",
+        "stash-export-empty-stash-reference": "{\"empty-stash-reference\":\"\",\"operands\":[\"\"],\"to-ref\":\"value\"}",
+        "stash-export-expanded-stash-reference": "{\"expanded-stash-reference\":\"refs/stash@{}\",\"operands\":[\"refs/stash@{}\"],\"to-ref\":\"value\"}",
+        "stash-export-to-ref": "{\"operands\":[],\"to-ref\":\"\"}",
+        "stash-export-to-ref-fetch-head": "{\"operands\":[],\"to-ref\":\"FETCH_HEAD\"}",
+        "stash-export-to-ref-merge-head": "{\"operands\":[],\"to-ref\":\"MERGE_HEAD\"}"
       }
     },
     {
@@ -39992,11 +40106,15 @@
           }
         }
       ],
-      "rules": 16,
+      "rules": 17,
       "domains": {
         "empty-stash-reference": [
           "undefined",
           "\"\""
+        ],
+        "expanded-stash-reference": [
+          "undefined",
+          "\"refs/stash@{}\""
         ],
         "untracked-mode": [
           "undefined",
@@ -41127,8 +41245,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "26423902726944033539245969809404137074860377399323551422191815884800000000000000000000000000000000000",
-      "accepted": "21073877852846971194851966440827260437174692876893237987156541340385280000000000000000000000000000",
+      "total": "52847805453888067078491939618808274149720754798647102844383631769600000000000000000000000000000000000",
+      "accepted": "42147755705693942389703932881654520874349385753786475974313082680770560000000000000000000000000000",
       "nodes": 28760,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"stash-operands\":[]}",
@@ -41146,7 +41264,8 @@
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[],\"stash-operands\":[]}",
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[],\"stash-operands\":[]}",
         "stash.show-arity": "{\"operands\":[],\"stash-operands\":[\"value\",\"value\"]}",
-        "stash.show-empty-reference": "{\"empty-stash-reference\":\"\",\"operands\":[],\"stash-operands\":[\"\"]}"
+        "stash.show-empty-reference": "{\"empty-stash-reference\":\"\",\"operands\":[],\"stash-operands\":[\"\"]}",
+        "stash.show-expanded-reference": null
       }
     },
     {

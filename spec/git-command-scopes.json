@@ -1496,6 +1496,10 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash drop": {
@@ -1525,6 +1529,10 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash pop": {
@@ -1554,6 +1562,10 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "stash branch": {
@@ -1583,6 +1595,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "stash store": {
@@ -1612,6 +1627,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "stash push": {
@@ -1733,6 +1751,9 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-operand": ""
     }
   },
   "stash export": {
@@ -1761,6 +1782,10 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "initial": {
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     }
   },
   "config list": {
@@ -3724,7 +3749,8 @@
       ]
     },
     "initial": {
-      "empty-stash-reference": ""
+      "empty-stash-reference": "",
+      "expanded-stash-reference": "refs/stash@{}"
     },
     "numericOption": {
       "key": "max-count",

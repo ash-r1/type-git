@@ -1124,7 +1124,10 @@ export type StashPushOpts = CheckedOptions<
  * Options for git stash pop/apply
  */
 export type StashApplyOpts = {
-  /** Stash index to apply */
+  /**
+   * Stash entry number (`stash@{<index>}`): an integer from 0 to 99999999, because Git reads
+   * larger numbers as timestamps.
+   */
   index?: number;
   /** Try to reinstate index */
   reinstateIndex?: boolean;
