@@ -9,9 +9,9 @@
   {
     "command": "commitPaths",
     "scope": "operands",
-    "total": "45927",
-    "accepted": "22050",
-    "nodes": 197
+    "total": "2066715",
+    "accepted": "683550",
+    "nodes": 421
   },
   {
     "command": "restorePaths",

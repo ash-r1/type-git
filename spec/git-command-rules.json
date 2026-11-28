@@ -1528,6 +1528,52 @@
       ]
     },
     {
+      "id": "cli.commit.author-ident",
+      "kind": "scalar",
+      "key": "author",
+      "parser": "commit-author",
+      "origin": "git",
+      "reason": "An --author value containing '>' must split as 'Name <email>' with a name that is neither empty nor only characters ident.c strips; a value without '>' is looked up among existing authors by native Git.",
+      "source": "Git 2.55.0 builtin/commit.c:determine_author_info -> ident.c:split_ident_line/fmt_ident (IDENT_STRICT); --dry-run and the status formats return before prepare_to_commit",
+      "guard": [
+        {
+          "key": "dry-run",
+          "test": "inactive"
+        },
+        {
+          "key": "format",
+          "test": "inactive"
+        },
+        {
+          "key": "null",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "cli.commit.date",
+      "kind": "scalar",
+      "key": "date",
+      "parser": "commit-date",
+      "origin": "git",
+      "reason": "--date must be a Git date: parse_date, or approxidate text with a digit or a recognized word (a month prefix of three or more letters, today, now, noon, one to ten, last and the other special words).",
+      "source": "Git 2.55.0 builtin/commit.c:determine_author_info/parse_force_date -> date.c:parse_date/approxidate_careful; --dry-run and the status formats return before prepare_to_commit",
+      "guard": [
+        {
+          "key": "dry-run",
+          "test": "inactive"
+        },
+        {
+          "key": "format",
+          "test": "inactive"
+        },
+        {
+          "key": "null",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
       "id": "cli.commit.reword-paths",
       "kind": "arity",
       "key": "operands",
@@ -1684,7 +1730,7 @@
       "kind": "requiresAny",
       "origin": "git",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c",
-      "reason": "Only mode without path operands or a pathspec file requires --allow-empty, --amend or an amend: fixup (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git). Git 2.32 and later also refuse --amend with a plain fixup, but older Git accepts it, so that case is left to native Git.",
+      "reason": "Only mode without path operands or a pathspec file requires --allow-empty, --amend or an amend: fixup (builtin/commit.c:prepare_index counts pathspec.nr after parse_pathspec_file reads the file, so a file naming no paths is left to native Git). With --amend, a plain fixup still needs one of the others (cli.commit.only-amend-fixup).",
       "when": {
         "key": "only",
         "test": "active"
@@ -1704,6 +1750,46 @@
         },
         {
           "key": "amend",
+          "test": "active"
+        },
+        {
+          "key": "fixup",
+          "test": "startsWith",
+          "value": "amend:"
+        }
+      ]
+    },
+    {
+      "id": "cli.commit.only-amend-fixup",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c",
+      "reason": "In only mode, --amend with a fixup that is not amend: still needs path operands, a pathspec file or --allow-empty (builtin/commit.c:prepare_index: !amend || (fixup_message && strcmp(fixup_prefix, \"amend\"))).",
+      "when": {
+        "key": "only",
+        "test": "active"
+      },
+      "guard": [
+        {
+          "key": "amend",
+          "test": "active"
+        },
+        {
+          "key": "fixup",
+          "test": "present"
+        }
+      ],
+      "choices": [
+        {
+          "key": "operands",
+          "test": "nonempty"
+        },
+        {
+          "key": "pathspec-from-file",
+          "test": "active"
+        },
+        {
+          "key": "allow-empty",
           "test": "active"
         },
         {

@@ -29,7 +29,6 @@ export const INPUT_CONSTRAINTS = {
         { key: 'fixup', test: 'startsWith', value: 'amend:' },
       ],
       origin: 'git',
-      // Git 2.32+ also refuses amend with a plain fixup, but older Git accepts it.
       reason: 'Only mode without paths requires allowEmpty, amend or an amend: fixup.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
@@ -88,6 +87,35 @@ export const INPUT_CONSTRAINTS = {
       ],
       origin: 'git',
       reason: 'A reword: fixup takes its message from the amended commit, not from a message.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.author-ident',
+      kind: 'scalar',
+      key: 'author',
+      parser: 'commit-author',
+      // repo.commit skips an empty author; dry runs return before determine_author_info.
+      guard: [
+        { key: 'author', test: 'nonempty' },
+        { key: 'dryRun', test: 'inactive' },
+      ],
+      origin: 'git',
+      reason: "An author containing '>' must be 'Name <email>' with a nonempty name.",
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+    },
+    {
+      id: 'commit.date',
+      kind: 'scalar',
+      key: 'date',
+      parser: 'commit-date',
+      // repo.commit skips an empty date and converts a Date, which still needs a valid time.
+      guard: [
+        { key: 'date', test: 'present' },
+        { key: 'date', test: 'notEquals', value: '' },
+        { key: 'dryRun', test: 'inactive' },
+      ],
+      origin: 'git',
+      reason: 'The date must be a Git date (parse_date or approxidate).',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
     },
   ],
@@ -180,6 +208,9 @@ export const INPUT_DOMAINS = {
     fixup: [undefined, '', 'HEAD', 'amend:HEAD', 'reword:HEAD', 'Amend:HEAD', 'x:HEAD'],
     message: [undefined, '', 'm'],
     resetAuthor: [undefined, false, true],
+    author: [undefined, '', 'A <a@example.test>', 'nickname', 'x>'],
+    date: [undefined, 'now', 'friday'],
+    dryRun: [undefined, false, true],
   },
   pathspec: {
     pathspecFromFile: [undefined, '', 'paths'],
