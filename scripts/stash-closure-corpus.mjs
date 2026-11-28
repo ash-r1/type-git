@@ -176,6 +176,8 @@ try {
     const options = command === 'stash apply' || command === 'stash pop' ? [[], [['--index']], [['-q']], ...(command === 'stash apply' ? labels : [])] : [[], [['-q']]].slice(0, command === 'stash show' ? 1 : 2);
     for (const o of options) for (const s of STASH_OPERANDS) record(command, [...o, ...s]);
   }
+  // The completion helper exits in the revision parser, after get_stash_info has checked stash_args.
+  for (const s of STASH_OPERANDS) record('stash show', [...s, ['--git-completion-helper']]);
   for (const s of [[], [operand('b')], [operand('b'), operand('0')], [operand('b'), operand('0'), operand('1')], [operand('')], [operand('b'), operand('')], [operand('b'), operand('refs/stash@{}')], [operand(''), operand('0')], [operand('main')],
     [operand('a..b')], [operand('HEAD')], [operand('topic/name')], [operand('@{-1}')], [operand('x.lock')]]) {
     record('stash branch', s);

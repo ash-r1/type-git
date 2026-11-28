@@ -565,6 +565,11 @@ function buildArguments(
       if (guard) {
         return serialized;
       }
+      if (revision?.exited && spec.parserExit.remainingPartition && !abi?.deferFinalRules) {
+        // The partitioned operands are resolved before the revision parser runs, so a
+        // completion exit there does not skip the rules that read only those operands.
+        rejectPartitionRules(command, spec, partition.state);
+      }
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
@@ -1136,6 +1141,36 @@ function buildArguments(
     }
   }
   return argv;
+}
+
+/** Rules that read only the partitioned operand key, such as stash show's stash_args checks. */
+function partitionRules(spec: CommandSpec): CommandSpec['rules'] {
+  const key = spec.parserExit?.remainingPartition?.operandKey;
+  return spec.rules.filter((rule) => {
+    const keys = [
+      ...('key' in rule && rule.key !== undefined ? [rule.key] : []),
+      ...('keys' in rule && rule.keys !== undefined ? rule.keys : []),
+      ...('others' in rule && rule.others !== undefined ? rule.others : []),
+      ...(rule.guard ?? []).map((predicate) => predicate.key),
+      ...('when' in rule && Array.isArray(rule.when)
+        ? rule.when.map((predicate: { key: string }) => predicate.key)
+        : []),
+    ];
+    return keys.length > 0 && keys.every((name) => name === key);
+  });
+}
+
+function rejectPartitionRules(
+  command: GitCommandName,
+  spec: CommandSpec,
+  partitionState: Readonly<Record<string, readonly string[]>>,
+): void {
+  const errors = violations(partitionRules(spec), { ...spec.initial, ...partitionState });
+  if (errors.length > 0) {
+    throw new GitArgumentError(
+      `${command}: ${errors.map((rule) => `[${rule.id}] ${rule.reason}`).join('; ')}`,
+    );
+  }
 }
 
 /** Serialize only the representation guards; unknown native parser responses retain this original argv. */

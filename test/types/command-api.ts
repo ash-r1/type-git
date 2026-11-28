@@ -371,6 +371,14 @@ git.command('stash apply', [{ operand: '0' }]);
 git.command('stash apply', [{ operand: 'refs/stash@{}' }]);
 // @ts-expect-error Show resolves the same explicit expansion.
 git.command('stash show', [{ operand: 'refs/stash@{}' }]);
+// @ts-expect-error The reference is resolved before a later completion helper exits.
+git.command('stash show', [{ operand: 'refs/stash@{}' }, ['--git-completion-helper']]);
+// @ts-expect-error The empty reference is resolved before the completion helper too.
+git.command('stash show', [['--git-completion-helper'], { operand: '' }]);
+// @ts-expect-error So is the stash revision count.
+git.command('stash show', [{ operand: '0' }, { operand: '1' }, ['--git-completion-helper']]);
+git.command('stash show', [{ operand: 'stash@{0}' }, ['--git-completion-helper']]);
+git.command('stash show', [{ operand: 'refs/stash@{}' }, ['-h']]);
 // @ts-expect-error The explicit expansion is never a stash reference for stash branch.
 git.command('stash branch', [{ operand: 'topic' }, { operand: 'refs/stash@{}' }]);
 // @ts-expect-error Export cannot find refs/stash@{} as a stash entry.

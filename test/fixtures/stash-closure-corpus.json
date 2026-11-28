@@ -2572,6 +2572,249 @@
       "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
     },
     {
+      "command": "stash show",
+      "tokens": [
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "0",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "1"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "0",
+        "1",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' '1'"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": ""
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "0",
+        "",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' ''"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": ""
+        },
+        {
+          "operand": "0"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "",
+        "0",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '' '0'"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "stash@{1}"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "stash@{1}",
+        "--git-completion-helper"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "HEAD",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 128,
+      "diagnostic": "fatal: 'HEAD' is not a stash-like commit"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "missing"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "missing",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": true,
+      "status": 1,
+      "diagnostic": "error: missing is not a valid reference"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "refs/stash@{}"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "refs/stash@{}",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "error: refs/stash@{} is not a valid reference"
+    },
+    {
+      "command": "stash show",
+      "tokens": [
+        {
+          "operand": "0"
+        },
+        {
+          "operand": "refs/stash@{}"
+        },
+        [
+          "--git-completion-helper"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "show",
+        "0",
+        "refs/stash@{}",
+        "--git-completion-helper"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 1,
+      "diagnostic": "Too many revisions specified: '0' 'refs/stash@{}'"
+    },
+    {
       "command": "stash branch",
       "tokens": [],
       "argv": [

@@ -31001,7 +31001,7 @@ const commandSpec48 = {
       origin: 'git',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c#L2317-L2370',
       reason:
-        'An explicit refs/stash@{} is never a stash entry whatever the repository holds (get_stash_info), so the export cannot find it; a help exit happens first.',
+        'An explicit refs/stash@{} is never a stash entry whatever the repository holds (do_export_stash: parse_stash_revision, repo_get_oid_with_flags), so the export cannot find it; a help exit happens first.',
       when: sharedPredicates38,
     },
     {
