@@ -15,6 +15,8 @@ export function scalarRepresentatives(parser) {
   if (parser === 'object-filter' || parser === 'object-filter-auto') return ['', 'invalid', 'blob:none', 'auto', 'tree:0', 'tree:-1', 'combine:+'];
   if (parser === 'branch-name') return ['topic', 'a/b', '@', 'x/HEAD', '', '-x', 'HEAD', 'a..b', 'a.lock', 'a/', '.a', 'a b', 'a@{b', '@{-1}', 'x@{u}'];
   if (parser === 'refname-onelevel') return ['topic', 'refs/x', '@', '', '.a', '/a', 'a..b', 'a.lock', 'a/', 'a@{b'];
+  if (parser === 'commit-author') return ['A <a@example.test>', 'nickname', 'x>', '<>', ' <a>', 'A <a', 'a>b<c', ',;: <a>', 'é <a>'];
+  if (parser === 'commit-date') return ['', 'now', 'jan', 'ja', 'Mayo', 'friday', 'last', 'zero', 'one', '1', '2005-04-07T22:13:13', 'x'];
   // Refspec words, push options, remote names and clone -c parameters (push-refspecs.ts,
   // config-parameters.ts): one accepted value and the refusals each parser adds.
   if (parser === 'refspec-operands' || parser === 'fetch-refspec-operands') return [['origin', 'main'], ['origin', 'tag'], ['origin', 'tag', 'v1'], ['origin', 'tag', '']];

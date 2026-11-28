@@ -5,11 +5,12 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
+import { CliRunner } from '../runner/cli-runner.js';
 import { createGit } from './git-impl.js';
 
 /**
@@ -286,6 +287,41 @@ describe('High-level API', () => {
   });
 
   describe('commit', () => {
+    it('refuses authors and dates that Git refuses before running Git', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      const head = (await repo.raw(['rev-parse', 'HEAD'])).stdout;
+      const run = vi.spyOn(CliRunner.prototype, 'run');
+      try {
+        for (const opts of [
+          { author: 'x>' },
+          { author: ' <a@example.test>' },
+          { date: 'friday' },
+          { date: 'never' },
+          { date: new Date(Number.NaN) },
+        ]) {
+          await expect(
+            repo.commit({ message: 'refused', allowEmpty: true, ...opts }),
+          ).rejects.toThrow(GitArgumentError);
+        }
+        // Refused before any Git process starts.
+        expect(run).not.toHaveBeenCalled();
+        await repo.raw(['rev-parse', 'HEAD']);
+        expect(run).toHaveBeenCalled();
+      } finally {
+        run.mockRestore();
+      }
+      expect((await repo.raw(['rev-parse', 'HEAD'])).stdout).toBe(head);
+      await repo.commit({
+        message: 'dated',
+        allowEmpty: true,
+        author: 'A U Thor <author@example.test>',
+        date: new Date(1_700_000_000_000),
+      });
+      const log = await repo.raw(['log', '-1', '--format=%an|%ae|%at']);
+      expect(log.stdout.trim()).toBe('A U Thor|author@example.test|1700000000');
+    });
+
     it('should create a commit', async () => {
       const repoPath = join(tempDir, 'repo');
       const repo = await git.init(repoPath);

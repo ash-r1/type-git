@@ -1,4 +1,5 @@
 import type { BlameLineRangeLiteral } from './blame-line-range.js';
+import type { CommitAuthorLiteral } from './commit-ident-types.js';
 import type { ConfigParameterLiteral } from './config-parameter-types.js';
 import type { ConfigParameterParser } from './config-parameters.js';
 import type { DepthInitialLiteral } from './depth-types.js';
@@ -361,31 +362,35 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
                 ? RefnameOnelevelLiteral<V> extends true
                   ? V
                   : never
-                : P extends 'object-filter' | 'object-filter-auto'
-                  ? V extends undefined
+                : P extends 'commit-author'
+                  ? CommitAuthorLiteral<V> extends true
                     ? V
-                    : V extends string
-                      ? ObjectFilterLiteral<
-                          V,
-                          P extends 'object-filter-auto' ? true : false,
-                          Negative
-                        > extends true
-                        ? V
-                        : never
-                      : never
-                  : P extends StringCallbackParser
-                    ? StringCallbackLiteral<V, P> extends true
+                    : never
+                  : P extends 'object-filter' | 'object-filter-auto'
+                    ? V extends undefined
                       ? V
-                      : never
-                    : P extends PushRefspecParser
-                      ? PushRefspecLiteral<V, P> extends true
-                        ? V
-                        : never
-                      : P extends ConfigParameterParser
-                        ? ConfigParameterLiteral<V, P> extends true
+                      : V extends string
+                        ? ObjectFilterLiteral<
+                            V,
+                            P extends 'object-filter-auto' ? true : false,
+                            Negative
+                          > extends true
                           ? V
                           : never
-                        : V;
+                        : never
+                    : P extends StringCallbackParser
+                      ? StringCallbackLiteral<V, P> extends true
+                        ? V
+                        : never
+                      : P extends PushRefspecParser
+                        ? PushRefspecLiteral<V, P> extends true
+                          ? V
+                          : never
+                        : P extends ConfigParameterParser
+                          ? ConfigParameterLiteral<V, P> extends true
+                            ? V
+                            : never
+                          : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]

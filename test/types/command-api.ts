@@ -126,6 +126,20 @@ git.command('commit', [['--fixup', 'Amend:HEAD']]);
 git.command('commit', [['--fixup', 'HEAD~1:file']]);
 git.command('commit', [['--fixup', ':/subject']]);
 git.command('commit', [['--fixup', 'v1:HEAD']]);
+// @ts-expect-error An --author containing '>' must have a '<' before it.
+git.command('commit', [['--author', 'x>']]);
+// @ts-expect-error The name before '<' cannot be empty.
+git.command('commit', [['--author', ' <a@example.test>']]);
+// @ts-expect-error A name of characters that ident.c strips is refused.
+git.command('commit', [['--author', ',;: <a@example.test>']]);
+git.command('commit', [['--author', 'A <a@example.test>']]);
+// Without '>' the value names an existing author; dry runs never reach the check.
+git.command('commit', [['--author', 'nickname']]);
+git.command('commit', [['--author', 'x>'], ['--dry-run']]);
+// @ts-expect-error Git 2.32+ refuses --only --amend with a plain fixup and no paths.
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD']]);
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'amend:HEAD']]);
+git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--allow-empty']]);
 // @ts-expect-error Reword fixup forbids content selection.
 git.command('commit', [['--fixup', 'reword:HEAD'], ['--only']]);
 // @ts-expect-error parse_pathspec rejects an empty status pathspec.
@@ -145,8 +159,6 @@ git.command('commit', [['-m', 'message'], ['--only'], ['--allow-empty']]);
 git.command('commit', [['-m', 'message'], ['--only'], ['--amend']]);
 git.command('commit', [['-m', 'message'], ['--only'], { operand: 'file' }]);
 git.command('commit', [['-m', 'message'], ['--only'], ['--pathspec-from-file', 'paths']]);
-// Git 2.32+ refuses this, but older Git accepts it, so the wrapper leaves it to native Git.
-git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD']]);
 // @ts-expect-error A plain fixup without --amend or --allow-empty needs paths.
 git.command('commit', [['--only'], ['--fixup', 'HEAD']]);
 git.command('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--no-fixup']]);

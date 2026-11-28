@@ -43,14 +43,6 @@ const DELEGATED: RegExp[] = [
   // Commit names given to --fixup resolve against the object database.
   /^fatal: could not lookup commit '/,
 ];
-/**
- * Refusals the closure records as open: Git 2.32+ refuses only mode with --amend and a plain
- * fixup, but the wrapper keeps accepting it because older Git does (obligation no-paths).
- */
-const OPEN = (row: { argv: string[]; diagnostic: string }): boolean =>
-  /^fatal: No paths with --include\/--only/.test(row.diagnostic) &&
-  row.argv.includes('--amend') &&
-  row.argv.some((word) => word.startsWith('--fixup=') && !word.startsWith('--fixup=amend:'));
 /** Pathspecs read from a file are matched against the work tree, so only those rows. */
 const DELEGATED_PATHSPEC_FILE = /^error: pathspec '/;
 
@@ -71,6 +63,20 @@ describe('commit completion closure corpus', () => {
     }
   });
 
+  it('refuses only mode with --amend and a plain fixup, which Git 2.55.0 refuses', () => {
+    const rows = corpus.cases.filter(
+      (row) =>
+        row.argv.includes('-o') &&
+        row.argv.includes('--amend') &&
+        row.argv.some((word) => word.startsWith('--fixup=') && !word.startsWith('--fixup=amend:')),
+    );
+    expect(rows.length).toBeGreaterThan(0);
+    for (const row of rows) {
+      expect(row.valid).toBe(false);
+      expect(() => commandArguments('commit', row.tokens, true)).toThrow(GitArgumentError);
+    }
+  });
+
   it('matches every independent Git 2.55.0 outcome and preserves serialized argv', () => {
     const mismatches: string[] = [];
     for (const row of corpus.cases) {
@@ -84,11 +90,10 @@ describe('commit completion closure corpus', () => {
         }
       }
       const delegated =
-        (!row.valid &&
-          (DELEGATED.some((pattern) => pattern.test(row.diagnostic)) ||
-            (DELEGATED_PATHSPEC_FILE.test(row.diagnostic) &&
-              row.argv.some((word) => word.startsWith('--pathspec-from-file'))))) ||
-        (!row.valid && OPEN(row));
+        !row.valid &&
+        (DELEGATED.some((pattern) => pattern.test(row.diagnostic)) ||
+          (DELEGATED_PATHSPEC_FILE.test(row.diagnostic) &&
+            row.argv.some((word) => word.startsWith('--pathspec-from-file'))));
       if (accepted !== row.valid && !(accepted && delegated)) {
         mismatches.push(
           `${JSON.stringify(row.argv)}: native=${row.valid}, wrapper=${accepted}, ${row.diagnostic}`,

@@ -26,6 +26,7 @@ export { gitBoolean } from './git-boolean.js';
 
 import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
+import { validCommitAuthor, validCommitDate } from './commit-ident.js';
 import {
   type ConfigParameterParser,
   isConfigParameterParser,
@@ -130,6 +131,8 @@ export type GitScalarParser =
   | 'config-type'
   | 'branch-name'
   | 'refname-onelevel'
+  | 'commit-author'
+  | 'commit-date'
   | PushRefspecParser
   | ConfigParameterParser;
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
@@ -273,6 +276,16 @@ export function parseGitScalar(
       valid: value === undefined || (typeof value === 'string' && validRefnameFormat(value, true)),
       value,
     };
+  }
+  if (parser === 'commit-author') {
+    return { valid: value === undefined || validCommitAuthor(value), value };
+  }
+  if (parser === 'commit-date') {
+    // repo.commit converts a valid Date to ISO 8601 text, which parse_date accepts.
+    const valid =
+      value === undefined ||
+      (value instanceof Date ? !Number.isNaN(value.getTime()) : validCommitDate(value));
+    return { valid, value };
   }
   if (parser === 'blame-line-range') {
     return { valid: validBlameLineRange(value), value };
