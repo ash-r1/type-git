@@ -193,12 +193,12 @@ describe('status and commit path operands', () => {
       ],
       NO_PATHS,
     );
-    // Git 2.32+ refuses --amend with a plain fixup here, but older Git accepts it, so the
-    // wrapper leaves that combination to native Git.
+    // Git 2.32+ refuses --amend with a plain fixup here; the wrapper follows the pinned Git
+    // 2.55.0 (older Git accepted it, which the legacy job still observes natively).
     const amendFixup = ['--only', '--amend', '--fixup=HEAD', '--dry-run'];
-    expect(
+    expect(() =>
       commandArguments('commit', [['--only'], ['--amend'], ['--fixup', 'HEAD'], ['--dry-run']]),
-    ).toEqual(['commit', ...amendFixup]);
+    ).toThrow('[cli.commit.only-amend-fixup]');
     const native = direct('commit', amendFixup);
     if (fixupPrefixes) {
       expect(native.stderr).toContain(NO_PATHS);
@@ -267,7 +267,8 @@ describe('status and commit path operands', () => {
       { only: true, fixup: 'amend:HEAD' },
       // An empty fixup is not emitted, so --amend still exempts only mode.
       { only: true, amend: true, fixup: '' },
-      // Older Git accepts amend with a plain fixup; Git 2.32+ refuses it natively.
+      // Git 2.32+ refuses amend with a plain fixup in only mode, but 2.31 and older accept it,
+      // so repo.commit leaves it to the executing Git (the strict API pins 2.55).
       { only: true, amend: true, fixup: 'HEAD' },
     ]) {
       expect(() => {

@@ -1,4 +1,5 @@
 import type { BlameLineRangeLiteral } from './blame-line-range.js';
+import type { CommitAuthorLiteral } from './commit-ident-types.js';
 import type { DepthInitialLiteral } from './depth-types.js';
 import type { GitBooleanCallback } from './git-boolean.js';
 import type {
@@ -357,23 +358,27 @@ type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
                 ? RefnameOnelevelLiteral<V> extends true
                   ? V
                   : never
-                : P extends 'object-filter' | 'object-filter-auto'
-                  ? V extends undefined
+                : P extends 'commit-author'
+                  ? CommitAuthorLiteral<V> extends true
                     ? V
-                    : V extends string
-                      ? ObjectFilterLiteral<
-                          V,
-                          P extends 'object-filter-auto' ? true : false,
-                          Negative
-                        > extends true
+                    : never
+                  : P extends 'object-filter' | 'object-filter-auto'
+                    ? V extends undefined
+                      ? V
+                      : V extends string
+                        ? ObjectFilterLiteral<
+                            V,
+                            P extends 'object-filter-auto' ? true : false,
+                            Negative
+                          > extends true
+                          ? V
+                          : never
+                        : never
+                    : P extends StringCallbackParser
+                      ? StringCallbackLiteral<V, P> extends true
                         ? V
                         : never
-                      : never
-                  : P extends StringCallbackParser
-                    ? StringCallbackLiteral<V, P> extends true
-                      ? V
-                      : never
-                    : V;
+                      : V;
 type ScalarList<V, P> = V extends undefined
   ? V
   : V extends readonly unknown[]
