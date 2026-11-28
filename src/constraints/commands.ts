@@ -1018,6 +1018,7 @@ export const COMMAND_CONSTRAINTS = {
       kind: 'scalar',
       key: 'refspec',
       parser: 'refspec-words',
+      guard: [{ key: 'deleteRefs', test: 'inactive' }],
       origin: 'git',
       reason:
         "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",

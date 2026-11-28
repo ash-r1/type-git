@@ -5493,7 +5493,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "origin": "git",
         "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -6780,6 +6781,7 @@
           "--filter",
           "--hardlinks",
           "--help",
+          "--help-all",
           "--ipv4",
           "--ipv6",
           "--jobs",
@@ -7282,7 +7284,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "origin": "git",
         "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -8621,6 +8624,7 @@
           "--filter",
           "--force",
           "--help",
+          "--help-all",
           "--ipv4",
           "--ipv6",
           "--jobs",
@@ -9137,7 +9141,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "origin": "git",
         "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
@@ -9883,6 +9888,7 @@
           "--force-if-includes",
           "--force-with-lease",
           "--help",
+          "--help-all",
           "--ipv4",
           "--ipv6",
           "--mirror",
@@ -10158,14 +10164,14 @@
       },
       "total": "12273481091520000",
       "accepted": "3030489158400000",
-      "nodes": 147,
+      "nodes": 149,
       "isolatedRuleWitnesses": {
         "cli.push.mode": "{\"mirror\":true,\"operands\":[],\"tags\":true}",
         "cli.push.delete-refs": "{\"delete\":true,\"operands\":[]}",
         "cli.push.all-refs": "{\"all\":true,\"operands\":[\"value\",\"value\"]}",
         "cli.push.mirror-refs": "{\"mirror\":true,\"operands\":[\"value\",\"value\"]}",
         "cli.push.tag-shorthand": "{\"operands\":[\"origin\",\"tag\"]}",
-        "cli.push.delete-names": "{\"delete\":true,\"operands\":[\"origin\",\"a:b\"]}",
+        "cli.push.delete-names": "{\"delete\":true,\"operands\":[\"origin\",\"tag\"]}",
         "cli.push.option-newline": "{\"operands\":[],\"push-option\":[\"a\",\"a\\nb\"]}"
       }
     },
@@ -96361,7 +96367,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "origin": "git",
         "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; pull consumes its own -- before forwarding the words to fetch.",
@@ -97713,6 +97720,7 @@
           "--force",
           "--gpg-sign",
           "--help",
+          "--help-all",
           "--ipv4",
           "--ipv6",
           "--jobs",

@@ -15979,6 +15979,7 @@ const commandSpec30 = {
     '--no-recursive': sharedOption179,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
     '--git-completion-helper': sharedOption5,
     '--git-completion-helper-all': sharedOption5,
   },
@@ -16164,7 +16165,7 @@ const commandSpec30 = {
   source: 'builtin/clone.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.',
@@ -17447,6 +17448,7 @@ const commandSpec30 = {
       '--filter',
       '--hardlinks',
       '--help',
+      '--help-all',
       '--ipv4',
       '--ipv6',
       '--jobs',
@@ -17767,6 +17769,7 @@ const commandSpec31 = {
     '--no-negotiation-tip': sharedOption212,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
     '--git-completion-helper': sharedOption5,
     '--git-completion-helper-all': sharedOption5,
   },
@@ -17983,7 +17986,7 @@ const commandSpec31 = {
   source: 'builtin/fetch.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.',
@@ -19318,6 +19321,7 @@ const commandSpec31 = {
       '--filter',
       '--force',
       '--help',
+      '--help-all',
       '--ipv4',
       '--ipv6',
       '--jobs',
@@ -19550,6 +19554,7 @@ const commandSpec32 = {
     '--no-branches': sharedOption19,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
     '--git-completion-helper': sharedOption5,
     '--git-completion-helper-all': sharedOption5,
   },
@@ -19608,6 +19613,12 @@ const commandSpec32 = {
       kind: 'scalar',
       key: 'operands',
       parser: 'refspec-operands',
+      guard: [
+        {
+          key: 'delete',
+          test: 'inactive',
+        },
+      ],
       origin: 'git',
       reason:
         "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
@@ -19637,7 +19648,7 @@ const commandSpec32 = {
   source: 'builtin/push.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.',
@@ -20379,6 +20390,7 @@ const commandSpec32 = {
       '--force-if-includes',
       '--force-with-lease',
       '--help',
+      '--help-all',
       '--ipv4',
       '--ipv6',
       '--mirror',
@@ -65180,6 +65192,7 @@ const commandSpec208 = {
     '--no-negotiation-tip': sharedOption1139,
     '--help': sharedOption5,
     '-h': sharedOption5,
+    '--help-all': sharedOption5,
     '--git-completion-helper': sharedOption5,
     '--git-completion-helper-all': sharedOption5,
   },
@@ -65309,7 +65322,7 @@ const commandSpec208 = {
   source: 'builtin/pull.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
       'The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; pull consumes its own -- before forwarding the words to fetch.',
@@ -66657,6 +66670,7 @@ const commandSpec208 = {
       '--force',
       '--gpg-sign',
       '--help',
+      '--help-all',
       '--ipv4',
       '--ipv6',
       '--jobs',

@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference, --no-reference-if-able or --no-recurse-submodules; empty file-backed stdin",
+  "profile": "Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone, followed by --no-reference, --no-reference-if-able or --no-recurse-submodules, or followed by such a negation and the negated option again; empty file-backed stdin",
   "cases": [
     {
       "command": "clone",
@@ -4766,6 +4766,142 @@
       "command": "clone",
       "tokens": [
         [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "clone",
+        "--help-all"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "dst"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "../origin.git",
+        "dst"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "dst"
+        },
+        {
+          "operand": "extra"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "../origin.git",
+        "dst",
+        "extra"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "missing"
+        },
+        {
+          "operand": "dst"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "missing",
+        "dst"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        },
+        {
+          "operand": "full"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "../origin.git",
+        "full"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
           "-c",
           "a=b"
         ]
@@ -7382,6 +7518,30 @@
           "--bare"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--bare",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--bare"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -8502,6 +8662,30 @@
         "clone",
         "--no-bare",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-bare"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-bare",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -9650,6 +9834,30 @@
           "--mirror"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--mirror",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--mirror"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -10818,6 +11026,31 @@
           "sep"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--separate-git-dir=sep",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--separate-git-dir",
+          "sep"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -11949,6 +12182,30 @@
         "clone",
         "--no-checkout",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-checkout"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-checkout",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -13116,6 +13373,31 @@
         "clone",
         "--origin=up",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "up"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=up",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -14310,6 +14592,31 @@
           "up/stream"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=up/stream",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "up/stream"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -15474,6 +15781,31 @@
         "clone",
         "--origin=a b",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "a b"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a b",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -16668,6 +17000,31 @@
           "x.lock"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=x.lock",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "x.lock"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -17832,6 +18189,31 @@
         "clone",
         "--origin=",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          ""
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -19059,6 +19441,32 @@
           ".x"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-o",
+        ".x",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-o",
+          ".x"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -20235,6 +20643,31 @@
         "clone",
         "--origin=a:b",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "a:b"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a:b",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -21564,6 +21997,35 @@
           "--no-origin"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--origin=a b",
+        "--no-origin",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--origin",
+          "a b"
+        ],
+        [
+          "--no-origin"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -22788,6 +23250,31 @@
           "files"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--ref-format=files",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--ref-format",
+          "files"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -23952,6 +24439,31 @@
         "clone",
         "--ref-format=bad",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--ref-format",
+          "bad"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--ref-format=bad",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -25146,6 +25658,31 @@
           "1"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=1",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
+          "1"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -26325,6 +26862,31 @@
           "0"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=0",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
+          "0"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -27489,6 +28051,31 @@
         "clone",
         "--depth=x",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--depth",
+          "x"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--depth=x",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -28683,6 +29270,31 @@
           "2000-01-01"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--shallow-since=2000-01-01",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--shallow-since",
+          "2000-01-01"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -29847,6 +30459,31 @@
         "clone",
         "--bundle-uri=none.bundle",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--bundle-uri",
+          "none.bundle"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--bundle-uri=none.bundle",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -31041,6 +31678,31 @@
           "main"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--revision=main",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--revision",
+          "main"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -32205,6 +32867,31 @@
         "clone",
         "--branch=main",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--branch",
+          "main"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--branch=main",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -33399,6 +34086,31 @@
           "nope"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--branch=nope",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--branch",
+          "nope"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -34578,6 +35290,31 @@
           "blob:none"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--filter=blob:none",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--filter",
+          "blob:none"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -35723,6 +36460,30 @@
           "--also-filter-submodules"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--also-filter-submodules",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--also-filter-submodules"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -36857,6 +37618,30 @@
           "--recurse-submodules"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recurse-submodules",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--recurse-submodules"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -37991,6 +38776,30 @@
           "--recursive"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--recursive",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--recursive"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -39125,6 +39934,30 @@
           "--no-recurse-submodules"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-recurse-submodules",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-recurse-submodules"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -40293,6 +41126,31 @@
           "../origin.git"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -41472,6 +42330,31 @@
           "../origin.git"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference-if-able=../origin.git",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -42617,6 +43500,30 @@
           "--no-reference"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--no-reference",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--no-reference"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -43751,6 +44658,30 @@
           "--single-branch"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--single-branch",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--single-branch"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -44885,6 +45816,30 @@
           "-h"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-h",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -45184,6 +46139,1164 @@
       "argv": [
         "clone",
         "-h",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--bare"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--bare",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--no-bare"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--no-bare",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--mirror"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--mirror",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--separate-git-dir",
+          "sep"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--separate-git-dir=sep",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--no-checkout"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--no-checkout",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "up"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=up",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "up/stream"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=up/stream",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "a b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=a b",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "x.lock"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=x.lock",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          ""
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-o",
+          ".x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-o",
+        ".x",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "a:b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=a:b",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--origin",
+          "a b"
+        ],
+        [
+          "--no-origin"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--origin=a b",
+        "--no-origin",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--ref-format",
+          "files"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--ref-format=files",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--ref-format",
+          "bad"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--ref-format=bad",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--depth",
+          "1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--depth=1",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--depth",
+          "0"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--depth=0",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--depth",
+          "x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--depth=x",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--shallow-since",
+          "2000-01-01"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--shallow-since=2000-01-01",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--bundle-uri",
+          "none.bundle"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--bundle-uri=none.bundle",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--revision",
+          "main"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--revision=main",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--branch",
+          "main"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--branch=main",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--branch",
+          "nope"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--branch=nope",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--filter",
+          "blob:none"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--filter=blob:none",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--also-filter-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--also-filter-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--recursive"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--recursive",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--no-recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--reference=../origin.git",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--reference-if-able=../origin.git",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--no-reference"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--no-reference",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--single-branch"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--single-branch",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "a=b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "a=b",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "a.1b=x"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "a.1b=x",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "a.b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "a.b",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "--config",
+          "sec.sub.var=1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "--config=sec.sub.var=1",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          ".x.y=1"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        ".x.y=1",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "a=b"
+        ],
+        [
+          "--no-config"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "a=b",
+        "--no-config",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName=up"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "clone.defaultRemoteName=up",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName=a b"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "clone.defaultRemoteName=a b",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "clone.defaultRemoteName"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "clone.defaultRemoteName",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "Clone.RejectShallow=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "Clone.RejectShallow=maybe",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=1k"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
+        "-c",
+        "clone.filterSubmodules=1k",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--help-all",
         "-c",
         "clone.filterSubmodules=maybe",
         "../origin.git"
@@ -46071,6 +48184,32 @@
         "-c",
         "a=b",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a=b"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a=b",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -47295,6 +49434,32 @@
         "-c",
         "a.1b=x",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a.1b=x"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a.1b=x",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -48534,6 +50699,32 @@
           "a.b"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a.b",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a.b"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -49710,6 +51901,31 @@
         "clone",
         "--config=sec.sub.var=1",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--config",
+          "sec.sub.var=1"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--config=sec.sub.var=1",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -50937,6 +53153,32 @@
           ".x.y=1"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        ".x.y=1",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          ".x.y=1"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -52278,6 +54520,36 @@
         "a=b",
         "--no-config",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "a=b"
+        ],
+        [
+          "--no-config"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "a=b",
+        "--no-config",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -53565,6 +55837,32 @@
           "clone.defaultRemoteName=up"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName=up",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.defaultRemoteName=up"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -54789,6 +57087,32 @@
           "clone.defaultRemoteName=a b"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName=a b",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.defaultRemoteName=a b"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -56013,6 +58337,32 @@
           "clone.defaultRemoteName"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.defaultRemoteName",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.defaultRemoteName"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -57222,6 +59572,32 @@
         "-c",
         "Clone.RejectShallow=maybe",
         "-h",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "Clone.RejectShallow=maybe"
+        ],
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "Clone.RejectShallow=maybe",
+        "--help-all",
         "../origin.git"
       ],
       "valid": true,
@@ -58461,6 +60837,32 @@
           "clone.filterSubmodules=1k"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=1k",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=1k"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -59685,6 +62087,32 @@
           "clone.filterSubmodules=maybe"
         ],
         [
+          "--help-all"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "-c",
+        "clone.filterSubmodules=maybe",
+        "--help-all",
+        "../origin.git"
+      ],
+      "valid": true,
+      "state": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-c",
+          "clone.filterSubmodules=maybe"
+        ],
+        [
           "-c",
           "a=b"
         ],
@@ -60807,6 +63235,122 @@
       "state": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-reference"
+        ],
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--no-reference",
+        "--reference=../origin.git",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-reference-if-able"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--no-reference-if-able",
+        "--reference-if-able=../origin.git",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--reference",
+          "../origin.git"
+        ],
+        [
+          "--reference-if-able",
+          "../origin.git"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        [
+          "--no-recurse-submodules"
+        ],
+        [
+          "--recurse-submodules"
+        ],
+        {
+          "operand": "../origin.git"
+        }
+      ],
+      "argv": [
+        "clone",
+        "--reference=../origin.git",
+        "--reference-if-able=../origin.git",
+        "--recurse-submodules",
+        "--no-recurse-submodules",
+        "--recurse-submodules",
+        "../origin.git"
+      ],
+      "valid": false,
+      "state": false,
+      "status": 128,
+      "diagnostic": "fatal: clone --recursive is not compatible with both --reference and --reference-if-able"
     }
   ]
 }

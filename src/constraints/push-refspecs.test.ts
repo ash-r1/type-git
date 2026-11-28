@@ -58,7 +58,8 @@ describe('refspec words (builtin/push.c set_refspecs, builtin/fetch.c fetch_one)
     for (const name of ['bad name', 'a..b', '@', 'x.lock', '*', 'a*', 'a.']) {
       expect(del([name]).valid, name).toBe(false);
     }
-    for (const name of ['main', 'refs/heads/main', 'HEAD']) {
+    // Git expands a deleted name to ':<name>', so a leading '+' is part of the name.
+    for (const name of ['main', 'refs/heads/main', 'HEAD', '+.topic']) {
       expect(del([name]).valid, name).toBe(true);
     }
   });
@@ -117,6 +118,9 @@ describe('repo.push refspec constraints', () => {
     expect(refused({ remote: 'origin', refspec: ['tag', ''] })).toBe(true);
     expect(refused({ remote: 'origin', deleteRefs: true, refspec: 'bad name' })).toBe(true);
     expect(refused({ remote: 'origin', deleteRefs: true, refspec: 'a:b' })).toBe(true);
+    // Under --delete only the deletion check applies (Git 2.55.0 push --delete origin +.topic).
+    expect(refused({ remote: 'origin', deleteRefs: true, refspec: '+.topic' })).toBe(false);
+    expect(refused({ remote: 'origin', refspec: '+.topic' })).toBe(true);
     expect(refused({ remote: 'origin', refspec: 'a:b' })).toBe(false);
     expect(refused({ remote: 'origin', pushOption: 'a\nb' })).toBe(true);
     expect(refused({ remote: 'origin', pushOption: ['a', 'b'] })).toBe(false);

@@ -729,6 +729,12 @@ git.command('pull', [{ operand: 'origin' }, { operand: 'tag' }, { operand: '.x' 
 git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'a:b' }]);
 git.command('push', [{ operand: 'origin' }, { operand: 'tag' }, { operand: 'v*' }]);
 git.command('push', [['--delete'], { operand: 'origin' }, { operand: 'tag' }, { operand: '@' }]);
+// Git expands a deleted name to ':<name>', so a leading '+' is part of the ref name.
+git.command('push', [['--delete'], { operand: 'origin' }, { operand: '+.topic' }]);
+git.command('pull', [['--quiet'], ['--help-all']]);
+git.command('push', [['--help-all']]);
+git.command('clone', [['--help-all']]);
+git.command('fetch', [['--all'], ['--help-all']]);
 // @ts-expect-error clone --origin must form a valid remote-tracking refspec.
 git.command('clone', [['--origin', 'up stream'], { operand: 'source' }]);
 // @ts-expect-error A remote name component cannot end with .lock.

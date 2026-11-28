@@ -92,6 +92,7 @@ const OPERANDS = [
   [operand('origin'), operand('main'), operand('')], [operand('both')], [operand('both'), operand('main')],
   [operand('../origin.git'), operand('main')], [operand('origin'), operand('tag'), operand('')],
   [operand('origin'), operand('tag'), operand('v*')], [operand('origin'), operand('bad name')],
+  [operand('origin'), operand('+.topic')],
 ];
 try {
   await writeFile(join(base, 'oracle-stdin'), '');
@@ -141,7 +142,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; one repository on main with tags v1 and tag, remotes origin (main and v1 pushed, upstream of main) and second as local bare repositories that advertise push options, and the remote group both = origin second; every case starts with --dry-run; mode pairs and mode-modifier pairs crossed with eighteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
+        'Git 2.55.0; one repository on main with tags v1 and tag, remotes origin (main and v1 pushed, upstream of main) and second as local bare repositories that advertise push options, and the remote group both = origin second; every case starts with --dry-run; mode pairs and mode-modifier pairs crossed with nineteen operand shapes, modifier pairs with up to two operands; empty file-backed stdin',
       cases,
     },
     null,

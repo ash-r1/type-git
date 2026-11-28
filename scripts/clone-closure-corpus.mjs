@@ -86,7 +86,7 @@ const OPTIONS = [
   [['--shallow-since', '2000-01-01']], [['--bundle-uri', 'none.bundle']], [['--revision', 'main']],
   [['--branch', 'main']], [['--branch', 'nope']], [['--filter', 'blob:none']], [['--also-filter-submodules']],
   [['--recurse-submodules']], [['--recursive']], [['--no-recurse-submodules']], [['--reference', SOURCE]],
-  [['--reference-if-able', SOURCE]], [['--no-reference']], [['--single-branch']], [['-h']],
+  [['--reference-if-able', SOURCE]], [['--no-reference']], [['--single-branch']], [['-h']], [['--help-all']],
   [['-c', 'a=b']], [['-c', 'a.1b=x']], [['-c', 'a.b']], [['--config', 'sec.sub.var=1']], [['-c', '.x.y=1']],
   [['-c', 'a=b'], ['--no-config']], [['-c', 'clone.defaultRemoteName=up']],
   [['-c', 'clone.defaultRemoteName=a b']], [['-c', 'clone.defaultRemoteName']],
@@ -137,10 +137,15 @@ try {
   for (const a of OPTIONS) for (const b of OPTIONS) sequences.push([...a, ...b, ...OPERANDS[1]]);
   // --recursive with both reference kinds in every order, alone or followed by a negation.
   const references = [[['--reference', SOURCE]], [['--reference-if-able', SOURCE]], [['--recurse-submodules']]];
-  for (const clear of [[], [['--no-reference']], [['--no-reference-if-able']], [['--no-recurse-submodules']]]) {
+  const clears = [[['--no-reference']], [['--no-reference-if-able']], [['--no-recurse-submodules']]];
+  for (const clear of [[], ...clears]) {
     for (const [a, b, c] of [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]) {
       sequences.push([...references[a], ...references[b], ...references[c], ...clear, ...OPERANDS[1]]);
     }
+  }
+  // A negation followed by the same option again restores it.
+  for (const [i, clear] of clears.entries()) {
+    sequences.push([...references[0], ...references[1], ...references[2], ...clear, ...references[i], ...OPERANDS[1]]);
   }
   const unique = new Map(sequences.map((tokens) => [JSON.stringify(tokens), tokens]));
   for (const tokens of unique.values()) await record(tokens);
@@ -150,7 +155,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone or followed by --no-reference, --no-reference-if-able or --no-recurse-submodules; empty file-backed stdin',
+        'Git 2.55.0; a local bare origin.git with main and tag v1; each case runs in a fresh directory beside it that holds a nonempty directory full; single options crossed with six operand shapes, option pairs with the source alone, and --recursive with both reference kinds in all six orders, alone, followed by --no-reference, --no-reference-if-able or --no-recurse-submodules, or followed by such a negation and the negated option again; empty file-backed stdin',
       cases,
     },
     null,

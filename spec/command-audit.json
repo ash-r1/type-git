@@ -2680,7 +2680,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over eighteen operand shapes and modifier pairs, all as dry runs; the only differences allowed are the listed state diagnostics (remote groups, ref matching, unknown repositories). The typed error lists every violated rule.",
+            "summary": "Acceptance agrees with Git for mode pairs and mode-modifier pairs over nineteen operand shapes and modifier pairs, all as dry runs; the only differences allowed are the listed state diagnostics (remote groups, ref matching, unknown repositories). The typed error lists every violated rule.",
             "evidence": [
               "test/fixtures/push-closure-corpus.json",
               "src/commands/push-closure-corpus.test.ts"
@@ -4605,7 +4605,7 @@
             "id": "deepen-before-help",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "type-git restriction: pull passes --deepen through to fetch unparsed, so Git prints usage for an invalid --deepen value followed by -h; the wrapper checks the forwarded value when it is parsed and refuses the argv instead. The corpus records these rows and the test names the restriction.",
+            "summary": "type-git restriction: pull passes --deepen through to fetch unparsed, so Git prints usage for an invalid --deepen value followed by -h or --help-all; the wrapper checks the forwarded value when it is parsed and refuses the argv instead. The corpus records these rows and the test names the restriction.",
             "evidence": [
               "test/fixtures/pull-closure-corpus.json",
               "src/commands/pull-closure-corpus.test.ts"

@@ -2,7 +2,8 @@
 // cmd_pull parses its own options (the --rebase and --recurse-submodules callbacks and the
 // final --cleanup check), then forwards its fetch options, repository and refspec words to
 // fetch, where --all with a repository and an unfinished tag shorthand are refused. Every
-// case starts with --dry-run, so pull returns after the fetch and never merges or rebases.
+// case except the two completion helpers starts with --dry-run, so pull returns after the
+// fetch and never merges or rebases; the helpers exit before any fetch.
 // Cases are option pairs crossed with operand shapes; they witness the closure's mappings and
 // are not a completeness argument.
 import { spawnSync } from 'node:child_process';
@@ -74,7 +75,7 @@ const STATE = [
   /^fatal: couldn't find remote ref .*$/,
   /^fatal: --unshallow on a complete repository does not make sense$/,
 ];
-// --dry-run precedes every case, so pull stops after the fetch.
+// --dry-run precedes every case except the completion helpers, so pull stops after the fetch.
 const OPTIONS = [
   [], [['--rebase']], [['-r']], [['--no-rebase']], [['--rebase', 'false']], [['--rebase', 'merges']],
   [['--rebase', 'interactive']], [['--rebase', 'bad']], [['--rebase', '']], [['--ff']], [['--no-ff']], [['--ff-only']],
@@ -82,7 +83,7 @@ const OPTIONS = [
   [['--cleanup', 'bad'], ['--cleanup', 'default']], [['--squash']], [['--no-commit']],
   [['--recurse-submodules', 'on-demand']], [['--recurse-submodules', 'bad']], [['--no-recurse-submodules']],
   [['--all']], [['--no-all']], [['--tags']], [['-q']], [['--deepen', '1']], [['--deepen', 'x']], [['--depth', '1']],
-  [['--unshallow']], [['-h']],
+  [['--unshallow']], [['-h']], [['--help-all']],
   // Abbreviations, short clusters and a detached value option are literal words, which the
   // wrapper refuses as operands.
   [operand('--reb')], [operand('--cl=strip')], [operand('-qv')], [operand('-rq')], [operand('--no-ff-only')],
@@ -145,7 +146,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone and starts with --dry-run; single options crossed with twelve operand shapes, option pairs with up to two operands; the two completion helpers alone; empty file-backed stdin',
+        'Git 2.55.0; a clone of a local bare origin with main and tags v1 and tag, on main tracking origin/main; each case runs on a fresh copy of that clone; every case except the two completion helpers starts with --dry-run; single options crossed with twelve operand shapes, option pairs with up to two operands; the two completion helpers alone without --dry-run; empty file-backed stdin',
       cases,
     },
     null,

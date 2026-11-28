@@ -1828,6 +1828,12 @@
       "kind": "scalar",
       "key": "operands",
       "parser": "refspec-operands",
+      "guard": [
+        {
+          "key": "delete",
+          "test": "inactive"
+        }
+      ],
       "origin": "git",
       "reason": "Refspec words must parse as refspecs, and a word 'tag' must be followed by a tag name that forms one.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/push.c"
