@@ -15,6 +15,8 @@ export function scalarRepresentatives(parser) {
   if (parser === 'object-filter' || parser === 'object-filter-auto') return ['', 'invalid', 'blob:none', 'auto', 'tree:0', 'tree:-1', 'combine:+'];
   if (parser === 'branch-name') return ['topic', 'a/b', '@', 'x/HEAD', '', '-x', 'HEAD', 'a..b', 'a.lock', 'a/', '.a', 'a b', 'a@{b', '@{-1}', 'x@{u}'];
   if (parser === 'refname-onelevel') return ['topic', 'refs/x', '@', '', '.a', '/a', 'a..b', 'a.lock', 'a/', 'a@{b'];
+  if (parser === 'commit-author') return ['A <a@example.test>', 'nickname', 'x>', '<>', ' <a>', 'A <a', 'a>b<c', ',;: <a>', 'é <a>'];
+  if (parser === 'commit-date') return ['', 'now', 'jan', 'ja', 'Mayo', 'friday', 'last', 'zero', 'one', '1', '2005-04-07T22:13:13', 'x'];
   if (parser === 'depth-initial') {
     const numbers = [-4294967295, -1, 0, 1, 2147483648, 4294967297];
     return [...numbers, ...numbers.map(String), '', '1suffix', '0x10'];
