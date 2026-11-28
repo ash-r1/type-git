@@ -404,6 +404,21 @@ describe('High-level API', () => {
       status = await repo.status();
       expect(status.entries.some((e) => e.path === 'new.txt' && e.index === '?')).toBe(true);
     });
+
+    it('takes the target as a revision even when a path has the same name', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      await repo.raw(['branch', 'topic']);
+      await writeFile(join(repoPath, 'topic'), 'a file named like the branch');
+      await repo.add('topic');
+      await repo.raw(['commit', '-m', 'add topic']);
+
+      await repo.reset('topic', { mode: 'hard' });
+
+      const head = await repo.raw(['rev-parse', 'HEAD', 'topic']);
+      const [current, topic] = head.stdout.trim().split('\n');
+      expect(current).toBe(topic);
+    });
   });
 
   describe('rm', () => {

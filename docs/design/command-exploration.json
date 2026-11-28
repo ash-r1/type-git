@@ -14744,8 +14744,12 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 14,
+      "rules": 15,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "quiet": [
           "undefined",
           "[]",
@@ -14822,7 +14826,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -14848,9 +14854,9 @@
           "true"
         ]
       },
-      "total": "3401222400",
-      "accepted": "61498656",
-      "nodes": 583,
+      "total": "9523422720",
+      "accepted": "149122944",
+      "nodes": 1045,
       "isolatedRuleWitnesses": {
         "reset-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "reset-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -14865,7 +14871,8 @@
         "reset-paths-mode": "{\"mode\":\"soft\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
         "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}",
         "reset-unseparated-paths-mode": "{\"mode\":\"soft\",\"operands\":[\"value\",\"value\"]}",
-        "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}"
+        "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.reset.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {
@@ -22006,7 +22013,7 @@
           }
         }
       ],
-      "rules": 23,
+      "rules": 25,
       "domains": {
         "no-output": [
           "undefined",
@@ -22080,7 +22087,38 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"1\",\"\"]",
+          "[\"a\"]",
+          "[\"1\",\"a\"]",
+          "[\":a\"]",
+          "[\"1\",\":a\"]",
+          "[\"1,1\"]",
+          "[\"1\",\"1,1\"]",
+          "[\"1,1:\"]",
+          "[\"1\",\"1,1:\"]",
+          "[\"1,1:a\"]",
+          "[\"1\",\"1,1:a\"]",
+          "[\"0,1:a\"]",
+          "[\"1\",\"0,1:a\"]",
+          "[\"1,0:a\"]",
+          "[\"1\",\"1,0:a\"]",
+          "[\"1,+0:a\"]",
+          "[\"1\",\"1,+0:a\"]",
+          "[\"1,-1:a\"]",
+          "[\"1\",\"1,-1:a\"]",
+          "[\",:a\"]",
+          "[\"1\",\",:a\"]",
+          "[\"/x/,+1:a\"]",
+          "[\"1\",\"/x/,+1:a\"]",
+          "[\":f:a\"]",
+          "[\"1\",\":f:a\"]",
+          "[\"::a\"]",
+          "[\"1\",\"::a\"]",
+          "[\"/x\\\\\"]",
+          "[\"1\",\"/x\\\\\"]",
+          "[\" -1,2:a\"]",
+          "[\"1\",\" -1,2:a\"]"
         ],
         "patch": [
           "undefined",
@@ -23215,9 +23253,9 @@
           "true"
         ]
       },
-      "total": "97148304122569956308085909440830853835007766895406765664670154594713600000000000000000000000000000000000000",
-      "accepted": "32616659966915606320215533678694760348557170918556331512189782834290045747200000000000000000000000000000",
-      "nodes": 107657,
+      "total": "398308046902536820863152228707406500723531844271167739225147633838325760000000000000000000000000000000000000",
+      "accepted": "22095936277015000443192854515697969076810129845753571061856975764989149184000000000000000000000000000000",
+      "nodes": 146562,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -23241,7 +23279,9 @@
         "log.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
         "log.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}",
         "log.line-check": "{\"L\":[],\"check\":true,\"operands\":[]}",
-        "log.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}"
+        "log.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}",
+        "log.line-range-syntax": "{\"L\":[\"\"],\"operands\":[]}",
+        "log.oldest-negative-count": "{\"max-count-mode\":\"oldest\",\"operands\":[]}"
       }
     },
     {
@@ -25819,7 +25859,7 @@
           }
         }
       ],
-      "rules": 23,
+      "rules": 25,
       "domains": {
         "no-walk": [
           "undefined",
@@ -25900,7 +25940,38 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"1\",\"\"]",
+          "[\"a\"]",
+          "[\"1\",\"a\"]",
+          "[\":a\"]",
+          "[\"1\",\":a\"]",
+          "[\"1,1\"]",
+          "[\"1\",\"1,1\"]",
+          "[\"1,1:\"]",
+          "[\"1\",\"1,1:\"]",
+          "[\"1,1:a\"]",
+          "[\"1\",\"1,1:a\"]",
+          "[\"0,1:a\"]",
+          "[\"1\",\"0,1:a\"]",
+          "[\"1,0:a\"]",
+          "[\"1\",\"1,0:a\"]",
+          "[\"1,+0:a\"]",
+          "[\"1\",\"1,+0:a\"]",
+          "[\"1,-1:a\"]",
+          "[\"1\",\"1,-1:a\"]",
+          "[\",:a\"]",
+          "[\"1\",\",:a\"]",
+          "[\"/x/,+1:a\"]",
+          "[\"1\",\"/x/,+1:a\"]",
+          "[\":f:a\"]",
+          "[\"1\",\":f:a\"]",
+          "[\"::a\"]",
+          "[\"1\",\"::a\"]",
+          "[\"/x\\\\\"]",
+          "[\"1\",\"/x\\\\\"]",
+          "[\" -1,2:a\"]",
+          "[\"1\",\" -1,2:a\"]"
         ],
         "patch": [
           "undefined",
@@ -27028,9 +27099,9 @@
           "true"
         ]
       },
-      "total": "97148304122569956308085909440830853835007766895406765664670154594713600000000000000000000000000000000000000",
-      "accepted": "32616659966915606320215533678694760348557170918556331512189782834290045747200000000000000000000000000000",
-      "nodes": 107657,
+      "total": "398308046902536820863152228707406500723531844271167739225147633838325760000000000000000000000000000000000000",
+      "accepted": "22095936277015000443192854515697969076810129845753571061856975764989149184000000000000000000000000000000",
+      "nodes": 146562,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -27054,11 +27125,23 @@
         "show.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
         "show.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}",
         "show.line-check": "{\"L\":[],\"check\":true,\"operands\":[]}",
-        "show.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}"
+        "show.line-stat": "{\"L\":[],\"operands\":[],\"stat-width\":-2}",
+        "show.line-range-syntax": "{\"L\":[\"\"],\"operands\":[]}",
+        "show.oldest-negative-count": "{\"max-count-mode\":\"oldest\",\"operands\":[]}"
       }
     },
     {
       "command": "diff",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "setup_revisions hands each unrecognized word to diff_opt_parse, whose ONE_SHOT parse_options run sees the words that remain before the first \"--\"; a completion word exits there when it is the last of them. The typed API accepts it as the sole word and refuses it after other words (a restriction: Git also exits when earlier words precede it). -h is a residual word of the selected diff mode, not a parser exit.",
+        "source": "Git 2.55.0 builtin/diff.c:cmd_diff; revision.c:setup_revisions/handle_revision_opt; diff.c:diff_opt_parse (PARSE_OPT_ONE_SHOT); parse-options.c:parse_options_step ctx.total == 1 completion shortcut"
+      },
       "transitions": [
         {
           "flag": "-I",
@@ -27425,10 +27508,52 @@
           "isolatedRuleWitnesses": {
             "revision.stdin-repeated": "{\"stdin\":true}"
           }
+        },
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.diff.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.diff.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.diff.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.diff.completion-helper-all-one-word": "{}"
+          }
         }
       ],
-      "rules": 26,
+      "rules": 29,
       "domains": {
+        "dash-word": [
+          "undefined",
+          "\"-\""
+        ],
         "no-output": [
           "undefined",
           "false",
@@ -28559,6 +28684,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -28591,9 +28724,9 @@
           "true"
         ]
       },
-      "total": "3382259549048836293023484135603729545582128307113414582040552433254400000000000000000000000000000000000",
-      "accepted": "5481079828709181138816197839909522121613009913168141479683345337922093056000000000000000000000000000",
-      "nodes": 225219,
+      "total": "27058076392390690344187873084829836364657026456907316656324419466035200000000000000000000000000000000000",
+      "accepted": "43848638552577780622177919341852981425116735591804590426885695713201199513600000000000000000000000000",
+      "nodes": 241005,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -28614,13 +28747,16 @@
         "diff.cached-revision-count": "{\"cached\":true,\"max-count\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.cached-min-age": "{\"cached\":true,\"min-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.cached-max-age": "{\"cached\":true,\"max-age\":-2,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-until": "{\"cached\":true,\"min-age\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "diff.cached-since": "{\"cached\":true,\"max-age\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.follow-without-path": "{\"follow\":true,\"operands\":[]}",
         "diff.follow-separated-paths": "{\"follow\":true,\"hasSeparator\":true,\"operands\":[\"value\"]}",
         "diff.follow-full-diff": "{\"follow\":true,\"full-diff\":true,\"operands\":[],\"stdin\":true}",
         "diff.max-depth-without-trees": "{\"max-depth\":1,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.max-depth-zero-without-trees": "{\"max-depth\":0,\"operands\":[],\"operandsBeforeSeparator\":[]}",
         "diff.object-pickaxe-regex": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
-        "diff.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}"
+        "diff.object-pickaxe-ignore-case": "{\"find-object\":\"\",\"operands\":[],\"regexp-ignore-case\":true}",
+        "diff.dash-word": null
       }
     },
     {
@@ -41997,6 +42133,110 @@
       },
       "transitions": [
         {
+          "flag": "--strategy",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
+          "flag": "-s",
+          "rules": [
+            "cli.merge.custom-strategy-reached"
+          ],
+          "domains": {
+            "strategy": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"invalid\"]",
+              "[\"invalid\",\"invalid-\"]",
+              "[\"recursive\"]",
+              "[\"recursive\",\"recursive\"]",
+              "[\"recursive\",\"invalid\"]",
+              "[\"octopus\"]",
+              "[\"octopus\",\"octopus\"]",
+              "[\"octopus\",\"invalid\"]",
+              "[\"ort\"]",
+              "[\"ort\",\"ort\"]",
+              "[\"ort\",\"invalid\"]",
+              "[\"resolve\"]",
+              "[\"resolve\",\"resolve\"]",
+              "[\"resolve\",\"invalid\"]",
+              "[\"ours\"]",
+              "[\"ours\",\"ours\"]",
+              "[\"ours\",\"invalid\"]",
+              "[\"subtree\"]",
+              "[\"subtree\",\"subtree\"]",
+              "[\"subtree\",\"invalid\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "150",
+          "accepted": "70",
+          "isolatedRuleWitnesses": {
+            "cli.merge.custom-strategy-reached": "{\"strategy\":[\"\"]}"
+          }
+        },
+        {
           "flag": "--file",
           "rules": [
             "merge.message-file-nonempty"
@@ -42037,8 +42277,12 @@
           }
         }
       ],
-      "rules": 5,
+      "rules": 7,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "n": [
           "undefined",
           "true"
@@ -42120,7 +42364,27 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"invalid\"]",
+          "[\"invalid\",\"invalid-\"]",
+          "[\"recursive\"]",
+          "[\"recursive\",\"recursive\"]",
+          "[\"recursive\",\"invalid\"]",
+          "[\"octopus\"]",
+          "[\"octopus\",\"octopus\"]",
+          "[\"octopus\",\"invalid\"]",
+          "[\"ort\"]",
+          "[\"ort\",\"ort\"]",
+          "[\"ort\",\"invalid\"]",
+          "[\"resolve\"]",
+          "[\"resolve\",\"resolve\"]",
+          "[\"resolve\",\"invalid\"]",
+          "[\"ours\"]",
+          "[\"ours\",\"ours\"]",
+          "[\"ours\",\"invalid\"]",
+          "[\"subtree\"]",
+          "[\"subtree\",\"subtree\"]",
+          "[\"subtree\",\"invalid\"]"
         ],
         "strategy-option": [
           "undefined",
@@ -42226,7 +42490,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -42244,15 +42510,17 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "9762996322800000000",
-      "accepted": "2305151909550000000",
-      "nodes": 90,
+      "total": "82009169111520000000",
+      "accepted": "13830911457300000000",
+      "nodes": 217,
       "isolatedRuleWitnesses": {
         "merge.squash": "{\"ff-mode\":\"no\",\"operands\":[],\"squash\":true}",
         "merge.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
         "merge.abort-only": "{\"abort\":true,\"operands\":[]}",
         "merge.quit-only": "{\"operands\":[],\"quit\":true}",
-        "merge.continue-only": "{\"continue\":true,\"operands\":[]}"
+        "merge.continue-only": "{\"continue\":true,\"operands\":[]}",
+        "cli.merge.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}",
+        "cli.merge.custom-strategies": "{\"operands\":[],\"strategy\":[\"\",\"\"]}"
       }
     },
     {
@@ -43996,8 +44264,12 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 25,
       "domains": {
+        "empty-operand": [
+          "undefined",
+          "\"\""
+        ],
         "onto": [
           "undefined",
           "\"\"",
@@ -44062,7 +44334,11 @@
           "true",
           "false"
         ],
-        "am-options": [
+        "apply-option": [
+          "undefined",
+          "true"
+        ],
+        "apply-context": [
           "undefined",
           "[]",
           "[\"\"]",
@@ -44072,14 +44348,24 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]",
-          "[\"--no-whitespace\"]",
-          "[\"--no-whitespace\",\"--no-whitespace\"]"
+          "[\"1kb\",\"1kb\"]"
         ],
         "ignore-whitespace": [
           "undefined",
           "true",
           "false"
+        ],
+        "whitespace": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
         ],
         "force-rebase": [
           "undefined",
@@ -44228,6 +44514,12 @@
           "true",
           "false"
         ],
+        "am-options": [
+          "undefined",
+          "[]",
+          "[\"--no-whitespace\"]",
+          "[\"--no-whitespace\",\"--no-whitespace\"]"
+        ],
         "help": [
           "undefined",
           "true"
@@ -44237,7 +44529,9 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"\"]",
+          "[\"value\",\"\"]"
         ],
         "operand0": [
           "undefined",
@@ -44255,9 +44549,9 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "195215295615667200000000",
-      "accepted": "1334479659222261242880",
-      "nodes": 2085,
+      "total": "36440188514924544000000000",
+      "accepted": "58792509588824842567680",
+      "nodes": 4285,
       "isolatedRuleWitnesses": {
         "rebase.arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
         "rebase.removed-preserve": "{\"operands\":[],\"preserve-merges\":true}",
@@ -44273,11 +44567,17 @@
         "rebase.apply-0-root": "{\"backend\":\"apply\",\"operands\":[],\"root\":true}",
         "rebase.apply-0-reapply": "{\"backend\":\"apply\",\"operands\":[],\"reapply-cherry-picks\":true}",
         "rebase.apply-0-reschedule": "{\"backend\":\"apply\",\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.apply-1-root": "{\"am-options\":[\"\"],\"operands\":[],\"root\":true}",
-        "rebase.apply-1-reapply": "{\"am-options\":[\"\"],\"operands\":[],\"reapply-cherry-picks\":true}",
-        "rebase.apply-1-reschedule": "{\"am-options\":[\"\"],\"operands\":[],\"reschedule-failed-exec\":true}",
-        "rebase.implicit-whitespace-backend": "{\"am-options\":[\"\"],\"ignore-whitespace\":true,\"operands\":[]}",
-        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}"
+        "rebase.apply-1-root": "{\"apply-option\":true,\"operands\":[],\"root\":true}",
+        "rebase.apply-1-reapply": "{\"apply-option\":true,\"operands\":[],\"reapply-cherry-picks\":true}",
+        "rebase.apply-1-reschedule": "{\"apply-option\":true,\"operands\":[],\"reschedule-failed-exec\":true}",
+        "rebase.implicit-whitespace-backend": "{\"apply-option\":true,\"ignore-whitespace\":true,\"operands\":[]}",
+        "rebase.root-arity": "{\"operands\":[\"value\",\"value\"],\"root\":true}",
+        "cli.rebase.apply-context": "{\"apply-context\":[\"value\"],\"operands\":[]}",
+        "cli.rebase.whitespace": "{\"operands\":[],\"whitespace\":[\"value\"]}",
+        "cli.rebase.trailer": "{\"operands\":[],\"trailer\":[\"\"]}",
+        "cli.rebase.exec": "{\"exec\":[\"\"],\"operands\":[]}",
+        "cli.rebase.empty-onto": "{\"onto\":\"\",\"operands\":[]}",
+        "cli.rebase.empty-operand": "{\"empty-operand\":\"\",\"operands\":[\"\"]}"
       }
     },
     {

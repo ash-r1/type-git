@@ -93,7 +93,7 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   await repo.restore(['file'], { source: 'HEAD', ours: true });
   // @ts-expect-error Mutually exclusive sequencer operations.
   await repo.rebase({ abort: true, continue: true });
-  // Git accepts this combination; serialization preserves its semantics.
+  // @ts-expect-error A rebase action must be the only argument; Git prints usage.
   await repo.rebase({ abort: true, upstream: 'main' });
   // @ts-expect-error Revert has no --no-verify flag.
   await repo.revert('HEAD', { noVerify: true });
