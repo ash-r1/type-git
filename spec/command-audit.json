@@ -5682,7 +5682,7 @@
             ],
             "disposition": "delegated",
             "basis": "repository-state",
-            "summary": "Formatting a ref can fail for atoms that read objects. With --column, branch.c reports the format-time errors of format-time here as well (an unbalanced %(if)/%(then)/%(else)/%(end) stack or an unknown date format), and they are reached only when a ref is listed.",
+            "summary": "Formatting a ref can fail for atoms that read objects. With --column, branch.c reports here the format-time errors that format_ref_array_item returns (an unbalanced %(if)/%(then)/%(else)/%(end) stack); an unknown date format dies inside parse_date_format instead. Both are reached only when a ref is listed.",
             "reason": "The referenced objects, and whether any ref is listed at all, are known only at runtime."
           },
           {

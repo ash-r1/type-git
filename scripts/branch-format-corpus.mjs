@@ -85,7 +85,7 @@ const ARGS = [
   'only', 'unfold=yes', 'key=Signed-off-by', 'key', 'separator=,', 'only=2', 'only=0x10',
   'signer', 'grade', 'key', 'fingerprint', 'primarykeyfingerprint', 'trustlevel',
   'tags', 'tags=no', 'tags=2', 'tags=maybe', 'tags=', 'abbrev', 'abbrev=', 'abbrev=4', 'abbrev=-1', 'abbrev=4x', 'abbrev= 4', 'abbrev=+4',
-  'abbrev=99999999999999999999', 'match=v*', 'match=', 'exclude=x', 'tags,abbrev=3', 'tags,,abbrev=3', 'tags,', 'tagsx', 'match',
+  'abbrev=99999999999999999999', 'match=v*', 'match=', 'exclude=x', 'tags,abbrev=3', 'tags=bogus,match=v*', 'tags=bogus,abbrev=4', 'tags=bogus,tags', 'tags=x,exclude=', 'tags,,abbrev=3', 'tags,', 'tagsx', 'match',
   '10', '10,left', 'width=10', 'position=right,width=3', 'left', 'middle', 'right,5', '0', '4294967295', 'width=4294967295',
   '4294967296', '10,,left', 'position=up,3', 'width=-1', ' 10', '+10',
   'equals=x', 'notequals=', 'equals', 'main', 'HEAD', 'no-such-commit',
@@ -118,7 +118,7 @@ const formats = new Set([
 const sorts = new Set([
   '', '-', '--refname', '*', '*refname', 'refname', '-refname', 'v:refname', 'version:refname', '-v:refname', 'v:-refname',
   'version:v:refname', 'V:refname', 'objectname:short)', 'trailers:only)x', 'trailers:only)', 'trailers:bogus)', 'committerdate:bogus',
-  'rest', 'HEAD', 'align', 'align:3', 'color:red', 'color:bogus', 'ahead-behind:main', 'ahead-behind:missing', 'is-base:main',
+  'rest', 'HEAD', 'align', 'align:3', 'color:red', 'color:bogus', 'ahead-behind:main', 'ahead-behind:missing', 'is-base:main', 'describe:tags=bogus,match=v*', 'describe:tags=bogus', 'describe:tags=x,abbrev=2',
   ...ATOMS.flatMap((atom) => [null, '', 'x', 'short', 'short=0', 'disk', 'mailmap', 'trim', 'track', 'size', '10', 'red', 'equals=x', 'trailers:only'].map((arg) => (arg === null ? atom : `${atom}:${arg}`))),
 ]);
 

@@ -203,9 +203,13 @@ const describeArg: ArgParser = (arg) => {
   let rest = arg ?? '';
   while (rest !== '') {
     const tags = matchAtomArgValue(rest, 'tags');
-    if (tags && (tags.value === undefined || gitBoolean(tags.value) !== undefined)) {
+    if (tags) {
+      // match_atom_bool_arg moves past "tags=<value>" even when the value is not a boolean,
+      // so the remaining options are tried on what follows: tags=bogus,match=v* works.
       rest = tags.rest;
-      continue;
+      if (tags.value === undefined || gitBoolean(tags.value) !== undefined) {
+        continue;
+      }
     }
     const abbrev = matchAtomArgValue(rest, 'abbrev');
     if (abbrev) {
