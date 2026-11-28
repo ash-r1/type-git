@@ -1,5 +1,84 @@
 # type-git
 
+## 0.8.0
+
+### Minor Changes
+
+- [#353](https://github.com/ash-r1/type-git/pull/353) [`11161b4`](https://github.com/ash-r1/type-git/commit/11161b49d41aa6e9326bfc2b99cab9f8d19fd6af) Thanks [@ash-r1](https://github.com/ash-r1)! - **Behavior change:** `repo.branch.create(name, { setUpstreamTo })` now creates the branch and then sets its upstream with a second `git branch --set-upstream-to` command. Before, it passed `--set-upstream-to` to the create command, which Git treats as a separate action: it refused a new name (or a start point) and, for an existing name, only changed its upstream without creating anything. If the second command fails, the branch has already been created (or, with `force`, reset). `setUpstreamTo` together with `recurseSubmodules` is now refused before Git runs.
+
+  The strict API now refuses `git branch` with `--verbose` and a final `--column` that explicitly enables columns (for example `--column`, `--column=always`, `--column=row` or `--column=dense`), which Git rejects; `--column=auto` stays with native Git because it depends on the terminal. The branch audit now records a closure over `builtin/branch.c`, checked against independent Git 2.55.0 runs, with the `--format`/`--sort` grammar and branch name syntax left as explicit open items.
+
+- [#356](https://github.com/ash-r1/type-git/pull/356) [`012f8ef`](https://github.com/ash-r1/type-git/commit/012f8ef9035e44439e87358fc357f5554bce4857) Thanks [@ash-r1](https://github.com/ash-r1)! - **Behavior change (strict API):** `strict(repo).command()` now checks more of `git diff`, `git log` and `git show` against Git 2.55.0, and the four audit scopes `diff`, `diff --no-index`, `log` and `show` are recorded as complete.
+
+  - `log -L` and `show -L` check the `<range>:<file>` syntax as Git does before it reads the repository: a `:` and a file name must follow the range, absolute line numbers must be positive, a relative `+0`/`-0` is refused, and a `/regex/` that ends in a backslash is refused. Matches against the file stay with Git.
+  - `log` and `show` refuse a negative final count while `--max-count-oldest` is in effect. Git 2.55.0 crashes on it whenever the walk yields a commit and exits normally when the walk is empty; the strict API refuses it either way.
+  - `diff --cached` (or `--staged`) without revisions refuses a final `--since`/`--after` or `--until`/`--before` date, as it already refused a final `--max-age` or `--min-age` other than `-1`; a later `--max-age=-1` or `--min-age=-1` resets the filter and is accepted. Git prints usage for these, except for a date text that resolves to exactly its default in the local time zone, which the strict API still refuses.
+  - `diff` refuses a bare `-` before `--`. Git refuses it too, except in implicit no-index mode (outside a repository, or with exactly two words of which one is a path outside the worktree), where it reads standard input; the strict API offers that through the `diff --no-index` scope.
+  - `diff --git-completion-helper` and `--git-completion-helper-all` are accepted when the option is the only argument, with no other option, `--` or path.
+
+- [#343](https://github.com/ash-r1/type-git/pull/343) [`5c12262`](https://github.com/ash-r1/type-git/commit/5c122621dc407c76c73b90141ea1c82ea077c792) Thanks [@ash-r1](https://github.com/ash-r1)! - `raw()` on `Git`, `WorktreeRepo` and `BareRepo` accepts a `stdin` option (string or bytes), so data
+  such as commit messages, object contents or path lists can be sent to Git on standard input instead
+  of through argv, where a value starting with `-` could be read as an option. Git's stdin is still
+  closed (empty) when `stdin` is omitted.
+
+- [#358](https://github.com/ash-r1/type-git/pull/358) [`964b443`](https://github.com/ash-r1/type-git/commit/964b4434b2a59053f1af6921fd6f969a0bcd2531) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.rebase` now refuses, before Git runs, option combinations that Git always refuses:
+
+  - `abort`, `continue` or `skip` together with any other option (Git prints usage);
+  - `apply` or `whitespace` together with an option that selects or requires the merge backend (`strategy`, `strategyOption`, `exec`, `rebaseMerges`, `updateRefs: true`, `autosquash: true`, `empty`, `rescheduleFailedExec: true`), with `root` without `onto`, with `reapplyCherryPicks` without `keepBase`, and `whitespace` with `ignoreWhitespace` unless `apply` is set;
+  - a `whitespace` value other than `nowarn`, `warn`, `error`, `error-all`, `fix` or `strip`;
+  - an `exec` command that contains a newline or is blank.
+
+  `empty` now also accepts `'stop'`, the current name of the deprecated `'ask'`.
+
+  The strict API (`type-git/strict`) now also checks `git rebase` values the way Git 2.55.0 does: `--trailer` must not be empty or start with `=`, `--exec` must not be blank or span lines, `-C` takes digits, `--whitespace` takes one of apply's actions (or an empty value), and an empty `--onto` or operand is refused. The rebase audit is now complete: its closure over `builtin/rebase.c` names every refusal site of the Git 2.55.0 source and is checked against 7,857 independent Git 2.55.0 rebases.
+
+- [#358](https://github.com/ash-r1/type-git/pull/358) [`964b443`](https://github.com/ash-r1/type-git/commit/964b4434b2a59053f1af6921fd6f969a0bcd2531) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.reset(target)` now passes `--` after the target, so Git always takes the target as a revision. Before, a file or directory with the same name as the target made Git refuse the reset as ambiguous, and a target that did not name a commit was taken as a path. Callers that passed a path to unstage it must now use `repo.raw(['reset', '--', path])` or `git restore --staged`; `repo.reset('a.txt')` fails because `a.txt` is not a revision.
+
+  The strict API now refuses an empty operand for `git reset`, which Git refuses wherever it appears: as an ambiguous first word, as an empty pathspec, or as a revision. The reset audit is now complete: its closure over `builtin/reset.c` names every refusal site of the Git 2.55.0 source and is checked against 6,370 independent Git 2.55.0 runs.
+
+- [#351](https://github.com/ash-r1/type-git/pull/351) [`430bd25`](https://github.com/ash-r1/type-git/commit/430bd257df00cb819bf90fe83c61ee27717ba9e1) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.status()` now refuses `ignored: 'matching'` with `untracked: 'no'`, which Git rejects.
+
+  **Behavior change:** a numeric `findRenames` is now a whole percentage from 1 to 100, emitted as `--find-renames=<n>%`. Git reads digits without `%` as a fraction, so before this change `findRenames: 100` meant 10% and `findRenames: 5` meant 50%; values from 10 to 99 keep their meaning. `0` (which Git treats as its 50% default), fractions and values above 100 are now refused.
+
+  In the strict API, `['-u', '']` for `git status` and `git commit` is now emitted as `--untracked-files=` (no untracked files) instead of a bare `-u`, which meant all. The status audit scope is now complete under the new completion criterion.
+
+- [#349](https://github.com/ash-r1/type-git/pull/349) [`806b1b5`](https://github.com/ash-r1/type-git/commit/806b1b5a05fc7442eb54cb0408591b897cec065c) Thanks [@ash-r1](https://github.com/ash-r1)! - Add `untrusted: true` to `git.open()`, `openBare()` and `openRaw()` for repository directories written by someone else (Git 2.38 or later). Every command then runs with hooks and the filesystem monitor turned off, the `ext::` transport refused and implicit bare repositories refused, and opening fails with `GitError` kind `'UnsafeRepoConfig'` when the repository's own configuration sets any key outside a closed list of data-only keys, such as `core.fsmonitor`, `include.path`, `alias.*` or `diff.<driver>.textconv`, or a remote or submodule URL that is a local path.
+
+  `FsAdapter` gains an optional `readDirectory(dirPath)`, implemented by the Node.js, Bun and Deno adapters; untrusted mode fails with `CapabilityMissing` on an adapter without it.
+
+### Patch Changes
+
+- [#355](https://github.com/ash-r1/type-git/pull/355) [`65cf7e0`](https://github.com/ash-r1/type-git/commit/65cf7e01b484268947a459cae0acf78a7bf85099) Thanks [@ash-r1](https://github.com/ash-r1)! - New branch names are now checked against Git 2.55.0's ref name rules (`check_refname_format` on `refs/heads/<name>`, a leading `-` and the name `HEAD` refused), in the strict API (types and runtime) for `git branch` creation and the `-m`/`-M`/`-c`/`-C` target, and at runtime in `repo.branch.create()` and `repo.branch.rename()`. Names such as `a..b`, `x.lock`, `a b` or `bad/` are refused before Git runs. A name with a leading `@{-N}` or an `@{u}`, `@{upstream}` or `@{push}` mark is rewritten by Git from the repository first and is still passed through.
+
+  The checks live in `src/constraints/refname.ts` (`validRefnameFormat`, also with `REFNAME_ALLOW_ONELEVEL`, and `branchNameSyntax`), with the scalar parsers `branch-name` and `refname-onelevel` for other commands that take ref names. This closes the branch-name obligation of the branch audit; the `--format` and `--sort` grammars stay open.
+
+- [#357](https://github.com/ash-r1/type-git/pull/357) [`34188f8`](https://github.com/ash-r1/type-git/commit/34188f8b33c12b13562d537939362cfdace8f631) Thanks [@ash-r1](https://github.com/ash-r1)! - `git commit` now checks `--author`, `--date` and only mode the same way Git 2.55.0 does. The checks apply in the strict API and in `repo.commit()`:
+
+  - An `--author` value containing `>` must split as `Name <email>`. Its name must not be empty or made only of the characters Git strips. For example, `x>` and ` <a@example.test>` are refused. A value without `>` is still looked up by Git among existing authors. The strict API checks this in its types and at runtime.
+  - `--date` text without a digit must contain a word that Git's approxidate recognizes. That word can be a month prefix of three or more letters, `now`, `today`, `noon`, `yesterday`, `one` to `ten`, `last`, and so on. `friday`, `ja` and `x` are refused, and so is digit-free text where no recognized word follows the last `never`, which Git always turns into a time before 1973. When a recognized word follows `never`, repeated moves can wrap the year depending on the clock, so Git decides. A valid `Date` passed to `repo.commit()` is accepted; an invalid `Date` is refused.
+  - In the strict API, `--only` with `--amend` and a plain (non-`amend:`) fixup now needs paths, a pathspec file or `--allow-empty`, as in Git 2.32 and later. `repo.commit()` still passes this case to Git, because Git 2.31 and older accept it.
+
+  Dry runs and status formats are not checked, because Git returns before reading the author. With these checks, the commit audit is complete.
+
+- [#352](https://github.com/ash-r1/type-git/pull/352) [`94b0989`](https://github.com/ash-r1/type-git/commit/94b0989845ceb911cb515c2e96a73db97b99007f) Thanks [@ash-r1](https://github.com/ash-r1)! - `git commit` checks now match Git 2.55.0 in two more places, in the strict API (types and runtime) and in `repo.commit()`:
+
+  - A run of ASCII letters directly before `:` in `--fixup` must be `amend` or `reword`, as Git refuses others (`--fixup=x:HEAD`, `--fixup=Amend:HEAD`); any other text before `:` stays part of the commit name.
+  - `--reset-author` together with `--amend` and a fixup is refused, since Git refuses it in every repository state.
+
+  `repo.commit()` also now refuses `message` together with an `amend:` or `reword:` fixup at runtime. The commit audit now records a closure over `builtin/commit.c`; the `--author` ident and `--date` grammars and one version-dependent only-mode refusal stay open.
+
+- [#358](https://github.com/ash-r1/type-git/pull/358) [`964b443`](https://github.com/ash-r1/type-git/commit/964b4434b2a59053f1af6921fd6f969a0bcd2531) Thanks [@ash-r1](https://github.com/ash-r1)! - The strict API now refuses an empty operand for `git merge`, which Git can never resolve to a commit. It also refuses a second `-s` that names a strategy outside the built-in table: Git resolves at most one custom strategy per run, and refuses the second one while parsing options, even when a later `-h` would print usage. The merge audit is now complete: its closure over `builtin/merge.c` names every refusal site of the Git 2.55.0 source and is checked against 8,959 independent Git 2.55.0 merges. `-X` values, an empty `-m`, strategy names and message files stay with Git, because Git refuses them only when a strategy runs, a merge commit is written, or the file or strategy is missing.
+
+- [#348](https://github.com/ash-r1/type-git/pull/348) [`4c0ca8d`](https://github.com/ash-r1/type-git/commit/4c0ca8d35aec442af51301222407e65fbfa33552) Thanks [@ash-r1](https://github.com/ash-r1)! - `repo.reset(target, { mode })` now refuses a `mode` other than `soft`, `mixed`, `hard`, `merge` or `keep` with `GitArgumentError` before Git starts. The mode becomes `--<mode>`, so an unchecked string from JavaScript or untrusted input could name any other reset option, such as `--pathspec-from-file=<file>`.
+
+- [#346](https://github.com/ash-r1/type-git/pull/346) [`5e773d5`](https://github.com/ash-r1/type-git/commit/5e773d5f94d03abee10b63c7bf764ec1da433769) Thanks [@ash-r1](https://github.com/ash-r1)! - Document the security model in the README: what the high-level, strict and raw APIs check, which environment variables are inherited, and that a repository's own configuration and hooks are outside it. The `raw()` JSDoc now says that `argv` is not checked and points untrusted data to `stdin`.
+
+- [#359](https://github.com/ash-r1/type-git/pull/359) [`822b4fe`](https://github.com/ash-r1/type-git/commit/822b4fe01ed77c861b124dd7e7d69ebf2ce94f8d) Thanks [@ash-r1](https://github.com/ash-r1)! - `git stash` checks now match Git 2.55.0 for empty operands, in the strict API (types and runtime): an empty stash reference for `stash apply`, `drop`, `pop` and `export`, an empty branch name or stash reference for `stash branch`, an empty commit for `stash store` (also with `--quiet`) and an empty revision for `stash import` are refused, as Git refuses them in every repository. An explicit `refs/stash@{}`, the form an empty stash reference expands to, is refused in the same stash reference positions. For `stash show` these reference and count checks also apply when `--git-completion-helper` follows the stash reference, because Git resolves the reference before the completion helper exits. `stash branch` also checks the new branch name against Git's ref name rules (names rewritten from `@{-N}` or upstream marks are left to Git), and `stash export --to-ref` must be a valid ref name other than `FETCH_HEAD` or `MERGE_HEAD`.
+
+  `repo.stash.apply()`, `pop()` and `drop()` now refuse an index that is not an integer from 0 to 99999999 with `GitArgumentError` before Git runs. Before, a negative or fractional index reached Git as `stash@{-1}` or `stash@{1.5}`, which Git reads as an invalid revision or a reflog date, and nine or more digits are read as a timestamp, so a different entry could be applied or dropped. `repo.stash.push({ paths })` now refuses an empty path, which Git rejects as a pathspec.
+
+  Every stash audit scope is now complete: each records a closure over `builtin/stash.c`, checked against independent Git 2.55.0 runs.
+
 ## 0.7.0
 
 ### Minor Changes
