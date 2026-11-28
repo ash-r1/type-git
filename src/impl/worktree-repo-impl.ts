@@ -1,4 +1,9 @@
-import { checkedNewBranchName, checkedOperand, checkedOperands } from '../core/operands.js';
+import {
+  checkedNewBranchName,
+  checkedOperand,
+  checkedOperands,
+  checkedRefSortKey,
+} from '../core/operands.js';
 import {
   type ExclusiveQuery,
   validateInput,
@@ -2024,8 +2029,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--no-merged=${opts.noMerged}`);
     }
 
-    if (opts?.sort) {
-      args.push(`--sort=${opts.sort}`);
+    if (opts?.sort !== undefined) {
+      args.push(`--sort=${checkedRefSortKey('branch.list', opts.sort)}`);
     }
 
     if (opts?.pointsAt) {

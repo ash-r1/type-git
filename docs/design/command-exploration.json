@@ -11229,7 +11229,7 @@
           }
         }
       ],
-      "rules": 44,
+      "rules": 62,
       "domains": {
         "verbose": [
           "undefined",
@@ -11407,7 +11407,26 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"refname\"]",
+          "[\"1\",\"refname\"]",
+          "[\"-refname\"]",
+          "[\"1\",\"-refname\"]",
+          "[\"v:refname\"]",
+          "[\"1\",\"v:refname\"]",
+          "[\"version:-refname\"]",
+          "[\"1\",\"version:-refname\"]",
+          "[\"1\",\"\"]",
+          "[\"-\"]",
+          "[\"1\",\"-\"]",
+          "[\"foo\"]",
+          "[\"1\",\"foo\"]",
+          "[\"objectname:short=0\"]",
+          "[\"1\",\"objectname:short=0\"]",
+          "[\"color:red\"]",
+          "[\"1\",\"color:red\"]",
+          "[\"rest\"]",
+          "[\"1\",\"rest\"]"
         ],
         "points-at": [
           "undefined",
@@ -11431,7 +11450,17 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"%(refname)\"",
+          "\"%(refname:short)\"",
+          "\"%(foo)\"",
+          "\"%(\"",
+          "\"%%(\"",
+          "\"%(rest)\"",
+          "\"%(color:red)\"",
+          "\"%(color:bogus)\"",
+          "\"%(align:10)\"",
+          "\"%(align)\""
         ],
         "help": [
           "undefined",
@@ -11488,9 +11517,9 @@
           "true"
         ]
       },
-      "total": "134830363723259904000000",
-      "accepted": "183192757932751257600",
-      "nodes": 5162,
+      "total": "1173024164392361164800000",
+      "accepted": "256486174231355228160",
+      "nodes": 10715,
       "isolatedRuleWitnesses": {
         "branch-actions": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"unset-upstream\":true,\"without\":\"\"}",
         "branch-delete-arity": "{\"delete\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
@@ -11535,7 +11564,25 @@
         "branch-copy-sole-new-name": "{\"copy\":true,\"operand0\":\"\",\"operands\":[\"value\"]}",
         "branch-C-new-name": "{\"C\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}",
         "branch-C-sole-new-name": "{\"C\":true,\"operand0\":\"\",\"operands\":[\"value\"]}",
-        "cli.branch.column-verbose": "{\"column\":\"always\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"verbose\":[true],\"without\":\"\"}"
+        "cli.branch.column-verbose": "{\"column\":\"always\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"verbose\":[true],\"without\":\"\"}",
+        "cli.branch.format-list": "{\"format\":\"%(foo)\",\"list\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-list": "{\"list\":true,\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}",
+        "cli.branch.format-contains": "{\"contains\":\"\",\"format\":\"%(foo)\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-contains": "{\"contains\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}",
+        "cli.branch.format-no-contains": "{\"format\":\"%(foo)\",\"no-contains\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-no-contains": "{\"no-contains\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}",
+        "cli.branch.format-with": "{\"format\":\"%(foo)\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"with\":\"\"}",
+        "cli.branch.sort-with": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"],\"with\":\"\"}",
+        "cli.branch.format-without": "{\"format\":\"%(foo)\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"without\":\"\"}",
+        "cli.branch.sort-without": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"],\"without\":\"\"}",
+        "cli.branch.format-merged": "{\"format\":\"%(foo)\",\"merged\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-merged": "{\"merged\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}",
+        "cli.branch.format-no-merged": "{\"format\":\"%(foo)\",\"no-merged\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-no-merged": "{\"no-merged\":\"\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}",
+        "cli.branch.format-points-at": "{\"format\":\"%(foo)\",\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"points-at\":\"\"}",
+        "cli.branch.sort-points-at": "{\"operand0\":\"\",\"operand1\":\"\",\"operands\":[],\"points-at\":\"\",\"sort\":[\"\"]}",
+        "cli.branch.format-implicit": "{\"format\":\"%(foo)\",\"operand1\":\"\",\"operands\":[]}",
+        "cli.branch.sort-implicit": "{\"operand1\":\"\",\"operands\":[],\"sort\":[\"\"]}"
       }
     },
     {

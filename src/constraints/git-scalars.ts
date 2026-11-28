@@ -42,6 +42,7 @@ import {
 } from './git-integer.js';
 import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
+import { validRefFormat, validRefSortKey } from './ref-format.js';
 import { validNewBranchName, validRefnameFormat } from './refname.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
@@ -126,7 +127,9 @@ export type GitScalarParser =
   | 'branch-name'
   | 'refname-onelevel'
   | 'commit-author'
-  | 'commit-date';
+  | 'commit-date'
+  | 'ref-format'
+  | 'ref-sort-key';
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
@@ -256,6 +259,12 @@ export function parseGitScalar(
   if (parser === 'branch-name') {
     // Absent operands (listing) are not names; see refname.ts for repository-dependent names.
     return { valid: value === undefined || validNewBranchName(value), value };
+  }
+  if (parser === 'ref-format') {
+    return { valid: value === undefined || validRefFormat(value), value };
+  }
+  if (parser === 'ref-sort-key') {
+    return { valid: validRefSortKey(value), value };
   }
   if (parser === 'refname-onelevel') {
     return {

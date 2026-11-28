@@ -5337,7 +5337,7 @@
       "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
     },
     "branch": {
-      "state": "partial",
+      "state": "complete",
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
@@ -5371,10 +5371,11 @@
         "test/types/reference-full-help.ts",
         "scripts/branch-closure-corpus.mjs",
         "src/commands/branch-closure-corpus.test.ts",
-        "src/commands/branch-name-corpus.test.ts"
+        "src/commands/branch-name-corpus.test.ts",
+        "src/commands/branch-format-corpus.test.ts"
       ],
       "typedCommandAPI": true,
-      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open. The closure leaves one obligation open: the --format/--sort ref-filter grammar. New branch names are checked against refs.c:check_branch_ref in the strict API and in repo.branch.create and repo.branch.rename. repo.branch.create with setUpstreamTo creates the branch first and sets its upstream with a second command, because --set-upstream-to is a separate action that Git refuses or applies to an existing branch when combined with a name.",
+      "notes": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial. Exact full --help-all first-pass exit is modeled; native earlier-callback and first-position help controls are finite, other parser/config/platform coverage remains open. In list mode the --format and --sort ref-filter grammars are checked against Git 2.55.0; checks that only formatting a ref or a commit lookup reaches are left to Git. New branch names are checked against refs.c:check_branch_ref in the strict API and in repo.branch.create and repo.branch.rename. repo.branch.create with setUpstreamTo creates the branch first and sets its upstream with a second command, because --set-upstream-to is a separate action that Git refuses or applies to an existing branch when combined with a name.",
       "evidence": {
         "option-grammar": [
           "test/fixtures/reference-parser-corpus.json",
@@ -5386,7 +5387,9 @@
           "test/fixtures/branch-closure-corpus.json",
           "src/commands/branch-closure-corpus.test.ts",
           "test/fixtures/branch-name-corpus.json",
-          "src/commands/branch-name-corpus.test.ts"
+          "src/commands/branch-name-corpus.test.ts",
+          "test/fixtures/branch-format-corpus.json",
+          "src/commands/branch-format-corpus.test.ts"
         ],
         "combination-rules": [
           "test/fixtures/branch-closure-corpus.json",
@@ -5400,7 +5403,8 @@
         "independent-git-tests": [
           "scripts/branch-closure-corpus.mjs",
           "scripts/reference-parser-corpus.mjs",
-          "scripts/branch-name-corpus.mjs"
+          "scripts/branch-name-corpus.mjs",
+          "scripts/branch-format-corpus.mjs"
         ],
         "compiler-tests": [
           "test/types/reference-parser-branch-corpus-1.ts",
@@ -5644,9 +5648,31 @@
             "sites": [
               "print_ref_list: unable to parse format string"
             ],
-            "disposition": "open",
-            "summary": "--format must parse as a ref-filter format (verify_ref_format in ref-filter.c: known atoms, balanced %(if)/%(then)/%(else)/%(end), valid atom arguments), and --sort keys must be known (ref_sorting_options in ref-filter.c, which dies during setup).",
-            "reason": "The ref-filter format and sort grammars in ref-filter.c are not yet modeled; the strict API accepts any --format and --sort text."
+            "disposition": "modeled",
+            "summary": "In list mode (--list, a filter option, or no action and no operands), --format must pass verify_ref_format and every --sort key must pass parse_ref_sorting: every %( needs a ), each atom is a valid_atom name with an optional '*', and its argument passes that atom's parser (refname/symref strip options, upstream/push items, objectname/tree/parent short=, email options, describe options, trailers options, contents, align widths and positions, if equals/notequals, color.c color_parse, and no argument where Git takes none); %(rest) is rejected in --format. A sort key is an optional '-', an optional version: or v:, and an atom (cli.branch.format-*, cli.branch.sort-*; parsers ref-format and ref-sort-key at runtime; repo.branch.list sort at runtime).",
+            "evidence": [
+              "src/constraints/ref-format.ts",
+              "scripts/branch-format-corpus.mjs",
+              "test/fixtures/branch-format-corpus.json",
+              "src/commands/branch-format-corpus.test.ts",
+              "src/impl/high-level-api.test.ts"
+            ]
+          },
+          {
+            "id": "format-time",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "repository-state",
+            "summary": "Checks that run only while a ref is formatted or two refs are compared: the %(if)/%(then)/%(else)/%(end) and %(align)/%(end) stack (format: %(end) atom missing, used without a %(if), used more than once) and the date format of authordate, committerdate, taggerdate and creatordate (unknown date format).",
+            "reason": "They are reached only when the listing has a ref to print or sort, which depends on the branches in the repository and on the patterns and filters."
+          },
+          {
+            "id": "format-commit-lookup",
+            "kind": "state",
+            "disposition": "delegated",
+            "basis": "object-resolution",
+            "summary": "%(ahead-behind:<committish>) and %(is-base:<committish>) look their argument up while parsing and die with failed to find when it does not resolve; the wrapper only requires the argument.",
+            "reason": "Whether the committish resolves depends on the object database and refs."
           },
           {
             "id": "format-output",
@@ -5655,9 +5681,9 @@
               "print_ref_list: %s"
             ],
             "disposition": "delegated",
-            "basis": "object-resolution",
-            "summary": "Formatting a ref can fail for atoms that read objects.",
-            "reason": "The referenced objects are read at runtime."
+            "basis": "repository-state",
+            "summary": "Formatting a ref can fail for atoms that read objects. With --column, branch.c reports here the format-time errors that format_ref_array_item returns (an unbalanced %(if)/%(then)/%(else)/%(end) stack); an unknown date format dies inside parse_date_format instead. Both are reached only when a ref is listed.",
+            "reason": "The referenced objects, and whether any ref is listed at all, are known only at runtime."
           },
           {
             "id": "parse-options",
@@ -5768,7 +5794,7 @@
             "kind": "state",
             "disposition": "delegated",
             "basis": "configuration",
-            "summary": "branch.sort, branch.autoSetupMerge, column.branch, color.branch and submodule.propagateBranches set defaults that argv can override.",
+            "summary": "branch.autoSetupMerge, column.branch, color.branch and submodule.propagateBranches set defaults that argv can override. branch.sort keys are parsed together with the command-line --sort keys (the CLI adds to them), so an invalid branch.sort is refused even with --sort; only --no-sort drops them.",
             "reason": "Configuration is read by native Git at runtime."
           },
           {

@@ -3167,6 +3167,356 @@
       "origin": "git",
       "reason": "Explicitly enabled columns conflict with verbose listing. --column=auto depends on the terminal (or GIT_PAGER_IN_USE), which native Git decides; column.ui never triggers the conflict.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/branch.c"
+    },
+    {
+      "id": "cli.branch.format-list",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "list",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-list",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "list",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-contains",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "contains",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-contains",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "contains",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-no-contains",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "no-contains",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-no-contains",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "no-contains",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-with",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "with",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-with",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "with",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-without",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "without",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-without",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "without",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-merged",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "merged",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-merged",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "merged",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-no-merged",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "no-merged",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-no-merged",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "no-merged",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-points-at",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "points-at",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-points-at",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "points-at",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.format-implicit",
+      "kind": "scalar",
+      "key": "format",
+      "parser": "ref-format",
+      "guard": [
+        {
+          "key": "operand0",
+          "test": "inactive"
+        },
+        {
+          "key": "delete",
+          "test": "inactive"
+        },
+        {
+          "key": "D",
+          "test": "inactive"
+        },
+        {
+          "key": "move",
+          "test": "inactive"
+        },
+        {
+          "key": "M",
+          "test": "inactive"
+        },
+        {
+          "key": "copy",
+          "test": "inactive"
+        },
+        {
+          "key": "C",
+          "test": "inactive"
+        },
+        {
+          "key": "edit-description",
+          "test": "inactive"
+        },
+        {
+          "key": "set-upstream-to",
+          "test": "inactive"
+        },
+        {
+          "key": "show-current",
+          "test": "inactive"
+        },
+        {
+          "key": "unset-upstream",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, --format must parse as a ref-filter format: every %( needs a ), each atom must be known with arguments its parser accepts, and %(rest) is rejected.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
+    },
+    {
+      "id": "cli.branch.sort-implicit",
+      "kind": "eachScalar",
+      "key": "sort",
+      "parser": "ref-sort-key",
+      "guard": [
+        {
+          "key": "operand0",
+          "test": "inactive"
+        },
+        {
+          "key": "delete",
+          "test": "inactive"
+        },
+        {
+          "key": "D",
+          "test": "inactive"
+        },
+        {
+          "key": "move",
+          "test": "inactive"
+        },
+        {
+          "key": "M",
+          "test": "inactive"
+        },
+        {
+          "key": "copy",
+          "test": "inactive"
+        },
+        {
+          "key": "C",
+          "test": "inactive"
+        },
+        {
+          "key": "edit-description",
+          "test": "inactive"
+        },
+        {
+          "key": "set-upstream-to",
+          "test": "inactive"
+        },
+        {
+          "key": "show-current",
+          "test": "inactive"
+        },
+        {
+          "key": "unset-upstream",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "In list mode, each --sort key is an optional '-', an optional version: or v:, and a ref-filter atom with arguments its parser accepts.",
+      "source": "Git 2.55.0 builtin/branch.c:cmd_branch list mode -> ref-filter.c:ref_sorting_options/parse_ref_sorting and print_ref_list -> verify_ref_format/parse_ref_filter_atom"
     }
   ],
   "checkout": [
