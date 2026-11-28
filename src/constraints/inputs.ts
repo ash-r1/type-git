@@ -102,6 +102,15 @@ export const INPUT_CONSTRAINTS = {
       reason: 'Restore without patch mode needs paths or a pathspec file.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
     },
+    {
+      id: 'restore.source-empty',
+      kind: 'forbid',
+      when: [{ key: 'source', test: 'equals', value: '' }],
+      origin: 'git',
+      reason:
+        'Git cannot resolve an empty --source tree-ish; omit source to restore from the index instead.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+    },
   ],
   pathspec: [
     {
@@ -180,6 +189,7 @@ export const INPUT_DOMAINS = {
   restorePaths: {
     paths: [[], ['file']],
     pathspecFromFile: [undefined, '', 'paths'],
+    source: [undefined, '', 'HEAD'],
   },
   switchTarget: {
     branch: ['', 'main', 'origin/main', 'origin/', 'refs/remotes/main'],

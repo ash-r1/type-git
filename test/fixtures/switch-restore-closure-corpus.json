@@ -1,5 +1,5 @@
 {
-  "profile": "Git 2.55.0; isolated repository with main, side and a configured origin remote-tracking branch origin/feat; HEAD, work tree and branches reset after every case; empty file-backed stdin; LF pathspec file outside the work tree",
+  "profile": "Git 2.55.0; isolated repository with main, side and a configured origin remote-tracking branch origin/feat; HEAD, work tree, branches and @{-1} (side) reset before every case; empty file-backed stdin; LF and NUL pathspec files outside the work tree",
   "cases": [
     {
       "command": "switch",
@@ -33953,6 +33953,28 @@
           "HEAD"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--source=HEAD",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          "HEAD"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -33972,6 +33994,28 @@
       "tokens": [
         [
           "--source",
+          "HEAD"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--source=HEAD",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
           ""
         ]
       ],
@@ -34438,6 +34482,28 @@
           ""
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--source=",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          ""
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -34456,536 +34522,33 @@
       "command": "restore",
       "tokens": [
         [
-          "--no-source"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--source",
-          "HEAD"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--source=HEAD"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
           "--source",
           ""
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--source="
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: could not resolve ''"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
         ],
         [
-          "--staged"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--staged"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-staged"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-staged"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--worktree"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--worktree"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-worktree"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-worktree"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--ours"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--ours"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--theirs"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--theirs"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--merge"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--merge"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-merge"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-merge"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--conflict",
-          "merge"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--conflict=merge"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-conflict"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-conflict"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--ignore-unmerged"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--ignore-unmerged"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--patch"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--patch"
-      ],
-      "valid": true,
-      "delegated": false,
-      "status": 0,
-      "diagnostic": ""
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-patch"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-patch"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--overlay"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--overlay"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--no-overlay"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--no-overlay"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--pathspec-from-file",
-          "../oracle-paths"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--pathspec-from-file=../oracle-paths"
-      ],
-      "valid": true,
-      "delegated": false,
-      "status": 0,
-      "diagnostic": ""
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--pathspec-file-nul"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--pathspec-file-nul"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--unified",
-          "1"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--no-source",
-        "--unified=1"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: the option '--unified' requires '--patch'"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--no-source"
-        ],
-        [
-          "--unified",
+          "--inter-hunk-context",
           "-2"
         ]
       ],
       "argv": [
         "restore",
-        "--no-source",
-        "--unified=-2"
+        "--source=",
+        "--inter-hunk-context=-2"
       ],
       "valid": false,
       "delegated": false,
       "status": 128,
-      "diagnostic": "fatal: '--unified' cannot be negative"
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
       "tokens": [
         [
           "--no-source"
-        ],
-        [
-          "--inter-hunk-context",
-          "1"
         ]
       ],
       "argv": [
         "restore",
-        "--no-source",
-        "--inter-hunk-context=1"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--staged"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--staged"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--staged"
-        ],
-        [
-          "--source",
-          "HEAD"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--staged",
-        "--source=HEAD"
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: you must specify path(s) to restore"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--staged"
-        ],
-        [
-          "--source",
-          ""
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--staged",
-        "--source="
-      ],
-      "valid": false,
-      "delegated": false,
-      "status": 128,
-      "diagnostic": "fatal: could not resolve ''"
-    },
-    {
-      "command": "restore",
-      "tokens": [
-        [
-          "--staged"
-        ],
-        [
-          "--no-source"
-        ]
-      ],
-      "argv": [
-        "restore",
-        "--staged",
         "--no-source"
       ],
       "valid": false,
@@ -34997,7 +34560,69 @@
       "command": "restore",
       "tokens": [
         [
+          "--no-source"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--source=HEAD"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--source",
+          ""
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--source="
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
           "--staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
         ],
         [
           "--no-staged"
@@ -35005,7 +34630,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-staged"
       ],
       "valid": false,
@@ -35017,7 +34642,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--worktree"
@@ -35025,7 +34650,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--worktree"
       ],
       "valid": false,
@@ -35037,7 +34662,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--no-worktree"
@@ -35045,7 +34670,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-worktree"
       ],
       "valid": false,
@@ -35057,7 +34682,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--ours"
@@ -35065,7 +34690,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--ours"
       ],
       "valid": false,
@@ -35077,7 +34702,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--theirs"
@@ -35085,7 +34710,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--theirs"
       ],
       "valid": false,
@@ -35097,7 +34722,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--merge"
@@ -35105,7 +34730,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--merge"
       ],
       "valid": false,
@@ -35117,7 +34742,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--no-merge"
@@ -35125,7 +34750,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-merge"
       ],
       "valid": false,
@@ -35137,7 +34762,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--conflict",
@@ -35146,7 +34771,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--conflict=merge"
       ],
       "valid": false,
@@ -35158,7 +34783,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--no-conflict"
@@ -35166,7 +34791,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-conflict"
       ],
       "valid": false,
@@ -35178,7 +34803,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--ignore-unmerged"
@@ -35186,7 +34811,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--ignore-unmerged"
       ],
       "valid": false,
@@ -35198,7 +34823,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--patch"
@@ -35206,7 +34831,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--patch"
       ],
       "valid": true,
@@ -35218,7 +34843,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--no-patch"
@@ -35226,7 +34851,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-patch"
       ],
       "valid": false,
@@ -35238,7 +34863,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--overlay"
@@ -35246,7 +34871,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--overlay"
       ],
       "valid": false,
@@ -35258,7 +34883,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--no-overlay"
@@ -35266,7 +34891,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--no-overlay"
       ],
       "valid": false,
@@ -35278,7 +34903,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--pathspec-from-file",
@@ -35287,7 +34912,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--pathspec-from-file=../oracle-paths"
       ],
       "valid": true,
@@ -35299,7 +34924,7 @@
       "command": "restore",
       "tokens": [
         [
-          "--staged"
+          "--no-source"
         ],
         [
           "--pathspec-file-nul"
@@ -35307,7 +34932,7 @@
       ],
       "argv": [
         "restore",
-        "--staged",
+        "--no-source",
         "--pathspec-file-nul"
       ],
       "valid": false,
@@ -35319,6 +34944,511 @@
       "command": "restore",
       "tokens": [
         [
+          "--no-source"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--unified=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--source=HEAD"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--source",
+          ""
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--source="
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-source"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-source"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--ours"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--ours"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--theirs"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--theirs"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--conflict",
+          "merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--conflict=merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-conflict"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-conflict"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--ignore-unmerged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--ignore-unmerged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--patch"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-patch"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--no-overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--no-overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
           "--staged"
         ],
         [
@@ -35364,6 +35494,27 @@
           "--staged"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -35377,6 +35528,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -35827,6 +35999,27 @@
           "--no-staged"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-staged",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-staged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -35845,6 +36038,27 @@
       "command": "restore",
       "tokens": [
         [
+          "--no-staged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-staged",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
           "--worktree"
         ]
       ],
@@ -36290,6 +36504,27 @@
           "--worktree"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--worktree",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--worktree"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -36303,6 +36538,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--worktree"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--worktree",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -36753,6 +37009,27 @@
           "--no-worktree"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-worktree",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-worktree"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -36771,6 +37048,27 @@
       "command": "restore",
       "tokens": [
         [
+          "--no-worktree"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-worktree",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
           "--ours"
         ]
       ],
@@ -37216,6 +37514,27 @@
           "--ours"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--ours",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ours"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -37229,6 +37548,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ours"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--ours",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -37679,6 +38019,27 @@
           "--theirs"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--theirs",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--theirs"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -37692,6 +38053,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--theirs"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--theirs",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -38142,6 +38524,27 @@
           "--merge"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--merge",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -38155,6 +38558,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--merge",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -38605,6 +39029,27 @@
           "--no-merge"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-merge",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -38618,6 +39063,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-merge",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -39090,6 +39556,28 @@
           "merge"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--conflict=merge",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--conflict",
+          "merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -39103,6 +39591,28 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--conflict",
+          "merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--conflict=merge",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -39553,6 +40063,27 @@
           "--no-conflict"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-conflict",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-conflict"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -39566,6 +40097,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-conflict"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-conflict",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -40016,6 +40568,27 @@
           "--ignore-unmerged"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--ignore-unmerged",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ignore-unmerged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -40029,6 +40602,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ignore-unmerged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--ignore-unmerged",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -40479,6 +41073,27 @@
           "--patch"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--patch",
+        "--unified=-1"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--patch"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -40492,6 +41107,27 @@
       "delegated": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--patch"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--patch",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -40942,6 +41578,27 @@
           "--no-patch"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-patch",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-patch"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -40955,6 +41612,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-patch"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-patch",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -41405,6 +42083,27 @@
           "--overlay"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--overlay",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--overlay"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -41418,6 +42117,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--overlay"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--overlay",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -41868,6 +42588,27 @@
           "--no-overlay"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-overlay",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-overlay"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -41881,6 +42622,27 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-overlay"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--no-overlay",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -42353,6 +43115,28 @@
           "../oracle-paths"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths",
+        "--unified=-1"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -42366,6 +43150,28 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -42816,6 +43622,27 @@
           "--pathspec-file-nul"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-file-nul",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -42834,6 +43661,27 @@
       "command": "restore",
       "tokens": [
         [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-file-nul",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
           "--unified",
           "1"
         ]
@@ -43301,6 +44149,28 @@
           "1"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=1",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -43314,6 +44184,28 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--unified' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=1",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -43786,6 +44678,28 @@
           "-2"
         ],
         [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-2",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ]
@@ -43799,6 +44713,557 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-2",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--source=HEAD"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--source",
+          ""
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--source="
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-source"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-source"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--ours"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--ours"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--theirs"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--theirs"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--conflict",
+          "merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--conflict=merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-conflict"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-conflict"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--ignore-unmerged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--ignore-unmerged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--patch"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-patch"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: you must specify path(s) to restore"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--unified=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -44284,6 +45749,579 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=1",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=1",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--source=HEAD"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--source",
+          ""
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--source="
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-source"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-source"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-staged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-worktree"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--ours"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--ours"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--theirs"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--theirs"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--conflict",
+          "merge"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--conflict=merge"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-conflict"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-conflict"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--ignore-unmerged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--ignore-unmerged"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--patch"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-patch"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-patch"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-overlay"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-overlay"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--pathspec-from-file=../oracle-paths"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--pathspec-file-nul"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "-2"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=-2"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=-1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--inter-hunk-context=1"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
     },
     {
       "command": "restore",
@@ -44844,6 +46882,32 @@
           "HEAD"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--source=HEAD",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          "HEAD"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -44861,6 +46925,32 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          "HEAD"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--source=HEAD",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -45421,6 +47511,32 @@
           ""
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--source=",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          ""
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -45438,6 +47554,32 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--source",
+          ""
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--source=",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -45976,6 +48118,31 @@
           "--no-source"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -45993,6 +48160,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-source"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-source",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -46531,6 +48723,31 @@
           "--staged"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -46548,6 +48765,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--staged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--staged",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -47086,6 +49328,31 @@
           "--no-staged"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-staged",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: neither '--staged' or '--worktree' is specified"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-staged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -47103,6 +49370,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-staged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-staged",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -47641,6 +49933,31 @@
           "--worktree"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--worktree",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--worktree"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -47658,6 +49975,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--worktree"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--worktree",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -48196,6 +50538,31 @@
           "--no-worktree"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-worktree",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: neither '--staged' or '--worktree' is specified"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-worktree"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -48213,6 +50580,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-worktree"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-worktree",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -48751,6 +51143,31 @@
           "--ours"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--ours",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ours"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -48768,6 +51185,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ours"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--ours",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -49306,6 +51748,31 @@
           "--theirs"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--theirs",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--theirs"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -49323,6 +51790,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--theirs"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--theirs",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -49861,6 +52353,31 @@
           "--merge"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--merge",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -49878,6 +52395,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--merge",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -50416,6 +52958,31 @@
           "--no-merge"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-merge",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -50433,6 +53000,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-merge",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -50993,6 +53585,32 @@
           "merge"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--conflict=merge",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--conflict",
+          "merge"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -51010,6 +53628,32 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--conflict",
+          "merge"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--conflict=merge",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -51548,6 +54192,31 @@
           "--no-conflict"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-conflict",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-conflict"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -51565,6 +54234,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-conflict"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-conflict",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -52103,6 +54797,31 @@
           "--ignore-unmerged"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--ignore-unmerged",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ignore-unmerged"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -52120,6 +54839,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--ignore-unmerged"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--ignore-unmerged",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -52658,6 +55402,31 @@
           "--patch"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--patch",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--patch"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -52675,6 +55444,31 @@
       "delegated": false,
       "status": 0,
       "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--patch"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--patch",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -53213,6 +56007,31 @@
           "--no-patch"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-patch",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-patch"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -53230,6 +56049,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-patch"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-patch",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -53768,6 +56612,31 @@
           "--overlay"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--overlay",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--overlay"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -53785,6 +56654,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--overlay"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--overlay",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -54323,6 +57217,31 @@
           "--no-overlay"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-overlay",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-overlay"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -54340,6 +57259,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--no-overlay"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--no-overlay",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -54900,6 +57844,32 @@
           "../oracle-paths"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--pathspec-from-file' and pathspec arguments cannot be used together"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -54917,6 +57887,32 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -55455,6 +58451,31 @@
           "--pathspec-file-nul"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-file-nul",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -55472,6 +58493,31 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-file-nul",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -56032,6 +59078,32 @@
           "1"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=1",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -56049,6 +59121,32 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: the option '--unified' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=1",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -56609,6 +59707,32 @@
           "-2"
         ],
         [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-2",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
           "--inter-hunk-context",
           "1"
         ],
@@ -56626,6 +59750,661 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-2",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--source=HEAD",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--source",
+          ""
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--source=",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: could not resolve ''"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-source"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-source",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--staged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--staged",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-staged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-staged",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: neither '--staged' or '--worktree' is specified"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--worktree"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--worktree",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-worktree"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-worktree",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: neither '--staged' or '--worktree' is specified"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--ours"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--ours",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--theirs"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--theirs",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--merge",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-merge",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--conflict",
+          "merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--conflict=merge",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-conflict"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-conflict",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--ignore-unmerged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--ignore-unmerged",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--patch"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--patch",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-patch"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-patch",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--overlay"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--overlay",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--no-overlay"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--no-overlay",
+        "file"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--pathspec-from-file=../oracle-paths",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--pathspec-from-file' and pathspec arguments cannot be used together"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--pathspec-file-nul"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--pathspec-file-nul",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--pathspec-file-nul' requires '--pathspec-from-file'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--unified",
+          "1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--unified=1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--unified' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--unified",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--unified=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--inter-hunk-context=1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "-1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--unified=-1",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
     },
     {
       "command": "restore",
@@ -57203,6 +60982,784 @@
       "delegated": false,
       "status": 128,
       "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=1",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=1",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--source=HEAD",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--source",
+          ""
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--source=",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-source"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-source",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--staged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--staged",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-staged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-staged",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--worktree"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--worktree",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-worktree"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-worktree",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--ours"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--ours",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--theirs"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--theirs",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--merge",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-merge",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--conflict",
+          "merge"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--conflict=merge",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-conflict"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-conflict",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--ignore-unmerged"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--ignore-unmerged",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--patch"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--patch",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-patch"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-patch",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--overlay"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--overlay",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--no-overlay"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--no-overlay",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--pathspec-from-file",
+          "../oracle-paths"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--pathspec-from-file=../oracle-paths",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--pathspec-file-nul"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--pathspec-file-nul",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "-2"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=-2",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--unified' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--unified",
+          "-1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--unified=-1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: '--inter-hunk-context' cannot be negative"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--inter-hunk-context",
+          "-2"
+        ],
+        [
+          "--inter-hunk-context",
+          "1"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "restore",
+        "--inter-hunk-context=-2",
+        "--inter-hunk-context=1",
+        "file"
+      ],
+      "valid": false,
+      "delegated": false,
+      "status": 128,
+      "diagnostic": "fatal: the option '--inter-hunk-context' requires '--patch'"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths-nul"
+        ],
+        [
+          "--pathspec-file-nul"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths-nul",
+        "--pathspec-file-nul"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths-nul"
+        ],
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--staged"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths-nul",
+        "--pathspec-file-nul",
+        "--staged"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths-nul"
+        ],
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--worktree"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths-nul",
+        "--pathspec-file-nul",
+        "--worktree"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "../oracle-paths-nul"
+        ],
+        [
+          "--pathspec-file-nul"
+        ],
+        [
+          "--source",
+          "HEAD"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--pathspec-from-file=../oracle-paths-nul",
+        "--pathspec-file-nul",
+        "--source=HEAD"
+      ],
+      "valid": true,
+      "delegated": false,
+      "status": 0,
+      "diagnostic": ""
     },
     {
       "command": "switch",
@@ -57831,7 +62388,7 @@
       "valid": false,
       "delegated": true,
       "status": 128,
-      "diagnostic": "fatal: a branch named 'main' already exists"
+      "diagnostic": "fatal: a branch named 'side' already exists"
     },
     {
       "command": "switch",
@@ -57865,7 +62422,7 @@
       "valid": false,
       "delegated": true,
       "status": 128,
-      "diagnostic": "fatal: a branch named 'main' already exists"
+      "diagnostic": "fatal: a branch named 'side' already exists"
     },
     {
       "command": "switch",

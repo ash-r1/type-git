@@ -630,9 +630,15 @@ describe('option constraints against independent Git executions', () => {
       'file',
     ]);
     const refusesSourceStage = sourceStageProbe.status === 128;
+    const SOURCE_STAGE_RULES = new Set([
+      'restore.source-ours',
+      'restore.source-theirs',
+      'restore.source-merge',
+      'restore.source-conflict',
+    ]);
     for (const options of assignments({
       staged: [undefined, true],
-      source: [undefined, 'HEAD'],
+      source: [undefined, 'HEAD', ''],
       ours: [undefined, true],
       merge: [undefined, true],
       conflict: [undefined, 'merge'],
@@ -644,7 +650,7 @@ describe('option constraints against independent Git executions', () => {
         if (options.staged) {
           args.push('--staged');
         }
-        if (options.source) {
+        if (options.source !== undefined) {
           args.push(`--source=${options.source}`);
         }
         if (options.ours) {
@@ -673,7 +679,7 @@ describe('option constraints against independent Git executions', () => {
         const legacyAccepted =
           !refusesSourceStage &&
           rejected.length > 0 &&
-          rejected.every((id) => id.startsWith('restore.source-'));
+          rejected.every((id) => SOURCE_STAGE_RULES.has(id));
         if (!legacyAccepted) {
           expect(result.status === 128, label).toBe(rejected.length > 0);
         }

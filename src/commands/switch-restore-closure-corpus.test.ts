@@ -18,6 +18,20 @@ function accepts(command: Command, tokens: unknown[], argv: string[]): boolean |
   }
 }
 
+type Row = (typeof corpus.cases)[number];
+/** Options with each operand replaced by the resolvable branch `side`. */
+const resolvedKey = (row: Row): string =>
+  JSON.stringify([
+    row.command,
+    row.tokens.map((token) => (Array.isArray(token) ? token : { operand: 'side' })),
+  ]);
+/** Explicit new-branch options and the rule that checks each one's name. */
+const NAME_RULES: Record<string, string> = {
+  '--create': 'switch-create-name',
+  '--force-create': 'switch-force-create-name',
+  '--orphan': 'switch-orphan-name',
+};
+
 describe('switch and restore completion closure corpus', () => {
   it('matches every argv-decided Git 2.55.0 outcome and preserves serialized argv', () => {
     const mismatches: string[] = [];
@@ -32,6 +46,40 @@ describe('switch and restore completion closure corpus', () => {
       }
     }
     expect(mismatches).toEqual([]);
+  });
+
+  it('refuses a delegated row only for an argument error Git reports once the operand resolves', () => {
+    const byKey = new Map(
+      corpus.cases
+        .filter((row) =>
+          row.tokens.every((token) => Array.isArray(token) || token.operand === 'side'),
+        )
+        .map((row) => [resolvedKey(row), row]),
+    );
+    const unexplained: string[] = [];
+    let masked = 0;
+    for (const row of corpus.cases.filter((candidate) => candidate.delegated)) {
+      const result = accepts(row.command as Command, row.tokens, row.argv);
+      if (result === true) {
+        continue;
+      }
+      // A state refusal (an unresolvable operand) can hide a later argument refusal. The same
+      // options with a resolvable operand must reach that argument refusal in Git and the builder.
+      const resolved = byKey.get(resolvedKey(row));
+      if (
+        !resolved ||
+        resolved === row ||
+        resolved.delegated ||
+        resolved.valid ||
+        accepts(resolved.command as Command, resolved.tokens, resolved.argv) === true
+      ) {
+        unexplained.push(`${JSON.stringify(row.argv)}: ${row.diagnostic}; builder: ${result}`);
+      } else {
+        masked += 1;
+      }
+    }
+    expect(unexplained).toEqual([]);
+    expect(masked).toBeGreaterThan(0);
   });
 
   it('accepts every argv that Git accepted, including delegated state checks', () => {
@@ -50,13 +98,34 @@ describe('switch and restore completion closure corpus', () => {
     }
   });
 
-  it('refuses invalid new branch names through the name rules', () => {
+  it('refuses invalid new branch names through the rule for the name Git checked', () => {
     const rows = corpus.cases.filter((row) => /is not a valid branch name$/.test(row.diagnostic));
-    expect(rows.length).toBeGreaterThan(0);
+    let explicit = 0;
+    let derived = 0;
     for (const row of rows) {
-      expect(accepts('switch', row.tokens, row.argv)).toMatch(
-        /switch-(create|force-create|orphan)-name|switch-track-start-point/,
+      const name = /^fatal: '(.*)' is not a valid branch name$/.exec(row.diagnostic)?.[1];
+      const option = row.tokens.find(
+        (token): token is string[] =>
+          Array.isArray(token) && token[0] in NAME_RULES && token[1] === name,
       );
+      if (option) {
+        explicit += 1;
+        expect(accepts('switch', row.tokens, row.argv), JSON.stringify(row.argv)).toContain(
+          `[${NAME_RULES[option[0] as string]}]`,
+        );
+      } else {
+        // No new-branch option carries the refused name, so it was derived from --track.
+        derived += 1;
+        expect(
+          row.tokens.some((token) => Array.isArray(token) && token[0] in NAME_RULES),
+          JSON.stringify(row.argv),
+        ).toBe(false);
+        expect(accepts('switch', row.tokens, row.argv), JSON.stringify(row.argv)).toContain(
+          '[switch-track-start-point]',
+        );
+      }
     }
+    expect(explicit).toBeGreaterThan(0);
+    expect(derived).toBeGreaterThan(0);
   });
 });

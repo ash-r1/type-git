@@ -16,9 +16,9 @@
   {
     "command": "restorePaths",
     "scope": "operands",
-    "total": "6",
-    "accepted": "4",
-    "nodes": 6
+    "total": "18",
+    "accepted": "8",
+    "nodes": 14
   },
   {
     "command": "pathspec",

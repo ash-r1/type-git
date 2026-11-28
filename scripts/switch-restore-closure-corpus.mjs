@@ -1,7 +1,8 @@
 // Independent native oracle for the switch and restore completion closures
 // (docs/design/audit-completion.md). Each argv-decided refusal site of checkout_main,
 // checkout_branch, checkout_paths and parse_branchname_arg that switch or restore can reach
-// is exercised by every ordered pair of a fixed vocabulary, with each operand shape. Outcomes
+// is exercised by every ordered pair of distinct items of a fixed vocabulary (an item is never
+// paired with itself), with each operand shape. Outcomes
 // that Git decides from repository state (ref resolution, stage lookups, tracking setup) are
 // recorded as delegated. The corpus witnesses the closures' mappings; it is not a
 // completeness argument.
@@ -165,7 +166,9 @@ const RESTORE_WORDS = [
   ['--pathspec-file-nul'],
   ['--unified', '1'],
   ['--unified', '-2'],
+  ['--unified', '-1'],
   ['--inter-hunk-context', '1'],
+  ['--inter-hunk-context', '-2'],
 ];
 const RESTORE_OPERANDS = [[], [operand('file')]];
 
@@ -173,6 +176,7 @@ try {
   await mkdir(directory);
   await writeFile(join(base, 'oracle-stdin'), '');
   await writeFile(join(base, 'oracle-paths'), 'file\n');
+  await writeFile(join(base, 'oracle-paths-nul'), 'file\0');
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   if (git(['init', '-qb', 'main']).status !== 0) throw new Error('Cannot initialize oracle');
   await writeFile(join(directory, 'file'), 'one\n');
@@ -187,8 +191,9 @@ try {
   ]) {
     if (git(args).status !== 0) throw new Error(`Cannot seed oracle: ${args.join(' ')}`);
   }
-  /** Restore HEAD, the work tree and the branch list after every case. */
+  /** Restore HEAD, the work tree, the branch list and @{-1} (side) before every case. */
   const reset = () => {
+    git(['switch', '-qf', 'side']);
     git(['switch', '-qf', 'main']);
     git(['reset', '-q', '--hard']);
     for (const name of git(['for-each-ref', '--format=%(refname:short)', 'refs/heads']).stdout.split('\n')) {
@@ -221,6 +226,10 @@ try {
       }
     }
   }
+  // NUL-terminated pathspec files are accepted with --pathspec-file-nul.
+  for (const extra of [[], [['--staged']], [['--worktree']], [['--source', 'HEAD']]]) {
+    record('restore', [['--pathspec-from-file', '../oracle-paths-nul'], ['--pathspec-file-nul'], ...extra]);
+  }
   for (const name of NEW_BRANCH_NAMES) {
     for (const option of ['--create', '--force-create', '--orphan']) record('switch', [[option, name]]);
   }
@@ -249,7 +258,7 @@ try {
   const fixture = `${JSON.stringify(
     {
       profile:
-        'Git 2.55.0; isolated repository with main, side and a configured origin remote-tracking branch origin/feat; HEAD, work tree and branches reset after every case; empty file-backed stdin; LF pathspec file outside the work tree',
+        'Git 2.55.0; isolated repository with main, side and a configured origin remote-tracking branch origin/feat; HEAD, work tree, branches and @{-1} (side) reset before every case; empty file-backed stdin; LF and NUL pathspec files outside the work tree',
       cases,
     },
     null,
@@ -262,7 +271,8 @@ try {
   // Every derived --track name row is a type witness, accepted or refused.
   for (const row of derived.filter((candidate) => !candidate.delegated)) typeRows.switch.push(row);
   for (const row of cases.filter((candidate) => !candidate.delegated && !derived.includes(candidate))) {
-    const family = `${row.command}:${row.diagnostic.replace(/'[^']*'/g, "''")}:${row.tokens.length}`;
+    // Quoted option names stay in the family, so each option's diagnostic keeps its own witnesses.
+    const family = `${row.command}:${row.diagnostic.replace(/'(?!--)[^']*'/g, "''")}:${row.tokens.length}`;
     if ((taken.get(family) ?? 0) < 2) {
       taken.set(family, (taken.get(family) ?? 0) + 1);
       typeRows[row.command].push(row);

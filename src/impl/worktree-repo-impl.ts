@@ -3915,7 +3915,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     validatePathInput('restore', paths, opts);
     validateInput(
       'restorePaths',
-      { paths: Array.isArray(paths) ? paths : [paths], pathspecFromFile: opts?.pathspecFromFile },
+      {
+        paths: Array.isArray(paths) ? paths : [paths],
+        pathspecFromFile: opts?.pathspecFromFile,
+        source: opts?.source,
+      },
       'restore',
     );
     validateOptions('restore', opts);

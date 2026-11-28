@@ -3836,7 +3836,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and ordered pair of the switch closure vocabulary with each operand shape. Outcomes that Git decides from repository state are recorded as delegated and only checked for acceptance. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and every ordered pair of two distinct words of the switch closure vocabulary (a word is never paired with itself) with each operand shape. Outcomes that Git decides from repository state are recorded as delegated: the builder accepts them, except where a state refusal hides an argument refusal, and then the same options with a resolvable operand reach that refusal in both Git and the builder. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
             "evidence": [
               "test/fixtures/switch-restore-closure-corpus.json",
               "src/commands/switch-restore-closure-corpus.test.ts",
@@ -4721,7 +4721,7 @@
               "checkout_main: you must specify path(s) to restore"
             ],
             "disposition": "modeled",
-            "summary": "Restore needs a pathspec operand, a pathspec file or --patch (restore-paths; repo.restore restore.paths).",
+            "summary": "Restore needs a pathspec operand, a pathspec file or --patch (restore-paths; repo.restore restore.paths); that argv refusal is modeled. Git also reaches this site when a pathspec file yields no pathspec (for example an empty file); that file-content outcome is delegated under pathspec-file-content, and a file naming a path does not reach it.",
             "evidence": [
               "test/fixtures/switch-restore-closure-corpus.json",
               "src/commands/switch-restore-closure-corpus.test.ts",
@@ -4811,11 +4811,12 @@
               "checkout_main: could not resolve '%s'"
             ],
             "disposition": "modeled",
-            "summary": "An empty --source never resolves and is refused statically (restore-empty-source); repo.restore does not emit an empty source. Whether a nonempty source resolves is delegated under source-resolution.",
+            "summary": "An empty --source never resolves and is refused statically (restore-empty-source); repo.restore refuses it too (restore.source-empty) instead of silently restoring from the index. Whether a nonempty source resolves is delegated under source-resolution.",
             "evidence": [
               "test/fixtures/switch-restore-closure-corpus.json",
               "src/commands/switch-restore-closure-corpus.test.ts",
-              "test/types/switch-restore-closure-corpus.ts"
+              "test/types/switch-restore-closure-corpus.ts",
+              "src/impl/option-constraints.test.ts"
             ]
           },
           {
@@ -4879,7 +4880,7 @@
             "id": "refusal-order",
             "kind": "parser",
             "disposition": "modeled",
-            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and ordered pair of the restore closure vocabulary with each operand shape. Outcomes that Git decides from repository state are recorded as delegated and only checked for acceptance. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
+            "summary": "Acceptance agrees with Git, whichever argv refusal Git reaches first, for every single word and every ordered pair of two distinct words of the restore closure vocabulary (a word is never paired with itself) with each operand shape. Outcomes that Git decides from repository state are recorded as delegated: the builder accepts them, except where a state refusal hides an argument refusal, and then the same options with a resolvable operand reach that refusal in both Git and the builder. Longer sequences are not generated. The typed error lists every violated rule instead of reproducing Git's first diagnostic.",
             "evidence": [
               "test/fixtures/switch-restore-closure-corpus.json",
               "src/commands/switch-restore-closure-corpus.test.ts",
@@ -4982,7 +4983,7 @@
             "kind": "operands",
             "disposition": "delegated",
             "basis": "file-content",
-            "summary": "Pathspecs read from --pathspec-from-file, including quoting and NUL separation, and unmatched pathspecs.",
+            "summary": "Pathspecs read from --pathspec-from-file, including quoting and NUL separation, unmatched pathspecs, and a file that yields no pathspec (checkout_main: you must specify path(s) to restore, recorded under paths-required).",
             "reason": "The file and the matching paths are read at runtime."
           },
           {
