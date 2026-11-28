@@ -85,7 +85,7 @@ const ARGS = [
   'only', 'unfold=yes', 'key=Signed-off-by', 'key', 'separator=,', 'only=2', 'only=0x10',
   'signer', 'grade', 'key', 'fingerprint', 'primarykeyfingerprint', 'trustlevel',
   'tags', 'tags=no', 'tags=2', 'tags=maybe', 'tags=', 'abbrev', 'abbrev=', 'abbrev=4', 'abbrev=-1', 'abbrev=4x', 'abbrev= 4', 'abbrev=+4',
-  'abbrev=99999999999999999999', 'match=v*', 'match=', 'exclude=x', 'tags,abbrev=3', 'tags=bogus,match=v*', 'tags=bogus,abbrev=4', 'tags=bogus,tags', 'tags=x,exclude=', 'tags,,abbrev=3', 'tags,', 'tagsx', 'match',
+  'abbrev=99999999999999999999', 'match=v*', 'match=', 'exclude=x', 'tags,abbrev=3', 'tags=bogus', 'tags=bogus,match=v*', 'tags=bogus,abbrev=4', 'tags=bogus,tags', 'tags=x,exclude=', 'tags,,abbrev=3', 'tags,', 'tagsx', 'match',
   '10', '10,left', 'width=10', 'position=right,width=3', 'left', 'middle', 'right,5', '0', '4294967295', 'width=4294967295',
   '4294967296', '10,,left', 'position=up,3', 'width=-1', ' 10', '+10',
   'equals=x', 'notequals=', 'equals', 'main', 'HEAD', 'no-such-commit',
